@@ -1,0 +1,161 @@
+// SCSS Document
+// File: src/scss/utilities/_borders_outlines.scss
+// Description: Border radius, border width/style/color, outline width/style/color/offset.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: border-radius, border-width, border-style, border-color, outline-width, outline-style, outline-color, outline-offset.
+// Values: from $roundsizes, $bordersizes, $borderstyles, $bordercolors (neutrals), $outlinesizes, $outlinestyles, $outlinecolors (neutrals), $outlineoffsets in _variables_layout.scss; palette border/outline colors from $omnia-colors, $html-colors, $ral-colors (var(--color-*) from oc-colors.css).
+
+@use "sass:string";
+@use "sass:map";
+@use "sass:list";
+@use '../utilities/' as *;
+
+/* ===================================================================
+   BORDERS & OUTLINES
+   Generated from variable maps (same structure as $bordersizes).
+   Source: src/scss/variables/_variables_layout.scss
+   =================================================================== */
+
+///
+/// Border radius, border width/style/color, outline utilities.
+/// @group BordersOutlines
+/// @name bordersoutlines
+/// @link src/scss/utilities/_borders_outlines.scss
+/// @since 0.2.0
+/// @author Serge Cools
+/// @require {variable} $roundsizes
+/// @require {variable} $bordersizes
+/// @require {variable} $borderstyles
+/// @require {variable} $bordercolors
+/// @require {variable} $outlinesizes
+/// @require {variable} $outlinestyles
+/// @require {variable} $outlinecolors
+/// @require {variable} $outlineoffsets
+/// @example scss - rounded from $roundsizes
+///   @each $key, $val in $roundsizes { .rounded-#{string.slice($key, 7)} { border-radius: $val; } }
+/// @example html
+///   <div class="rounded-lg border-2 border-solid border-red-500 outline-2 outline-offset-2">...</div>
+///
+
+/* Border radius — from $roundsizes; class prefix .rounded- (round-* → rounded-*) */
+@each $key, $val in $roundsizes {
+  .#{$key} {
+    border-radius: $val;
+  }
+}
+
+/* Border width — from $bordersizes; class = key (e.g. .border-none, .border-1, .border-t1) */
+@each $key, $val in $bordersizes {
+  .#{$key} {
+    border-width: $val;
+  }
+}
+
+/* Divider — from $dividersizes; border between direct children (flex/grid). Uses :not(:last-child) with border-bottom (h) or border-inline-end (v). */
+@each $key, $val in $dividersizes {
+  @if string.index($key, "divider-h") {
+    .#{$key} > :not(:last-child) {
+      border-top-width: 0;
+      border-bottom-width: $val;
+    }
+  } @else {
+    .#{$key} > :not(:last-child) {
+      border-inline-start-width: 0;
+      border-inline-end-width: $val;
+    }
+  }
+}
+
+/* Border style — from $borderstyles */
+@each $key, $val in $borderstyles {
+  .#{$key} {
+    border-style: $val;
+  }
+}
+
+/* Border color — neutrals from $bordercolors; palette from Omnia/HTML (var) and RAL */
+@each $key, $val in $bordercolors {
+  .#{$key} {
+    border-color: $val;
+  }
+}
+
+/* Border/outline color — Omnia & HTML palettes (var(--color-{name}-{step}), same as .bg-* / .text-*) */
+@mixin _border-outline-from-palette($color-map) {
+  @each $colors-prop, $colors-value in $color-map {
+    @each $main-prop, $main-value in $colors-value {
+      @each $colorname-prop, $colorname-value in $main-value {
+        $hex: map.get($colorname-value, hex);
+        @if $hex {
+          $name: string.to-lower-case(#{$colorname-prop});
+          @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor {
+            $step: list.nth($opacitycolor-value, 1);
+            .border-#{$name}-#{$step} {
+              border-color: var(--color-#{$name}-#{$step});
+            }
+            .outline-#{$name}-#{$step} {
+              outline-color: var(--color-#{$name}-#{$step});
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@include _border-outline-from-palette($omnia-colors);
+@include _border-outline-from-palette($html-colors);
+
+/* Border/outline color — RAL palette (single token --color-{name} from oc-colors.css) */
+@each $colorsral-prop, $colorsral-value in $ral-colors {
+  @each $maincolorsral-prop, $maincolorsral-value in $colorsral-value {
+    @each $colorname-prop, $colorname-value in $maincolorsral-value {
+      $name: string.to-lower-case(#{$colorname-prop});
+      .border-#{$name} {
+        border-color: var(--color-#{$name});
+      }
+      .outline-#{$name} {
+        outline-color: var(--color-#{$name});
+      }
+    }
+  }
+}
+
+/* Outline width — from $outlinesizes (same structure as $bordersizes) */
+@each $key, $val in $outlinesizes {
+  .#{$key} {
+    outline-width: $val;
+  }
+}
+
+/* Outline style — from $outlinestyles; .outline-hidden uses full outline for a11y (visible on focus, invisible by default) */
+@each $key, $val in $outlinestyles {
+  @if $key == "outline-hidden" {
+    .outline-hidden {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+  } @else {
+    .#{$key} {
+      outline-style: $val;
+    }
+  }
+}
+
+/* Outline color — neutrals from $outlinecolors (palette classes generated above) */
+@each $key, $val in $outlinecolors {
+  .#{$key} {
+    outline-color: $val;
+  }
+}
+
+/* Outline offset — from $outlineoffsets (same structure as $bordersizes) */
+@each $key, $val in $outlineoffsets {
+  .#{$key} {
+    outline-offset: $val;
+  }
+}
+
+/* End Borders & Outlines */

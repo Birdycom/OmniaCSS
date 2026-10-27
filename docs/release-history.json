@@ -1,0 +1,79 @@
+{
+  "releases": [
+    {
+      "version": "0.11.0",
+      "date": "2026-10-24",
+      "summary": "Docs doorzoeken met Ctrl K"
+    },
+    {
+      "version": "0.10.0",
+      "date": "2026-10-23",
+      "summary": "Bootstrap-sites omzetten naar OmniaCSS"
+    },
+    {
+      "version": "0.9.0",
+      "date": "2026-10-23",
+      "summary": "CSS-functies, units en selectors"
+    },
+    {
+      "version": "0.8.4",
+      "date": "2026-10-23",
+      "summary": "Basiskleuren in de docs als -100"
+    },
+    {
+      "version": "0.8.3",
+      "date": "2026-10-23",
+      "summary": "README-beelden van IntelliSense als productshots"
+    },
+    {
+      "version": "0.8.2",
+      "date": "2026-10-23",
+      "summary": "Kleur-utilities tonen hun CSS in de completion"
+    },
+    {
+      "version": "0.8.1",
+      "date": "2026-10-23",
+      "summary": "Zelfde versie als OmniaUI: lockfile voor Linux CI"
+    },
+    {
+      "version": "0.8.0",
+      "date": "2026-10-18",
+      "summary": "OmniaCSS IntelliSense voor VS Code"
+    },
+    {
+      "version": "0.7.0",
+      "date": "2026-10-16",
+      "summary": "Zelfde versie als OmniaUI: lijsttabel en veldchrome"
+    },
+    {
+      "version": "0.6.0",
+      "date": "2026-10-15",
+      "summary": "OmniaCSS en OmniaUI gesplitst: componenten, blocks, wrappers en Laravel naar OmniaUI; npm-scope @birdycom"
+    },
+    {
+      "version": "0.5.0",
+      "date": "2026-10-14",
+      "summary": "Nieuwe components en app-blocks, docs-paginacheck, TOC en spacing-fixes"
+    },
+    {
+      "version": "0.4.0",
+      "date": "2026-10-12",
+      "summary": "npm packages @omniacss/core, components, blocks, cli; on-demand build (12 MB → a few KB); PostCSS plugin (@omnia;); light-dark() theming without JavaScript; CSS-first modal, dropdown, accordion, tabs, theme switch and counter; one oc-hero definition; semver release workflow"
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-10-12",
+      "summary": "Modern CSS utilities (anchor positioning, container queries, view transitions, scroll animations, gradients, logical properties, SVG); MDN coverage audit; browser support tables from MDN browser-compat-data"
+    },
+    {
+      "version": "0.2.0",
+      "date": "2026-04-09",
+      "summary": "Component primitives and blocks, icon catalog (MDI, Material Symbols, VSCode icons, flags, spinners), standardized docs layout"
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-03-20",
+      "summary": "Baseline: SCSS utility framework with Omnia, HTML and RAL colors (OKLCH), spacing, sizing, typography, flex/grid and documentation"
+    }
+  ]
+}

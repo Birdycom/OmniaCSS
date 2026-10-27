@@ -1,0 +1,7 @@
+// File: src/scss/omnia_colors.scss
+// Description: Entry that compiles only the color tokens (@supports oklch) for :root/:host.
+// Copyright: 2021-2026 Birdycom
+// Framework: OmniaCSS
+// Output: oc-colors.css — import this (or load before omnia_main.css) so var(--color-*) tokens are available.
+
+@use 'utilities/_colors_tokens.scss';

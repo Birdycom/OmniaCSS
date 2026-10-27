@@ -1,0 +1,32 @@
+/* File: public/css/oc-layout-module.css */
+/* Map: tokens (light-dark) -> shared header/footer -> theme switch slot -> page transitions */
+
+:root {
+  --ocm-header-height: 60px;
+  --ocm-footer-height: 36px;
+  --ocm-header-border: var(--oc-border);
+  --ocm-header-bg: oklch(from var(--oc-background) l c h / 0.78);
+  --ocm-footer-bg: oklch(from var(--oc-background) l c h / 0.9);
+  --ocm-text: var(--oc-foreground);
+  --ocm-text-soft: var(--oc-muted-foreground);
+  --ocm-accent: var(--oc-primary);
+  --ocm-active-border: var(--oc-primary);
+  --ocm-font: Inter, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Smooth page-to-page navigation without JavaScript (cross-document view transitions). */
+@view-transition {
+  navigation: auto;
+}
+
+/* Header, menu and footer markup are components now: .oc-topbar, .oc-navmenu--site, .oc-footerbar
+   (packages/components/src/docs-ui.css). They read the --ocm-* tokens above. Only the cross-document
+   view-transition names are site specific and stay here. */
+body > .oc-topbar { view-transition-name: oc-site-header; }
+body > .oc-footerbar { view-transition-name: oc-site-footer; }
+
+/* Theme switch in the header (component: .oc-theme-switch from @birdycom/omniaui) */
+.ocm-theme {
+  margin: 0;
+  flex-shrink: 0;
+}

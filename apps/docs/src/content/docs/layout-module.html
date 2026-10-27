@@ -1,0 +1,62 @@
+<!--oc-page {"title": "OmniaCSS Docs - Layout Module", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="overview">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Layout Module: Header + Footer</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">oc-layout-module.css</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">This module gives one shared header and footer for all pages. It keeps style and behavior the same on home and docs.</p>
+        </div>
+        <div class="oc-section-content">
+<h3 class="oc-section-content__title mt-10" id="files">Files</h3>
+
+          <ul>
+          <li><code>public/css/oc-layout-module.css</code> (shared styles)</li>
+          <li><code>apps/docs/src/layouts/ContentPage.astro</code> (header, sidebars and footer rendered at build time — no script)</li>
+        </ul>
+        
+<h3 class="oc-section-content__title mt-10" id="required-html">Required HTML</h3>
+
+          <oc-code>&lt;link rel="stylesheet" href="../css/oc-layout-module.css"&gt;
+&lt;body
+  data-ocm-mode="docs"
+  data-ocm-root="../../"
+  data-ocm-active="docs-new"
+  data-ocm-brand-version="v0.1.5"
+  data-ocm-footer-text="OmniaCSS - Inhouse design system documentation"&gt;
+  &lt;div data-ocm-header-slot&gt;&lt;/div&gt;
+  ...
+  &lt;div data-ocm-footer-slot&gt;&lt;/div&gt;
+  &lt;!-- header/footer are rendered by the docs build --&gt;</oc-code>
+        
+<h3 class="oc-section-content__title mt-10" id="body-settings">Body data settings</h3>
+
+          <ul>
+          <li><code>data-ocm-mode</code>: <code>home</code> or <code>docs</code>. Docs mode uses fixed header.</li>
+          <li><code>data-ocm-root</code>: relative base path for nav links (example: <code>../../</code>).</li>
+          <li><code>data-ocm-active</code>: active nav id (<code>home</code>, <code>colors</code>, <code>docs-new</code>, ...).</li>
+          <li><code>data-ocm-brand-version</code>: brand suffix text after dot (default <code>v1</code>).</li>
+          <li><code>data-ocm-footer-text</code>: custom footer label.</li>
+        </ul>
+        
+<h3 class="oc-section-content__title mt-10" id="css-variables">CSS variables you can use</h3>
+
+          <ul>
+          <li><code>--ocm-header-height</code>: header height (default <code>60px</code>)</li>
+          <li><code>--ocm-footer-height</code>: footer height (default <code>36px</code>)</li>
+          <li><code>--ocm-header-border</code>: border color for header/footer lines</li>
+          <li><code>--ocm-header-bg</code>: header background color</li>
+          <li><code>--ocm-footer-bg</code>: footer background color</li>
+          <li><code>--ocm-text</code>, <code>--ocm-text-soft</code>, <code>--ocm-accent</code>, <code>--ocm-font</code></li>
+        </ul>
+        
+<h3 class="oc-section-content__title mt-10" id="notes">Notes</h3>
+
+          <ul>
+          <li>For docs layout, use your content wrapper height with <code>calc(100vh - var(--ocm-header-height) - var(--ocm-footer-height))</code>.</li>
+          <li>Keep sidebar/content scroll inside the layout, not on <code>body</code>.</li>
+          <li>Use one module to avoid style drift between pages.</li>
+        </ul>
+        
+        </div>
+      </section>

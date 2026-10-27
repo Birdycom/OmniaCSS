@@ -1,0 +1,117 @@
+// File: src/scss/utilities/_dark_mode.scss
+// Description: Dark mode variant utilities using dark: prefix.
+// Supports two strategies:
+//   1. Class-based: add .dark class to <html> or <body>
+//   2. Media-based: prefers-color-scheme: dark (automatic)
+// Default strategy: class-based (.dark ancestor selector)
+// Pattern: .dark .dark\:{utility} e.g. dark\:bg-gray-900, dark\:text-white
+// Copyright: 2021-2026 Birdycom
+// Autor: Serge Cools
+// Version: 0.1.6
+// Framework: OmniaCSS
+@use "shadow_tokens" as *;
+
+// ---------------------------------------------------------------------------
+// Class-based dark mode (.dark ancestor on html/body)
+// Usage: <html class="dark"> or toggle via JS
+// ---------------------------------------------------------------------------
+
+// Background colors for dark mode
+.dark .dark\:bg-black { background-color: var(--color-black-60); }
+.dark .dark\:bg-white { background-color: var(--color-white-2); }
+.dark .dark\:bg-gray-50 { background-color: var(--color-snow-50); }
+.dark .dark\:bg-gray-100 { background-color: var(--color-linen-30); }
+.dark .dark\:bg-gray-200 { background-color: var(--color-silver-2); }
+.dark .dark\:bg-gray-300 { background-color: var(--color-silver-20); }
+.dark .dark\:bg-gray-400 { background-color: var(--color-gray-20); }
+.dark .dark\:bg-gray-500 { background-color: var(--color-black-2); }
+.dark .dark\:bg-gray-600 { background-color: var(--color-duskblue-20); }
+.dark .dark\:bg-gray-700 { background-color: var(--color-shallowblue-30); }
+.dark .dark\:bg-gray-800 { background-color: var(--color-shallowblue-40); }
+.dark .dark\:bg-gray-900 { background-color: var(--color-shallowblue-50); }
+.dark .dark\:bg-gray-950 { background-color: var(--color-black-40); }
+.dark .dark\:bg-transparent { background-color: transparent; }
+
+// Semantic surface colors for dark mode
+.dark .dark\:bg-surface { background-color: var(--color-shallowblue-50); }
+.dark .dark\:bg-surface-soft { background-color: var(--color-shallowblue-40); }
+.dark .dark\:bg-surface-raised { background-color: var(--color-shallowblue-30); }
+
+// Text colors for dark mode
+.dark .dark\:text-white { color: var(--color-white-2); }
+.dark .dark\:text-black { color: var(--color-black-60); }
+.dark .dark\:text-gray-50 { color: var(--color-snow-50); }
+.dark .dark\:text-gray-100 { color: var(--color-linen-30); }
+.dark .dark\:text-gray-200 { color: var(--color-silver-2); }
+.dark .dark\:text-gray-300 { color: var(--color-silver-20); }
+.dark .dark\:text-gray-400 { color: var(--color-gray-20); }
+.dark .dark\:text-gray-500 { color: var(--color-black-2); }
+.dark .dark\:text-gray-600 { color: var(--color-duskblue-20); }
+.dark .dark\:text-gray-700 { color: var(--color-shallowblue-30); }
+.dark .dark\:text-gray-800 { color: var(--color-shallowblue-40); }
+.dark .dark\:text-gray-900 { color: var(--color-shallowblue-50); }
+
+// Semantic text colors
+.dark .dark\:text-muted { color: var(--color-gray-20); }
+.dark .dark\:text-soft { color: var(--color-silver-20); }
+.dark .dark\:text-primary { color: var(--color-silver-2); }
+
+// Border colors for dark mode
+.dark .dark\:border-gray-200 { border-color: var(--color-silver-2); }
+.dark .dark\:border-gray-300 { border-color: var(--color-silver-20); }
+.dark .dark\:border-gray-500 { border-color: var(--color-black-2); }
+.dark .dark\:border-gray-600 { border-color: var(--color-duskblue-20); }
+.dark .dark\:border-gray-700 { border-color: var(--color-shallowblue-30); }
+.dark .dark\:border-gray-800 { border-color: var(--color-shallowblue-40); }
+.dark .dark\:border-transparent { border-color: transparent; }
+
+// Opacity for dark mode
+.dark .dark\:opacity-0 { opacity: 0; }
+.dark .dark\:opacity-25 { opacity: 0.25; }
+.dark .dark\:opacity-50 { opacity: 0.5; }
+.dark .dark\:opacity-75 { opacity: 0.75; }
+.dark .dark\:opacity-100 { opacity: 1; }
+
+// Shadow utilities for dark mode (softer shadows on dark backgrounds)
+.dark .dark\:shadow-none { box-shadow: none; }
+.dark .dark\:shadow-sm { box-shadow: #{$oc-dark-shadow-sm}; }
+.dark .dark\:shadow-md { box-shadow: #{$oc-dark-shadow-md}; }
+.dark .dark\:shadow-lg { box-shadow: #{$oc-dark-shadow-lg}; }
+
+// Ring / outline for dark mode
+.dark .dark\:outline-gray-600 { outline-color: var(--color-duskblue-20); }
+.dark .dark\:outline-gray-700 { outline-color: var(--color-shallowblue-30); }
+
+// Display overrides (e.g. show/hide elements in dark mode)
+.dark .dark\:hidden { display: none; }
+.dark .dark\:block { display: block; }
+
+// ---------------------------------------------------------------------------
+// Media-based dark mode (automatic, respects OS preference)
+// These use @media (prefers-color-scheme: dark) for auto-detection.
+// Classes use the auto-dark: prefix.
+// ---------------------------------------------------------------------------
+
+@media (prefers-color-scheme: dark) {
+  // Background
+  .auto-dark\:bg-gray-800 { background-color: var(--color-shallowblue-40); }
+  .auto-dark\:bg-gray-900 { background-color: var(--color-shallowblue-50); }
+  .auto-dark\:bg-gray-950 { background-color: var(--color-black-40); }
+  .auto-dark\:bg-surface { background-color: var(--color-shallowblue-50); }
+
+  // Text
+  .auto-dark\:text-white { color: var(--color-white-2); }
+  .auto-dark\:text-gray-100 { color: var(--color-linen-30); }
+  .auto-dark\:text-gray-200 { color: var(--color-silver-2); }
+  .auto-dark\:text-gray-300 { color: var(--color-silver-20); }
+  .auto-dark\:text-muted { color: var(--color-gray-20); }
+
+  // Border
+  .auto-dark\:border-gray-700 { border-color: var(--color-shallowblue-30); }
+  .auto-dark\:border-gray-800 { border-color: var(--color-shallowblue-40); }
+
+  // Shadow
+  .auto-dark\:shadow-none { box-shadow: none; }
+}
+
+/* End dark mode utilities */

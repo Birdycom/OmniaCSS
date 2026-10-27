@@ -1,0 +1,183 @@
+<!--oc-page {"title": "OmniaCSS Docs - Images & Object Fit", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="images">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Images &amp; Object Fit</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_layout_flow.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">images/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Control how replaced elements (<code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>) fill their box with <code>object-fit</code> and <code>object-position</code>, how they are scaled with <code>image-rendering</code>, and how bright HDR content may get with <code>dynamic-range-limit</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit" target="_blank" rel="noopener">MDN: object-fit</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="object-fit">Object fit</h3>
+          <p class="oc-section-content__desc"><code>object-fit</code> is to <code>&lt;img&gt;</code> and <code>&lt;video&gt;</code> what <code>background-size</code> is to backgrounds: it decides how the picture is resized inside a box whose size is fixed by CSS. <code>cover</code> fills the box and crops the overflow (hero images, avatars, cards), <code>contain</code> shows the whole picture with empty bars, <code>fill</code> stretches it (distorts), <code>none</code> keeps the natural size and <code>scale-down</code> picks the smaller of <code>none</code> and <code>contain</code>. Gotcha: the box needs both dimensions (or <code>.aspect-*</code>), otherwise there is nothing to fit. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit" target="_blank" rel="noopener">MDN: object-fit</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.object-contain</code></td><td>object-fit: contain</td></tr>
+                <tr><td><code>.object-cover</code></td><td>object-fit: cover</td></tr>
+                <tr><td><code>.object-fill</code></td><td>object-fit: fill</td></tr>
+                <tr><td><code>.object-none</code></td><td>object-fit: none</td></tr>
+                <tr><td><code>.object-scale-down</code></td><td>object-fit: scale-down</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Every object-fit value on the same wide picture"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.object-contain</code><div class="dm-area "><img class="object-contain" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-cover</code><div class="dm-area "><img class="object-cover" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-fill</code><div class="dm-area "><img class="object-fill" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none</code><div class="dm-area "><img class="object-none" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-scale-down</code><div class="dm-area "><img class="object-scale-down" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+</div><oc-code lang="html">&lt;img class="object-cover size-24" src="plumeria.jpg" alt="Plumeria"&gt;
+&lt;img class="object-contain w-full aspect-16" src="plumeria.jpg" alt="Plumeria"&gt;</oc-code></oc-demo>
+
+
+          <h3 class="oc-section-content__title mt-10" id="object-position">Object position</h3>
+          <p class="oc-section-content__desc"><code>object-position</code> chooses which part of the picture stays visible when it is cropped (<code>cover</code>, <code>none</code>) or where it sits when there is spare room (<code>contain</code>, <code>scale-down</code>). Use <code>.object-top</code> to keep faces in portrait crops. The default is <code>center</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-position" target="_blank" rel="noopener">MDN: object-position</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.object-center</code></td><td>object-position: center</td></tr>
+                <tr><td><code>.object-top</code></td><td>object-position: top</td></tr>
+                <tr><td><code>.object-bottom</code></td><td>object-position: bottom</td></tr>
+                <tr><td><code>.object-left</code></td><td>object-position: left</td></tr>
+                <tr><td><code>.object-right</code></td><td>object-position: right</td></tr>
+                <tr><td><code>.object-top-left</code></td><td>object-position: top left</td></tr>
+                <tr><td><code>.object-top-right</code></td><td>object-position: top right</td></tr>
+                <tr><td><code>.object-bottom-left</code></td><td>object-position: bottom left</td></tr>
+                <tr><td><code>.object-bottom-right</code></td><td>object-position: bottom right</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.object-left-top</code></td><td>object-position: left top</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.object-right-bottom</code></td><td>object-position: right bottom</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+                    <p class="oc-section-content__desc">With <code>.object-none</code> the picture keeps its natural size, so each position shows a different part of it:</p>
+          <oc-demo title="Nine positions with object-none"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.object-none .object-top-left</code><div class="dm-area "><img class="object-none object-top-left" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none .object-top</code><div class="dm-area "><img class="object-none object-top" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none .object-top-right</code><div class="dm-area "><img class="object-none object-top-right" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none .object-left</code><div class="dm-area "><img class="object-none object-left" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none .object-center</code><div class="dm-area "><img class="object-none object-center" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none .object-right</code><div class="dm-area "><img class="object-none object-right" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none .object-bottom-left</code><div class="dm-area "><img class="object-none object-bottom-left" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none .object-bottom</code><div class="dm-area "><img class="object-none object-bottom" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-none .object-bottom-right</code><div class="dm-area "><img class="object-none object-bottom-right" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+</div><oc-code lang="html">&lt;img class="object-none object-top-left size-24" src="photo.jpg" alt=""&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">With <code>.object-cover</code> in a narrow box, left, center and right pick the horizontal crop:</p>
+          <oc-demo title="object-position with object-cover in a square"><div class="dm-grid" style="--dm-min:8rem">
+<div class="dm-tile"><code>.object-cover .object-left</code><div class="dm-area "><img class="object-cover object-left" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;inline-size:6.5rem;"></div></div>
+<div class="dm-tile"><code>.object-cover .object-center</code><div class="dm-area "><img class="object-cover object-center" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;inline-size:6.5rem;"></div></div>
+<div class="dm-tile"><code>.object-cover .object-right</code><div class="dm-area "><img class="object-cover object-right" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;inline-size:6.5rem;"></div></div>
+</div><oc-code lang="html">&lt;img class="object-cover object-left size-24" src="photo.jpg" alt=""&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-10" id="image-rendering">Image rendering</h3>
+          <p class="oc-section-content__desc"><code>image-rendering</code> sets the scaling algorithm used when a raster image is drawn larger or smaller than its natural size. The default <code>auto</code> smooths (blurs) the result, <code>pixelated</code> and <code>crisp-edges</code> keep hard pixel edges. Use <code>.image-pixelated</code> for pixel art, sprites and QR codes that are scaled up. It does not affect SVG. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering" target="_blank" rel="noopener">MDN: image-rendering</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.image-auto</code></td><td>image-rendering: auto</td></tr>
+                <tr><td><code>.image-smooth</code></td><td>image-rendering: smooth</td></tr>
+                <tr><td><code>.image-crisp</code></td><td>image-rendering: crisp-edges</td></tr>
+                <tr><td><code>.image-pixelated</code></td><td>image-rendering: pixelated</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+                    <oc-demo title="image-rendering on an 8 x 8 pixel image shown at 6.5rem"><div class="dm-grid" style="--dm-min:9rem">
+<div class="dm-tile"><code>.image-auto</code><div class="dm-area "><img class="image-auto" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAG0lEQVR4nGPQz7528s53TJIBq6h+9jWGQakDAH8WgYGrxWhEAAAAAElFTkSuQmCC" alt="" style="display:block;inline-size:6.5rem;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.image-smooth</code><div class="dm-area "><img class="image-smooth" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAG0lEQVR4nGPQz7528s53TJIBq6h+9jWGQakDAH8WgYGrxWhEAAAAAElFTkSuQmCC" alt="" style="display:block;inline-size:6.5rem;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.image-crisp</code><div class="dm-area "><img class="image-crisp" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAG0lEQVR4nGPQz7528s53TJIBq6h+9jWGQakDAH8WgYGrxWhEAAAAAElFTkSuQmCC" alt="" style="display:block;inline-size:6.5rem;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.image-pixelated</code><div class="dm-area "><img class="image-pixelated" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAG0lEQVR4nGPQz7528s53TJIBq6h+9jWGQakDAH8WgYGrxWhEAAAAAElFTkSuQmCC" alt="" style="display:block;inline-size:6.5rem;block-size:6.5rem;border-radius:6px;"></div></div>
+</div><oc-code lang="html">&lt;img class="image-pixelated size-24" src="sprite-8x8.png" alt=""&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-10" id="dynamic-range-limit">Dynamic range limit</h3>
+          <p class="oc-section-content__desc"><code>dynamic-range-limit</code> caps how bright HDR images and video may render. HDR media can be far brighter than the SDR page around it; <code>.dynamic-range-standard</code> keeps thumbnails and ads from glowing next to the UI, <code>constrained</code> allows some extra headroom and <code>no-limit</code> (the default) shows the full range. It has no visible effect on SDR content or on displays without HDR, so it cannot be demonstrated on every screen. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/dynamic-range-limit" target="_blank" rel="noopener">MDN: dynamic-range-limit</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.dynamic-range-standard</code></td><td>dynamic-range-limit: standard</td></tr>
+                <tr><td><code>.dynamic-range-constrained</code></td><td>dynamic-range-limit: constrained</td></tr>
+                <tr><td><code>.dynamic-range-no-limit</code></td><td>dynamic-range-limit: no-limit</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+                    <h3 class="oc-section-content__title mt-10" id="object-view-box">Object view box</h3>
+          <p class="oc-section-content__desc"><code>object-view-box</code> crops a replaced element <em>before</em> object-fit is applied, so you can zoom into part of an image or video without a wrapper and <code>overflow: hidden</code>. <code>.object-view-box-center</code> uses <code>inset(25%)</code> (the central half), <code>.object-view-box-none</code> resets it. It is currently Chromium-only; elsewhere the full picture is shown, so treat the crop as an enhancement. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-view-box" target="_blank" rel="noopener">MDN: object-view-box</a>.</p>
+          <oc-demo title="object-view-box"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>no view box</code><div class="dm-area "><img class="object-cover " src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-view-box-center</code><div class="dm-area "><img class="object-cover object-view-box-center" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+<div class="dm-tile"><code>.object-view-box-none</code><div class="dm-area "><img class="object-cover object-view-box-none" src="/docs/images/omniacss-components.png" alt="" style="display:block;inline-size:100%;block-size:6.5rem;border-radius:6px;"></div></div>
+</div><oc-code lang="html">&lt;img class="object-view-box-center" src="photo.jpg" alt=""&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-10" id="image-set">Resolution-aware images with image-set()</h3>
+          <p class="oc-section-content__desc"><code>image-set()</code> lets CSS pick the right candidate for a background, mask or <code>list-style-image</code> by pixel density (<code>1x</code>, <code>2x</code>) or format (<code>type()</code>), the CSS counterpart of <code>srcset</code>. Put the most modern format first; the browser takes the first candidate it supports. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set" target="_blank" rel="noopener">MDN: image-set()</a>.</p>
+          <oc-code lang="css">.hero {
+  background-image: image-set(
+    url("hero.avif") type("image/avif") 1x,
+    url("hero@2x.avif") type("image/avif") 2x,
+    url("hero.jpg") 1x
+  );
+  background-size: cover;
+}</oc-code>
+
+<h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Unsupported values are ignored: the image keeps its default fit, scaling or brightness.</p>
+          <oc-compat features="css.properties.object-fit css.properties.object-position css.properties.image-rendering css.properties.image-rendering.pixelated css.properties.dynamic-range-limit"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Image utilities come from <code>_layout_flow.scss</code> in <code>src/scss/utilities/</code>. Aspect ratios are in <code>_aspect.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering" target="_blank" rel="noopener">MDN: image-rendering</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_layout_flow.scss</code></td><td>object-fit, object-position, image-rendering, dynamic-range-limit</td></tr>
+                  <tr><td><code>src/scss/utilities/_aspect.scss</code></td><td>aspect-ratio utilities</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../sizing/aspect.html">Aspect ratio</a>
+               · 
+              <a class="source-link" href="../shapes/">Shapes &amp; Clipping</a>
+               · 
+              <a class="source-link" href="../layout/flow.html">Layout flow</a>
+            </p>
+          </div>
+        </div>
+      </section>

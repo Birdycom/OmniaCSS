@@ -1,0 +1,472 @@
+/* File: public/css/oc-docs-v2.css
+   Docs look v2, shared by the OmniaCSS and OmniaUI sites (identical copy in both repos; load it after oc-docs-shell.css).
+   Map: tokens -> type -> top bar (brand, links, search, theme) -> shell + sidebars + toc -> sections without frames
+        -> badges (the OmniaCSS signature row) -> hero -> tables -> demo panel (tabs, widths, code) -> code copy
+        -> footer -> search dialog -> small screens -> motion
+   Full screen width stays: only running text gets a readable measure. Browser support tables and color cards keep
+   their own styles. Every color is an --oc-* theme token or an Omnia palette token. */
+
+:root {
+  --ocd-display: "Bricolage Grotesque", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --ocd-text: "Instrument Sans", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --ocd-mono: var(--oc-font-mono, ui-monospace, "Cascadia Code", Consolas, monospace);
+  --ocd-rule: var(--oc-border);
+  --ocd-soft: oklch(from var(--oc-foreground) l c h / 0.035);
+  --ocd-accent: var(--oc-primary);
+  --ocd-accent-soft: oklch(from var(--oc-primary) l c h / 0.1);
+  --ocd-measure: 76ch;
+  --ocd-radius: 14px;
+  --ocm-header-height: 64px;
+  --ocm-footer-height: 36px;
+}
+
+/* ---- Type ---------------------------------------------------------------------------------------- */
+body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+:is(.oc-docs-content, .ocd-content) :is(h1, h2, h3, h4) { font-family: var(--ocd-display); letter-spacing: -0.015em; text-wrap: balance; }
+:is(.oc-docs-content, .ocd-content) :is(p, li) { text-wrap: pretty; }
+
+/* ---- Top bar ------------------------------------------------------------------------------------- */
+.oc-topbar {
+  gap: 1.25rem;
+  justify-content: flex-start;
+  background: oklch(from var(--oc-background) l c h / 0.86);
+  backdrop-filter: blur(12px) saturate(1.4);
+  border-block-end-color: var(--ocd-rule);
+}
+.oc-topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--ocd-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.oc-topbar-brand::before {
+  content: "";
+  inline-size: 1.65rem;
+  aspect-ratio: 1;
+  border-radius: 7px;
+  background:
+    radial-gradient(circle at 30% 30%, oklch(from var(--color-white-50) l c h / 0.55), transparent 45%),
+    conic-gradient(from 210deg, var(--color-vividblue-80), var(--color-magenta-50), var(--color-orange-50), var(--color-teal-50), var(--color-vividblue-80));
+  box-shadow: inset 0 0 0 1px oklch(from var(--color-white-50) l c h / 0.25);
+}
+.oc-topbar-brand .oc-badge-version { margin-inline-start: 0.1rem; font-family: var(--ocd-mono); font-weight: 600; letter-spacing: 0; }
+.oc-topbar-nav { margin-inline-start: 0.75rem; }
+.oc-navmenu--site { gap: 0.15rem; }
+.oc-navmenu--site .oc-navmenu-link {
+  position: relative;
+  padding: 0.45rem 0.7rem;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--oc-muted-foreground);
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+.oc-navmenu--site .oc-navmenu-link:hover { color: var(--oc-foreground); background: var(--ocd-soft); border: 0; }
+.oc-navmenu--site .oc-navmenu-link[aria-current="page"] { color: var(--oc-foreground); background: none; border: 0; }
+.oc-navmenu--site .oc-navmenu-link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0.7rem calc(-1 * (var(--ocm-header-height) - 2.3rem) / 2) 0.7rem;
+  block-size: 2px;
+  border-radius: 2px;
+  background: var(--ocd-accent);
+}
+.ocd-topbar-actions { display: flex; align-items: center; gap: 0.6rem; margin-inline-start: auto; }
+.ocd-search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  inline-size: clamp(11rem, 22vw, 18rem);
+  padding: 0.45rem 0.5rem 0.45rem 0.7rem;
+  border: 1px solid var(--ocd-rule);
+  border-radius: 10px;
+  background: var(--ocd-soft);
+  color: var(--oc-muted-foreground);
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: start;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.ocd-search-trigger:hover { border-color: var(--oc-border-strong, var(--ocd-rule)); color: var(--oc-foreground); }
+.ocd-search-trigger:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+.ocd-search-trigger svg { inline-size: 1rem; block-size: 1rem; flex: none; }
+.ocd-search-trigger span { flex: 1; }
+.ocd-search-trigger kbd, .ocd-search-dialog kbd {
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--ocd-rule);
+  border-radius: 5px;
+  background: var(--oc-background);
+  font: 500 0.7rem var(--ocd-mono);
+  color: var(--oc-muted-foreground);
+}
+.oc-topbar .oc-theme-switch { padding: 2px; }
+.oc-topbar .oc-theme-switch label { padding: 0.25rem 0.55rem; font-size: 0.75rem; }
+
+/* ---- Shell: sidebars blend into the page, hairlines only ---------------------------------------- */
+:is(.oc-docs-sidebar-left, .ocd-sidebar-left, .oc-docs-sidebar-right, .ocd-sidebar-right) { background: var(--oc-background); }
+:is(.oc-docs-sidebar-left, .ocd-sidebar-left) { padding: 1.4rem 1rem 2rem 1.25rem; border-inline-end-color: var(--ocd-rule); }
+:is(.oc-docs-sidebar-right, .ocd-sidebar-right) { padding: 1.6rem 1.25rem; border-inline-start-color: var(--ocd-rule); }
+.oc-sidebar--docs .oc-sidebar-title { font-family: var(--ocd-display); font-size: 1.05rem; font-weight: 700; }
+.oc-sidebar--docs .oc-sidebar-group-label { margin: 1.4rem 0 0.4rem; font: 600 0.68rem var(--ocd-mono); letter-spacing: 0.1em; }
+.oc-sidebar--docs .oc-sidebar-menu { gap: 1px; }
+.oc-sidebar--docs .oc-sidebar-menu-button {
+  position: relative;
+  padding: 0.38rem 0.6rem;
+  border: 0;
+  border-radius: 7px;
+  color: var(--oc-muted-foreground);
+  font-size: 0.9rem;
+}
+.oc-sidebar--docs .oc-sidebar-menu-button:hover { color: var(--oc-foreground); border: 0; background: var(--ocd-soft); }
+.oc-sidebar--docs .oc-sidebar-menu-button[aria-current="page"],
+.oc-sidebar--docs .oc-sidebar-menu-button.is-active { color: var(--ocd-accent); font-weight: 600; border: 0; background: var(--ocd-accent-soft); }
+.oc-sidebar--docs .oc-sidebar-menu-sub { margin: 2px 0 6px 0.85rem; padding-inline-start: 0.6rem; gap: 1px; border-inline-start: 1px solid var(--ocd-rule); }
+.oc-sidebar--docs .oc-sidebar-menu-sub .oc-sidebar-menu-button { padding: 0.3rem 0.55rem; font-size: 0.85rem; }
+.oc-sidebar--docs .oc-sidebar-menu-sub .oc-sidebar-menu-button[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset: 0.35rem auto 0.35rem calc(-0.6rem - 1px);
+  inline-size: 2px;
+  border-radius: 2px;
+  background: var(--ocd-accent);
+}
+.oc-toc-title { margin: 0 0 0.6rem; font: 600 0.68rem var(--ocd-mono); letter-spacing: 0.1em; }
+.oc-toc-list { gap: 1px; border-inline-start: 1px solid var(--ocd-rule); }
+.oc-toc-link { position: relative; padding: 0.28rem 0.75rem; border: 0; border-radius: 0; font-size: 0.84rem; }
+.oc-toc-link:hover { border: 0; color: var(--oc-foreground); }
+.oc-toc-link:is([aria-current], .is-active, :target-current) { color: var(--ocd-accent); background: none; border: 0; font-weight: 600; }
+.oc-toc-link:is([aria-current], .is-active, :target-current)::before {
+  content: "";
+  position: absolute;
+  inset: 0.25rem auto 0.25rem -1px;
+  inline-size: 2px;
+  background: var(--ocd-accent);
+}
+.oc-toc-item--sub .oc-toc-link { padding-inline-start: 1.4rem; }
+
+/* ---- Content: sections without frames, separated by space and a hairline ------------------------- */
+:is(.oc-docs-content, .ocd-content) { padding: clamp(1.5rem, 3vw, 3rem) clamp(1.25rem, 3.2vw, 3.5rem) 5rem; }
+:is(.oc-docs-content, .ocd-content) .oc-docs-section {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+:is(.oc-docs-content, .ocd-content) .oc-docs-section + .oc-docs-section { margin-block-start: 3.5rem; padding-block-start: 3rem; border-block-start: 1px solid var(--ocd-rule); }
+:is(.oc-docs-content, .ocd-content) .oc-section-content { padding: 0; background: none; border-radius: 0; }
+
+/* Section header: title on its own line, then the badge row, then the intro */
+:is(.oc-docs-content, .ocd-content) .oc-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-block-end: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+:is(.oc-docs-content, .ocd-content) .oc-section-header__title {
+  flex: 1 0 100%;
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  font-weight: 750;
+  line-height: 1.1;
+  color: var(--oc-foreground);
+}
+:is(.oc-docs-content, .ocd-content) > .oc-docs-section:first-child .oc-section-header__title { font-size: clamp(2rem, 3.6vw, 2.9rem); font-weight: 800; letter-spacing: -0.025em; }
+:is(.oc-docs-content, .ocd-content) .oc-section-header__desc {
+  flex: 1 0 100%;
+  max-inline-size: var(--ocd-measure);
+  margin: 0.9rem 0 0;
+  font-size: 1.04rem;
+  line-height: 1.7;
+  color: var(--oc-muted-foreground);
+}
+:is(.oc-docs-content, .ocd-content) .oc-section-content__title {
+  margin: 2.75rem 0 0.6rem;
+  font-size: 1.32rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--oc-foreground);
+  scroll-margin-top: 1.5rem;
+}
+:is(.oc-docs-content, .ocd-content) .oc-section-content > .oc-section-content__title:first-child { margin-block-start: 0; }
+:is(.oc-docs-content, .ocd-content) .oc-section-content__desc,
+:is(.oc-docs-content, .ocd-content) .oc-section-content > p { max-inline-size: var(--ocd-measure); margin-inline: 0; padding-inline: 0; font-size: 0.98rem; line-height: 1.7; color: var(--oc-muted-foreground); }
+:is(.oc-docs-content, .ocd-content) :not(pre) > code:not([class]) {
+  padding: 0.1em 0.38em;
+  border: 0;
+  border-radius: 5px;
+  background: oklch(from var(--oc-foreground) l c h / 0.06);
+  box-shadow: none;
+  font-family: var(--ocd-mono);
+  font-size: 0.85em;
+  font-weight: 450;
+  color: var(--oc-foreground);
+}
+
+/* ---- Badges: one tidy row, one color per kind (kept on purpose: our signature) ------------------- */
+:is(.oc-docs-content, .ocd-content) :is(.oc-badge-source, .oc-badge-source-scss, .oc-badge-source-file, .oc-badge-version, .oc-badge-version-mdi, .oc-badge-nojs, .oc-badge-support, .oc-badge-pro) {
+  --ocd-badge: var(--oc-muted-foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid oklch(from var(--ocd-badge) l c h / 0.32);
+  border-radius: 7px;
+  background: oklch(from var(--ocd-badge) l c h / 0.07);
+  color: var(--ocd-badge);
+  font: 500 0.72rem/1 var(--ocd-mono);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+:is(.oc-docs-content, .ocd-content) :is(.oc-badge-source, .oc-badge-source-scss, .oc-badge-source-file, .oc-badge-version, .oc-badge-version-mdi, .oc-badge-nojs, .oc-badge-support, .oc-badge-pro)::before {
+  content: "";
+  inline-size: 0.42rem;
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: currentColor;
+}
+:is(.oc-docs-content, .ocd-content) .oc-badge-source { --ocd-badge: light-dark(var(--color-teal-90), var(--color-skycyan-50)); }
+:is(.oc-docs-content, .ocd-content) .oc-badge-source-scss { --ocd-badge: light-dark(var(--color-red-80), var(--color-red-40)); }
+:is(.oc-docs-content, .ocd-content) .oc-badge-source-file { --ocd-badge: light-dark(var(--color-purple-50), var(--color-magenta-50)); }
+:is(.oc-docs-content, .ocd-content) :is(.oc-badge-version, .oc-badge-version-mdi) { --ocd-badge: light-dark(var(--color-green-80), var(--color-green-10)); font-weight: 600; }
+:is(.oc-docs-content, .ocd-content) .oc-badge-nojs { --ocd-badge: light-dark(var(--color-orange-95), var(--color-orange-40)); }
+:is(.oc-docs-content, .ocd-content) .oc-badge-support--baseline { --ocd-badge: light-dark(var(--color-green-80), var(--color-green-10)); }
+:is(.oc-docs-content, .ocd-content) .oc-badge-support--newest { --ocd-badge: light-dark(var(--color-indigo-60), var(--color-indigo-2)); }
+:is(.oc-docs-content, .ocd-content) .oc-badge-support--baseline::before { content: "✓"; inline-size: auto; aspect-ratio: auto; background: none; font-size: 0.8rem; }
+:is(.oc-docs-content, .ocd-content) .oc-badge-support--newest::before { content: "✦"; inline-size: auto; aspect-ratio: auto; background: none; font-size: 0.75rem; }
+:is(.oc-docs-content, .ocd-content) .oc-badge-pro { --ocd-badge: light-dark(var(--color-magenta-60), var(--color-magenta-40)); font-weight: 700; }
+
+/* ---- Page hero (OmniaUI pages open with .oc-hero) ----------------------------------------------- */
+:is(.oc-docs-content, .ocd-content) > .oc-hero {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+:is(.oc-docs-content, .ocd-content) > .oc-hero .oc-hero-title { margin: 0; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.04; }
+:is(.oc-docs-content, .ocd-content) > .oc-hero .oc-hero-text { max-inline-size: var(--ocd-measure); margin: 0; font-size: 1.1rem; line-height: 1.7; color: var(--oc-muted-foreground); }
+:is(.oc-docs-content, .ocd-content) > .oc-hero + .oc-docs-section { margin-block-start: 0; padding-block-start: 0; border: 0; }
+
+/* ---- Reference tables ---------------------------------------------------------------------------- */
+:is(.oc-docs-content, .ocd-content) .oc-table-ref { font-size: 0.86rem; }
+:is(.oc-docs-content, .ocd-content) .oc-table-ref th {
+  padding: 0.55rem 0.8rem;
+  border-block-end: 1px solid var(--ocd-rule);
+  background: none;
+  font: 600 0.68rem var(--ocd-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--oc-muted-foreground);
+}
+:is(.oc-docs-content, .ocd-content) .oc-table-ref td { padding: 0.6rem 0.8rem; border-block-end: 1px solid var(--ocd-rule); vertical-align: top; }
+:is(.oc-docs-content, .ocd-content) .oc-table-ref td:first-child code { padding: 0; background: none; box-shadow: none; color: var(--ocd-accent); font-size: 0.82rem; white-space: normal; }
+:is(.oc-docs-content, .ocd-content) .oc-table-ref tbody tr:hover td { background: var(--ocd-soft); }
+:is(.oc-docs-content, .ocd-content) .oc-expandable-table { border: 1px solid var(--ocd-rule); border-radius: var(--ocd-radius); overflow: hidden; }
+:is(.oc-docs-content, .ocd-content) .oc-expandable-table .oc-table-ref tr:last-child td { border-block-end: 0; }
+
+/* ---- Demo panel v2: bar (title, tabs, widths) -> preview -> code ------------------------------------ */
+.oc-demo--v2 {
+  gap: 0;
+  margin: 1.25rem 0 2rem;
+  padding: 0;
+  border: 1px solid var(--ocd-rule);
+  border-radius: var(--ocd-radius);
+  background: var(--oc-background);
+  box-shadow: 0 1px 0 var(--ocd-soft), 0 18px 40px -32px oklch(from var(--color-black-50) l c h / 0.45);
+}
+.oc-demo__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  padding: 0.5rem 0.6rem 0.5rem 1rem;
+  border-block-end: 1px solid var(--ocd-rule);
+  border-radius: var(--ocd-radius) var(--ocd-radius) 0 0;
+  background: var(--ocd-soft);
+}
+.oc-demo__title {
+  flex: 1 1 12rem;
+  min-inline-size: 0;
+  margin: 0;
+  overflow: hidden;
+  font: 600 0.85rem var(--ocd-text);
+  letter-spacing: 0;
+  color: var(--oc-foreground);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.oc-demo--v2 .oc-demo__tablist { padding: 3px; background: oklch(from var(--oc-foreground) l c h / 0.06); }
+.oc-demo--v2 .oc-demo__tab { padding: 0.28rem 0.75rem; font-size: 0.8rem; }
+.oc-demo--v2 .oc-demo__tab span { pointer-events: none; }
+.oc-demo__widths { display: flex; gap: 2px; padding: 3px; border-radius: calc(var(--oc-radius) + 2px); background: oklch(from var(--oc-foreground) l c h / 0.06); }
+.oc-demo__width { position: relative; display: grid; place-items: center; inline-size: 1.85rem; block-size: 1.65rem; border-radius: var(--oc-radius); color: var(--oc-muted-foreground); cursor: pointer; }
+.oc-demo__width input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.oc-demo__width svg { inline-size: 0.95rem; block-size: 0.95rem; pointer-events: none; }
+.oc-demo__width:hover { color: var(--oc-foreground); }
+.oc-demo__width:has(input:checked) { color: var(--ocd-accent); background: var(--oc-background); box-shadow: 0 1px 2px oklch(from var(--oc-foreground) l c h / 0.15); }
+.oc-demo__width:has(input:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
+
+.oc-demo--v2 > .oc-demo__preview {
+  min-block-size: 7.5rem;
+  margin: 0;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border: 0;
+  border-radius: 0 0 var(--ocd-radius) var(--ocd-radius);
+  background:
+    radial-gradient(circle at 1px 1px, oklch(from var(--oc-foreground) l c h / 0.09) 1px, transparent 0) 0 0 / 16px 16px,
+    var(--oc-background);
+  transition: inline-size 0.25s ease;
+}
+.oc-demo__pro-badge {
+  display: inline-block;
+  margin-inline-start: 0.4rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  font: 700 0.66rem var(--ocd-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 0.1em;
+  color: var(--oc-primary-foreground);
+  background: var(--ocd-accent);
+}
+/* Code panel of a Pro block: no code, a short note and a link */
+.oc-demo--v2 > .oc-demo__pro-lock {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--oc-muted-foreground);
+}
+.oc-demo__pro-lock > svg { inline-size: 1.75rem; block-size: 1.75rem; color: var(--ocd-accent); }
+.oc-demo__pro-lock > p { max-inline-size: 34rem; margin: 0.75rem auto 1rem; font-size: 0.9rem; line-height: 1.55; }
+.oc-demo__pro-lock strong { color: var(--oc-foreground); }
+.oc-demo--v2 > .oc-demo__code { display: none; }
+.oc-demo--v2 > .oc-demo__code .oc-code-block { margin: 0; border: 0; border-radius: 0 0 var(--ocd-radius) var(--ocd-radius); }
+/* Tabs: show one code panel instead of the preview */
+.oc-demo--v2:has(> .oc-demo__bar input[value^="code-"]:checked) > .oc-demo__preview { display: none; }
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-1"]:checked) > [data-code="1"],
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-2"]:checked) > [data-code="2"],
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-3"]:checked) > [data-code="3"],
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-4"]:checked) > [data-code="4"],
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-5"]:checked) > [data-code="5"],
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-6"]:checked) > [data-code="6"] { display: block; }
+/* The width buttons only matter for the preview */
+.oc-demo--v2:has(> .oc-demo__bar input[value^="code-"]:checked) .oc-demo__widths { visibility: hidden; }
+/* Preview widths: the stage narrows and shows its edges */
+.oc-demo--v2:has(> .oc-demo__bar input[value="tablet"]:checked) > .oc-demo__preview,
+.oc-demo--v2:has(> .oc-demo__bar input[value="phone"]:checked) > .oc-demo__preview {
+  container-type: inline-size;
+  inline-size: min(100%, var(--ocd-stage, 48rem));
+  margin-inline: auto;
+  border-inline: 1px dashed var(--oc-border-strong, var(--ocd-rule));
+  border-radius: 0;
+}
+.oc-demo--v2:has(> .oc-demo__bar input[value="phone"]:checked) > .oc-demo__preview { --ocd-stage: 24rem; }
+
+/* ---- Code blocks: copy button ----------------------------------------------------------------------- */
+.oc-code-block { position: relative; }
+.oc-code-block > .oc-code-copy { opacity: 0; transition: opacity 0.15s, color 0.15s, border-color 0.15s; }
+.oc-code-block:is(:hover, :focus-within) > .oc-code-copy, .oc-code-copy.is-copied { opacity: 1; }
+@media (hover: none) { .oc-code-block > .oc-code-copy { opacity: 1; } }
+
+/* ---- Footer bar --------------------------------------------------------------------------------- */
+.oc-footerbar { font-size: 0.78rem; background: oklch(from var(--oc-background) l c h / 0.92); }
+.oc-footerbar a { color: var(--oc-muted-foreground); text-decoration: none; }
+.oc-footerbar a:hover { color: var(--oc-foreground); text-decoration: underline; }
+
+/* ---- Search dialog (Ctrl K) --------------------------------------------------------------------- */
+.ocd-search-dialog {
+  inline-size: min(100vw - 2rem, 40rem);
+  max-block-size: min(100dvh - 6rem, 36rem);
+  margin: 10vh auto auto;
+  padding: 0;
+  border: 1px solid var(--ocd-rule);
+  border-radius: 16px;
+  background: var(--oc-popover, var(--oc-card));
+  color: var(--oc-foreground);
+  box-shadow: 0 30px 70px -20px oklch(from var(--color-black-50) l c h / 0.5);
+}
+.ocd-search-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+.ocd-search-dialog::backdrop { background: oklch(from var(--color-black-60) l c h / 0.45); backdrop-filter: blur(3px); }
+.ocd-search-field { display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 1rem; border-block-end: 1px solid var(--ocd-rule); }
+.ocd-search-field svg { inline-size: 1.15rem; block-size: 1.15rem; color: var(--oc-muted-foreground); flex: none; }
+.ocd-search-field input { flex: 1; min-inline-size: 0; border: 0; outline: 0; background: none; color: var(--oc-foreground); font: 500 1.05rem var(--ocd-text); }
+.ocd-search-results { margin: 0; padding: 0.4rem; overflow: auto; list-style: none; }
+.ocd-search-results:empty { display: none; }
+.ocd-search-results li a { display: grid; gap: 0.1rem; padding: 0.55rem 0.75rem; border-radius: 9px; color: inherit; text-decoration: none; }
+.ocd-search-results li a :is(b, span) { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ocd-search-results li a b { font-weight: 600; font-size: 0.92rem; }
+.ocd-search-results li a span { font-size: 0.78rem; color: var(--oc-muted-foreground); }
+.ocd-search-results li a mark { background: oklch(from var(--ocd-accent) l c h / 0.18); color: inherit; border-radius: 3px; }
+.ocd-search-results li a[aria-selected="true"], .ocd-search-results li a:hover { background: var(--ocd-accent-soft); }
+.ocd-search-results li a[aria-selected="true"] b { color: var(--ocd-accent); }
+.ocd-search-group { padding: 0.6rem 0.75rem 0.25rem; font: 600 0.66rem var(--ocd-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--oc-muted-foreground); }
+.ocd-search-empty { padding: 2rem 1rem; text-align: center; color: var(--oc-muted-foreground); }
+.ocd-search-foot { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; padding: 0.55rem 1rem; border-block-start: 1px solid var(--ocd-rule); font-size: 0.75rem; color: var(--oc-muted-foreground); }
+
+/* ---- Small screens -------------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .ocd-search-trigger span, .ocd-search-trigger kbd { display: none; }
+  .ocd-search-trigger { inline-size: auto; padding: 0.45rem; }
+}
+@media (max-width: 760px) {
+  .oc-demo__widths { display: none; }
+  .oc-topbar-nav { margin-inline-start: 0; }
+  .oc-topbar .oc-theme-switch { display: none; }
+}
+
+
+/* ---- Responsive shell (both sites): toc hides below 1200px, the left sidebar becomes a drawer below 900px ---- */
+.ocd-nav-toggle { position: absolute; opacity: 0; pointer-events: none; }
+.ocd-nav-button { display: none; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; margin-inline-end: -0.25rem; border: 1px solid var(--ocd-rule); border-radius: 10px; color: var(--oc-foreground); cursor: pointer; }
+.ocd-nav-button svg { inline-size: 1.15rem; block-size: 1.15rem; }
+.ocd-nav-toggle:focus-visible + .ocd-nav-button { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+@media (max-width: 1200px) {
+  :is(.oc-docs-shell, .ocd-shell) { grid-template-columns: 250px minmax(0, 1fr); }
+  :is(.oc-docs-sidebar-right, .ocd-sidebar-right) { display: none; }
+}
+@media (max-width: 900px) {
+  :is(.oc-docs-shell, .ocd-shell) { grid-template-columns: minmax(0, 1fr); }
+  .ocd-nav-button { display: grid; }
+  :is(.oc-docs-sidebar-left, .ocd-sidebar-left) {
+    display: none;
+    position: fixed;
+    inset: var(--ocm-header-height) auto var(--ocm-footer-height) 0;
+    z-index: 1050;
+    inline-size: min(86vw, 20rem);
+    block-size: auto;
+    border-inline-end: 1px solid var(--ocd-rule);
+    box-shadow: 24px 0 60px -30px oklch(from var(--color-black-50) l c h / 0.5);
+  }
+  body:has(.ocd-nav-toggle:checked) :is(.oc-docs-sidebar-left, .ocd-sidebar-left) { display: block; }
+  body:has(.ocd-nav-toggle:checked) :is(.oc-docs-content, .ocd-content) { filter: blur(2px); pointer-events: none; }
+  :is(.oc-docs-content, .ocd-content) { padding: 1.5rem 1rem 4rem; }
+}
+@media (max-width: 760px) {
+  .oc-topbar { flex-wrap: nowrap; gap: 0.6rem; }
+  .oc-topbar-nav { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
+  .oc-navmenu--site { flex-wrap: nowrap; }
+  .oc-navmenu--site .oc-navmenu-link { white-space: nowrap; padding-inline: 0.5rem; }
+  .oc-topbar-brand .oc-badge-version { display: none; }
+  :root { --ocm-footer-height: 0px; }
+  .oc-footerbar--fixed { display: none; }
+}
+
+/* Browser support table: the tooltips in its cells are absolutely positioned. Without a containing block on the
+   scroll box they escape its overflow clip and widen the whole page on phones. */
+.oc-compat__scroll { position: relative; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-demo--v2 > .oc-demo__preview, .oc-code-block > .oc-code-copy, .ocd-search-trigger { transition: none; }
+}

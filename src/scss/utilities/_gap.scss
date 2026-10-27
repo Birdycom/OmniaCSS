@@ -1,0 +1,104 @@
+// SCSS Document 
+// File: src/utilities/_gap.scss
+// Description: CSS gap properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: gap, row-gap, column-gap
+// Values: value in rem
+
+@use "sass:string";
+@use "sass:map";
+@use '../utilities/' as *;
+
+/* The Gap property */
+
+///
+/// The position Property
+/// @group Gap
+///
+
+///
+/// The position property specifies the type of positioning method used for an element.
+/// @group Gap
+/// @name gap
+/// @link src/scss/utilities/_gap.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-column elements, flex containers, grid containers
+///
+/// @require $sizesgap
+/// @example scss - gap class
+///   $min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+///   @while $min-group <= $DEFAULT-BASE-SECOND-MAX-GROUP {
+///   $result: omnia-generate-sizing($min-group, 'gap', false, false);
+///     $min-group: map.get($result,1); 
+///     .#{map.get($result,5)}-#{map.get($result,2)} {
+///       #{map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+///     }
+///   .#{map.get($result,5)+'-row'}-#{map.get($result,2)} {
+///       #{'row-' + map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+///     }
+///     .#{map.get($result,5)+'-col'}-#{map.get($result,2)} {
+///       #{'column-' + map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+///     }  
+///   };
+/// @example html - use gap class
+///   <div class="grid grid-cols-3 gap-col-8 gap-row-4 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-sky rounded-lg">
+///    <div class="p-4 rounded-lg shadow-lg bg-deepskyblue">01</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-deepskyblue">02</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-deepskyblue">03</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-deepskyblue">04</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-deepskyblue">05</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-deepskyblue">06</div>
+///   </div>
+//
+$min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+@while $min-group <= $DEFAULT-BASE-SECOND-MAX-GROUP {
+
+  $result: omnia-generate-sizing($min-group, 'gap', false, false);
+
+  $min-group: map.get($result,1); 
+
+  // margin 
+  .#{map.get($result,5)}-#{map.get($result,2)} {
+
+    #{map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+      
+  }
+  // gap row (y-as)
+  .#{map.get($result,5)+'-row'}-#{map.get($result,2)} {
+
+    #{'row-' + map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+     
+  }
+  // gap column (x-as)
+  .#{map.get($result,5)+'-col'}-#{map.get($result,2)} {
+
+    #{'column-' + map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+};
+
+/* ===================================================================
+   Short gap aliases
+   gap-x-* = gap-col-*, gap-y-* = gap-row-*
+   =================================================================== */
+$min-group-alias: $DEFAULT-BASE-FIRST-MIN-GROUP;
+@while $min-group-alias <= $DEFAULT-BASE-SECOND-MAX-GROUP {
+  $result: omnia-generate-sizing($min-group-alias, 'gap', false, false);
+  $min-group-alias: map.get($result,1);
+
+  /* gap-x alias for gap-col (column gap) */
+  .gap-x-#{map.get($result,2)} {
+    column-gap: map.get($result,3) + #{map.get($result,4)};
+  }
+  /* gap-y alias for gap-row (row gap) */
+  .gap-y-#{map.get($result,2)} {
+    row-gap: map.get($result,3) + #{map.get($result,4)};
+  }
+}
+
+/* End Gap property */

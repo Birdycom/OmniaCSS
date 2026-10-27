@@ -1,0 +1,250 @@
+<!--oc-page {"title":"OmniaCSS Docs - At-rules","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .ar-check { display: grid; gap: 0.4rem; inline-size: 100%; }\n    .ar-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.45rem 0.75rem; border-radius: 8px; background: var(--oc-muted); font-size: 0.85rem; }\n    .ar-row code { background: none; padding: 0; }\n    .ar-yes { color: var(--color-green-60); font-weight: 600; }\n    .ar-no { color: var(--color-red-60); font-weight: 600; }\n    @layer ar-base, ar-theme;\n    @layer ar-theme { .ar-layer-box { background: var(--color-green-50); } }\n    @layer ar-base { #ar-layer-target.ar-layer-box { background: var(--color-red-60); } }\n    .ar-box { display: grid; place-items: center; min-block-size: 5rem; padding: 1rem; border-radius: 12px; color: var(--color-white-50); font-weight: 600; text-align: center; }\n    @property --ar-angle { syntax: \"<angle>\"; inherits: false; initial-value: 0deg; }\n    .ar-spin-border { display: grid; place-items: center; min-block-size: 7rem; inline-size: min(100%, 18rem); padding: 1rem; border: 3px solid transparent; border-radius: 16px; background: linear-gradient(var(--oc-card), var(--oc-card)) padding-box, conic-gradient(from var(--ar-angle), var(--color-blue-50), var(--color-magenta-50), var(--color-orange-50), var(--color-blue-50)) border-box; color: var(--oc-foreground); animation: ar-angle 4s linear infinite; }\n    @keyframes ar-angle { to { --ar-angle: 360deg; } }\n    @media (prefers-reduced-motion: reduce) { .ar-spin-border { animation: none; } }\n    .ar-scope-card { display: grid; gap: 0.5rem; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); }\n    .ar-scope-card p, .ar-scope-slot p { margin: 0; }\n    .ar-scope-slot { padding: 0.75rem; border: 1px dashed var(--oc-border-strong); border-radius: 8px; }\n    @scope (.ar-scope-card) to (.ar-scope-slot) { p { color: var(--color-vividblue-80); font-weight: 600; } }\n    .ar-badge { display: inline-block; padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--color-gray-50); color: var(--color-white-50); font-size: 0.8rem; font-weight: 600; }\n    @container style(--status: ok) { .ar-badge { background: var(--color-green-60); } }\n    @container style(--status: warn) { .ar-badge { background: var(--color-orange-60); } }\n    @container style(--status: danger) { .ar-badge { background: var(--color-red-60); } }\n    .ar-fn-wrap { container-type: inline-size; resize: horizontal; overflow: auto; inline-size: 100%; max-inline-size: 100%; min-inline-size: 12rem; padding: 1rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    @function --ar-fluid(--min, --max) { result: clamp(var(--min), 0.5rem + 4cqi, var(--max)); }\n    .ar-fn-text { margin: 0; font-size: 1.25rem; font-size: --ar-fluid(1rem, 2.75rem); font-weight: 700; line-height: 1.2; }\n  </style>"]}-->
+<section class="oc-docs-section" id="at-rules">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">At-rules</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS feature</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">variants.mjs</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">at-rules/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.8.2</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Every CSS statement that starts with <code>@</code>: conditional rules (<code>@media</code>, <code>@container</code>, <code>@supports</code>), cascade control (<code>@layer</code>, <code>@scope</code>), definitions (<code>@property</code>, <code>@keyframes</code>, <code>@font-face</code>, <code>@counter-style</code>, <code>@function</code>) and page/print rules (<code>@page</code>). OmniaCSS turns the conditional ones into <strong>variants</strong> (<code>md:</code>, <code>cq-md:</code>, <code>supports-[…]:</code>, <code>starting:</code>), so you rarely write them by hand. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule" target="_blank" rel="noopener">MDN: At-rules</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="overview">All at-rules and how OmniaCSS uses them</h3>
+          <p class="oc-section-content__desc">The left column is the at-rule; the right column is the OmniaCSS way to use it, or the page that covers it.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">At-rule</th><th>OmniaCSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>@media</code></td><td>Variants <code>sm: md: lg: xl: 2xl:</code>, <code>max-md:</code>, <code>min-[40rem]:</code>, <code>print:</code>, <code>motion-safe:</code>, <code>dark:</code>, <code>contrast-more:</code>, <code>pointer-coarse:</code> — see <a href="../responsive.html">Responsive</a></td></tr>
+                <tr><td><code>@container</code></td><td>Variants <code>cq-sm:</code> … <code>cq-7xl:</code>, <code>@md:</code>, <code>cq-[30rem]:</code>, <code>cq-md/name:</code>; scroll-state variants <code>stuck:</code>, <code>snapped:</code> — see <a href="../container-queries/">Container queries</a></td></tr>
+                <tr><td><code>@supports</code></td><td>Variants <code>supports-[prop:value]:</code>, <code>supports-[selector(:has(a))]:</code>, <code>not-supports-[…]:</code> (this page)</td></tr>
+                <tr><td><code>@starting-style</code></td><td>Variant <code>starting:</code> and <code>.starting-*</code> utilities — see <a href="../starting-style/">Entry animations</a></td></tr>
+                <tr><td><code>@layer</code></td><td><code>omniacss build</code> wraps the utilities in <code>@layer omnia</code> (this page)</td></tr>
+                <tr><td><code>@property</code></td><td>Registered tokens for animatable gradients and counters (this page, <a href="../variables/">Variables</a>)</td></tr>
+                <tr><td><code>@scope</code></td><td>Write scoped component CSS next to the utilities (this page)</td></tr>
+                <tr><td><code>@keyframes</code></td><td><code>.animate-*</code> presets and <code>.animate-name-*</code> — see <a href="../effects/animations.html">Animations</a></td></tr>
+                <tr><td><code>@font-face</code>, <code>@font-palette-values</code>, <code>@font-feature-values</code></td><td><code>.font-*</code> families — see <a href="../typography/fonts.html">Fonts</a></td></tr>
+                <tr><td><code>@counter-style</code></td><td><code>.list-*</code> custom counters — see <a href="../lists/">Lists &amp; counters</a></td></tr>
+                <tr><td><code>@page</code></td><td>Print layout with <code>.break-*</code> — see <a href="../fragmentation/">Fragmentation</a> and <a href="../pagination/">Pagination</a></td></tr>
+                <tr><td><code>@view-transition</code></td><td>Cross-document transitions — see <a href="../view-transitions/">View transitions</a></td></tr>
+                <tr><td><code>@position-try</code></td><td>Fallback positions — see <a href="../anchor-positioning/">Anchor positioning</a></td></tr>
+                <tr><td><code>@function</code></td><td>Custom CSS functions (this page; Chromium)</td></tr>
+                <tr><td><code>@import</code>, <code>@namespace</code>, <code>@charset</code>, <code>@custom-media</code></td><td>Plain CSS (this page)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="supports">@supports: feature queries</h3>
+          <p class="oc-section-content__desc">Apply styles only when the browser understands a declaration, a selector (<code>selector()</code>), a font technology (<code>font-tech()</code>, <code>font-format()</code>) or an at-rule (<code>at-rule()</code>). Combine them with <code>and</code>, <code>or</code> and <code>not</code>. In OmniaCSS you write the condition in the class: <code>supports-[field-sizing:content]:inline</code>; spaces become <code>_</code>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Variant</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>supports-[display:grid]:…</code></td><td>@supports (display:grid)</td></tr>
+                <tr><td><code>supports-grid:…</code></td><td>@supports (grid: inherit) — property name only</td></tr>
+                <tr><td><code>supports-[selector(:has(a))]:…</code></td><td>@supports selector(:has(a))</td></tr>
+                <tr><td><code>supports-[font-tech(color-COLRv1)]:…</code></td><td>@supports font-tech(color-COLRv1)</td></tr>
+                <tr><td><code>supports-[at-rule(@scope)]:…</code></td><td>@supports at-rule(@scope)</td></tr>
+                <tr><td><code>not-supports-[…]:…</code></td><td>@supports not (…)</td></tr>
+                <tr><td><code>supports-[(a:b)_and_(c:d)]:…</code></td><td>@supports (a:b) and (c:d)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Live feature check in your browser (only supports-[…] variants, no JavaScript)">
+            <div class="ar-check">
+              <div class="ar-row"><code>anchor-name</code><span class="ar-yes d-none supports-[anchor-name:--a]:inline">✓ supported</span><span class="ar-no supports-[anchor-name:--a]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>field-sizing</code><span class="ar-yes d-none supports-[field-sizing:content]:inline">✓ supported</span><span class="ar-no supports-[field-sizing:content]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>selector(:user-invalid)</code><span class="ar-yes d-none supports-[selector(:user-invalid)]:inline">✓ supported</span><span class="ar-no supports-[selector(:user-invalid)]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>progress()</code><span class="ar-yes d-none supports-[opacity:progress(1px,0px,2px)]:inline">✓ supported</span><span class="ar-no supports-[opacity:progress(1px,0px,2px)]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>sibling-index()</code><span class="ar-yes d-none supports-[order:sibling-index()]:inline">✓ supported</span><span class="ar-no supports-[order:sibling-index()]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>alpha()</code><span class="ar-yes d-none supports-[color:alpha(from_currentColor_/_50%)]:inline">✓ supported</span><span class="ar-no supports-[color:alpha(from_currentColor_/_50%)]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>if()</code><span class="ar-yes d-none supports-[width:if(else:1px)]:inline">✓ supported</span><span class="ar-no supports-[width:if(else:1px)]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>random()</code><span class="ar-yes d-none supports-[width:random(0px,10px)]:inline">✓ supported</span><span class="ar-no supports-[width:random(0px,10px)]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>scroll-marker-group</code><span class="ar-yes d-none supports-[scroll-marker-group:after]:inline">✓ supported</span><span class="ar-no supports-[scroll-marker-group:after]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>interpolate-size</code><span class="ar-yes d-none supports-[interpolate-size:allow-keywords]:inline">✓ supported</span><span class="ar-no supports-[interpolate-size:allow-keywords]:d-none">✕ not yet</span></div>
+              <div class="ar-row"><code>at-rule(@function)</code><span class="ar-yes d-none supports-[at-rule(@function)]:inline">✓ supported</span><span class="ar-no supports-[at-rule(@function)]:d-none">✕ not yet</span></div>
+            </div>
+          <oc-code lang="html">&lt;div class="ar-row"&gt;
+  &lt;code&gt;field-sizing&lt;/code&gt;
+  &lt;span class="d-none supports-[field-sizing:content]:inline"&gt;✓ supported&lt;/span&gt;
+  &lt;span class="supports-[field-sizing:content]:d-none"&gt;✕ not yet&lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- spaces become _ : supports-[color:alpha(from_currentColor_/_50%)]:inline --&gt;
+&lt;!-- selectors and at-rules: supports-[selector(:user-invalid)]:…  supports-[at-rule(@function)]:… --&gt;</oc-code></oc-demo>
+
+          <oc-code lang="css">/* What the variants compile to */
+@supports (field-sizing:content) {
+  .supports-\[field-sizing\:content\]\:inline { display: inline; }
+}
+@supports selector(:user-invalid) { … }
+@supports font-tech(color-COLRv1) { … }
+@supports (display: grid) and (not (display: inline-grid)) { … }</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="layer">@layer: cascade layers</h3>
+          <p class="oc-section-content__desc">Layers decide which rules win <strong>before</strong> specificity is compared: a later layer beats an earlier one, even when the earlier rule uses an id. <code>omniacss build</code> puts all utilities in <code>@layer omnia</code>, so you can place your own reset before it and your overrides after it. Unlayered CSS always beats layered CSS.</p>
+          <oc-demo title="The later layer wins over an id selector in an earlier layer">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div id="ar-layer-target" class="ar-layer-box ar-box">#id in layer ar-base → loses<br>.class in layer ar-theme → wins (green)</div>
+            </div>
+          <oc-code lang="css">@layer ar-base, ar-theme;                /* order is decided here */
+
+@layer ar-theme {
+  .ar-layer-box { background: var(--color-green-50); }
+}
+@layer ar-base {
+  #ar-layer-target.ar-layer-box { background: var(--color-red-60); }  /* higher specificity, earlier layer */
+}
+
+/* With OmniaCSS */
+@layer reset, omnia, components, overrides;
+@import url("omnia.css") layer(omnia);
+@import url("theme.css") layer(components) supports(display: grid);</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="property">@property: typed, animatable variables</h3>
+          <p class="oc-section-content__desc">A registered custom property has a type (<code>&lt;angle&gt;</code>, <code>&lt;color&gt;</code>, <code>&lt;length&gt;</code>, <code>&lt;integer&gt;</code> …), an initial value and an inheritance flag. Because the browser knows the type it can <strong>interpolate</strong> it: gradients, angles and counters become animatable. More on the <a href="../variables/">Variables</a> page.</p>
+          <oc-demo title="Rotating conic gradient border with a registered --ar-angle">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="ar-spin-border">@property --ar-angle</div>
+            </div>
+          <oc-code lang="css">@property --ar-angle {
+  syntax: "&lt;angle&gt;";
+  inherits: false;
+  initial-value: 0deg;
+}
+.ar-spin-border {
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background:
+    linear-gradient(var(--oc-card), var(--oc-card)) padding-box,
+    conic-gradient(from var(--ar-angle), var(--color-blue-50), var(--color-magenta-50),
+                   var(--color-orange-50), var(--color-blue-50)) border-box;
+  animation: ar-angle 4s linear infinite;
+}
+@keyframes ar-angle { to { --ar-angle: 360deg; } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="scope">@scope: styles with an upper and a lower limit</h3>
+          <p class="oc-section-content__desc"><code>@scope (root) to (limit)</code> styles only the elements between the scope root and the limit (a "donut"). Slots, nested widgets and user content inside the limit stay untouched, without long selectors or naming schemes.</p>
+          <oc-demo title="@scope (.ar-scope-card) to (.ar-scope-slot)">
+            <div class="ar-scope-card">
+              <p>Inside the scope: blue and bold.</p>
+              <div class="ar-scope-slot"><p>Inside the limit (.ar-scope-slot): not styled by the scope.</p></div>
+            </div>
+          <oc-code lang="css">@scope (.ar-scope-card) to (.ar-scope-slot) {
+  p { color: var(--color-vividblue-80); font-weight: 600; }
+}
+/* :scope refers to the root itself */
+@scope (.card) { :scope { container-type: inline-size; } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="container-style">@container style(): query a variable</h3>
+          <p class="oc-section-content__desc">Size queries are covered on <a href="../container-queries/">Container queries</a>. Style queries test a custom property of the parent: set <code>--status</code> once and every child adapts. Every element is a style container, so no <code>container-type</code> is needed.</p>
+          <oc-demo title="One variable, three looks">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div style="--status: ok"><span class="ar-badge">--status: ok</span></div>
+              <div style="--status: warn"><span class="ar-badge">--status: warn</span></div>
+              <div style="--status: danger"><span class="ar-badge">--status: danger</span></div>
+            </div>
+          <oc-code lang="css">@container style(--status: ok)     { .ar-badge { background: var(--color-green-60); } }
+@container style(--status: warn)   { .ar-badge { background: var(--color-orange-60); } }
+@container style(--status: danger) { .ar-badge { background: var(--color-red-60); } }
+
+/* &lt;div style="--status: danger"&gt;&lt;span class="ar-badge"&gt;…&lt;/span&gt;&lt;/div&gt; */</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="function">@function: your own CSS functions</h3>
+          <p class="oc-section-content__desc">A custom function takes arguments and returns a <code>result</code>. Write the plain declaration first: browsers without <code>@function</code> drop the second line and keep the fallback. Drag the corner of the box to resize it.</p>
+          <oc-demo title="--ar-fluid(min, max) — fluid type from the container width">
+            <div class="ar-fn-wrap">
+              <p class="ar-fn-text">Resize me: fluid heading</p>
+            </div>
+          <oc-code lang="css">@function --ar-fluid(--min, --max) {
+  result: clamp(var(--min), 0.5rem + 4cqi, var(--max));
+}
+.ar-fn-text {
+  font-size: 1.25rem;                     /* fallback */
+  font-size: --ar-fluid(1rem, 2.75rem);   /* Chromium 139+ */
+}</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="media">@media: range syntax and custom media</h3>
+          <p class="oc-section-content__desc">Media queries accept comparison operators. <code>@custom-media</code> gives a query a name; until browsers support it widely, the OmniaCSS breakpoint variants do the same job.</p>
+          <oc-code lang="css">@media (40rem &lt;= width &lt; 64rem) { … }            /* = md: up to lg */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) { … }
+@media (dynamic-range: high) and (color-gamut: p3) { … }
+@media (scripting: none) { … }                   /* noscript: variant */
+
+@custom-media --tablet (40rem &lt;= width &lt; 64rem);  /* Firefox only, behind a flag */
+@media (--tablet) { … }</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="page">@page: print pages and margin boxes</h3>
+          <p class="oc-section-content__desc">Set paper size, margins and running headers or page numbers for printing. Combine with <code>.break-before-page</code> and <code>.break-inside-avoid</code> from <a href="../fragmentation/">Fragmentation</a>.</p>
+          <oc-code lang="css">@page {
+  size: A4;
+  margin: 2cm 1.5cm;
+  @bottom-center { content: "Page " counter(page) " of " counter(pages); }
+}
+@page :first { margin-top: 4cm; @bottom-center { content: none; } }
+@page chapter { @top-left { content: "OmniaCSS"; } }
+.chapter { page: chapter; }</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="other">@import, @namespace, @font-palette-values, @font-feature-values</h3>
+          <oc-code lang="css">@charset "UTF-8";
+@import url("omnia.css") layer(omnia) supports(color: oklch(0% 0 0));
+@import url("print.css") print;
+
+@namespace svg url(http://www.w3.org/2000/svg);
+svg|a { fill: currentColor; }
+
+@font-palette-values --brand {
+  font-family: "Bungee Spice";
+  override-colors: 0 var(--color-vividblue-80), 1 var(--color-magenta-50);
+}
+.logo { font-palette: --brand; }
+
+@font-feature-values "Fira Sans" { @styleset { alt-g: 1; } }
+.alt { font-variant-alternates: styleset(alt-g); }</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc"><code>@media</code>, <code>@supports</code>, <code>@layer</code>, <code>@property</code> and <code>@container</code> work everywhere. <code>@scope</code> and style queries are new in Firefox and Safari; <code>@function</code> and <code>at-rule()</code> are Chromium-first, so always write a fallback first.</p>
+          <oc-compat features="css.at-rules.supports css.at-rules.supports.selector css.at-rules.supports.font-tech css.at-rules.supports.at-rule css.at-rules.layer css.at-rules.property css.at-rules.scope css.at-rules.container.style_queries_for_custom_properties css.at-rules.function css.at-rules.custom-media css.at-rules.page css.at-rules.font-palette-values"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The conditional variants come from <code>packages/core/src/variants.mjs</code>; the layer comes from the <code>omniacss build</code> engine. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@supports" target="_blank" rel="noopener">MDN: @supports</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer" target="_blank" rel="noopener">MDN: @layer</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@scope" target="_blank" rel="noopener">MDN: @scope</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">Source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>packages/core/src/variants.mjs</code></td><td>media, container, supports, starting and scroll-state variants</td></tr>
+                  <tr><td><code>packages/core/src/engine.mjs</code></td><td>on-demand build, <code>@layer omnia</code> wrapper</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Variants are generated on demand by <code>omniacss build</code>; they are not part of the full <code>omnia.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../functions/">CSS Functions</a>
+               ·
+              <a class="source-link" href="../variables/">Variables</a>
+               ·
+              <a class="source-link" href="../container-queries/">Container queries</a>
+            </p>
+          </div>
+        </div>
+      </section>

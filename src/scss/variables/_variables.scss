@@ -1,0 +1,302 @@
+// SCSS Document 
+// File: src/scss/variables/__variables.scss
+// Description: Default string items for using in the CSS properties 
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Variables and strings: _spacing.scss, _position.scss, _sizing.scss
+
+///
+/// Below you will find the list of all strings and arrays that we will use within our framework - file variables.
+/// @group Variables
+///
+
+// Default settings 
+/// basesize in rem
+/// @group variables
+///
+/// @name base-size
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$base-size: 1rem;
+
+/// basesize in px
+/// @group variables
+///
+/// @name base-size-px
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$base-size-px: 1px;
+
+// Default sizes in rem
+///
+/// The different lengths we will use to create our padding, margin, width, height
+/// @group variables
+///
+/// @name sizesrem
+///
+/// @since 1.0.0
+/// @author Serge Cools
+/// 
+/// @require $base-size
+///
+$sizesrem: (
+  "size-0": $base-size * 0, // 0
+  "size-px": 1px, // 1px
+  "size-0\\.1": $base-size * 0.125, // 2px
+  "size-0\\.2": $base-size * 0.25, // 4px
+  "size-0\\.3": $base-size * 0.375, // 6px
+  "size-0\\.5": $base-size * 0.5, // 8px
+  "size-0\\.6": $base-size * 0.625, // 10px
+  "size-0\\.7": $base-size * 0.75, // 12px
+  "size-0\\.8": $base-size * 0.875, // 14px
+  "size-1": $base-size * 1, // 16px
+  "size-1\\.2": $base-size * 1.25, //20px
+  "size-1\\.5": $base-size * 1.5, // 24px
+  "size-1\\.7": $base-size * 1.75, // 28px
+  "size-2": $base-size * 2, // 32px
+  "size-2\\.2": $base-size * 2.25, // 36px
+  "size-2\\.5": $base-size * 2.5, // 40px
+  "size-2\\.7": $base-size * 2.75, // 44px
+  "size-3": $base-size * 3, // 48px
+  "size-3\\.2": $base-size * 3.25, // 52px
+  "size-3\\.5": $base-size * 3.5, // 56px
+  "size-3\\.7": $base-size * 3.75, // 60px
+  "size-4": $base-size * 4, // 64px
+  "size-4\\.2": $base-size * 4.25, // 68px
+  "size-4\\.5": $base-size * 4.5, // 72px
+  "size-4\\.7": $base-size * 4.75, // 76px
+  "size-5": $base-size * 5, // 80px
+  "size-5\\.2": $base-size * 5.25, // 84px
+  "size-5\\.5": $base-size * 5.5, // 88px
+  "size-5\\.7": $base-size * 5.75, // 92px
+  "size-6": $base-size * 6, // 96px
+  "size-6\\.2": $base-size * 6.25, // 100px
+  "size-6\\.5": $base-size * 6.5, // 104px
+  "size-6\\.7": $base-size * 6.75, // 108px
+  "size-7": $base-size * 7, // 112px
+  "size-7\\.2": $base-size * 7.25, // 116px
+  "size-7\\.5": $base-size * 7.5, // 120px
+  "size-7\\.7": $base-size * 7.75, // 124px
+  "size-8": $base-size * 8, // 128px
+  "size-8\\.2": $base-size * 8.25, // 132px
+  "size-8\\.5": $base-size * 8.5, // 136px
+  "size-8\\.7": $base-size * 8.75, // 140px
+  "size-9": $base-size * 9, // 144px
+  "size-9\\.2": $base-size * 9.25, // 148px
+  "size-9\\.5": $base-size * 9.5, // 152px
+  "size-9\\.7": $base-size * 9.75, // 156px
+  "size-10": $base-size * 10, // 160px
+  "size-10\\.2": $base-size * 10.25, // 164px
+  "size-10\\.5": $base-size * 10.5, // 168px
+  "size-10\\.7": $base-size * 10.75, // 172px
+  "size-11": $base-size * 11, // 176px
+  "size-11\\.2": $base-size * 11.25, // 180px
+  "size-11\\.5": $base-size * 11.5, // 184px
+  "size-11\\.7": $base-size * 11.75, // 188px
+  "size-12": $base-size * 12, // 192px
+  "size-12\\.2": $base-size * 12.25, // 196px
+  "size-12\\.5": $base-size * 12.5, // 200px
+  "size-12\\.7": $base-size * 12.75, // 204px
+  "size-13": $base-size * 13, // 208px
+  "size-13\\.2": $base-size * 13.25, // 212px
+  "size-13\\.5": $base-size * 13.5, // 216px
+  "size-13\\.7": $base-size * 13.75, // 220px
+  "size-14": $base-size * 14, // 224px
+  "size-14\\.2": $base-size * 14.25, // 228px
+  "size-14\\.5": $base-size * 14.5, // 232px
+  "size-14\\.7": $base-size * 14.75, // 236px
+  "size-15": $base-size * 15, // 240px
+  "size-15\\.2": $base-size * 15.25, // 244px
+  "size-15\\.5": $base-size * 15.5, // 248px
+  "size-15\\.7": $base-size * 15.75, // 252px
+  "size-16": $base-size * 16, // 256px
+  "size-16\\.2": $base-size * 16.25, // 260px
+  "size-16\\.5": $base-size * 16.5, // 264px
+  "size-16\\.7": $base-size * 16.75, // 268px
+  "size-17": $base-size * 17, // 272px
+  "size-17\\.2": $base-size * 17.25, // 276px
+  "size-17\\.5": $base-size * 17.5, // 280px
+  "size-17\\.7": $base-size * 17.75, // 284px
+  "size-18": $base-size * 18, // 288px
+  "size-18\\.2": $base-size * 18.25, // 292px
+  "size-18\\.5": $base-size * 18.5, // 296px
+  "size-18\\.7": $base-size * 18.75, // 300px
+  "size-19": $base-size * 19, // 304px
+  "size-19\\.2": $base-size * 19.25, // 308px
+  "size-19\\.5": $base-size * 19.5, // 312px
+  "size-19\\.7": $base-size * 19.75, // 316px
+  "size-20": $base-size * 20, // 320px
+  "size-20\\.2": $base-size * 20.25, // 324px
+  "size-20\\.5": $base-size * 20.5, // 328px
+  "size-20\\.7": $base-size * 20.75, // 332px  
+  "size-21": $base-size * 21, // 336px
+  "size-21\\.2": $base-size * 21.25, // 340px
+  "size-21\\.5": $base-size * 21.5, // 344px
+  "size-21\\.7": $base-size * 21.75, // 348px
+  "size-22": $base-size * 22, // 352px
+  "size-22\\.2": $base-size * 22.25, // 356px
+  "size-22\\.5": $base-size * 22.5, // 360px
+  "size-22\\.7": $base-size * 22.75, // 364px
+  "size-23": $base-size * 23, // 368px
+  "size-23\\.2": $base-size * 23.25, // 372px
+  "size-23\\.5": $base-size * 23.5, // 376px
+  "size-23\\.7": $base-size * 23.75, // 380px
+  "size-24": $base-size * 24, // 384px
+  "size-24\\.2": $base-size * 24.25, // 388px
+  "size-24\\.5": $base-size * 24.5, // 392px
+  "size-24\\.7": $base-size * 24.75, // 396px    
+  "size-25": $base-size * 25, // 400px     
+);
+// end default sizes
+
+// Default gap sizes in rem
+///
+/// The different lengths we will use to create our gap
+/// @group variables
+///
+/// @name sizesgap
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+/// @require $base-size
+///
+$sizesgap: (
+  "size-0": $base-size * 0, // 0
+  "size-px": 1px, // 1px
+  "size-0\\.1": $base-size * 0.125, // 2px
+  "size-0\\.2": $base-size * 0.25, // 4px
+  "size-0\\.3": $base-size * 0.375, // 6px
+  "size-0\\.5": $base-size * 0.5, // 8px
+  "size-0\\.6": $base-size * 0.625, // 10px
+  "size-0\\.7": $base-size * 0.75, // 12px
+  "size-0\\.8": $base-size * 0.875, // 14px
+  "size-1": $base-size * 1, // 16px
+  "size-1\\.2": $base-size * 1.25, //20px
+  "size-1\\.5": $base-size * 1.5, // 24px
+  "size-1\\.7": $base-size * 1.75, // 28px
+  "size-2": $base-size * 2, // 32px
+  "size-2\\.2": $base-size * 2.25, // 36px
+  "size-2\\.5": $base-size * 2.5, // 40px
+  "size-2\\.7": $base-size * 2.75, // 44px
+  "size-3": $base-size * 3, // 48px
+  "size-3\\.2": $base-size * 3.25, // 52px
+  "size-3\\.5": $base-size * 3.5, // 56px
+  "size-3\\.7": $base-size * 3.75, // 60px
+  "size-4": $base-size * 4, // 64px
+  "size-4\\.2": $base-size * 4.25, // 68px
+  "size-4\\.5": $base-size * 4.5, // 72px
+  "size-4\\.7": $base-size * 4.75, // 76px
+  "size-5": $base-size * 5, // 80px
+);
+// end default sizes
+// 
+///
+/// The different CSS elements u can also use, inline, inline-start, inline-end, block, block-start, block-end.
+/// @group variables
+///
+/// @name sides
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$sides: inline, inline-start, inline-end, block, block-start, block-end;
+
+///
+/// variable for making the auto value in the margin property.
+/// @group variables
+///
+/// @name marginauto
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$marginauto: auto ;
+// end padding and margin properties
+
+// Sizing property
+
+///
+/// Different properties for width and height.
+/// @group variables
+///
+/// @name properties
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$properties: min-width, max-width, min-height, max-height;
+
+///
+/// Different values for width and height properties.
+/// @group variables
+///
+/// @name wh-values
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$wh-values: auto, screen, min-content, max-content, fit-content, none, inherit, initial, unset, revert, revert-layer;
+// end sizing property
+
+// Start position property
+///
+/// There are five different position values:
+/// @group variables
+///
+/// @name posvalues
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$posvalues: absolute, fixed, static, sticky, relative;
+// end position property
+
+///
+/// Main screen breakpoints.
+/// @group variables
+///
+/// @name breakpoints
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$breakpoints: (
+  'small' : ( min-width: 43rem ), // 688px 
+  'medium' : ( min-width: 62rem ), // 992px
+  'large' : ( min-width: 82rem ), // 1312px
+) !default;
+// end $breakpoints
+
+// The Display properties values
+///
+/// the display property values.
+/// The table, flex, grid is set in their own property file
+/// @group variables
+///
+/// @name display
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$display: inline, block, inline-block, flow-root, contents, list-item, none;
+// End Display properties
+
+// The Display Table properties values
+///
+/// the display Table property values.
+/// @group variables
+///
+/// @name displaytable
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$displaytable: table, inline-table, table-caption, table-column-group, table-header-group, table-footer-group, table-row-group, table-cell, table-column, table-row;
+// End display Table properties

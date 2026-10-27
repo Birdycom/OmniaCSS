@@ -1,0 +1,172 @@
+<!--oc-page {"title": "OmniaCSS Docs - Transitions", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>@property --p { syntax: \"<number>\"; inherits: false; initial-value: 0; }\n.tr-race { display: grid; gap: 8px; inline-size: 100%; padding: 6px; }\n.tr-race:hover .tr-dot, .tr-race:focus-within .tr-dot { translate: calc(100cqi - 100%) 0; }\n.tr-lane { display: grid; grid-template-columns: minmax(8rem, 10rem) 1fr; align-items: center; gap: 12px; font-size: 0.75rem; }\n.tr-track { container-type: inline-size; block-size: 22px; border-radius: 999px; background: var(--oc-muted); }\n.tr-dot { display: block; block-size: 22px; aspect-ratio: 1; border-radius: 50%; background: var(--oc-gradient-brand); }\n.tr-ring { --color: var(--color-dodgerblue-90); display: grid; place-items: center; inline-size: 6rem; aspect-ratio: 1; border-radius: 50%; background: conic-gradient(var(--color) calc(var(--p) * 1%), var(--oc-muted) 0); transition: --p 1s ease; font-weight: 800; mask: radial-gradient(circle, transparent 55%, var(--color-black-50) 56%); -webkit-mask: radial-gradient(circle, transparent 55%, var(--color-black-50) 56%); }\n.tr-ring span { visibility: hidden; }\n.tr-ring:is(:hover, :focus-visible) { --p: 75; }\n</style>"]}-->
+<section class="oc-docs-section" id="transitions">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Transitions</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_motion_transforms.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.4.0</span>
+          <p class="oc-section-header__desc">
+            Animate the change between two states (for example normal → <code>:hover</code>) with <code>.transition-{property}</code>, <code>.duration-{ms}</code>, <code>.ease-{curve}</code> and <code>.delay-{ms}</code>. Nothing moves until a value changes: every demo below reacts when you <strong>hover</strong> it (or focus it with the keyboard).
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> a transition animates a property from its old to its new value when it changes, instead of switching instantly. You choose <em>which</em> property (<code>.transition-*</code>), <em>how long</em> (<code>.duration-*</code>), <em>how it accelerates</em> (<code>.ease-*</code>) and <em>when it starts</em> (<code>.delay-*</code>). <strong>When to use:</strong> hover, focus and state changes: color, opacity, shadow, transform. <strong>Gotchas:</strong> put the transition classes on the base state, not only on <code>:hover</code>, or the way back is instant; <code>transition-all</code> is convenient but animates everything (including layout properties); <code>display</code> and <code>height: auto</code> do not animate without <code>transition-behavior: allow-discrete</code> / <code>interpolate-size</code>; and honour <code>prefers-reduced-motion</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition" target="_blank" rel="noopener">MDN: transition</a>.</p>
+
+          <h3 class="oc-section-content__title" id="transition-property">Transition property</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.transition-all</code></td><td>transition-property: all (with a default of 150ms and ease-in-out; change it with <code>.duration-*</code> / <code>.ease-*</code>)</td></tr>
+                <tr><td><code>.transition-colors</code></td><td>transition-property: color, background-color, border-color, text-decoration-color, fill, stroke</td></tr>
+                <tr><td><code>.transition-opacity</code></td><td>transition-property: opacity</td></tr>
+                <tr><td><code>.transition-shadow</code></td><td>transition-property: box-shadow</td></tr>
+                <tr><td><code>.transition-transform</code></td><td>transition-property: transform, translate, scale, rotate</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.transition-none</code></td><td>transition-property: none</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <oc-demo title="Hover each card — one property animates">
+            <div class="oc-fx-grid">
+              <div class="oc-fx-card transition-colors duration-300 hover:bg-vividblue-95" tabindex="0"><strong>.transition-colors</strong><span>background fades</span></div>
+              <div class="oc-fx-card transition-opacity duration-300 hover:opacity-50" tabindex="0"><strong>.transition-opacity</strong><span>fades to 50%</span></div>
+              <div class="oc-fx-card oc-fx-card--shadow transition-shadow duration-300" tabindex="0"><strong>.transition-shadow</strong><span>shadow grows</span></div>
+              <div class="oc-fx-card transition-transform duration-300 ease-out hover:scale-110" tabindex="0"><strong>.transition-transform</strong><span>scales to 110%</span></div>
+              <div class="oc-fx-card transition-none hover:scale-110" tabindex="0"><strong>.transition-none</strong><span>jumps, no animation</span></div>
+            </div>
+          </oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="duration">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Duration — visual timing</h2>
+          <p class="oc-section-header__desc"><code>.duration-{ms}</code> sets how long the change takes. Hover the race: every ball travels the same distance, only the duration differs.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.duration-75</code> … <code>.duration-1000</code></td><td>transition-duration: 75ms, 100ms, 150ms, 200ms, 300ms, 500ms, 700ms, 1000ms</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Duration race (hover)">
+            <div class="oc-race" tabindex="0">
+              <div class="oc-race__lane"><code>.duration-150</code><div class="oc-race__track"><span class="oc-race__dot transition-transform ease-in-out duration-150"></span></div></div>
+              <div class="oc-race__lane"><code>.duration-300</code><div class="oc-race__track"><span class="oc-race__dot transition-transform ease-in-out duration-300"></span></div></div>
+              <div class="oc-race__lane"><code>.duration-500</code><div class="oc-race__track"><span class="oc-race__dot transition-transform ease-in-out duration-500"></span></div></div>
+              <div class="oc-race__lane"><code>.duration-700</code><div class="oc-race__track"><span class="oc-race__dot transition-transform ease-in-out duration-700"></span></div></div>
+              <div class="oc-race__lane"><code>.duration-1000</code><div class="oc-race__track"><span class="oc-race__dot transition-transform ease-in-out duration-1000"></span></div></div>
+            </div>
+          <oc-code lang="html">&lt;!-- The ball moves on hover; the duration class decides how long it takes --&gt;
+&lt;span class="transition-transform ease-in-out duration-500"&gt;…&lt;/span&gt;</oc-code></oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="timing">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Timing &amp; easing</h2>
+          <p class="oc-section-header__desc">The easing curve controls acceleration: same distance, same duration (<code>.duration-1000</code>), different curve. <code>.ease-spring</code> and <code>.ease-bounce</code> use the CSS <code>linear()</code> function, <code>.ease-steps-4</code> jumps in four steps.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.ease-linear</code></td><td>transition-timing-function: linear</td></tr>
+                <tr><td><code>.ease-in</code></td><td>transition-timing-function: cubic-bezier(0.4, 0, 1, 1)</td></tr>
+                <tr><td><code>.ease-out</code></td><td>transition-timing-function: cubic-bezier(0, 0, 0.2, 1)</td></tr>
+                <tr><td><code>.ease-in-out</code></td><td>transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.ease-spring</code> / <code>.ease-bounce</code></td><td>transition-timing-function: linear(…) — overshoot / bounce</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.ease-steps-4</code></td><td>transition-timing-function: steps(4, end)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+          <oc-demo title="Easing race (hover)">
+            <div class="oc-race" tabindex="0">
+              <div class="oc-race__lane"><code>.ease-linear</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-1000 ease-linear"></span></div></div>
+              <div class="oc-race__lane"><code>.ease-in</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-1000 ease-in"></span></div></div>
+              <div class="oc-race__lane"><code>.ease-out</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-1000 ease-out"></span></div></div>
+              <div class="oc-race__lane"><code>.ease-in-out</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-1000 ease-in-out"></span></div></div>
+              <div class="oc-race__lane"><code>.ease-spring</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-1000 ease-spring"></span></div></div>
+              <div class="oc-race__lane"><code>.ease-bounce</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-1000 ease-bounce"></span></div></div>
+              <div class="oc-race__lane"><code>.ease-steps-4</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-1000 ease-steps-4"></span></div></div>
+            </div>
+          <oc-code lang="html">&lt;span class="transition-transform duration-1000 ease-spring"&gt;…&lt;/span&gt;</oc-code></oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="delay">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Delay</h2>
+          <p class="oc-section-header__desc"><code>.delay-{ms}</code> waits before the transition starts — handy for staggered effects.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.delay-0</code> … <code>.delay-500</code></td><td>transition-delay: 0ms, 75ms, 100ms, 150ms, 200ms, 300ms, 500ms</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Staggered delay (hover)">
+            <div class="oc-race" tabindex="0">
+              <div class="oc-race__lane"><code>.delay-0</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-500 ease-out delay-0"></span></div></div>
+              <div class="oc-race__lane"><code>.delay-100</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-500 ease-out delay-100"></span></div></div>
+              <div class="oc-race__lane"><code>.delay-200</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-500 ease-out delay-200"></span></div></div>
+              <div class="oc-race__lane"><code>.delay-300</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-500 ease-out delay-300"></span></div></div>
+              <div class="oc-race__lane"><code>.delay-500</code><div class="oc-race__track"><span class="oc-race__dot transition-transform duration-500 ease-out delay-500"></span></div></div>
+            </div>
+          <oc-code lang="html">&lt;span class="transition-transform duration-500 ease-out delay-200"&gt;…&lt;/span&gt;</oc-code></oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="combined">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Combined examples</h2>
+          <p class="oc-section-header__desc">Real interface patterns built only from utility classes.</p>
+        </div>
+        <div class="oc-section-content">
+          <oc-demo title="Button lift, icon spin, card grow">
+            <div class="flex flex-wrap gap-2 align-items-center">
+              <button class="oc-btn transition-all duration-200 ease-out hover:-translate-y-1">Lift on hover</button>
+              <button class="oc-btn oc-btn--outline group">Settings <span class="inline-block transition-transform duration-500 ease-spring group-hover:rotate-180">⚙</span></button>
+              <div class="oc-fx-card transition-transform duration-500 ease-spring hover:scale-110" tabindex="0"><strong>.ease-spring</strong><span>overshoots a little</span></div>
+            </div>
+          </oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Typical durations at a glance</h3>
+          <p class="oc-section-content__desc">Short for small feedback (100 to 150ms), medium for panels (200 to 300ms), longer for large movements. Hover the bars: all travel the same distance with different <code>.duration-*</code> classes.</p>
+
+          <oc-demo title="duration-75 … duration-1000">
+            <div class="tr-race">
+              <div class="tr-lane"><code>.duration-75</code><div class="tr-track"><span class="tr-dot transition-transform duration-75 ease-out"></span></div></div>
+              <div class="tr-lane"><code>.duration-150</code><div class="tr-track"><span class="tr-dot transition-transform duration-150 ease-out"></span></div></div>
+              <div class="tr-lane"><code>.duration-300</code><div class="tr-track"><span class="tr-dot transition-transform duration-300 ease-out"></span></div></div>
+              <div class="tr-lane"><code>.duration-500</code><div class="tr-track"><span class="tr-dot transition-transform duration-500 ease-out"></span></div></div>
+              <div class="tr-lane"><code>.duration-700</code><div class="tr-track"><span class="tr-dot transition-transform duration-700 ease-out"></span></div></div>
+              <div class="tr-lane"><code>.duration-1000</code><div class="tr-track"><span class="tr-dot transition-transform duration-1000 ease-out"></span></div></div>
+            </div>
+          <oc-code lang="html">&lt;span class="transition-transform duration-300 ease-out hover:translate-x-full"&gt;&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Animate a custom property for gradients</h3>
+          <p class="oc-section-content__desc">Gradients cannot transition, but <code>@property</code> turns a custom property into an animatable angle. Hover or focus the tile; the ring fills smoothly with a transition on <code>--p</code>. This pattern works for any value the browser can interpolate once it knows the type.</p>
+
+          <oc-demo title="@property + transition (conic progress ring)">
+            <div class="flex flex-wrap items-center gap-3">
+              <div class="tr-ring" tabindex="0" aria-label="Hover to fill"></div>
+              <span class="oc-demo-hint">Hover or focus the ring</span>
+            </div>
+          <oc-code lang="html">@property --p { syntax: "&lt;number&gt;"; inherits: false; initial-value: 0; }
+.ring { background: conic-gradient(var(--color) calc(var(--p) * 1%), transparent 0); transition: --p 1s; }
+.ring:hover { --p: 75; }</oc-code></oc-demo>
+
+        </div>
+      </section>

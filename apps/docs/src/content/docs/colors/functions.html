@@ -1,0 +1,164 @@
+<!--oc-page {"title":"OmniaCSS Docs - Color Functions","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .cf-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }\n    .cf-chip { display: grid; gap: 0.3rem; justify-items: center; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .cf-checker { inline-size: 4.5rem; aspect-ratio: 1; border-radius: 12px; background: repeating-conic-gradient(var(--oc-muted) 0 25%, var(--oc-card) 0 50%) 0 0 / 1rem 1rem; overflow: hidden; }\n    .cf-checker > div { block-size: 100%; }\n    .cf-a100 { background: var(--color-vividblue-80); }\n    .cf-a75 { background: oklch(from var(--color-vividblue-80) l c h / 0.75); }\n    .cf-a50 { background: oklch(from var(--color-vividblue-80) l c h / 0.5); }\n    .cf-a25 { background: oklch(from var(--color-vividblue-80) l c h / 0.25); }\n    .cf-alpha { background: oklch(from var(--color-magenta-50) l c h / 0.4); background: alpha(from var(--color-magenta-50) / 40%); }\n    .cf-mix { display: grid; gap: 0.5rem; inline-size: 100%; }\n    .cf-mix div { display: grid; grid-template-columns: 9rem 1fr; align-items: center; gap: 0.75rem; font-size: 0.8rem; }\n    .cf-mix span { block-size: 2rem; border-radius: 8px; }\n    .cf-srgb { background: linear-gradient(90deg in srgb, var(--color-blue-50), var(--color-yellow-50)); }\n    .cf-oklab { background: linear-gradient(90deg in oklab, var(--color-blue-50), var(--color-yellow-50)); }\n    .cf-oklch { background: linear-gradient(90deg in oklch, var(--color-blue-50), var(--color-yellow-50)); }\n    .cf-longer { background: linear-gradient(90deg in oklch longer hue, var(--color-blue-50), var(--color-yellow-50)); }\n    .cf-scheme { display: grid; gap: 0.4rem; inline-size: min(100%, 14rem); padding: 1rem; border-radius: 12px; border: 1px solid light-dark(var(--color-mistblue-20), var(--color-black-20)); background: light-dark(var(--color-white-2), var(--color-black-40)); color: light-dark(var(--color-black-40), var(--color-white-60)); }\n    .cf-scheme b { color: light-dark(var(--color-vividblue-95), var(--color-vividblue-50)); }\n    .cf-light { color-scheme: light; }\n    .cf-dark { color-scheme: dark; }\n    .cf-contrast { display: grid; align-self: center; place-items: center; inline-size: 7rem; block-size: 3.5rem; border-radius: 10px; font-weight: 700; background: var(--bg); color: var(--color-white-50); color: contrast-color(var(--bg)); }\n  </style>"]}-->
+<section class="oc-docs-section" id="color-functions">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Color Functions</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_css_functions.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">functions.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.8.2</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Change the transparency of any Omnia token with <code>alpha()</code> or the relative color syntax (<code>oklch(from … l c h / 50%)</code>), blend tokens with <code>color-mix()</code>, switch between light and dark values with <code>light-dark()</code> and let the browser pick a readable text color with <code>contrast-color()</code>. OmniaCSS adds <code>.bg-current-*</code> and <code>.border-current-*</code> (alpha steps of the text color) and the <code>--color-*-mix-*</code> tokens. Lighter and darker variants come from the tone steps (<code>-2</code> … <code>-95</code>), so the result stays inside the Omnia palette. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors" target="_blank" rel="noopener">MDN: Relative colors</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="alpha">Alpha: alpha() and the relative color syntax</h3>
+          <p class="oc-section-content__desc">The relative syntax takes a color apart into its channels (<code>l c h</code> for OKLCH) and lets you rebuild it, here with a new alpha. <code>alpha(from color / 40%)</code> is the short form that only touches the alpha channel. Both work on <code>var()</code> tokens and on <code>currentColor</code>.</p>
+          <oc-demo title="oklch(from var(--color-vividblue-80) l c h / a) and alpha()">
+            <div class="cf-row">
+              <div class="cf-chip"><div class="cf-checker"><div class="cf-a100"></div></div>100%</div>
+              <div class="cf-chip"><div class="cf-checker"><div class="cf-a75"></div></div>/ 0.75</div>
+              <div class="cf-chip"><div class="cf-checker"><div class="cf-a50"></div></div>/ 0.5</div>
+              <div class="cf-chip"><div class="cf-checker"><div class="cf-a25"></div></div>/ 0.25</div>
+              <div class="cf-chip"><div class="cf-checker"><div class="cf-alpha"></div></div>alpha() 40%</div>
+            </div>
+          <oc-code lang="css">.cf-a50   { background: oklch(from var(--color-vividblue-80) l c h / 0.5); }
+
+/* alpha(): only the alpha channel, any color space */
+.cf-alpha {
+  background: oklch(from var(--color-magenta-50) l c h / 0.4);   /* fallback */
+  background: alpha(from var(--color-magenta-50) / 40%);
+}
+
+/* Other channel tricks (code only — prefer Omnia tone steps for real UI) */
+.muted   { color: oklch(from currentColor l c h / 0.6); }
+.no-tint { color: oklch(from var(--color-blue-50) l 0 h); }            /* grayscale */
+.swap    { color: rgb(from var(--color-red-50) b g r); }                /* swap channels */</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="current">Alpha of the text color: .bg-current-* and .border-current-*</h3>
+          <p class="oc-section-content__desc">Set a text color once and derive a soft background and border from it. One class change recolors the whole badge.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.bg-current-{5|10|15|20|30|40|50|60|70|80}</code></td><td>background-color: color-mix(in oklch, currentColor {n}%, transparent)</td></tr>
+                <tr><td><code>.border-current-{5…80}</code></td><td>border-color: color-mix(in oklch, currentColor {n}%, transparent)</td></tr>
+                <tr><td><code>.bg-{color}-mix-{0…100}</code></td><td>background-color: var(--color-{color}-mix-{n}) — see <a href="palettes.html">Palettes</a></td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+          <oc-demo title="text-* + bg-current-15 + border-current-40">
+            <div class="cf-row">
+              <span class="text-vividblue-95 bg-current-15 border-1 border-solid border-current-40 round-full p-inline-3 p-block-1 font-semibold">Info</span>
+              <span class="text-green-60 bg-current-15 border-1 border-solid border-current-40 round-full p-inline-3 p-block-1 font-semibold">Success</span>
+              <span class="text-orange-60 bg-current-15 border-1 border-solid border-current-40 round-full p-inline-3 p-block-1 font-semibold">Warning</span>
+              <span class="text-red-60 bg-current-15 border-1 border-solid border-current-40 round-full p-inline-3 p-block-1 font-semibold">Error</span>
+              <span class="text-magenta-50 bg-current-15 border-1 border-solid border-current-40 round-full p-inline-3 p-block-1 font-semibold">New</span>
+            </div>
+          <oc-code lang="html">&lt;span class="text-green-60 bg-current-15 border-1 border-solid border-current-40 round-full p-inline-3 p-block-1 font-semibold"&gt;Success&lt;/span&gt;
+&lt;span class="text-red-60   bg-current-15 border-1 border-solid border-current-40 round-full p-inline-3 p-block-1 font-semibold"&gt;Error&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="color-mix">color-mix() and interpolation spaces</h3>
+          <p class="oc-section-content__desc"><code>color-mix(in &lt;space&gt;, a p%, b)</code> blends two colors. The color space decides the path: sRGB goes through gray, OKLab stays bright, OKLCH keeps chroma and can take the long way around the hue wheel. The same <code>in &lt;space&gt;</code> works inside gradients.</p>
+          <oc-demo title="blue-50 → yellow-50 in four spaces">
+            <div class="cf-mix">
+              <div><code>in srgb</code><span class="cf-srgb"></span></div>
+              <div><code>in oklab</code><span class="cf-oklab"></span></div>
+              <div><code>in oklch</code><span class="cf-oklch"></span></div>
+              <div><code>in oklch longer hue</code><span class="cf-longer"></span></div>
+            </div>
+          <oc-code lang="css">.cf-oklch  { background: linear-gradient(90deg in oklch, var(--color-blue-50), var(--color-yellow-50)); }
+.cf-longer { background: linear-gradient(90deg in oklch longer hue, var(--color-blue-50), var(--color-yellow-50)); }
+
+.hover-tint { background: color-mix(in oklch, var(--color-blue-50) 85%, var(--color-black-50)); }
+.three-way  { background: color-mix(in oklch, var(--color-red-50), var(--color-blue-50), var(--color-yellow-50)); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="light-dark">light-dark(): one declaration for both themes</h3>
+          <p class="oc-section-content__desc"><code>light-dark(a, b)</code> picks <em>a</em> or <em>b</em> from the element's <code>color-scheme</code>. All <code>--oc-*</code> theme tokens are built this way, so components follow the site theme automatically. Below, the same CSS is shown under a forced light and dark scheme.</p>
+          <oc-demo title="Same rule, color-scheme: light vs dark">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="cf-scheme cf-light"><b>color-scheme: light</b><span>Background, border and text come from light-dark().</span></div>
+              <div class="cf-scheme cf-dark"><b>color-scheme: dark</b><span>Background, border and text come from light-dark().</span></div>
+            </div>
+          <oc-code lang="css">.cf-scheme {
+  background: light-dark(var(--color-white-2), var(--color-black-40));
+  color:      light-dark(var(--color-black-40), var(--color-white-60));
+  border: 1px solid light-dark(var(--color-mistblue-20), var(--color-black-20));
+}
+:root { color-scheme: light dark; }   /* follow the system */
+.cf-dark { color-scheme: dark; }      /* force one area */</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="contrast-color">contrast-color(): readable text on any background</h3>
+          <p class="oc-section-content__desc"><code>contrast-color(bg)</code> returns white or black, whichever contrasts most. Keep a fixed color before it for browsers without support.</p>
+          <oc-demo title="color: contrast-color(var(--bg))">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="cf-contrast" style="--bg: var(--color-yellow-50)">yellow-50</div>
+              <div class="cf-contrast" style="--bg: var(--color-vividblue-95)">vividblue-95</div>
+              <div class="cf-contrast" style="--bg: var(--color-mistblue-10)">mistblue-10</div>
+              <div class="cf-contrast" style="--bg: var(--color-red-60)">red-60</div>
+            </div>
+          <oc-code lang="css">.cf-contrast {
+  background: var(--bg);
+  color: var(--color-white-50);        /* fallback */
+  color: contrast-color(var(--bg));
+}</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="spaces">Color spaces</h3>
+          <p class="oc-section-content__desc">OmniaCSS writes its tokens in OKLCH by default (<code>$DEFAULT-COLOR-TYPE-VALUE</code> on <a href="system.html">Color system</a>); all of these spaces are valid input and output.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Function</th><th>Channels</th></tr></thead>
+              <tbody>
+                <tr><td><code>rgb()</code>, <code>#hex</code></td><td>red green blue (sRGB)</td></tr>
+                <tr><td><code>hsl()</code>, <code>hwb()</code></td><td>hue saturation lightness / hue whiteness blackness (sRGB)</td></tr>
+                <tr><td><code>lab()</code>, <code>lch()</code></td><td>CIE lightness + a/b or chroma/hue</td></tr>
+                <tr><td><code>oklab()</code>, <code>oklch()</code></td><td>Perceptual lightness + a/b or chroma/hue (OmniaCSS default)</td></tr>
+                <tr><td><code>color(display-p3 r g b)</code>, <code>color(rec2020 …)</code>, <code>color(xyz …)</code></td><td>Wide-gamut and reference spaces</td></tr>
+                <tr><td><code>currentColor</code>, <code>transparent</code>, system colors (<code>Canvas</code>, <code>AccentColor</code> …)</td><td>Keywords</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Relative colors, <code>color-mix()</code>, <code>light-dark()</code> and OKLCH work in all current browsers. <code>alpha()</code> and <code>contrast-color()</code> are new: write a fallback first.</p>
+          <oc-compat features="css.types.color.oklch css.types.color.oklch.relative_syntax css.types.color.alpha css.types.color.color-mix css.types.color.light-dark css.types.color.contrast-color css.types.color.hwb css.types.color.lab"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            <code>.bg-current-*</code> and <code>.border-current-*</code> come from <code>_css_functions.scss</code>; the mix tokens from <code>_colors_mix.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix" target="_blank" rel="noopener">MDN: color-mix()</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark" target="_blank" rel="noopener">MDN: light-dark()</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_css_functions.scss</code></td><td>.bg-current-*, .border-current-*</td></tr>
+                  <tr><td><code>src/scss/utilities/_colors_mix.scss</code></td><td>--color-*-mix-* tokens and classes</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="palettes.html">Palettes</a>
+               ·
+              <a class="source-link" href="system.html">Color system</a>
+               ·
+              <a class="source-link" href="../functions/">CSS Functions</a>
+            </p>
+          </div>
+        </div>
+      </section>

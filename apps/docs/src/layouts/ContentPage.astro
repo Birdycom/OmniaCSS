@@ -1,0 +1,104 @@
+---
+// File: apps/docs/src/layouts/ContentPage.astro
+// Renders one content file (src/content/<route>) into a complete page at build time:
+// header (+ theme switch) -> sidebar shell or plain page -> footer. No client-side navigation scripts.
+import { transform } from "../lib/transform.mjs";
+import { leftSidebar, tocSidebar } from "../lib/nav.mjs";
+import { VERSION, HEADER_LINKS, GITHUB, OMNIAUI_URL, sectionOf, crossLinks } from "../lib/site.mjs";
+
+interface Props { source: string; route: string }
+const { source, route } = Astro.props;
+
+const match = source.match(/^<!--oc-page (.*?)-->\r?\n?/);
+// The meta must be one line of valid JSON; otherwise the page would silently lose its layout.
+if (!match && source.startsWith("<!--oc-page")) throw new Error(`${route}: the oc-page meta must be on the first line (no raw line breaks; use \\n inside strings)`);
+const meta = match ? JSON.parse(match[1]) : {};
+const raw = match ? source.slice(match[0].length) : source;
+const page = transform(raw, route);
+// Old /ui/... links in the content point to the OmniaUI site now (base URL: OMNIAUI_URL in lib/site.mjs).
+const html = crossLinks(page.html);
+const toc = page.toc;
+const section = sectionOf(route);
+const isSidebar = meta.layout === "sidebar";
+
+// Pages that build class names in a script (color palettes) need the full utility set;
+// every other page uses the on-demand site build (only the classes the site uses).
+const fullCss = import.meta.env.DEV || /colors\.js|data-oc-full-css/.test(raw);
+const utilities = fullCss ? "/css/omnia_main.min.css" : "/css/omnia-site.css";
+const stylesheets = [utilities, ...(meta.colors ? ["/css/oc-colors.min.css"] : []), "/css/oc-components.css", "/css/oc-code-syntax.css", "/css/oc-blocks.css", "/css/oc-layout-module.css", "/css/omnia_site.css", "/css/oc-docs-shell.css", "/fonts/docs/docs-fonts.css", "/css/oc-docs-v2.css"];
+
+// Keep the left menu where it was after navigating (and make sure the active item is visible).
+const keepNav = `(() => { const nav = document.currentScript.previousElementSibling; const key = "oc-nav-scroll"; try { const y = sessionStorage.getItem(key); if (y !== null) nav.scrollTop = +y; } catch {} const act = [...nav.querySelectorAll('[data-ocd-active="true"]')].pop(); if (act) { const a = act.getBoundingClientRect(), n = nav.getBoundingClientRect(); if (a.top < n.top || a.bottom > n.bottom) nav.scrollTop += a.top - n.top - n.height / 3; } addEventListener("pagehide", () => { try { sessionStorage.setItem(key, nav.scrollTop); } catch {} }); })();`;
+// "On this page": highlight the heading being read. Browsers with :target-current do it in CSS; others get this small fallback.
+// The fallback sets .is-active on the .oc-toc-link (same look as :target-current, see docs-ui.css in OmniaUI, vendored here in public/css/oc-components.css).
+const spy = `(() => { if (CSS.supports("selector(:target-current)")) return; const links = [...document.querySelectorAll(".oc-toc a[href^='#']")]; const root = document.querySelector(".oc-docs-content, .ocd-content"); if (!links.length || !root) return; const heads = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))); let raf = 0; const update = () => { raf = 0; const top = root.getBoundingClientRect().top + 80; let cur = 0; heads.forEach((h, i) => { if (h && h.getBoundingClientRect().top <= top) cur = i; }); if (root.scrollTop + root.clientHeight >= root.scrollHeight - 4) cur = links.length - 1; links.forEach((a, i) => a.classList.toggle("is-active", i === cur)); }; root.addEventListener("scroll", () => { raf ||= requestAnimationFrame(update); }, { passive: true }); update(); })();`;
+const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z";
+---
+<!doctype html>
+<html lang="en" class="scrollbar-omnia" data-section={section} data-sister-site={OMNIAUI_URL}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  {meta.description && <meta name="description" content={meta.description.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&amp;/g, "&")} />}
+  <meta name="generator" content={`OmniaCSS ${VERSION}`}>
+  <title>{meta.title || "OmniaCSS"}</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  {stylesheets.map((href) => <link rel="stylesheet" href={href}>)}
+  <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
+  <script is:inline>
+    // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
+    try { const u = new URL(location.href), q = u.searchParams.get("oc-theme"); if (q) { localStorage.setItem("oc-theme", q); u.searchParams.delete("oc-theme"); history.replaceState(history.state, "", u); } const t = q || localStorage.getItem("oc-theme"); if (t && t !== "system") document.documentElement.dataset.theme = t; } catch {}
+    const carryTheme = (e) => { const a = e.target.closest && e.target.closest("a[href]"); const sister = document.documentElement.dataset.sisterSite; if (!a || !sister || a.origin !== new URL(sister).origin) return; try { const t = localStorage.getItem("oc-theme"); if (!t) return; const u = new URL(a.href); u.searchParams.set("oc-theme", t); a.href = u.href; } catch {} };
+    addEventListener("click", carryTheme); addEventListener("auxclick", carryTheme);
+    addEventListener("change", (e) => { if (e.target.name !== "oc-theme") return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; });
+    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.oc-theme-switch input[value="${t}"]`); if (r) r.checked = true; });
+  </script>
+  <script is:inline src="/js/oc-docs-v2.js" defer></script>
+  <Fragment set:html={(meta.head || []).join("\n")} />
+</head>
+<body class={meta.bodyClass || undefined}>
+  <header class:list={["oc-topbar", { "oc-topbar--fixed": isSidebar }]}>
+    {isSidebar && <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu" />}
+    {isSidebar && <label class="ocd-nav-button" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></label>}
+    <a class="oc-topbar-brand" href="/index.html">OmniaCSS<span class="oc-badge-version ml-1">v{VERSION}</span></a>
+    <nav class="oc-topbar-nav" aria-label="Main">
+      <ul class="oc-navmenu oc-navmenu--site">
+        {HEADER_LINKS.map((link) => (
+          <li><a class="oc-navmenu-link" href={link.href} aria-current={link.id === section ? "page" : undefined}>{link.label}</a></li>
+        ))}
+        <li><a class="oc-navmenu-link" href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="oc-navmenu-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d={github}></path></svg></a></li>
+      </ul>
+    </nav>
+    <div class="ocd-topbar-actions">
+      <button type="button" class="ocd-search-trigger" data-ocd-search aria-label="Search the docs (Ctrl K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search docs…</span><kbd>Ctrl K</kbd></button>
+      <fieldset class="oc-theme-switch ocm-theme" aria-label="Color theme">
+        <label><input type="radio" name="oc-theme" value="system" checked> System</label>
+        <label><input type="radio" name="oc-theme" value="light"> Light</label>
+        <label><input type="radio" name="oc-theme" value="dark"> Dark</label>
+      </fieldset>
+    </div>
+  </header>
+
+  <dialog class="ocd-search-dialog" id="ocd-search" aria-label="Search">
+    <div class="ocd-search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" placeholder="Search pages, utilities and components" aria-label="Search" role="combobox" aria-controls="ocd-search-results" aria-expanded="true" autocomplete="off" spellcheck="false"><kbd>Esc</kbd></div>
+    <ul class="ocd-search-results" id="ocd-search-results" role="listbox" aria-label="Results"></ul>
+    <p class="ocd-search-empty" hidden>No results. Try a CSS property such as <code>clamp</code>, a class such as <code>snap-x</code> or a component name.</p>
+    <p class="ocd-search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </dialog>
+
+  {isSidebar ? (
+    <div class={meta.shellClass || "oc-docs-shell"}>
+      <aside class="oc-docs-sidebar-left" set:html={leftSidebar(section, route)} />
+      <script is:inline set:html={keepNav} />
+      <main class="oc-docs-content" set:html={html} />
+      <aside class="oc-docs-sidebar-right" set:html={tocSidebar(toc)} />
+      {toc.length > 0 && <script is:inline set:html={spy} />}
+    </div>
+  ) : (
+    <Fragment set:html={html} />
+  )}
+
+  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v{VERSION} — modern CSS utilities and tokens{" · "}<a href="/docs/index.html">Docs</a>{" · "}<a href={`${OMNIAUI_URL}/index.html`}>OmniaUI components</a>{" · "}<a href={GITHUB}>GitHub</a></footer>
+</body>
+</html>

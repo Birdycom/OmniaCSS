@@ -1,0 +1,54 @@
+<!--oc-page {"title": "OmniaCSS Docs - Text Decoration", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="text-decoration">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Text Decoration</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_text.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">text-decoration.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Utilities for controlling the decoration (lines, styles, and thickness) of text.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-1.5">
+            <div class="oc-card p-1.2 border border-subtle">
+              <h4 class="font-bold mb-0.5">Line</h4>
+              <ul class="oc-docs-list font-0.8">
+                <li><code>.underline</code></li>
+                <li><code>.overline</code></li>
+                <li><code>.line-through</code></li>
+                <li><code>.no-underline</code></li>
+              </ul>
+            </div>
+            <div class="oc-card p-1.2 border border-subtle">
+              <h4 class="font-bold mb-0.5">Style</h4>
+              <ul class="oc-docs-list font-0.8">
+                <li><code>.decoration-solid</code></li>
+                <li><code>.decoration-double</code></li>
+                <li><code>.decoration-dotted</code></li>
+                <li><code>.decoration-dashed</code></li>
+                <li><code>.decoration-wavy</code></li>
+              </ul>
+            </div>
+            <div class="oc-card p-1.2 border border-subtle">
+              <h4 class="font-bold mb-0.5">Thickness</h4>
+              <ul class="oc-docs-list font-0.8">
+                <li><code>.decoration-1</code> to <code>.decoration-5</code></li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8">Decoration Demos</h3>
+          <oc-demo title="Decoration Demos"><div class="oc-preview oc-preview-col gap-4">
+            <p class="underline font-1.2 m-0">Standard underline</p>
+            <p class="overline font-1.2 m-0">Standard overline</p>
+            <p class="line-through font-1.2 m-0">Struck-through text</p>
+            <p class="underline decoration-wavy decoration-2 font-1.2 m-0">Wavy underline (2px)</p>
+            <p class="underline decoration-dashed decoration-4 font-1.2 m-0 text-vividblue">Thick dashed underline</p>
+          </div><oc-code lang="html">&lt;a href="#" class="no-underline hover:underline decoration-wavy"&gt;Styled Link&lt;/a&gt;</oc-code></oc-demo>
+
+          
+        </div>
+      </section>

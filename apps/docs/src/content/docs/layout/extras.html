@@ -1,0 +1,211 @@
+<!--oc-page {"title": "OmniaCSS Docs - Layout Extras", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="layout-extras">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Layout Extras</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_layout_extras.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">extras.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Properties that complete the layout families: the <code>inset</code> shorthand, logical min/max sizes, <code>flex-flow</code>, named grid areas, <code>margin-trim</code>, logical overflow/overscroll/scroll spacing, safe-area padding for notched phones, <code>zoom</code>, <code>all</code>, mask shorthands and print pages. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/inset" target="_blank" rel="noopener">MDN: inset</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it covers:</strong> smaller layout properties that do not fit elsewhere: <code>inset</code> (offsets for positioned elements), <code>flex-flow</code> and named grid areas, logical overflow/scroll properties, safe areas for notched screens, <code>zoom</code>, and <code>mask</code> for fading content. <strong>When to use:</strong> reach for the logical (<code>-inline</code>/<code>-block</code>) variants when you need RTL-ready layouts, and for <code>mask-fade-*</code> when a gradient fade is nicer than a hard clip. <strong>Gotchas:</strong> <code>inset</code> only has an effect on positioned elements; <code>zoom</code> is non-standard in older browsers and changes layout size; masks hide content visually but not from assistive tech. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/inset" target="_blank" rel="noopener">MDN: inset</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask" target="_blank" rel="noopener">MDN: mask</a>.</p>
+
+          <h3 class="oc-section-content__title" id="inset">Inset &amp; logical sizes</h3>
+          <p class="oc-section-content__desc">Values: <code>0</code>, <code>1</code> (.25rem), <code>2</code> (.5rem), <code>4</code> (1rem), <code>8</code> (2rem), <code>auto</code>, <code>full</code> (100%).</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.inset-{n}</code></td><td>inset: {value}</td></tr>
+                <tr><td><code>.inset-x-{n} / .inset-y-{n}</code></td><td>left + right / top + bottom</td></tr>
+                <tr><td><code>.inset-bs-{n} / .inset-be-{n}</code></td><td>inset-block-start / inset-block-end</td></tr>
+                <tr><td><code>.min-inline-{0|full|fit|min|max} / .min-block-*</code></td><td>min-inline-size / min-block-size</td></tr>
+                <tr><td><code>.max-inline-{full|fit|min|max|none} / .max-block-*</code></td><td>max-inline-size / max-block-size</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="relative + absolute inset-2">
+            
+            <div class="relative size-24 round-3 p-1 border-1 border-dashed border-stormblue-100">
+              <div class="absolute inset-2 round-2 bg-dodgerblue-mix-30 border-1 border-solid border-dodgerblue-50"></div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="relative"&gt;
+  &lt;div class="absolute inset-2"&gt;&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="flex-grid">Flex flow &amp; grid areas</h3>
+          <p class="oc-section-content__desc"><code>flex-flow</code> sets direction and wrapping at once. Named grid areas give readable layouts: put <code>.grid-areas-holy-grail</code> on the grid and <code>.area-*</code> on the children.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.flex-flow-{row|row-wrap|col|col-wrap|row-reverse-wrap}</code></td><td>flex-flow</td></tr>
+                <tr><td><code>.grid-areas-holy-grail</code></td><td>grid-template-areas: "header header" "sidebar main" "footer footer"</td></tr>
+                <tr><td><code>.grid-areas-stack</code></td><td>grid-template-areas: "header" "main" "sidebar" "footer"</td></tr>
+                <tr><td><code>.grid-areas-none / .grid-template-none / .grid-none</code></td><td>reset grid templates</td></tr>
+                <tr><td><code>.area-{header|sidebar|main|footer|auto|full}</code></td><td>grid-area</td></tr>
+                <tr><td><code>.margin-trim-{none|block|inline}</code></td><td>margin-trim</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="grid-areas-holy-grail">
+            
+            <div class="grid grid-areas-holy-grail gap-1 font-1 round-3 p-1 border-1 border-dashed border-stormblue-100">
+              <div class="area-header p-1 round-2 bg-dodgerblue-mix-30">header</div>
+              <div class="area-sidebar p-1 round-2 bg-forestgreen-mix-30">sidebar</div>
+              <div class="area-main p-1 round-2 bg-darkorange-mix-30">main</div>
+              <div class="area-footer p-1 round-2 bg-magenta-mix-30">footer</div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="grid grid-areas-holy-grail gap-1"&gt;
+  &lt;div class="area-header"&gt;header&lt;/div&gt;
+  &lt;div class="area-sidebar"&gt;sidebar&lt;/div&gt;
+  &lt;div class="area-main"&gt;main&lt;/div&gt;
+  &lt;div class="area-footer"&gt;footer&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="overflow-scroll">Logical overflow, overscroll &amp; scroll spacing</h3>
+          <p class="oc-section-content__desc">Inline/block versions of overflow, overscroll-behavior and scroll-margin/padding. Values for spacing: <code>0</code>, <code>2</code>, <code>4</code>, <code>8</code>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.overflow-{inline|block}-{auto|hidden|clip|visible|scroll}</code></td><td>overflow-inline / overflow-block</td></tr>
+                <tr><td><code>.overflow-clip-margin-{0|2|4|content}</code></td><td>overflow-clip-margin</td></tr>
+                <tr><td><code>.overscroll-{inline|block}-{auto|contain|none}</code></td><td>overscroll-behavior-inline / -block</td></tr>
+                <tr><td><code>.scroll-m-inline-{n} / .scroll-m-block-{n}</code></td><td>scroll-margin-inline / -block</td></tr>
+                <tr><td><code>.scroll-{ms|me|mbs|mbe}-{n}</code></td><td>scroll-margin-{inline|block}-{start|end}</td></tr>
+                <tr><td><code>.scroll-p-inline-{n} / .scroll-p-block-{n}</code></td><td>scroll-padding-inline / -block</td></tr>
+                <tr><td><code>.scroll-{ps|pe|pbs|pbe}-{n}</code></td><td>scroll-padding-{inline|block}-{start|end}</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="safe-zoom">Safe areas, zoom, container &amp; reset</h3>
+          <p class="oc-section-content__desc">Safe-area padding keeps content clear of notches (add <code>viewport-fit=cover</code> to the viewport meta). <code>.all-*</code> resets every property of an element.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.p-safe / .pt-safe / .pb-safe / .pl-safe / .pr-safe</code></td><td>padding: env(safe-area-inset-*)</td></tr>
+                <tr><td><code>.mb-safe</code></td><td>margin-bottom: env(safe-area-inset-bottom)</td></tr>
+                <tr><td><code>.h-screen-safe</code></td><td>height: 100dvh minus top/bottom safe areas</td></tr>
+                <tr><td><code>.zoom-{50|75|100|125|150}</code></td><td>zoom: {n}%</td></tr>
+                <tr><td><code>.cq-{card|main|sidebar}</code></td><td>container: {name} / inline-size</td></tr>
+                <tr><td><code>.all-{initial|inherit|unset|revert|revert-layer}</code></td><td>all</td></tr>
+                <tr><td><code>.empty-cells-{show|hide}</code></td><td>empty-cells</td></tr>
+                <tr><td><code>.image-orientation-{from-image|none}</code></td><td>image-orientation</td></tr>
+                <tr><td><code>.bg-pos-x-{left|center|right|0|50|100}</code></td><td>background-position-x</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.bg-pos-y-{top|center|bottom|0|50|100}</code></td><td>background-position-y</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="zoom-75, zoom-125">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.zoom-75</span>
+                <div class="zoom-75 p-1 round-2 bg-dodgerblue-mix-30 font-1">zoom 75%</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.zoom-125</span>
+                <div class="zoom-125 p-1 round-2 bg-forestgreen-mix-30 font-1">zoom 125%</div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="zoom-75 p-1 round-2 bg-dodgerblue-mix-30 font-1"&gt;zoom 75%&lt;/div&gt;
+&lt;div class="zoom-125 p-1 round-2 bg-forestgreen-mix-30 font-1"&gt;zoom 125%&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="mask-page">Mask shorthand, print pages &amp; SVG geometry</h3>
+          <p class="oc-section-content__desc">Fade content out with a mask, print a section on a landscape page, and size SVG shapes with CSS geometry properties.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.mask-reset</code></td><td>mask: none</td></tr>
+                <tr><td><code>.mask-fade-{b|r|x}</code></td><td>mask: linear-gradient(…) — fade to transparent</td></tr>
+                <tr><td><code>.page-{auto|landscape}</code></td><td>page (with @page landscape { size: landscape })</td></tr>
+                <tr><td><code>.anchor-try-most-height-flip</code></td><td>position-try: most-height flip-block, flip-inline</td></tr>
+                <tr><td><code>.cx-{0|25|50|100} / .cy-* / .x-* / .y-*</code></td><td>cx / cy / x / y</td></tr>
+                <tr><td><code>.r-{25|50} / .rx-{0|4} / .ry-{0|4}</code></td><td>r / rx / ry</td></tr>
+                <tr><td><code>.d-none</code></td><td>d: none</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="mask-fade-b">
+            
+            <p class="mask-fade-b w-24 font-1 round-3 p-1 border-1 border-dashed border-stormblue-100">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
+
+            
+            
+          <oc-code lang="html">&lt;p class="mask-fade-b"&gt;…&lt;/p&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Inset, flex-flow, grid areas, logical properties and safe areas are broadly supported. <code>margin-trim</code> and <code>overflow-inline/block</code> are newer and ignored where unsupported.</p>
+          <oc-compat features="css.properties.inset css.properties.min-inline-size css.properties.flex-flow css.properties.grid-template-areas css.properties.margin-trim css.properties.overflow-inline css.properties.overflow-clip-margin css.properties.overscroll-behavior-inline css.properties.scroll-margin-inline css.properties.zoom css.properties.all css.properties.mask css.properties.page"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            These utilities come from <code>_layout_extras.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas" target="_blank" rel="noopener">MDN: grid-template-areas</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/env" target="_blank" rel="noopener">MDN: env()</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_layout_extras.scss</code></td><td>inset, logical sizes, flex-flow, grid areas, margin-trim, overflow/overscroll/scroll axes, safe areas, zoom, container, all, empty-cells, image-orientation, bg position axes, mask, page, SVG geometry</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="flow.html">Layout flow</a>
+               · 
+              <a class="source-link" href="../writing-modes/">Writing modes</a>
+               · 
+              <a class="source-link" href="../flex-grid/grid-cols.html">Grid columns</a>
+            </p>
+          </div>
+        </div>
+      </section>

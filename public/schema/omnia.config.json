@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omniacss.eu/schema/omnia.config.json",
+  "title": "OmniaCSS config (omnia.config.json)",
+  "description": "Settings for \"omniacss build\". Command-line flags override them.",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+    "content": {
+      "description": "Glob patterns of the files to scan for class names.",
+      "type": "array",
+      "items": { "type": "string" },
+      "default": ["**/*.html"]
+    },
+    "output": {
+      "description": "CSS file to write.",
+      "type": "string",
+      "default": "omnia.css"
+    },
+    "components": {
+      "description": "Include the OmniaUI component CSS (@birdycom/omniaui). \"auto\": only when installed.",
+      "enum": ["auto", true, false],
+      "default": "auto"
+    },
+    "blocks": {
+      "description": "Include the OmniaUI blocks CSS (@birdycom/omniaui-blocks).",
+      "enum": ["auto", true, false],
+      "default": false
+    },
+    "pro": {
+      "description": "Include the OmniaUI Pro CSS (@birdycom/omniaui-pro, licensed). \"auto\": only when installed.",
+      "enum": ["auto", true, false],
+      "default": "auto"
+    },
+    "layer": {
+      "description": "Cascade layer that wraps the output, or false for none.",
+      "type": ["string", "boolean"],
+      "default": "omnia"
+    },
+    "keep": {
+      "description": "Class names to keep even when no content file uses them (for example classes built at runtime).",
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "minify": {
+      "description": "Minify the output with Lightning CSS.",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "additionalProperties": false
+}

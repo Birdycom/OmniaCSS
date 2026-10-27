@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" class="scrollbar-omnia" data-section="docs" data-sister-site="https://omniaui.test">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <meta name="generator" content="OmniaCSS 0.11.0">
+  <title>OmniaCSS Docs - Migreren / Migrate</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=0d820e9e9e"><link rel="stylesheet" href="/css/oc-components.css?v=2818dd2af7"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=0bdacc0cbc"><link rel="stylesheet" href="/css/oc-layout-module.css?v=fbe27040e6"><link rel="stylesheet" href="/css/omnia_site.css?v=20d889b20a"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=ed94de3c8b"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=f70eb570c9">
+  <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
+  <script>
+    // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
+    try { const u = new URL(location.href), q = u.searchParams.get("oc-theme"); if (q) { localStorage.setItem("oc-theme", q); u.searchParams.delete("oc-theme"); history.replaceState(history.state, "", u); } const t = q || localStorage.getItem("oc-theme"); if (t && t !== "system") document.documentElement.dataset.theme = t; } catch {}
+    const carryTheme = (e) => { const a = e.target.closest && e.target.closest("a[href]"); const sister = document.documentElement.dataset.sisterSite; if (!a || !sister || a.origin !== new URL(sister).origin) return; try { const t = localStorage.getItem("oc-theme"); if (!t) return; const u = new URL(a.href); u.searchParams.set("oc-theme", t); a.href = u.href; } catch {} };
+    addEventListener("click", carryTheme); addEventListener("auxclick", carryTheme);
+    addEventListener("change", (e) => { if (e.target.name !== "oc-theme") return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; });
+    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.oc-theme-switch input[value="${t}"]`); if (r) r.checked = true; });
+  </script><script src="/js/oc-docs-v2.js?v=50b3bbdcc6" defer></script>
+</head>
+<body>
+  <header class="oc-topbar oc-topbar--fixed">
+    <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu">
+    <label class="ocd-nav-button" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
+    <a class="oc-topbar-brand" href="/index.html">OmniaCSS<span class="oc-badge-version ml-1">v0.11.0</span></a>
+    <nav class="oc-topbar-nav" aria-label="Main">
+      <ul class="oc-navmenu oc-navmenu--site">
+        <li><a class="oc-navmenu-link" href="/index.html">Home</a></li><li><a class="oc-navmenu-link" href="/docs/index.html" aria-current="page">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components.html">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks.html">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons.html">Webicons</a></li>
+        <li><a class="oc-navmenu-link" href="https://github.com/Birdycom/OmniaCSS" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="oc-navmenu-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path></svg></a></li>
+      </ul>
+    </nav>
+    <div class="ocd-topbar-actions">
+      <button type="button" class="ocd-search-trigger" data-ocd-search aria-label="Search the docs (Ctrl K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>Search docs…</span><kbd>Ctrl K</kbd></button>
+      <fieldset class="oc-theme-switch ocm-theme" aria-label="Color theme">
+        <label><input type="radio" name="oc-theme" value="system" checked> System</label>
+        <label><input type="radio" name="oc-theme" value="light"> Light</label>
+        <label><input type="radio" name="oc-theme" value="dark"> Dark</label>
+      </fieldset>
+    </div>
+  </header>
+
+  <dialog class="ocd-search-dialog" id="ocd-search" aria-label="Search">
+    <div class="ocd-search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="search" placeholder="Search pages, utilities and components" aria-label="Search" role="combobox" aria-controls="ocd-search-results" aria-expanded="true" autocomplete="off" spellcheck="false"><kbd>Esc</kbd></div>
+    <ul class="ocd-search-results" id="ocd-search-results" role="listbox" aria-label="Results"></ul>
+    <p class="ocd-search-empty" hidden>No results. Try a CSS property such as <code>clamp</code>, a class such as <code>snap-x</code> or a component name.</p>
+    <p class="ocd-search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </dialog>
+
+  <div class="oc-docs-shell">
+      <aside class="oc-docs-sidebar-left"><nav class="oc-sidebar oc-sidebar--docs" aria-label="OmniaCSS Docs"><h2 class="oc-sidebar-title">OmniaCSS Docs</h2><p class="oc-sidebar-group-label">Start</p><ul class="oc-sidebar-menu"><li><a class="oc-sidebar-menu-button" href="/docs/css-catalog.html">CSS Catalog</a></li><li><a class="oc-sidebar-menu-button" href="/docs/index.html">Docs Home</a></li></ul><p class="oc-sidebar-group-label">Core Foundations</p><ul class="oc-sidebar-menu"><li><a class="oc-sidebar-menu-button" href="/docs/configuration.html">Configuration</a></li><li><a class="oc-sidebar-menu-button" href="/docs/fluid.html">Fluid values (clamp, min, max)</a></li><li><a class="oc-sidebar-menu-button" href="/docs/functions/">CSS Functions</a></li><li><a class="oc-sidebar-menu-button" href="/docs/variables/">Variables</a></li><li><a class="oc-sidebar-menu-button" href="/docs/units/">Units</a></li><li><a class="oc-sidebar-menu-button" href="/docs/at-rules/">At-rules (@supports, @layer …)</a></li><li><a class="oc-sidebar-menu-button" href="/docs/selectors/">Selectors &amp; Pseudo-classes</a></li><li><a class="oc-sidebar-menu-button" href="/docs/responsive.html">Responsive &amp; Dark Mode</a></li><li><a class="oc-sidebar-menu-button" href="/docs/utilities.html">Utilities</a></li></ul><p class="oc-sidebar-group-label">Core Families</p><ul class="oc-sidebar-menu"><li><a class="oc-sidebar-menu-button" href="/docs/alignment/">Alignment</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/alignment/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/justify-content.html">Justify Content</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/justify-items.html">Justify Items</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/justify-self.html">Justify Self</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/align-content.html">Align Content</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/align-items.html">Align Items</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/align-self.html">Align Self</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/place-content.html">Place Content</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/place-items.html">Place Items</a></li><li><a class="oc-sidebar-menu-button" href="/docs/alignment/place-self.html">Place Self</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/">Borders</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/borders/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/border-radius.html">Border-radius</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/border-width.html">Border-width</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/border-style.html">Border-style</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/border-color.html">Border-color</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/outline-width.html">Outline-width</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/outline-style.html">Outline-style</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/outline-color.html">Outline-color</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/outline-offset.html">Outline-offset</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/outline-focus-ring.html">Outline (focus ring)</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/corner-shape.html">Corner shape</a></li><li><a class="oc-sidebar-menu-button" href="/docs/borders/sides-images.html">Sides &amp; Images</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/colors/">Colors</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/colors/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/colors/system.html">Color System</a></li><li><a class="oc-sidebar-menu-button" href="/docs/colors/functions.html">Color Functions</a></li><li><a class="oc-sidebar-menu-button" href="/docs/colors/palettes.html">Palettes</a></li><li><a class="oc-sidebar-menu-button" href="/docs/colors/examples.html">Examples</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/">Effects</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/effects/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/opacity.html">Opacity</a></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/shadows.html">Shadows</a></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/filters.html">Filters &amp; Backdrop</a></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/blend.html">Blend Modes</a></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/transitions.html">Transitions</a></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/transforms.html">Transforms</a></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/animations.html">Animations</a></li><li><a class="oc-sidebar-menu-button" href="/docs/effects/animation-properties.html">Animation Properties</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/">Flex &amp; Grid</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/display.html">Display</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/direction.html">Flex Direction</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/wrap.html">Flex Wrap</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/grow-shrink.html">Grow &amp; Shrink</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/basis.html">Flex Basis</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/gap.html">Gap</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/grid-cols.html">Grid Columns</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/grid-col-span.html">Column Span</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/grid-rows.html">Grid Rows</a></li><li><a class="oc-sidebar-menu-button" href="/docs/flex-grid/grid-flow.html">Auto Flow</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/layout/">Layout</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/layout/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/layout/display.html">Display</a></li><li><a class="oc-sidebar-menu-button" href="/docs/layout/box-sizing.html">Box Sizing</a></li><li><a class="oc-sidebar-menu-button" href="/docs/layout/overflow.html">Overflow</a></li><li><a class="oc-sidebar-menu-button" href="/docs/layout/layering.html">Layering</a></li><li><a class="oc-sidebar-menu-button" href="/docs/layout/backgrounds.html">Backgrounds</a></li><li><a class="oc-sidebar-menu-button" href="/docs/layout/flow.html">Layout Flow</a></li><li><a class="oc-sidebar-menu-button" href="/docs/layout/extras.html">Layout Extras</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/position/">Position</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/position/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/position/types.html">Position Types</a></li><li><a class="oc-sidebar-menu-button" href="/docs/position/inset.html">Inset</a></li><li><a class="oc-sidebar-menu-button" href="/docs/position/z-index.html">Z-Index</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/sizing/">Sizing</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/sizing/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/sizing/width.html">Width</a></li><li><a class="oc-sidebar-menu-button" href="/docs/sizing/height.html">Height</a></li><li><a class="oc-sidebar-menu-button" href="/docs/sizing/size-icon.html">Size Icon</a></li><li><a class="oc-sidebar-menu-button" href="/docs/sizing/min-max-width.html">Min/Max Width</a></li><li><a class="oc-sidebar-menu-button" href="/docs/sizing/min-max-height.html">Min/Max Height</a></li><li><a class="oc-sidebar-menu-button" href="/docs/sizing/container.html">Container</a></li><li><a class="oc-sidebar-menu-button" href="/docs/sizing/aspect.html">Aspect Ratio</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/spacing/">Spacing</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/spacing/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/spacing/padding.html">Padding</a></li><li><a class="oc-sidebar-menu-button" href="/docs/spacing/margin.html">Margin</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/tables/">Tables</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/tables/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/tables/display.html">Table Display</a></li><li><a class="oc-sidebar-menu-button" href="/docs/tables/border-collapse.html">Border Collapse</a></li><li><a class="oc-sidebar-menu-button" href="/docs/tables/border-spacing.html">Border Spacing</a></li><li><a class="oc-sidebar-menu-button" href="/docs/tables/layout.html">Table Layout</a></li><li><a class="oc-sidebar-menu-button" href="/docs/tables/caption-side.html">Caption Side</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/">Typography</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/typography/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/font-family.html">Font Family</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/fonts.html">Fonts (overview)</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/font-families.html">Font Families</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/font-usage.html">Font Usage</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/font-size.html">Font Size</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/font-weight.html">Font Weight</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/font-style.html">Font Style</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/text-align.html">Text Align</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/text-decoration.html">Text Decoration</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/text-transform.html">Text Transform</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/letter-spacing.html">Letter Spacing</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/line-height.html">Line Height</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/advanced.html">Advanced</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/modern.html">Modern</a></li><li><a class="oc-sidebar-menu-button" href="/docs/typography/variants.html">Variants &amp; Effects</a></li></ul></li></ul><p class="oc-sidebar-group-label">Extended Families</p><ul class="oc-sidebar-menu"><li><a class="oc-sidebar-menu-button" href="/docs/interactivity/">Interactivity</a><ul class="oc-sidebar-menu-sub"><li><a class="oc-sidebar-menu-button" href="/docs/interactivity/">Overview</a></li><li><a class="oc-sidebar-menu-button" href="/docs/interactivity/cursor-selection.html">Cursor &amp; selection</a></li><li><a class="oc-sidebar-menu-button" href="/docs/interactivity/scrolling.html">Scrolling &amp; touch</a></li><li><a class="oc-sidebar-menu-button" href="/docs/interactivity/forms.html">Form controls</a></li><li><a class="oc-sidebar-menu-button" href="/docs/interactivity/performance-a11y.html">Performance &amp; a11y</a></li></ul></li><li><a class="oc-sidebar-menu-button" href="/docs/scroll-snap/">Scroll Snap</a></li><li><a class="oc-sidebar-menu-button" href="/docs/pagination/">Pagination</a></li><li><a class="oc-sidebar-menu-button" href="/docs/scrollbars/">Scrollbars</a></li><li><a class="oc-sidebar-menu-button" href="/docs/gradients/">Gradients</a></li><li><a class="oc-sidebar-menu-button" href="/docs/svg/">SVG</a></li><li><a class="oc-sidebar-menu-button" href="/docs/lists/">Lists &amp; Counters</a></li><li><a class="oc-sidebar-menu-button" href="/docs/images/">Images &amp; Object Fit</a></li><li><a class="oc-sidebar-menu-button" href="/docs/columns/">Columns</a></li><li><a class="oc-sidebar-menu-button" href="/docs/container-queries/">Container Queries</a></li><li><a class="oc-sidebar-menu-button" href="/docs/writing-modes/">Writing Modes</a></li><li><a class="oc-sidebar-menu-button" href="/docs/shapes/">Shapes &amp; Clipping</a></li><li><a class="oc-sidebar-menu-button" href="/docs/fragmentation/">Fragmentation</a></li><li><a class="oc-sidebar-menu-button" href="/docs/generated-content/">Generated Content</a></li></ul><p class="oc-sidebar-group-label">Showcase</p><ul class="oc-sidebar-menu"><li><a class="oc-sidebar-menu-button" href="/docs/creative/">Creative CSS</a></li></ul><p class="oc-sidebar-group-label">Experimental</p><ul class="oc-sidebar-menu"><li><a class="oc-sidebar-menu-button" href="/docs/anchor-positioning/">Anchor Positioning</a></li><li><a class="oc-sidebar-menu-button" href="/docs/view-transitions/">View Transitions</a></li><li><a class="oc-sidebar-menu-button" href="/docs/scroll-animations/">Scroll Animations</a></li><li><a class="oc-sidebar-menu-button" href="/docs/starting-style/">Entry Animations</a></li><li><a class="oc-sidebar-menu-button" href="/docs/experimental-css/">Newest CSS</a></li></ul><p class="oc-sidebar-group-label">Modules</p><ul class="oc-sidebar-menu"><li><a class="oc-sidebar-menu-button" href="/docs/layout-module.html">Layout Module</a></li></ul><p class="oc-sidebar-group-label">Special</p><ul class="oc-sidebar-menu"><li><a class="oc-sidebar-menu-button" href="/docs/code-syntax-theme.html">Theme to CSS</a></li><li><a class="oc-sidebar-menu-button" href="/docs/code-syntax.html">Code syntax</a></li><li><a class="oc-sidebar-menu-button" href="/docs/migrate.html" aria-current="page" data-ocd-active="true">Migreren / Migrate</a></li></ul></nav></aside>
+      <script>(() => { const nav = document.currentScript.previousElementSibling; const key = "oc-nav-scroll"; try { const y = sessionStorage.getItem(key); if (y !== null) nav.scrollTop = +y; } catch {} const act = [...nav.querySelectorAll('[data-ocd-active="true"]')].pop(); if (act) { const a = act.getBoundingClientRect(), n = nav.getBoundingClientRect(); if (a.top < n.top || a.bottom > n.bottom) nav.scrollTop += a.top - n.top - n.height / 3; } addEventListener("pagehide", () => { try { sessionStorage.setItem(key, nav.scrollTop); } catch {} }); })();</script><main class="oc-docs-content"><section class="oc-hero" id="overview">
+        <h1 class="oc-hero-title">Migreren / Migrate</h1>
+        <p class="oc-hero-text">Overstappen van Tailwind CSS naar OmniaCSS en je bestaande klassenamen houden. Switch a Laravel, Vue or React project from Tailwind CSS to OmniaCSS in three steps: your markup stays exactly as it is.</p>
+      </section>
+
+      <section class="oc-docs-section" id="how">
+        <div class="oc-section-header">
+          <h2 id="how-it-works-birdycom-omniacss-migrate" class="oc-section-header__title">How it works <span class="oc-section-header__badge-version oc-badge-version">@birdycom/omniacss-migrate</span></h2><span class="oc-section-header__badge-js oc-badge-nojs" title="The demos on this page run without JavaScript">0 KB JavaScript</span>
+          <p class="oc-section-header__desc">A compat layer resolves Tailwind-style class names on demand and emits CSS that only uses OmniaCSS tokens.</p>
+        </div>
+        <div class="oc-section-content">
+          <ul>
+            <li>A PostCSS plugin and a Vite plugin scan your Blade, Vue, JSX/TSX and HTML files and emit CSS for the classes they find (variants like <code>hover:</code>, <code>md:</code>, <code>dark:</code>, <code>group-hover:</code>, arbitrary values <code>w-[37px]</code>, opacity modifiers <code>bg-red-500/50</code>, negatives and <code>!</code> included).</li>
+            <li>Colors map to the <strong>nearest Omnia palette token</strong> (OKLCH): <code>bg-red-500</code> becomes <code>var(--color-red-50)</code>. No other colors are ever emitted.</li>
+            <li>The directives <code>@import "tailwindcss"</code> and <code>@tailwind base|components|utilities</code> in your CSS are replaced by Omnia core plus the compat output; <code>@apply</code> and <code>@theme</code> keep working.</li>
+            <li>Breakpoints follow OmniaCSS (<code>sm</code> 36rem, <code>md</code> 50rem, <code>lg</code> 64rem); shadows reuse the Omnia shadow values; spacing keeps the familiar 0.25rem step.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="laravel">
+        <div class="oc-section-header">
+          <h2 id="laravel-in-3-steps" class="oc-section-header__title">Laravel in 3 steps</h2>
+        </div>
+        <div class="oc-section-content">
+          <h3 id="1-check-coverage-and-preview-the-switch" class="oc-section-content__title">1. Check coverage and preview the switch</h3>
+          <div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2</pre><pre class="code-preview"><code><span class="hl-keyword">npx</span> @birdycom/omniacss<span class="hl-attr">-migrate</span> scan .      <span class="hl-comment"># % of your class occurrences that are supported</span>
+<span class="hl-keyword">npx</span> @birdycom/omniacss<span class="hl-attr">-migrate</span> setup .     <span class="hl-comment"># dry run: shows every file it would change</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+
+          <h3 id="2-apply-it" class="oc-section-content__title">2. Apply it</h3>
+          <div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2
+3</pre><pre class="code-preview"><code><span class="hl-keyword">npx</span> @birdycom/omniacss<span class="hl-attr">-migrate</span> setup . <span class="hl-attr">--write</span>
+<span class="hl-keyword">npm</span> uninstall tailwindcss @tailwindcss/vite @tailwindcss/postcss
+<span class="hl-keyword">npm</span> <span class="hl-keyword">install</span> <span class="hl-attr">-D</span> @birdycom/omniacss<span class="hl-attr">-migrate</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+          <p>Or by hand, in <code>vite.config.js</code>:</p>
+          <div class="oc-code-block" data-lang="css"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2
+3
+4</pre><pre class="code-preview"><code>import omniaMigrate from <span class="hl-string">"@birdycom/omniacss-migrate/vite"</span>;
+export default defineConfig({
+  plugins: [laravel({ <span class="hl-prop">input</span>: [<span class="hl-string">"resources/css/app.css"</span>, <span class="hl-string">"resources/js/app.js"</span>] }), omniaMigrate()],
+});</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+
+          <h3 id="3-build" class="oc-section-content__title">3. Build</h3>
+          <div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1</pre><pre class="code-preview"><code><span class="hl-keyword">npm</span> <span class="hl-keyword">run</span> dev</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+          <p>Your <code>app.css</code> does not change. Without Vite, use the PostCSS plugin:</p>
+          <div class="oc-code-block" data-lang="css"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2
+3</pre><pre class="code-preview"><code><span class="hl-comment">// postcss.config.js</span>
+import omniaMigrate from <span class="hl-string">"@birdycom/omniacss-migrate/postcss"</span>;
+export default { plugins: [omniaMigrate({ content: [<span class="hl-string">"resources/views/**/*.blade.php"</span>, <span class="hl-string">"resources/js/**/*.{vue,tsx,jsx,js}"</span>] })] };</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="config">
+        <div class="oc-section-header">
+          <h2 id="your-theme-and-tailwind-config" class="oc-section-header__title">Your theme and tailwind.config</h2>
+        </div>
+        <div class="oc-section-content">
+          <p><code>theme.extend.colors</code>, <code>fontFamily</code>, <code>borderRadius</code>, <code>spacing</code>, <code>screens</code>, <code>darkMode</code> and <code>@theme</code> blocks are read automatically. <code>setup --write</code> copies the config theme into your CSS as an <code>@theme</code> block, with literal colors mapped to Omnia tokens (use <code>--keep-brand-colors</code> to keep them as written).</p>
+          <div class="oc-code-block" data-lang="css"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2
+3
+4</pre><pre class="code-preview"><code><span class="hl-keyword">@theme</span> {
+  <span class="hl-variable">--color-brand-500</span>: var(<span class="hl-variable">--color-vividblue-80</span>);   <span class="hl-comment">/* was #3b82f6 */</span>
+}
+<span class="hl-keyword">@custom-variant</span> dark (&amp;:where(<span class="cls">.dark</span>, <span class="cls">.dark</span> *));</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="codemod">
+        <div class="oc-section-header">
+          <h2 id="optional-native-omniacss-class-names" class="oc-section-header__title">Optional: native OmniaCSS class names</h2>
+          <p class="oc-section-header__desc">Rewrite your markup to real Omnia classes where the CSS is identical. Dry run by default.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2</pre><pre class="code-preview"><code><span class="hl-keyword">npx</span> @birdycom/omniacss<span class="hl-attr">-migrate</span> codemod resources           <span class="hl-comment"># report only</span>
+<span class="hl-keyword">npx</span> @birdycom/omniacss<span class="hl-attr">-migrate</span> codemod resources <span class="hl-attr">--write</span>   <span class="hl-comment"># apply</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+          <p>Classes without a 1:1 native equivalent are left alone and listed; they keep working through the compat layer. The codemod writes <code>omniacss-migrate.manifest.json</code> so a native <code>p-1</code> (Omnia, 1rem) is never mixed up with a Tailwind-style <code>p-1</code> (0.25rem). Run it over the whole project.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="bootstrap">
+        <div class="oc-section-header">
+          <h2 id="from-bootstrap-3-4-or-5" class="oc-section-header__title">From Bootstrap 3, 4 or 5</h2>
+          <p class="oc-section-header__desc">Rewrite a Bootstrap site to OmniaCSS utilities and OmniaUI components. Works on HTML, PHP, Blade, Twig and other templates; template code inside class attributes is left untouched. Dry run by default.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2
+3</pre><pre class="code-preview"><code><span class="hl-keyword">npx</span> @birdycom/omniacss<span class="hl-attr">-migrate</span> bootstrap scan .              <span class="hl-comment"># report only</span>
+<span class="hl-keyword">npx</span> @birdycom/omniacss<span class="hl-attr">-migrate</span> bootstrap codemod . <span class="hl-attr">--write</span>   <span class="hl-comment"># apply</span>
+<span class="hl-keyword">npx</span> omniacss <span class="hl-keyword">build</span> <span class="hl-attr">-o</span> css/omnia.css                          <span class="hl-comment"># OmniaCSS for exactly the classes you use</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Bootstrap</th><th>Becomes</th></tr></thead>
+              <tbody>
+                <tr><td>Utilities: <code>mt-3</code>, <code>d-md-none</code>, <code>justify-content-between</code>, <code>text-muted</code>, <code>fw-bold</code>, <code>w-100</code> …</td><td>The OmniaCSS class with the same CSS, found by its declarations: <code>mt-1</code> (both 1rem), <code>md:d-none</code>, <code>justify-between</code>, <code>text-twilightblue-10</code>, <code>font-bold</code>, <code>w-full</code>. Theme colors map to the nearest Omnia token.</td></tr>
+                <tr><td>Components: <code>btn</code>, <code>card</code>, <code>alert</code>, <code>badge</code>, <code>form-control</code>, <code>table</code>, <code>breadcrumb</code>, <code>pagination</code>, <code>progress</code>, <code>panel</code> …</td><td>OmniaUI: <code>oc-btn</code>, <code>oc-card</code>, <code>oc-alert--danger</code>, <code>oc-input</code> (<code>oc-select</code> on a select), <code>oc-table--striped</code> …</td></tr>
+                <tr><td>Grid: <code>container</code>, <code>row</code>, <code>col-md-6</code>, <code>offset-*</code>, <code>g-3</code>, <code>row-cols-*</code></td><td>Kept, with a generated <code>bootstrap-compat.css</code> for exactly the grid classes in use (OmniaCSS breakpoints, a few KB)</td></tr>
+                <tr><td>Utilities without an OmniaCSS twin (<code>border</code> 1px, <code>z-1</code>, <code>mt-n1</code>)</td><td>Kept, with their exact CSS in the same compat stylesheet</td></tr>
+                <tr><td>JavaScript components: modal, dropdown, collapse, carousel, navbar, tabs, offcanvas, toast; icon fonts</td><td>Reported with the native way: <code>&lt;dialog&gt;</code> + <code>commandfor</code>, popover, <code>&lt;details&gt;</code>, scroll snap with <code>.scroll-buttons</code>, OmniaUI tabs</td></tr>
+                <tr><td>The Bootstrap <code>&lt;link&gt;</code></td><td>Replaced by <code>omnia.css</code>, the OmniaUI CSS and <code>bootstrap-compat.css</code>, in the same asset folder</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <label class="oc-btn oc-btn--secondary oc-expandable-table__trigger"><input type="checkbox" class="oc-expandable-table__toggle"><span class="oc-expandable-table__more">Show more</span><span class="oc-expandable-table__less">Show less</span></label>
+            </div>
+          </div>
+          <p>The report also lists classes your JavaScript toggles (<code>classList.add('btn-primary')</code>) that the markup now spells differently, and Bootstrap 3 classes in a Bootstrap 5 site, split into "your own CSS still styles it" and "safe to delete". The version is detected from <code>package.json</code>, the <code>&lt;link&gt;</code> URL, a local <code>bootstrap.css</code> header or the markup; override it with <code>--bs 3</code>. With <code>--breakpoints exact</code> responsive classes keep Bootstrap's pixel breakpoints (<code>min-[48rem]:d-none</code>) instead of the nearest OmniaCSS breakpoint.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="cli">
+        <div class="oc-section-header">
+          <h2 id="cli-reference" class="oc-section-header__title">CLI reference</h2>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr><td><code>scan &lt;dir&gt;</code></td><td>Coverage report: supported share and the list of unsupported classes</td></tr>
+                <tr><td><code>setup &lt;project&gt; [--write]</code></td><td>Plan or apply: package.json, vite/postcss config, CSS theme</td></tr>
+                <tr><td><code>codemod &lt;dir&gt; [--write]</code></td><td>Rewrite to native Omnia class names where 1:1</td></tr>
+                <tr><td><code>build [-c glob] [-o file]</code></td><td>Write the CSS once, without Vite or PostCSS</td></tr>
+                <tr><td><code>css "&lt;class&gt;"</code></td><td>Print the CSS for one class</td></tr>
+                <tr><td><code>bootstrap scan &lt;dir&gt;</code></td><td>Bootstrap report: what converts, what stays, what needs a hand</td></tr>
+                <tr><td><code>bootstrap codemod &lt;dir&gt; [--write]</code></td><td>Rewrite Bootstrap classes, swap the stylesheet, write <code>bootstrap-compat.css</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>The same commands are available as <code>omniacss migrate scan .</code> in the main CLI.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="gaps">
+        <div class="oc-section-header">
+          <h2 id="known-gaps" class="oc-section-header__title">Known gaps</h2>
+        </div>
+        <div class="oc-section-content">
+          <ul>
+            <li>Plugin classes other than <code>tailwindcss-animate</code> (typography, forms, Iconify icons) are not generated.</li>
+            <li>Custom keyframes in <code>tailwind.config</code> are not carried over; add them to your CSS.</li>
+            <li>Class names built at runtime from fragments cannot be scanned: use the <code>safelist</code> option.</li>
+            <li>Breakpoints, shadows and nearest-palette colors differ slightly from the original by design: check the result visually.</li>
+          </ul>
+        </div>
+      </section>
+</main>
+      <aside class="oc-docs-sidebar-right"><nav class="oc-toc" aria-label="On this page"><p class="oc-toc-title">On This Page</p><ul class="oc-toc-list"><li><a class="oc-toc-link" href="#how-it-works-birdycom-omniacss-migrate">How it works @birdycom/omniacss-migrate</a></li><li><a class="oc-toc-link" href="#laravel-in-3-steps">Laravel in 3 steps</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#1-check-coverage-and-preview-the-switch">1. Check coverage and preview the switch</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#2-apply-it">2. Apply it</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#3-build">3. Build</a></li><li><a class="oc-toc-link" href="#your-theme-and-tailwind-config">Your theme and tailwind.config</a></li><li><a class="oc-toc-link" href="#optional-native-omniacss-class-names">Optional: native OmniaCSS class names</a></li><li><a class="oc-toc-link" href="#from-bootstrap-3-4-or-5">From Bootstrap 3, 4 or 5</a></li><li><a class="oc-toc-link" href="#cli-reference">CLI reference</a></li><li><a class="oc-toc-link" href="#known-gaps">Known gaps</a></li></ul></nav></aside>
+      <script>(() => { if (CSS.supports("selector(:target-current)")) return; const links = [...document.querySelectorAll(".oc-toc a[href^='#']")]; const root = document.querySelector(".oc-docs-content, .ocd-content"); if (!links.length || !root) return; const heads = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))); let raf = 0; const update = () => { raf = 0; const top = root.getBoundingClientRect().top + 80; let cur = 0; heads.forEach((h, i) => { if (h && h.getBoundingClientRect().top <= top) cur = i; }); if (root.scrollTop + root.clientHeight >= root.scrollHeight - 4) cur = links.length - 1; links.forEach((a, i) => a.classList.toggle("is-active", i === cur)); }; root.addEventListener("scroll", () => { raf ||= requestAnimationFrame(update); }, { passive: true }); update(); })();</script>
+    </div>
+
+  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.11.0 — modern CSS utilities and tokens · <a href="/docs/index.html">Docs</a> · <a href="https://omniaui.test/index.html">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a></footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "name": "@birdycom/omniacss",
+  "version": "0.11.0",
+  "description": "OmniaCSS utilities: modern CSS (anchor positioning, container queries, view transitions, light-dark()) as utility classes, generated on demand.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Serge Cools (Birdycom)",
+  "homepage": "https://omniacss.eu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Birdycom/OmniaCSS.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/Birdycom/OmniaCSS/issues"
+  },
+  "keywords": [
+    "css",
+    "utility-first",
+    "design-system",
+    "light-dark",
+    "container-queries",
+    "anchor-positioning",
+    "omniacss"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": "./dist/omnia.css",
+    "./min": "./dist/omnia.min.css",
+    "./starter": "./dist/omnia.starter.min.css",
+    "./tokens": "./dist/oc-colors.css",
+    "./theme": "./dist/oc-theme.css",
+    "./tokens/semantic.json": "./tokens/semantic.json",
+    "./tokens/export": "./src/tokens.mjs",
+    "./engine": "./src/engine.mjs",
+    "./postcss": "./src/postcss.mjs",
+    "./scss/*": "./scss/*",
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
+  },
+  "style": "./dist/omnia.css",
+  "files": [
+    "dist",
+    "scss",
+    "src",
+    "tokens",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "postcss": "^8.5.3"
+  },
+  "unpkg": "./dist/omnia.starter.min.css",
+  "jsdelivr": "./dist/omnia.starter.min.css",
+  "sideEffects": [
+    "*.css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

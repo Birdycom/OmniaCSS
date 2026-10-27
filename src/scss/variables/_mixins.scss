@@ -1,0 +1,40 @@
+// SCSS Document 
+// File: src/scss/variables/__mixins.scss
+// Description: sass mixin 
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+
+@use '../variables/_variables' as *;
+@use "sass:map";
+@use "sass:meta";
+
+///
+/// Below you will find the SASS mixins that we will use within our framework - file mixins.
+/// @group Mixins
+
+// start respond-to
+/// to manage responsive breakpoints that you can use for containers
+/// @group Mixins
+/// @name respond-to
+/// @link src/scss/variables/_mixins.scss
+///
+/// @since 1.0.0
+/// @author Serge Cools
+@mixin respond-to($breakpoint) {
+  // If the key exists in the map
+  @if map.has-key($breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+    @media #{meta.inspect(map.get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+ 
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map.keys($breakpoints)}.";
+  }
+}
+// end respond-to

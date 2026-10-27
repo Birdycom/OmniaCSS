@@ -1,0 +1,199 @@
+// SCSS Document 
+// File: src/utilities/_spacing_margin.scss
+// Description: margin properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: margin, margin-inline, margin-inline-start, margin-inline-end, margin-block, margin-block-start, margin-block-end
+// Values: value in rem, auto
+
+@use "sass:string";
+@use "sass:map";
+@use '../utilities/' as *;
+
+/* The Margin property */
+
+// loop true the $sizes list and make the new css-elements 
+// $sizesrem-prop is the first set from the list-item ( "size-1" ), the text before the :-sign
+// $sizesrem-value is the second set from the list item ( $base-size * 0.125 ), the text after the :-sign
+
+/* The Margin property */
+
+///
+/// The position property specifies the type of positioning method used for an element.
+/// @group Margin
+/// @name margin
+/// @link src/scss/utilities/_spacing_margin.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// To use on `<p>`, `<ul>`, `<ol>`, `<pre>`, `<table>`, `<blockquote>`, etc.
+///
+/// Outputs `margin-top` and `margin-bottom`.
+/// 
+/// Applies to:	all elements, except elements with table display types other than table-caption, table and inline-table. It also applies to ::first-letter and ::first-line.
+/// 
+/// @example scss - margin class
+///   $min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+///   $run: 0;
+///   @while $min-group <= $DEFAULT-BASE-SECOND-MAX-GROUP {
+///   $result: omnia-generate-sizing($min-group, 'margin', true, $run);
+///   $min-group: map.get($result,1);
+///   $run: map.get($result,6); 
+///   .#{string.slice(map.get($result,5),1,1)}-#{map.get($result,2)} {
+///     #{map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'t'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-top'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'r'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-right'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'b'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-bottom'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'l'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-left'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'h'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-right'} : map.get($result,3) + #{map.get($result,4)};
+///     #{map.get($result,5)+'-left'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'v'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-top'} : map.get($result,3) + #{map.get($result,4)};
+///     #{map.get($result,5)+'-bottom'} : map.get($result,3) + #{map.get($result,4)}
+///   }  
+/// };
+/// @example html - use the margin-top class
+///   <div class="container mt-5">
+///     <h2>Voorbeeld set margin top with a lenght of 5rem</h2>
+///   </div>
+//
+$min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+$run: 0;
+@while $min-group <= $SPACING-SECOND-MAX-GROUP {
+
+  $result: omnia-generate-sizing($min-group, 'margin', true, $run);
+
+  $min-group: map.get($result,1); 
+  $run: map.get($result,6);
+  // margin 
+  .#{string.slice(map.get($result,5),1,1)}-#{map.get($result,2)} {
+
+    #{map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+      
+  }
+  // margin-top
+  .#{string.slice(map.get($result,5),1,1)+'t'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-top'} : map.get($result,3) + #{map.get($result,4)}
+     
+  }
+  // margin-right
+  .#{string.slice(map.get($result,5),1,1)+'r'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-right'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+  // margin-bottom
+  .#{string.slice(map.get($result,5),1,1)+'b'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-bottom'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }
+  // margin-left
+  .#{string.slice(map.get($result,5),1,1)+'l'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-left'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+  // margin horizontal
+  .#{string.slice(map.get($result,5),1,1)+'h'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-right'} : map.get($result,3) + #{map.get($result,4)};
+    #{map.get($result,5)+'-left'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+  // margin vertical
+  .#{string.slice(map.get($result,5),1,1)+'v'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-top'} : map.get($result,3) + #{map.get($result,4)};
+    #{map.get($result,5)+'-bottom'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+};
+
+  // margin new version CSS
+///
+/// The position property specifies the type of positioning method used for an element.
+/// @group Margin
+/// @name margin inline, inline-start, inline-end, block, block-start, block-end
+/// @link src/scss/utilities/_spacing_margin.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements, except elements with table display types other than table-caption, table and inline-table. It also applies to ::first-letter and ::first-line.
+///
+/// @require $sides -inline, inline-start, inline-end, block, block-start, block-end
+/// 
+/// @example scss - margin-inline class
+///   $min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+///   $run: 0;
+///   @while $min-group <= $DEFAULT-BASE-SECOND-MAX-GROUP {
+///     $result: omnia-generate-sizing($min-group, 'margin', true, $run);
+///     $min-group: map.get($result,1); 
+///     $run: map.get($result,6);
+///     @each $sides-prop in $sides {
+///       .#{string.slice(map.get($result,5),1,1)}-#{$sides-prop}-#{map.get($result,2)} {
+///         #{map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+///       }
+///     }
+///   };
+/// @example html - use the padding class
+///   <div class="container p-5">
+///     <h2>Voorbeeld padding p-5 </h2>
+///   </div>
+//
+$min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+$run: 0;
+@while $min-group <= $SPACING-SECOND-MAX-GROUP {
+
+  $result: omnia-generate-sizing($min-group, 'margin', true, $run);
+  
+  $min-group: map.get($result,1); 
+  $run: map.get($result,6);
+  
+  @each $sides-prop in $sides {
+   
+    .#{string.slice(map.get($result,5),1,1)}-#{$sides-prop}-#{map.get($result,2)} {
+
+      #{map.get($result,5)}-#{$sides-prop}: map.get($result,3) + #{map.get($result,4)}
+      
+    }
+  }
+ 
+};
+
+/* Margin with var(--spacing): .m-var-0 … .m-var-10 (value = calc(var(--spacing) * n)). Uses same --spacing as padding. */
+@for $n from 0 through 10 {
+  @if $n == 0 {
+    .m-var-0 { margin: 0; }
+    .mt-var-0 { margin-top: 0; }
+    .mr-var-0 { margin-right: 0; }
+    .mb-var-0 { margin-bottom: 0; }
+    .ml-var-0 { margin-left: 0; }
+    .mh-var-0 { margin-left: 0; margin-right: 0; }
+    .mv-var-0 { margin-top: 0; margin-bottom: 0; }
+  } @else {
+    .m-var-#{$n} { margin: calc(var(--spacing) * #{$n}); }
+    .mt-var-#{$n} { margin-top: calc(var(--spacing) * #{$n}); }
+    .mr-var-#{$n} { margin-right: calc(var(--spacing) * #{$n}); }
+    .mb-var-#{$n} { margin-bottom: calc(var(--spacing) * #{$n}); }
+    .ml-var-#{$n} { margin-left: calc(var(--spacing) * #{$n}); }
+    .mh-var-#{$n} { margin-left: calc(var(--spacing) * #{$n}); margin-right: calc(var(--spacing) * #{$n}); }
+    .mv-var-#{$n} { margin-top: calc(var(--spacing) * #{$n}); margin-bottom: calc(var(--spacing) * #{$n}); }
+  }
+}
+
+  /* End Margin property */

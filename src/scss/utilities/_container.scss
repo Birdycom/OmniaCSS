@@ -1,0 +1,58 @@
+// SCSS Document 
+// File: src/scss/variables/__variables.scss
+// Description: Default string items for using in the CSS properties 
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// class: container
+
+@use '../utilities/' as *;
+
+/* The Container property */
+
+///
+/// The Layout class within OmniaCSS
+/// @group Container
+///
+
+///
+/// CSS container class with max-width and breakpoints
+/// @group Container
+/// @name container
+/// @link src/scss/utilities/_container.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {mixin} respond-to
+/// @example html - use container class
+///   <div class="container">
+///     <h1>Design system</h1>
+///     <h3>Colors</h3>
+///   </div>
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto; /* Center the container horizontally */
+  padding-inline: 1rem; /* Default horizontal padding */
+
+  @include respond-to('small') {
+    max-width: 41rem;
+  }
+
+  @include respond-to('medium') {
+    max-width: 60rem;
+  }
+
+  @include respond-to('large') {
+    max-width: 80rem;
+  }
+}
+
+/* Container Query Types */
+.cq-inline { container-type: inline-size; }
+.cq-normal { container-type: normal; }
+
+/* End Container property */

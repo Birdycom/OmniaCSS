@@ -1,0 +1,76 @@
+<!--oc-page {"title": "OmniaCSS Docs - Opacity", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .demo-box { width: 80px; height: 80px; background: light-dark(oklch(from var(--color-vividblue-95) l c h / 0.125), oklch(from var(--color-vividblue-50) l c h / 0.25)); border: 1px solid light-dark(oklch(from var(--color-vividblue-95) l c h / 0.2), oklch(from var(--color-vividblue-50) l c h / 0.4)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--accent); }\n    .demo-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }\n    .demo-label { font-size: 0.72rem; color: var(--text-soft); text-align: center; margin-top: 4px; }\n    .demo-col { display: flex; flex-direction: column; align-items: center; }\n  \n    .op-stripes { display: grid; gap: 12px; padding: 16px; border-radius: 12px; inline-size: 100%; background: repeating-linear-gradient(45deg, var(--color-yellow-80) 0 14px, var(--color-dodgerblue-90) 14px 28px); }\n    .op-chip { padding: 14px 16px; border-radius: 8px; background: var(--color-black-50); color: var(--color-white-50); font-weight: 700; font-size: 0.85rem; }\n    .op-chip--alpha { background: oklch(from var(--color-black-50) l c h / 0.5); }\n  </style>"]}-->
+<section class="oc-docs-section" id="opacity">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Opacity</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_effects.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Control the transparency of an element with <code>.opacity-{value}</code>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>opacity</code> makes an element and <em>everything inside it</em> partially transparent (0 invisible, 1 solid). <strong>When to use:</strong> disabled states, hover fades, dimmed secondary content, fade-in/out transitions. <strong>Gotchas:</strong> children cannot be more opaque than their parent, an opacity below 1 creates a stacking context, and an element at <code>opacity-0</code> is still clickable and focusable: add <code>visibility: hidden</code> or <code>inert</code> if it should disappear for good. To make only the background see-through, use a translucent color (<code>oklch(from var(--oc-primary) l c h / 0.5)</code> or <code>color-mix()</code>) instead. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/opacity" target="_blank" rel="noopener">MDN: opacity</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.opacity-0</code></td><td>opacity: 0</td></tr>
+                <tr><td><code>.opacity-10</code></td><td>opacity: 0.1</td></tr>
+                <tr><td><code>.opacity-25</code></td><td>opacity: 0.25</td></tr>
+                <tr><td><code>.opacity-50</code></td><td>opacity: 0.5</td></tr>
+                <tr><td><code>.opacity-75</code></td><td>opacity: 0.75</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.opacity-100</code></td><td>opacity: 1</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title">Visual Demo</h3>
+          <oc-demo title="Visual Demo"><div class="preview">
+            <div class="demo-row">
+              <div class="demo-col"><div class="demo-box opacity-10">A</div><div class="demo-label">.opacity-10</div></div>
+              <div class="demo-col"><div class="demo-box opacity-25">A</div><div class="demo-label">.opacity-25</div></div>
+              <div class="demo-col"><div class="demo-box opacity-50">A</div><div class="demo-label">.opacity-50</div></div>
+              <div class="demo-col"><div class="demo-box opacity-75">A</div><div class="demo-label">.opacity-75</div></div>
+              <div class="demo-col"><div class="demo-box opacity-100">A</div><div class="demo-label">100%</div></div>
+            </div>
+          </div><oc-code lang="html">&lt;div class="opacity-10"&gt;...&lt;/div&gt;
+&lt;div class="opacity-50"&gt;...&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">All values side by side</h3>
+          <oc-demo title="opacity-0 … opacity-100">
+            <div class="demo-row">
+              <div class="demo-col"><div class="demo-box opacity-0">A</div><div class="demo-label">.opacity-0</div></div>
+              <div class="demo-col"><div class="demo-box opacity-10">A</div><div class="demo-label">.opacity-10</div></div>
+              <div class="demo-col"><div class="demo-box opacity-25">A</div><div class="demo-label">.opacity-25</div></div>
+              <div class="demo-col"><div class="demo-box opacity-50">A</div><div class="demo-label">.opacity-50</div></div>
+              <div class="demo-col"><div class="demo-box opacity-75">A</div><div class="demo-label">.opacity-75</div></div>
+              <div class="demo-col"><div class="demo-box opacity-100">A</div><div class="demo-label">.opacity-100</div></div>
+            </div>
+          <oc-code lang="html">&lt;div class="opacity-0"&gt;…&lt;/div&gt;   &lt;!-- invisible but still in the layout --&gt;
+&lt;div class="opacity-100"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Opacity vs a translucent color</h3>
+          <p class="oc-section-content__desc">Left: <code>.opacity-50</code> fades the whole box, including its text. Right: only the background color is made translucent with relative color syntax, so the text stays fully readable. Both sit on a striped backdrop.</p>
+          <oc-demo title="opacity-50 vs oklch(from … / 0.5)">
+            <div class="op-stripes">
+              <div class="op-chip opacity-50">opacity-50: text fades too</div>
+              <div class="op-chip op-chip--alpha">background alpha 0.5: text stays crisp</div>
+            </div>
+          <oc-code lang="html">&lt;div class="opacity-50"&gt;whole element&lt;/div&gt;
+&lt;div style="background: oklch(from var(--oc-primary) l c h / 0.5)"&gt;background only&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Hover and focus fade</h3>
+          <p class="oc-section-content__desc">Combine <code>.transition-opacity</code> with the <code>hover:</code> variant for a smooth fade. Hover or focus the tiles.</p>
+          <oc-demo title="transition-opacity + hover:opacity-100">
+            <div class="demo-row">
+              <div class="demo-col"><div class="demo-box opacity-50 transition-opacity duration-300 hover:opacity-100" tabindex="0">A</div><div class="demo-label">.opacity-50 .hover:opacity-100</div></div>
+              <div class="demo-col"><div class="demo-box opacity-100 transition-opacity duration-300 hover:opacity-50" tabindex="0">A</div><div class="demo-label">.hover:opacity-50</div></div>
+            </div>
+          <oc-code lang="html">&lt;img class="opacity-50 transition-opacity duration-300 hover:opacity-100" src="…"&gt;</oc-code></oc-demo>
+        </div>
+      </section>

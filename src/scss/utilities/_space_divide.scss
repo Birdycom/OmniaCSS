@@ -1,0 +1,85 @@
+// SCSS Document
+// File: src/scss/utilities/_space_divide.scss
+// Description: Space and divide between children — .space-x/y-{n} (gap via margin) and .divide-x/y (rule between children),
+//              both with a *-reverse switch for reversed flex rows/columns.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.4.0
+// Framework: OmniaCSS
+// Purpose: Generate .space-x-{n}, .space-y-{n}, .space-x-reverse, .space-y-reverse, .divide-x[-{w}], .divide-y[-{w}],
+//          .divide-x-reverse, .divide-y-reverse, .divide-{solid|dashed|dotted|double|none}, .divide-current,
+//          .divide-transparent and .divide-{omnia color}.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline
+// Note: Logical properties, so rows follow the writing direction (RTL included). Prefer .gap-* in flex/grid layouts;
+//       use these for block flow, lists and reversed flex containers.
+// Map: space scale -> space-x/y -> reverse -> divide width -> divide style -> divide color
+
+@use "sass:string";
+@use "sass:map";
+@use '../utilities/' as *;
+
+$_space-scale: (0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16);
+$_between: '> :not([hidden]) ~ :not([hidden])';
+
+/* Space between children: margin on every child except the first */
+@each $n in $_space-scale {
+  $v: #{$n * 0.25}rem;
+  @if $n == 0 { $v: 0; }
+  .space-x-#{$n} #{$_between} {
+    margin-inline-start: calc(#{$v} * (1 - var(--oc-space-x-reverse, 0)));
+    margin-inline-end: calc(#{$v} * var(--oc-space-x-reverse, 0));
+  }
+  .space-y-#{$n} #{$_between} {
+    margin-block-start: calc(#{$v} * (1 - var(--oc-space-y-reverse, 0)));
+    margin-block-end: calc(#{$v} * var(--oc-space-y-reverse, 0));
+  }
+}
+.space-x-px #{$_between} {
+  margin-inline-start: calc(1px * (1 - var(--oc-space-x-reverse, 0)));
+  margin-inline-end: calc(1px * var(--oc-space-x-reverse, 0));
+}
+.space-y-px #{$_between} {
+  margin-block-start: calc(1px * (1 - var(--oc-space-y-reverse, 0)));
+  margin-block-end: calc(1px * var(--oc-space-y-reverse, 0));
+}
+
+/* Reverse: use with flex-row-reverse / flex-col-reverse so the space stays between the children */
+.space-x-reverse #{$_between} { --oc-space-x-reverse: 1; }
+.space-y-reverse #{$_between} { --oc-space-y-reverse: 1; }
+
+/* Divide: a rule between the children (default width 1px, solid, 20% of the text color) */
+@each $axis, $start, $end in ('x', 'inline-start', 'inline-end'), ('y', 'block-start', 'block-end') {
+  $axis-name: block;
+  @if $axis == 'x' { $axis-name: inline; }
+  .divide-#{$axis} #{$_between} {
+    border-#{$axis-name}-style: var(--oc-divide-style, solid);
+    border-#{$axis-name}-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
+    border-#{$start}-width: calc(1px * (1 - var(--oc-divide-#{$axis}-reverse, 0)));
+    border-#{$end}-width: calc(1px * var(--oc-divide-#{$axis}-reverse, 0));
+  }
+  @each $w in (0, 2, 4, 8) {
+    .divide-#{$axis}-#{$w} #{$_between} {
+      border-#{$axis-name}-style: var(--oc-divide-style, solid);
+      border-#{$axis-name}-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
+      border-#{$start}-width: calc(#{$w}px * (1 - var(--oc-divide-#{$axis}-reverse, 0)));
+      border-#{$end}-width: calc(#{$w}px * var(--oc-divide-#{$axis}-reverse, 0));
+    }
+  }
+  .divide-#{$axis}-reverse #{$_between} { --oc-divide-#{$axis}-reverse: 1; }
+}
+
+/* Divide style and color are set on the container and inherited by the children */
+@each $style in (solid, dashed, dotted, double) {
+  .divide-#{$style} { --oc-divide-style: #{$style}; }
+}
+.divide-none { --oc-divide-style: none; }
+.divide-current { --oc-divide-color: currentcolor; }
+.divide-transparent { --oc-divide-color: transparent; }
+
+@each $group, $families in $omnia-colors {
+  @each $family, $colors in $families {
+    @each $color, $props in $colors {
+      .divide-#{string.to-lower-case(#{$color})} { --oc-divide-color: var(--color-#{string.to-lower-case(#{$color})}-50); }
+    }
+  }
+}

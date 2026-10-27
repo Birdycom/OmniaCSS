@@ -1,0 +1,861 @@
+// SCSS Document 
+// File: src/utilities/_alignment.scss
+// Description: CSS Alignment properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: align-content, align-items, align-self, justify-content, justify-items, justify-self
+// Values: flex-start, flex-end, center, space-between, space-around, space-evenly, stretch, baseline
+
+@use '../utilities/' as *;
+
+/* The Alignment properties */
+
+// The justify-content property
+
+///
+/// The justify-content property aligns the flexible container's items when the items do not use all available space on the main-axis (horizontally).
+/// Tip: Use the align-items property to align the items vertically.
+/// @group justifycontent
+/// @name justifycontent
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: flex elements
+/// @require $justifycontent
+/// 
+/// @example scss - justify-content class
+///   @each $justifycontent-prop, $justifycontent-value in $justifycontent {
+///    .justify-#{$justifycontent-prop} {
+///       justify-content: $justifycontent-value;
+///     }
+///   }
+/// @example html - use justify-content class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Flex Layout and Grid layout.</p>
+///   <p class="font-1.5">Flex Layout.</p>
+///   <p><code>class: "justify-<span id="classnameflex">between</span>" = justify-content: 
+///   <select id="justifyContent">
+///     <option value="center">center</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="flex-start">flex-start</option>
+///     <option value="flex-end">flex-end</option>
+///     <option value="left">left</option>
+///     <option value="right">right</option>
+///     <option value="normal">normal</option>
+///     <option value="between" selected="">space-between</option>
+///     <option value="around">space-around</option>
+///     <option value="evenly">space-evenly</option>
+///     <option value="stretch">stretch</option>
+///     <option value="center-safe">safe center</option>
+///     <option value="center-unsafe">unsafe center</option>
+///   </select>
+///   </code></p>
+///   <div id="containerflex" class="flex gap-0.6 mt-1 mb-1.5 w-25 ml-auto mr-auto bg-antiquewhite justify-between">
+///     <div class="box">box 1</div>
+///     <div class="box">box 2</div>
+///     <div class="box">box 3</div>
+///   </div> 
+///   <p class="font-1.5">Grid Layout.</p>
+///   <p><code>class: "justify-<span id="classnamegrid">between</span>" = justify-content: <span id="selection">space-between</span></code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: 100px 100px;" </code></p>
+///   <div id="containergrid" class="grid gap-0.6 mt-1 mb-1.5 w-25 ml-auto mr-auto bg-antiquewhite justify-between" style="grid-template-columns: 100px 100px;">
+///     <div class="box">box 1</div>
+///     <div class="box">box 2</div>
+///     <div class="box">box 3</div>
+///   </div> 
+/// <script>
+///     const justifyContent = document.getElementById("justifyContent");
+///     justifyContent.addEventListener("change", (evt) => {
+///       var elementflex = document.getElementById("containerflex");
+///       var elementgrid = document.getElementById("containergrid");
+///       var classNameflex = document.getElementById("classnameflex");
+///       var classNamegrid = document.getElementById("classnamegrid");
+///       var selection = document.getElementById("selection");
+///       var target = evt.target.selectedIndex;
+/// 
+///       elementflex.classList.remove("justify-"+ classNameflex.textContent );
+///       elementgrid.classList.remove("justify-"+ classNamegrid.textContent );
+///       classNameflex.textContent = evt.target.value;
+///       classNamegrid.textContent = evt.target.value;
+///       selection.textContent = evt.target.options[target].text;
+///       elementflex.classList.add("justify-" + evt.target.value);
+///       elementgrid.classList.add("justify-" + evt.target.value);
+///   });
+///   </script>
+@each $justifycontent-prop, $justifycontent-value in $justifycontent {
+  
+  .justify-#{$justifycontent-prop} {
+
+    justify-content: $justifycontent-value;
+
+  }
+}
+
+// The justify-items property
+
+///
+/// The justify-items property specifies the default alignment for items inside the flexible container.
+/// Tip: Use the justify-self property of each item to override the justify-items property.main-axis (horizontally).
+/// @group justifyitems
+/// @name justifyitems
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: all elements
+/// 
+/// @require {variable} $justifyitems
+/// @example scss - justify-items class
+///   @each $justifyitems-prop, $justifyitems-value in $justifyitems {
+///    .justify-items-#{$justifyitems-prop} {
+///       justify-items: $justifyitems-value;
+///     }
+///   }
+/// @example html - use justify-items class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Grid layout.</p>
+///   <p class="font-1.5">Grid Layout.</p>
+///   <p><code>class: "justify-items-<span id="classname">baseline</span>" = justify-items: 
+///   <select id="justifyItems">
+///     <option value="normal">normal</option>
+///     <option value="stretch">stretch</option>
+///     <option value="center">center</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="self-start">self-start</option>
+///     <option value="self-end">self-end</option>
+///     <option value="left">left</option>
+///     <option value="right">right</option>
+///     <option value="baseline" selected="">baseline</option>
+///     <option value="baseline-first">first baseline</option>
+///     <option value="baseline-last">last baseline</option>
+///     <option value="center-safe">safe center</option>
+///     <option value="center-unsafe">unsafe center</option>
+///     <option value="legacy-left">legacy left</option>
+///     <option value="legacy-right">legacy right</option>
+///     <option value="legacy-center">legacy center</option>
+///   </select>
+///   </code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: 1fr 1fr;" </code></p>
+///   <div id="containergrid" class="grid gap-0.6 mt-1 mb-1.5 w-25 ml-auto mr-auto bg-antiquewhite justify-items-baseline" style="grid-template-columns: 1fr 1fr; ">
+///     <div class="box">box 1</div>
+///     <div class="box">box 2</div>
+///     <div class="box">box 3</div>
+///   </div> 
+/// <script>
+///     const justifyItems = document.getElementById("justifyItems");
+///     justifyItems.addEventListener("change", (evt) => {
+///       var element = document.getElementById("containergrid");
+///       var className = document.getElementById("classname");
+/// 
+///       element.classList.remove("justify-items-"+ className.textContent );
+///       className.textContent = evt.target.value;
+///       element.classList.add("justify-items-" + evt.target.value);
+///   });
+///   </script>
+@each $justifyitems-prop, $justifyitems-value in $justifyitems {
+  
+  .justify-items-#{$justifyitems-prop} {
+
+    justify-items: $justifyitems-value;
+
+  }
+}
+
+// The justify-self property
+
+///
+/// The justify-self property specifies the alignment for the selected item inside the flexible container.
+/// Note: The justify-self property overrides the flexible container's justify-items property.
+/// @group justifyself
+/// @name justifyself
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: block-level boxes, absolutely-positioned boxes, and grid items
+///
+/// @require {variable} $justifyself
+/// @example scss - justify-items class
+///   @each $justifyself-prop, $justifyself-value in $justifyself {
+///    .justify-self-#{$justifyself-prop} {
+///       justify-self: $justifyself-value;
+///     }
+///   }
+/// @example html - use justify-self class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Grid layout.</p>
+///   <p class="font-1.5">Grid Layout.</p>
+///   <p><code>class: "justify-self-<span id="classname">baseline</span>" = justify-self: 
+///   <select id="justifySelf">
+///     <option value="auto">auto</option>
+///     <option value="normal">normal</option>
+///     <option value="stretch">stretch</option>
+///     <option value="center">center</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="self-start">self-start</option>
+///     <option value="self-end">self-end</option>
+///     <option value="left">left</option>
+///     <option value="right">right</option>
+///     <option value="baseline" selected="">baseline</option>
+///     <option value="baseline-first">first baseline</option>
+///     <option value="baseline-last">last baseline</option>
+///     <option value="center-safe">safe center</option>
+///     <option value="center-unsafe">unsafe center</option>
+///   </select>
+///   </code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: 1fr 1fr;" </code></p>
+///   <div  class="grid gap-0.6 mt-1 mb-1.5 w-25 ml-auto mr-auto bg-antiquewhite " style="grid-template-columns: 1fr 1fr; ">
+///     <div id="containergrid" class="box justify-self-baseline">box 1</div>
+///     <div class="box">box 2</div>
+///     <div class="box">box 3</div>
+///   </div> 
+/// <script>
+///     const justifySelf = document.getElementById("justifySelf");
+///     justifySelf.addEventListener("change", (evt) => {
+///       var element = document.getElementById("containergrid");
+///       var className = document.getElementById("classname");
+/// 
+///       element.classList.remove("justify-self-"+ className.textContent );
+///       className.textContent = evt.target.value;
+///       element.classList.add("justify-self-" + evt.target.value);
+///   });
+///   </script>
+@each $justifyself-prop, $justifyself-value in $justifyself {
+  
+  .justify-self-#{$justifyself-prop} {
+   
+    justify-self: $justifyself-value;
+
+  }
+}
+
+// The align-content property
+
+///
+/// The align-content property modifies the behavior of the flex-wrap property. It is similar to align-items, but instead of aligning flex items, it aligns flex lines.
+/// Note: There must be multiple lines of items for this property to have any effect!
+/// Tip: Use the justify-content property to align the items on the main-axis (horizontally).
+/// @group aligncontent
+/// @name aligncontent
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: multi-line flex containers
+///
+/// @require {variable} $aligncontent
+/// @example scss - align-content class
+///   @each $aligncontent-prop, $aligncontent-value in $aligncontent {
+///     #{".align-#{$aligncontent-prop}"} {
+///       align-content: $aligncontent-value;
+///     }
+///   }
+/// @example html - use align-content class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Flex or Grid layout.</p>
+///   <p class="font-1.5 mb-1 "><span id="title" class="capitalize" >Flex</span> Layout.</p>
+///   <p><code>class: "<span id="classdisplay">flex</span>" = display: 
+///   <select id="display">
+///     <option value="flex" selected="">flex</option>
+///     <option value="grid">grid</option>
+///   </select>
+///   </code></p>
+///   <p><code>class: "align-<span id="classname">center</span>" = align-content: 
+///   <select id="aligncontent">
+///     <option value="center" selected="">center</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="flex-start">flex-start</option>
+///     <option value="flex-end">flex-end</option>
+///     <option value="normal">normal</option>
+///     <option value="baseline">baseline</option>
+///     <option value="between">space-between</option>
+///     <option value="around">space-around</option>
+///     <option value="evenly">space-evenly</option> 
+///     <option value="stretch">stretch</option>
+///     <option value="center-safe">safe center</option>
+///     <option value="center-unsafe">unsafe center</option>
+///   </select>
+///   </code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: repeat(auto-fill, 50px);" </code></p>
+///   <div id="containeralign" class="flex wrap gap-0.6 mt-1 mb-1.5 w-15 h-12.5 bg-antiquewhite align-center" >
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-springgreen" style="min-height: 30px;">1</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-cornflowerblue" style="min-height: 50px;">2</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-orangered" style="min-height: 40px;">3</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-gold" style="min-height: 60px;">4</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-hotpink" style="min-height: 70px;">5</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-cyan" style="min-height: 50px;">6</div>/// 
+///   </div> 
+/// <script>
+///     const aligncontent = document.getElementById("aligncontent");
+///     const display = document.getElementById("display");
+///     const containeralign = document.getElementById("containeralign");
+/// 
+///     display.addEventListener("change", (evt) => {
+///       const title = document.getElementById("title");
+///       var classdisplay = document.getElementById("classdisplay");
+///       if (evt.target.value == 'grid') {
+///       containeralign.classList.remove(classdisplay.textContent, "wrap" );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value );
+///       containeralign.style.gridTemplateColumns = "repeat(auto-fill, 50px)";
+///         
+///       } else {
+/// 
+///       containeralign.classList.remove(classdisplay.textContent );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value, "wrap" );
+///     
+///       }
+///       
+///       title.textContent = evt.target.value ;
+///       classdisplay.textContent = evt.target.value;
+///   });
+/// 
+///     aligncontent.addEventListener("change", (evt) => {
+///       var classname = document.getElementById("classname");
+///       containeralign.classList.remove("align-" + classname.textContent );
+///       classname.textContent = evt.target.value;
+///       containeralign.classList.add("align-"+ evt.target.value );
+///   });
+///   </script>
+@each $aligncontent-prop, $aligncontent-value in $aligncontent {
+  
+  #{".align-#{$aligncontent-prop}"} {
+   
+    align-content: $aligncontent-value;
+  
+  }
+}
+
+// The align-items property
+
+///
+/// The align-items property specifies the default alignment for items inside the flexible container.
+/// Tip: Use the align-self property of each item to override the align-items property.main-axis (horizontally).
+/// @group alignitems
+/// @name alignitems
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: all elements
+/// @require {variable} $alignitems
+///
+///
+/// @example scss - align-items class
+///   @each $alignitems-prop, $alignitems-value in $alignitems {
+///    .align-items-#{$alignitems-prop} {
+///       align-items: $alignitems-value;
+///     }
+///   }
+/// @example html - use align-items class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Flex or Grid layout.</p>
+///   <p class="font-1.5 mb-1 "><span id="title" class="capitalize" >Flex</span> Layout.</p>
+///   <p><code>class: "<span id="classdisplay">flex</span>" = display: 
+///   <select id="display">
+///     <option value="flex" selected="">flex</option>
+///     <option value="grid">grid</option>
+///   </select>
+///   </code></p>
+///   <p><code>class: "align-items-<span id="classname">center</span>" = align-items: 
+///   <select id="aligncontent">
+///     <option value="center" selected="">center</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="flex-start">flex-start</option>
+///     <option value="flex-end">flex-end</option>
+///     <option value="normal">normal</option>
+///     <option value="baseline">baseline</option>
+///     <option value="baseline-first">first baseline</option>
+///     <option value="baseline-last">last baseline</option>
+///     <option value="self-start">self-start</option>
+///     <option value="self-end">self-end</option>
+///     <option value="stretch">stretch</option>
+///     <option value="center-safe">safe center</option>
+///     <option value="center-unsafe">unsafe center</option>
+///   </select>
+///   </code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: repeat(auto-fill, 50px);" </code></p>
+///   <div id="containeralign" class="flex wrap gap-0.6 mt-1 mb-1.5 w-15 h-12.5 bg-antiquewhite align-items-center" >
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-springgreen" style="min-height: 30px;">1</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-cornflowerblue" style="min-height: 50px;">2</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-orangered" style="min-height: 40px;">3</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-gold" style="min-height: 60px;">4</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-hotpink" style="min-height: 70px;">5</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-cyan" style="min-height: 50px;">6</div>/// 
+///   </div> 
+/// <script>
+///     const aligncontent = document.getElementById("aligncontent");
+///     const display = document.getElementById("display");
+///     const containeralign = document.getElementById("containeralign");
+/// 
+///     display.addEventListener("change", (evt) => {
+///       const title = document.getElementById("title");
+///       var classdisplay = document.getElementById("classdisplay");
+///       if (evt.target.value == 'grid') {
+///       containeralign.classList.remove(classdisplay.textContent, "wrap" );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value );
+///       containeralign.style.gridTemplateColumns = "repeat(auto-fill, 50px)";
+///         
+///       } else {
+/// 
+///       containeralign.classList.remove(classdisplay.textContent );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value, "wrap" );
+///     
+///       }
+///       
+///       title.textContent = evt.target.value ;
+///       classdisplay.textContent = evt.target.value;
+///   });
+/// 
+///     aligncontent.addEventListener("change", (evt) => {
+///       var classname = document.getElementById("classname");
+///       containeralign.classList.remove("align-items-" + classname.textContent );
+///       classname.textContent = evt.target.value;
+///       containeralign.classList.add("align-items-"+ evt.target.value );
+///   });
+///   </script>
+@each $alignitems-prop, $alignitems-value in $alignitems {
+  
+  .align-items-#{$alignitems-prop} {
+   
+    align-items: $alignitems-value;
+  
+  }
+}
+
+// The align-self property
+
+///
+/// The align-self property specifies the alignment for the selected item inside the flexible container.
+/// Note: The align-self property overrides the flexible container's align-items property.
+/// @group alignself
+/// @name alignself
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: flex items, grid items, and absolutely-positioned boxes
+///
+/// @require {variable} $alignself
+/// @example scss - align-items class
+///   @each $alignself-prop, $alignself-value in $alignself {
+///    .align-self-#{$alignself-prop} {
+///       align-self: $alignself-value;
+///     }
+///   }
+/// @example html - use align-self class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Flex or Grid layout.</p>
+///   <p class="font-1.5 mb-1 "><span id="title" class="capitalize" >Flex</span> Layout.</p>
+///   <p><code>class: "<span id="classdisplay">flex</span>" = display: 
+///   <select id="display">
+///     <option value="flex" selected="">flex</option>
+///     <option value="grid">grid</option>
+///   </select>
+///   </code></p>
+///   <p><code>class: "align-items-<span id="classname">center</span>" = align-items: 
+///   <select id="aligncontent">
+///     <option value="center" selected="">center</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="flex-start">flex-start</option>
+///     <option value="flex-end">flex-end</option>
+///     <option value="normal">normal</option>
+///     <option value="baseline">baseline</option>
+///     <option value="baseline-first">first baseline</option>
+///     <option value="baseline-last">last baseline</option>
+///     <option value="self-start">self-start</option>
+///     <option value="self-end">self-end</option>
+///     <option value="stretch">stretch</option>
+///     <option value="center-safe">safe center</option>
+///     <option value="center-unsafe">unsafe center</option>
+///   </select>
+///   </code></p>
+///   <p><code>class: "align-self-<span id="classalignself">baseline</span>" = align-self: 
+///   <select id="alignSelf">
+///     <option value="auto">auto</option>
+///     <option value="normal">normal</option>
+///     <option value="stretch">stretch</option>
+///     <option value="center">center</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="self-start">self-start</option>
+///     <option value="self-end">self-end</option>
+///     <option value="left">left</option>
+///     <option value="right">right</option>
+///     <option value="baseline" selected="">baseline</option>
+///     <option value="baseline-first">first baseline</option>
+///     <option value="baseline-last">last baseline</option>
+///     <option value="center-safe">safe center</option>
+///     <option value="center-unsafe">unsafe center</option>
+///   </select>
+///   </code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: repeat(auto-fill, 50px);" </code></p>
+///   <div id="containeralign" class="flex wrap gap-0.6 mt-1 mb-1.5 w-15 h-12.5 bg-antiquewhite align-items-center" >
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-springgreen" style="min-height: 30px;">1</div>
+///     <div id="boxalignself" class="p-0.5 w-3.2 flex justify-center align-items-center bg-cornflowerblue align-self-center" style="min-height: 50px;">2</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-orangered" style="min-height: 40px;">3</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-gold" style="min-height: 60px;">4</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-hotpink" style="min-height: 70px;">5</div>
+///     <div class="p-0.5 w-3.2 flex justify-center align-items-center bg-cyan" style="min-height: 50px;">6</div>/// 
+///   </div> 
+/// <script>
+///     const aligncontent = document.getElementById("aligncontent");
+///     const display = document.getElementById("display");
+///     const containeralign = document.getElementById("containeralign");
+/// 
+///     display.addEventListener("change", (evt) => {
+///       const title = document.getElementById("title");
+///       var classdisplay = document.getElementById("classdisplay");
+///       if (evt.target.value == 'grid') {
+///       containeralign.classList.remove(classdisplay.textContent, "wrap" );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value );
+///       containeralign.style.gridTemplateColumns = "repeat(auto-fill, 50px)";
+///         
+///       } else {
+/// 
+///       containeralign.classList.remove(classdisplay.textContent );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value, "wrap" );
+///     
+///       }
+///       
+///       title.textContent = evt.target.value ;
+///       classdisplay.textContent = evt.target.value;
+///   });
+/// 
+///     aligncontent.addEventListener("change", (evt) => {
+///       var classname = document.getElementById("classname");
+///       containeralign.classList.remove("align-items-" + classname.textContent );
+///       classname.textContent = evt.target.value;
+///       containeralign.classList.add("align-items-"+ evt.target.value );
+///   });
+///     const alignSelf = document.getElementById("alignSelf");
+///     alignSelf.addEventListener("change", (evt) => {
+///       var element = document.getElementById("boxalignself");
+///       var classalignself = document.getElementById("classalignself");
+/// 
+///       element.classList.remove("align-self-"+ classalignself.textContent );
+///       classalignself.textContent = evt.target.value;
+///       element.classList.add("align-self-" + evt.target.value);
+///   });
+///   </script>
+@each $alignself-prop, $alignself-value in $alignself {
+  
+  .align-self-#{$alignself-prop} {
+  
+    align-self: $alignself-value;
+  
+  }
+}
+/* End align-self property */
+
+/* start place property */
+
+/* place-content property */
+// The place-content property
+
+///
+/// The place-content property specifies the alignment for the selected item inside the flexible container.
+/// Note: The place-content property overrides the flexible container's align-items property.
+/// @group placecontent
+/// @name placecontent
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: flex items, grid items, and absolutely-positioned boxes
+///
+/// @require {variable} $placecontent
+/// @example scss - place-content class
+///   @each $placecontent-prop, $placecontent-value in $placecontent {
+///    .place-#{$placecontent-prop} {
+///      place-content: $placecontent-value;
+///     }
+///   }
+/// @example html - use space-content class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Flex or Grid layout.</p>
+///   <p class="font-1.5 mb-1 "><span id="title" class="capitalize" >Flex</span> Layout.</p>
+///   <p><code>class: "<span id="classdisplay">flex</span>" = display: 
+///   <select id="display">
+///     <option value="flex" selected="">flex</option>
+///     <option value="grid">grid</option>
+///   </select>
+///   </code></p>
+///   <p><code>class: "space-<span id="classname">center</span>" = space-content: 
+///   <select id="aligncontent">
+///     <option value="center" selected="">center</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="baseline">baseline</option>
+///     <option value="between">space-between</option>
+///     <option value="around">space-around</option>
+///     <option value="evenly">space-evenly</option> 
+///     <option value="stretch">stretch</option>
+///     <option value="center-start">center start</option>
+///     <option value="start-center">start center</option>
+///     <option value="end-left">end left</option>
+///     <option value="flex-start-center">flex-start center</option>
+///     <option value="flex-end-center">flex-end center</option>
+///     <option value="baseline-center">baseline center</option>
+///     <option value="baseline-right">baseline right</option>
+///     <option value="between-evenly">space-between space-evenly</option>
+///     <option value="around-evenly">space-around space-evenly</option>
+///     <option value="evenly-stretch">space-evenly stretch</option> 
+///     <option value="stretch-evenly">stretch space-evenly</option>
+///   </select>
+///   </code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: repeat(2,56px);" </code></p>
+///   <div class="font-bold text-white lineheight-1.5 font-0.8 mt-1 mb-1.5 bg-stripes-sky w-25">
+///     <div id="containeralign" class="flex wrap gap-1 h-12.5 place-center" >
+///       <div class="p-1 flex justify-center align-items-center bg-dodgerblue" style="min-height: 32px;">1</div>
+///       <div class="p-1 flex justify-center align-items-center bg-dodgerblue" style="min-height: 32px;">2</div>
+///       <div class="p-1 flex justify-center align-items-center bg-dodgerblue" style="min-height: 32px;">3</div>
+///       <div class="p-1 flex justify-center align-items-center bg-dodgerblue" style="min-height: 32px;">4</div>
+///     </div> 
+///   </div>
+/// <script>
+///     const aligncontent = document.getElementById("aligncontent");
+///     const display = document.getElementById("display");
+///     const containeralign = document.getElementById("containeralign");
+/// 
+///     display.addEventListener("change", (evt) => {
+///       const title = document.getElementById("title");
+///       var classdisplay = document.getElementById("classdisplay");
+///       if (evt.target.value == 'grid') {
+///       containeralign.classList.remove(classdisplay.textContent, "wrap" );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value );
+///       containeralign.style.gridTemplateColumns = "repeat(2,56px)";
+///         
+///       } else {
+/// 
+///       containeralign.classList.remove(classdisplay.textContent );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value, "wrap" );
+///     
+///       }
+///       
+///       title.textContent = evt.target.value ;
+///       classdisplay.textContent = evt.target.value;
+///   });
+/// 
+///     aligncontent.addEventListener("change", (evt) => {
+///       var classname = document.getElementById("classname");
+///       containeralign.classList.remove("place-" + classname.textContent );
+///       classname.textContent = evt.target.value;
+///       containeralign.classList.add("place-"+ evt.target.value );
+///   });
+///   </script>
+/// html body {
+///     box-shadow: 1px 0px 0px rgba(0, 170, 255, 0.3), -1px 0px 0px rgba(0, 170, 255, 0.3);
+/// }
+@each $placecontent-prop, $placecontent-value in $placecontent {
+  
+  .place-#{$placecontent-prop} {
+  
+    place-content: $placecontent-value;
+  
+  }
+}
+/* End place-content property */
+
+/* place-items property */
+// The place-items property
+
+///
+/// The place-items property specifies the alignment for the selected item inside the flexible container.
+/// Note: The place-items property overrides the flexible container's align-items property.
+/// @group placeitems
+/// @name placeitems
+/// 
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: flex items, grid items, and absolutely-positioned boxes
+///
+/// @require {variable} $placeitems
+/// @example scss - place-items class
+///   @each $placeitems-prop, $placeitems-value in $placeitems {
+///    .place-items-#{$placeitems-prop} {
+///      place-items: $placeitems-value;
+///     }
+///   }
+/// @example html - use space-content class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Flex or Grid layout.</p>
+///   <p class="font-1.5 mb-1 "><span id="title" class="capitalize" >Flex</span> Layout.</p>
+///   <p><code>class: "<span id="classdisplay">flex</span>" = display: 
+///   <select id="display">
+///     <option value="flex" selected="">flex</option>
+///     <option value="grid">grid</option>
+///   </select>
+///   </code></p>
+///   <p><code>class: "space-items-<span id="classname">auto</span>" = space-items: 
+///   <select id="aligncontent">
+///     <option value="auto" selected="">auto</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="center">center</option>
+///     <option value="stretch">stretch</option>
+///   </select>
+///   </code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: repeat(2,56px);" </code></p>
+///   <div class="font-bold text-white lineheight-1.5 font-0.8 m-1.5 bg-stripes-sky w-auto h-25">
+///     <div id="containeralign" class="grid grid-cols-3 gap-1 place-items-stretch font-bold font-0.7" >
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >1</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >2</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >3</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >4</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >5</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >6</div>
+///     </div> 
+///   </div>
+/// <script>
+///     const aligncontent = document.getElementById("aligncontent");
+///     const display = document.getElementById("display");
+///     const containeralign = document.getElementById("containeralign");
+/// 
+///     display.addEventListener("change", (evt) => {
+///       const title = document.getElementById("title");
+///       var classdisplay = document.getElementById("classdisplay");
+///       if (evt.target.value == 'grid') {
+///       containeralign.classList.remove(classdisplay.textContent, "wrap" );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value );
+///       containeralign.style.gridTemplateColumns = "repeat(2,56px)";
+///         
+///       } else {
+/// 
+///       containeralign.classList.remove(classdisplay.textContent );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value, "wrap" );
+///     
+///       }
+///       
+///       title.textContent = evt.target.value ;
+///       classdisplay.textContent = evt.target.value;
+///   });
+/// 
+///     aligncontent.addEventListener("change", (evt) => {
+///       var classname = document.getElementById("classname");
+///       containeralign.classList.remove("place-items" + classname.textContent );
+///       classname.textContent = evt.target.value;
+///       containeralign.classList.add("place-items"+ evt.target.value );
+///   });
+///   </script>
+/// html body {
+///     box-shadow: 1px 0px 0px rgba(0, 170, 255, 0.3), -1px 0px 0px rgba(0, 170, 255, 0.3);
+/// }
+@each $placeitems-prop, $placeitems-value in $placeitems {
+  
+  .place-items-#{$placeitems-prop} {
+  
+    place-items: $placeitems-value;
+  
+  }
+}
+/* End place-items property */
+
+/* place-self property */
+// The place-self property
+
+///
+/// The place-content property specifies the alignment for the selected item inside the flexible container.
+/// Note: The place-content property overrides the flexible container's align-items property.
+/// @group placeself
+/// @name placecself
+/// 
+/// @link src/scss/utilities/_alignment.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// applies to: flex items, grid items, and absolutely-positioned boxes
+///
+/// @require {variable} $placeself
+/// @example scss - place-self class
+///   @each $placeself-prop, $placeself-value in $placeself {
+///    .place-self-#{$placeself-prop} {
+///      place-self: $placeself-value;
+///     }
+///   }
+/// @example html - use space-self class
+///   <p class="font-1.5">The interactive example below demonstrates some of the values using Flex or Grid layout.</p>
+///   <p class="font-1.5 mb-1 "><span id="title" class="capitalize" >Flex</span> Layout.</p>
+///   <p><code>class: "<span id="classdisplay">flex</span>" = display: 
+///   <select id="display">
+///     <option value="flex" selected="">flex</option>
+///     <option value="grid">grid</option>
+///   </select>
+///   </code></p>
+///   <p><code>class: "space-self-<span id="classname">auto</span>" = space-self: 
+///   <select id="aligncontent">
+///     <option value="auto" selected="">auto</option>
+///     <option value="start">start</option>
+///     <option value="end">end</option>
+///     <option value="center">center</option>
+///     <option value="stretch">stretch</option>
+///   </select>
+///   </code></p>
+///   <p><code>extra css settings for grid: style="grid-template-columns: repeat(3,minmax(0,1fr));" </code></p>
+///   <div class="font-bold text-white lineheight-1.5 font-0.8 m-1.5 bg-stripes-sky w-auto h-25">
+///     <div class="grid grid-cols-3 gap-1 place-items-stretch font-bold font-0.7" >
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >1</div>
+///       <div id="containeralign" class="p-1 flex justify-center align-items-center bg-dodgerblue place-self-auto" >2</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >3</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >4</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >5</div>
+///       <div class="p-1 flex justify-center align-items-center bg-lightskyblue" >6</div>
+///     </div> 
+///   </div>
+/// <script>
+///     const aligncontent = document.getElementById("aligncontent");
+///     const display = document.getElementById("display");
+///     const containeralign = document.getElementById("containeralign");
+/// 
+///     display.addEventListener("change", (evt) => {
+///       const title = document.getElementById("title");
+///       var classdisplay = document.getElementById("classdisplay");
+///       if (evt.target.value == 'grid') {
+///       containeralign.classList.remove(classdisplay.textContent, "wrap" );
+///       containeralign.style.gridTemplateColumns = "";
+///     /*  containeralign.classList.add(evt.target.value );
+///       containeralign.style.gridTemplateColumns = "repeat(3,minmax(0,1fr))";*/
+///         
+///       } else {
+/// 
+///       containeralign.classList.remove(classdisplay.textContent );
+///       containeralign.style.gridTemplateColumns = "";
+///       containeralign.classList.add(evt.target.value, "wrap" );
+///     
+///       }
+///       
+///       title.textContent = evt.target.value ;
+///       classdisplay.textContent = evt.target.value;
+///   });
+/// 
+///     aligncontent.addEventListener("change", (evt) => {
+///       var classname = document.getElementById("classname");
+///       containeralign.classList.remove("place-self-" + classname.textContent );
+///       classname.textContent = evt.target.value;
+///       containeralign.classList.add("place-self-"+ evt.target.value );
+///   });
+///   </script>
+/// html body {
+///     box-shadow: 1px 0px 0px rgba(0, 170, 255, 0.3), -1px 0px 0px rgba(0, 170, 255, 0.3);
+/// }
+@each $placeself-prop, $placeself-value in $placeself {
+  
+  .place-self-#{$placeself-prop} {
+  
+    place-self: $placeself-value;
+  
+  }
+}
+/* End place-self property */

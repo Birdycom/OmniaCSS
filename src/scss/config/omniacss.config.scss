@@ -1,0 +1,114 @@
+// SCSS Document 
+// File: src/scss/config/omniacss.config.scss
+// Description: Loading file for all configuration settings in this Framework
+// Copyright: 2021-2023 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+
+// master settings to use for the creation of the CSS file
+
+// Color: type of value
+// Properties for value: rgb, hsl, oklch, oklab, Hex, Websafe
+// Properties for name: name_nl, name_en
+
+/// Color methods (`hex`, `hsl`, `rgb`, `oklch`, `oklab`).
+/// @group colorsettings
+/// @name defaultcolortypevalue
+/// @type string
+$DEFAULT-COLOR-TYPE-VALUE: oklch !default;
+
+/// @group colorsettings
+/// @name colorset
+/// @type string
+$COLORSET: true;
+
+
+
+/// Default base font unit (`px`, `em`, `rem`).
+/// @group fontsettings
+/// @name defaultbasefontunit
+/// @type string
+$DEFAULT-BASE-FONT-UNIT: "em" !default;
+
+/// Default font size ( The default font size for html is 16px )
+/// @group fontsettings
+/// @name defaultbasefontsize
+/// @type number
+$DEFAULT-BASE-FONT-SIZE: 16 !default;
+
+
+/// Defaut base unit (`px`, `em`, `rem`).
+/// @group basesettings
+/// @name defaultbaseunit
+/// @type string
+$DEFAULT-BASE-UNIT: "rem" !default;
+
+// SETTINGS FOR the two groups of padding, margin, width and height
+
+/// Default base min pixels 
+/// This setting is for the min of pixels we will use, the pixels wil convert to rem or em
+/// The min lengths we will use to create our padding, margin, width, height
+/// @group basesettings
+/// @name defaultbasefirstmingroup
+/// @type number
+$DEFAULT-BASE-FIRST-MIN-GROUP: 0 !default;
+
+/// Default base first max pixels 
+/// This setting is for the first group max of pixels we will use, the pixels wil convert to rem or em
+/// The max lengths we will use to create our padding, margin, width, height
+/// @group basesettings
+/// @name defaultbasefirstmaxgroup
+/// @type number
+$DEFAULT-BASE-FIRST-MAX-GROUP: 16 !default;
+
+/// Default base first group step size .
+/// This is the first step size we will use to create the padding, margin, width, height
+/// For the first group the pixels wil g from 2px to 4px and then 6px until the max of the first group. 
+/// @group basesettings
+/// @name defaultbasefirststep
+/// @type number
+$DEFAULT-BASE-FIRST-STEP: 2 !default;
+
+/// Default base min pixels 
+/// This setting is for the min of pixels we will use, the pixels wil convert to rem or em
+/// The min lengths we will use to create our padding, margin, width, height
+/// This setting is the som of DEFAULT-BASE-FIRST-MAX-GROUP and DEFAULT-BASE-FIRST-STEP
+/// @group basesettings
+/// @name defaultbasesecondmingroup
+/// @type number
+$DEFAULT-BASE-SECOND-MIN-GROUP: 20 !default;
+
+/// Default base max pixels 
+/// This setting is for the max of pixels we will use, the pixels wil convert to rem or em
+/// The max lengths we will use to create our padding, margin, width, height
+/// @group basesettings
+/// @name defaultbasesecondmaxgroup
+/// @type number
+$DEFAULT-BASE-SECOND-MAX-GROUP: 400 !default;
+
+/// Default base first group step size .
+/// This is the first step size we will use to create the padding, margin, width, height
+/// For the first group the pixels wil g from 2px to 4px and then 6px until the max of the first group. 
+/// @group basesettings
+/// @name defaultbasesecondstep
+/// @type number
+$DEFAULT-BASE-SECOND-STEP: 4 !default;
+
+/// Spacing (padding, margin) max in px — 10rem at 16px base. Other sizing (width, height, gap) still use DEFAULT-BASE-SECOND-MAX-GROUP.
+/// @group basesettings
+$SPACING-SECOND-MAX-GROUP: 160 !default;
+
+
+/// basesize in px
+/// @group basesettings
+/// @name defaultbasesizepercent
+/// @type string
+$DEFAULT-BASE-SIZE-PERCENT: 100% !default;
+
+
+/// string variable
+/// @group variables
+/// @name run
+/// @type string
+$run: null !default;

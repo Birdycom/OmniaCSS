@@ -1,0 +1,97 @@
+// SCSS Document
+// File: src/scss/utilities/_borders_extended.scss
+// Description: Per-side border style/color, axis borders, logical borders, logical radius and border-image.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Complements _borders_outlines.scss (.border-t*, .round-tl*): adds what was still missing.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/border-image
+// Map: per-side style -> per-side color -> axis widths -> logical widths -> logical radius -> border-image
+
+$_sides: ('t': top, 'r': right, 'b': bottom, 'l': left);
+$_styles: (solid, dashed, dotted, double, none);
+
+/* Per-side border style */
+@each $key, $side in $_sides {
+  @each $style in $_styles {
+    .border-#{$key}-#{$style} { border-#{$side}-style: $style; }
+  }
+}
+
+/* Per-side border color (combine with a color utility on the element for the rest) */
+@each $key, $side in $_sides {
+  .border-#{$key}-current { border-#{$side}-color: currentcolor; }
+  .border-#{$key}-transparent { border-#{$side}-color: transparent; }
+}
+
+/* Axis borders: x = left + right, y = top + bottom */
+@each $w in (0, 1, 2, 4, 8) {
+  .border-x-#{$w} { border-left-width: #{$w}px; border-right-width: #{$w}px; }
+  .border-y-#{$w} { border-top-width: #{$w}px; border-bottom-width: #{$w}px; }
+}
+
+/* Logical borders — follow writing direction (s = inline-start, e = inline-end, bs/be = block) */
+@each $w in (0, 1, 2, 4) {
+  .border-s-#{$w} { border-inline-start-width: #{$w}px; }
+  .border-e-#{$w} { border-inline-end-width: #{$w}px; }
+  .border-bs-#{$w} { border-block-start-width: #{$w}px; }
+  .border-be-#{$w} { border-block-end-width: #{$w}px; }
+  .border-inline-#{$w} { border-inline-width: #{$w}px; }
+  .border-block-#{$w} { border-block-width: #{$w}px; }
+}
+.border-inline-solid { border-inline-style: solid; }
+.border-block-solid { border-block-style: solid; }
+.border-inline-current { border-inline-color: currentcolor; }
+.border-block-current { border-block-color: currentcolor; }
+
+/* Logical border radius — ss = start-start, se = start-end, es = end-start, ee = end-end */
+@each $key, $prop in ('ss': start-start, 'se': start-end, 'es': end-start, 'ee': end-end) {
+  @each $r, $v in ('none': 0, 'sm': 0.25rem, 'md': 0.5rem, 'lg': 1rem, 'full': 9999px) {
+    .round-#{$key}-#{$r} { border-#{$prop}-radius: $v; }
+  }
+}
+
+/* Border image */
+.border-image-none { border-image: none; }
+.border-image-gradient {
+  border-image-source: linear-gradient(var(--oc-border-image-angle, 135deg), var(--oc-gradient-from, currentcolor), var(--oc-gradient-to, transparent));
+  border-image-slice: 1;
+}
+.border-image-stripes {
+  border-image-source: repeating-linear-gradient(45deg, var(--oc-gradient-from, currentcolor) 0 6px, var(--oc-gradient-to, transparent) 6px 12px);
+  border-image-slice: 1;
+}
+.border-image-slice-1 { border-image-slice: 1; }
+.border-image-slice-fill { border-image-slice: 1 fill; }
+.border-image-repeat-stretch { border-image-repeat: stretch; }
+.border-image-repeat-repeat { border-image-repeat: repeat; }
+.border-image-repeat-round { border-image-repeat: round; }
+.border-image-repeat-space { border-image-repeat: space; }
+.border-image-width-1 { border-image-width: 1; }
+.border-image-width-auto { border-image-width: auto; }
+.border-image-outset-0 { border-image-outset: 0; }
+.border-image-outset-1 { border-image-outset: 0.25rem; }
+.border-image-outset-2 { border-image-outset: 0.5rem; }
+
+/* Side shorthands — a 1px solid line in the current color on one side */
+@each $key, $side in $_sides {
+  .border-#{$key}-line { border-#{$side}: 1px solid currentcolor; }
+}
+
+/* Logical side shorthands, styles and colors */
+@each $key, $side in ('s': inline-start, 'e': inline-end, 'bs': block-start, 'be': block-end) {
+  .border-#{$key}-line { border-#{$side}: 1px solid currentcolor; }
+  .border-#{$key}-solid { border-#{$side}-style: solid; }
+  .border-#{$key}-dashed { border-#{$side}-style: dashed; }
+  .border-#{$key}-current { border-#{$side}-color: currentcolor; }
+}
+.border-inline-line { border-inline: 1px solid currentcolor; }
+.border-block-line { border-block: 1px solid currentcolor; }
+
+/* Per-corner radius (longhands) */
+@each $key, $corner in ('tl': top-left, 'tr': top-right, 'bl': bottom-left, 'br': bottom-right) {
+  @each $r, $v in ('none': 0, 'sm': 0.25rem, 'md': 0.5rem, 'lg': 1rem, 'full': 9999px) {
+    .radius-#{$key}-#{$r} { border-#{$corner}-radius: $v; }
+  }
+}

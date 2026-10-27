@@ -1,0 +1,550 @@
+// SCSS Document 
+// File: src/scss/variables/_variables_typography.scss
+// Description: Default string items for using in the CSS properties 
+// Copyright: 2021-2023 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Variables and strings: 
+// Herman dependency removed — sassdoc no longer used
+///
+/// 
+/// Below you will find the list of all strings and arrays that we will use within our framework - file variables_typography.
+/// @group variablestypography
+///
+
+// FontSize properties
+// The font size properties values
+///
+/// the font size property values.
+/// @group variablestypography
+///
+/// ```scss
+/// $demo-sizes-text: (
+///   'root': $root,
+///   'xlarge': $xlarge
+/// );
+/// ```
+///
+/// @name fontsize
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$fontsize: (
+"font-0\\.6": 0.625rem, /* 10px */
+"font-0\\.7": 0.75rem, /* 12px */
+"font-0\\.8": 0.875rem, /* 14px */
+"font-1": 1rem, /* 16px */
+"font-1\\.1": 1.125rem, /* 18px */
+"font-1\\.2": 1.25rem, /* 20px */
+"font-1\\.5": 1.5rem, /* 24px */
+"font-1\\.7": 1.75rem, /* 28px */
+"font-1\\.8": 1.875rem, /* 30px */
+"font-2": 2rem, /* 32px */
+"font-2\\.5": 2.5rem, /* 40px */
+"font-3": 3rem, /* 48px */
+"font-4": 4rem, /* 64px */
+"font-5": 5rem, /* 80px */
+"font-6": 6rem, /* 96px */
+"font-7": 7rem, /* 112px */
+"font-8": 8rem, /* 128px */
+// Fluid font sizes (clamp): min 85% of max, vw scales to max at ~1200px — use .font-clamp-* classes
+"font-clamp-0\\.6": clamp(0.53rem, 0.83vw, 0.625rem),   /* 10px fluid */
+"font-clamp-0\\.7": clamp(0.64rem, 1vw, 0.75rem),      /* 12px fluid */
+"font-clamp-0\\.8": clamp(0.74rem, 1.17vw, 0.875rem),  /* 14px fluid */
+"font-clamp-1": clamp(0.85rem, 1.33vw, 1rem),          /* 16px fluid */
+"font-clamp-1\\.1": clamp(0.96rem, 1.5vw, 1.125rem),   /* 18px fluid */
+"font-clamp-1\\.2": clamp(1.06rem, 1.67vw, 1.25rem),   /* 20px fluid */
+"font-clamp-1\\.5": clamp(1.28rem, 2vw, 1.5rem),       /* 24px fluid */
+"font-clamp-1\\.7": clamp(1.49rem, 2.33vw, 1.75rem),   /* 28px fluid */
+"font-clamp-1\\.8": clamp(1.59rem, 2.5vw, 1.875rem),   /* 30px fluid */
+"font-clamp-2": clamp(1.7rem, 2.67vw, 2rem),           /* 32px fluid */
+"font-clamp-2\\.5": clamp(2.13rem, 3.33vw, 2.5rem),    /* 40px fluid */
+"font-clamp-3": clamp(2.55rem, 4vw, 3rem),             /* 48px fluid */
+"font-clamp-4": clamp(3.4rem, 5.33vw, 4rem),            /* 64px fluid */
+"font-clamp-5": clamp(4.25rem, 6.67vw, 5rem),          /* 80px fluid */
+"font-clamp-6": clamp(5.1rem, 8vw, 6rem),              /* 96px fluid */
+"font-clamp-7": clamp(5.95rem, 9.33vw, 7rem),          /* 112px fluid */
+"font-clamp-8": clamp(6.8rem, 10.67vw, 8rem),         /* 128px fluid */
+);
+// End fontsize properties
+
+// Fontstyle properties
+// The font style properties values
+///
+/// the font style property values.
+/// @group variablestypography
+///
+/// @name fontstyle
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$fontstyle: (
+"font-normal": normal, /* The browser displays a normal font style. This is default */
+"font-italic": italic, /* The browser displays an italic font style */
+"font-oblique": oblique, /* The browser displays an oblique font style */
+);
+// End fontstyle properties
+
+
+// Fontweight properties
+// The font weight properties values
+///
+/// the font weight property values.
+/// @group variablestypography
+///
+/// @name fontweight
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$fontweight: (
+"font-thin": 100, /*  */
+"font-extralight": 200, /*  */
+"font-light": 300, /*  */
+"font-normal": 400, /*  */
+"font-medium": 500, /*  */
+"font-semibold": 600, /*  */
+"font-bold": 700, /*  */
+"font-extrabold": 800, /*  */
+"font-black": 900, /*  */
+"font-extrablack":1000 /* */
+);
+// End fontweight properties
+
+
+// Font family properties
+// The font family properties values
+///
+/// the font family property values.
+/// @group variablestypography
+///
+/// @name fontfamily
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$fontfamily: (
+"font-roboto": ('Roboto Flex', sans-serif), /*  */
+"font-source": ('Source Sans Pro', sans-serif), /*  */
+"font-serif": (Times, "Times New Roman", Georgia, serif),
+"font-sansserif": (Verdana, Arial, Helvetica, sans-serif),
+"font-monospace": ("Lucida Console", Courier, monospace),
+"font-cursive" :('Cedarville Cursive', cursive),
+"font-fantasy" :('Cormorant Infant', fantasy),
+"font-emoji": ('Noto Emoji', emoji),
+"font-coloremoji": ('Noto Color Emoji', emoji),
+"font-math": ('Noto Sans Math'),
+"font-fangsong": ('Noto Serif JP','Noto Sans JP', fangsong),
+"font-hieroglyphs": ('Noto Sans Egyptian Hieroglyphs'),
+);
+// End fontfamily properties
+
+
+// Font variant numeric properties
+// The font variant numeric properties values
+///
+/// the font variant numeric property values.
+/// @group variablestypography
+///
+/// @name fontvariantnumeric
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$fontvariantnumeric: (
+"font-num-normal": normal,
+"font-num-ordinal": ordinal,
+"font-num-slashed": slashed-zero,
+"font-num-lining": lining-nums,         /* <numeric-figure-values> */
+"font-num-oldstyle": oldstyle-nums,       /* <numeric-figure-values> */
+"font-num-proportional": proportional-nums,   /* <numeric-spacing-values> */
+"font-num-tabular": tabular-nums,        /* <numeric-spacing-values> */
+"font-num-diagonal": diagonal-fractions,  /* <numeric-fraction-values> */
+"font-num-stacked": stacked-fractions,   /* <numeric-fraction-values> */
+"font-num-oldstacked": oldstyle-nums stacked-fractions,
+);
+// End fontvariant numeric properties
+
+// Default Pseudo-classes
+///
+/// The different variablestext: none, underline, overline & line-through
+/// @group variablestext
+///
+/// @name textdecorationline
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$textdecorationline: (
+  "underline": underline, /* underline */
+  "overline": overline, /* overline */
+  "line-through": line-through, /* line-through */
+  "no-underline": none, /* no-underline */
+  "underoverline": underline overline, /* underline onderline */
+);
+// end default variablestext
+
+// Default letterspacing
+///
+/// The different letterspacing: normal, inherit, initial, revert, revert-layer, unset
+/// @group variablestext
+///
+/// @name letterspacing
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$letterspacing: (
+  "letterspacing-1": -0.025em, /*  */
+  "letterspacing-2": -0.05em, /*  */
+  "letterspacing-3": -0.075em, /*  */
+  "letterspacing-4": -0.1em, /*  */
+  "letterspacing-normal": 0em, /*  */ 
+  "letterspacing-5": 0.1em, /*  */
+  "letterspacing-6": 0.075em, /*  */
+  "letterspacing-7": 0.05em, /*  */
+  "letterspacing-8": 0.025em, /*  */  
+  "letterspacing-9": 0.2em, /*  */
+  "letterspacing-inherit": inherit, /* inherit */
+  "letterspacing-initial": initial, /* initial */
+  "letterspacing-revert": revert, /* revert */
+  "letterspacing-unset": unset, /* unset */
+);
+// end default letterspacing
+
+// Default Line height
+///
+/// The different Line height: 
+/// @group variablestext
+///
+/// @name lineheight
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$lineheight: (
+  "lineheight-0\\.6": 0.625rem, /* 10px */
+  "lineheight-0\\.7": 0.75rem, /* 12px */
+  "lineheight-0\\.8": 0.875rem, /* 14px */
+  "lineheight-1": 1rem, /* 16px */
+  "lineheight-1\\.1": 1.125rem, /* 18px */
+  "lineheight-1\\.2": 1.25rem, /* 20px */
+  "lineheight-1\\.5": 1.5rem, /* 24px */
+  "lineheight-1\\.7": 1.75rem, /* 28px */
+  "lineheight-1\\.8": 1.875rem, /* 30px */
+  "lineheight-2": 2rem, /* 32px */
+  "lineheight-2\\.5": 2.5rem, /* 40px */
+);
+// end default Line Height
+
+// Default Line Break
+///
+/// The different Line break: 
+/// @group variablestext
+///
+/// @name linebreak
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$linebreak: (
+  "linebreak-auto": auto, /* 10px */
+  "linebreak-loose": loose, /* 12px */
+  "linebreak-normal": normal, /* 14px */
+  "linebreak-strict": strict, /* 16px */
+  "linebreak-anywhere": anywhere, /* 18px */
+);
+// end default Line Break
+
+// Default list Style Type
+///
+/// The different list style type: 
+/// @group variablestext
+///
+/// @name liststyletype
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$liststyletype: (
+  "list-none": none, /*  */
+  "list-circle": circle, /*  */  
+  "list-disc": disc, /*  */
+  "list-square": square, /*  */
+  "list-decimal": decimal, /*  */
+  "list-decimal-zero": decimal-leading-zero, /*  */
+  "list-l-alpha": lower-alpha, /*  */
+  "list-l-greek": lower-greek, /*  */
+  "list-l-latin": lower-latin, /*  */
+  "list-l-roman": lower-roman, /*  */
+  "list-u-alpha": upper-alpha, /*  */  
+  "list-u-greek": upper-greek, /*  */
+  "list-u-latin": upper-latin, /*  */
+  "list-u-roman": upper-roman, /*  */  
+);
+// end default list Style Type
+
+// Default list Style Position
+///
+/// The different list style Position: 
+/// @group variablestext
+///
+/// @name liststyleposition
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$liststyleposition: (
+  "list-inside": inside, /*  */
+  "list-outside": outside, /*  */  
+);
+// end default List Style Position
+
+// Default Text Align
+///
+/// Using the keyword values start, end, left, right, center, justify, justify-all, or match-parent
+/// @group variablestext
+///
+/// @name textalign
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$textalign: (
+  "start": start, /* start */
+  "end": end, /* end */
+  "left": left, /* left */
+  "right": right, /* right */
+  "center": center, /* center */
+  "justify": justify, /* justify */
+  "justify-all": justify-all, /* justify-all */
+);
+// end default Text Align
+
+// Default text decoration style
+///
+/// The different text decoration style: solid, double, dotted, dashed, wavy
+/// @group variablestext
+///
+/// @name textdecorationstyle
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$textdecorationstyle: (
+  "decoration-solid": solid, /*  */
+  "decoration-double": double, /*  */
+  "decoration-dotted": dotted, /*  */
+  "decoration-dashed": dashed, /*  */
+  "decoration-wavy": wavy, /*  */ 
+);
+// end default text decoration style
+
+// Default text decoration thickness
+///
+/// The different text decoration thickness: 
+/// @group variablestext
+///
+/// @name textdecorationthickness
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$textdecorationthickness: (
+  "decoration-auto": auto, /* auto */
+  "decoration-font": from-font, /* from-font */
+  "decoration-0": 0em, /* 0px */  
+  "decoration-1": 0.1em, /* 1.6px */
+  "decoration-2": 0.2em, /* 3.2px */
+  "decoration-3": 0.3em, /* 4.8px */
+  "decoration-4": 0.4em, /* 6.4px */ 
+  "decoration-5": 0.5em, /* 8px */ 
+);
+// end default text decoration thickness
+
+// Default text transfrom
+///
+/// The different text transform: none, capitalize, uppercase, lowercase, full-width, full-size-kana
+/// @group variablestext
+///
+/// @name texttransform
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$texttransform: (
+  "normalcase": none, /*  */
+  "capitalize": capitalize, /*  */
+  "uppercase": uppercase, /*  */
+  "lowercase": lowercase, /*  */
+  "fullwidth": full-width, /*  */ 
+  "kana": full-size-kana, /*  */   
+);
+// end default text transform
+
+// Default Underline offset
+///
+/// The different underline offset: normal, inherit, initial, revert, revert-layer, unset
+/// @group variablestext
+///
+/// @name underlineoffset
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$underlineoffset: (
+  "underline-offset-1": -0.4em, /* -6.4px */
+  "underline-offset-2": -0.3em, /* -4.8px */
+  "underline-offset-3": -0.2em, /* -3.2px */
+  "underline-offset-4": -0.1em, /* -1.6px */
+  "underline-offset-normal": 0em, /* 0px */ 
+  "underline-offset-5": 0.1em, /* 1.6px */
+  "underline-offset-6": 0.2em, /* 3.2px */
+  "underline-offset-7": 0.3em, /* 4.8px */
+  "underline-offset-8": 0.4em, /* 6.4px */  
+  "underline-offset-9": 0.5em, /* 8px */
+  "underline-offset-inherit": inherit, /* inherit */
+  "underline-offset-initial": initial, /* initial */
+  "underline-offset-revert": revert, /* revert */
+  "underline-offset-unset": unset, /* unset */
+);
+// end default underline offset
+
+// Default Underline position
+///
+/// The different underline position: auto, under, left, right
+/// @group variablestext
+///
+/// @name textunderlineoposition
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$textunderlineoposition: (
+  "underline-auto": auto, /*  */
+  "underline-under": under, /*  */
+  "underline-left": left, /*  */
+  "underline-right": right, /*  */
+  "underline-underleft": under left, /*  */
+  "underline-underright": under right, /*  */  
+);
+// end default underline offset
+
+// Default Vertical align
+///
+/// The different vertical align: baseline, top, middle, bottom, sub, text-top
+/// @group variablestext
+///
+/// @name textverticalalign
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$textverticalalign: (
+  "vertical-baseline": baseline, /*  */
+  "vertical-top": top, /*  */
+  "vertical-middle": middle, /*  */
+  "vertical-bottom": bottom, /*  */
+  "vertical-sub": sub, /*  */
+  "vertical-super": super, /*  */ 
+  "vertical-texttop": text-top, /*  */  
+  "vertical-textbottom": text-bottom, /*  */   
+);
+// end default vertical align
+
+// Default white-space
+///
+/// The different white-space: normal, nowrap, pre, pre-wrap, pre-line, break-spaces
+/// @group variablestext
+///
+/// @name textwhitespace
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$textwhitespace: (
+  "whitespace-normal": normal, /*  */
+  "whitespace-nowrap": nowrap, /*  */
+  "whitespace-pre": pre, /*  */
+  "whitespace-prewrap": pre-wrap, /*  */
+  "whitespace-preline": pre-line, /*  */
+  "whitespace-breakspaces": break-spaces, /*  */   
+);
+// end default white-space
+
+// Default word-break
+///
+/// The different word-break: normal, break-all, keep-all, break-word
+/// @group variablestext
+///
+/// @name wordbreak
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$wordbreak: (
+  "break-normal": normal, /*  */
+  "break-break": break-all, /*  */
+  "break-keep": keep-all, /*  */
+  "break-word": break-word, /*  */
+);
+// end default word-break
+
+// Default wordspacing
+///
+/// The different wordspacing: normal, inherit, initial, revert, revert-layer, unset
+/// @group variablestext
+///
+/// @name wordspacing
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$wordspacing: (
+  "wordspacing-normal": normal, /*  */ 
+  "wordspacing-1": 0.1em, /* 1.6px */
+  "wordspacing-2": 0.2em, /* 3.2px */
+  "wordspacing-3": 0.5em, /* 8px */
+  "wordspacing-4": 1em, /* 16px */  
+  "wordspacing-5": 2em, /* 32px */
+);
+// end default wordspacing
+
+// Default writing mode
+///
+/// The different writingmode: horizontal-tb, vertical-rl, vertical-lr
+/// @group variablestext
+///
+/// @name writingmode
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$writingmode: (
+  "writingmode-tb": horizontal-tb, /*  */ 
+  "writingmode-rl": vertical-rl, /*  */
+  "writingmode-lr": vertical-lr, /*  */
+  "writingmode-siderl": sideways-rl, /*  */
+  "writingmode-sidelr": sideways-lr, /*  */  
+);
+// end default writing mode

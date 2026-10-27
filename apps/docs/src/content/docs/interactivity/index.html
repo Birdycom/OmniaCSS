@@ -1,0 +1,73 @@
+<!--oc-page {"title": "OmniaCSS Docs - Interactivity", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="interactivity">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Interactivity</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_interactivity.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">interactivity/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc">
+            Utilities for controlling user interaction: cursor styles, user selection, pointer events, scroll behavior, snap, touch actions, resize, will-change, accent color, appearance, caret style and color scheme — plus newer features: auto-growing form fields (<code>field-sizing</code>), customizable <code>&lt;select&gt;</code>, <code>reading-flow</code>, CSS carousel scroll markers, scroll anchoring and print color control.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="pages">Pages</h3>
+          <div class="oc-card-grid">
+            <a class="oc-product-card" href="cursor-selection.html"><h4 class="oc-product-card__name">Cursor, selection &amp; pointer</h4><p class="oc-product-card__summary">.cursor-*, .select-*, .pointer-events-*</p><span class="oc-product-card__more">Open</span></a>
+            <a class="oc-product-card oc-accent--cyan" href="scrolling.html"><h4 class="oc-product-card__name">Scrolling &amp; touch</h4><p class="oc-product-card__summary">.scroll-smooth, .snap-*, scroll markers, .touch-*</p><span class="oc-product-card__more">Open</span></a>
+            <a class="oc-product-card oc-accent--green" href="forms.html"><h4 class="oc-product-card__name">Form controls</h4><p class="oc-product-card__summary">.accent-*, .caret-*, .scheme-*, .resize-*, field-sizing, base-select</p><span class="oc-product-card__more">Open</span></a>
+            <a class="oc-product-card oc-accent--violet" href="performance-a11y.html"><h4 class="oc-product-card__name">Performance &amp; accessibility</h4><p class="oc-product-card__summary">.will-change-*, .reading-flow-*</p><span class="oc-product-card__more">Open</span></a>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Unsupported values are ignored and the browser keeps its default behaviour, so these classes are safe progressive enhancements.</p>
+          <oc-compat features="css.properties.cursor css.properties.user-select css.properties.pointer-events css.properties.resize css.properties.scroll-behavior css.properties.scroll-snap-type css.properties.touch-action css.properties.accent-color css.properties.appearance css.properties.caret-color css.properties.color-scheme css.properties.will-change css.properties.field-sizing css.properties.appearance.base-select css.properties.reading-flow css.properties.scroll-marker-group css.properties.overflow-anchor css.properties.print-color-adjust"></oc-compat>
+
+          <h3 class="oc-section-content__title mt-10" id="usage">Usage example</h3>
+
+          <oc-code>&lt;button class="cursor-pointer select-none touch-manipulation"&gt;
+  Interactive Button
+&lt;/button&gt;
+
+&lt;div class="snap-x scroll-smooth"&gt;
+  &lt;div class="snap-start"&gt;Slide 1&lt;/div&gt;
+  &lt;div class="snap-start"&gt;Slide 2&lt;/div&gt;
+&lt;/div&gt;</oc-code>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Interactivity utilities come from <code>_interactivity.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing" target="_blank" rel="noopener">MDN: field-sizing</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/reading-flow" target="_blank" rel="noopener">MDN: reading-flow</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_interactivity.scss</code></td><td>cursor, user-select, pointer-events, resize, scroll, snap, touch-action, accent/caret/scheme, will-change, field-sizing, base-select, reading-flow, scroll markers, overflow-anchor, print-color-adjust</td></tr>
+                  <tr><td><code>src/scss/utilities/_scrollbar.scss</code></td><td>scrollbar-width, scrollbar-gutter, scrollbar-color</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../scrollbars/">Scrollbars</a>
+               · 
+              <a class="source-link" href="../starting-style/">Entry animations</a>
+               · 
+              <a class="source-link" href="../utilities.html">Utilities</a>
+            </p>
+          </div>
+        </div>
+      </section>

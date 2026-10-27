@@ -1,0 +1,591 @@
+// SCSS Document 
+// File: src/scss/variables/_variables_layout.scss
+// Description: Default string items for using in the CSS properties 
+// Copyright: 2021-2023 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Variables and strings: 
+
+///
+/// Below you will find the list of all strings and arrays that we will use within our framework - file variables_layout.
+/// @group variableslayout
+///
+
+// Aspect-ratio properties
+// The aspect ratio properties values
+///
+/// the aspect-ratio property values.
+/// @group variableslayout
+///
+/// @name aspect
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$aspect: (
+"aspect-auto": auto, /*  */
+"aspect-1": "1/1", /*  */
+"aspect-2": "2/3", /*  */
+"aspect-3": "3/2", /*  */
+"aspect-4": "4/3", /*  */
+"aspect-16": "16/9", /*  */
+"aspect-21": "21/9", /*  */
+);
+// End aspect-ratio properties
+
+// Default round sizes in rem
+///
+/// The different lengths we will use to create our round
+/// @group variables
+///
+/// @name roundsizes
+///
+/// @since 0.2.1
+/// @author Serge Cools
+///
+///
+$roundsizes: (
+
+  /* No round */
+  "round-none": 0, // 0
+
+  /* Full round */
+  "round-full": 9999rem, // 9999px
+
+  /* All sides */
+  "round": 0.0625rem, // 1px
+  "round-1": 0.125rem, // 2px
+  "round-2": 0.25rem, // 4px
+  "round-3": 0.375rem, // 6px
+  "round-4": 0.5rem, // 8px
+  "round-5": 0.625rem, // 10px
+  "round-6": 0.75rem, // 12px
+  "round-7": 0.875rem, // 14px
+  "round-8": 1rem, // 16px
+  "round-9": 1.25rem, // 20px
+  "round-10": 1.5rem, // 24px
+  "round-11": 1.75rem, // 28px
+  "round-12": 2rem, // 32px
+
+  /* Top corners */
+  "round-t": 0.0625rem 0.0625rem 0 0, // 1px 1px 0 0
+  "round-t1": 0.125rem 0.125rem 0 0, // 2px 2px 0 0
+  "round-t2": 0.25rem 0.25rem 0 0, // 4px 4px 0 0
+  "round-t3": 0.375rem 0.375rem 0 0, // 6px 6px 0 0
+  "round-t4": 0.5rem 0.5rem 0 0, // 8px 8px 0 0
+  "round-t5": 0.625rem 0.625rem 0 0, // 10px 10px 0 0
+  "round-t6": 0.75rem 0.75rem 0 0, // 12px 12px 0 0
+  "round-t7": 0.875rem 0.875rem 0 0, // 14px 14px 0 0
+  "round-t8": 1rem 1rem 0 0, // 16px 16px 0 0
+  "round-t9": 1.25rem 1.25rem 0 0, // 20px 20px 0 0
+  "round-t10": 1.5rem 1.5rem 0 0, // 24px 24px 0 0
+  "round-t11": 1.75rem 1.75rem 0 0, // 28px 28px 0 0
+  "round-t12": 2rem 2rem 0 0, // 32px 32px 0 0
+
+  /* Right corners */
+  "round-r": 0 0.0625rem 0.0625rem 0, // 0 1px 1px 0
+  "round-r1": 0 0.125rem 0.125rem 0, // 0 2px 2px 0
+  "round-r2": 0 0.25rem 0.25rem 0, // 0 4px 4px 0
+  "round-r3": 0 0.375rem 0.375rem 0, // 0 6px 6px 0
+  "round-r4": 0 0.5rem 0.5rem 0, // 0 8px 8px 0
+  "round-r5": 0 0.625rem 0.625rem 0, // 0 10px 10px 0
+  "round-r6": 0 0.75rem 0.75rem 0, // 0 12px 12px 0
+  "round-r7": 0 0.875rem 0.875rem 0, // 0 14px 14px 0
+  "round-r8": 0 1rem 1rem 0, // 0 16px 16px 0
+  "round-r9": 0 1.25rem 1.25rem 0, // 0 20px 20px 0
+  "round-r10": 0 1.5rem 1.5rem 0, // 0 24px 24px 0
+  "round-r11": 0 1.75rem 1.75rem 0, // 0 28px 28px 0
+  "round-r12": 0 2rem 2rem 0, // 0 32px 32px 0
+
+  /* Bottom corners */
+  "round-b": 0 0 0.0625rem 0.0625rem, // 0 0 1px 1px
+  "round-b1": 0 0 0.125rem 0.125rem, // 0 0 2px 2px
+  "round-b2": 0 0 0.25rem 0.25rem, // 0 0 4px 4px
+  "round-b3": 0 0 0.375rem 0.375rem, // 0 0 6px 6px
+  "round-b4": 0 0 0.5rem 0.5rem, // 0 0 8px 8px
+  "round-b5": 0 0 0.625rem 0.625rem, // 0 0 10px 10px
+  "round-b6": 0 0 0.75rem 0.75rem, // 0 0 12px 12px
+  "round-b7": 0 0 0.875rem 0.875rem, // 0 0 14px 14px
+  "round-b8": 0 0 1rem 1rem, // 0 0 16px 16px
+  "round-b9": 0 0 1.25rem 1.25rem, // 0 0 20px 20px
+  "round-b10": 0 0 1.5rem 1.5rem, // 0 0 24px 24px
+  "round-b11": 0 0 1.75rem 1.75rem, // 0 0 28px 28px
+  "round-b12": 0 0 2rem 2rem, // 0 0 32px 32px
+
+  /* Left corners */
+  "round-l": 0.0625rem 0 0 0.0625rem, // 1px 0 0 1px
+  "round-l1": 0.125rem 0 0 0.125rem, // 2px 0 0 2px
+  "round-l2": 0.25rem 0 0 0.25rem, // 4px 0 0 4px
+  "round-l3": 0.375rem 0 0 0.375rem, // 6px 0 0 6px
+  "round-l4": 0.5rem 0 0 0.5rem, // 8px 0 0 8px
+  "round-l5": 0.625rem 0 0 0.625rem, // 10px 0 0 10px
+  "round-l6": 0.75rem 0 0 0.75rem, // 12px 0 0 12px
+  "round-l7": 0.875rem 0 0 0.875rem, // 14px 0 0 14px
+  "round-l8": 1rem 0 0 1rem, // 16px 0 0 16px
+  "round-l9": 1.25rem 0 0 1.25rem, // 20px 0 0 20px
+  "round-l10": 1.5rem 0 0 1.5rem, // 24px 0 0 24px
+  "round-l11": 1.75rem 0 0 1.75rem, // 28px 0 0 28px
+  "round-l12": 2rem 0 0 2rem, // 32px 0 0 32px
+
+  /* Top-left corners */
+  "round-tl": 0.0625rem 0 0 0, // 1px 0 0 0
+  "round-tl1": 0.125rem 0 0 0, // 2px 0 0 0
+  "round-tl2": 0.25rem 0 0 0, // 4px 0 0 0
+  "round-tl3": 0.375rem 0 0 0, // 6px 0 0 0
+  "round-tl4": 0.5rem 0 0 0, // 8px 0 0 0
+  "round-tl5": 0.625rem 0 0 0, // 10px 0 0 0
+  "round-tl6": 0.75rem 0 0 0, // 12px 0 0 0
+  "round-tl7": 0.875rem 0 0 0, // 14px 0 0 0
+  "round-tl8": 1rem 0 0 0, // 16px 0 0 0
+  "round-tl9": 1.25rem 0 0 0, // 20px 0 0 0
+  "round-tl10": 1.5rem 0 0 0, // 24px 0 0 0
+  "round-tl11": 1.75rem 0 0 0, // 28px 0 0 0
+  "round-tl12": 2rem 0 0 0, // 32px 0 0 0
+
+  /* Top-right corners */
+  "round-tr": 0 0.0625rem 0 0, // 0 1px 0 0
+  "round-tr1": 0 0.125rem 0 0, // 0 2px 0 0
+  "round-tr2": 0 0.25rem 0 0, // 0 4px 0 0
+  "round-tr3": 0 0.375rem 0 0, // 0 6px 0 0
+  "round-tr4": 0 0.5rem 0 0, // 0 8px 0 0
+  "round-tr5": 0 0.625rem 0 0, // 0 10px 0 0
+  "round-tr6": 0 0.75rem 0 0, // 0 12px 0 0
+  "round-tr7": 0 0.875rem 0 0, // 0 14px 0 0
+  "round-tr8": 0 1rem 0 0, // 0 16px 0 0
+  "round-tr9": 0 1.25rem 0 0, // 0 20px 0 0
+  "round-tr10": 0 1.5rem 0 0, // 0 24px 0 0
+  "round-tr11": 0 1.75rem 0 0, // 0 28px 0 0
+  "round-tr12": 0 2rem 0 0, // 0 32px 0 0
+
+  /* Bottom-left corners */
+  "round-bl": 0 0 0 0.0625rem, // 0 0 0 1px
+  "round-bl1": 0 0 0 0.125rem, // 0 0 0 2px
+  "round-bl2": 0 0 0 0.25rem, // 0 0 0 4px
+  "round-bl3": 0 0 0 0.375rem, // 0 0 0 6px
+  "round-bl4": 0 0 0 0.5rem, // 0 0 0 8px
+  "round-bl5": 0 0 0 0.625rem, // 0 0 0 10px
+  "round-bl6": 0 0 0 0.75rem, // 0 0 0 12px
+  "round-bl7": 0 0 0 0.875rem, // 0 0 0 14px
+  "round-bl8": 0 0 0 1rem, // 0 0 0 16px
+  "round-bl9": 0 0 0 1.25rem, // 0 0 0 20px
+  "round-bl10": 0 0 0 1.5rem, // 0 0 0 24px
+  "round-bl11": 0 0 0 1.75rem, // 0 0 0 28px
+  "round-bl12": 0 0 0 2rem, // 0 0 0 32px
+
+  /* Bottom-right corners */
+  "round-br": 0 0 0.0625rem 0, // 0 0 1px 0
+  "round-br1": 0 0 0.125rem 0, // 0 0 2px 0
+  "round-br2": 0 0 0.25rem 0, // 0 0 4px 0
+  "round-br3": 0 0 0.375rem 0, // 0 0 6px 0
+  "round-br4": 0 0 0.5rem 0, // 0 0 8px 0
+  "round-br5": 0 0 0.625rem 0, // 0 0 10px 0
+  "round-br6": 0 0 0.75rem 0, // 0 0 12px 0
+  "round-br7": 0 0 0.875rem 0, // 0 0 14px 0
+  "round-br8": 0 0 1rem 0, // 0 0 16px 0
+  "round-br9": 0 0 1.25rem 0, // 0 0 20px 0
+  "round-br10": 0 0 1.5rem 0, // 0 0 24px 0
+  "round-br11": 0 0 1.75rem 0, // 0 0 28px 0
+  "round-br12": 0 0 2rem 0, // 0 0 32px 0
+
+  /* Top-left, bottom-right corners */
+  "round-tlbr": 0.0625rem 0 0.0625rem 0, // 1px 0 1px 0
+  "round-tlbr1": 0.125rem 0 0.125rem 0, // 2px 0 2px 0
+  "round-tlbr2": 0.25rem 0 0.25rem 0, // 4px 0 4px 0
+  "round-tlbr3": 0.375rem 0 0.375rem 0, // 6px 0 6px 0
+  "round-tlbr4": 0.5rem 0 0.5rem 0, // 8px 0 8px 0
+  "round-tlbr5": 0.625rem 0 0.625rem 0, // 10px 0 10px 0
+  "round-tlbr6": 0.75rem 0 0.75rem 0, // 12px 0 12px 0
+  "round-tlbr7": 0.875rem 0 0.875rem 0, // 14px 0 14px 0
+  "round-tlbr8": 1rem 0 1rem 0, // 16px 0 16px 0
+  "round-tlbr9": 1.25rem 0 1.25rem 0, // 20px 0 20px 0
+  "round-tlbr10": 1.5rem 0 1.5rem 0, // 24px 0 24px 0
+  "round-tlbr11": 1.75rem 0 1.75rem 0, // 28px 0 28px 0
+  "round-tlbr12": 2rem 0 2rem 0, // 32px 0 32px 0
+
+  /* top-right, bottom-left corners */
+  "round-trbl": 0 0.0625rem 0 0.0625rem, // 0 1px 0 1px
+  "round-trbl1": 0 0.125rem 0 0.125rem, // 0 2px 0 2px
+  "round-trbl2": 0 0.25rem 0 0.25rem, // 0 4px 0 4px
+  "round-trbl3": 0 0.375rem 0 0.375rem, // 0 6px 0 6px
+  "round-trbl4": 0 0.5rem 0 0.5rem, // 0 8px 0 8px
+  "round-trbl5": 0 0.625rem 0 0.625rem, // 0 10px 0 10px
+  "round-trbl6": 0 0.75rem 0 0.75rem, // 0 12px 0 12px
+  "round-trbl7": 0 0.875rem 0 0.875rem, // 0 14px 0 14px
+  "round-trbl8": 0 1rem 0 1rem, // 0 16px 0 16px
+  "round-trbl9": 0 1.25rem 0 1.25rem, // 0 20px 0 20px
+  "round-trbl10": 0 1.5rem 0 1.5rem, // 0 24px 0 24px
+  "round-trbl11": 0 1.75rem 0 1.75rem, // 0 28px 0 28px
+  "round-trbl12": 0 2rem 0 2rem, // 0 32px 0 32px
+);
+// end default round sizes
+
+// Default border sizes in rem
+///
+/// The different lengths we will use to create our border
+/// @group variables
+///
+/// @name bordersizes
+///
+/// @since 0.2.1
+/// @author Serge Cools
+///
+///
+$bordersizes: (
+  /* No border */
+  "border-none": 0, // 0
+
+  /* All borders */
+  "border": 0.0625rem, // 1px
+  "border-1": 0.125rem, // 2px
+  "border-2": 0.25rem, // 4px
+  "border-3": 0.375rem, // 6px
+  "border-4": 0.5rem, // 8px
+  "border-5": 0.625rem, // 10px
+  "border-6": 0.75rem, // 12px
+  "border-7": 0.875rem, // 14px
+  "border-8": 1rem, // 16px
+  "border-9": 1.25rem, // 20px
+  "border-10": 1.5rem, // 24px
+  "border-11": 1.75rem, // 28px
+  "border-12": 2rem, // 32px
+
+  /* Top border */
+  "border-t": 0.0625rem 0 0 0, // 1px 0 0 0
+  "border-t1": 0.125rem 0 0 0, // 2px 0 0 0
+  "border-t2": 0.25rem 0 0 0, // 4px 0 0 0
+  "border-t3": 0.375rem 0 0 0, // 6px 0 0 0
+  "border-t4": 0.5rem 0 0 0, // 8px 0 0 0
+  "border-t5": 0.625rem 0 0 0, // 10px 0 0 0
+  "border-t6": 0.75rem 0 0 0, // 12px 0 0 0
+  "border-t7": 0.875rem 0 0 0, // 14px 0 0 0
+  "border-t8": 1rem 0 0 0, // 16px 0 0 0
+  "border-t9": 1.25rem 0 0 0, // 20px 0 0 0
+  "border-t10": 1.5rem 0 0 0, // 24px 0 0 0
+  "border-t11": 1.75rem 0 0 0, // 28px 0 0 0
+  "border-t12": 2rem 0 0 0, // 32px 0 0 0
+
+  /* Right border */
+  "border-r": 0 0.0625rem 0 0, // 0 1px 0 0
+  "border-r1": 0 0.125rem 0 0, // 0 2px 0 0
+  "border-r2": 0 0.25rem 0 0, // 0 4px 0 0
+  "border-r3": 0 0.375rem 0 0, // 0 6px 0 0
+  "border-r4": 0 0.5rem 0 0, // 0 8px 0 0
+  "border-r5": 0 0.625rem 0 0, // 0 10px 0 0
+  "border-r6": 0 0.75rem 0 0, // 0 12px 0 0
+  "border-r7": 0 0.875rem 0 0, // 0 14px 0 0
+  "border-r8": 0 1rem 0 0, // 0 16px 0 0
+  "border-r9": 0 1.25rem 0 0, // 0 20px 0 0
+  "border-r10": 0 1.5rem 0 0, // 0 24px 0 0
+  "border-r11": 0 1.75rem 0 0, // 0 28px 0 0
+  "border-r12": 0 2rem 0 0, // 0 32px 0 0
+
+  /* Bottom border */
+  "border-b": 0 0 0.0625rem 0, // 0 0 1px 0
+  "border-b1": 0 0 0.125rem 0, // 0 0 2px 0
+  "border-b2": 0 0 0.25rem 0, // 0 0 4px 0
+  "border-b3": 0 0 0.375rem 0, // 0 0 6px 0
+  "border-b4": 0 0 0.5rem 0, // 0 0 8px 0
+  "border-b5": 0 0 0.625rem 0, // 0 0 10px 0
+  "border-b6": 0 0 0.75rem 0, // 0 0 12px 0
+  "border-b7": 0 0 0.875rem 0, // 0 0 14px 0
+  "border-b8": 0 0 1rem 0, // 0 0 16px 0
+  "border-b9": 0 0 1.25rem 0, // 0 0 20px 0
+  "border-b10": 0 0 1.5rem 0, // 0 0 24px 0
+  "border-b11": 0 0 1.75rem 0, // 0 0 28px 0
+  "border-b12": 0 0 2rem 0, // 0 0 32px 0
+
+  /* Left border */
+  "border-l": 0 0 0 0.0625rem, // 0 0 0 1px
+  "border-l1": 0 0 0 0.125rem, // 0 0 0 2px
+  "border-l2": 0 0 0 0.25rem, // 0 0 0 4px
+  "border-l3": 0 0 0 0.375rem, // 0 0 0 6px
+  "border-l4": 0 0 0 0.5rem, // 0 0 0 8px
+  "border-l5": 0 0 0 0.625rem, // 0 0 0 10px
+  "border-l6": 0 0 0 0.75rem, // 0 0 0 12px
+  "border-l7": 0 0 0 0.875rem, // 0 0 0 14px
+  "border-l8": 0 0 0 1rem, // 0 0 0 16px
+  "border-l9": 0 0 0 1.25rem, // 0 0 0 20px
+  "border-l10": 0 0 0 1.5rem, // 0 0 0 24px
+  "border-l11": 0 0 0 1.75rem, // 0 0 0 28px
+  "border-l12": 0 0 0 2rem, // 0 0 0 32px
+
+  /* Top-left border */
+  "border-tl": 0.0625rem 0 0 0.0625rem, // 1px 0 0 1px
+  "border-tl1": 0.125rem 0 0 0.125rem, // 2px 0 0 2px
+  "border-tl2": 0.25rem 0 0 0.25rem, // 4px 0 0 4px
+  "border-tl3": 0.375rem 0 0 0.375rem, // 6px 0 0 6px
+  "border-tl4": 0.5rem 0 0 0.5rem, // 8px 0 0 8px
+  "border-tl5": 0.625rem 0 0 0.625rem, // 10px 0 0 10px
+  "border-tl6": 0.75rem 0 0 0.75rem, // 12px 0 0 12px
+  "border-tl7": 0.875rem 0 0 0.875rem, // 14px 0 0 14px
+  "border-tl8": 1rem 0 0 1rem, // 16px 0 0 16px
+  "border-tl9": 1.25rem 0 0 1.25rem, // 20px 0 0 20px
+  "border-tl10": 1.5rem 0 0 1.5rem, // 24px 0 0 24px
+  "border-tl11": 1.75rem 0 0 1.75rem, // 28px 0 0 28px
+  "border-tl12": 2rem 0 0 2rem, // 32px 0 0 32px
+
+  /* Top-right border */
+  "border-tr": 0.0625rem 0.0625rem 0 0, // 1px 1px 0 0
+  "border-tr1": 0.125rem 0.125rem 0 0, // 2px 2px 0 0
+  "border-tr2": 0.25rem 0.25rem 0 0, // 4px 4px 0 0
+  "border-tr3": 0.375rem 0.375rem 0 0, // 6px 6px 0 0
+  "border-tr4": 0.5rem 0.5rem 0 0, // 8px 8px 0 0
+  "border-tr5": 0.625rem 0.625rem 0 0, // 10px 10px 0 0
+  "border-tr6": 0.75rem 0.75rem 0 0, // 12px 12px 0 0
+  "border-tr7": 0.875rem 0.875rem 0 0, // 14px 14px 0 0
+  "border-tr8": 1rem 1rem 0 0, // 16px 16px 0 0
+  "border-tr9": 1.25rem 1.25rem 0 0, // 20px 20px 0 0
+  "border-tr10": 1.5rem 1.5rem 0 0, // 24px 24px 0 0
+  "border-tr11": 1.75rem 1.75rem 0 0, // 28px 28px 0 0
+  "border-tr12": 2rem 2rem 0 0, // 32px 32px 0 0
+
+  /* Bottom-left border */
+  "border-bl": 0 0 0.0625rem 0.0625rem, // 0 0 1px 1px
+  "border-bl1": 0 0 0.125rem 0.125rem, // 0 0 2px 2px
+  "border-bl2": 0 0 0.25rem 0.25rem, // 0 0 4px 4px
+  "border-bl3": 0 0 0.375rem 0.375rem, // 0 0 6px 6px
+  "border-bl4": 0 0 0.5rem 0.5rem, // 0 0 8px 8px
+  "border-bl5": 0 0 0.625rem 0.625rem, // 0 0 10px 10px
+  "border-bl6": 0 0 0.75rem 0.75rem, // 0 0 12px 12px
+  "border-bl7": 0 0 0.875rem 0.875rem, // 0 0 14px 14px
+  "border-bl8": 0 0 1rem 1rem, // 0 0 16px 16px
+  "border-bl9": 0 0 1.25rem 1.25rem, // 0 0 20px 20px
+  "border-bl10": 0 0 1.5rem 1.5rem, // 0 0 24px 24px
+  "border-bl11": 0 0 1.75rem 1.75rem, // 0 0 28px 28px
+  "border-bl12": 0 0 2rem 2rem, // 0 0 32px 32px
+
+  /* Bottom-right border */
+  "border-br": 0 0.0625rem 0.0625rem 0, // 0 1px 1px 0
+  "border-br1": 0 0.125rem 0.125rem 0, // 0 2px 2px 0
+  "border-br2": 0 0.25rem 0.25rem 0, // 0 4px 4px 0
+  "border-br3": 0 0.375rem 0.375rem 0, // 0 6px 6px 0
+  "border-br4": 0 0.5rem 0.5rem 0, // 0 8px 8px 0
+  "border-br5": 0 0.625rem 0.625rem 0, // 0 10px 10px 0
+  "border-br6": 0 0.75rem 0.75rem 0, // 0 12px 12px 0
+  "border-br7": 0 0.875rem 0.875rem 0, // 0 14px 14px 0
+  "border-br8": 0 1rem 1rem 0, // 0 16px 16px 0
+  "border-br9": 0 1.25rem 1.25rem 0, // 0 20px 20px 0
+  "border-br10": 0 1.5rem 1.5rem 0, // 0 24px 24px 0
+  "border-br11": 0 1.75rem 1.75rem 0, // 0 28px 28px 0
+  "border-br12": 0 2rem 2rem 0, // 0 32px 32px 0
+
+  /* Horizontal border */
+  "border-h": 0.0625rem 0 0.0625rem 0, // 1px 0 1px 0
+  "border-h1": 0.125rem 0 0.125rem 0, // 2px 0 2px 0
+  "border-h2": 0.25rem 0 0.25rem 0, // 4px 0 4px 0
+  "border-h3": 0.375rem 0 0.375rem 0, // 6px 0 6px 0
+  "border-h4": 0.5rem 0 0.5rem 0, // 8px 0 8px 0
+  "border-h5": 0.625rem 0 0.625rem 0, // 10px 0 10px 0
+  "border-h6": 0.75rem 0 0.75rem 0, // 12px 0 12px 0
+  "border-h7": 0.875rem 0 0.875rem 0, // 14px 0 14px 0
+  "border-h8": 1rem 0 1rem 0, // 16px 0 16px 0
+  "border-h9": 1.25rem 0 1.25rem 0, // 20px 0 20px 0
+  "border-h10": 1.5rem 0 1.5rem 0, // 24px 0 24px 0
+  "border-h11": 1.75rem 0 1.75rem 0, // 28px 0 28px 0
+  "border-h12": 2rem 0 2rem 0, // 32px 0 32px 0
+
+  /* Vertical border */
+  "border-v": 0 0.0625rem 0 0.0625rem, // 0 1px 1px 0
+  "border-v1": 0 0.125rem 0 0.125rem, // 0 2px 2px 0
+  "border-v2": 0 0.25rem 0 0.25rem, // 0 4px 4px 0
+  "border-v3": 0 0.375rem 0 0.375rem, // 0 6px 6px 0
+  "border-v4": 0 0.5rem 0 0.5rem, // 0 8px 8px 0
+  "border-v5": 0 0.625rem 0 0.625rem, // 0 10px 10px 0
+  "border-v6": 0 0.75rem 0 0.75rem, // 0 12px 12px 0
+  "border-v7": 0 0.875rem 0 0.875rem, // 0 14px 14px 0
+  "border-v8": 0 1rem 0 1rem, // 0 16px 16px 0
+  "border-v9": 0 1.25rem 0 1.25rem, // 0 20px 20px 0
+  "border-v10": 0 1.5rem 0 1.5rem, // 0 24px 24px 0
+  "border-v11": 0 1.75rem 0 1.75rem, // 0 28px 28px 0
+  "border-v12": 0 2rem 0 2rem, // 0 32px 32px 0
+
+  /* Top-right-left border */
+  "border-trl": 0.0625rem 0.0625rem 0 0.0625rem, // 1px 1px 01px
+  "border-trl1": 0.125rem 0.125rem 0 0.125rem, // 2px 2px 0 2px
+  "border-trl2": 0.25rem 0.25rem 0 0.25rem, // 4px 4px 0 4px
+  "border-trl3": 0.375rem 0.375rem 0 0.375rem, // 6px 6px 0 6px
+  "border-trl4": 0.5rem 0.5rem 0 0.5rem, // 8px 8px 0 8px
+  "border-trl5": 0.625rem 0.625rem 0 0.625rem, // 10px 10px 0 10px
+  "border-trl6": 0.75rem 0.75rem 0 0.75rem, // 12px 12px 0 12px
+  "border-trl7": 0.875rem 0.875rem 0 0.875rem, // 14px 14px 0 14px
+  "border-trl8": 1rem 1rem 0 1rem, // 16px 16px 0 16px
+  "border-trl9": 1.25rem 1.25rem 0 1.25rem, // 20px 20px 0 20px
+  "border-trl10": 1.5rem 1.5rem 0 1.5rem, // 24px 24px 0 24px
+  "border-trl11": 1.75rem 1.75rem 0 1.75rem, // 28px 28px 0 28px
+  "border-trl12": 2rem 2rem 0 2rem, // 32px 32px 0 32px
+
+  /* Bottom-right-left border */
+  "border-brl": 0 0.0625rem 0.0625rem 0.0625rem, // 0 1px 1px 1px
+  "border-brl1": 0 0.125rem 0.125rem 0.125rem, // 0 2px 2px 2px
+  "border-brl2": 0 0.25rem 0.25rem 0.25rem, // 0 4px 4px 4px
+  "border-brl3": 0 0.375rem 0.375rem 0.375rem, // 0 6px 6px 6px
+  "border-brl4": 0 0.5rem 0.5rem 0.5rem, // 0 8px 8px 8px
+  "border-brl5": 0 0.625rem 0.625rem 0.625rem, // 0 10px 10px 10px
+  "border-brl6": 0 0.75rem 0.75rem 0.75rem, // 0 12px 12px 12px
+  "border-brl7": 0 0.875rem 0.875rem 0.875rem, // 0 14px 14px 14px
+  "border-brl8": 0 1rem 1rem 1rem, // 0 16px 16px 16px
+  "border-brl9": 0 1.25rem 1.25rem 1.25rem, // 0 20px 20px 20px
+  "border-brl10": 0 1.5rem 1.5rem 1.5rem, // 0 24px 24px 24px
+  "border-brl11": 0 1.75rem 1.75rem 1.75rem, // 0 28px 28px 28px
+  "border-brl12": 0 2rem 2rem 2rem, // 0 32px 32px 32px
+
+  /* Top-bottom-left border */
+  "border-tbl": 0.0625rem 0 0.0625rem 0.0625rem, // 1px 0 1px 1px
+  "border-tbl1": 0.125rem 0 0.125rem 0.125rem, // 2px 0 2px 2px
+  "border-tbl2": 0.25rem 0 0.25rem 0.25rem, // 4px 0 4px 4px
+  "border-tbl3": 0.375rem 0 0.375rem 0.375rem, // 6px 0 6px 6px
+  "border-tbl4": 0.5rem 0 0.5rem 0.5rem, // 8px 0 8px 8px
+  "border-tbl5": 0.625rem 0 0.625rem 0.625rem, // 10px 0 10px 10px
+  "border-tbl6": 0.75rem 0 0.75rem 0.75rem, // 12px 0 12px 12px
+  "border-tbl7": 0.875rem 0 0.875rem 0.875rem, // 14px 0 14px 14px
+  "border-tbl8": 1rem 0 1rem 1rem, // 16px 0 16px 16px
+  "border-tbl9": 1.25rem 0 1.25rem 1.25rem, // 20px 0 20px 20px
+  "border-tbl10": 1.5rem 0 1.5rem 1.5rem, // 24px 0 24px 24px
+  "border-tbl11": 1.75rem 0 1.75rem 1.75rem, // 28px 0 28px 28px
+  "border-tbl12": 2rem 0 2rem 2rem, // 32px 0 32px 32px
+
+  /* Top-bottom-right border */
+  "border-trb": 0.0625rem 0.0625rem 0.0625rem 0, // 1px 1px 1px 0
+  "border-trb1": 0.125rem 0.125rem 0.125rem 0, // 2px 2px 2px 0
+  "border-trb2": 0.25rem 0.25rem 0.25rem 0, // 4px 4px 4px 0
+  "border-trb3": 0.375rem 0.375rem 0.375rem 0, // 6px 6px 6px 0
+  "border-trb4": 0.5rem 0.5rem 0.5rem 0, // 8px 8px 8px 0
+  "border-trb5": 0.625rem 0.625rem 0.625rem 0, // 10px 10px 10px 0
+  "border-trb6": 0.75rem 0.75rem 0.75rem 0, // 12px 12px 12px 0
+  "border-trb7": 0.875rem 0.875rem 0.875rem 0, // 14px 14px 14px 0
+  "border-trb8": 1rem 1rem 1rem 1rem, // 16px 16px 16px 16px
+  "border-trb9": 1.25rem 1.25rem 1.25rem 1.25rem, // 20px 20px 20px 20px
+  "border-trb10": 1.5rem 1.5rem 1.5rem 1.5rem, // 24px 24px 24px 24px
+  "border-trb11": 1.75rem 1.75rem 1.75rem 1.75rem, // 28px 28px 28px 28px
+  "border-trb12": 2rem 2rem 2rem 2rem, // 32px 32px 32px 32px
+);
+// end default border sizes
+
+// Divider sizes — border between direct children in flex/grid. h = horizontal (border-top), v = vertical (border-left). Same scale as $bordersizes.
+/// @group variableslayout
+/// @name dividersizes
+$dividersizes: (
+  "divider-h-none": 0,
+  "divider-h": 0.0625rem,   // 1px
+  "divider-h-1": 0.125rem,  // 2px
+  "divider-h-2": 0.25rem,   // 4px
+  "divider-h-3": 0.375rem,   // 6px
+  "divider-h-4": 0.5rem,   // 8px
+  "divider-h-5": 0.625rem,   // 10px
+  "divider-h-6": 0.75rem,   // 12px
+  "divider-h-7": 0.875rem,   // 14px
+  "divider-h-8": 1rem,   // 16px
+  "divider-h-9": 1.25rem,   // 20px
+  "divider-h-10": 1.5rem,   // 24px
+  "divider-h-11": 1.75rem,   // 28px
+  "divider-h-12": 2rem,   // 32px 
+  "divider-v-none": 0,
+  "divider-v": 0.0625rem,   // 1px
+  "divider-v-1": 0.125rem,  // 2px
+  "divider-v-2": 0.25rem,   // 4px
+  "divider-v-3": 0.375rem,   // 6px
+  "divider-v-4": 0.5rem,   // 8px
+  "divider-v-5": 0.625rem,   // 10px
+  "divider-v-6": 0.75rem,   // 12px
+  "divider-v-7": 0.875rem,   // 14px
+  "divider-v-8": 1rem,   // 16px
+  "divider-v-9": 1.25rem,   // 20px
+  "divider-v-10": 1.5rem,   // 24px
+  "divider-v-11": 1.75rem,   // 28px
+  "divider-v-12": 2rem,   // 32px 
+);
+// end divider sizes
+
+// Border styles — key = class name, value = border-style.
+/// @group variableslayout
+/// @name borderstyles
+$borderstyles: (
+  "border-none": none,
+  "border-hidden": hidden,
+  "border-dotted": dotted,
+  "border-dashed": dashed,
+  "border-solid": solid,
+  "border-double": double,
+  "border-groove": groove,
+  "border-ridge": ridge,
+  "border-inset": inset,
+  "border-outset": outset,
+);
+// end border styles
+
+// Border colors — neutrals only; palette colors (Omnia, HTML, RAL) come from _borders_outlines.scss.
+/// @group variableslayout
+/// @name bordercolors
+$bordercolors: (
+  "border-transparent": transparent,
+  "border-current": currentColor,
+);
+// end border colors
+
+// Outline sizes — same structure as $bordersizes (key = class name, value = length in rem).
+/// @group variableslayout
+/// @name outlinesizes
+$outlinesizes: (
+  "outline-none": 0,
+  "outline-1": 0.125rem,
+  "outline-2": 0.25rem,
+  "outline-3": 0.375rem,
+  "outline-4": 0.5rem,
+  "outline-5": 0.625rem,
+  "outline-6": 0.75rem,
+  "outline-7": 0.875rem,
+  "outline-8": 1rem,
+  "outline-9": 1.25rem,
+  "outline-10": 1.5rem,
+  "outline-11": 1.75rem,
+  "outline-12": 2rem,
+
+);
+// end outline sizes
+
+// Outline offset — same structure (key = class name, value = length in rem).
+/// @group variableslayout
+/// @name outlineoffsets
+$outlineoffsets: (
+  "outline-offset-none": 0,
+  "outline-offset-1": 0.125rem,
+  "outline-offset-2": 0.25rem,
+  "outline-offset-3": 0.375rem,
+  "outline-offset-4": 0.5rem,
+  "outline-offset-5": 0.625rem,
+  "outline-offset-6": 0.75rem,
+  "outline-offset-7": 0.875rem,
+  "outline-offset-8": 1rem,
+  "outline-offset-9": 1.25rem,
+  "outline-offset-10": 1.5rem,
+  "outline-offset-11": 1.75rem,
+  "outline-offset-12": 2rem,
+);
+// end outline offsets
+
+// Outline styles — same structure as $borderstyles.
+/// @group variableslayout
+/// @name outlinestyles
+$outlinestyles: (
+  "outline-none": none,
+  "outline-hidden": hidden,
+  "outline-dotted": dotted,
+  "outline-dashed": dashed,
+  "outline-solid": solid,
+  "outline-double": double,
+  "outline-groove": groove,
+  "outline-ridge": ridge,
+  "outline-inset": inset,
+  "outline-outset": outset,
+);
+// end outline styles
+
+// Outline colors — neutrals only; palette colors (Omnia, HTML, RAL) come from _borders_outlines.scss.
+/// @group variableslayout
+/// @name outlinecolors
+$outlinecolors: (
+  "outline-transparent": transparent,
+  "outline-current": currentColor,
+);
+// end outline colors

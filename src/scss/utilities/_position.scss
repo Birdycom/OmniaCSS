@@ -1,0 +1,49 @@
+// SCSS Document 
+// File: src/utilities/_position.scss
+// Description: Position property 
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Property: position
+// Values: absolute, fixed, static, sticky, relative
+
+@use '../utilities/' as *;
+
+  /* The Position property */
+
+///
+/// The position Property
+/// @group Position
+///
+
+///
+/// The position property specifies the type of positioning method used for an element.
+/// @group Position
+/// @name position
+/// @link src/scss/utilities/_position.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $posvalues
+/// @example scss - position class
+///   @each $posvalues-prop in $posvalues {
+///     .#{$posvalues-prop} {
+///       position: $posvalues-prop;
+///     }
+///   }  
+/// @example html - use position class
+///   <div class="absolute">
+///
+///   </div>  
+@each $posvalues-prop in $posvalues {
+
+  .#{$posvalues-prop} {
+
+    position: $posvalues-prop;
+
+    }
+  }    
+/* End Position property */

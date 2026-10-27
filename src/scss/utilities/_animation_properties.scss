@@ -1,0 +1,143 @@
+// SCSS Document
+// File: src/scss/utilities/_animation_properties.scss
+// Description: Animation longhand utilities, easing functions, motion path (offset-*), the individual
+//              rotate property, transform-box and scroll/view timeline longhands.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .animate-delay-*, .animate-duration-*, .animate-direction-*, .animate-fill-*, .animate-play-*,
+//          .animate-repeat-*, .animate-compose-*, .animate-ease-*, .animate-name-*, .ease-spring/.ease-bounce/.ease-steps-*,
+//          .offset-*, .rotate-prop-*, .transform-box-*, .animate-range-start-*/-end-*, .scroll-timeline-axis-*,
+//          .view-timeline-axis-*, .view-timeline-inset-*.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations
+// Note: complements _motion_transforms.scss (transition-*, .animate-spin, transform utilities).
+// Map: duration -> delay -> iteration -> direction -> fill-mode -> play-state -> composition -> name
+//      -> easing -> motion path -> rotate property -> transform-box -> timeline longhands
+
+/* Animation duration */
+@each $ms in (75, 150, 300, 500, 700, 1000, 2000) {
+  .animate-duration-#{$ms} { animation-duration: #{$ms}ms; }
+}
+
+/* Animation delay */
+@each $ms in (0, 75, 150, 300, 500, 1000) {
+  .animate-delay-#{$ms} { animation-delay: #{$ms}ms; }
+}
+
+/* Animation iteration count */
+.animate-repeat-1 { animation-iteration-count: 1; }
+.animate-repeat-2 { animation-iteration-count: 2; }
+.animate-repeat-3 { animation-iteration-count: 3; }
+.animate-repeat-infinite { animation-iteration-count: infinite; }
+
+/* Animation direction */
+.animate-direction-normal { animation-direction: normal; }
+.animate-direction-reverse { animation-direction: reverse; }
+.animate-direction-alternate { animation-direction: alternate; }
+.animate-direction-alternate-reverse { animation-direction: alternate-reverse; }
+
+/* Animation fill mode */
+.animate-fill-none { animation-fill-mode: none; }
+.animate-fill-forwards { animation-fill-mode: forwards; }
+.animate-fill-backwards { animation-fill-mode: backwards; }
+.animate-fill-both { animation-fill-mode: both; }
+
+/* Animation play state (e.g. pause on hover with hover:animate-paused in your own CSS) */
+.animate-running { animation-play-state: running; }
+.animate-paused { animation-play-state: paused; }
+
+/* Animation composition */
+.animate-compose-replace { animation-composition: replace; }
+.animate-compose-add { animation-composition: add; }
+.animate-compose-accumulate { animation-composition: accumulate; }
+
+/* Animation name — pair with .animate-duration-* (keyframes from _motion_transforms.scss) */
+.animate-name-none { animation-name: none; }
+.animate-name-spin { animation-name: oc-spin; }
+.animate-name-pulse { animation-name: oc-pulse; }
+.animate-name-bounce { animation-name: oc-bounce; }
+.animate-name-ping { animation-name: oc-ping; }
+
+/* Easing functions — animations (transitions use .ease-*) */
+.animate-ease-linear { animation-timing-function: linear; }
+.animate-ease-in { animation-timing-function: ease-in; }
+.animate-ease-out { animation-timing-function: ease-out; }
+.animate-ease-in-out { animation-timing-function: ease-in-out; }
+.animate-ease-steps-4 { animation-timing-function: steps(4, end); }
+.animate-ease-spring {
+  animation-timing-function: linear(0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1);
+}
+
+/* Easing functions — transitions: spring/bounce via linear(), stepped */
+.ease-spring {
+  transition-timing-function: linear(0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1);
+}
+.ease-bounce {
+  transition-timing-function: linear(0, 0.063, 0.25, 0.563, 1 36.4%, 0.812, 0.75, 0.813, 1 72.7%, 0.953, 0.938, 0.953, 1 90.9%, 0.984, 1);
+}
+.ease-steps-4 { transition-timing-function: steps(4, end); }
+.ease-step-start { transition-timing-function: step-start; }
+.ease-step-end { transition-timing-function: step-end; }
+
+/* Motion path — move an element along a path */
+.offset-path-none { offset-path: none; }
+.offset-path-circle { offset-path: circle(40% at 50% 50%); }
+.offset-path-ellipse { offset-path: ellipse(45% 35% at 50% 50%); }
+.offset-path-inset { offset-path: inset(10% round 1rem); }
+.offset-path-wave { offset-path: path("M 0 40 C 40 0, 80 80, 120 40 S 200 0, 240 40"); }
+.offset-path-ray { offset-path: ray(45deg closest-side); }
+@each $p in (0, 25, 50, 75, 100) {
+  .offset-distance-#{$p} { offset-distance: #{$p * 1%}; }
+}
+.offset-rotate-auto { offset-rotate: auto; }
+.offset-rotate-reverse { offset-rotate: reverse; }
+.offset-rotate-0 { offset-rotate: 0deg; }
+.offset-anchor-center { offset-anchor: center; }
+.offset-anchor-auto { offset-anchor: auto; }
+.offset-position-normal { offset-position: normal; }
+.offset-position-center { offset-position: center; }
+.offset-none { offset: none; }
+
+/* Follow the path from 0% to 100% */
+@keyframes oc-follow-path {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+.animate-follow-path { animation: oc-follow-path 3s ease-in-out infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-follow-path { animation: none; }
+}
+
+/* Individual rotate property (independent from transform) */
+@each $deg in (0, 45, 90, 180, -45, -90) {
+  $name: '#{$deg}';
+  @if $deg < 0 {
+    $name: 'n#{-$deg}';
+  }
+  .rotate-prop-#{$name} { rotate: #{$deg}deg; }
+}
+.rotate-prop-x-180 { rotate: x 180deg; }
+.rotate-prop-y-180 { rotate: y 180deg; }
+
+/* Transform box — reference box for transform-origin (SVG) */
+.transform-box-content { transform-box: content-box; }
+.transform-box-border { transform-box: border-box; }
+.transform-box-fill { transform-box: fill-box; }
+.transform-box-stroke { transform-box: stroke-box; }
+.transform-box-view { transform-box: view-box; }
+
+/* Timeline longhands */
+.animate-range-start-entry { animation-range-start: entry; }
+.animate-range-start-contain { animation-range-start: contain; }
+.animate-range-end-exit { animation-range-end: exit; }
+.animate-range-end-contain { animation-range-end: contain; }
+.scroll-timeline-axis-block { scroll-timeline-axis: block; }
+.scroll-timeline-axis-inline { scroll-timeline-axis: inline; }
+.scroll-timeline-name-oc { scroll-timeline-name: --oc-timeline; }
+.view-timeline-axis-block { view-timeline-axis: block; }
+.view-timeline-axis-inline { view-timeline-axis: inline; }
+.view-timeline-name-oc { view-timeline-name: --oc-timeline; }
+.view-timeline-inset-auto { view-timeline-inset: auto; }
+.view-timeline-inset-10 { view-timeline-inset: 10%; }

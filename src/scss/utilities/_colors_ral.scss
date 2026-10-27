@@ -1,0 +1,151 @@
+// SCSS Document 
+// File: src/scss/utilities/_colors_ral.scss
+// Description: colors properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: background-color, color
+// Values: rgb, rgba, hsl, hsla, #
+
+@use "sass:string";
+@use "sass:color";
+@use '../utilities/' as *;
+
+/* The RAL Colors properties */
+///
+/// @group ColorsRAL
+///
+
+///
+/// This code defines a series of nested Sass @each loops that generate CSS background colors 
+/// and text colors based on a set of predefined color palettes. 
+/// The @each loops iterate through several arrays of color properties, 
+/// starting with a top-level array called $html-colors, and dig into subsequent arrays of 
+/// maincolorsomnia-prop, colorname-prop, and pseudoclasses-prop 
+/// to generate CSS classes for each color with different opacity and/or pseudo-class options. 
+/// 
+/// The code then generates CSS code block and sets the appropriate background-color 
+/// and color properties based on the selected color and opacity value. 
+/// The $DEFAULT-COLOR-TYPE-VALUE variable determines whether the color being iterated 
+/// through is set as a hexadecimal value, HSL, or RGB.
+/// 
+/// This site displays a review of standard colors according the Classic RAL System. 
+/// RAL is used for information defining standard colors for paint and coatings. 
+/// It is the most popular Central European Color Standard used today. 
+/// The colors are used in architecture, construction, industry and road safety. 
+/// The RAL colors in this chart have been matched as closely as possible.
+/// 
+/// * RAL 1xxx (geel): RAL 1000 groenbeige - RAL 1037 zonnegeel (40 kleuren)
+/// * RAL 2xxx (oranje): RAL 2000 geeloranje - RAL 2013 parelmoeroranje (14 kleuren)
+/// * RAL 3xxx (rood): RAL 3000 vuurrood - RAL 3033 parelmoerlichtrood (34 kleuren)
+/// * RAL 4xxx (violet): RAL 4001 roodlila - RAL 4012 parelmoerlichtviolet (12 kleuren)
+/// * RAL 5xxx (blauw): RAL 5000 paarsblauw - RAL 5026 parelmoernachtblauw (25 kleuren)
+/// * RAL 6xxx (groen): RAL 6000 patinagroen - RAL 6038 briljantgroen (38 kleuren)
+/// * RAL 7xxx (grijs): RAL 7000 pelsgrijs - RAL 7048 parelmoermuisgrijs (38 kleuren)
+/// * RAL 8xxx (bruin): RAL 8000 groenbruin - RAL 8029 parelmoerkoper (20 kleuren)
+/// * RAL 9xxx (wit/zwart): RAL 9001 crèmewit - RAL 9023 parelmoerdonkergrijs (14 kleuren)
+///
+/// @group ColorsRAL
+/// @name colorsral
+/// @link src/scss/utilities/_colors_ral.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $colorsral
+/// @require {variable} $pseudoclasses
+/// @require str-replace
+/// @example scss - colors class
+///   @each $colorsral-prop, $colorsral-value in $ral-colors { // first list 'ralcolors'
+///   @each $maincolorsral-prop, $maincolorsral-value in $colorsral-value { // first list 'ralcolors'
+///     @each $colorname-prop, $colorname-value in $maincolorsral-value { // second list 'colors name'
+///       @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+///         #{".#{$pseudoclasses-value}" + "bg-" + to-lower-case("#{$colorname-prop}"+ "#{$pseudoclasses-prop}")}{
+///           @each $colorral-prop, $colorral-value in $colorname-value {
+///             @if $colorral-prop == $DEFAULT-COLOR-TYPE-VALUE {
+///               @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {  
+///                 background-color: $colorral-value;  
+///               };
+///               @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+///                 $h:(); $s:(); $l:();
+///                 @each $color-prop, $color-value in $colorral-value {
+///                     @if $color-prop == 'h' { $h: #{$color-value}; }
+///                     @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+///                     @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+///                 };
+///                 background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ')'}; 
+///               };
+///               @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+///                 $r:(); $g:(); $b:();
+///                 @each $color-prop, $color-value in $colorral-value {
+///                     @if $color-prop == 'r' { $r: #{$color-value}; }
+///                     @if $color-prop == 'g' { $g: #{$color-value}; }
+///                     @if $color-prop == 'b' { $b: #{$color-value}; }
+///                 };
+///                 background-color: #{'rgb('+ $r  $g  $b + ')'}; 
+///               };
+///             };   
+///           };
+///         };
+///         #{".#{$pseudoclasses-value}" + "text-" + to-lower-case("#{$colorname-prop}"+ "#{$pseudoclasses-prop}")}{
+///           @each $colorral-prop, $colorral-value in $colorname-value {
+///             @if $colorral-prop == $DEFAULT-COLOR-TYPE-VALUE {
+///               @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {   
+///                 color: $colorral-value;  
+///               };
+///               @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+///                 $h:(); $s:(); $l:();
+///                 @each $color-prop, $color-value in $colorral-value {
+///                     @if $color-prop == 'h' { $h: #{$color-value}; }
+///                     @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+///                     @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+///                 };
+///                 color: #{'hsl('+ $h + ', ' + $s + ', ' + $l + ')'}; 
+///               };
+///               @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+///                 $r:(); $g:(); $b:();
+///                 @each $color-prop, $color-value in $colorral-value {
+///                     @if $color-prop == 'r' { $r: #{$color-value}; }
+///                     @if $color-prop == 'g' { $g: #{$color-value}; }
+///                     @if $color-prop == 'b' { $b: #{$color-value}; }
+///                 };
+///                 color: #{'rgb('+ $r  $g  $b + ')'}; 
+///               };
+///             };    
+///           };
+///         };
+///       };
+///     };
+///   };
+/// };
+/// @example html - use background, text and hover-color class
+///   <div class="bg-ral1003 w-20 h-12 p-0.5 hover:bg-ral1005">
+///     <p class="text-ral1036">Signal yellow, background = ral1003, hover background = ral1036 </p>
+///     <p class="text-ral2005">text = ral2005</p>
+///     <p class="text-ral3002">background = ral1003</p>
+///     <p class="text-ral1005">hover background = ral1005 </p>
+///   </div> 
+@each $colorsral-prop, $colorsral-value in $ral-colors { // first list 'ralcolors'
+
+  @each $maincolorsral-prop, $maincolorsral-value in $colorsral-value { // first list 'ralcolors'
+
+    @each $colorname-prop, $colorname-value in $maincolorsral-value { // second list 'colors name'
+
+      $ral-name: string.to-lower-case(#{$colorname-prop});
+      @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+
+        #{".#{$pseudoclasses-value}" + "bg-" + $ral-name + "#{$pseudoclasses-prop}"}{
+          background-color: var(--color-#{$ral-name});
+        }
+
+        #{".#{$pseudoclasses-value}" + "text-" + $ral-name + "#{$pseudoclasses-prop}"}{
+          color: var(--color-#{$ral-name});
+        }
+      }
+    }
+  }
+};
+
+/* End RAL Colors properties */

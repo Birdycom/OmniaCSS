@@ -1,0 +1,171 @@
+// SCSS Document
+// File: src/scss/utilities/_layout_extras.scss
+// Description: Layout properties that were still missing: inset shorthand, logical inset/min/max sizes,
+//              flex-flow, grid areas, margin-trim, logical overflow/overscroll/scroll spacing, safe areas,
+//              zoom, container shorthand, all, empty-cells, image-orientation and background-position axes.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .inset-*, .inset-x-*, .inset-y-*, .inset-bs-*/.inset-be-*, .min-inline-*/.max-block-* …,
+//          .flex-flow-*, .grid-areas-*, .area-*, .margin-trim-*, .overflow-inline-*/.overflow-block-*,
+//          .overflow-clip-margin-*, .overscroll-inline-*/.overscroll-block-*, .scroll-m-inline-*, .scroll-ms-*, .scroll-p-block-* …,
+//          .p-safe*/.m-safe*, .zoom-*, .cq-card, .all-*, .empty-cells-*, .image-orientation-*, .bg-pos-x-*/.bg-pos-y-*.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/inset
+// Map: inset -> logical inset/sizes -> flex-flow -> grid areas -> margin-trim -> overflow axes -> overscroll axes
+//      -> logical scroll spacing -> safe areas -> zoom -> container -> all -> empty-cells -> image-orientation -> bg axes
+
+$_space: ('0': 0, '1': 0.25rem, '2': 0.5rem, '4': 1rem, '8': 2rem, 'auto': auto, 'full': 100%);
+
+/* Inset shorthand (top/right/bottom/left at once) */
+@each $k, $v in $_space {
+  .inset-#{$k} { inset: $v; }
+  .inset-x-#{$k} { left: $v; right: $v; }
+  .inset-y-#{$k} { top: $v; bottom: $v; }
+  .inset-bs-#{$k} { inset-block-start: $v; }
+  .inset-be-#{$k} { inset-block-end: $v; }
+}
+
+/* Logical min/max sizes */
+@each $k, $v in ('0': 0, 'full': 100%, 'fit': fit-content, 'min': min-content, 'max': max-content, 'none': none) {
+  @if $k != 'none' {
+    .min-inline-#{$k} { min-inline-size: $v; }
+    .min-block-#{$k} { min-block-size: $v; }
+  }
+  @if $k != '0' {
+    .max-inline-#{$k} { max-inline-size: $v; }
+    .max-block-#{$k} { max-block-size: $v; }
+  }
+}
+
+/* Flex flow (direction + wrap in one) */
+.flex-flow-row { flex-flow: row nowrap; }
+.flex-flow-row-wrap { flex-flow: row wrap; }
+.flex-flow-col { flex-flow: column nowrap; }
+.flex-flow-col-wrap { flex-flow: column wrap; }
+.flex-flow-row-reverse-wrap { flex-flow: row-reverse wrap; }
+
+/* Grid template areas + grid-area (named layout) */
+.grid-areas-holy-grail {
+  grid-template-areas: "header header" "sidebar main" "footer footer";
+  grid-template-columns: minmax(10rem, 1fr) 3fr;
+}
+.grid-areas-stack { grid-template-areas: "header" "main" "sidebar" "footer"; }
+.grid-areas-none { grid-template-areas: none; }
+.grid-template-none { grid-template: none; }
+.grid-none { grid: none; }
+@each $area in (header, sidebar, main, footer) {
+  .area-#{$area} { grid-area: $area; }
+}
+.area-auto { grid-area: auto; }
+.area-full { grid-area: 1 / 1 / -1 / -1; }
+
+/* Margin trim — remove child margins at the container edges */
+.margin-trim-none { margin-trim: none; }
+.margin-trim-block { margin-trim: block; }
+.margin-trim-inline { margin-trim: inline; }
+
+/* Logical overflow axes */
+@each $v in (auto, hidden, clip, visible, scroll) {
+  .overflow-inline-#{$v} { overflow-inline: $v; }
+  .overflow-block-#{$v} { overflow-block: $v; }
+}
+.overflow-clip-margin-0 { overflow-clip-margin: 0; }
+.overflow-clip-margin-2 { overflow-clip-margin: 0.5rem; }
+.overflow-clip-margin-4 { overflow-clip-margin: 1rem; }
+.overflow-clip-margin-content { overflow-clip-margin: content-box; }
+
+/* Logical overscroll behavior */
+@each $v in (auto, contain, none) {
+  .overscroll-inline-#{$v} { overscroll-behavior-inline: $v; }
+  .overscroll-block-#{$v} { overscroll-behavior-block: $v; }
+}
+
+/* Logical scroll margin / padding (s = inline-start, e = inline-end, bs/be = block-start/end) */
+@each $k, $v in ('0': 0, '2': 0.5rem, '4': 1rem, '8': 2rem) {
+  .scroll-m-inline-#{$k} { scroll-margin-inline: $v; }
+  .scroll-m-block-#{$k} { scroll-margin-block: $v; }
+  .scroll-ms-#{$k} { scroll-margin-inline-start: $v; }
+  .scroll-me-#{$k} { scroll-margin-inline-end: $v; }
+  .scroll-mbs-#{$k} { scroll-margin-block-start: $v; }
+  .scroll-mbe-#{$k} { scroll-margin-block-end: $v; }
+  .scroll-p-inline-#{$k} { scroll-padding-inline: $v; }
+  .scroll-p-block-#{$k} { scroll-padding-block: $v; }
+  .scroll-ps-#{$k} { scroll-padding-inline-start: $v; }
+  .scroll-pe-#{$k} { scroll-padding-inline-end: $v; }
+  .scroll-pbs-#{$k} { scroll-padding-block-start: $v; }
+  .scroll-pbe-#{$k} { scroll-padding-block-end: $v; }
+}
+
+/* Safe areas (notch / home indicator) — needs <meta name="viewport" content="viewport-fit=cover"> */
+.p-safe { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+.pt-safe { padding-top: env(safe-area-inset-top); }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+.pl-safe { padding-left: env(safe-area-inset-left); }
+.pr-safe { padding-right: env(safe-area-inset-right); }
+.mb-safe { margin-bottom: env(safe-area-inset-bottom); }
+.h-screen-safe { height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
+
+/* Zoom */
+@each $z in (50, 75, 100, 125, 150) {
+  .zoom-#{$z} { zoom: #{$z * 1%}; }
+}
+
+/* Container shorthand (name / type) */
+.cq-card { container: card / inline-size; }
+.cq-main { container: main / inline-size; }
+.cq-sidebar { container: sidebar / inline-size; }
+
+/* all — reset every property */
+.all-initial { all: initial; }
+.all-inherit { all: inherit; }
+.all-unset { all: unset; }
+.all-revert { all: revert; }
+.all-revert-layer { all: revert-layer; }
+
+/* Table empty cells */
+.empty-cells-show { empty-cells: show; }
+.empty-cells-hide { empty-cells: hide; }
+
+/* Image orientation (EXIF) */
+.image-orientation-from-image { image-orientation: from-image; }
+.image-orientation-none { image-orientation: none; }
+
+/* Background position per axis */
+@each $k, $v in ('left': left, 'center': center, 'right': right, '0': 0%, '50': 50%, '100': 100%) {
+  .bg-pos-x-#{$k} { background-position-x: $v; }
+}
+@each $k, $v in ('top': top, 'center': center, 'bottom': bottom, '0': 0%, '50': 50%, '100': 100%) {
+  .bg-pos-y-#{$k} { background-position-y: $v; }
+}
+
+/* Mask shorthand — fade out content */
+.mask-reset { mask: none; }
+.mask-fade-b { mask: linear-gradient(#000 60%, transparent); }
+.mask-fade-r { mask: linear-gradient(to right, #000 60%, transparent); }
+.mask-fade-x { mask: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); }
+
+/* Paged media — named pages for print (@page landscape sets the sheet orientation) */
+.page-auto { page: auto; }
+.page-landscape { page: landscape; }
+@page landscape {
+  size: landscape;
+}
+
+/* position-try shorthand (order + fallbacks) */
+.anchor-try-most-height-flip { position-try: most-height flip-block, flip-inline; }
+
+/* SVG geometry properties (responsive shapes inside <svg>) */
+@each $k, $v in ('0': 0, '25': 25%, '50': 50%, '100': 100%) {
+  .cx-#{$k} { cx: $v; }
+  .cy-#{$k} { cy: $v; }
+  .x-#{$k} { x: $v; }
+  .y-#{$k} { y: $v; }
+}
+.r-25 { r: 25%; }
+.r-50 { r: 50%; }
+.rx-0 { rx: 0; }
+.rx-4 { rx: 4px; }
+.ry-0 { ry: 0; }
+.ry-4 { ry: 4px; }
+.d-none { display: none; }

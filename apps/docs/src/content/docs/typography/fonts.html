@@ -1,0 +1,50 @@
+<!--oc-page {"title": "OmniaCSS Docs - Typography: Font Families Overview", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!-- HERO -->
+      <section class="oc-docs-section" id="overview">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Font Families</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_fonts.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">fonts.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Every font family in OmniaCSS. Each class sets a <code>font-family</code> stack.
+          Classes in <code>omnia_main.css</code>; source: <code>_fonts.scss</code>, <code>_variables_typography.scss</code>.</p>
+        </div>
+      </section>
+
+      <!-- SOURCE -->
+      <section class="oc-docs-section" id="source">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Source &amp; Further Reading</h2>
+          <p class="oc-section-header__desc">
+            Font family utilities are generated from <code>_fonts.scss</code> and variable maps in <code>_variables_typography.scss</code>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">SCSS Source Files</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+              <tbody>
+                <tr><td><code>src/scss/utilities/_fonts.scss</code></td><td>Font family, size, style, weight, variant-numeric</td></tr>
+                <tr><td><code>src/scss/variables/_variables_typography.scss</code></td><td>Maps: $fontfamily, $fontsize, $fontstyle, $fontweight</td></tr>
+                <tr><td><code>src/scss/config/omniacss.fonts.scss</code></td><td>Google Fonts @import declarations</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title mt-5">Generation Pattern</h3>
+          <oc-code>// _fonts.scss — font-family generation
+@each $fontfamily-prop, $fontfamily-value in $fontfamily {
+  .font-#{$fontfamily-prop} {
+    font-family: $fontfamily-value;
+  }
+}</oc-code>
+
+          <h3 class="oc-section-content__title mt-5">Related Pages</h3>
+          <p class="oc-docs-typo-meta">
+            <a class="source-link" href="../typography.html">Typography</a> (font size, weight, text align, line-height, etc.)
+          </p>
+        </div>
+      </section>

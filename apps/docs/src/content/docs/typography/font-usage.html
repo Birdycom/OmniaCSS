@@ -1,0 +1,45 @@
+<!--oc-page {"title": "OmniaCSS Docs - Typography: Font Usage", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="usage-intro">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Fonts Usage</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_fonts.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">font-usage.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Apply any font family as a utility class on any element.</p>
+        </div>
+      </section>
+
+      <!-- ================================================================ -->
+      <!-- USAGE                                                            -->
+      <!-- ================================================================ -->
+      <section class="oc-docs-section" id="usage">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Usage <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          <p class="oc-section-header__desc">Using font classes in your HTML.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <oc-demo title="Font family classes">
+            <div class="grid gap-1 w-full">
+              <p class="font-roboto font-1.5 m-0">Roboto Flex — The quick brown fox jumps over the lazy dog</p>
+              <p class="font-serif font-1.5 m-0">Serif — The quick brown fox jumps over the lazy dog</p>
+              <p class="font-monospace font-1.2 m-0">Monospace — const fox = "quick brown";</p>
+              <p class="font-cursive font-2 m-0">Cursive — Handwritten headline</p>
+              <p class="font-fantasy font-2 font-bold m-0">Fantasy — Large display heading</p>
+              <p class="font-math font-1.5 m-0">Math — ∑ x² + ∫ f(x) dx ≈ π</p>
+              <p class="font-hieroglyphs font-2 m-0">&#x13000; &#x13001; &#x13002; &#x13080; &#x130C0;</p>
+              <p class="font-coloremoji font-2 m-0">😀 🚀 🎨 🐦</p>
+            </div>
+
+          <oc-code lang="html">
+&lt;!-- Apply font family --&gt;
+&lt;p class="font-roboto"&gt;Roboto Flex text&lt;/p&gt;
+&lt;p class="font-monospace"&gt;Code-style text&lt;/p&gt;
+&lt;p class="font-hieroglyphs"&gt;&amp;#x13000;&amp;#x13001;&amp;#x13002;&lt;/p&gt;
+
+&lt;!-- Combine with size and weight --&gt;
+&lt;h1 class="font-fantasy font-3 font-bold"&gt;Large fantasy heading&lt;/h1&gt;
+              </oc-code></oc-demo>
+        </div>
+      </section>

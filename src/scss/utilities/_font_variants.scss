@@ -1,0 +1,139 @@
+// SCSS Document
+// File: src/scss/utilities/_font_variants.scss
+// Description: Font variants, variable font axes, font-size-adjust, synthesis, hyphenation, text effects,
+//              ruby annotation and MathML typography utilities.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .font-caps-*, .font-lig-*, .font-east-*, .font-pos-*, .font-emoji-*, .font-alt-*,
+//          .font-wght-*, .font-size-adjust-*, .font-synthesis-*, .hyphenate-*, .text-justify-*, .text-wrap-mode-*,
+//          .text-combine-*, .emphasis-style-*/.emphasis-color-*, .text-stroke-*, .text-fill-*, .ruby-*, .math-*.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant
+// Note: numeric variants live in _fonts.scss (.font-num-*).
+// Map: caps -> ligatures -> east asian -> position -> emoji -> alternates -> variation axes -> size adjust
+//      -> synthesis -> hyphenation -> justify/wrap-mode/combine -> emphasis -> text stroke/fill -> ruby -> math
+
+/* Font variant caps */
+.font-caps-normal { font-variant-caps: normal; }
+.font-caps-small { font-variant-caps: small-caps; }
+.font-caps-all-small { font-variant-caps: all-small-caps; }
+.font-caps-petite { font-variant-caps: petite-caps; }
+.font-caps-all-petite { font-variant-caps: all-petite-caps; }
+.font-caps-unicase { font-variant-caps: unicase; }
+.font-caps-titling { font-variant-caps: titling-caps; }
+
+/* Font variant ligatures */
+.font-lig-normal { font-variant-ligatures: normal; }
+.font-lig-none { font-variant-ligatures: none; }
+.font-lig-common { font-variant-ligatures: common-ligatures; }
+.font-lig-no-common { font-variant-ligatures: no-common-ligatures; }
+.font-lig-discretionary { font-variant-ligatures: discretionary-ligatures; }
+.font-lig-historical { font-variant-ligatures: historical-ligatures; }
+.font-lig-contextual { font-variant-ligatures: contextual; }
+
+/* Font variant east asian */
+.font-east-normal { font-variant-east-asian: normal; }
+.font-east-jis04 { font-variant-east-asian: jis04; }
+.font-east-simplified { font-variant-east-asian: simplified; }
+.font-east-traditional { font-variant-east-asian: traditional; }
+.font-east-full-width { font-variant-east-asian: full-width; }
+.font-east-proportional { font-variant-east-asian: proportional-width; }
+.font-east-ruby { font-variant-east-asian: ruby; }
+
+/* Font variant position (real sub/superscript glyphs) */
+.font-pos-normal { font-variant-position: normal; }
+.font-pos-sub { font-variant-position: sub; }
+.font-pos-super { font-variant-position: super; }
+
+/* Font variant emoji */
+.font-emoji-normal { font-variant-emoji: normal; }
+.font-emoji-text { font-variant-emoji: text; }
+.font-emoji-emoji { font-variant-emoji: emoji; }
+.font-emoji-unicode { font-variant-emoji: unicode; }
+
+/* Font variant alternates and shorthand */
+.font-alt-normal { font-variant-alternates: normal; }
+.font-alt-historical { font-variant-alternates: historical-forms; }
+.font-variant-normal { font-variant: normal; }
+.font-variant-none { font-variant: none; }
+
+/* Variable font axes (font-variation-settings) */
+.font-variation-normal { font-variation-settings: normal; }
+@each $w in (100, 200, 300, 400, 500, 600, 700, 800, 900) {
+  .font-wght-#{$w} { font-variation-settings: "wght" #{$w}; }
+}
+.font-wdth-75 { font-variation-settings: "wdth" 75; }
+.font-wdth-125 { font-variation-settings: "wdth" 125; }
+.font-slnt-n10 { font-variation-settings: "slnt" -10; }
+
+/* Font size adjust — keep x-height consistent across fallback fonts */
+.font-size-adjust-none { font-size-adjust: none; }
+.font-size-adjust-from-font { font-size-adjust: from-font; }
+.font-size-adjust-0\.5 { font-size-adjust: 0.5; }
+.font-size-adjust-ex { font-size-adjust: ex-height 0.53; }
+.font-size-adjust-cap { font-size-adjust: cap-height 0.7; }
+
+/* Font synthesis longhands */
+.font-synthesis-weight-none { font-synthesis-weight: none; }
+.font-synthesis-style-none { font-synthesis-style: none; }
+.font-synthesis-small-caps-none { font-synthesis-small-caps: none; }
+
+/* Font language override */
+.font-lang-normal { font-language-override: normal; }
+
+/* Hyphenation details */
+.hyphenate-char-auto { hyphenate-character: auto; }
+.hyphenate-char-dash { hyphenate-character: "\2010"; }
+.hyphenate-char-equals { hyphenate-character: "="; }
+.hyphenate-limit-auto { hyphenate-limit-chars: auto; }
+.hyphenate-limit-6 { hyphenate-limit-chars: 6 3 2; }
+.hyphenate-limit-10 { hyphenate-limit-chars: 10 4 4; }
+
+/* Text justify, wrap mode, combine upright */
+.text-justify-auto { text-justify: auto; }
+.text-justify-none { text-justify: none; }
+.text-justify-inter-word { text-justify: inter-word; }
+.text-justify-inter-character { text-justify: inter-character; }
+.text-wrap-mode-wrap { text-wrap-mode: wrap; }
+.text-wrap-mode-nowrap { text-wrap-mode: nowrap; }
+.text-combine-none { text-combine-upright: none; }
+.text-combine-all { text-combine-upright: all; }
+
+/* Text emphasis longhands */
+.emphasis-style-filled { text-emphasis-style: filled; }
+.emphasis-style-open { text-emphasis-style: open; }
+.emphasis-style-double-circle { text-emphasis-style: double-circle; }
+.emphasis-color-current { text-emphasis-color: currentcolor; }
+.emphasis-color-red { text-emphasis-color: var(--color-red-100); }
+.emphasis-color-blue { text-emphasis-color: var(--color-blue-100); }
+
+/* Text stroke and fill (WebKit text effects, supported in all engines) */
+.text-stroke-0 { -webkit-text-stroke-width: 0; }
+.text-stroke-1 { -webkit-text-stroke-width: 1px; }
+.text-stroke-2 { -webkit-text-stroke-width: 2px; }
+.text-stroke-current { -webkit-text-stroke-color: currentcolor; }
+.text-stroke-white { -webkit-text-stroke-color: var(--color-white-50); }
+.text-stroke-black { -webkit-text-stroke-color: var(--color-black-50); }
+.text-fill-transparent { -webkit-text-fill-color: transparent; }
+.text-fill-current { -webkit-text-fill-color: currentcolor; }
+.text-outline { -webkit-text-stroke: 1px currentcolor; -webkit-text-fill-color: transparent; }
+
+/* Ruby annotation (<ruby> / <rt>) */
+.ruby-over { ruby-position: over; }
+.ruby-under { ruby-position: under; }
+.ruby-inter-character { ruby-position: inter-character; }
+.ruby-align-start { ruby-align: start; }
+.ruby-align-center { ruby-align: center; }
+.ruby-align-space-between { ruby-align: space-between; }
+.ruby-align-space-around { ruby-align: space-around; }
+.ruby-overhang-auto { ruby-overhang: auto; }
+.ruby-overhang-none { ruby-overhang: none; }
+
+/* MathML typography */
+.math-normal { math-style: normal; }
+.math-compact { math-style: compact; }
+.math-depth-auto { math-depth: auto-add; }
+.math-depth-0 { math-depth: 0; }
+.math-shift-normal { math-shift: normal; }
+.math-shift-compact { math-shift: compact; }

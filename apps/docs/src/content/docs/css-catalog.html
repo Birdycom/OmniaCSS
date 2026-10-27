@@ -1,0 +1,211 @@
+<!--oc-page {"title": "OmniaCSS Docs - CSS Catalog", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .oc-docs-layout {\n      margin-top: var(--ocm-header-height);\n      height: calc(100vh - var(--ocm-header-height) - var(--ocm-footer-height));\n      display: grid;\n      grid-template-columns: 300px 1fr;\n      overflow: hidden;\n    }\n\n    .oc-docs-sidebar {\n      border-right: 1px solid var(--border);\n      background: var(--surface);\n      padding: 20px 16px;\n      height: 100%;\n      overflow: auto;\n    }\n\n    .oc-docs-sidebar-brand {\n      margin: 0 0 14px;\n      font-weight: 700;\n      font-size: 1.05rem;\n    }\n\n    .oc-docs-group-title {\n      margin: 16px 0 8px;\n      font-size: 0.75rem;\n      text-transform: uppercase;\n      letter-spacing: 0.08em;\n      color: var(--text-soft);\n    }\n\n    .oc-docs-nav {\n      list-style: none;\n      margin: 0;\n      padding: 0;\n      display: grid;\n      gap: 6px;\n    }\n\n    .oc-docs-nav a {\n      display: block;\n      text-decoration: none;\n      color: var(--text-soft);\n      padding: 8px 10px;\n      border-radius: 8px;\n      border: 1px solid transparent;\n    }\n\n    .oc-docs-nav a:hover {\n      color: var(--text);\n      border-color: var(--border);\n      background: light-dark(oklch(from var(--color-white-95) l c h / 0.01), oklch(from var(--color-white-2) l c h / 0.02));\n    }\n\n    .oc-docs-content {\n      padding: 28px;\n      height: 100%;\n      overflow: auto;\n    }\n\n    .oc-docs-section {\n      border: 1px solid var(--border);\n      background: var(--surface-2);\n      border-radius: 12px;\n      padding: 16px;\n      margin-bottom: 12px;\n    }\n\n    .oc-docs-section h2 {\n      margin: 0 0 10px;\n      font-size: 1.1rem;\n    }\n\n    .oc-docs-section p {\n      margin: 0 0 8px;\n      color: var(--text-soft);\n      line-height: 1.5;\n    }\n\n    .oc-docs-links {\n      margin: 0;\n      padding-left: 18px;\n      color: var(--text-soft);\n      line-height: 1.55;\n    }\n\n    .oc-docs-links a {\n      color: light-dark(var(--color-vividblue-95), var(--color-vividblue-30));\n      text-decoration: none;\n    }\n\n    .oc-docs-links a:hover {\n      text-decoration: underline;\n    }\n\n    @media (max-width: 980px) {\n      .oc-docs-layout { grid-template-columns: 1fr; }\n      .oc-docs-sidebar { height: 220px; }\n      .oc-docs-content { padding: 16px; }\n    }\n  </style>"]}-->
+<section class="oc-hero" id="overview">
+        <h1 class="oc-hero-title">Full CSS Catalog</h1>
+        <p class="oc-hero-text">
+          This page maps all currently available CSS modules to the new docs format.
+          Each item links to new docs pages and source SCSS paths.
+        </p>
+      </section>
+
+      <section class="oc-docs-section" id="catalog-configuration">
+        <h2>Configuration <span class="oc-badge-version">v0.2.0</span></h2>
+        <ul class="oc-docs-links">
+          <li><a href="configuration.html">Configuration docs page</a></li>
+          <li>_basesettings -&gt; <code>src/scss/config/omniacss.config.scss</code></li>
+          <li>_colorsettings -&gt; <code>src/scss/config/omniacss.config.scss</code></li>
+          <li>_fontsettings -&gt; <code>src/scss/config/omniacss.fonts.scss</code></li>
+        </ul>
+      </section>
+
+      <section class="oc-docs-section" id="catalog-utilities">
+        <h2>Utilities + Modifiers <span class="oc-badge-version">v0.2.0</span></h2>
+        <ul class="oc-docs-links">
+          <li><a href="utilities.html">Utilities docs page</a></li>
+          <li>_Functions -&gt; <code>src/scss/functions/_functions.scss</code></li>
+          <li>_Variables -&gt; <code>src/scss/variables/_variables.scss</code></li>
+          <li>_Color Variables -&gt; <code>src/scss/variables/_variables_colors_*.scss</code></li>
+          <li>_Text Variables -&gt; <code>src/scss/variables/_variables.scss</code></li>
+          <li>_Fonts Variables -&gt; <code>src/scss/variables/_variables_typography.scss</code></li>
+          <li>_Effects Variables -&gt; <code>src/scss/variables/_variables_effects.scss</code></li>
+          <li>_Layout Variables -&gt; <code>src/scss/variables/_variables_layout.scss</code></li>
+          <li>_Flex and Grid Variables -&gt; <code>src/scss/variables/_variables_flex_grid.scss</code></li>
+          <li>_Mixins -&gt; <code>src/scss/variables/_mixins.scss</code></li>
+          <li>_Pseudo Classes -&gt; <code>src/scss/variables/_modifiers.scss</code></li>
+        </ul>
+      </section>
+
+      <section class="oc-docs-section" id="catalog-typography">
+        <h2>Typography <span class="oc-badge-version">v0.2.0</span></h2>
+        <ul class="oc-docs-links">
+          <li><a href="typography/">Typography docs page</a></li>
+          <li><a href="typography/fonts.html">Fonts docs page</a></li>
+          <li>Modules included: font family, font size, font style, font weight, font variant numeric, letter spacing, line height, line break, list style type, list style position, text align, text decoration line/color/style/thickness, text transform, text underline offset/position, text vertical align, text white-space, word break, word spacing, writing mode.</li>
+        </ul>
+      </section>
+
+      <section class="oc-docs-section" id="catalog-families">
+        <h2>Core Families <span class="oc-badge-version">v0.2.0</span></h2>
+        <ul class="oc-docs-links">
+          <li>Colors: <a href="colors/">Colors docs page</a></li>
+          <li>Layout: <a href="layout/">Layout docs page</a>, <a href="spacing/">Spacing docs page</a>, <a href="position/">Position docs page</a>, <a href="sizing/">Sizing docs page</a></li>
+          <li>Flexbox &amp; Grid: <a href="flex-grid/">Flex/Grid docs page</a></li>
+          <li>Alignment: <a href="alignment/">Alignment docs page</a></li>
+          <li>Effects: <a href="effects/">Effects docs page</a></li>
+          <li>Tables: <a href="tables/">Tables docs page</a></li>
+          <li>Borders: <a href="borders/">Borders docs page</a></li>
+        </ul>
+      </section>
+
+      <section class="oc-docs-section" id="catalog-extended">
+        <h2>Extended Families <span class="oc-badge-version">v0.3.0</span></h2>
+        <ul class="oc-docs-links">
+          <li>Interactivity: <a href="interactivity/">cursor, user-select, pointer-events, scroll snap, touch-action, resize, will-change, accent-color, caret, color-scheme, field-sizing, appearance: base-select, reading-flow, scroll-marker-group, overflow-anchor, print-color-adjust</a></li>
+          <li>Scrollbars: <a href="scrollbars/">scrollbar-width, scrollbar-gutter, scrollbar-color</a></li>
+          <li>Modern Typography: <a href="typography/modern.html">text-box, text-wrap-style, white-space-collapse, text-spacing-trim, text-autospace, hanging-punctuation, initial-letter, text-emphasis, font-optical-sizing, font-kerning, tab-size</a></li>
+          <li>Lists &amp; Counters: <a href="lists/">list-style-type, list-style-position, list-style-image, counter-reset, counter-increment, counter-set</a></li>
+          <li>Images &amp; Object Fit: <a href="images/">object-fit, object-position, image-rendering, dynamic-range-limit</a></li>
+          <li>Columns: <a href="columns/">column-count, column-width, column-rule, column-span, column-fill</a></li>
+          <li>Container Queries: <a href="container-queries/">container-type (incl. scroll-state), container-name, @container variants, contain, content-visibility, contain-intrinsic-size</a></li>
+          <li>Writing Modes: <a href="writing-modes/">writing-mode, direction, text-orientation, unicode-bidi, inset-inline/block, inline-size, block-size</a></li>
+          <li>Shapes &amp; Clipping: <a href="shapes/">clip-path, shape(), shape-outside, shape-margin</a></li>
+          <li>Fragmentation: <a href="fragmentation/">break-before, break-after, break-inside, orphans, widows, box-decoration-break</a></li>
+          <li>Generated Content: <a href="generated-content/">content, quotes</a></li>
+          <li>Sizing keywords: <a href="sizing/width.html">width/height: stretch</a></li>
+          <li>Gradients: <a href="gradients/">linear-gradient, radial-gradient, conic-gradient, repeating gradients, color stops, gradient text</a></li>
+          <li>Border Sides &amp; Images: <a href="borders/sides-images.html">per-side style/color, logical borders, per-corner radius, border-image</a></li>
+          <li>Font Variants &amp; Text Effects: <a href="typography/variants.html">font-variant-*, font-variation-settings, font-size-adjust, hyphenate-*, -webkit-text-stroke, ruby-*, math-*</a></li>
+          <li>Animation Properties &amp; Motion Path: <a href="effects/animation-properties.html">animation longhands, linear()/steps() easing, offset-*, rotate, transform-box</a></li>
+          <li>Layout Extras: <a href="layout/extras.html">inset, logical min/max sizes, flex-flow, grid areas, margin-trim, overflow/overscroll/scroll axes, env() safe areas, zoom, all, mask, page</a></li>
+          <li>SVG: <a href="svg/">fill, stroke, dashes, caps, joins, paint-order, vector-effect, text-anchor, baselines, markers, geometry</a></li>
+        </ul>
+      </section>
+
+      <section class="oc-docs-section" id="catalog-experimental">
+        <h2>Experimental <span class="oc-badge-version">v0.3.0</span></h2>
+        <ul class="oc-docs-links">
+          <li>Anchor Positioning: <a href="anchor-positioning/">anchor-name, position-anchor, anchor-scope, position-area, position-try-fallbacks, position-visibility, anchor-size()</a></li>
+          <li>View Transitions: <a href="view-transitions/">view-transition-name, view-transition-class, ::view-transition-*, @view-transition</a></li>
+          <li>Scroll-driven Animations: <a href="scroll-animations/">animation-timeline, animation-range, scroll(), view(), scroll-timeline, view-timeline, timeline-scope</a></li>
+          <li>Entry Animations: <a href="starting-style/">@starting-style, transition-behavior, interpolate-size, ::details-content</a></li>
+          <li>Newest CSS: <a href="experimental-css/">gap decorations, caret-shape, interactivity, interest-delay, scroll targets, reading-order, overlay, text-fit, corner shapes</a></li>
+        </ul>
+      </section>
+
+      <section class="oc-docs-section" id="catalog-coverage">
+        <h2>Coverage: MDN &amp; W3Schools <span class="oc-badge-version">v0.3.0</span></h2>
+        <p class="oc-section-content__desc">Where every CSS module of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener">MDN CSS reference</a> and every topic of the <a href="https://www.w3schools.com/css/default.asp" target="_blank" rel="noopener">W3Schools CSS tutorial</a> lives in OmniaCSS. Of the 581 standard, non-deprecated CSS properties in MDN browser-compat-data, OmniaCSS generates utilities for every property that ships in a browser; the only exclusions are listed at the bottom.</p>
+
+        <h3 class="oc-section-content__title mt-10">MDN CSS modules</h3>
+        <div class="oc-expandable-table">
+          <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">MDN module</th><th>OmniaCSS page</th></tr></thead>
+            <tbody>
+              <tr><td>Anchor positioning</td><td><a href="anchor-positioning/">anchor-positioning</a></td></tr>
+              <tr><td>Animations</td><td><a href="effects/animations.html">animations</a>, <a href="effects/animation-properties.html">animation-properties</a></td></tr>
+              <tr><td>Backgrounds and borders</td><td><a href="layout/backgrounds.html">backgrounds</a>, <a href="borders/">borders</a>, <a href="borders/sides-images.html">sides-images</a>, <a href="gradients/">gradients</a></td></tr>
+              <tr><td>Basic user interface</td><td><a href="interactivity/">interactivity</a></td></tr>
+              <tr><td>Box alignment</td><td><a href="alignment/">alignment</a></td></tr>
+              <tr><td>Box model / sizing</td><td><a href="spacing/">spacing</a>, <a href="sizing/">sizing</a>, <a href="layout/box-sizing.html">box-sizing</a></td></tr>
+              <tr><td>Color adjustment</td><td><a href="interactivity/">interactivity</a> (color-scheme, print-color-adjust)</td></tr>
+              <tr><td>Colors</td><td><a href="colors/">colors</a></td></tr>
+              <tr><td>Compositing and blending</td><td><a href="effects/blend.html">blend</a></td></tr>
+              <tr class="oc-expandable-table__row-dimmed"><td>Conditional rules / Media queries</td><td><a href="responsive.html">responsive</a>, <a href="container-queries/">container-queries</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Containment</td><td><a href="container-queries/">container-queries</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Counter styles / Lists and counters</td><td><a href="lists/">lists</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Display</td><td><a href="layout/display.html">display</a>, <a href="flex-grid/display.html">display</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Easing functions</td><td><a href="effects/animation-properties.html">animation-properties</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Environment variables</td><td><a href="layout/extras.html">extras</a> (safe areas)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Filter effects</td><td><a href="effects/filters.html">filters</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Flexible box layout</td><td><a href="flex-grid/">flex-grid</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Fonts</td><td><a href="typography/fonts.html">fonts</a>, <a href="typography/">typography</a>, <a href="typography/variants.html">variants</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Fragmentation</td><td><a href="fragmentation/">fragmentation</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Gaps</td><td><a href="flex-grid/gap.html">gap</a>, <a href="experimental-css/">experimental-css</a> (gap decorations)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Generated content</td><td><a href="generated-content/">generated-content</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Grid layout</td><td><a href="flex-grid/grid-cols.html">grid-cols</a>, <a href="layout/extras.html">extras</a> (grid areas)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Images</td><td><a href="images/">images</a>, <a href="gradients/">gradients</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Inline layout</td><td><a href="typography/modern.html">modern</a> (text-box), <a href="svg/">svg</a> (baselines)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Logical properties and values</td><td><a href="writing-modes/">writing-modes</a>, <a href="borders/sides-images.html">sides-images</a>, <a href="layout/extras.html">extras</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Masking</td><td><a href="effects/blend.html">blend</a>, <a href="layout/extras.html">extras</a> (mask)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Motion path</td><td><a href="effects/animation-properties.html">animation-properties</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Multi-column layout</td><td><a href="columns/">columns</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Overflow / Overscroll behavior</td><td><a href="layout/overflow.html">overflow</a>, <a href="layout/extras.html">extras</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Paged media</td><td><a href="fragmentation/">fragmentation</a>, <a href="layout/extras.html">extras</a> (page)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Positioned layout</td><td><a href="position/">position</a>, <a href="layout/extras.html">extras</a> (inset)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Ruby layout</td><td><a href="typography/variants.html">variants</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Scroll anchoring / Scroll snap</td><td><a href="interactivity/">interactivity</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Scroll-driven animations</td><td><a href="scroll-animations/">scroll-animations</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Scrollbars styling</td><td><a href="scrollbars/">scrollbars</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Shapes</td><td><a href="shapes/">shapes</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Table</td><td><a href="tables/">tables</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Text / Text decoration</td><td><a href="typography/">typography</a>, <a href="typography/advanced.html">advanced</a>, <a href="typography/modern.html">modern</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Transforms</td><td><a href="effects/transforms.html">transforms</a>, <a href="effects/animation-properties.html">animation-properties</a> (rotate)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Transitions</td><td><a href="effects/transitions.html">transitions</a>, <a href="starting-style/">starting-style</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>View transitions</td><td><a href="view-transitions/">view-transitions</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Viewport</td><td><a href="layout/extras.html">extras</a> (zoom)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Will change</td><td><a href="interactivity/">interactivity</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Writing modes</td><td><a href="writing-modes/">writing-modes</a></td></tr>
+            </tbody>
+          </table>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+
+        <h3 class="oc-section-content__title mt-10">W3Schools CSS topics</h3>
+        <div class="oc-expandable-table">
+          <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">W3Schools topic</th><th>OmniaCSS page</th></tr></thead>
+            <tbody>
+              <tr><td>Colors, RGB, HEX, HSL</td><td><a href="colors/">colors</a></td></tr>
+              <tr><td>Backgrounds</td><td><a href="layout/backgrounds.html">backgrounds</a></td></tr>
+              <tr><td>Borders, Border Sides, Rounded</td><td><a href="borders/">borders</a>, <a href="borders/sides-images.html">sides-images</a></td></tr>
+              <tr><td>Margins, Padding</td><td><a href="spacing/">spacing</a></td></tr>
+              <tr><td>Height / Width, Min / Max, Max-width</td><td><a href="sizing/">sizing</a></td></tr>
+              <tr><td>Box Model, Box Sizing</td><td><a href="layout/box-sizing.html">box-sizing</a></td></tr>
+              <tr><td>Outline</td><td><a href="borders/outline-width.html">outline-width</a></td></tr>
+              <tr><td>Text, Text Decoration, Text Shadow</td><td><a href="typography/">typography</a>, <a href="effects/shadows.html">shadows</a></td></tr>
+              <tr><td>Fonts, Custom Fonts</td><td><a href="typography/fonts.html">fonts</a></td></tr>
+              <tr class="oc-expandable-table__row-dimmed"><td>Icons</td><td><a href="../ui/icons/catalog.html">catalog</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Links</td><td><a href="../ui/components/button.html">button</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Lists, Counters</td><td><a href="lists/">lists</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Tables</td><td><a href="tables/">tables</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Display, Visibility, Inline-block</td><td><a href="layout/display.html">display</a>, <a href="layout/layering.html">layering</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Position, Offsets, Z-index</td><td><a href="position/">position</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Overflow</td><td><a href="layout/overflow.html">overflow</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Float, Clear</td><td><a href="layout/flow.html">flow</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Align (center, vertical)</td><td><a href="alignment/">alignment</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Opacity</td><td><a href="effects/opacity.html">opacity</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Navigation bars, Dropdowns</td><td><a href="../ui/components/dropdown.html">dropdown</a>, <a href="../ui/components/tabs.html">tabs</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Image Gallery / Styling / Centering</td><td><a href="images/">images</a>, <a href="flex-grid/">flex-grid</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Forms</td><td><a href="../ui/components/forms.html">forms</a>, <a href="interactivity/">interactivity</a> (field-sizing)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Website Layout</td><td><a href="layout/extras.html">extras</a> (grid areas), <a href="../ui/blocks.html">blocks</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Border Images</td><td><a href="borders/sides-images.html">sides-images</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Gradients (linear, radial, conic)</td><td><a href="gradients/">gradients</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Shadows, Text Effects</td><td><a href="effects/shadows.html">shadows</a>, <a href="typography/variants.html">variants</a> (text stroke)</td></tr>
+              <tr class="oc-expandable-table__row-more"><td>2D / 3D Transforms</td><td><a href="effects/transforms.html">transforms</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Transitions, Animations</td><td><a href="effects/transitions.html">transitions</a>, <a href="effects/animations.html">animations</a>, <a href="effects/animation-properties.html">animation-properties</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Tooltips, Buttons, Pagination</td><td><a href="../ui/components/tooltip.html">tooltip</a>, <a href="../ui/components/button.html">button</a>, <a href="../ui/components/pagination.html">pagination</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Image Filters, Image Shapes</td><td><a href="effects/filters.html">filters</a>, <a href="shapes/">shapes</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>object-fit, object-position</td><td><a href="images/">images</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Masking</td><td><a href="layout/extras.html">extras</a> (mask), <a href="effects/blend.html">blend</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Multiple Columns</td><td><a href="columns/">columns</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>User Interface (resize, outline-offset)</td><td><a href="interactivity/">interactivity</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Media Queries, RWD</td><td><a href="responsive.html">responsive</a>, <a href="container-queries/">container-queries</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Flexbox, Grid</td><td><a href="flex-grid/">flex-grid</a>, <a href="alignment/">alignment</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Math Functions (calc, min, max, clamp)</td><td><a href="fluid.html">fluid</a></td></tr>
+              <tr class="oc-expandable-table__row-more"><td>Accessibility</td><td><a href="utilities.html#accessibility">utilities#accessibility</a></td></tr>
+            </tbody>
+          </table>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+
+        <h3 class="oc-section-content__title mt-10">Intentionally not generated</h3>
+        <ul class="oc-docs-links">
+          <li><strong>Language features, not utilities:</strong> selectors, combinators, pseudo-classes, specificity, <code>!important</code>, cascade layers, nesting, <code>@scope</code>, custom properties, <code>@property</code>, <code>@function</code>, <code>if()</code>, <code>attr()</code>, <code>sibling-index()</code>, units and math functions — use them in your own CSS (see <a href="fluid.html">Fluid values</a> for <code>clamp()</code>/<code>min()</code>/<code>max()</code>).</li>
+          <li><strong>Deprecated or non-standard:</strong> <code>box-*</code> (old flexbox), <code>ime-mode</code>, <code>color-adjust</code>, <code>-webkit-*</code> proprietary properties without a standard equivalent.</li>
+          <li><strong>Not implemented in any browser yet:</strong> <code>block-ellipsis</code>, <code>max-lines</code>, <code>continue</code>, <code>white-space-trim</code>, <code>wrap-inside</code>, <code>hyphenate-limit-lines</code>, <code>background-repeat-x/-y</code>, <code>path-length</code>, <code>link-parameters</code>.</li>
+          <li><strong>Specs still changing:</strong> <code>animation-trigger</code> / <code>timeline-trigger-*</code>, <code>border-shape</code>, <code>flow-tolerance</code>, <code>frame-sizing</code>, <code>scroll-axis-lock</code>, <code>window-drag</code>, <code>display: grid-lanes</code> (masonry).</li>
+        </ul>
+      </section>

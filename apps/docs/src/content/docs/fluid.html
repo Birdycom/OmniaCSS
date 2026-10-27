@@ -1,0 +1,143 @@
+<!--oc-page {"title": "OmniaCSS Docs - Fluid values (clamp, min, max)", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<script src=\"https://cdn.jsdelivr.net/npm/@iconify/iconify@3/dist/iconify.min.js\" crossorigin=\"anonymous\"></script>"]}-->
+<section class="oc-hero" id="overview">
+        <h1 class="oc-hero-title">Fluid values (clamp, min, max)</h1>
+        <p class="oc-hero-text">
+          Use CSS <code>clamp()</code>, <code>min()</code>, and <code>max()</code> for responsive values without media queries: font-size and width scale with the viewport and stay within bounds. The next step, <code>progress()</code>, and the other math functions are on <a href="functions/#progress">CSS Functions</a>.
+        </p>
+      </section>
+
+      <section class="oc-docs-section" id="intro">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">clamp(), min(), and max() <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">
+          <strong>min()</strong> returns the smallest of its arguments; <strong>max()</strong> the largest. <strong>clamp(MIN, VAL, MAX)</strong> is equivalent to <code>max(MIN, min(VAL, MAX))</code>. The preferred value (VAL) is often viewport-relative (e.g. <code>7vw + 1rem</code>).
+        </p>
+        </div>
+        <div class="oc-section-content">
+          <p>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp" target="_blank" rel="noopener">MDN: clamp()</a> ·
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/min" target="_blank" rel="noopener">MDN: min()</a> ·
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/max" target="_blank" rel="noopener">MDN: max()</a>
+        </p>
+        <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+          <thead>
+            <tr>
+              <th class="w-perc-1/3">Function</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>min(A, B, …)</code></td><td>Smallest value. Use to cap (e.g. width at most 65ch).</td></tr>
+            <tr><td><code>max(A, B, …)</code></td><td>Largest value. Use to set a minimum (e.g. font-size at least 1rem).</td></tr>
+            <tr><td><code>clamp(MIN, VAL, MAX)</code></td><td>VAL clamped between MIN and MAX.</td></tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="min-max">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">min() and max() <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">
+          Use <code>min()</code> / <code>max()</code> on <strong>width</strong> for the same effect as width + min-width/max-width. Same idea for <strong>padding</strong> and <strong>margin</strong>. Override fluid-cap/floor with CSS variables: <code>style="--w-cap-a: 40vw; --w-cap-b: 50ch"</code>. For fixed widths use generated classes like <code>w-50vw</code>, <code>w-65ch</code> (see <code>_clamp.scss</code>).
+        </p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+          <thead>
+            <tr>
+              <th class="w-perc-1/3">Class</th>
+              <th>Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>.text-min</code></td><td>font-size: max(1rem, 1.2vw)</td></tr>
+            <tr><td><code>.w-fluid-cap</code></td><td>width: min(90vw, 65ch); override with <code>--w-cap-a</code>, <code>--w-cap-b</code></td></tr>
+            <tr><td><code>.w-fluid-floor</code></td><td>width: max(20rem, 50vw); override with <code>--w-floor-a</code>, <code>--w-floor-b</code></td></tr>
+            <tr><td><code>.p-min</code>, <code>.m-min</code></td><td>padding/margin: min(1rem, 5vw)</td></tr>
+            <tr><td><code>.p-max</code>, <code>.m-max</code></td><td>padding/margin: max(0.5rem, 2vw)</td></tr>
+            <tr><td><code>.w-50vw</code>, <code>.w-65ch</code>, …</td><td>fixed width (from <code>$fluid-w-vw</code> / <code>$fluid-w-ch</code>)</td></tr>
+          </tbody>
+        </table>
+          </div>
+        <oc-demo title="min() and max() v0.2.0">
+          
+          <div class="oc-preview flex-column gap-2 mb-2">
+          <p class="text-min">This paragraph uses <code>.text-min</code>.</p>
+          <div class="w-fluid-cap p-2">Default <code>.w-fluid-cap</code>.</div>
+          <div class="w-fluid-cap p-2" style="--w-cap-a: 40vw; --w-cap-b: 50ch">Custom min(40vw, 50ch).</div>
+          <div class="w-fluid-floor p-min">Width floor + padding cap.</div>
+        </div>
+        </oc-demo>
+      </div></section>
+
+      <section class="oc-docs-section" id="fluid-font-size">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Fluid font-size (clamp) <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">
+          <code>.text-fluid</code>, <code>.text-fluid-heading</code>, and <code>.text-fluid-heading-wide</code> (clamp(1.8rem, 7vw + 1rem, 5rem)). Defaults in <code>src/scss/utilities/_clamp.scss</code>.
+        </p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+          <thead>
+            <tr>
+              <th class="w-perc-1/3">Variable / Class</th>
+              <th>Default / Effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>$fluid-font-*</code></td><td>1rem / 1.2vw / 1.25rem</td></tr>
+            <tr><td><code>$fluid-heading-*</code></td><td>1.5rem / 2.5vw / 2rem</td></tr>
+            <tr><td><code>.text-fluid-heading-wide</code></td><td>clamp(1.8rem, 7vw + 1rem, 5rem)</td></tr>
+          </tbody>
+        </table>
+          </div>
+        <oc-demo title="Fluid font-size (clamp) v0.2.0">
+          
+          <div class="oc-preview flex-column gap-2 mb-2">
+          <p class="text-fluid">Body-like fluid text.</p>
+          <h3 class="oc-section-content__title">Fluid heading</h3>
+          <h3 class="oc-section-content__title">Fluid heading wide</h3>
+        </div>
+        </oc-demo>
+      </div></section>
+
+      <section class="oc-docs-section" id="fluid-width">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Fluid width <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">
+          <code>.w-fluid</code> and <code>.max-w-fluid</code> use clamp for readable line length. Variables: <code>$fluid-width-min</code>, <code>$fluid-width-preferred</code>, <code>$fluid-width-max</code>.
+        </p>
+        </div>
+        <div class="oc-section-content">
+          <oc-demo title="Fluid width v0.2.0">
+          
+          <div class="oc-preview flex-column gap-2 mb-2">
+          <div class="w-fluid p-2">This block uses <code>.w-fluid</code>.</div>
+        </div>
+        </oc-demo>
+      </div></section>
+
+      <section class="oc-docs-section" id="custom-use">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Custom use <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">
+          Override variables before importing OmniaCSS.
+        </p>
+        </div>
+        <div class="oc-section-content">
+          <p id="custom-mixin">
+          Use the <code>fluid-clamp($property, $min, $preferred, $max)</code> mixin in your SCSS. See <code>_clamp.scss</code>.
+        </p>
+        </div>
+      </section>

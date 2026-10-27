@@ -1,0 +1,54 @@
+<!--oc-page {"title": "OmniaCSS Docs - Line Height", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="line-height">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Line Height</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_text.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">line-height.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Utilities for controlling the vertical spacing between lines of text.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Multiplier / Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.lineheight-0.6</code> … <code>.lineheight-2.5</code></td><td>0.625rem … 2.5rem (fixed: 0.6, 0.7, 0.8, 1, 1.1, 1.2, 1.5, 1.7, 1.8, 2, 2.5)</td></tr>
+                <tr><td><code>.lineheight-none</code></td><td>1</td></tr>
+                <tr><td><code>.lineheight-tight</code></td><td>1.25</td></tr>
+                <tr><td><code>.lineheight-snug</code></td><td>1.375</td></tr>
+                <tr><td><code>.lineheight-relaxed</code></td><td>1.625</td></tr>
+                <tr><td><code>.lineheight-loose</code></td><td>2</td></tr>
+                <tr><td><code>.lineheight-normal</code></td><td>normal</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8">Height Demos</h3>
+          <oc-demo title="Height Demos"><div class="oc-preview oc-preview-col gap-4">
+            <div>
+              <p class="label-sm mb-2 opacity-60">Fixed 1rem (.lineheight-1)</p>
+              <div class="line-height-demo lineheight-1">
+                The quick brown fox jumps over the lazy dog. This line height is very tight, often used for data tables or very large headings.
+              </div>
+            </div>
+            <div>
+              <p class="label-sm mb-2 opacity-60">Default (.lineheight-4)</p>
+              <div class="line-height-demo lineheight-1.5">
+                The quick brown fox jumps over the lazy dog. A line height of 1.5rem (24px) is a common choice for readable body text on the web.
+              </div>
+            </div>
+            <div>
+              <p class="label-sm mb-2 opacity-60">Loose (.lineheight-loose)</p>
+              <div class="line-height-demo lineheight-loose">
+                The quick brown fox jumps over the lazy dog. Loose line height provides significant breathing room, great for pull quotes.
+              </div>
+            </div>
+          </div><oc-code lang="html">&lt;p class="lineheight-1.5 font-1.2"&gt;Readable content block&lt;/p&gt;</oc-code></oc-demo>
+
+          
+        </div>
+      </section>

@@ -1,0 +1,83 @@
+// SCSS Document
+// File: src/scss/utilities/_typography_modern.scss
+// Description: Modern typography utilities — text-box trimming, whitespace collapsing, CJK spacing,
+//              initial letters, emphasis marks and font rendering controls.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .text-box-*, .text-stable, .whitespace-collapse-*, .text-spacing-trim-*, .text-autospace-*,
+//          .hanging-*, .initial-letter-*, .emphasis-*, .font-optical-*, .font-kerning-*, .tab-* and .break-auto-phrase.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/text-box
+// Note: complements _typography_advanced.scss (text-wrap, line-clamp, hyphens, ...).
+// Map: text-box -> text-wrap-style -> white-space-collapse -> CJK spacing -> hanging punctuation
+//      -> initial-letter -> text-emphasis -> font rendering -> tab-size -> word-break
+
+/* Text box — trim the space above cap height and below the baseline */
+.text-box-normal { text-box: normal; }
+.text-box-trim { text-box: trim-both cap alphabetic; }
+.text-box-trim-start { text-box-trim: trim-start; text-box-edge: cap alphabetic; }
+.text-box-trim-end { text-box-trim: trim-end; text-box-edge: cap alphabetic; }
+.text-box-trim-ex { text-box: trim-both ex alphabetic; }
+
+/* Text wrap style */
+.text-stable { text-wrap-style: stable; }
+.text-wrap-auto { text-wrap-style: auto; }
+
+/* White space collapse */
+.whitespace-collapse { white-space-collapse: collapse; }
+.whitespace-preserve { white-space-collapse: preserve; }
+.whitespace-preserve-breaks { white-space-collapse: preserve-breaks; }
+.whitespace-preserve-spaces { white-space-collapse: preserve-spaces; }
+.whitespace-break-spaces { white-space-collapse: break-spaces; }
+
+/* Text spacing trim (CJK punctuation) */
+.text-spacing-trim-normal { text-spacing-trim: normal; }
+.text-spacing-trim-auto { text-spacing-trim: auto; }
+.text-spacing-trim-space-all { text-spacing-trim: space-all; }
+.text-spacing-trim-space-first { text-spacing-trim: space-first; }
+
+/* Text autospace (space between CJK and Latin/numbers) */
+.text-autospace-normal { text-autospace: normal; }
+.text-autospace-auto { text-autospace: auto; }
+.text-autospace-none { text-autospace: no-autospace; }
+
+/* Hanging punctuation */
+.hanging-none { hanging-punctuation: none; }
+.hanging-first { hanging-punctuation: first; }
+.hanging-last { hanging-punctuation: last; }
+.hanging-first-last { hanging-punctuation: first allow-end last; }
+
+/* Initial letter (drop caps) — applied to ::first-letter */
+.initial-letter-normal::first-letter { initial-letter: normal; }
+.initial-letter-2::first-letter { initial-letter: 2; }
+.initial-letter-3::first-letter { initial-letter: 3; }
+.initial-letter-3-2::first-letter { initial-letter: 3 2; }
+
+/* Text emphasis */
+.emphasis-none { text-emphasis: none; }
+.emphasis-dot { text-emphasis: filled dot; }
+.emphasis-circle { text-emphasis: filled circle; }
+.emphasis-open-circle { text-emphasis: open circle; }
+.emphasis-sesame { text-emphasis: filled sesame; }
+.emphasis-triangle { text-emphasis: filled triangle; }
+.emphasis-over { text-emphasis-position: over right; }
+.emphasis-under { text-emphasis-position: under right; }
+
+/* Font rendering */
+.font-optical-auto { font-optical-sizing: auto; }
+.font-optical-none { font-optical-sizing: none; }
+.font-kerning-auto { font-kerning: auto; }
+.font-kerning-normal { font-kerning: normal; }
+.font-kerning-none { font-kerning: none; }
+.font-synthesis-none { font-synthesis: none; }
+.font-palette-light { font-palette: light; }
+.font-palette-dark { font-palette: dark; }
+
+/* Tab size */
+.tab-2 { tab-size: 2; }
+.tab-4 { tab-size: 4; }
+.tab-8 { tab-size: 8; }
+
+/* Word break — phrase-aware line breaking (Japanese) */
+.break-auto-phrase { word-break: auto-phrase; }

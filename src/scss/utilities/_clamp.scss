@@ -1,0 +1,111 @@
+// SCSS Document
+// File: src/scss/utilities/_clamp.scss
+// Description: Fluid values using CSS clamp(), min(), max() for font-size, width, padding, margin
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// References: MDN clamp(), min(), max()
+// Properties: font-size, width, padding, margin
+// Values: clamp(), min(), max(), vw, ch, rem, calc()
+
+@use '../utilities/' as *;
+
+/* =======================================================================
+   Fluid / clamp defaults (override in project if needed)
+   Used for .text-fluid (body-like), .text-fluid-heading, .text-fluid-heading-wide.
+   ======================================================================= */
+$fluid-font-min: 1rem !default;
+$fluid-font-preferred: 1.2vw !default;
+$fluid-font-max: 1.25rem !default;
+
+$fluid-heading-min: 1.5rem !default;
+$fluid-heading-preferred: 2.5vw !default;
+$fluid-heading-max: 2rem !default;
+
+/* Wide heading: clamp(1.8rem, 7vw + 1rem, 5rem) */
+$fluid-heading-wide-min: 1.8rem !default;
+$fluid-heading-wide-max: 5rem !default;
+
+$fluid-width-min: 20rem !default;
+$fluid-width-preferred: 90vw !default;
+$fluid-width-max: 65ch !default;
+
+/* =======================================================================
+   Mixin: apply clamp() to any property
+   ======================================================================= */
+@mixin fluid-clamp($property, $min, $preferred, $max) {
+  #{$property}: clamp(#{$min}, #{$preferred}, #{$max});
+}
+
+/* =======================================================================
+   Fluid font-size utilities
+   ======================================================================= */
+.text-fluid {
+  font-size: clamp(#{$fluid-font-min}, #{$fluid-font-preferred}, #{$fluid-font-max});
+}
+
+.text-fluid-heading {
+  font-size: clamp(#{$fluid-heading-min}, #{$fluid-heading-preferred}, #{$fluid-heading-max});
+}
+
+.text-fluid-heading-wide {
+  font-size: clamp(#{$fluid-heading-wide-min}, calc(7vw + 1rem), #{$fluid-heading-wide-max});
+}
+
+/* =======================================================================
+   min() / max() utilities (.w-min/.w-max reserved in _sizing.scss for min-content/max-content)
+   ======================================================================= */
+.text-min {
+  font-size: max(1rem, 1.2vw);
+}
+
+.w-fluid-cap {
+  width: min(var(--w-cap-a, 90vw), var(--w-cap-b, 65ch));
+}
+
+.w-fluid-floor {
+  width: max(var(--w-floor-a, 20rem), var(--w-floor-b, 50vw));
+}
+
+.p-min {
+  padding: min(1rem, 5vw);
+}
+
+.m-min {
+  margin: min(1rem, 5vw);
+}
+
+.p-max {
+  padding: max(0.5rem, 2vw);
+}
+
+.m-max {
+  margin: max(0.5rem, 2vw);
+}
+
+/* =======================================================================
+   Fluid width (clamp) and fixed vw/ch width classes
+   ======================================================================= */
+.w-fluid {
+  width: clamp(#{$fluid-width-min}, #{$fluid-width-preferred}, #{$fluid-width-max});
+}
+
+.max-w-fluid {
+  max-width: clamp(#{$fluid-width-min}, #{$fluid-width-preferred}, #{$fluid-width-max});
+}
+
+$fluid-w-vw: (25, 40, 50, 60, 75, 90, 100) !default;
+$fluid-w-ch: (45, 50, 55, 65, 70, 75, 80) !default;
+
+@each $v in $fluid-w-vw {
+  .w-#{$v}vw {
+    width: #{$v}vw;
+  }
+}
+
+@each $v in $fluid-w-ch {
+  .w-#{$v}ch {
+    width: #{$v}ch;
+  }
+}

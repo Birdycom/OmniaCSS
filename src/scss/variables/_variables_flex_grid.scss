@@ -1,0 +1,427 @@
+// SCSS Document 
+// File: src/scss/variables/__variables_flex_grid.scss
+// Description: Default string items for using in the CSS properties 
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Variables and strings: 
+
+// The Flex properties.
+///
+/// The display flex property values.
+/// @group variablesflexgrid
+///
+/// @name displayflex
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$displayflex: flex, inline-flex;
+// End Flex properties.
+
+// The flex-direction property.
+///
+/// The flex-direction property values.
+/// @group variablesflexgrid
+///
+/// @name flexdirection
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$flexdirection:(
+  "row": row, 
+  "row-reverse": row-reverse,
+  "column": column, 
+  "column-reverse": column-reverse
+);
+// End flex-direction property.
+
+// The flex-wrap property.
+///
+/// The flex-wrap property values.
+/// @group variablesflexgrid
+///
+/// @name flexwrap
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$flexwrap:(
+  "nowrap": nowrap,
+  "wrap": wrap,
+  "wrap-reverse": wrap-reverse
+);
+// End flex-wrap property.
+
+// The flex-grow property.
+///
+/// The flex-grow property values.
+/// @group variablesflexgrid
+///
+/// @name flexgrow
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$flexgrow:(
+  "grow":1, 
+  "nogrow": 0,
+);
+// End flex-grow property.
+
+// The Flex shrink property.
+///
+/// The flex-shrink property values.
+/// @group variablesflexgrid
+///
+/// @name flexshrink
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$flexshrink:(
+  "shrink": 1, 
+  "noshrink": 0
+);
+// End Flex shrink property
+
+// The justify-content properties.
+///
+/// The justify-content property values.
+/// @group variablesflexgrid
+///
+/// @name justifycontent
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$justifycontent: (
+  "center": center,
+  "start": start, 
+  "end": end,
+  "flex-start": flex-start, 
+  "flex-end": flex-end, 
+  "left": left, 
+  "right": right,
+  "normal": normal,
+  "between": space-between,
+  "around": space-around,
+  "evenly": space-evenly,
+  "stretch": stretch,
+  "center-safe": safe center,
+  "center-unsafe": unsafe center,  
+  );
+// End justify-content properties.
+
+// The justify-items properties.
+///
+/// The justify-items property values.
+/// @group variablesflexgrid
+///
+/// @name justifyitems
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$justifyitems: (
+  "normal": normal, 
+  "stretch": stretch,
+  "center": center,
+  "start": start, 
+  "end": end,
+  "self-start": self-start,
+  "self-end": self-end,
+  "left": left, 
+  "right": right,    
+  "baseline": baseline,
+  "baseline-first": first baseline,
+  "baseline-last": last baseline,
+  "center-safe": safe center,
+  "center-unsafe": unsafe center,
+  "legacy-left": legacy left, 
+  "legacy-right": legacy right, 
+  "legacy-center": legacy center, 
+  );    
+// End justify-items properties.
+
+// The justify-self properties.
+///
+/// The justify-self property values.
+/// @group variablesflexgrid
+///
+/// @name justifyself
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$justifyself: (
+  "auto": auto, 
+  "normal": normal, 
+  "stretch": stretch,
+  "center": center,
+  "start": start, 
+  "end": end,
+  "self-start": self-start,
+  "self-end": self-end,
+  "left": left, 
+  "right": right,    
+  "baseline": baseline,
+  "baseline-first": first baseline,
+  "baseline-last": last baseline,
+  "center-safe": safe center,
+  "center-unsafe": unsafe center,
+  ); 
+// End justify-self properties.
+
+// The Align-content properties.
+///
+/// The align-content property values.
+/// @group variablesflexgrid
+///
+/// @name aligncontent
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$aligncontent: (
+  "center": center,
+  "start": start, 
+  "end": end,
+  "flex-start": flex-start, 
+  "flex-end": flex-end, 
+  "normal": normal,
+  "baseline": baseline,
+  "between": space-between,
+  "around": space-around,
+  "evenly": space-evenly,
+  "stretch": stretch,
+  "center-safe": safe center,
+  "center-unsafe": unsafe center,  
+  ); 
+// End Align-content properties.
+
+// The Align-items properties.
+///
+/// The align-items property values.
+/// @group variablesflexgrid
+///
+/// @name alignitems
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$alignitems: (
+  "normal": normal, 
+  "stretch": stretch,
+  "center": center,
+  "start": start, 
+  "end": end,
+  "flex-start": flex-start, 
+  "flex-end": flex-end, 
+  "baseline": baseline,
+  "baseline-first": first baseline,
+  "baseline-last": last baseline,  
+  "self-start": self-start,
+  "self-end": self-end,
+  "center-safe": safe center,
+  "center-unsafe": unsafe center,
+  );    
+// End Align-items properties.
+
+// The Align-self properties.
+///
+/// The align-self property values.
+/// @group variablesflexgrid
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @name alignself
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$alignself: (
+  "auto": auto, 
+  "normal": normal, 
+  "center": center,
+  "start": start, 
+  "end": end,
+  "self-start": self-start,
+  "self-end": self-end,
+  "flex-start": flex-start, 
+  "flex-end": flex-end, 
+  "baseline": baseline,
+  "baseline-first": first baseline,
+  "baseline-last": last baseline,
+  "stretch": stretch,
+  "center-safe": safe center,
+  "center-unsafe": unsafe center,
+  );  
+// End  Align-self properties.
+
+// The Display Grid properties.
+///
+/// the display grid property values.
+/// @group variablesflexgrid
+///
+/// @name displaygrid
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$displaygrid: grid, inline-grid;
+// End display Grid properties.
+
+
+// The Place-content properties.
+///
+/// The place-content property values.
+/// @group variablesflexgrid
+///
+/// @name placecontent
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$placecontent: (
+  "center": center,
+  "start": start, 
+  "end": end, 
+  "baseline": baseline,
+  "between": space-between,
+  "around": space-around,
+  "evenly": space-evenly,
+  "stretch": stretch,   
+  "center-start": center start, 
+  "start-center": start center, 
+  "end-left": end left,
+  "flex-start-center": flex-start center, 
+  "flex-end-center": flex-end center,
+  "baseline-center": baseline center,
+  "baseline-right": baseline right, 
+  "between-evenly": space-between space-evenly, 
+  "around-evenly": space-around space-evenly,
+  "evenly-stretch": space-evenly stretch,
+  "stretch-evenly": stretch space-evenly,
+  );  
+// End Place-content properties.
+
+// The Place-items properties.
+///
+/// The place-items property values.
+/// @group variablesflexgrid
+///
+/// @name placeitems
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$placeitems: (
+  /* Keyword values */
+  "center": center,
+  "start": start, 
+  "end": end, 
+  "baseline": baseline,
+  "stretch": stretch,  
+  /* Positional alignment */
+ /* "center-normal": center normal,
+  "start-legarcy": start-legacy,
+  "end-normal": end-normal,
+  "self-start-legarcy": self-start legacy, 
+  "self-end-normal": self-end normal, 
+  "flex-start-legarcy": flex-start legacy, 
+  "flex-end-normal": flex-end normal,
+  /* Baseline alignment */
+ /* "baseline-normal": baseline normal,
+  "first-baseline-legarcy": first-baseline legacy, 
+  "last-baseline-normal": last baseline normal,
+  "stretch-legarcy": stretch legacy,*/
+  );  
+// End Place-items properties.
+
+// The Place-self properties.
+///
+/// The place-content property values.
+/// @group variablesflexgrid
+///
+/// @name placeself
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$placeself: (
+  /* Keyword values */
+  "auto": auto,
+  "start": start,
+  "end": end,
+  "center": center,
+  "stretch": stretch,
+ /* "auto-center": auto center,
+  "normal-start": normal start, 
+  /* Positional alignment */
+ /* "center-normal": center normal, 
+  "start-auto": start auto,
+  "end-normal": end normal,  
+  "flex-start-auto": flex-start auto, 
+  "flex-end-normal": flex-end normal,
+  /* Baseline alignment */
+/*  "baseline-normal": baseline normal,
+  "baseline-auto": baseline auto, 
+  "last-baseline-normal": last baseline normal, 
+  "stretch-auto": stretch auto,*/
+  );  
+// End Place-self properties.
+
+// The Grid Auto Flow properties.
+///
+/// The grid auto flow property values.
+/// @group variablesflexgrid
+///
+/// @name gridautoflow
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$autoflow: (
+  "row": row, 
+  "col": column, 
+  "dense": dense,
+  "row-dense": row dense, 
+  "col-dense": column dense,
+  );  
+// End  Grid Auto Flow properties.
+
+// The Grid Auto Column properties.
+///
+/// The grid auto columns property values.
+/// @group variablesflexgrid
+///
+/// @name gridautocolumnsrows
+///
+/// @link src/scss/variables/_variables_flex_grid.scss
+/// @since 1.0.0
+/// @author Serge Cools
+///
+$autocolumnsrows: (
+  "auto": auto, 
+  "min": min-content, 
+  "max": max-content,
+  "fr": minmax(0, 1fr), 
+  );  
+// End  Grid Auto Columns properties.

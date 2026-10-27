@@ -1,0 +1,80 @@
+// SCSS Document
+// File: src/scss/utilities/_scroll_animations.scss
+// Description: Scroll-driven animation utilities — drive animations by scroll progress instead of time.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .timeline-*, .animate-range-*, .scroll-timeline-*, .view-timeline-* classes
+//          and ready-to-use .animate-scroll-* / .animate-view-* presets.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations
+// Note: presets are wrapped in @supports so browsers without support keep the element fully visible.
+// Map: animation-timeline -> animation-range -> named timelines -> timeline-scope -> presets
+
+/* Animation timeline */
+.timeline-auto { animation-timeline: auto; }
+.timeline-none { animation-timeline: none; }
+.timeline-scroll { animation-timeline: scroll(); }
+.timeline-scroll-x { animation-timeline: scroll(x); }
+.timeline-scroll-root { animation-timeline: scroll(root); }
+.timeline-view { animation-timeline: view(); }
+.timeline-view-x { animation-timeline: view(x); }
+.timeline-oc { animation-timeline: --oc-timeline; }
+
+/* Animation range */
+.animate-range-normal { animation-range: normal; }
+.animate-range-cover { animation-range: cover; }
+.animate-range-contain { animation-range: contain; }
+.animate-range-entry { animation-range: entry; }
+.animate-range-exit { animation-range: exit; }
+.animate-range-entry-half { animation-range: entry 0% entry 50%; }
+
+/* Named scroll and view timelines */
+.scroll-timeline-oc { scroll-timeline: --oc-timeline block; }
+.scroll-timeline-oc-x { scroll-timeline: --oc-timeline inline; }
+.view-timeline-oc { view-timeline: --oc-timeline block; }
+.view-timeline-oc-x { view-timeline: --oc-timeline inline; }
+
+/* Timeline scope — expose a named timeline to siblings/descendants */
+.timeline-scope-oc { timeline-scope: --oc-timeline; }
+.timeline-scope-none { timeline-scope: none; }
+
+/* Presets */
+@keyframes oc-scroll-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes oc-view-fade-in {
+  from { opacity: 0; transform: translateY(2rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes oc-view-zoom-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@supports (animation-timeline: scroll()) {
+  .animate-scroll-progress {
+    transform-origin: 0 50%;
+    animation: oc-scroll-progress linear both;
+    animation-timeline: scroll(root);
+  }
+  .animate-view-fade-in {
+    animation: oc-view-fade-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .animate-view-zoom-in {
+    animation: oc-view-zoom-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-progress,
+  .animate-view-fade-in,
+  .animate-view-zoom-in {
+    animation: none;
+  }
+}

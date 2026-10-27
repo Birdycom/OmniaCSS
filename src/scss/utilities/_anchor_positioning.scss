@@ -1,0 +1,65 @@
+// SCSS Document
+// File: src/scss/utilities/_anchor_positioning.scss
+// Description: CSS Anchor Positioning utilities — tether an element to an anchor without JavaScript.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .anchor-*, .anchored-*, .anchor-area-*, .anchor-try-* and .anchor-visibility-* classes.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning
+// Note: the anchored element needs position: absolute or fixed (.absolute / .fixed).
+//       Pair .anchor-{name} on the trigger with .anchored-{name} on the positioned element.
+// Map: anchor-name -> position-anchor -> anchor-scope -> position-area -> position-try -> position-visibility
+
+$_anchor-names: ('oc', 'trigger', 'menu', 'tooltip');
+
+/* Anchor name — register an element as anchor */
+@each $name in $_anchor-names {
+  .anchor-#{$name} { anchor-name: --#{$name}; }
+}
+.anchor-none { anchor-name: none; }
+
+/* Position anchor — attach a positioned element to a named anchor */
+@each $name in $_anchor-names {
+  .anchored-#{$name} { position-anchor: --#{$name}; }
+}
+.anchored-auto { position-anchor: auto; }
+
+/* Anchor scope — limit anchor name lookup to a subtree (repeated components) */
+.anchor-scope-all { anchor-scope: all; }
+.anchor-scope-none { anchor-scope: none; }
+
+/* Position area — place the element in a region of the 3×3 grid around the anchor */
+.anchor-area-top { position-area: top; }
+.anchor-area-bottom { position-area: bottom; }
+.anchor-area-left { position-area: left; }
+.anchor-area-right { position-area: right; }
+.anchor-area-center { position-area: center; }
+.anchor-area-top-left { position-area: top left; }
+.anchor-area-top-right { position-area: top right; }
+.anchor-area-bottom-left { position-area: bottom left; }
+.anchor-area-bottom-right { position-area: bottom right; }
+.anchor-area-top-span-right { position-area: top span-right; }
+.anchor-area-bottom-span-right { position-area: bottom span-right; }
+.anchor-area-block-start { position-area: block-start; }
+.anchor-area-block-end { position-area: block-end; }
+.anchor-area-inline-start { position-area: inline-start; }
+.anchor-area-inline-end { position-area: inline-end; }
+
+/* Position try fallbacks — alternatives when the element overflows */
+.anchor-try-none { position-try-fallbacks: none; }
+.anchor-try-flip-block { position-try-fallbacks: flip-block; }
+.anchor-try-flip-inline { position-try-fallbacks: flip-inline; }
+.anchor-try-flip-both { position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline; }
+.anchor-try-order-normal { position-try-order: normal; }
+.anchor-try-order-most-width { position-try-order: most-width; }
+.anchor-try-order-most-height { position-try-order: most-height; }
+
+/* Position visibility — hide the element when its anchor is hidden or it overflows */
+.anchor-visibility-always { position-visibility: always; }
+.anchor-visibility-anchors-visible { position-visibility: anchors-visible; }
+.anchor-visibility-no-overflow { position-visibility: no-overflow; }
+
+/* Anchor size — match the anchor's width (dropdown menus) */
+.w-anchor { width: anchor-size(width); }
+.min-w-anchor { min-width: anchor-size(width); }

@@ -1,0 +1,108 @@
+// SCSS Document 
+// File: src/utilities/_hulp.scss
+// Description: CSS hulp class (demo helpers only — no global element/id rules: they would leak into every page)
+// Copyright: 2021-2023 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: 
+// Values: 
+
+
+.wrapbox-1 {
+  width: 10em;
+  margin: 0.5em;
+  white-space: normal;
+  vertical-align: top;
+  display: inline-block;
+}
+.wrapbox-2 {
+  width: 40em;
+  margin: 0.5em;
+  white-space: normal;
+  vertical-align: top;
+  display: inline-block;
+}
+.narrow {
+  padding: 10px;
+  border: 1px solid;
+  width: 500px;
+  margin: 0 auto;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+/* hulp for writing mode  */
+
+
+/* Scoped (was a global th/td rule that leaked into every table): add .hulp-table to opt in. */
+.hulp-table th {
+  background-color: var(--oc-muted, var(--color-frostblue-60));
+}
+
+.hulp-table td, .hulp-table th {
+  border: 1px solid var(--oc-border-strong, var(--color-mistblue-80));
+  padding: 3px;
+}
+/* End hulp for writing mode  */
+
+/* hulp for aspect ratio */
+
+.output {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--background-primary);
+  overflow: hidden;
+  padding: 1em;
+}
+.output section {
+  height: 100%;
+  text-align: center;
+}
+/* End hulp for aspect ratio */
+
+/* hulp for alignment */
+.box {
+  padding: 0.5rem;
+  background: linear-gradient(-45deg, var(--color-vividblue-60), var(--color-mistblue-30));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg-stripes-sky{
+  background-color: oklch(from var(--color-skycyan-70) l c h / 0.1);
+  background-image: linear-gradient(135deg,oklch(from var(--color-skycyan-80) l c h / 0.5) 10%,transparent 0,transparent 50%,oklch(from var(--color-skycyan-80) l c h / 0.5) 0,oklch(from var(--color-skycyan-80) l c h / 0.5) 60%,transparent 0,transparent);
+  background-size: 7.07px 7.07px;
+}
+
+.bg-stripes-fuchsia {
+  background-color: oklch(from var(--color-violet-60) l c h / 0.1);
+  background-image: linear-gradient(135deg,oklch(from var(--color-violet-70) l c h / 0.5) 10%,transparent 0,transparent 50%,oklch(from var(--color-violet-70) l c h / 0.5) 0,oklch(from var(--color-violet-70) l c h / 0.5) 60%,transparent 0,transparent);
+  background-size: 7.07px 7.07px;
+}
+
+.bg-stripes-pink {
+  background-color: oklch(from var(--color-purple-2) l c h / 0.1);
+  background-image: linear-gradient(135deg,oklch(from var(--color-purple-10) l c h / 0.5) 10%,transparent 0,transparent 50%,oklch(from var(--color-purple-10) l c h / 0.5) 0,oklch(from var(--color-purple-10) l c h / 0.5) 60%,transparent 0,transparent);
+  background-size: 7.07px 7.07px;
+}
+
+.bg-stripes-purple {
+    background-color: oklch(from var(--color-indigo-2) l c h / 0.1);
+    background-image: linear-gradient(135deg,oklch(from var(--color-indigo-10) l c h / 0.5) 10%,transparent 0,transparent 50%,oklch(from var(--color-indigo-10) l c h / 0.5) 0,oklch(from var(--color-indigo-10) l c h / 0.5) 60%,transparent 0,transparent);
+    background-size: 7.07px 7.07px;
+}
+
+.leading-6 {
+  line-height: 1.5rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+/* .shadow-md / .shadow-lg live in utilities/_effects_advanced.scss (light-dark aware) */
+
+/* End hulp for alignment */

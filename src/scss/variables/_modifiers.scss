@@ -1,0 +1,32 @@
+// SCSS Document 
+// File: src/scss/variables/_modifiers.scss
+// Description: Default string items for using in the CSS properties 
+// Copyright: 2021-2023 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Variables and strings: 
+
+///
+/// Below you will find the list of all strings and arrays that we will use within our framework - file modifiers.
+/// @group PseudoClasses
+///
+
+// Default Pseudo-classes
+///
+/// The different pseudo-classes: :hover, :focus, :active
+/// @group pseudoclasses
+///
+/// @name pseudoclasses
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+///
+$pseudoclasses: (
+  "": "", // normal
+  ":hover": hover\:, // hover
+  ":active": active\:, // active
+  ":focus": focus\:, // focus
+);
+// end default pseudo-classes

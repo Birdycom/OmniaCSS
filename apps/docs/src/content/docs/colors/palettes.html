@@ -1,0 +1,227 @@
+<!--oc-page {"title": "OmniaCSS Docs - Color Palettes", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "colors": true, "head": []}-->
+<section class="oc-docs-section" id="color-mix">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Color-mix (Transparent)</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Support for <code>color-mix(in oklch, color step%, transparent)</code> across all families.
+          </p>
+        </div>
+        
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead>
+                <tr>
+                  <th class="w-perc-1/3">Class Pattern</th>
+                  <th>Effect / Output</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>.bg-{color}-mix-{step}</code></td><td><code>background-color: color-mix(...)</code></td></tr>
+                <tr><td><code>.text-{color}-mix-{step}</code></td><td><code>color: color-mix(...)</code></td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td>Steps</td><td>0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title">Mix Demo</h3>
+          <oc-demo title="Mix Demo"><div class="preview">
+            <div class="flex gap-1 flex-wrap">
+              <span class="bg-red-mix-10 p-2 round-1">red-mix-10</span>
+              <span class="bg-red-mix-30 p-2 round-1">red-mix-30</span>
+              <span class="bg-red-mix-50 p-2 round-1">red-mix-50</span>
+              <span class="bg-red-mix-80 p-2 round-1">red-mix-80</span>
+              <span class="text-blue-mix-50 bg-white round-2 p-2">text blue-mix-50</span>
+            </div>
+          </div><oc-code lang="html">&lt;div class="bg-red-mix-30 p-2"&gt;30% Red&lt;/div&gt;
+&lt;span class="text-blue-mix-50"&gt;50% Blue Text&lt;/span&gt;</oc-code></oc-demo>
+          
+
+          <h3 class="oc-section-content__title" id="ral-color-mix">RAL color-mix examples</h3>
+          <p class="oc-section-content__desc">RAL has one token per color (<code>--color-ral5015</code>), so there are no <code>-mix-{step}</code> tokens. Mix them directly with <code>color-mix(in oklch, var(--color-ral5015) 40%, white)</code>: with white or black to lighten and darken, or with another RAL color for a blend. Each strip goes from 100% of the first color to 0%.</p>
+          <oc-demo title="RAL color-mix with white, black and other RAL colors"><div class="preview">
+          <p class="oc-preview__label mt-2">RAL 5015 (sky blue) mixed with white: 100% down to 0% RAL</p>
+          <div class="oc-mixstrip" style="--mix-a: var(--color-ral5015); --mix-b: var(--color-white-50);"><span data-p="100%" style="--p: 100%"></span><span data-p="90%" style="--p: 90%"></span><span data-p="80%" style="--p: 80%"></span><span data-p="70%" style="--p: 70%"></span><span data-p="60%" style="--p: 60%"></span><span data-p="50%" style="--p: 50%"></span><span data-p="40%" style="--p: 40%"></span><span data-p="30%" style="--p: 30%"></span><span data-p="20%" style="--p: 20%"></span><span data-p="10%" style="--p: 10%"></span><span data-p="0%" style="--p: 0%"></span></div>
+          <p class="oc-preview__label mt-2">RAL 3020 (traffic red) mixed with white</p>
+          <div class="oc-mixstrip" style="--mix-a: var(--color-ral3020); --mix-b: var(--color-white-50);"><span data-p="100%" style="--p: 100%"></span><span data-p="90%" style="--p: 90%"></span><span data-p="80%" style="--p: 80%"></span><span data-p="70%" style="--p: 70%"></span><span data-p="60%" style="--p: 60%"></span><span data-p="50%" style="--p: 50%"></span><span data-p="40%" style="--p: 40%"></span><span data-p="30%" style="--p: 30%"></span><span data-p="20%" style="--p: 20%"></span><span data-p="10%" style="--p: 10%"></span><span data-p="0%" style="--p: 0%"></span></div>
+          <p class="oc-preview__label mt-2">RAL 6018 (yellow green) mixed with black</p>
+          <div class="oc-mixstrip" style="--mix-a: var(--color-ral6018); --mix-b: var(--color-black-50);"><span data-p="100%" style="--p: 100%"></span><span data-p="90%" style="--p: 90%"></span><span data-p="80%" style="--p: 80%"></span><span data-p="70%" style="--p: 70%"></span><span data-p="60%" style="--p: 60%"></span><span data-p="50%" style="--p: 50%"></span><span data-p="40%" style="--p: 40%"></span><span data-p="30%" style="--p: 30%"></span><span data-p="20%" style="--p: 20%"></span><span data-p="10%" style="--p: 10%"></span><span data-p="0%" style="--p: 0%"></span></div>
+          <p class="oc-preview__label mt-2">RAL 2004 (pure orange) mixed with black</p>
+          <div class="oc-mixstrip" style="--mix-a: var(--color-ral2004); --mix-b: var(--color-black-50);"><span data-p="100%" style="--p: 100%"></span><span data-p="90%" style="--p: 90%"></span><span data-p="80%" style="--p: 80%"></span><span data-p="70%" style="--p: 70%"></span><span data-p="60%" style="--p: 60%"></span><span data-p="50%" style="--p: 50%"></span><span data-p="40%" style="--p: 40%"></span><span data-p="30%" style="--p: 30%"></span><span data-p="20%" style="--p: 20%"></span><span data-p="10%" style="--p: 10%"></span><span data-p="0%" style="--p: 0%"></span></div>
+          <p class="oc-preview__label mt-2">RAL 5015 (sky blue) mixed with RAL 1003 (signal yellow)</p>
+          <div class="oc-mixstrip" style="--mix-a: var(--color-ral5015); --mix-b: var(--color-ral1003);"><span data-p="100%" style="--p: 100%"></span><span data-p="90%" style="--p: 90%"></span><span data-p="80%" style="--p: 80%"></span><span data-p="70%" style="--p: 70%"></span><span data-p="60%" style="--p: 60%"></span><span data-p="50%" style="--p: 50%"></span><span data-p="40%" style="--p: 40%"></span><span data-p="30%" style="--p: 30%"></span><span data-p="20%" style="--p: 20%"></span><span data-p="10%" style="--p: 10%"></span><span data-p="0%" style="--p: 0%"></span></div>
+          <p class="oc-preview__label mt-2">RAL 3020 (traffic red) mixed with RAL 6018 (yellow green)</p>
+          <div class="oc-mixstrip" style="--mix-a: var(--color-ral3020); --mix-b: var(--color-ral6018);"><span data-p="100%" style="--p: 100%"></span><span data-p="90%" style="--p: 90%"></span><span data-p="80%" style="--p: 80%"></span><span data-p="70%" style="--p: 70%"></span><span data-p="60%" style="--p: 60%"></span><span data-p="50%" style="--p: 50%"></span><span data-p="40%" style="--p: 40%"></span><span data-p="30%" style="--p: 30%"></span><span data-p="20%" style="--p: 20%"></span><span data-p="10%" style="--p: 10%"></span><span data-p="0%" style="--p: 0%"></span></div>
+          <p class="oc-preview__label mt-2">RAL 4005 (blue lilac) mixed with RAL 2004 (pure orange)</p>
+          <div class="oc-mixstrip" style="--mix-a: var(--color-ral4005); --mix-b: var(--color-ral2004);"><span data-p="100%" style="--p: 100%"></span><span data-p="90%" style="--p: 90%"></span><span data-p="80%" style="--p: 80%"></span><span data-p="70%" style="--p: 70%"></span><span data-p="60%" style="--p: 60%"></span><span data-p="50%" style="--p: 50%"></span><span data-p="40%" style="--p: 40%"></span><span data-p="30%" style="--p: 30%"></span><span data-p="20%" style="--p: 20%"></span><span data-p="10%" style="--p: 10%"></span><span data-p="0%" style="--p: 0%"></span></div>
+          </div><oc-code lang="css">.swatch { background: color-mix(in oklch, var(--color-ral5015) 40%, var(--color-white-50)); }  /* lighter */
+.swatch { background: color-mix(in oklch, var(--color-ral6018) 60%, var(--color-black-50)); }  /* darker */
+.swatch { background: color-mix(in oklch, var(--color-ral5015) 50%, var(--color-ral1003)); }   /* blend two RAL colors */
+.swatch { background: color-mix(in oklch, var(--color-ral3020) 30%, transparent); }            /* the .bg-ral3020-mix-30 utility */</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title">Interactive Color-mix Palette</h3>
+          <p class="oc-section-content__desc">Preview of <code>bg-{color}-mix-{step}</code> for Omnia, HTML, and RAL. Steps: 0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100.</p>
+          <div class="oc-tabs mt-2" id="oc-docs-mix-tabs" role="tablist">
+            <button type="button" class="oc-tab is-active" role="tab" aria-selected="true" aria-controls="oc-docs-mix-tab-omnia" id="oc-docs-mix-trigger-omnia">Omnia palette</button>
+            <button type="button" class="oc-tab" role="tab" aria-selected="false" aria-controls="oc-docs-mix-tab-html" id="oc-docs-mix-trigger-html">HTML palette</button>
+            <button type="button" class="oc-tab" role="tab" aria-selected="false" aria-controls="oc-docs-mix-tab-ral" id="oc-docs-mix-trigger-ral">RAL palette</button>
+          </div>
+          <div class="oc-tab-panel is-active" id="oc-docs-mix-tab-omnia" role="tabpanel">
+            <div id="oc-docs-mix-omnia-swatches"></div>
+          </div>
+          <div class="oc-tab-panel" id="oc-docs-mix-tab-html" role="tabpanel">
+            <div id="oc-docs-mix-html-swatches"></div>
+          </div>
+          <div class="oc-tab-panel" id="oc-docs-mix-tab-ral" role="tabpanel">
+            <div id="oc-docs-mix-ral-swatches"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="default-palette-reference">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Default Palette Reference</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Live interactive preview from <code>color-properties.json</code>. Note: hover/focus swatches to see color model values.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-tabs" id="oc-docs-palette-tabs" role="tablist">
+            <button type="button" class="oc-tab is-active" role="tab" aria-selected="true" aria-controls="oc-docs-tab-omnia" id="oc-docs-trigger-omnia">Omnia scale</button>
+            <button type="button" class="oc-tab" role="tab" aria-selected="false" aria-controls="oc-docs-tab-html" id="oc-docs-trigger-html">HTML palette</button>
+            <button type="button" class="oc-tab" role="tab" aria-selected="false" aria-controls="oc-docs-tab-ral" id="oc-docs-trigger-ral">RAL Family</button>
+          </div>
+          <div class="oc-tab-panel is-active" id="oc-docs-tab-omnia" role="tabpanel">
+            <div id="oc-docs-omnia-swatches"></div>
+          </div>
+          <div class="oc-tab-panel" id="oc-docs-tab-html" role="tabpanel">
+            <div id="oc-docs-html-swatches"></div>
+          </div>
+          <div class="oc-tab-panel" id="oc-docs-tab-ral" role="tabpanel">
+            <div id="oc-docs-ral-swatches"></div>
+          </div>
+        </div>
+      </section>
+<script>
+    (function () {
+      /** Helpers from original colors.html */
+      function escapeAttr(str) {
+        return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+      function tooltipLine(color) {
+        return "HEX: " + (color.hex || "") + "\nRGB: " + (color.rgb || "") + "\nHSL: " + (color.hsl || "") + "\nOKLCH: " + (color.oklch || "") + "\nOKLAB: " + (color.oklab || "");
+      }
+
+      function renderRalGrouped(targetId, ralData) {
+        var target = document.getElementById(targetId);
+        if (!target || !ralData) return;
+        var groups = [
+          { key: "1", label: "RAL 1xxx - Yellow tones" }, { key: "2", label: "RAL 2xxx - Orange tones" },
+          { key: "3", label: "RAL 3xxx - Red tones" }, { key: "4", label: "RAL 4xxx - Violet tones" },
+          { key: "5", label: "RAL 5xxx - Blue tones" }, { key: "6", label: "RAL 6xxx - Green tones" },
+          { key: "7", label: "RAL 7xxx - Grey tones" }, { key: "8", label: "RAL 8xxx - Brown tones" },
+          { key: "9", label: "RAL 9xxx - White/Black tones" }
+        ];
+        var html = groups.map(function (group) {
+          var keys = Object.keys(ralData).filter(function (name) {
+            return /^ral\d{4}$/i.test(name) && name.charAt(3) === group.key;
+          }).sort();
+          if (keys.length === 0) return "";
+          var cards = keys.map(function (key) {
+            var color = ralData[key];
+            var nameEn = color.name_en ? String(color.name_en).replace(/_/g, " ") : "RAL color";
+                        return ''
+              + '<article class="oc-swatch ocd-swatch">'
+              + '<div class="oc-swatch-color ocd-swatch-color" style="background: var(--color-' + key.toLowerCase() + ')"></div>'
+              + '<div class="oc-swatch-meta ocd-swatch-meta">'
+              + '<strong>' + key.toUpperCase() + '</strong>'
+              + '<div>' + nameEn + '</div>'
+              + '<div>HEX: ' + (color.hex || "") + '</div>'
+              + '<div>OKLCH: ' + (color.oklch || "n/a") + '</div>'
+              + '</div>'
+              + '</article>';
+          }).join("");
+
+          return '<section class="oc-swatch-group ocd-swatch-group mt-6"><h3 class="oc-swatch-group-title ocd-swatch-group-title">' + group.label + ' (' + keys.length + ' colors)</h3>'
+            + '<div class="oc-block-grid">'
+            + '<article class="oc-swatch ocd-swatch ocd-ral-group-card"><div class="oc-swatch-meta"><strong>' + group.label + '</strong><div>Group members: ' + keys.length + '</div></div></article>'
+            + cards 
+            + '</div></section>';
+        }).join("");
+        target.innerHTML = html;
+      }
+
+      var PALETTE_STEPS = [2, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, "base"];
+      var MIX_STEPS = [0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+      function toClassToken(str) { return String(str).toLowerCase().replace(/[^a-z0-9]+/g, "-"); }
+
+      function renderScaleGrid(containerId, title, familyData) {
+        var target = document.getElementById(containerId);
+        if (!target || !familyData) return;
+        var keys = Object.keys(familyData);
+        var headerSteps = PALETTE_STEPS.map(function (s) { return "<div class=\"oc-step\">" + s + "</div>"; }).join("");
+        var rows = keys.map(function (colorName) {
+          var token = toClassToken(colorName);
+          var color = familyData[colorName];
+          var baseTooltip = color ? escapeAttr(tooltipLine(color)) : "";
+          var cells = PALETTE_STEPS.map(function (step) {
+            var suffix = step === "base" ? "-100" : "-" + step;
+            var cls = "oc-palette-swatch";
+            if (step === "base") cls += " oc-palette-swatch--has-tooltip";
+            var titleAttr = step === "base" && baseTooltip ? " title=\"" + baseTooltip + "\" tabindex=\"0\"" : "";
+            return "<div class=\"" + cls + "\" style=\"background: var(--color-" + token + suffix + ")\"" + titleAttr + "></div>";
+          }).join("");
+          return "<div class=\"oc-palette-row\"><div class=\"oc-palette-name\">" + colorName.replace(/_/g, " ") + "</div>" + cells + "</div>";
+        }).join("");
+        target.innerHTML = "<div class=\"oc-palette-block\" style=\"--oc-palette-count: " + PALETTE_STEPS.length + "\"><h4>" + title + "</h4><div class=\"oc-palette-scale\"><div></div>" + headerSteps + "</div>" + rows + "</div>";
+      }
+
+      function renderMixGrid(containerId, title, familyData, isRal) {
+        var target = document.getElementById(containerId);
+        if (!target || !familyData) return;
+        var keys = Object.keys(familyData);
+        var headerSteps = MIX_STEPS.map(function (s) { return "<div class=\"oc-step\">" + s + "</div>"; }).join("");
+        var rows = keys.map(function (colorName) {
+          var token = toClassToken(colorName);
+          var color = familyData[colorName];
+          var baseTooltip = color ? escapeAttr(tooltipLine(color)) : "";
+          var cells = MIX_STEPS.map(function (step) {
+            var cls = "oc-palette-swatch";
+            if (step === 100) cls += " oc-palette-swatch--has-tooltip";
+            var titleAttr = step === 100 && baseTooltip ? " title=\"" + baseTooltip + "\" tabindex=\"0\"" : "";
+            return "<div class=\"" + cls + "\" style=\"background: " + (isRal ? "color-mix(in oklch, var(--color-" + token + ") " + step + "%, transparent)" : "var(--color-" + token + "-mix-" + step + ")") + "\"" + titleAttr + "></div>";
+          }).join("");
+          return "<div class=\"oc-palette-row\"><div class=\"oc-palette-name\">" + colorName.replace(/_/g, " ") + "</div>" + cells + "</div>";
+        }).join("");
+        target.innerHTML = "<div class=\"oc-palette-block\" style=\"--oc-palette-count: " + MIX_STEPS.length + "\"><h4>" + title + "</h4><div class=\"oc-palette-scale\"><div></div>" + headerSteps + "</div>" + rows + "</div>";
+      }
+
+      function setupTabs(tabId, panelPrefix) {
+        var tabList = document.getElementById(tabId);
+        if (!tabList) return;
+        var triggers = tabList.querySelectorAll(".oc-tab");
+        var panels = [panelPrefix + "-omnia", panelPrefix + "-html", panelPrefix + "-ral"].map(function(id){ return document.getElementById(id); });
+        triggers.forEach(function (btn, i) {
+          btn.addEventListener("click", function () {
+            triggers.forEach(function (t) { t.classList.remove("is-active"); t.setAttribute("aria-selected", "false"); });
+            panels.forEach(function (p) { if(p) p.classList.remove("is-active"); });
+            btn.classList.add("is-active"); btn.setAttribute("aria-selected", "true");
+            if (panels[i]) panels[i].classList.add("is-active");
+          });
+        });
+      }
+
+      fetch("../../data/color-properties.json")
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          renderScaleGrid("oc-docs-omnia-swatches", "Omnia scale palette preview (2–95 + base)", data.omniacolors);
+          renderScaleGrid("oc-docs-html-swatches", "HTML palette (2–95 + base)", data.htmlcolors);
+          renderRalGrouped("oc-docs-ral-swatches", data.ralcolors);
+          renderMixGrid("oc-docs-mix-omnia-swatches", "Omnia color-mix (0–100)", data.omniacolors);
+          renderMixGrid("oc-docs-mix-html-swatches", "HTML color-mix (0–100)", data.htmlcolors);
+          renderMixGrid("oc-docs-mix-ral-swatches", "RAL color-mix (0–100)", data.ralcolors, true);
+          setupTabs("oc-docs-palette-tabs", "oc-docs-tab");
+          setupTabs("oc-docs-mix-tabs", "oc-docs-mix-tab");
+        });
+    })();
+  </script>

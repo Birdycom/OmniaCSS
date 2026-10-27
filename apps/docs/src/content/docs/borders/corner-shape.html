@@ -1,0 +1,224 @@
+<!--oc-page {"title": "OmniaCSS Docs - Corner shape", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background-color: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n.cs-ticket { padding: 1rem 2.2rem; font-weight: 800; letter-spacing: 0.08em; }\n.cs-badge { padding: 0.25rem 0.8rem; font-weight: 800; font-size: 0.75rem; }\n.cs-avatar { display: grid; place-items: center; inline-size: 4.5rem; block-size: 4.5rem; font-weight: 800; }\n.cs-btn { padding: 0.6rem 1.2rem; font: inherit; font-weight: 700; cursor: pointer; }\n</style>","<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background-color: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n.cs-ticket { padding: 1rem 2.2rem; font-weight: 800; letter-spacing: 0.08em; }\n.cs-badge { padding: 0.25rem 0.8rem; font-weight: 800; font-size: 0.75rem; }\n.cs-avatar { display: grid; place-items: center; inline-size: 4.5rem; block-size: 4.5rem; font-weight: 800; }\n.cs-btn { padding: 0.6rem 1.2rem; font: inherit; font-weight: 700; cursor: pointer; }\n</style>"]}-->
+<section class="oc-docs-section" id="corner-shape">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Corner shape</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span> 
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_corner_shape.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">corner-shape.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.1</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            <strong>Corner shape</strong> changes how the corners look inside the area defined by <code>border-radius</code>. Use it together with a radius utility (e.g. <code>.round-6</code>). Options: <code>round</code> (default), <code>scoop</code>, <code>bevel</code>, <code>notch</code>, <code>square</code>, <code>squircle</code>. Handy for distinctive cards or buttons. This is an experimental CSS feature — see <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape" target="_blank" rel="noopener">MDN: corner-shape</a> and check browser support.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>corner-shape</code> changes the <em>geometry</em> of a corner while <code>border-radius</code> keeps controlling its <em>size</em>: <code>round</code> is the classic arc, <code>scoop</code> is concave, <code>bevel</code> is a straight cut, <code>notch</code> is a square cut-out, <code>square</code> ignores the radius and <code>squircle</code> is the smooth iOS-style curve. <strong>When to use:</strong> tickets, badges, buttons and cards with a distinct character, or app-icon style avatars. <strong>Gotchas:</strong> without a <code>border-radius</code> nothing happens; borders, outlines, shadows and backgrounds all follow the shape (that is the big win over <code>clip-path</code>); it is new (Chrome 139+), so browsers without it fall back to round corners and the design must still look fine. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape" target="_blank" rel="noopener">MDN: corner-shape</a> and the <code>superellipse()</code> function for custom curves.</p>
+
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>corner-shape</code> changes the <em>geometry</em> of a corner while <code>border-radius</code> keeps controlling its <em>size</em>: <code>round</code> is the classic arc, <code>scoop</code> is concave, <code>bevel</code> is a straight cut, <code>notch</code> is a square cut-out, <code>square</code> ignores the radius and <code>squircle</code> is the smooth iOS-style curve. <strong>When to use:</strong> tickets, badges, buttons and cards with a distinct character, or app-icon style avatars. <strong>Gotchas:</strong> without a <code>border-radius</code> nothing happens; borders, outlines, shadows and backgrounds all follow the shape (that is the big win over <code>clip-path</code>); it is new (Chrome 139+), so browsers without it fall back to round corners and the design must still look fine. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape" target="_blank" rel="noopener">MDN: corner-shape</a> and the <code>superellipse()</code> function for custom curves.</p>
+
+          <h3 class="mb-0.5 font-clamp-1.2">CSS classes</h3>
+          <p class="oc-docs-typo-meta font-clamp-0.8">All classes set <code>corner-shape</code>. Use <code>.corner-round</code>, <code>.corner-scoop</code>, <code>.corner-bevel</code>, <code>.corner-notch</code>, <code>.corner-square</code>, or <code>.corner-squircle</code>. Always combine with a radius utility (e.g. <code>.round-6</code>) so the shape has a size to work with.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.corner-round</code></td><td>corner-shape: round</td></tr>
+                <tr><td><code>.corner-scoop</code></td><td>corner-shape: scoop</td></tr>
+                <tr><td><code>.corner-bevel</code></td><td>corner-shape: bevel</td></tr>
+                <tr><td><code>.corner-notch</code></td><td>corner-shape: notch</td></tr>
+                <tr><td><code>.corner-square</code></td><td>corner-shape: square</td></tr>
+                <tr><td><code>.corner-squircle</code></td><td>corner-shape: squircle</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title">Preview — corner shape: basic</h3>
+          <p class="oc-section-content__desc">Basic corner shape: <code>.corner-round</code> (round), <code>.corner-scoop</code> (scoop), <code>.corner-bevel</code> (bevel), <code>.corner-notch</code> (notch), <code>.corner-square</code> (square), <code>.corner-squircle</code> (squircle). Combineer met <code>.round-6</code> en een kleur-class (bijv. <code>.border-darkorange-50</code>) om de corner shape te tonen.</p>
+
+          <oc-demo title="corner-round, corner-scoop, corner-bevel, corner-notch, corner-square, corner-squircle">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.corner-round</span>
+                <div class="round-6 corner-round border-1 border-solid border-darkorange-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-darkorange-95 dark:text-darkorange-30 bg-darkorange-mix-30">round</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.corner-scoop</span>
+                <div class="round-6 corner-scoop border-1 border-solid border-forestgreen-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30">scoop</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.corner-bevel</span>
+                <div class="round-6 corner-bevel border-1 border-solid border-dodgerblue-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30">bevel</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.corner-notch</span>
+                <div class="round-6 corner-notch border-1 border-solid border-magenta-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-magenta-95 dark:text-magenta-30 bg-magenta-mix-30">notch</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.corner-squircle</span>
+                <div class="round-6 corner-squircle border-1 border-solid border-ral8023 flex flex-wrap align-items-center justify-center size-24 font-1 text-ral8023 bg-ral8023-mix-30">squircle</div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">
+                &lt;div class="round-6 corner-round border-1 border-solid border-darkorange-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-darkorange-95 dark:text-darkorange-30 bg-darkorange-mix-30"&gt;round&lt;/div&gt;
+                &lt;div class="round-6 corner-scoop border-1 border-solid border-forestgreen-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30"&gt;scoop&lt;/div&gt;
+                &lt;div class="round-6 corner-bevel border-1 border-solid border-dodgerblue-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30"&gt;bevel&lt;/div&gt;
+                &lt;div class="round-6 corner-notch border-1 border-solid border-magenta-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-magenta-95 dark:text-magenta-30 bg-magenta-mix-30"&gt;notch&lt;/div&gt;
+                &lt;div class="round-6 corner-squircle border-1 border-solid border-ral8023 flex flex-wrap align-items-center justify-center size-24 font-1 text-ral8023 bg-ral8023-mix-30"&gt;squircle&lt;/div&gt;
+              </oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-8">All six shapes with a border and radius 1.5rem</h3>
+          <p class="oc-section-content__desc">Border and background follow the shape in every cell. <code>square</code> ignores the radius completely.</p>
+
+          <oc-demo title="corner-* shapes with border">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-6 corner-round border-2 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30" style="padding:0">round</div><code>.corner-round</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-scoop border-2 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30" style="padding:0">scoop</div><code>.corner-scoop</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-bevel border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30" style="padding:0">bevel</div><code>.corner-bevel</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-notch border-2 border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30" style="padding:0">notch</div><code>.corner-notch</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-square border-2 border-solid border-slateblue-50 bg-slateblue-mix-30 text-slateblue-95 dark:text-slateblue-30" style="padding:0">square</div><code>.corner-square</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-squircle border-2 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30" style="padding:0">squircle</div><code>.corner-squircle</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="round-6 corner-bevel border-2 border-solid"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">The radius sets the size</h3>
+          <p class="oc-section-content__desc">The same shape with a small and a large radius. Bevel, notch and scoop grow with the radius.</p>
+
+          <oc-demo title="radius scales the shape">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-4 corner-bevel border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">bevel</div><code>.round-4 .corner-bevel</code></div>
+              <div class="bd-cell"><div class="bd-box round-10 corner-bevel border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">bevel</div><code>.round-10 .corner-bevel</code></div>
+              <div class="bd-cell"><div class="bd-box round-4 corner-notch border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">notch</div><code>.round-4 .corner-notch</code></div>
+              <div class="bd-cell"><div class="bd-box round-10 corner-notch border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">notch</div><code>.round-10 .corner-notch</code></div>
+              <div class="bd-cell"><div class="bd-box round-4 corner-scoop border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">scoop</div><code>.round-4 .corner-scoop</code></div>
+              <div class="bd-cell"><div class="bd-box round-10 corner-scoop border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">scoop</div><code>.round-10 .corner-scoop</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="round-4 corner-bevel"&gt;small&lt;/div&gt;
+&lt;div class="round-10 corner-bevel"&gt;large&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">In practice: ticket, badge and avatar</h3>
+          <p class="oc-section-content__desc">A ticket with scooped sides (<code>.corner-scoop</code>), a notched badge and a squircle avatar. All three keep their borders and shadows because <code>corner-shape</code> reshapes the real box, not a clip.</p>
+
+          <oc-demo title="ticket, badge, squircle avatar">
+            <div class="flex flex-wrap items-center gap-3">
+              <div class="round-6 corner-scoop border-2 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 cs-ticket">ADMIT ONE</div>
+              <span class="round-3 corner-notch border-1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 cs-badge">NEW</span>
+              <div class="round-10 corner-squircle bg-dodgerblue-mix-30 border-2 border-solid border-dodgerblue-50 text-dodgerblue-95 dark:text-dodgerblue-30 cs-avatar">SC</div>
+              <button type="button" class="round-4 corner-bevel border-2 border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 cs-btn">Bevel button</button>
+            </div>
+          <oc-code lang="html">&lt;div class="round-6 corner-scoop border-2 border-solid"&gt;ADMIT ONE&lt;/div&gt;
+&lt;span class="round-3 corner-notch"&gt;NEW&lt;/span&gt;
+&lt;div class="round-10 corner-squircle"&gt;SC&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Per corner and custom curves</h3>
+          <p class="oc-section-content__desc">Each corner has its own property (<code>corner-top-left-shape</code>, <code>corner-bottom-right-shape</code>, …) and accepts <code>superellipse(&lt;number&gt;)</code>: <code>superellipse(0)</code> is a bevel, <code>superellipse(1)</code> a round corner and values above 1 give squircles. No utility class needed, set it inline or in your own CSS.</p>
+
+          <oc-demo title="mixed corners and superellipse()">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-8 border-2 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30" style="corner-top-left-shape: bevel; corner-bottom-right-shape: notch">bevel + notch</div><code>corner-*-shape</code></div>
+              <div class="bd-cell"><div class="bd-box round-8 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30" style="corner-shape: superellipse(0.5)">0.5</div><code>superellipse(0.5)</code></div>
+              <div class="bd-cell"><div class="bd-box round-8 border-2 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30" style="corner-shape: superellipse(3)">3</div><code>superellipse(3)</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="round-8" style="corner-top-left-shape: bevel; corner-bottom-right-shape: notch"&gt;…&lt;/div&gt;
+&lt;div class="round-8" style="corner-shape: superellipse(3)"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">All six shapes with a border and radius 1.5rem</h3>
+          <p class="oc-section-content__desc">Border and background follow the shape in every cell. <code>square</code> ignores the radius completely.</p>
+
+          <oc-demo title="corner-* shapes with border">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-6 corner-round border-2 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30" style="padding:0">round</div><code>.corner-round</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-scoop border-2 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30" style="padding:0">scoop</div><code>.corner-scoop</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-bevel border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30" style="padding:0">bevel</div><code>.corner-bevel</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-notch border-2 border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30" style="padding:0">notch</div><code>.corner-notch</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-square border-2 border-solid border-slateblue-50 bg-slateblue-mix-30 text-slateblue-95 dark:text-slateblue-30" style="padding:0">square</div><code>.corner-square</code></div>
+              <div class="bd-cell"><div class="bd-box round-6 corner-squircle border-2 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30" style="padding:0">squircle</div><code>.corner-squircle</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="round-6 corner-bevel border-2 border-solid"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">The radius sets the size</h3>
+          <p class="oc-section-content__desc">The same shape with a small and a large radius. Bevel, notch and scoop grow with the radius.</p>
+
+          <oc-demo title="radius scales the shape">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-4 corner-bevel border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">bevel</div><code>.round-4 .corner-bevel</code></div>
+              <div class="bd-cell"><div class="bd-box round-10 corner-bevel border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">bevel</div><code>.round-10 .corner-bevel</code></div>
+              <div class="bd-cell"><div class="bd-box round-4 corner-notch border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">notch</div><code>.round-4 .corner-notch</code></div>
+              <div class="bd-cell"><div class="bd-box round-10 corner-notch border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">notch</div><code>.round-10 .corner-notch</code></div>
+              <div class="bd-cell"><div class="bd-box round-4 corner-scoop border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">scoop</div><code>.round-4 .corner-scoop</code></div>
+              <div class="bd-cell"><div class="bd-box round-10 corner-scoop border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">scoop</div><code>.round-10 .corner-scoop</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="round-4 corner-bevel"&gt;small&lt;/div&gt;
+&lt;div class="round-10 corner-bevel"&gt;large&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">In practice: ticket, badge and avatar</h3>
+          <p class="oc-section-content__desc">A ticket with scooped sides (<code>.corner-scoop</code>), a notched badge and a squircle avatar. All three keep their borders and shadows because <code>corner-shape</code> reshapes the real box, not a clip.</p>
+
+          <oc-demo title="ticket, badge, squircle avatar">
+            <div class="flex flex-wrap items-center gap-3">
+              <div class="round-6 corner-scoop border-2 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 cs-ticket">ADMIT ONE</div>
+              <span class="round-3 corner-notch border-1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 cs-badge">NEW</span>
+              <div class="round-10 corner-squircle bg-dodgerblue-mix-30 border-2 border-solid border-dodgerblue-50 text-dodgerblue-95 dark:text-dodgerblue-30 cs-avatar">SC</div>
+              <button type="button" class="round-4 corner-bevel border-2 border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 cs-btn">Bevel button</button>
+            </div>
+          <oc-code lang="html">&lt;div class="round-6 corner-scoop border-2 border-solid"&gt;ADMIT ONE&lt;/div&gt;
+&lt;span class="round-3 corner-notch"&gt;NEW&lt;/span&gt;
+&lt;div class="round-10 corner-squircle"&gt;SC&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Per corner and custom curves</h3>
+          <p class="oc-section-content__desc">Each corner has its own property (<code>corner-top-left-shape</code>, <code>corner-bottom-right-shape</code>, …) and accepts <code>superellipse(&lt;number&gt;)</code>: <code>superellipse(0)</code> is a bevel, <code>superellipse(1)</code> a round corner and values above 1 give squircles. No utility class needed, set it inline or in your own CSS.</p>
+
+          <oc-demo title="mixed corners and superellipse()">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-8 border-2 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30" style="corner-top-left-shape: bevel; corner-bottom-right-shape: notch">bevel + notch</div><code>corner-*-shape</code></div>
+              <div class="bd-cell"><div class="bd-box round-8 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30" style="corner-shape: superellipse(0.5)">0.5</div><code>superellipse(0.5)</code></div>
+              <div class="bd-cell"><div class="bd-box round-8 border-2 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30" style="corner-shape: superellipse(3)">3</div><code>superellipse(3)</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="round-8" style="corner-top-left-shape: bevel; corner-bottom-right-shape: notch"&gt;…&lt;/div&gt;
+&lt;div class="round-8" style="corner-shape: superellipse(3)"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">corner-shape is new: browsers without support keep normal round corners from <code>border-radius</code>.</p>
+          <oc-compat features="css.properties.corner-shape css.properties.border-radius"></oc-compat>
+        </div>
+        
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The corner-shape utilities come from <code>_corner_shape.scss</code> in <code>src/scss/utilities/</code>. Classes: <code>.corner-round</code>, <code>.corner-scoop</code>, <code>.corner-bevel</code>, <code>.corner-notch</code>, <code>.corner-square</code>, <code>.corner-squircle</code>. Works together with <code>border-radius</code> (e.g. <code>.round-6</code>). Experimental; see the browser support table above and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape" target="_blank" rel="noopener">MDN: corner-shape</a>.
+          </p>
+        
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source (corner-shape)</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_corner_shape.scss</code></td><td>corner-shape: .corner-round, .corner-scoop, .corner-bevel, .corner-notch, .corner-square, .corner-squircle</td></tr>
+                  <tr><td><code>src/scss/utilities/_borders_outlines.scss</code></td><td>border-radius (<code>$roundsizes</code>): the radius the corner shape is applied to</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes on this page end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="border-radius.html">Border-radius</a>
+               · 
+              <a class="source-link" href="border-width.html">Border-width</a>
+               · 
+              <a class="source-link" href="../shapes/index.html">Shapes</a>
+            </p>
+          </div>
+        </div>
+      </section>

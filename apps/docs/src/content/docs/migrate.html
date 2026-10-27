@@ -1,0 +1,139 @@
+<!--oc-page {"title": "OmniaCSS Docs - Migreren / Migrate", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-hero" id="overview">
+        <h1 class="oc-hero-title">Migreren / Migrate</h1>
+        <p class="oc-hero-text">Overstappen van Tailwind CSS naar OmniaCSS en je bestaande klassenamen houden. Switch a Laravel, Vue or React project from Tailwind CSS to OmniaCSS in three steps: your markup stays exactly as it is.</p>
+      </section>
+
+      <section class="oc-docs-section" id="how">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">How it works <span class="oc-section-header__badge-version oc-badge-version">@birdycom/omniacss-migrate</span></h2>
+          <p class="oc-section-header__desc">A compat layer resolves Tailwind-style class names on demand and emits CSS that only uses OmniaCSS tokens.</p>
+        </div>
+        <div class="oc-section-content">
+          <ul>
+            <li>A PostCSS plugin and a Vite plugin scan your Blade, Vue, JSX/TSX and HTML files and emit CSS for the classes they find (variants like <code>hover:</code>, <code>md:</code>, <code>dark:</code>, <code>group-hover:</code>, arbitrary values <code>w-[37px]</code>, opacity modifiers <code>bg-red-500/50</code>, negatives and <code>!</code> included).</li>
+            <li>Colors map to the <strong>nearest Omnia palette token</strong> (OKLCH): <code>bg-red-500</code> becomes <code>var(--color-red-50)</code>. No other colors are ever emitted.</li>
+            <li>The directives <code>@import "tailwindcss"</code> and <code>@tailwind base|components|utilities</code> in your CSS are replaced by Omnia core plus the compat output; <code>@apply</code> and <code>@theme</code> keep working.</li>
+            <li>Breakpoints follow OmniaCSS (<code>sm</code> 36rem, <code>md</code> 50rem, <code>lg</code> 64rem); shadows reuse the Omnia shadow values; spacing keeps the familiar 0.25rem step.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="laravel">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Laravel in 3 steps</h2>
+        </div>
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">1. Check coverage and preview the switch</h3>
+          <oc-code>npx @birdycom/omniacss-migrate scan .      # % of your class occurrences that are supported
+npx @birdycom/omniacss-migrate setup .     # dry run: shows every file it would change</oc-code>
+
+          <h3 class="oc-section-content__title">2. Apply it</h3>
+          <oc-code>npx @birdycom/omniacss-migrate setup . --write
+npm uninstall tailwindcss @tailwindcss/vite @tailwindcss/postcss
+npm install -D @birdycom/omniacss-migrate</oc-code>
+          <p>Or by hand, in <code>vite.config.js</code>:</p>
+          <oc-code>import omniaMigrate from "@birdycom/omniacss-migrate/vite";
+export default defineConfig({
+  plugins: [laravel({ input: ["resources/css/app.css", "resources/js/app.js"] }), omniaMigrate()],
+});</oc-code>
+
+          <h3 class="oc-section-content__title">3. Build</h3>
+          <oc-code>npm run dev</oc-code>
+          <p>Your <code>app.css</code> does not change. Without Vite, use the PostCSS plugin:</p>
+          <oc-code>// postcss.config.js
+import omniaMigrate from "@birdycom/omniacss-migrate/postcss";
+export default { plugins: [omniaMigrate({ content: ["resources/views/**/*.blade.php", "resources/js/**/*.{vue,tsx,jsx,js}"] })] };</oc-code>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="config">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Your theme and tailwind.config</h2>
+        </div>
+        <div class="oc-section-content">
+          <p><code>theme.extend.colors</code>, <code>fontFamily</code>, <code>borderRadius</code>, <code>spacing</code>, <code>screens</code>, <code>darkMode</code> and <code>@theme</code> blocks are read automatically. <code>setup --write</code> copies the config theme into your CSS as an <code>@theme</code> block, with literal colors mapped to Omnia tokens (use <code>--keep-brand-colors</code> to keep them as written).</p>
+          <oc-code>@theme {
+  --color-brand-500: var(--color-vividblue-80);   /* was #3b82f6 */
+}
+@custom-variant dark (&amp;:where(.dark, .dark *));</oc-code>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="codemod">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Optional: native OmniaCSS class names</h2>
+          <p class="oc-section-header__desc">Rewrite your markup to real Omnia classes where the CSS is identical. Dry run by default.</p>
+        </div>
+        <div class="oc-section-content">
+          <oc-code>npx @birdycom/omniacss-migrate codemod resources           # report only
+npx @birdycom/omniacss-migrate codemod resources --write   # apply</oc-code>
+          <p>Classes without a 1:1 native equivalent are left alone and listed; they keep working through the compat layer. The codemod writes <code>omniacss-migrate.manifest.json</code> so a native <code>p-1</code> (Omnia, 1rem) is never mixed up with a Tailwind-style <code>p-1</code> (0.25rem). Run it over the whole project.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="bootstrap">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">From Bootstrap 3, 4 or 5</h2>
+          <p class="oc-section-header__desc">Rewrite a Bootstrap site to OmniaCSS utilities and OmniaUI components. Works on HTML, PHP, Blade, Twig and other templates; template code inside class attributes is left untouched. Dry run by default.</p>
+        </div>
+        <div class="oc-section-content">
+          <oc-code>npx @birdycom/omniacss-migrate bootstrap scan .              # report only
+npx @birdycom/omniacss-migrate bootstrap codemod . --write   # apply
+npx omniacss build -o css/omnia.css                          # OmniaCSS for exactly the classes you use</oc-code>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Bootstrap</th><th>Becomes</th></tr></thead>
+              <tbody>
+                <tr><td>Utilities: <code>mt-3</code>, <code>d-md-none</code>, <code>justify-content-between</code>, <code>text-muted</code>, <code>fw-bold</code>, <code>w-100</code> …</td><td>The OmniaCSS class with the same CSS, found by its declarations: <code>mt-1</code> (both 1rem), <code>md:d-none</code>, <code>justify-between</code>, <code>text-twilightblue-10</code>, <code>font-bold</code>, <code>w-full</code>. Theme colors map to the nearest Omnia token.</td></tr>
+                <tr><td>Components: <code>btn</code>, <code>card</code>, <code>alert</code>, <code>badge</code>, <code>form-control</code>, <code>table</code>, <code>breadcrumb</code>, <code>pagination</code>, <code>progress</code>, <code>panel</code> …</td><td>OmniaUI: <code>oc-btn</code>, <code>oc-card</code>, <code>oc-alert--danger</code>, <code>oc-input</code> (<code>oc-select</code> on a select), <code>oc-table--striped</code> …</td></tr>
+                <tr><td>Grid: <code>container</code>, <code>row</code>, <code>col-md-6</code>, <code>offset-*</code>, <code>g-3</code>, <code>row-cols-*</code></td><td>Kept, with a generated <code>bootstrap-compat.css</code> for exactly the grid classes in use (OmniaCSS breakpoints, a few KB)</td></tr>
+                <tr><td>Utilities without an OmniaCSS twin (<code>border</code> 1px, <code>z-1</code>, <code>mt-n1</code>)</td><td>Kept, with their exact CSS in the same compat stylesheet</td></tr>
+                <tr><td>JavaScript components: modal, dropdown, collapse, carousel, navbar, tabs, offcanvas, toast; icon fonts</td><td>Reported with the native way: <code>&lt;dialog&gt;</code> + <code>commandfor</code>, popover, <code>&lt;details&gt;</code>, scroll snap with <code>.scroll-buttons</code>, OmniaUI tabs</td></tr>
+                <tr><td>The Bootstrap <code>&lt;link&gt;</code></td><td>Replaced by <code>omnia.css</code>, the OmniaUI CSS and <code>bootstrap-compat.css</code>, in the same asset folder</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+          <p>The report also lists classes your JavaScript toggles (<code>classList.add('btn-primary')</code>) that the markup now spells differently, and Bootstrap 3 classes in a Bootstrap 5 site, split into "your own CSS still styles it" and "safe to delete". The version is detected from <code>package.json</code>, the <code>&lt;link&gt;</code> URL, a local <code>bootstrap.css</code> header or the markup; override it with <code>--bs 3</code>. With <code>--breakpoints exact</code> responsive classes keep Bootstrap's pixel breakpoints (<code>min-[48rem]:d-none</code>) instead of the nearest OmniaCSS breakpoint.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="cli">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">CLI reference</h2>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr><td><code>scan &lt;dir&gt;</code></td><td>Coverage report: supported share and the list of unsupported classes</td></tr>
+                <tr><td><code>setup &lt;project&gt; [--write]</code></td><td>Plan or apply: package.json, vite/postcss config, CSS theme</td></tr>
+                <tr><td><code>codemod &lt;dir&gt; [--write]</code></td><td>Rewrite to native Omnia class names where 1:1</td></tr>
+                <tr><td><code>build [-c glob] [-o file]</code></td><td>Write the CSS once, without Vite or PostCSS</td></tr>
+                <tr><td><code>css "&lt;class&gt;"</code></td><td>Print the CSS for one class</td></tr>
+                <tr><td><code>bootstrap scan &lt;dir&gt;</code></td><td>Bootstrap report: what converts, what stays, what needs a hand</td></tr>
+                <tr><td><code>bootstrap codemod &lt;dir&gt; [--write]</code></td><td>Rewrite Bootstrap classes, swap the stylesheet, write <code>bootstrap-compat.css</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>The same commands are available as <code>omniacss migrate scan .</code> in the main CLI.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="gaps">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Known gaps</h2>
+        </div>
+        <div class="oc-section-content">
+          <ul>
+            <li>Plugin classes other than <code>tailwindcss-animate</code> (typography, forms, Iconify icons) are not generated.</li>
+            <li>Custom keyframes in <code>tailwind.config</code> are not carried over; add them to your CSS.</li>
+            <li>Class names built at runtime from fragments cannot be scanned: use the <code>safelist</code> option.</li>
+            <li>Breakpoints, shadows and nearest-palette colors differ slightly from the original by design: check the result visually.</li>
+          </ul>
+        </div>
+      </section>

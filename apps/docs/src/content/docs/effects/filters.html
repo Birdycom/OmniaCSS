@@ -1,0 +1,267 @@
+<!--oc-page {"title": "OmniaCSS Docs - Filters & Backdrop", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .flt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 16px; inline-size: 100%; }\n    .flt-card { display: grid; gap: 6px; justify-items: start; font-size: 0.75rem; }\n    .flt-img { position: relative; inline-size: 100%; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; background: linear-gradient(135deg, var(--color-dodgerblue-90), var(--color-magenta-90) 60%, var(--color-darkorange-90)); }\n    .flt-img::before { content: \"\"; position: absolute; inset: auto 12% 14% auto; inline-size: 34%; aspect-ratio: 1; border-radius: 50%; background: var(--color-yellow-80); }\n    .flt-img::after { content: \"\"; position: absolute; inset: auto auto 0 8%; inline-size: 38%; block-size: 46%; border-radius: 40% 40% 0 0; background: var(--color-forestgreen-90); }\n    .flt-glass-bg { position: relative; padding: 18px; border-radius: 12px; background: linear-gradient(135deg, var(--color-dodgerblue-90), var(--color-magenta-90) 55%, var(--color-darkorange-90)); isolation: isolate; overflow: hidden; }\n    .flt-glass-bg::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: repeating-linear-gradient(45deg, var(--color-yellow-80) 0 14px, transparent 14px 34px); opacity: 0.55; }\n    .flt-glass { display: grid; place-items: center; min-block-size: 6.5rem; border-radius: 10px; border: 1px solid oklch(from var(--color-white-50) l c h / 0.35); background: oklch(from var(--color-white-50) l c h / 0.15); color: var(--color-white-50); font-weight: 700; font-size: 0.8rem; text-align: center; }\n  </style>"]}-->
+<section class="oc-docs-section" id="blur">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Blur Filters</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_filters.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Apply Gaussian blur effects to elements using <code>.blur-{size}</code>.</p>
+        </div>
+        <div class="oc-section-content">
+<p class="oc-section-content__desc"><strong>What it does:</strong> <code>filter</code> applies graphical effects (blur, color shifts, shadows) to an element and everything inside it, after it is rendered. <strong>When to use:</strong> image treatments, disabled/hover states, quick duotone-ish looks, icon recoloring. <strong>Gotchas:</strong> each utility sets the whole <code>filter</code> property, so classes on one element do <em>not</em> stack (the last one wins); a filter creates a stacking context and a containing block for fixed descendants; heavy blurs on large areas cost GPU time. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank" rel="noopener">MDN: filter</a>.</p>
+
+          <h3 class="oc-section-content__title mt-8" id="blur-demo">Blur</h3>
+          <p class="oc-section-content__desc"><code>blur()</code> applies a Gaussian blur; the value is the standard deviation in pixels. Use it for placeholders, depth of field and to soften decorative backgrounds. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/blur" target="_blank" rel="noopener">MDN: blur()</a></p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Filter value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.blur-none</code></td><td>blur(0)</td></tr>
+                <tr><td><code>.blur-sm</code></td><td>blur(4px)</td></tr>
+                <tr><td><code>.blur</code></td><td>blur(8px)</td></tr>
+                <tr><td><code>.blur-md</code></td><td>blur(12px)</td></tr>
+                <tr><td><code>.blur-lg</code></td><td>blur(16px)</td></tr>
+                <tr><td><code>.blur-xl</code></td><td>blur(24px)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Blur">
+            <div class="flt-grid">
+              <div class="flt-card"><div class="flt-img blur-none"></div><code>.blur-none</code></div>
+              <div class="flt-card"><div class="flt-img blur-sm"></div><code>.blur-sm</code></div>
+              <div class="flt-card"><div class="flt-img blur"></div><code>.blur</code></div>
+              <div class="flt-card"><div class="flt-img blur-md"></div><code>.blur-md</code></div>
+              <div class="flt-card"><div class="flt-img blur-lg"></div><code>.blur-lg</code></div>
+              <div class="flt-card"><div class="flt-img blur-xl"></div><code>.blur-xl</code></div>
+            </div>
+          <oc-code lang="html">&lt;img class="blur-md" src="…"&gt;</oc-code></oc-demo>
+
+        </div>
+      </section>
+
+<section class="oc-docs-section" id="css-filters">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Color &amp; Light Filters</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_filters.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Adjust brightness, contrast, grayscale, hue, saturation and more.</p>
+        </div>
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title mt-8" id="brightness-demo">Brightness</h3>
+          <p class="oc-section-content__desc"><code>brightness()</code> multiplies the light of every pixel: below 100 darkens, above lightens. Useful for dimming images behind text or hover states. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/brightness" target="_blank" rel="noopener">MDN: brightness()</a></p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Filter value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.brightness-50</code></td><td>brightness(0.5)</td></tr>
+                <tr><td><code>.brightness-75</code></td><td>brightness(0.75)</td></tr>
+                <tr><td><code>.brightness-90</code></td><td>brightness(0.9)</td></tr>
+                <tr><td><code>.brightness-100</code></td><td>brightness(1.0)</td></tr>
+                <tr><td><code>.brightness-110</code></td><td>brightness(1.1)</td></tr>
+                <tr><td><code>.brightness-125</code></td><td>brightness(1.25)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Brightness">
+            <div class="flt-grid">
+              <div class="flt-card"><div class="flt-img brightness-50"></div><code>.brightness-50</code></div>
+              <div class="flt-card"><div class="flt-img brightness-75"></div><code>.brightness-75</code></div>
+              <div class="flt-card"><div class="flt-img brightness-90"></div><code>.brightness-90</code></div>
+              <div class="flt-card"><div class="flt-img brightness-100"></div><code>.brightness-100</code></div>
+              <div class="flt-card"><div class="flt-img brightness-110"></div><code>.brightness-110</code></div>
+              <div class="flt-card"><div class="flt-img brightness-125"></div><code>.brightness-125</code></div>
+            </div>
+          <oc-code lang="html">&lt;img class="brightness-50 hover:brightness-100 transition-duration-300" src="…"&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="contrast-demo">Contrast</h3>
+          <p class="oc-section-content__desc"><code>contrast()</code> pushes tones away from (above 100) or towards (below 100) mid-grey. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/contrast" target="_blank" rel="noopener">MDN: contrast()</a></p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Filter value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.contrast-50</code></td><td>contrast(0.5)</td></tr>
+                <tr><td><code>.contrast-75</code></td><td>contrast(0.75)</td></tr>
+                <tr><td><code>.contrast-100</code></td><td>contrast(1.0)</td></tr>
+                <tr><td><code>.contrast-125</code></td><td>contrast(1.25)</td></tr>
+                <tr><td><code>.contrast-150</code></td><td>contrast(1.5)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Contrast">
+            <div class="flt-grid">
+              <div class="flt-card"><div class="flt-img contrast-50"></div><code>.contrast-50</code></div>
+              <div class="flt-card"><div class="flt-img contrast-75"></div><code>.contrast-75</code></div>
+              <div class="flt-card"><div class="flt-img contrast-100"></div><code>.contrast-100</code></div>
+              <div class="flt-card"><div class="flt-img contrast-125"></div><code>.contrast-125</code></div>
+              <div class="flt-card"><div class="flt-img contrast-150"></div><code>.contrast-150</code></div>
+            </div>
+          <oc-code lang="html">&lt;img class="contrast-125" src="…"&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="gray-demo">Grayscale &amp; sepia</h3>
+          <p class="oc-section-content__desc">Remove color completely (<code>grayscale</code>) or tint to a warm brown (<code>sepia</code>). The <code>-0</code> classes reset the effect, handy for <code>hover:</code> states. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/grayscale" target="_blank" rel="noopener">MDN: grayscale()</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/sepia" target="_blank" rel="noopener">MDN: sepia()</a></p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Filter value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.grayscale-0</code></td><td>grayscale(0)</td></tr>
+                <tr><td><code>.grayscale</code></td><td>grayscale(1)</td></tr>
+                <tr><td><code>.sepia-0</code></td><td>sepia(0)</td></tr>
+                <tr><td><code>.sepia</code></td><td>sepia(1)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Grayscale &amp; sepia">
+            <div class="flt-grid">
+              <div class="flt-card"><div class="flt-img grayscale-0"></div><code>.grayscale-0</code></div>
+              <div class="flt-card"><div class="flt-img grayscale"></div><code>.grayscale</code></div>
+              <div class="flt-card"><div class="flt-img sepia-0"></div><code>.sepia-0</code></div>
+              <div class="flt-card"><div class="flt-img sepia"></div><code>.sepia</code></div>
+            </div>
+          <oc-code lang="html">&lt;img class="grayscale hover:grayscale-0" src="…"&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="hue-demo">Hue rotate</h3>
+          <p class="oc-section-content__desc"><code>hue-rotate()</code> spins every color around the color wheel by an angle, a cheap way to re-skin an illustration. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/hue-rotate" target="_blank" rel="noopener">MDN: hue-rotate()</a></p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Filter value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.hue-rotate-0</code></td><td>hue-rotate(0deg)</td></tr>
+                <tr><td><code>.hue-rotate-15</code></td><td>hue-rotate(15deg)</td></tr>
+                <tr><td><code>.hue-rotate-30</code></td><td>hue-rotate(30deg)</td></tr>
+                <tr><td><code>.hue-rotate-60</code></td><td>hue-rotate(60deg)</td></tr>
+                <tr><td><code>.hue-rotate-90</code></td><td>hue-rotate(90deg)</td></tr>
+                <tr><td><code>.hue-rotate-180</code></td><td>hue-rotate(180deg)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Hue rotate">
+            <div class="flt-grid">
+              <div class="flt-card"><div class="flt-img hue-rotate-0"></div><code>.hue-rotate-0</code></div>
+              <div class="flt-card"><div class="flt-img hue-rotate-15"></div><code>.hue-rotate-15</code></div>
+              <div class="flt-card"><div class="flt-img hue-rotate-30"></div><code>.hue-rotate-30</code></div>
+              <div class="flt-card"><div class="flt-img hue-rotate-60"></div><code>.hue-rotate-60</code></div>
+              <div class="flt-card"><div class="flt-img hue-rotate-90"></div><code>.hue-rotate-90</code></div>
+              <div class="flt-card"><div class="flt-img hue-rotate-180"></div><code>.hue-rotate-180</code></div>
+            </div>
+          <oc-code lang="html">&lt;img class="hue-rotate-90" src="…"&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="invert-demo">Invert</h3>
+          <p class="oc-section-content__desc"><code>invert</code> flips every channel; it is the quick way to turn a dark icon white in dark mode. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/invert" target="_blank" rel="noopener">MDN: invert()</a></p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Filter value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.invert-0</code></td><td>invert(0)</td></tr>
+                <tr><td><code>.invert</code></td><td>invert(1)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Invert">
+            <div class="flt-grid">
+              <div class="flt-card"><div class="flt-img invert-0"></div><code>.invert-0</code></div>
+              <div class="flt-card"><div class="flt-img invert"></div><code>.invert</code></div>
+            </div>
+          <oc-code lang="html">&lt;img class="dark:invert" src="icon.svg"&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="sat-demo">Saturate</h3>
+          <p class="oc-section-content__desc"><code>saturate()</code> boosts (above 100) or mutes (below 100) color intensity; <code>saturate-0</code> equals grayscale. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/saturate" target="_blank" rel="noopener">MDN: saturate()</a></p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Filter value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.saturate-0</code></td><td>saturate(0.0)</td></tr>
+                <tr><td><code>.saturate-50</code></td><td>saturate(0.5)</td></tr>
+                <tr><td><code>.saturate-100</code></td><td>saturate(1.0)</td></tr>
+                <tr><td><code>.saturate-150</code></td><td>saturate(1.5)</td></tr>
+                <tr><td><code>.saturate-200</code></td><td>saturate(2.0)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Saturate">
+            <div class="flt-grid">
+              <div class="flt-card"><div class="flt-img saturate-0"></div><code>.saturate-0</code></div>
+              <div class="flt-card"><div class="flt-img saturate-50"></div><code>.saturate-50</code></div>
+              <div class="flt-card"><div class="flt-img saturate-100"></div><code>.saturate-100</code></div>
+              <div class="flt-card"><div class="flt-img saturate-150"></div><code>.saturate-150</code></div>
+              <div class="flt-card"><div class="flt-img saturate-200"></div><code>.saturate-200</code></div>
+            </div>
+          <oc-code lang="html">&lt;img class="saturate-150" src="…"&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="drop-demo">Drop shadow</h3>
+          <p class="oc-section-content__desc"><code>drop-shadow()</code> casts a shadow that follows the <em>alpha shape</em> of the element (transparent PNGs, SVG, clipped shapes), unlike <code>box-shadow</code> which always follows the box. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow" target="_blank" rel="noopener">MDN: drop-shadow()</a></p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Filter value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.drop-shadow-none</code></td><td>none</td></tr>
+                <tr><td><code>.drop-shadow-sm</code></td><td>small</td></tr>
+                <tr><td><code>.drop-shadow</code></td><td>default</td></tr>
+                <tr><td><code>.drop-shadow-md</code></td><td>medium</td></tr>
+                <tr><td><code>.drop-shadow-lg</code></td><td>large</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Drop shadow">
+            <div class="flt-grid">
+              <div class="flt-card"><div class="flt-img drop-shadow-none"></div><code>.drop-shadow-none</code></div>
+              <div class="flt-card"><div class="flt-img drop-shadow-sm"></div><code>.drop-shadow-sm</code></div>
+              <div class="flt-card"><div class="flt-img drop-shadow"></div><code>.drop-shadow</code></div>
+              <div class="flt-card"><div class="flt-img drop-shadow-md"></div><code>.drop-shadow-md</code></div>
+              <div class="flt-card"><div class="flt-img drop-shadow-lg"></div><code>.drop-shadow-lg</code></div>
+            </div>
+          <oc-code lang="html">&lt;img class="drop-shadow-lg" src="logo.png"&gt;</oc-code></oc-demo>
+
+        </div>
+      </section>
+
+<section class="oc-docs-section" id="backdrop">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Backdrop Filters</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_filters.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Glassmorphism effects using <code>.backdrop-blur-{size}</code> and friends.</p>
+        </div>
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> backdrop filters apply the same effects to whatever is painted <em>behind</em> the element, visible through its (semi-)transparent background: the classic frosted glass. <strong>When to use:</strong> sticky headers, modals, popovers, cards over imagery. <strong>Gotchas:</strong> the element needs a translucent background or you see nothing; parents with <code>overflow: hidden</code> and a radius clip the blur edge; and performance drops with large blurred areas. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter" target="_blank" rel="noopener">MDN: backdrop-filter</a>.</p>
+          <h3 class="oc-section-content__title mt-8" id="bd-blur">Backdrop blur</h3>
+          <p class="oc-section-content__desc">The stripes behind the glass get progressively blurrier.</p>
+          <oc-demo title="Backdrop blur">
+            <div class="flt-grid" style="grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr))">
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-blur-sm">backdrop-blur-sm</div></div><code>.backdrop-blur-sm</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-blur">backdrop-blur</div></div><code>.backdrop-blur</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-blur-md">backdrop-blur-md</div></div><code>.backdrop-blur-md</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="backdrop-blur-md" style="background: oklch(from var(--oc-background) l c h / 0.2)"&gt;
+  Frosted glass
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="bd-color">Backdrop brightness, contrast, saturate</h3>
+          <p class="oc-section-content__desc">Same functions as the element filters, applied only to what is behind the panel.</p>
+          <oc-demo title="Backdrop brightness, contrast, saturate">
+            <div class="flt-grid" style="grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr))">
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-brightness-50">backdrop-brightness-50</div></div><code>.backdrop-brightness-50</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-brightness-125">backdrop-brightness-125</div></div><code>.backdrop-brightness-125</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-contrast-50">backdrop-contrast-50</div></div><code>.backdrop-contrast-50</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-contrast-150">backdrop-contrast-150</div></div><code>.backdrop-contrast-150</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-saturate-0">backdrop-saturate-0</div></div><code>.backdrop-saturate-0</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-saturate-150">backdrop-saturate-150</div></div><code>.backdrop-saturate-150</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="backdrop-saturate-150" style="background: oklch(from var(--oc-background) l c h / 0.2)"&gt;
+  Frosted glass
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="bd-fx">Backdrop grayscale, sepia, invert, hue-rotate</h3>
+          <p class="oc-section-content__desc">Colour-shifting what shows through the glass.</p>
+          <oc-demo title="Backdrop grayscale, sepia, invert, hue-rotate">
+            <div class="flt-grid" style="grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr))">
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-grayscale">backdrop-grayscale</div></div><code>.backdrop-grayscale</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-sepia">backdrop-sepia</div></div><code>.backdrop-sepia</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-invert">backdrop-invert</div></div><code>.backdrop-invert</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-hue-rotate-90">backdrop-hue-rotate-90</div></div><code>.backdrop-hue-rotate-90</code></div>
+              <div class="flt-card"><div class="flt-glass-bg"><div class="flt-glass backdrop-hue-rotate-180">backdrop-hue-rotate-180</div></div><code>.backdrop-hue-rotate-180</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="backdrop-hue-rotate-180" style="background: oklch(from var(--oc-background) l c h / 0.2)"&gt;
+  Frosted glass
+&lt;/div&gt;</oc-code></oc-demo>
+
+        </div>
+      </section>

@@ -1,0 +1,83 @@
+<!--oc-page {"title": "OmniaCSS Docs - Code blocks & syntax highlighting", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="overview">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Code syntax</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">oc-code-syntax.css</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Technische reference: bestanden, usage, theme-generation script en token variables. Voor de uitleg hoe we uit het VS Code-thema aan de CSS komen en de mapping per taal, zie <a href="code-syntax-theme.html">Theme to CSS</a>.</p>
+        </div>
+        <div class="oc-section-content">
+<h3 class="oc-section-content__title" id="files">Files</h3>
+
+          <div class="oc-expandable-table">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+            <tbody>
+              <tr><td><code>public/css/oc-code-syntax.css</code></td><td>Base block (<code>pre.code</code>), all token classes (e.g. <code>.hl-tag</code>, <code>.hl-keyword</code>), <code>--oc-syntax-*</code> variables (Omnia Dark). To refresh from theme: <code>npm run code-syntax-theme</code>.</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+        
+<h3 class="oc-section-content__title mt-10" id="usage">Usage</h3>
+          <p class="oc-section-content__desc">Use <code>&lt;pre class="code"&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>. Tags, attributes and strings get spans with <code>.hl-tag</code>, <code>.hl-attr</code>, <code>.hl-string</code>, etc. The docs build highlights code ahead of time (no script in the page); in your own project wrap tokens in the same <code>.hl-*</code> spans or render them on the server.</p>
+
+          <h3 class="oc-section-content__title">Demo</h3>
+        <oc-code>&lt;div class="oc-block-hero"&gt;
+  &lt;span class="oc-block-hero-badge"&gt;New&lt;/span&gt;
+  &lt;h1&gt;Headline&lt;/h1&gt;
+&lt;/div&gt;</oc-code>
+        
+<h3 class="oc-section-content__title mt-10" id="theme-generation">Theme generation</h3>
+          <p class="oc-section-content__desc">To regenerate the Omnia theme CSS from the VS Code theme JSON:</p>
+
+          <oc-code>npm run code-syntax-theme</oc-code>
+        <p class="desc">Runs <code>scripts/build-code-syntax-theme.mjs</code>: reads <code>src/json/omniathememain.json</code>, maps <code>tokenColors</code> and <code>colors.editor.*</code> to <code>--oc-syntax-*</code>, and updates the <code>:root</code> block in <code>oc-code-syntax.css</code> in place. Per-language mapping: <a href="code-syntax-theme.html#overview">Theme to CSS → Overzicht per taal</a>.</p>
+        
+<h3 class="oc-section-content__title mt-10" id="token-variables">Token variables (overview)</h3>
+          <p class="oc-section-content__desc">Variables used by <code>oc-code-syntax.css</code>. Same set for all languages (HTML, CSS, PHP, JS, JSON, Python).</p>
+
+          <div class="oc-expandable-table">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">Variable</th><th>Used for</th></tr></thead>
+            <tbody>
+              <tr><td><code>--oc-syntax-bg</code>, <code>--oc-syntax-fg</code></td><td>Code block background and default text</td></tr>
+              <tr><td><code>--oc-syntax-tag</code>, <code>--oc-syntax-attr</code>, <code>--oc-syntax-string</code>, <code>--oc-syntax-comment</code></td><td>HTML</td></tr>
+              <tr><td><code>--oc-syntax-prop</code>, <code>--oc-syntax-value</code>, <code>--oc-syntax-cls</code>, <code>--oc-syntax-id</code>, <code>--oc-syntax-unit</code></td><td>CSS</td></tr>
+              <tr><td><code>--oc-syntax-keyword</code>, <code>--oc-syntax-variable</code>, <code>--oc-syntax-function</code>, <code>--oc-syntax-number</code>, <code>--oc-syntax-operator</code>, <code>--oc-syntax-constant</code>, <code>--oc-syntax-storage</code>, <code>--oc-syntax-key</code></td><td>PHP, JS, Python, JSON (when highlighters output <code>.hl-*</code> classes)</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+        
+<h3 class="oc-section-content__title mt-10" id="ui-component">UI component</h3>
+          <p class="oc-section-content__desc">A reusable Code block component page is available under UI Components for demos and copy-paste usage: <a href="../ui/components/code.html">Code block (syntax)</a>.</p>
+
+          
+        
+        </div>
+      </section>
+<section class="oc-docs-section" id="source">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Source &amp; Further Reading</h2>
+          
+        <p class="oc-section-header__desc">SCSS does not generate these files; they are hand-maintained (base) and generated (theme).</p>
+        </div>
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">Related</h3>
+        <ul>
+          <li><a href="code-syntax-theme.html" class="source-link">Theme to CSS (uitleg, mapping per taal)</a></li>
+          <li><a href="../ui/components/code.html" class="source-link">UI: Code block component</a></li>
+          <li><a href="../ui/blocks.html" class="source-link">UI: Blocks</a></li>
+        </ul>
+        </div>
+      </section>

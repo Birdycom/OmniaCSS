@@ -1,0 +1,167 @@
+// SCSS Document
+// File: src/scss/utilities/_motion_transforms.scss
+// Map: transition -> animation -> transform -> rotate/scale/skew/translate -> perspective
+
+/* Transition property — with a default duration and easing as longhands, so .duration-*, .ease-* and .delay-* (below) override them */
+.transition-none { transition-property: none; }
+.transition-all { transition-property: all; }
+.transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; }
+.transition-opacity { transition-property: opacity; }
+.transition-shadow { transition-property: box-shadow; }
+.transition-transform { transition-property: transform, translate, scale, rotate; }
+:is(.transition-all, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform) {
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Transition duration */
+.duration-75 { transition-duration: 75ms; }
+.duration-100 { transition-duration: 100ms; }
+.duration-150 { transition-duration: 150ms; }
+.duration-200 { transition-duration: 200ms; }
+.duration-300 { transition-duration: 300ms; }
+.duration-500 { transition-duration: 500ms; }
+.duration-700 { transition-duration: 700ms; }
+.duration-1000 { transition-duration: 1000ms; }
+
+/* Transition timing */
+.ease-linear { transition-timing-function: linear; }
+.ease-in { transition-timing-function: cubic-bezier(0.4, 0, 1, 1); }
+.ease-out { transition-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+.ease-in-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Transition delay */
+.delay-0 { transition-delay: 0ms; }
+.delay-75 { transition-delay: 75ms; }
+.delay-100 { transition-delay: 100ms; }
+.delay-150 { transition-delay: 150ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* Animation */
+@keyframes oc-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes oc-ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes oc-pulse {
+  50% { opacity: .5; }
+}
+@keyframes oc-bounce {
+  0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+  50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+}
+
+.animate-none { animation: none; }
+.animate-spin { animation: oc-spin 1s linear infinite; }
+.animate-ping { animation: oc-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite; }
+.animate-pulse { animation: oc-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-bounce { animation: oc-bounce 1s infinite; }
+
+/* Transform core */
+/* Rotate, scale and translate use the individual transform properties (rotate / scale / translate),
+   so every class works on its own and they combine freely. Skew has no own property: it uses transform. */
+.transform {
+  transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
+}
+.transform-none { transform: none; }
+
+/* Rotate */
+.rotate-0 { --oc-rotate: 0deg; rotate: 0deg; }
+.rotate-45 { --oc-rotate: 45deg; rotate: 45deg; }
+.rotate-90 { --oc-rotate: 90deg; rotate: 90deg; }
+.rotate-180 { --oc-rotate: 180deg; rotate: 180deg; }
+
+/* Scale */
+.scale-0 { --oc-scale-x: 0; --oc-scale-y: 0; scale: 0; }
+.scale-50 { --oc-scale-x: .5; --oc-scale-y: .5; scale: .5; }
+.scale-75 { --oc-scale-x: .75; --oc-scale-y: .75; scale: .75; }
+.scale-90 { --oc-scale-x: .9; --oc-scale-y: .9; scale: .9; }
+.scale-95 { --oc-scale-x: .95; --oc-scale-y: .95; scale: .95; }
+.scale-100 { --oc-scale-x: 1; --oc-scale-y: 1; scale: 1; }
+.scale-105 { --oc-scale-x: 1.05; --oc-scale-y: 1.05; scale: 1.05; }
+.scale-110 { --oc-scale-x: 1.1; --oc-scale-y: 1.1; scale: 1.1; }
+.scale-125 { --oc-scale-x: 1.25; --oc-scale-y: 1.25; scale: 1.25; }
+.scale-150 { --oc-scale-x: 1.5; --oc-scale-y: 1.5; scale: 1.5; }
+
+/* Skew */
+.skew-x-0 { --oc-skew-x: 0deg; transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0)); }
+.skew-x-3 { --oc-skew-x: 3deg; transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0)); }
+.skew-x-6 { --oc-skew-x: 6deg; transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0)); }
+.skew-x-12 { --oc-skew-x: 12deg; transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0)); }
+.skew-y-0 { --oc-skew-y: 0deg; transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0)); }
+.skew-y-3 { --oc-skew-y: 3deg; transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0)); }
+.skew-y-6 { --oc-skew-y: 6deg; transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0)); }
+.skew-y-12 { --oc-skew-y: 12deg; transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0)); }
+
+/* Translate */
+.translate-x-0 { --oc-translate-x: 0; translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0); }
+.translate-x-1 { --oc-translate-x: 0.25rem; translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0); }
+.translate-x-2 { --oc-translate-x: 0.5rem; translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0); }
+.translate-x-4 { --oc-translate-x: 1rem; translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0); }
+.translate-x-8 { --oc-translate-x: 2rem; translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0); }
+.translate-x-full { --oc-translate-x: 100%; translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0); }
+.translate-y-0 { --oc-translate-y: 0; translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0); }
+.translate-y-1 { --oc-translate-y: 0.25rem; translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0); }
+.translate-y-2 { --oc-translate-y: 0.5rem; translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0); }
+.translate-y-4 { --oc-translate-y: 1rem; translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0); }
+.translate-y-8 { --oc-translate-y: 2rem; translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0); }
+.translate-y-full { --oc-translate-y: 100%; translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0); }
+
+/* Transform origin and style */
+.origin-center { transform-origin: center; }
+.origin-top { transform-origin: top; }
+.origin-top-right { transform-origin: top right; }
+.origin-right { transform-origin: right; }
+.origin-bottom-right { transform-origin: bottom right; }
+.origin-bottom { transform-origin: bottom; }
+.origin-bottom-left { transform-origin: bottom left; }
+.origin-left { transform-origin: left; }
+.origin-top-left { transform-origin: top left; }
+
+.transform-flat { transform-style: flat; }
+.transform-3d { transform-style: preserve-3d; }
+
+/* Backface visibility */
+.backface-visible { backface-visibility: visible; }
+.backface-hidden { backface-visibility: hidden; }
+
+/* Perspective */
+.perspective-none { perspective: none; }
+.perspective-250 { perspective: 250px; }
+.perspective-500 { perspective: 500px; }
+.perspective-750 { perspective: 750px; }
+.perspective-1000 { perspective: 1000px; }
+
+.perspective-origin-center { perspective-origin: center; }
+.perspective-origin-top { perspective-origin: top; }
+.perspective-origin-bottom { perspective-origin: bottom; }
+.perspective-origin-left { perspective-origin: left; }
+.perspective-origin-right { perspective-origin: right; }
+
+/* Hover variants — the transform changes on :hover, so .transition-* / .duration-* / .ease-* become visible.
+   Example: <div class="transition-transform duration-300 ease-out hover:scale-110"> */
+@each $key, $value in ("105": 1.05, "110": 1.1, "125": 1.25, "150": 1.5) {
+  .hover\:scale-#{$key}:hover { scale: $value; }
+}
+@each $key in (12, 45, 90, 180) {
+  .hover\:rotate-#{$key}:hover { rotate: #{$key}deg; }
+}
+@each $key, $value in ("1": 0.25rem, "2": 0.5rem, "4": 1rem, "8": 2rem) {
+  .hover\:translate-x-#{$key}:hover { translate: $value var(--oc-translate-y, 0); }
+  .hover\:-translate-y-#{$key}:hover { translate: var(--oc-translate-x, 0) calc(#{$value} * -1); }
+}
+@each $key in (6, 12) {
+  .hover\:skew-x-#{$key}:hover { transform: skewX(#{$key}deg); }
+  .hover\:skew-y-#{$key}:hover { transform: skewY(#{$key}deg); }
+}
+.hover\:opacity-50:hover { opacity: 0.5; }
+
+/* Group hover: hover the parent (.group) to change the child. */
+@each $key, $value in ("110": 1.1, "125": 1.25) {
+  .group:hover .group-hover\:scale-#{$key} { scale: $value; }
+}
+.group:hover .group-hover\:translate-x-full { translate: 100% 0; }
+.group:hover .group-hover\:rotate-180 { rotate: 180deg; }

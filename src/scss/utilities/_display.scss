@@ -1,0 +1,58 @@
+// SCSS Document 
+// File: src/scss/utilities/_flexbox.scss
+// Description: CSS Display properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: display
+// Values: inline, block, contents, inline-block, list-item, run-in, none
+
+@use '../utilities/' as *;
+
+/* The Display properties */
+
+///
+/// The Display Property
+/// @group Display
+///
+
+///
+/// Definition and Usage
+/// The display property specifies the display behavior (the type of rendering box) of an element.
+///
+/// In HTML, the default display property value is taken from the HTML specifications or /// from the browser/user default style sheet. The default value in XML is inline, 
+/// including SVG elements.
+/// @group Display
+/// @name display
+/// @link src/scss/utilities/_display.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $display
+/// @example scss - display class
+///    .block {
+///       display: block;
+///     }
+/// @example html - use display class
+///   <div class="block">
+///
+///   </div> 
+@each $display-prop in $display {
+  .#{$display-prop}{
+
+    display: $display-prop;
+
+  }
+}
+/* Box-sizing — controls how the total width and height is calculated. */
+
+// box-border: width and height include padding and border (most common)
+.box-border { box-sizing: border-box; }
+
+// box-content: width and height exclude padding and border (browser default)
+.box-content { box-sizing: content-box; }
+
+/* End Display property */

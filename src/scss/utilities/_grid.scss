@@ -1,0 +1,673 @@
+// SCSS Document 
+// File: src/scss/utilities/_grid.scss
+// Description: CSS Grid properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: display
+// Values: grid
+
+@use '../utilities/' as *;
+
+/* The Grid properties */
+
+///
+/// This code is a Sass (CSS preprocessor) loop that iterates over a list called $displaygrid. 
+/// For each item (which is represented by the variable $display-prop) in the list, 
+/// it creates a CSS class with the name of the item (using Sass's interpolation syntax),
+/// and sets the display property to the value of $display-prop. 
+/// 
+/// The resulting CSS code would output a series of classes (one for each item in $displaygrid) that look like this:
+/// 
+/// @group Grid
+/// @name grid
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $displaygrid
+/// @example scss - grid class
+///   @each $display-prop in $displaygrid {
+///     .#{$display-prop}{
+///       display: $display-prop
+///     }
+///   }
+/// @example html - use grid class
+///   <div class="grid">
+///
+///   </div> 
+@each $display-prop in $displaygrid {
+  .#{$display-prop}{
+
+    display: $display-prop
+
+  }
+}
+
+/* grid column */
+///
+/// The code is written in SCSS syntax. It includes a loop where a value is initialized to i, which increases by 1 in each iteration of the loop, from 1 until 12.
+///  
+/// Within the loop, a class selector .grid-cols is defined and interpolated with the current loop index #{$i}, 
+/// creating a new class selector for each iteration, for example .grid-cols-1, .grid-cols-2, etc.
+/// 
+/// These new class selectors apply a grid-template-columns property with a value of repeat(#{$i}, minmax(0, 1fr));. 
+/// This creates a grid layout with a dynamic number of columns based on the value of i. 
+/// The minmax(0, 1fr) function specifies that the column should be at minimum 0 pixels wide and at maximum 1 fraction unit wide.
+/// 
+/// Finally, outside the loop, a separate .grid-cols-none class selector is defined which sets the grid-template-columns property to none, 
+/// effectively removing any defined column layout for elements with this class. 
+/// 
+/// @group Gridtemplatecolumns
+/// @name grid_template_columns
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-column elements, flex containers, grid containers
+///
+/// @example scss - grid template columns class
+///   @for $i from 1 through 12 {
+///     .grid-cols {
+///       &-#{$i} {
+///         grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
+///       }
+///     }
+///   }
+///   .grid-cols-none {
+///       grid-template-columns: none;
+///   }
+/// @example html - use gap class
+///   <div class="grid grid-cols-4 gap-4 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-fuchsia rounded-lg">
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">01</div>
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">02</div>
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">03</div>
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">04</div>
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">05</div>
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">06</div>
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">07</div>
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">08</div>
+///     <div class="p-4 rounded-lg shadow-lg bg-deeppink">09</div>
+///   </div>
+//
+@for $i from 1 through 12 {
+
+  .grid-cols {
+      
+    &-#{$i} {
+      grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
+    }
+  }
+}
+.grid-cols-none {
+
+    grid-template-columns: none;
+
+}
+
+
+
+///
+/// This code is written in Sass, a preprocessor scripting language that compiles into CSS. 
+/// 
+/// The code is creating a loop using the "@for" directive in Sass. It is iterating from 1 through 6 using the variable $i. 
+/// 
+/// Within the loop, a class selector ".grid-rows" is defined with a nested selector "-#{$i}", 
+/// which creates classes named ".grid-rows-1", ".grid-rows-2", etc., depending on the iteration. 
+/// 
+/// Each nested selector sets the "grid-template-rows" property of the grid to follow a pattern of repeated rows using "repeat()" with 
+/// the number of repetitions being equal to the iteration number, "#{$i}", and "minmax()" with a minimum size of 0 and a maximum size of 1 fraction unit.
+/// 
+/// Finally, there is a static class selector ".grid-rows-none" that sets the grid-template-rows property to "none".
+/// 
+/// @group Gridcolumn
+/// @name grid_column
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-column elements, flex containers, grid containers
+///
+/// @example scss - grid column class
+///   @for $i from 1 through 12 {
+///     .grid-col {
+///       &-#{$i} {
+///         grid-column: span #{$i} / span #{$i} ;
+///       }
+///     }
+///   }
+///   .grid-col-auto {
+///       grid-column: auto;
+///   }
+///   .grid-col-full {
+///       grid-column: 1 / -1;
+///   }
+/// @example html - use gap class
+/// <div class="grid grid-cols-3 gap-4 font-mono text-white text-sm text-center font-bold leading-6">
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">01</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">02</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">03</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-indigo grid-col-2">04</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">05</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">06</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-indigo grid-col-2">07</div>
+///  </div>
+//
+@for $i from 1 through 12 {
+
+  .grid-col {
+      
+    &-#{$i} {
+      grid-column: span #{$i} / span #{$i} ;
+    }
+  }
+}
+.grid-col-auto {
+
+    grid-column: auto;
+
+}
+.grid-col-full {
+
+  grid-column: 1 / -1;
+
+}
+
+///
+/// This code is written in Sass, a preprocessor scripting language that compiles into CSS. 
+/// 
+/// The code is creating a loop using the "@for" directive in Sass. It is iterating from 1 through 6 using the variable $i. 
+/// 
+/// Within the loop, a class selector ".grid-rows" is defined with a nested selector "-#{$i}", 
+/// which creates classes named ".grid-rows-1", ".grid-rows-2", etc., depending on the iteration. 
+/// 
+/// Each nested selector sets the "grid-template-rows" property of the grid to follow a pattern of repeated rows using "repeat()" with 
+/// the number of repetitions being equal to the iteration number, "#{$i}", and "minmax()" with a minimum size of 0 and a maximum size of 1 fraction unit.
+/// 
+/// Finally, there is a static class selector ".grid-rows-none" that sets the grid-template-rows property to "none".
+/// 
+/// @group Gridcolumnstart
+/// @name grid_column_start
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-column elements, flex containers, grid containers
+///
+/// @example scss - grid column start class
+///   @for $i from 1 through 13 {
+///     .grid-col-start {
+///       &-#{$i} {
+///         grid-column-start: #{$i} ;
+///       }
+///     }
+///   }
+///   .grid-col-start-auto {
+///       grid-column-start: auto;
+///   }
+/// @example html - use gap class
+/// <div class="grid grid-cols-3 gap-4 font-mono text-white text-sm text-center font-bold leading-6">
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">01</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">02</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">03</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-indigo col-span-2">04</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">05</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">06</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-indigo col-span-2">07</div>
+///  </div>
+//
+@for $i from 1 through 13 {
+
+  .grid-col-start {
+      
+    &-#{$i} {
+      grid-column-start: #{$i} ;
+    }
+  }
+}
+.grid-col-start-auto {
+
+    grid-column-start: auto;
+
+}
+
+///
+/// This code is written in Sass, a preprocessor scripting language that compiles into CSS. 
+/// 
+/// The code is creating a loop using the "@for" directive in Sass. It is iterating from 1 through 6 using the variable $i. 
+/// 
+/// Within the loop, a class selector ".grid-rows" is defined with a nested selector "-#{$i}", 
+/// which creates classes named ".grid-rows-1", ".grid-rows-2", etc., depending on the iteration. 
+/// 
+/// Each nested selector sets the "grid-template-rows" property of the grid to follow a pattern of repeated rows using "repeat()" with 
+/// the number of repetitions being equal to the iteration number, "#{$i}", and "minmax()" with a minimum size of 0 and a maximum size of 1 fraction unit.
+/// 
+/// Finally, there is a static class selector ".grid-rows-none" that sets the grid-template-rows property to "none".
+/// 
+/// @group Gridcolumnend
+/// @name grid_column_end
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-column elements, flex containers, grid containers
+///
+/// @example scss - grid column end class
+///   @for $i from 1 through 13 {
+///     .grid-col-end {
+///       &-#{$i} {
+///         grid-column-end: #{$i} ;
+///       }
+///     }
+///   }
+///   .grid-col-end-auto {
+///       grid-column-end: auto;
+///   }
+/// @example html - use gap class
+/// <div class="grid grid-cols-6 gap-4 font-mono text-white text-sm text-center font-bold leading-6">
+///   <div class="p-4 rounded-lg bg-stripes-sky"></div>
+///   <div class="p-4 rounded-lg shadow-lg bg-sky grid-col-start-2 grid-col-4">01</div>
+///   <div class="p-4 rounded-lg bg-stripes-sky"></div>
+///   <div class="p-4 rounded-lg shadow-lg bg-sky grid-col-start-1 grid-col-end-3">02</div>
+///   <div class="p-4 rounded-lg bg-stripes-sky"></div>
+///   <div class="p-4 rounded-lg bg-stripes-sky"></div>
+///   <div class="p-4 rounded-lg shadow-lg bg-sky grid-col-end-7 grid-col-2">03</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-sky grid-col-start-1 grid-col-end-7">04</div>
+///  </div>
+//
+@for $i from 1 through 13 {
+
+  .grid-col-end {
+      
+    &-#{$i} {
+      grid-column-end: #{$i} ;
+    }
+  }
+}
+.grid-col-end-auto {
+
+    grid-column-end: auto;
+
+}
+ /* Grid Row */
+///
+/// This code is written in Sass, a preprocessor scripting language that compiles into CSS. 
+/// 
+/// The code is creating a loop using the "@for" directive in Sass. It is iterating from 1 through 6 using the variable $i. 
+/// 
+/// Within the loop, a class selector ".grid-rows" is defined with a nested selector "-#{$i}", 
+/// which creates classes named ".grid-rows-1", ".grid-rows-2", etc., depending on the iteration. 
+/// 
+/// Each nested selector sets the "grid-template-rows" property of the grid to follow a pattern of repeated rows using "repeat()" with 
+/// the number of repetitions being equal to the iteration number, "#{$i}", and "minmax()" with a minimum size of 0 and a maximum size of 1 fraction unit.
+/// 
+/// Finally, there is a static class selector ".grid-rows-none" that sets the grid-template-rows property to "none".
+/// 
+/// @group Gridrow
+/// @name grid_row
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-row elements, flex containers, grid containers
+///
+/// @example scss - grid row class
+///   @for $i from 1 through 6 {
+///     .grid-row {
+///       &-#{$i} {
+///         grid-row: span #{$i} / span #{$i} ;
+///       }
+///     }
+///   }
+///   .grid-row-auto {
+///       grid-row: auto;
+///   }
+///   .grid-row-full {
+///       grid-row: 1 / -1;
+///   }
+/// @example html - use gap class
+/// <div class="grid grid-cols-3 gap-4 font-mono text-white text-sm text-center font-bold leading-6">
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">01</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">02</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">03</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-indigo grid-col-2">04</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">05</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">06</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-indigo grid-col-2">07</div>
+///  </div>
+//
+@for $i from 1 through 6 {
+
+  .grid-row {
+      
+    &-#{$i} {
+      grid-row: span #{$i} / span #{$i} ;
+    }
+  }
+}
+.grid-row-auto {
+
+    grid-row: auto;
+
+}
+.grid-row-full {
+
+  grid-row: 1 / -1;
+
+}
+///
+/// This code is written in Sass, a preprocessor scripting language that compiles into CSS. 
+/// 
+/// The code is creating a loop using the "@for" directive in Sass. It is iterating from 1 through 6 using the variable $i. 
+/// 
+/// Within the loop, a class selector ".grid-rows" is defined with a nested selector "-#{$i}", 
+/// which creates classes named ".grid-rows-1", ".grid-rows-2", etc., depending on the iteration. 
+/// 
+/// Each nested selector sets the "grid-template-rows" property of the grid to follow a pattern of repeated rows using "repeat()" with 
+/// the number of repetitions being equal to the iteration number, "#{$i}", and "minmax()" with a minimum size of 0 and a maximum size of 1 fraction unit.
+/// 
+/// Finally, there is a static class selector ".grid-rows-none" that sets the grid-template-rows property to "none".
+/// 
+/// @group Gridtemplaterows
+/// @name grid_template_rows
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-column elements, flex containers, grid containers
+///
+/// @example scss - grid template rows class
+///   @for $i from 1 through 6 {
+///     .grid-rows {
+///       &-#{$i} {
+///         grid-template-rows: repeat(#{$i}, minmax(0, 1fr));
+///       }
+///     }
+///   }
+///   .grid-rows-none {
+///       grid-template-rows: none;
+///   }
+/// @example html - use gap class
+/// <div class="grid grid-rows-4 grid-flow-col gap-4 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-pink rounded-lg">
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">01</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">02</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">03</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">04</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">05</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">06</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">07</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">08</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-pink">09</div>
+///    </div>
+//
+@for $i from 1 through 6 {
+
+  .grid-rows {
+      
+    &-#{$i} {
+      grid-template-rows: repeat(#{$i}, minmax(0, 1fr));
+    }
+  }
+}
+.grid-rows-none {
+
+    grid-template-rows: none;
+
+}
+
+///
+/// This code is written in Sass, a preprocessor scripting language that compiles into CSS. 
+/// 
+/// The code is creating a loop using the "@for" directive in Sass. It is iterating from 1 through 6 using the variable $i. 
+/// 
+/// Within the loop, a class selector ".grid-rows" is defined with a nested selector "-#{$i}", 
+/// which creates classes named ".grid-rows-1", ".grid-rows-2", etc., depending on the iteration. 
+/// 
+/// Each nested selector sets the "grid-template-rows" property of the grid to follow a pattern of repeated rows using "repeat()" with 
+/// the number of repetitions being equal to the iteration number, "#{$i}", and "minmax()" with a minimum size of 0 and a maximum size of 1 fraction unit.
+/// 
+/// Finally, there is a static class selector ".grid-rows-none" that sets the grid-template-rows property to "none".
+/// 
+/// @group Gridrowstart
+/// @name grid_row_start
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-rows elements, flex containers, grid containers
+///
+/// @example scss - grid row start class
+///   @for $i from 1 through 7 {
+///     .grid-row-start {
+///       &-#{$i} {
+///         grid-row-start: #{$i} ;
+///       }
+///     }
+///   }
+///   .grid-row-start-auto {
+///       grid-row-start: auto;
+///   }
+/// @example html - use gap class
+/// <div class="grid grid-cols-3 gap-4 font-mono text-white text-sm text-center font-bold leading-6">
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">01</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">02</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">03</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-indigo col-span-2">04</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">05</div>
+///   <div class="p-4 rounded-lg bg-indigo text-indigo">06</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-indigo col-span-2">07</div>
+///  </div>
+//
+@for $i from 1 through 7 {
+
+  .grid-row-start {
+      
+    &-#{$i} {
+      grid-row-start: #{$i} ;
+    }
+  }
+}
+.grid-row-start-auto {
+
+    grid-row-start: auto;
+
+}
+
+///
+/// This code is written in Sass, a preprocessor scripting language that compiles into CSS. 
+/// 
+/// The code is creating a loop using the "@for" directive in Sass. It is iterating from 1 through 6 using the variable $i. 
+/// 
+/// Within the loop, a class selector ".grid-rows" is defined with a nested selector "-#{$i}", 
+/// which creates classes named ".grid-rows-1", ".grid-rows-2", etc., depending on the iteration. 
+/// 
+/// Each nested selector sets the "grid-template-rows" property of the grid to follow a pattern of repeated rows using "repeat()" with 
+/// the number of repetitions being equal to the iteration number, "#{$i}", and "minmax()" with a minimum size of 0 and a maximum size of 1 fraction unit.
+/// 
+/// Finally, there is a static class selector ".grid-rows-none" that sets the grid-template-rows property to "none".
+/// 
+/// @group Gridrowend
+/// @name grid_row_end
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	multi-row elements, flex containers, grid containers
+///
+/// @example scss - grid row end class
+///   @for $i from 1 through 7 {
+///     .grid-row-end {
+///       &-#{$i} {
+///         grid-row-end: #{$i} ;
+///       }
+///     }
+///   }
+///   .grid-row-end-auto {
+///       grid-row-end: auto;
+///   }
+/// @example html - use gap class
+/// <div class="grid grid-cols-6 gap-4 font-mono text-white text-sm text-center font-bold leading-6">
+///   <div class="p-4 rounded-lg bg-stripes-sky"></div>
+///   <div class="p-4 rounded-lg shadow-lg bg-sky grid-col-start-2 grid-col-4">01</div>
+///   <div class="p-4 rounded-lg bg-stripes-sky"></div>
+///   <div class="p-4 rounded-lg shadow-lg bg-sky grid-col-start-1 grid-col-end-3">02</div>
+///   <div class="p-4 rounded-lg bg-stripes-sky"></div>
+///   <div class="p-4 rounded-lg bg-stripes-sky"></div>
+///   <div class="p-4 rounded-lg shadow-lg bg-sky grid-col-end-7 grid-col-2">03</div>
+///   <div class="p-4 rounded-lg shadow-lg bg-sky grid-col-start-1 grid-col-end-7">04</div>
+///  </div>
+//
+@for $i from 1 through 7 {
+
+  .grid-row-end {
+      
+    &-#{$i} {
+      grid-row-end: #{$i} ;
+    }
+  }
+}
+.grid-row-end-auto {
+
+    grid-row-end: auto;
+
+}
+
+/* Grid Auto */
+///
+/// This code is a Sass @each loop that iterates over a map called $autoflow. 
+/// For each key-value pair in the map, it generates a CSS class that sets the grid-auto-flow property to the corresponding value. 
+/// 
+/// The generated class will be of the form .grid-flow-{key} where {key} is the key from the $autoflow map. 
+/// The value associated with that key is assigned to the grid-auto-flow property. 
+/// 
+/// @group Gridautoflow
+/// @name grid_auto_flow
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $autoflow
+/// @example scss - grid auto flow class
+///   @each $autoflow-prop, $autoflow-value in $autoflow {
+///   .grid-flow {
+///     &-#{$autoflow-prop}{
+///       grid-auto-flow: $autoflow-value
+///     }
+///   }
+/// }
+/// @example html - use grid class
+///   <div class="grid grid-cols-3 grid-rows-3 grid-flow-row-dense gap-4 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-purple rounded-lg">
+///    <div class="p-4 grid-col-2 rounded-lg bg-violet">01</div>
+///    <div class="p-4 grid-col-2 rounded-lg bg-violet">02</div>
+///    <div class="p-4 rounded-lg shadow-lg bg-purple">03</div>
+///    <div class="p-4 rounded-lg bg-violet">04</div>
+///    <div class="p-4 rounded-lg bg-violet">05</div>
+///  </div> 
+@each $autoflow-prop, $autoflow-value in $autoflow {
+
+  .grid-flow {
+
+    &-#{$autoflow-prop}{
+
+      grid-auto-flow: $autoflow-value
+
+    }
+  }
+}
+
+///
+/// This code is a Sass @each loop that iterates over a map called $autoflow. 
+/// For each key-value pair in the map, it generates a CSS class that sets the grid-auto-flow property to the corresponding value. 
+/// 
+/// The generated class will be of the form .grid-flow-{key} where {key} is the key from the $autoflow map. 
+/// The value associated with that key is assigned to the grid-auto-flow property. 
+/// 
+/// @group Gridautocolumnsrows
+/// @name grid_auto_columns_&_Rows
+/// @link src/scss/utilities/_grid.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $autocolumnsrows
+/// @example scss - grid auto columns class & grid auto rows class
+///   @each $autocolumnsrows-prop, $autocolumnsrows-value in $autocolumnsrows {
+///   .grid-cols {
+///     &-#{$autocolumnsrows-prop}{
+///       grid-auto-columns: $autocolumnsrows-value
+///     }
+///   }
+///   .grid-rows {
+///     &-#{$autocolumnsrows-prop}{
+///       grid-auto-rows: $autocolumnsrows-value
+///     }
+///   }
+/// }
+/// @example html - use grid class
+///   <div class="grid">
+///
+///   </div> 
+@each $autocolumnsrows-prop, $autocolumnsrows-value in $autocolumnsrows {
+
+  .grid-cols {
+
+    &-#{$autocolumnsrows-prop}{
+
+      grid-auto-columns: $autocolumnsrows-value
+
+    }
+  }
+  .grid-rows {
+
+    &-#{$autocolumnsrows-prop}{
+
+      grid-auto-rows: $autocolumnsrows-value
+
+    }
+  }  
+}
+/* ===================================================================
+   Short grid aliases
+   Shorter class names alongside the existing OmniaCSS grid classes.
+   =================================================================== */
+
+/* Column span aliases: .col-span-{n} = .grid-col-{n} */
+@for $i from 1 through 12 {
+  .col-span-#{$i} { grid-column: span #{$i} / span #{$i}; }
+}
+.col-span-full { grid-column: 1 / -1; }
+.col-span-auto { grid-column: auto; }
+
+/* Row span aliases: .row-span-{n} = .grid-row-{n} */
+@for $i from 1 through 6 {
+  .row-span-#{$i} { grid-row: span #{$i} / span #{$i}; }
+}
+.row-span-full { grid-row: 1 / -1; }
+
+/* Column start/end aliases */
+@for $i from 1 through 13 {
+  .col-start-#{$i} { grid-column-start: #{$i}; }
+  .col-end-#{$i} { grid-column-end: #{$i}; }
+}
+.col-start-auto { grid-column-start: auto; }
+.col-end-auto { grid-column-end: auto; }
+
+/* Row start/end aliases */
+@for $i from 1 through 7 {
+  .row-start-#{$i} { grid-row-start: #{$i}; }
+  .row-end-#{$i} { grid-row-end: #{$i}; }
+}
+.row-start-auto { grid-row-start: auto; }
+.row-end-auto { grid-row-end: auto; }
+
+/* Subgrid */
+.grid-cols-subgrid { grid-template-columns: subgrid; }
+.grid-rows-subgrid { grid-template-rows: subgrid; }
+
+/* End Grid property */

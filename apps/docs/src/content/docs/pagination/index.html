@@ -1,0 +1,157 @@
+<!--oc-page {"title":"OmniaCSS Docs - Pagination","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .pg { display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 0; padding: 0; list-style: none; }\n    .pg a, .pg span { display: inline-grid; place-items: center; min-inline-size: 2.4rem; block-size: 2.4rem; padding-inline: 0.6rem; box-sizing: border-box; color: var(--oc-foreground); font-weight: 600; font-size: 0.9rem; text-decoration: none; }\n    .pg [aria-disabled=\"true\"] { opacity: 0.4; pointer-events: none; }\n    .pg-joined { gap: 0; }\n    .pg-joined li + li a { margin-inline-start: -1px; }\n    .pg-joined li:first-child a { border-start-start-radius: 10px; border-end-start-radius: 10px; }\n    .pg-joined li:last-child a { border-start-end-radius: 10px; border-end-end-radius: 10px; }\n    .pg-under a { border-block-end: 3px solid transparent; }\n    .crumbs { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font-size: 0.9rem; }\n    .crumbs li:not(:last-child)::after { content: \"/\"; margin-inline: 0.6rem; color: var(--oc-muted-foreground); }\n    .crumbs a { color: var(--color-vividblue-95); text-decoration: none; }\n    .crumbs a:hover { text-decoration: underline; }\n    .crumbs [aria-current=\"page\"] { color: var(--oc-muted-foreground); }\n    .pg-gen-wrap { display: block; inline-size: 100%; padding-block-end: 3.25rem; }\n    .pg-stack { display: grid; gap: 1.25rem; }\n    .pg-gen { display: flex; gap: 1rem; inline-size: 100%; scroll-marker-group: after; }\n    .pg-gen::scroll-marker-group { display: flex; justify-content: center; gap: 0.3rem; padding-block-start: 0.75rem; }\n    .pg-gen > article { flex: none; inline-size: 100%; display: grid; gap: 0.4rem; align-content: start; min-block-size: 9rem; padding: 1.25rem; box-sizing: border-box; border: 1px solid var(--oc-border); border-radius: 14px; background: var(--oc-card); color: var(--oc-foreground); }\n    .pg-gen > article h4 { margin: 0; font-size: 1.1rem; }\n    .pg-gen > article p { margin: 0; color: var(--oc-muted-foreground); }\n    .pg-gen > article::scroll-marker { content: attr(data-page); display: inline-grid; place-items: center; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 8px; border: 1px solid var(--oc-border); color: var(--oc-foreground); font-weight: 600; font-size: 0.85rem; text-decoration: none; }\n    .pg-gen > article::scroll-marker:target-current { background: var(--color-vividblue-80); border-color: var(--color-vividblue-80); color: var(--color-white-50); }\n    .pg-gen > article::scroll-marker:focus-visible { outline: 2px solid var(--color-vividblue-80); outline-offset: 2px; }\n  </style>"]}-->
+<section class="oc-docs-section" id="pagination">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Pagination</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">variants.mjs</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">pagination/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.8.2</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Pagination splits content over pages. For the links, mark the current page with <code>aria-current="page"</code> and style it with the <code>aria-[current=page]:</code> variant, so the visual state and the accessible state can never disagree. Newer CSS can even <strong>generate</strong> the page buttons (<code>::scroll-marker</code>), and <code>@page</code> paginates printed documents. See <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current" target="_blank" rel="noopener">MDN: aria-current</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="markup">Markup and classes</h3>
+          <p class="oc-section-content__desc">Use a <code>&lt;nav aria-label="Pagination"&gt;</code> with a list of links. The current page gets <code>aria-current="page"</code>, unavailable links <code>aria-disabled="true"</code> (and no <code>href</code>).</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Role</th></tr></thead>
+              <tbody>
+                <tr><td><code>aria-[current=page]:bg-vividblue-80 aria-[current=page]:text-white-50</code></td><td>Active page</td></tr>
+                <tr><td><code>hover:bg-mistblue-20 transition-colors duration-200</code></td><td>Hover with a transition</td></tr>
+                <tr><td><code>focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80</code></td><td>Keyboard focus ring</td></tr>
+                <tr><td><code>aria-disabled:opacity-40 aria-disabled:pointer-events-none</code></td><td>Disabled previous/next</td></tr>
+                <tr><td><code>round-2</code>, <code>round-full</code>, <code>border-1 border-solid border-mistblue-30</code></td><td>Rounded, pill and bordered styles</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="styles">Pagination styles</h3>
+          <oc-demo title="Rounded, pills, joined border and underline">
+            <div class="pg-stack">
+              <nav aria-label="Pagination rounded"><ul class="pg">
+                <li><a aria-disabled="true" class="round-2">«</a></li>
+                <li><a href="#styles" class="round-2 hover:bg-mistblue-20 transition-colors duration-200">1</a></li>
+                <li><a href="#styles" aria-current="page" class="round-2 aria-[current=page]:bg-vividblue-80 aria-[current=page]:text-white-50">2</a></li>
+                <li><a href="#styles" class="round-2 hover:bg-mistblue-20 transition-colors duration-200">3</a></li>
+                <li><a href="#styles" class="round-2 hover:bg-mistblue-20 transition-colors duration-200">4</a></li>
+                <li><a href="#styles" class="round-2 hover:bg-mistblue-20 transition-colors duration-200">»</a></li>
+              </ul></nav>
+              <nav aria-label="Pagination pills"><ul class="pg">
+                <li><a href="#styles" class="round-full hover:bg-mistblue-20">1</a></li>
+                <li><a href="#styles" class="round-full hover:bg-mistblue-20">2</a></li>
+                <li><a href="#styles" aria-current="page" class="round-full aria-[current=page]:bg-magenta-50 aria-[current=page]:text-white-50">3</a></li>
+                <li><span>…</span></li>
+                <li><a href="#styles" class="round-full hover:bg-mistblue-20">12</a></li>
+              </ul></nav>
+              <nav aria-label="Pagination bordered"><ul class="pg pg-joined">
+                <li><a href="#styles" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20">Previous</a></li>
+                <li><a href="#styles" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20">1</a></li>
+                <li><a href="#styles" aria-current="page" class="border-1 border-solid border-mistblue-30 aria-[current=page]:bg-vividblue-80 aria-[current=page]:border-vividblue-80 aria-[current=page]:text-white-50">2</a></li>
+                <li><a href="#styles" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20">3</a></li>
+                <li><a href="#styles" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20">Next</a></li>
+              </ul></nav>
+              <nav aria-label="Pagination underline"><ul class="pg pg-under">
+                <li><a href="#styles" class="hover:border-mistblue-30">1</a></li>
+                <li><a href="#styles" aria-current="page" class="aria-[current=page]:border-vividblue-80 aria-[current=page]:text-vividblue-80">2</a></li>
+                <li><a href="#styles" class="hover:border-mistblue-30">3</a></li>
+                <li><a href="#styles" class="hover:border-mistblue-30">4</a></li>
+              </ul></nav>
+            </div>
+          <oc-code lang="html">&lt;nav aria-label="Pagination"&gt;
+  &lt;ul class="flex gap-1 list-none p-0 m-0"&gt;
+    &lt;li&gt;&lt;a aria-disabled="true" class="round-2 aria-disabled:opacity-40"&gt;«&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=1" class="round-2 hover:bg-mistblue-20 transition-colors duration-200"&gt;1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=2" aria-current="page"
+           class="round-2 aria-[current=page]:bg-vividblue-80 aria-[current=page]:text-white-50"&gt;2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=3" class="round-2 hover:bg-mistblue-20 transition-colors duration-200"&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=3" class="round-2 hover:bg-mistblue-20"&gt;»&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="breadcrumbs">Breadcrumbs</h3>
+          <p class="oc-section-content__desc">The separators are generated with <code>::after</code>, so screen readers only read the links; the last item is the current page.</p>
+          <oc-demo title="Breadcrumb with ::after separators">
+            <nav aria-label="Breadcrumb"><ol class="crumbs">
+              <li><a href="../index.html">Docs</a></li>
+              <li><a href="../selectors/">Selectors</a></li>
+              <li><span aria-current="page">Pagination</span></li>
+            </ol></nav>
+          <oc-code lang="css">.crumbs li:not(:last-child)::after { content: "/"; margin-inline: 0.6rem; }
+/* &lt;nav aria-label="Breadcrumb"&gt;&lt;ol class="crumbs flex list-none"&gt; … &lt;li&gt;&lt;span aria-current="page"&gt;Pagination&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/nav&gt; */</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="generated">Page buttons generated by CSS: ::scroll-marker</h3>
+          <p class="oc-section-content__desc">Put the pages in a horizontal snap container and let CSS create one marker per page. <code>content: attr(data-page)</code> turns the markers into numbered buttons, <code>:target-current</code> highlights the visible page. The browser handles clicks, keyboard arrows and the accessible tab roles — no JavaScript.</p>
+          <oc-demo title="scroll-marker-group: after + ::scroll-marker { content: attr(data-page) }">
+            <div class="pg-gen-wrap">
+            <div class="pg-gen overflow-x-auto snap-x scroll-smooth scrollbar-none">
+              <article class="snap-start" data-page="1"><h4>Page 1</h4><p>Click the numbers below: they are ::scroll-marker pseudo-elements.</p></article>
+              <article class="snap-start" data-page="2"><h4>Page 2</h4><p>The active number follows scrolling and swiping, too.</p></article>
+              <article class="snap-start" data-page="3"><h4>Page 3</h4><p>Use the arrow keys when a number has focus.</p></article>
+              <article class="snap-start" data-page="4"><h4>Page 4</h4><p>Browsers without support show a swipeable row.</p></article>
+            </div>
+            </div>
+          <oc-code lang="css">.pg-gen { display: flex; scroll-marker-group: after; }       /* + class="overflow-x-auto snap-x" */
+.pg-gen::scroll-marker-group { display: flex; justify-content: center; gap: 0.3rem; }
+.pg-gen &gt; article { flex: none; inline-size: 100%; }
+.pg-gen &gt; article::scroll-marker {
+  content: attr(data-page);
+  inline-size: 2.2rem; block-size: 2.2rem; border-radius: 8px;
+  border: 1px solid var(--oc-border);
+}
+.pg-gen &gt; article::scroll-marker:target-current {
+  background: var(--color-vividblue-80); color: var(--color-white-50);
+}</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="print">Print pagination: @page and page breaks</h3>
+          <p class="oc-section-content__desc">For printed pages, <code>@page</code> margin boxes add page numbers and <code>.break-*</code> utilities decide where a new page starts. Use the <code>print:</code> variant to hide navigation when printing.</p>
+          <oc-code lang="css">@page {
+  size: A4;
+  margin: 2cm;
+  @bottom-right { content: "Page " counter(page) " / " counter(pages); }
+}
+/* &lt;h2 class="break-before-page"&gt;Chapter 2&lt;/h2&gt;
+   &lt;figure class="break-inside-avoid"&gt;…&lt;/figure&gt;
+   &lt;nav class="print:d-none"&gt;…&lt;/nav&gt; */</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Link-based pagination works everywhere. <code>::scroll-marker</code> pagination is Chromium-only for now; <code>@page</code> margin boxes need Chrome 131 or Firefox 146.</p>
+          <oc-compat features="css.selectors.scroll-marker css.properties.scroll-marker-group css.selectors.target-current css.at-rules.page css.properties.break-before css.selectors.attribute"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The <code>aria-*</code>, <code>hover:</code> and <code>print:</code> variants come from <code>variants.mjs</code>; snapping from <code>_interactivity.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-marker" target="_blank" rel="noopener">MDN: ::scroll-marker</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@page" target="_blank" rel="noopener">MDN: @page</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">Source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>packages/core/src/variants.mjs</code></td><td>aria-[…], hover:, focus-visible:, print: variants</td></tr>
+                  <tr><td><code>src/scss/utilities/_interactivity.scss</code></td><td>.snap-*, .scroll-markers-*</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Variants are generated on demand by <code>omniacss build</code>; the other classes are in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../scroll-snap/">Scroll snap</a>
+               ·
+              <a class="source-link" href="../selectors/">Selectors</a>
+               ·
+              <a class="source-link" href="../fragmentation/">Fragmentation</a>
+            </p>
+          </div>
+        </div>
+      </section>

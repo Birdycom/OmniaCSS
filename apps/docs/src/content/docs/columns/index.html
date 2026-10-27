@@ -1,0 +1,190 @@
+<!--oc-page {"title": "OmniaCSS Docs - Multi-column Layout", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background-color: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n</style>"]}-->
+<section class="oc-docs-section" id="columns">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Multi-column Layout</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_layout_flow.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">columns/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Flow content into newspaper-style columns. Use <code>.cols-*</code> for a fixed number of columns or <code>.col-w-*</code> for an ideal column width; the gap utilities (<code>.gap-*</code>) set the space between them. The older <code>.columns-*</code> shorthand classes stay available. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout" target="_blank" rel="noopener">MDN: Multi-column layout</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> multi-column layout flows one block of content into several columns, like a newspaper: the browser decides where each column breaks. <strong>When to use:</strong> long lists, tag clouds, short articles, link directories. <strong>Gotchas:</strong> columns balance their height by default (<code>.col-fill-balance</code>), so a fixed-height container fills the first column first only with <code>.col-fill-auto</code>; a heading can span all columns with <code>.col-span-all</code>; and content is read top to bottom per column, which is poor for long text on small screens. Prefer <code>.col-w-*</code> (a minimum width) over a fixed count so the number of columns adapts. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/columns" target="_blank" rel="noopener">MDN: columns</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule" target="_blank" rel="noopener">MDN: column-rule</a>.</p>
+
+          <h3 class="oc-section-content__title" id="column-count">Column count</h3>
+          <p class="oc-section-content__desc">Fixed number of columns.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.cols-1</code></td><td>column-count: 1</td></tr>
+                <tr><td><code>.cols-2</code></td><td>column-count: 2</td></tr>
+                <tr><td><code>.cols-3</code></td><td>column-count: 3</td></tr>
+                <tr><td><code>.cols-4</code></td><td>column-count: 4</td></tr>
+                <tr><td><code>.cols-5</code></td><td>column-count: 5</td></tr>
+                <tr><td><code>.cols-6</code></td><td>column-count: 6</td></tr>
+                <tr><td><code>.cols-auto</code></td><td>column-count: auto</td></tr>
+                <tr><td><code>.columns-1 … .columns-6</code></td><td>columns: 1 … 6 (shorthand)</td></tr>
+                <tr><td><code>.columns-3xs … .columns-lg</code></td><td>columns: 16rem … 32rem (shorthand)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="column-width">Column width</h3>
+          <p class="oc-section-content__desc">Ideal column width; the browser fits as many columns as there is room for.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.col-w-auto</code></td><td>column-width: auto</td></tr>
+                <tr><td><code>.col-w-16</code></td><td>column-width: 16rem</td></tr>
+                <tr><td><code>.col-w-20</code></td><td>column-width: 20rem</td></tr>
+                <tr><td><code>.col-w-24</code></td><td>column-width: 24rem</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="column-rule">Column rule</h3>
+          <p class="oc-section-content__desc">A line between columns. Set a style and a width; the color defaults to the text color.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.col-rule-none</code></td><td>column-rule-style: none</td></tr>
+                <tr><td><code>.col-rule-solid</code></td><td>column-rule-style: solid</td></tr>
+                <tr><td><code>.col-rule-dashed</code></td><td>column-rule-style: dashed</td></tr>
+                <tr><td><code>.col-rule-dotted</code></td><td>column-rule-style: dotted</td></tr>
+                <tr><td><code>.col-rule-1</code></td><td>column-rule-width: 1px</td></tr>
+                <tr><td><code>.col-rule-2</code></td><td>column-rule-width: 2px</td></tr>
+                <tr><td><code>.col-rule-4</code></td><td>column-rule-width: 4px</td></tr>
+                <tr><td><code>.col-rule-current</code></td><td>column-rule-color: currentcolor</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Newspaper columns with a rule">
+            <p class="cols-3 col-rule-solid col-rule-1 m-0" style="column-gap: 2rem; column-rule-color: var(--oc-border-strong);">OmniaCSS turns modern CSS into utility classes. Multi-column layout flows text from one column into the next, like a newspaper, without any wrapper elements. Combine a column count with a rule between the columns and a gap. The browser balances the columns automatically, and headings can span all columns with .col-span-all. Resize the window to see the text reflow while the number of columns stays the same.</p>
+          <oc-code lang="html">&lt;p class="cols-3 col-rule-solid col-rule-1"&gt;…&lt;/p&gt;</oc-code></oc-demo>
+          <oc-demo title="Column width instead of count">
+            <p class="col-w-16 m-0">With .col-w-16 every column is about 16rem wide; the browser decides how many fit. This is responsive without media queries: wide screens get more columns, phones get one. Text keeps a comfortable line length in every situation, which is good for reading long documentation pages.</p>
+          </oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="column-span">Column span &amp; fill</h3>
+          <p class="oc-section-content__desc">Let a heading span all columns, and choose whether content is balanced across columns.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.col-span-all</code></td><td>column-span: all</td></tr>
+                <tr><td><code>.col-span-none</code></td><td>column-span: none</td></tr>
+                <tr><td><code>.col-fill-auto</code></td><td>column-fill: auto</td></tr>
+                <tr><td><code>.col-fill-balance</code></td><td>column-fill: balance</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="cols-3 + col-rule-solid + col-span-all">
+            
+            <div class="cols-3 col-rule-solid col-rule-1 gap-2 round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
+              <h4 class="col-span-all mb-1">Heading spanning all columns</h4>
+              <p>OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
+              <p>OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="cols-3 col-rule-solid col-rule-1 gap-2"&gt;
+  &lt;h4 class="col-span-all"&gt;Heading spanning all columns&lt;/h4&gt;
+  &lt;p&gt;…&lt;/p&gt;
+  &lt;p&gt;…&lt;/p&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Column count: 1 to 6</h3>
+          <p class="oc-section-content__desc">The same paragraph with each <code>.cols-*</code> class.</p>
+
+          <oc-demo title="cols-1 … cols-6">
+            <div class="bd-grid" style="grid-template-columns: 1fr; gap: 20px">
+              <div class="bd-cell"><p class="cols-1 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-1</code></div>
+              <div class="bd-cell"><p class="cols-2 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-2</code></div>
+              <div class="bd-cell"><p class="cols-3 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-3</code></div>
+              <div class="bd-cell"><p class="cols-4 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-4</code></div>
+              <div class="bd-cell"><p class="cols-6 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-6</code></div>
+            </div>
+          <oc-code lang="html">&lt;p class="cols-3"&gt;…&lt;/p&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Rule styles and widths</h3>
+          <p class="oc-section-content__desc"><code>.col-rule-*</code> classes combine a style and a width; the color is set with a custom value (here an Omnia theme token).</p>
+
+          <oc-demo title="column rules">
+            <div class="bd-grid" style="grid-template-columns: 1fr; gap: 20px">
+              <div class="bd-cell"><p class="cols-3 col-rule-solid col-rule-1 m-0" style="column-gap: 2rem; column-rule-color: var(--oc-border-strong); font-size: 0.8rem; line-height: 1.55">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.col-rule-solid.col-rule-1</code></div>
+              <div class="bd-cell"><p class="cols-3 col-rule-dashed col-rule-2 m-0" style="column-gap: 2rem; column-rule-color: var(--oc-border-strong); font-size: 0.8rem; line-height: 1.55">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.col-rule-dashed.col-rule-2</code></div>
+              <div class="bd-cell"><p class="cols-3 col-rule-dotted col-rule-4 m-0" style="column-gap: 2rem; column-rule-color: var(--oc-border-strong); font-size: 0.8rem; line-height: 1.55">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.col-rule-dotted.col-rule-4</code></div>
+            </div>
+          <oc-code lang="html">&lt;p class="cols-3 col-rule-dashed col-rule-2"&gt;…&lt;/p&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Fill: balance vs auto in a fixed-height box</h3>
+          <p class="oc-section-content__desc">In a 7rem tall box, <code>.col-fill-balance</code> evens out the column heights; <code>.col-fill-auto</code> fills each column to the full height before starting the next one.</p>
+
+          <oc-demo title="col-fill-balance vs col-fill-auto">
+            <div class="bd-grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr))">
+              <div class="bd-cell"><div class="cols-3 col-fill-balance" style="block-size: 7rem; column-gap: 1rem; font-size: 0.75rem; line-height: 1.5; border: 1px dashed var(--oc-border-strong); padding: 6px">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scr</div><code>.col-fill-balance</code></div>
+              <div class="bd-cell"><div class="cols-3 col-fill-auto" style="block-size: 7rem; column-gap: 1rem; font-size: 0.75rem; line-height: 1.5; border: 1px dashed var(--oc-border-strong); padding: 6px">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scr</div><code>.col-fill-auto</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="cols-3 col-fill-auto" style="height: 7rem"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Multi-column layout is broadly supported; without support content simply flows in a single column.</p>
+          <oc-compat features="css.properties.column-count css.properties.column-width css.properties.column-rule css.properties.column-span css.properties.column-fill"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Column utilities come from <code>_layout_flow.scss</code> in <code>src/scss/utilities/</code>. Break control inside columns is on the <a href="../fragmentation/">Fragmentation</a> page. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule" target="_blank" rel="noopener">MDN: column-rule</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_layout_flow.scss</code></td><td>.columns-*, .cols-*, .col-w-*, .col-rule-*, .col-span-*, .col-fill-*</td></tr>
+                  <tr><td><code>src/scss/utilities/_gap.scss</code></td><td>.gap-* (column gap)</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../fragmentation/">Fragmentation</a>
+               · 
+              <a class="source-link" href="../flex-grid/gap.html">Gap</a>
+               · 
+              <a class="source-link" href="../layout/flow.html">Layout flow</a>
+            </p>
+          </div>
+        </div>
+      </section>

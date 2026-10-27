@@ -1,0 +1,97 @@
+<!--oc-page {"title": "OmniaCSS Docs - Configuration", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-hero" id="overview">
+        <h1 class="oc-hero-title">Configuration</h1>
+        <p class="oc-hero-text">All base settings are now documented directly in new docs with source snippets and usage patterns.</p>
+      </section>
+
+      <section class="oc-docs-section" id="scss-source">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">SCSS source (`_basesettings`, `_colorsettings`, `_fontsettings`)</h2>
+          
+        </div>
+        <div class="oc-section-content">
+          <oc-code>// src/scss/config/omniacss.config.scss
+$DEFAULT-COLOR-TYPE-VALUE: oklch !default;
+$DEFAULT-BASE-FONT-UNIT: "em" !default;
+$DEFAULT-BASE-FONT-SIZE: 16 !default;
+$DEFAULT-BASE-UNIT: "rem" !default;
+$DEFAULT-BASE-FIRST-MAX-GROUP: 16 !default;
+$DEFAULT-BASE-SECOND-MAX-GROUP: 400 !default;</oc-code>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="css-output">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Generated CSS effect</h2>
+          
+        </div>
+        <div class="oc-section-content">
+          <oc-code>/* Build output is generated in: */
+/* public/css/omnia_main.css */
+/* public/css/omnia_main.min.css */
+
+/* Example effect */
+.p-1 { padding: 1rem; }
+.text-blue-50 { color: oklch(...); }</oc-code>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="cdn">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Install via npm or CDN</h2>
+        </div>
+        <div class="oc-section-content">
+          <oc-code lang="shell">npm install -D @birdycom/omniacss-cli
+npx omniacss init</oc-code>
+          <oc-code>&lt;!-- jsDelivr (unpkg works the same: https://unpkg.com/@birdycom/...) --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.6.0/dist/omnia.starter.min.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniaui@0.6.0/dist/components.min.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniaui-blocks@0.6.0/dist/blocks.min.css"&gt;</oc-code>
+          <p><strong>Prototyping:</strong> the CDN starter bundle (<code>omnia.starter.min.css</code>, about 96&nbsp;KB, 15&nbsp;KB gzip) covers the most used utilities: reset, layout (display, flex, grid, position, overflow), spacing, sizing, typography, borders, radius, shadows, transitions, container-query variants (<code>cq-xs:</code> to <code>cq-xl:</code>) and the Omnia colors with <code>hover:</code>/<code>focus:</code> states. Components and blocks add about 116&nbsp;KB (20&nbsp;KB gzip).</p>
+          <p><strong>Production:</strong> run <code>npx @birdycom/omniacss-cli build</code> to generate only the CSS you use. The full utility build (<code>@birdycom/omniacss/min</code>, about 9&nbsp;MB) is meant for tooling, not for a CDN link.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="cli">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">OmniaUI CLI: add components in your framework</h2>
+        </div>
+        <div class="oc-section-content">
+          <p>Components and blocks live in <a href="/ui/components.html">OmniaUI</a>, with its own CLI <code>omniaui</code> (in <code>@birdycom/omniaui</code>). <code>omniacss add</code> only points you there. Every component and block exists in four flavours: <code>css</code> (HTML snippet), <code>vue</code>, <code>react</code> and <code>blade</code>. <code>omniaui add</code> copies the source into your project so you own the code; <code>omniaui list</code> shows what is available per flavour.</p>
+          <oc-code lang="shell">npx omniaui add button modal                  # flavour is detected
+npx omniaui add accordion -f vue              # Vue: OcAccordion.vue + OcAccordionItem.vue + composables
+npx omniaui add modal -f react --dir src/ui   # React: Modal.tsx + Button.tsx + hooks.tsx + utils.ts
+npx omniaui add hero --kind block -f blade    # Blade: block/hero.blade.php
+npx omniaui add card -f vue --import          # only print the import for the npm package
+npx omniaui add button --dry-run              # show what would be copied
+npx omniaui list -f vue --kind block          # names available in that flavour</oc-code>
+          <ul>
+            <li><strong>Detection:</strong> <code>framework</code> in <code>omnia.config.json</code> (written by <code>init</code>), else <code>package.json</code> (vue or nuxt gives vue, react or next gives react), else Laravel (<code>artisan</code> or <code>composer.json</code>) gives blade, else css. <code>-f/--framework</code> always wins.</li>
+            <li><strong>Target folder</strong> (<code>--dir</code>): vue and react use <code>resources/js/components/oc</code> in Laravel projects and <code>src/components/oc</code> elsewhere (<code>components/</code>, <code>blocks/</code>, <code>composables/</code> keep their layout so imports stay valid); css uses <code>resources/views/oc-snippets</code> or <code>oc-snippets</code>; blade uses <code>resources/views/components/oc</code> and rewrites <code>&lt;x-oc::button&gt;</code> to <code>&lt;x-oc.button&gt;</code>.</li>
+            <li><strong>Dependencies</strong> (sub-parts, hooks, utils, composables, nested Blade components) are copied with the component. Existing files are skipped unless you pass <code>--force</code>.</li>
+            <li><strong>Sources:</strong> read from the installed package. If it is missing, the CLI tells you what to install: <code>npm i @birdycom/omniaui-vue</code>, <code>npm i @birdycom/omniaui-react</code> or <code>composer require birdycom/omniaui-laravel</code>.</li>
+            <li>The styles always come from <code>@birdycom/omniaui</code> and <code>@birdycom/omniaui-blocks</code>; the new folder is added to the <code>content</code> globs in <code>omnia.config.json</code>.</li>
+          </ul>
+          <p>See <a href="/ui/frameworks-vue.html">Vue</a>, <a href="/ui/frameworks-react.html">React</a> and <a href="/ui/frameworks-laravel.html">Laravel</a> for the framework packages.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="html-usage">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">HTML usage example</h2>
+          
+        </div>
+        <div class="oc-section-content">
+          <oc-code>&lt;div class="p-1 text-blue-50 bg-blue-10"&gt;
+  Config-driven utility output
+&lt;/div&gt;</oc-code>
+        <div class="oc-card mt-2.5">
+          <p class="oc-card-text">Config-driven utility output</p>
+        </div>
+        </div>
+      </section>
+      <section class="oc-alert oc-alert--info" id="playground">
+        Playgrounds: <a class="oc-card-link" href="/pages/colors.html">colors</a>,
+        <a class="oc-card-link" href="/pages/fonts.html">fonts</a>,
+        <a class="oc-card-link" href="/pages/spacing.html">spacing</a>.
+      </section>

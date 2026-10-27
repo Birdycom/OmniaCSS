@@ -1,0 +1,83 @@
+<!--oc-page {"title":"OmniaCSS Docs - Flex Grow & Shrink","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="grow-shrink">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Grow &amp; Shrink</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_flexbox.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Control how flex items share leftover space (grow) or give up space when the container is too small (shrink).</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><code>flex-grow</code> distributes <em>extra</em> space among items in proportion to their grow factor; <code>flex-shrink</code> decides who gives up space when the content is too wide. By default items do not grow (0) but do shrink (1), which is why long rows squeeze before they overflow. Use <code>.flex-shrink-0</code> on fixed elements such as avatars and icons, and <code>.flex-grow</code> on the item that should absorb the free space. A shrinking item never goes below its min-content size unless you set <code>.min-w-0</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow" target="_blank" rel="noopener">MDN: flex-grow</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink" target="_blank" rel="noopener">MDN: flex-shrink</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Behavior</th></tr></thead>
+              <tbody>
+                <tr><td><code>.flex-grow</code></td><td>Grow to fill empty space (flex-grow: 1)</td></tr>
+                <tr><td><code>.flex-grow-0</code></td><td>Maintain original size (do not grow)</td></tr>
+                <tr><td><code>.flex-shrink</code></td><td>Allow item to shrink (flex-shrink: 1)</td></tr>
+                <tr><td><code>.flex-shrink-0</code></td><td>Prevent item from shrinking</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8">Grow in action</h3>
+
+          <oc-demo title="flex-grow"><div class="dm-grid" style="--dm-min:14rem">
+<div class="dm-tile"><code>no grow (default)</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w2">3</div></div></div>
+<div class="dm-tile"><code>.flex-grow on item 2</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2">1</div><div class="dm-box dm-w2 flex-grow">2</div><div class="dm-box dm-w2">3</div></div></div>
+<div class="dm-tile"><code>.flex-grow on all</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2 flex-grow">1</div><div class="dm-box dm-w2 flex-grow">2</div><div class="dm-box dm-w2 flex-grow">3</div></div></div>
+<div class="dm-tile"><code>.flex-grow-0 (explicit)</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2 flex-grow-0">1</div><div class="dm-box dm-w2 flex-grow-0">2</div></div></div>
+</div><oc-code lang="html">&lt;div class="flex"&gt;
+  &lt;div&gt;Fixed&lt;/div&gt;
+  &lt;div class="flex-grow"&gt;Fills the rest&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Shrink in action</h3>
+
+          <p class="oc-section-content__desc">Three items request 6rem each in a container that only has about 12rem. Shrinking items squeeze evenly; items with <code>.flex-shrink-0</code> keep their size and overflow.</p>
+
+          <oc-demo title="flex-shrink"><div class="dm-grid" style="--dm-min:14rem">
+<div class="dm-tile"><code>.flex-shrink (default)</code><div class="dm-area flex gap-0.3" style="inline-size:12rem"><div class="dm-box dm-w3 flex-shrink">1</div><div class="dm-box dm-w3 flex-shrink">2</div><div class="dm-box dm-w3 flex-shrink">3</div></div></div>
+<div class="dm-tile"><code>.flex-shrink-0 on item 1</code><div class="dm-area flex gap-0.3" style="inline-size:12rem"><div class="dm-box dm-w3 flex-shrink-0">1</div><div class="dm-box dm-w3 flex-shrink">2</div><div class="dm-box dm-w3 flex-shrink">3</div></div></div>
+<div class="dm-tile"><code>.flex-shrink-0 on all</code><div class="dm-area flex gap-0.3" style="inline-size:12rem"><div class="dm-box dm-w3 flex-shrink-0">1</div><div class="dm-box dm-w3 flex-shrink-0">2</div><div class="dm-box dm-w3 flex-shrink-0">3</div></div></div>
+</div><oc-code lang="html">&lt;div class="flex"&gt;
+  &lt;img class="flex-shrink-0 size-8" src="avatar.png" alt=""&gt;
+  &lt;p&gt;Long text that may shrink…&lt;/p&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="shorthand">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Flex Shorthand</h2>
+          <p class="oc-section-header__desc">Common combined grow, shrink, and basis patterns.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc">The shorthand sets grow, shrink and basis at once. <code>.flex-1</code> (<code>1 1 0%</code>) ignores content size, so siblings become equally wide: ideal for equal columns. <code>.flex-auto</code> (<code>1 1 auto</code>) starts from the content width and then shares the rest. <code>.flex-initial</code> is the default behaviour, <code>.flex-none</code> freezes the item. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex" target="_blank" rel="noopener">MDN: flex</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.flex-1</code></td><td>flex: 1 1 0%</td></tr>
+                <tr><td><code>.flex-auto</code></td><td>flex: 1 1 auto</td></tr>
+                <tr><td><code>.flex-initial</code></td><td>flex: 0 1 auto</td></tr>
+                <tr><td><code>.flex-none</code></td><td>flex: none</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <oc-demo title="flex shorthand with different content"><div class="dm-grid" style="--dm-min:15rem">
+<div class="dm-tile"><code>.flex-1</code><div class="dm-area flex gap-0.3"><div class="dm-box flex-1">short</div><div class="dm-box flex-1">a much longer label</div><div class="dm-box flex-1">mid size</div></div></div>
+<div class="dm-tile"><code>.flex-auto</code><div class="dm-area flex gap-0.3"><div class="dm-box flex-auto">short</div><div class="dm-box flex-auto">a much longer label</div><div class="dm-box flex-auto">mid size</div></div></div>
+<div class="dm-tile"><code>.flex-initial</code><div class="dm-area flex gap-0.3"><div class="dm-box flex-initial">short</div><div class="dm-box flex-initial">a much longer label</div><div class="dm-box flex-initial">mid size</div></div></div>
+<div class="dm-tile"><code>.flex-none</code><div class="dm-area flex gap-0.3"><div class="dm-box flex-none">short</div><div class="dm-box flex-none">a much longer label</div><div class="dm-box flex-none">mid size</div></div></div>
+</div><oc-code lang="html">&lt;div class="flex gap-1"&gt;
+  &lt;div class="flex-1"&gt;Equal&lt;/div&gt;
+  &lt;div class="flex-1"&gt;Equal&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>

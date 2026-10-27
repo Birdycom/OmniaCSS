@@ -1,0 +1,18 @@
+@use "sass:map";
+
+$breakpoint: (
+  'small' : 36rem,
+  'medium': 50rem,
+  'large': 64rem
+);
+/*
+responsive breakpoint mixin:
+@include respond('medium') { ... }
+*/
+@mixin respond($bp) {
+  @media (min-width: map.get($breakpoint, $bp)) {
+    @content;
+  }
+}
+
+// Note: no global element/id rules here (they used to fix <main> to 40em and #menu widths on every page).

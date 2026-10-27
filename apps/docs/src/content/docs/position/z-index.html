@@ -1,0 +1,58 @@
+<!--oc-page {"title": "OmniaCSS Docs - Stacking / Z-Index", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell oc-docs-shell\u002d\u002dno-right", "bodyClass": "", "head": ["<style>\n    .ps-grid { display: grid; gap: 1.25rem; inline-size: 100%; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }\n    .ps-label { margin: 0 0 0.35rem; font-size: 0.8rem; color: var(\u002d\u002doc-muted-foreground); }\n    .ps-area { position: relative; block-size: 8rem; border: 1px dashed var(\u002d\u002doc-border-strong); border-radius: 10px; background: var(\u002d\u002doc-muted); color: var(\u002d\u002doc-foreground); }\n    .ps-scroll { block-size: 8rem; overflow: auto; border: 1px dashed var(\u002d\u002doc-border-strong); border-radius: 10px; background: var(\u002d\u002doc-muted); color: var(\u002d\u002doc-foreground); }\n    .ps-scroll p { margin: 0; padding: 0.75rem; block-size: 14rem; font-size: 0.85rem; color: var(\u002d\u002doc-muted-foreground); }\n    .ps-box { padding: 0.35rem 0.75rem; border-radius: 6px; background: var(\u002d\u002doc-primary); color: var(\u002d\u002doc-primary-foreground); font-weight: 600; font-size: 0.8rem; text-align: center; white-space: nowrap; }\n    .ps-box\u002d\u002dalt { background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); border: 1px solid var(\u002d\u002doc-border-strong); }\n    .ps-ghost { position: absolute; inset: 1.5rem auto auto 1.5rem; inline-size: 7rem; block-size: 2.2rem; border: 2px dashed var(\u002d\u002doc-border-strong); border-radius: 6px; }\n    .ps-host { contain: layout; }\n    .ps-menu { margin: 0; padding: 0.4rem 0.75rem; list-style: none; border: 1px solid var(\u002d\u002doc-border); border-radius: 8px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); font-size: 0.85rem; }\n    .ps-stack { position: relative; block-size: 7rem; }\n    .ps-stack > .ps-box { position: absolute; inline-size: 8rem; block-size: 4rem; display: grid; place-items: center; border: 2px solid var(\u002d\u002doc-background); }\n    .ps-stack > :nth-child(1) { inset: 0 auto auto 0; }\n    .ps-stack > :nth-child(2) { inset: 1.25rem auto auto 3.5rem; }\n    .ps-stack > :nth-child(3) { inset: 2.5rem auto auto 7rem; }\n    .ps-ctx { isolation: isolate; position: relative; padding: 0.75rem; border: 1px dashed var(\u002d\u002doc-border-strong); border-radius: 10px; background: var(\u002d\u002doc-muted); }\n  </style>"]}-->
+<section class="oc-docs-section" id="z-index">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Stacking / Z-Index</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_layering.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Control the stacking order of elements that overlap.
+          </p>
+          <p class="oc-section-header__desc">
+            <strong>What:</strong> <code>z-index</code> orders overlapping boxes inside a <em>stacking context</em>; higher numbers paint on top. <strong>When:</strong> dropdowns above content, sticky headers above scrolling rows, overlays above everything. <strong>Gotchas:</strong> <code>z-index</code> only works on positioned elements (anything but <code>static</code>) and on flex or grid children; a parent that creates a stacking context (<code>position</code> + <code>z-index</code>, <code>opacity &lt; 1</code>, <code>transform</code>, <code>isolation: isolate</code>) traps its children, so <code>.z-50</code> inside a low parent still loses to a sibling of that parent. Keep a small scale (the 0 to 50 steps here) instead of ever larger numbers. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Understanding_z-index" target="_blank" rel="noopener">MDN: Understanding z-index</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.z-0</code></td><td>0</td></tr>
+                <tr><td><code>.z-10</code></td><td>10</td></tr>
+                <tr><td><code>.z-20</code></td><td>20</td></tr>
+                <tr><td><code>.z-30</code></td><td>30</td></tr>
+                <tr><td><code>.z-40</code></td><td>40</td></tr>
+                <tr><td><code>.z-50</code></td><td>50</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.z-auto</code></td><td>auto</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title">Stacking Demo</h3>
+          <oc-demo title="z-30 above z-20 above z-10 (DOM order is the opposite)">
+            <div class="ps-stack">
+              <div class="ps-box relative z-10">z-10</div>
+              <div class="ps-box ps-box--alt relative z-20">z-20</div>
+              <div class="ps-box z-30">z-30</div>
+            </div>
+          <oc-code lang="html">&lt;div class="relative z-10"&gt;z-10&lt;/div&gt;
+&lt;div class="relative z-20"&gt;z-20&lt;/div&gt;
+&lt;div class="relative z-30"&gt;z-30&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="Stacking context: a high z-index cannot escape its parent">
+            <div class="ps-grid" style="grid-template-columns: 1fr;">
+              <div class="ps-ctx z-10">
+                <p class="ps-label">Parent .z-10 (stacking context)</p>
+                <div class="ps-box relative z-50" style="inline-size: 9rem;">child z-50</div>
+              </div>
+              <div class="ps-ctx z-20" style="margin-inline-start: 5rem; margin-block-start: -2.6rem;">
+                <p class="ps-label">Sibling parent .z-20</p>
+                <div class="ps-box ps-box--alt relative z-0" style="inline-size: 9rem;">child z-0</div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="relative z-10"&gt;&lt;div class="relative z-50"&gt;…&lt;/div&gt;&lt;/div&gt;
+&lt;div class="relative z-20"&gt;…&lt;/div&gt;   &lt;!-- still on top of the z-50 child above --&gt;</oc-code></oc-demo>
+
+          
+        </div>
+      </section>

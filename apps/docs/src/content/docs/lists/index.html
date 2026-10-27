@@ -1,0 +1,196 @@
+<!--oc-page {"title": "OmniaCSS Docs - Lists & Counters", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="lists">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Lists &amp; Counters</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_text.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">lists/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Utilities for list markers (type, position, image) and for CSS counters, which number any element — not only list items. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_counter_styles/Using_CSS_counters" target="_blank" rel="noopener">MDN: Using CSS counters</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="list-style-type">List style type</h3>
+          <p class="oc-section-content__desc"><code>list-style-type</code> picks the marker for <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> and any element with <code>display: list-item</code>. Besides bullets and decimal numbers it offers alphabetic, roman, greek and many international systems; the <code>disclosure-*</code> markers are the open/closed triangles used by <code>&lt;details&gt;</code>. Gotcha: <code>list-style-type: none</code> removes the list role in Safari VoiceOver, so add <code>role="list"</code> when you reset the markers of a navigation or card list. An unknown type falls back to <code>decimal</code> or <code>disc</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type" target="_blank" rel="noopener">MDN: list-style-type</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.list-none</code></td><td>list-style-type: none</td></tr>
+                <tr><td><code>.list-disc</code></td><td>list-style-type: disc</td></tr>
+                <tr><td><code>.list-circle</code></td><td>list-style-type: circle</td></tr>
+                <tr><td><code>.list-square</code></td><td>list-style-type: square</td></tr>
+                <tr><td><code>.list-decimal</code></td><td>list-style-type: decimal</td></tr>
+                <tr><td><code>.list-decimal-zero</code></td><td>list-style-type: decimal-leading-zero</td></tr>
+                <tr><td><code>.list-disclosure-open</code></td><td>list-style-type: disclosure-open</td></tr>
+                <tr><td><code>.list-disclosure-closed</code></td><td>list-style-type: disclosure-closed</td></tr>
+                <tr><td><code>.list-l-alpha</code></td><td>list-style-type: lower-alpha</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.list-u-alpha</code></td><td>list-style-type: upper-alpha</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.list-l-roman</code></td><td>list-style-type: lower-roman</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.list-u-roman</code></td><td>list-style-type: upper-roman</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.list-l-greek</code></td><td>list-style-type: lower-greek</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.list-l-latin</code></td><td>list-style-type: lower-latin</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.list-u-latin</code></td><td>list-style-type: upper-latin</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.list-l-armenian</code></td><td>list-style-type: lower-armenian</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.list-cjk-decimal</code></td><td>list-style-type: cjk-decimal</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Every list-style-type"><div class="dm-grid" style="--dm-min:9rem">
+<div class="dm-tile"><code>.list-none</code><div class="dm-area "><ul class="list-none m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-disc</code><div class="dm-area "><ul class="list-disc m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-circle</code><div class="dm-area "><ul class="list-circle m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-square</code><div class="dm-area "><ul class="list-square m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-decimal</code><div class="dm-area "><ul class="list-decimal m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-decimal-zero</code><div class="dm-area "><ul class="list-decimal-zero m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-l-alpha</code><div class="dm-area "><ul class="list-l-alpha m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-u-alpha</code><div class="dm-area "><ul class="list-u-alpha m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-l-roman</code><div class="dm-area "><ul class="list-l-roman m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-u-roman</code><div class="dm-area "><ul class="list-u-roman m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-l-greek</code><div class="dm-area "><ul class="list-l-greek m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-l-latin</code><div class="dm-area "><ul class="list-l-latin m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-l-armenian</code><div class="dm-area "><ul class="list-l-armenian m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-cjk-decimal</code><div class="dm-area "><ul class="list-cjk-decimal m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-disclosure-open</code><div class="dm-area "><ul class="list-disclosure-open m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-disclosure-closed</code><div class="dm-area "><ul class="list-disclosure-closed m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+</div><oc-code lang="html">&lt;ul class="list-disc"&gt;…&lt;/ul&gt;
+&lt;ol class="list-u-roman"&gt;…&lt;/ol&gt;
+&lt;ul class="list-disclosure-closed"&gt;…&lt;/ul&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="list-style-position">List style position &amp; image</h3>
+          <p class="oc-section-content__desc">Position decides whether the marker sits outside the item's box (default, text lines align with each other) or inside it, where the marker is the first inline element of the text and wrapped lines go underneath it. <code>list-style-image</code> replaces the marker with an image; the highlighted background below shows each <code>&lt;li&gt;</code> box. For coloured or sized markers use the <code>::marker</code> pseudo-element instead of images. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position" target="_blank" rel="noopener">MDN: list-style-position</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image" target="_blank" rel="noopener">MDN: list-style-image</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.list-inside</code></td><td>list-style-position: inside</td></tr>
+                <tr><td><code>.list-outside</code></td><td>list-style-position: outside</td></tr>
+                <tr><td><code>.list-image-none</code></td><td>list-style-image: none</td></tr>
+                <tr><td><code>.list-image-check</code></td><td>list-style-image: url(check.svg)</td></tr>
+                <tr><td><code>.list-image-dot</code></td><td>list-style-image: url(dot.svg)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="list-style-position"><div class="dm-grid" style="--dm-min:14rem">
+<div class="dm-tile"><code>.list-outside (marker hangs outside the text box)</code><div class="dm-area "><ul class="list-disc list-outside m-0" style="padding-inline-start:1.5rem"><li style="background:oklch(from var(--oc-foreground) l c h / 0.12)">A longer item that wraps onto a second line to show the alignment</li><li style="background:oklch(from var(--oc-foreground) l c h / 0.12)">Second item</li></ul></div></div>
+<div class="dm-tile"><code>.list-inside (marker is part of the text)</code><div class="dm-area "><ul class="list-disc list-inside m-0" style="padding-inline-start:0"><li style="background:oklch(from var(--oc-foreground) l c h / 0.12)">A longer item that wraps onto a second line to show the alignment</li><li style="background:oklch(from var(--oc-foreground) l c h / 0.12)">Second item</li></ul></div></div>
+</div><oc-code lang="html">&lt;ul class="list-disc list-outside"&gt;…&lt;/ul&gt;
+&lt;ul class="list-disc list-inside"&gt;…&lt;/ul&gt;</oc-code></oc-demo>
+          <oc-demo title="list-style-image"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.list-image-check</code><div class="dm-area "><ul class="list-image-check list-inside m-0" style="padding-inline-start:1.5rem;padding-inline-start:0"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-image-dot</code><div class="dm-area "><ul class="list-image-dot list-inside m-0" style="padding-inline-start:1.5rem;padding-inline-start:0"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="dm-tile"><code>.list-image-none .list-disc</code><div class="dm-area "><ul class="list-image-none list-disc list-inside m-0" style="padding-inline-start:1.5rem;padding-inline-start:0"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+</div><oc-code lang="html">&lt;ul class="list-image-check list-inside"&gt;
+  &lt;li&gt;Done&lt;/li&gt;
+&lt;/ul&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="counters">CSS counters</h3>
+          <p class="oc-section-content__desc">CSS counters number <em>any</em> element, not only list items, and can be nested (1, 1.1, 1.2). Three steps: <code>counter-reset</code> on the parent creates (or restarts) the counter, <code>counter-increment</code> on each child adds one, and <code>.content-counter</code> prints the value in <code>::before</code>. <code>.content-counters</code> joins the values of all nested counters (1.2.3). Gotcha: a counter that is reset on a sibling instead of the parent restarts the numbering at the wrong level, and <code>display: none</code> elements do not increment. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/counter-reset" target="_blank" rel="noopener">MDN: counter-reset</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.counter-reset</code></td><td>counter-reset: oc</td></tr>
+                <tr><td><code>.counter-reset-none</code></td><td>counter-reset: none</td></tr>
+                <tr><td><code>.counter-increment</code></td><td>counter-increment: oc</td></tr>
+                <tr><td><code>.counter-increment-none</code></td><td>counter-increment: none</td></tr>
+                <tr><td><code>.counter-set-0</code></td><td>counter-set: oc 0</td></tr>
+                <tr><td><code>.content-counter</code></td><td>::before { content: counter(oc) ". " }</td></tr>
+                <tr><td><code>.content-counters</code></td><td>::before { content: counters(oc, ".") " " }</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="counter-reset + counter-increment + content-counter">
+            
+            <div class="counter-reset round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
+              <h4 class="counter-increment content-counter mb-1 text-dodgerblue">Install the package</h4>
+              <h4 class="counter-increment content-counter mb-1 text-dodgerblue">Import omnia_main.css</h4>
+              <h4 class="counter-increment content-counter text-dodgerblue">Compose with utilities</h4>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="counter-reset"&gt;
+  &lt;h4 class="counter-increment content-counter"&gt;Install the package&lt;/h4&gt;
+  &lt;h4 class="counter-increment content-counter"&gt;Import omnia_main.css&lt;/h4&gt;
+  &lt;h4 class="counter-increment content-counter"&gt;Compose with utilities&lt;/h4&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="Nested numbering with CSS counters (1, 1.1, 1.2 …)">
+            <ol class="list-none counter-reset m-0 p-0 grid gap-0.5">
+              <li class="counter-increment content-counters">Installation
+                <ol class="list-none counter-reset m-0 pl-1.5 grid gap-0.5"><li class="counter-increment content-counters">npm</li><li class="counter-increment content-counters">CLI</li></ol>
+              </li>
+              <li class="counter-increment content-counters">Usage</li>
+            </ol>
+          <oc-code lang="html">&lt;ol class="list-none counter-reset"&gt;
+  &lt;li class="counter-increment content-counters"&gt;Installation
+    &lt;ol class="list-none counter-reset"&gt;
+      &lt;li class="counter-increment content-counters"&gt;npm&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</oc-code></oc-demo>
+
+                    <h3 class="oc-section-content__title mt-10" id="counter-style">Custom counter styles</h3>
+          <p class="oc-section-content__desc"><code>@counter-style</code> defines your own marker system (symbols, suffix, range) and works with both <code>list-style-type</code> and <code>counter()</code>. It is plain CSS, so declare it next to your component; the style name is then usable as a value. Use <code>::marker</code> to colour or resize the marker without touching the text. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style" target="_blank" rel="noopener">MDN: @counter-style</a>.</p>
+          <oc-code lang="css">@counter-style steps {
+  system: numeric;
+  symbols: "1" "2" "3" "4" "5" "6" "7" "8" "9";
+  suffix: " - ";
+}
+
+.steps { list-style-type: steps; }
+.steps li::marker { color: var(--color-vividblue-80); font-weight: 700; }</oc-code>
+
+<h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">List and counter utilities are broadly supported; unknown list-style types fall back to <code>decimal</code>/<code>disc</code>.</p>
+          <oc-compat features="css.properties.list-style-type css.properties.list-style-type.disclosure-open css.properties.list-style-position css.properties.list-style-image css.properties.counter-reset css.properties.counter-increment css.properties.counter-set"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            List type and position utilities come from <code>_text.scss</code>; list images, quotes and counters from <code>_typography_advanced.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type" target="_blank" rel="noopener">MDN: list-style-type</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_text.scss</code></td><td>.list-* (type), .list-inside, .list-outside</td></tr>
+                  <tr><td><code>src/scss/utilities/_typography_advanced.scss</code></td><td>.list-image-*, .list-disclosure-*, .counter-*, .content-counter(s)</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../generated-content/">Generated content</a>
+               · 
+              <a class="source-link" href="../typography/">Typography</a>
+            </p>
+          </div>
+        </div>
+      </section>

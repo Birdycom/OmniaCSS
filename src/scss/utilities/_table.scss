@@ -1,0 +1,46 @@
+// SCSS Document 
+// File: src/utilities/_table.scss
+// Description: CSS table properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: display
+// Values: table
+
+@use '../utilities/' as *;
+
+/* The Table properties */
+
+///
+/// The table Property
+/// @group Table
+///
+
+///
+/// The table property sets the flexible length on flexible items.
+/// @group Table
+/// @name table
+/// @link src/scss/utilities/_table.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	
+///
+/// @require $displaytable
+/// @example scss - table class
+///    .table {
+///       display: table;
+///     }
+/// @example html - use table class
+///   <div class="table">
+///
+///   </div> 
+@each $display-prop in $displaytable {
+  .#{$display-prop}{
+
+    display: $display-prop
+
+  }
+}
+/* End Table property */

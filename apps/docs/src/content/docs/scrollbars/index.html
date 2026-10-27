@@ -1,0 +1,169 @@
+<!--oc-page {"title": "OmniaCSS Docs - Scrollbars", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell oc-docs-shell\u002d\u002dno-right", "bodyClass": "", "head": ["<style>\n    .sb-box { box-sizing: border-box; inline-size: 13rem; block-size: 7rem; overflow-y: auto; padding: 0.6rem; border: 1px solid var(\u002d\u002doc-border); border-radius: 10px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); text-align: end; }\n    .sb-box p { margin: 0; }\n    .sb-label { display: block; margin-block-end: 0.3rem; font-size: 0.8rem; color: var(\u002d\u002doc-muted-foreground); }\n    .sb-scroller { box-sizing: border-box; inline-size: 14rem; block-size: 8rem; overflow: auto; padding: 0.6rem; border: 1px solid var(\u002d\u002doc-border); border-radius: 10px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); }\n    .sb-scroller p { margin: 0; block-size: 24rem; }\n  </style>"]}-->
+<section class="oc-docs-section" id="scrollbars">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Scrollbars</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_scrollbar.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">scrollbars/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Style scrollbars with standard CSS: make them thin or hidden, reserve space so layouts do not shift, and set thumb and track colors. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color" target="_blank" rel="noopener">MDN: scrollbar-color</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="scrollbar-width">Scrollbar width</h3>
+          <p class="oc-section-content__desc"><code>.scrollbar-none</code> hides the scrollbar while the element stays scrollable — keep a visible scroll hint for accessibility. <strong>What:</strong> <code>scrollbar-width</code> chooses between the default, a thin (compact) or no scrollbar. <strong>When:</strong> <code>thin</code> for dense panels, code blocks and sidebars; <code>none</code> for carousels and tab strips that have their own affordance. <strong>Gotchas:</strong> the value is a hint, browsers decide the exact size; hiding the scrollbar removes the only visual cue that content continues, so keep keyboard access (<code>tabindex="0"</code>) and a visible hint. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width" target="_blank" rel="noopener">MDN: scrollbar-width</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.scrollbar-auto</code></td><td>scrollbar-width: auto</td></tr>
+                <tr><td><code>.scrollbar-thin</code></td><td>scrollbar-width: thin</td></tr>
+                <tr><td><code>.scrollbar-none</code></td><td>scrollbar-width: none</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="scrollbar-gutter">Scrollbar gutter</h3>
+          <p class="oc-section-content__desc">Reserve space for the scrollbar so content does not jump when it appears (e.g. opening a modal). <strong>What:</strong> <code>stable</code> always keeps the gutter, <code>both-edges</code> mirrors it on the opposite side so centred content stays centred. <strong>When:</strong> containers whose content length changes (filtered lists, accordions, tabs), and <code>&lt;html&gt;</code> for pages that toggle a modal. <strong>Gotcha:</strong> overlay scrollbars (macOS default, mobile) have no gutter, so you only see the effect with classic scrollbars. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter" target="_blank" rel="noopener">MDN: scrollbar-gutter</a>.</p>
+          <oc-demo title="scrollbar-gutter-auto vs stable vs both-edges (content does not overflow, text is end-aligned)">
+            <div class="flex flex-wrap gap-2 w-full">
+              <div><span class="sb-label">.scrollbar-gutter-auto</span><div class="sb-box scrollbar-gutter-auto"><p>Short text, no scrollbar: it uses the full width.</p></div></div>
+              <div><span class="sb-label">.scrollbar-gutter-stable</span><div class="sb-box scrollbar-gutter-stable"><p>Same text: a strip on the right stays reserved.</p></div></div>
+              <div><span class="sb-label">.scrollbar-gutter-both</span><div class="sb-box scrollbar-gutter-both"><p>Reserved on both sides, so content stays centred.</p></div></div>
+            </div>
+          <oc-code lang="html">&lt;div class="overflow-y-auto scrollbar-gutter-stable"&gt;…&lt;/div&gt;
+&lt;div class="overflow-y-auto scrollbar-gutter-both"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.scrollbar-gutter-auto</code></td><td>scrollbar-gutter: auto</td></tr>
+                <tr><td><code>.scrollbar-gutter-stable</code></td><td>scrollbar-gutter: stable</td></tr>
+                <tr><td><code>.scrollbar-gutter-both</code></td><td>scrollbar-gutter: stable both-edges</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="scrollbar-color">Scrollbar color</h3>
+          <p class="oc-section-content__desc"><code>.scrollbar-color</code> applies the thumb and track colors set by the <code>.scrollbar-thumb-*</code> and <code>.scrollbar-track-*</code> classes (custom properties <code>--oc-scrollbar-thumb</code> / <code>--oc-scrollbar-track</code>). <strong>What:</strong> <code>scrollbar-color</code> takes two colors (thumb, then track) and is the standards-based way to theme scrollbars; it is inherited, so one class on a parent colors every scroller inside. <strong>Gotchas:</strong> setting a color switches the scrollbar from the native look to a flat, custom one; there is no hover state or rounding to control; keep enough contrast between thumb and track (at least 3:1) so it stays findable. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color" target="_blank" rel="noopener">MDN: scrollbar-color</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.scrollbar-color</code></td><td>scrollbar-color: var(--oc-scrollbar-thumb) var(--oc-scrollbar-track)</td></tr>
+                <tr><td><code>.scrollbar-color-auto</code></td><td>scrollbar-color: auto</td></tr>
+                <tr><td><code>.scrollbar-thumb-current</code></td><td>--oc-scrollbar-thumb: currentcolor</td></tr>
+                <tr><td><code>.scrollbar-thumb-gray</code></td><td>--oc-scrollbar-thumb: oklch(0.7 0 0)</td></tr>
+                <tr><td><code>.scrollbar-thumb-blue</code></td><td>--oc-scrollbar-thumb: oklch(0.62 0.19 260)</td></tr>
+                <tr><td><code>.scrollbar-track-transparent</code></td><td>--oc-scrollbar-track: transparent</td></tr>
+                <tr><td><code>.scrollbar-track-gray</code></td><td>--oc-scrollbar-track: oklch(0.95 0 0)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="scrollbar-auto, scrollbar-thin + color, scrollbar-none">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.scrollbar-auto</span>
+                <div class="scrollbar-auto max-h-32 w-12 overflow-y-auto round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component. OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.scrollbar-thin</span>
+                <div class="scrollbar-thin scrollbar-color scrollbar-thumb-blue scrollbar-track-gray max-h-32 w-12 overflow-y-auto round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component. OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.scrollbar-none</span>
+                <div class="scrollbar-none max-h-32 w-12 overflow-y-auto round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component. OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="scrollbar-auto overflow-y-auto max-h-32"&gt;…&lt;/div&gt;
+&lt;div class="scrollbar-thin scrollbar-color scrollbar-thumb-blue scrollbar-track-gray overflow-y-auto max-h-32"&gt;…&lt;/div&gt;
+&lt;div class="scrollbar-none overflow-y-auto max-h-32"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Unsupported scrollbar properties are ignored and the platform's default scrollbar is shown.</p>
+          <oc-compat features="css.properties.scrollbar-width css.properties.scrollbar-gutter css.properties.scrollbar-color"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Scrollbar utilities come from <code>_scrollbar.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter" target="_blank" rel="noopener">MDN: scrollbar-gutter</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width" target="_blank" rel="noopener">MDN: scrollbar-width</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_scrollbar.scss</code></td><td>.scrollbar-*, .scrollbar-gutter-*, .scrollbar-color, .scrollbar-thumb-*, .scrollbar-track-*</td></tr>
+                  <tr><td><code>src/scss/utilities/_overflow.scss</code></td><td>.overflow-*, .overscroll-*</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../layout/overflow.html">Overflow</a>
+               · 
+              <a class="source-link" href="../interactivity/">Interactivity</a>
+               · 
+              <a class="source-link" href="../scroll-animations/">Scroll animations</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="scrollbar-omnia">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">OmniaCSS scrollbar</h2>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_scrollbar.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.4.0</span>
+          <p class="oc-section-header__desc"><code>.scrollbar-omnia</code> gives a thin scrollbar with an Omnia-blue thumb on a transparent track, in light and dark mode. <code>scrollbar-color</code> is inherited, so one class on <code>&lt;html&gt;</code> themes every scroll area — this documentation site does exactly that.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.scrollbar-omnia</code></td><td>scrollbar-width: thin; scrollbar-color: Omnia vividblue thumb / transparent track (light-dark)</td></tr>
+                <tr><td><code>.scrollbar-thumb-blue</code></td><td>--oc-scrollbar-thumb: var(--color-vividblue-80)</td></tr>
+                <tr><td><code>.scrollbar-thumb-cyan</code></td><td>--oc-scrollbar-thumb: var(--color-skycyan-80)</td></tr>
+                <tr><td><code>.scrollbar-thumb-purple</code></td><td>--oc-scrollbar-thumb: var(--color-purple-20)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Default vs .scrollbar-omnia vs custom thumb">
+            <div class="flex flex-wrap gap-2 w-full">
+              <div class="oc-preview__item"><span class="oc-preview__label">browser default</span>
+                <div style="scrollbar-color: auto; scrollbar-width: auto; block-size: 9rem; inline-size: 14rem; overflow: auto; padding: 12px; border: 1px solid var(--oc-border); border-radius: 10px;"><p style="block-size: 24rem; margin: 0;">Scroll me — default scrollbar.</p></div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.scrollbar-omnia</span>
+                <div class="scrollbar-omnia" style="block-size: 9rem; inline-size: 14rem; overflow: auto; padding: 12px; border: 1px solid var(--oc-border); border-radius: 10px;"><p style="block-size: 24rem; margin: 0;">Scroll me — OmniaCSS scrollbar.</p></div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.scrollbar-thin .scrollbar-color .scrollbar-thumb-purple</span>
+                <div class="scrollbar-thin scrollbar-color scrollbar-thumb-purple scrollbar-track-transparent" style="block-size: 9rem; inline-size: 14rem; overflow: auto; padding: 12px; border: 1px solid var(--oc-border); border-radius: 10px;"><p style="block-size: 24rem; margin: 0;">Scroll me — purple thumb.</p></div></div>
+            </div>
+          </oc-demo>
+        </div>
+      </section>

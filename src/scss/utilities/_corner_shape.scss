@@ -1,0 +1,30 @@
+// SCSS Document
+// File: src/scss/utilities/_corner_shape.scss
+// Description: corner-shape utilities — shape of box corners within border-radius (CSS Borders Level 4).
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.2.1
+// Framework: OmniaCSS
+// Purpose: Generate .corner-* classes for corner-shape (round, scoop, bevel, notch, square, squircle).
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape
+// Note: corner-shape only has effect when border-radius is set (e.g. use with .rounded-lg).
+
+/* Corner shape — modifies the shape of rounded corners (border-radius). Experimental; check browser support. */
+.corner-round {
+  corner-shape: round;
+}
+.corner-scoop {
+  corner-shape: scoop;
+}
+.corner-bevel {
+  corner-shape: bevel;
+}
+.corner-notch {
+  corner-shape: notch;
+}
+.corner-square {
+  corner-shape: square;
+}
+.corner-squircle {
+  corner-shape: squircle;
+}

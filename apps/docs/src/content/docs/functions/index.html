@@ -1,0 +1,275 @@
+<!--oc-page {"title":"OmniaCSS Docs - CSS Functions","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .fn-resize { container-type: inline-size; resize: horizontal; overflow: hidden; inline-size: 70%; min-inline-size: 10rem; max-inline-size: 100%; padding: 1rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    .fn-track { block-size: 2.25rem; border-radius: 999px; background: var(--oc-muted); overflow: hidden; }\n    .fn-progress { --p: 0.5; --p: clamp(0, progress(100cqi, 12rem, 36rem), 1); counter-reset: fnp calc(var(--p) * 100); display: grid; align-items: center; block-size: 100%; inline-size: calc(var(--p) * 100%); min-inline-size: 3.5rem; padding-inline: 0.75rem; border-radius: inherit; background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50) calc(var(--p) * 100%)); color: var(--color-white-50); font-weight: 700; font-size: 0.8rem; }\n    .fn-progress::after { content: counter(fnp) \"%\"; }\n    .fn-note { margin: 0.5rem 0 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .fn-steps { block-size: 2.25rem; background: repeating-linear-gradient(90deg, var(--oc-muted) 0 calc(3rem - 2px), var(--oc-border-strong) 0 3rem); border-radius: 6px; }\n    .fn-snap { block-size: 100%; inline-size: 100%; inline-size: round(down, 100%, 3rem); border-radius: 6px; background: var(--oc-gradient-brand); transition: inline-size 0.2s; }\n    .fn-scale { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem; }\n    .fn-scale span { font-size: calc(1rem * pow(1.25, var(--step))); font-weight: 700; line-height: 1; color: var(--oc-foreground); }\n    .fn-scale small { display: block; font-size: 0.7rem; font-weight: 400; color: var(--oc-muted-foreground); }\n    .fn-orbit { position: relative; inline-size: 14rem; aspect-ratio: 1; margin-inline: auto; animation: fn-turn 18s linear infinite; }\n    .fn-orbit > span { --a: calc((sibling-index() - 1) * 360deg / sibling-count()); position: absolute; left: calc(50% + cos(var(--a)) * 5.5rem - 1.1rem); top: calc(50% + sin(var(--a)) * 5.5rem - 1.1rem); inline-size: 2.2rem; aspect-ratio: 1; border-radius: 50%; background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50) calc((sibling-index() - 1) / (sibling-count() - 1) * 100%)); }\n    @keyframes fn-turn { to { rotate: 1turn; } }\n    @media (prefers-reduced-motion: reduce) { .fn-orbit { animation: none; } }\n    .fn-list { display: grid; gap: 0.4rem; inline-size: min(100%, 22rem); padding: 0; margin: 0; list-style: none; }\n    .fn-list li { padding: 0.5rem 0.75rem; border-radius: 8px; background: var(--oc-muted); }\n    .fn-hand { display: flex; justify-content: center; box-sizing: border-box; inline-size: 100%; padding: 2rem 2rem 1rem; }\n    .fn-hand > div { inline-size: 4.5rem; aspect-ratio: 5 / 7; margin-inline: -0.9rem; border: 2px solid var(--oc-card); border-radius: 10px; background: var(--oc-gradient-brand); box-shadow: 0 6px 16px oklch(from var(--color-black-50) l c h / 0.25); transition: rotate 0.3s, translate 0.3s; }\n    .fn-hand:hover > div { --oc-fan: 14deg; }\n    .fn-hand > div:hover { translate: 0 -0.75rem; }\n    .fn-chart { display: grid; gap: 0.5rem; inline-size: min(100%, 26rem); }\n    .fn-chart div { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; }\n    .fn-chart div::before { content: attr(data-label); flex: none; inline-size: 4rem; color: var(--oc-muted-foreground); }\n    .fn-chart span { block-size: 1.25rem; inline-size: 40%; inline-size: attr(data-value type(<percentage>), 0%); border-radius: 4px; background: var(--color-vividblue-80); }\n    .fn-chart span::after { content: attr(data-value); display: block; padding-inline-start: calc(100% + 0.4rem); line-height: 1.25rem; font-size: 0.75rem; }\n    .fn-status { display: inline-block; align-self: center;padding: 0.35rem 0.8rem; border-radius: 999px; color: var(--color-white-50); font-size: 0.8rem; font-weight: 600; background: var(--color-gray-50); background: if(style(--fn-state: done): var(--color-green-60); style(--fn-state: busy): var(--color-orange-60); else: var(--color-gray-50)); }\n    .fn-acc { inline-size: min(100%, 26rem); border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); interpolate-size: allow-keywords; }\n    .fn-acc summary { padding: 0.75rem 1rem; font-weight: 600; cursor: pointer; }\n    .fn-acc::details-content { block-size: 0; overflow: clip; transition: block-size 0.35s, content-visibility 0.35s allow-discrete; }\n    .fn-acc[open]::details-content { block-size: auto; }\n    .fn-acc p { margin: 0; padding: 0 1rem 1rem; }\n    .fn-confetti { position: relative; block-size: 9rem; inline-size: min(100%, 22rem); margin-inline: auto; overflow: hidden; border-radius: 12px; background: var(--oc-muted); }\n    .fn-confetti i { position: absolute; left: 50%; top: 50%; inline-size: 0.6rem; block-size: 1rem; border-radius: 2px; background: var(--color-orange-50); translate: calc(sin(sibling-index() * 57deg) * 9rem) calc(cos(sibling-index() * 91deg) * 3.5rem); rotate: calc(sibling-index() * 47deg); translate: random(-10rem, 10rem) random(-4rem, 4rem); rotate: random(0deg, 360deg); }\n    .fn-confetti i:nth-child(3n) { background: var(--color-vividblue-80); }\n    .fn-confetti i:nth-child(3n + 1) { background: var(--color-magenta-50); }\n  </style>"]}-->
+<section class="oc-docs-section" id="css-functions">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">CSS Functions</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_css_functions.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">functions/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.8.2</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            CSS can calculate. From <code>calc()</code> via <code>clamp()</code> to <code>progress()</code>, stepped values (<code>round()</code>, <code>mod()</code>), exponents and trigonometry, tree counting (<code>sibling-index()</code>, <code>sibling-count()</code>), typed <code>attr()</code>, inline conditions with <code>if()</code>, <code>calc-size()</code> and <code>random()</code>. OmniaCSS ships utilities on top of them (<code>.delay-stagger</code>, <code>.fan</code>, <code>.text-fluid-*</code>), and you can use every function in your own CSS next to the tokens. Color functions are on <a href="../colors/functions.html">Color functions</a>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions" target="_blank" rel="noopener">MDN: CSS functions</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="overview">Function families</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Functions</th><th>What they do</th></tr></thead>
+              <tbody>
+                <tr><td><code>calc()</code></td><td>Mix units: <code>calc(100% - 2rem)</code></td></tr>
+                <tr><td><code>min()</code>, <code>max()</code>, <code>clamp()</code></td><td>Smallest, largest, or a value between a minimum and maximum — see <a href="../fluid.html">Fluid values</a></td></tr>
+                <tr><td><code>progress()</code></td><td>Where a value sits between two others, as a number 0…1</td></tr>
+                <tr><td><code>round()</code>, <code>mod()</code>, <code>rem()</code></td><td>Snap to a step, remainder (sign of divisor / of dividend)</td></tr>
+                <tr><td><code>abs()</code>, <code>sign()</code></td><td>Absolute value, -1 / 0 / 1</td></tr>
+                <tr><td><code>pow()</code>, <code>sqrt()</code>, <code>hypot()</code>, <code>log()</code>, <code>exp()</code></td><td>Exponential functions (type scales, diagonals)</td></tr>
+                <tr><td><code>sin()</code>, <code>cos()</code>, <code>tan()</code>, <code>asin()</code>, <code>acos()</code>, <code>atan()</code>, <code>atan2()</code></td><td>Trigonometry (circular layouts, waves)</td></tr>
+                <tr><td><code>sibling-index()</code>, <code>sibling-count()</code></td><td>Position of an element among its siblings, and their number</td></tr>
+                <tr><td><code>attr()</code></td><td>Read an HTML attribute, now typed: <code>attr(data-x type(&lt;length&gt;))</code></td></tr>
+                <tr><td><code>if()</code></td><td>Inline condition on <code>style()</code>, <code>media()</code> or <code>supports()</code></td></tr>
+                <tr><td><code>calc-size()</code></td><td>Calculate with <code>auto</code>, <code>fit-content</code> … (animate to auto)</td></tr>
+                <tr><td><code>random()</code></td><td>A random value per element</td></tr>
+                <tr><td><code>env()</code>, <code>var()</code>, <code>counter()</code>, <code>url()</code>, <code>image-set()</code></td><td>Environment, variables, counters, images</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="progress">From clamp() to progress()</h3>
+          <p class="oc-section-content__desc"><code>clamp(min, value, max)</code> limits a value. <code>progress(value, start, end)</code> goes one step further: it tells you <strong>how far</strong> a value is between two points, as a number from 0 to 1. Use that number for anything: width, opacity, a color mix, a counter. Below, the container width (<code>100cqi</code>) between 12rem and 36rem drives the bar, its color and the percentage text. Drag the corner to resize.</p>
+          <oc-demo title="progress(100cqi, 12rem, 36rem) drives width, color and text">
+            <div class="fn-resize">
+              <div class="fn-track"><div class="fn-progress"></div></div>
+              <p class="fn-note">Drag the bottom-right corner →</p>
+            </div>
+          <oc-code lang="css">.fn-resize { container-type: inline-size; resize: horizontal; overflow: hidden; }
+
+.fn-progress {
+  --p: 0.5;                                                    /* fallback */
+  --p: clamp(0, progress(100cqi, 12rem, 36rem), 1);           /* 0 … 1 */
+  inline-size: calc(var(--p) * 100%);
+  background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50) calc(var(--p) * 100%));
+  counter-reset: fnp calc(var(--p) * 100);                     /* integer context rounds */
+}
+.fn-progress::after { content: counter(fnp) "%"; }
+
+/* The same idea for fluid type, without the "preferred value" math of clamp() */
+h1 { font-size: calc(1.5rem + progress(100vw, 20rem, 80rem) * 2rem); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="stepped">Stepped values: round(), mod(), rem()</h3>
+          <p class="oc-section-content__desc"><code>round(strategy, value, step)</code> snaps to a multiple of <em>step</em> (<code>nearest</code>, <code>up</code>, <code>down</code>, <code>to-zero</code>). The bar below only grows in whole 3rem steps, whatever the container width.</p>
+          <oc-demo title="inline-size: round(down, 100%, 3rem)">
+            <div class="fn-resize">
+              <div class="fn-steps"><div class="fn-snap"></div></div>
+              <p class="fn-note">Resize: the bar jumps per 3rem column</p>
+            </div>
+          <oc-code lang="css">.fn-snap { inline-size: round(down, 100%, 3rem); }
+
+/* More examples */
+.grid-auto { grid-template-columns: repeat(round(down, 100cqi, 16rem) / 16rem, 1fr); }
+.hue-wrap  { rotate: mod(450deg, 360deg); }               /* 90deg */
+.offset    { margin-left: rem(-7px, 3px); }                /* -1px (sign of the dividend) */
+.distance  { inline-size: abs(var(--delta)); }
+.direction { translate: calc(sign(var(--delta)) * 1rem); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="exponential">Exponential: pow(), sqrt(), hypot(), log(), exp()</h3>
+          <p class="oc-section-content__desc">A modular type scale is one formula: <code>1rem × 1.25<sup>step</sup></code>. <code>hypot()</code> gives the diagonal of a box, <code>sqrt()</code> and <code>log()</code> smooth large ranges.</p>
+          <oc-demo title="font-size: calc(1rem * pow(1.25, var(--step)))">
+            <div class="fn-scale">
+              <span style="--step: -1">Aa<small>-1</small></span>
+              <span style="--step: 0">Aa<small>0</small></span>
+              <span style="--step: 1">Aa<small>1</small></span>
+              <span style="--step: 2">Aa<small>2</small></span>
+              <span style="--step: 3">Aa<small>3</small></span>
+              <span style="--step: 4">Aa<small>4</small></span>
+              <span style="--step: 5">Aa<small>5</small></span>
+            </div>
+          <oc-code lang="css">.fn-scale span { font-size: calc(1rem * pow(1.25, var(--step))); }
+
+.diagonal { inline-size: hypot(30rem, 20rem); }          /* ≈ 36.06rem */
+.root     { inline-size: calc(sqrt(2) * 10rem); }
+.soft     { opacity: calc(log(var(--n) + 1) / log(101)); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="trigonometry">Trigonometry + tree counting: a circle without JavaScript</h3>
+          <p class="oc-section-content__desc">Each dot computes its own angle from <code>sibling-index()</code> and <code>sibling-count()</code>, then its position with <code>cos()</code> and <code>sin()</code>. Add or remove dots and the circle redistributes itself; the color mixes between two Omnia tokens along the way.</p>
+          <oc-demo title="cos() / sin() with sibling-index()">
+            <div class="fn-orbit"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <oc-code lang="css">.fn-orbit &gt; span {
+  --a: calc((sibling-index() - 1) * 360deg / sibling-count());
+  position: absolute;
+  left: calc(50% + cos(var(--a)) * 5.5rem - 1.1rem);
+  top:  calc(50% + sin(var(--a)) * 5.5rem - 1.1rem);
+  background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50)
+              calc((sibling-index() - 1) / (sibling-count() - 1) * 100%));
+}
+.fn-orbit { animation: fn-turn 18s linear infinite; }
+@keyframes fn-turn { to { rotate: 1turn; } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="tree-counting">Tree counting utilities</h3>
+          <p class="oc-section-content__desc">OmniaCSS wraps the most useful patterns in classes. Set the step with <code>.stagger-*</code> (or <code>--oc-stagger</code>) on the parent or the child.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.delay-stagger</code></td><td>transition-delay: calc((sibling-index() - 1) * var(--oc-stagger, 60ms))</td></tr>
+                <tr><td><code>.delay-stagger-reverse</code></td><td>transition-delay: calc((sibling-count() - sibling-index()) * var(--oc-stagger, 60ms))</td></tr>
+                <tr><td><code>.animate-delay-stagger</code></td><td>animation-delay: calc((sibling-index() - 1) * var(--oc-stagger, 60ms))</td></tr>
+                <tr><td><code>.stagger-{30|60|100|150|250}</code></td><td>--oc-stagger: {n}ms</td></tr>
+                <tr><td><code>.fan</code></td><td>rotate: calc((sibling-index() - (sibling-count() + 1) / 2) * var(--oc-fan, 6deg))</td></tr>
+                <tr><td><code>.fan-{3|6|10|15}</code></td><td>--oc-fan: {n}deg</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Hover the list: .delay-stagger .stagger-100">
+            <ul class="fn-list group stagger-100">
+              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">First item</li>
+              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">Second item</li>
+              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">Third item</li>
+              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">Fourth item</li>
+              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">Fifth item</li>
+            </ul>
+          <oc-code lang="html">&lt;ul class="group stagger-100"&gt;
+  &lt;li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;First item&lt;/li&gt;
+  &lt;li class="… delay-stagger"&gt;Second item&lt;/li&gt;
+  …
+&lt;/ul&gt;</oc-code></oc-demo>
+
+          <oc-demo title="A hand of cards: .fan (hover to spread)">
+            <div class="fn-hand">
+              <div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div>
+            </div>
+          <oc-code lang="html">&lt;div class="fn-hand"&gt;
+  &lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- .fn-hand:hover &gt; div { --oc-fan: 14deg; }  (or .fan-15 on each card) --&gt;</oc-code></oc-demo>
+
+          <oc-demo title="Loader: .animate-bounce .animate-delay-stagger .stagger-150">
+            <div class="flex gap-2 align-items-end p-4">
+              <span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
+              <span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
+              <span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
+              <span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
+            </div>
+          <oc-code lang="html">&lt;div class="flex gap-2"&gt;
+  &lt;span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"&gt;&lt;/span&gt;
+  … (repeat)
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="attr">Typed attr(): data straight from HTML</h3>
+          <p class="oc-section-content__desc"><code>attr()</code> used to work only in <code>content</code>. With a type it works in every property: <code>attr(data-value type(&lt;percentage&gt;), 0%)</code>. The bar chart below has no inline styles, only data attributes.</p>
+          <oc-demo title="Bar chart from data-value attributes">
+            <div class="fn-chart">
+              <div data-label="HTML"><span data-value="92%"></span></div>
+              <div data-label="CSS"><span data-value="78%"></span></div>
+              <div data-label="SVG"><span data-value="45%"></span></div>
+              <div data-label="JS"><span data-value="18%"></span></div>
+            </div>
+          <oc-code lang="css">.fn-chart div::before { content: attr(data-label); }
+.fn-chart span {
+  inline-size: 40%;                                             /* fallback */
+  inline-size: attr(data-value type(&lt;percentage&gt;), 0%);
+}
+/* other types: attr(data-size type(&lt;length&gt;)), attr(data-color type(&lt;color&gt;)), attr(data-n type(&lt;integer&gt;)) */
+/* &lt;div data-label="CSS"&gt;&lt;span data-value="78%"&gt;&lt;/span&gt;&lt;/div&gt; */</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="if">if(): conditions inside a value</h3>
+          <p class="oc-section-content__desc"><code>if()</code> picks a value based on <code>style()</code>, <code>media()</code> or <code>supports()</code>, without a separate rule. Write a plain value first for browsers without <code>if()</code>.</p>
+          <oc-demo title="background: if(style(--fn-state: done): …; style(--fn-state: busy): …; else: …)">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <span class="fn-status" style="--fn-state: done">done</span>
+              <span class="fn-status" style="--fn-state: busy">busy</span>
+              <span class="fn-status" style="--fn-state: idle">idle</span>
+            </div>
+          <oc-code lang="css">.fn-status {
+  background: var(--color-gray-50);                            /* fallback */
+  background: if(
+    style(--fn-state: done): var(--color-green-60);
+    style(--fn-state: busy): var(--color-orange-60);
+    else: var(--color-gray-50)
+  );
+}
+.card { padding: if(media(width &gt;= 40rem): 2rem; else: 1rem); }
+.grid { display: if(supports(display: grid-lanes): grid-lanes; else: grid); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="calc-size">calc-size() and interpolate-size: animate to auto</h3>
+          <p class="oc-section-content__desc"><code>interpolate-size: allow-keywords</code> (utility <code>.interpolate-size-keywords</code>) lets <code>height: auto</code> animate. <code>calc-size(auto, size + 1rem)</code> calculates with intrinsic sizes. Open the accordion: no JavaScript, no max-height trick.</p>
+          <oc-demo title="details + ::details-content + interpolate-size">
+            <details class="fn-acc">
+              <summary>How does this open smoothly?</summary>
+              <p>The <code>::details-content</code> pseudo-element animates its block-size from 0 to auto, because the parent allows keyword interpolation. <code>content-visibility</code> switches with <code>allow-discrete</code> at the end.</p>
+            </details>
+          <oc-code lang="css">.fn-acc { interpolate-size: allow-keywords; }        /* or class="interpolate-size-keywords" */
+.fn-acc::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition: block-size 0.35s, content-visibility 0.35s allow-discrete;
+}
+.fn-acc[open]::details-content { block-size: auto; }
+
+/* Only for one property: */
+.panel { block-size: calc-size(auto, size + 2rem); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="random">random(): a different value per element</h3>
+          <p class="oc-section-content__desc">Every piece of confetti gets its own position and angle. Browsers without <code>random()</code> keep the line above it: a pseudo-random spread from <code>sin()</code> of the sibling index.</p>
+          <oc-demo title="translate: random(-10rem, 10rem) random(-4rem, 4rem)">
+            <div class="fn-confetti"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <oc-code lang="css">.fn-confetti i {
+  /* fallback: deterministic spread */
+  translate: calc(sin(sibling-index() * 57deg) * 9rem) calc(cos(sibling-index() * 91deg) * 3.5rem);
+  rotate: calc(sibling-index() * 47deg);
+  /* random() per element */
+  translate: random(-10rem, 10rem) random(-4rem, 4rem);
+  rotate: random(0deg, 360deg);
+}
+.dice { --n: random(1, 6, by 1); }                       /* steps */
+.same { rotate: random(--shared, 0deg, 90deg); }         /* same value for every element */</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="env">env(): safe areas and the device</h3>
+          <oc-code lang="css">.app-bar { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }   /* notch / home bar */
+.screen  { height: calc(100dvh - env(safe-area-inset-top)); }          /* = .h-screen-safe */
+.titlebar { inline-size: env(titlebar-area-width, 100%); }              /* installed PWA */
+.kb-aware { padding-bottom: env(keyboard-inset-height, 0px); }           /* virtual keyboard */</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc"><code>calc()</code>, <code>min()</code>, <code>max()</code>, <code>clamp()</code>, the stepped, exponential and trigonometric functions work in every current browser. <code>progress()</code>, <code>sibling-index()</code> and typed <code>attr()</code> are new; <code>if()</code>, <code>calc-size()</code> and <code>random()</code> are not everywhere yet — every demo here writes a fallback first.</p>
+          <oc-compat features="css.types.calc css.types.clamp css.types.progress css.types.round css.types.mod css.types.pow css.types.sin css.types.sibling-index css.types.sibling-count css.types.attr css.types.if css.types.calc-size css.types.random css.properties.interpolate-size"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The tree-counting utilities come from <code>_css_functions.scss</code>; fluid values from <code>_clamp.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/progress" target="_blank" rel="noopener">MDN: progress()</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/sibling-index" target="_blank" rel="noopener">MDN: sibling-index()</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/if" target="_blank" rel="noopener">MDN: if()</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_css_functions.scss</code></td><td>.delay-stagger, .animate-delay-stagger, .stagger-*, .fan, .fan-*, .bg-current-*, .border-current-*</td></tr>
+                  <tr><td><code>src/scss/utilities/_clamp.scss</code></td><td>.text-fluid-*, .w-fluid-*, clamp() mixin</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../fluid.html">Fluid values</a>
+               ·
+              <a class="source-link" href="../colors/functions.html">Color functions</a>
+               ·
+              <a class="source-link" href="../units/">Units</a>
+            </p>
+          </div>
+        </div>
+      </section>

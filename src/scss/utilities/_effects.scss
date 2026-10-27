@@ -1,0 +1,50 @@
+// SCSS Document 
+// File: src/utilities/_effects.scss
+// Description: CSS effects properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: opacity, box shadow
+// Values: Decoration
+
+@use '../utilities/' as *;
+
+/* The Opacity properties */
+
+///
+/// The Text Decoration Property
+/// @group Opacity
+///
+
+///
+/// The text-decoration-line property sets the Text decoration.
+/// @group Opacity
+/// @name opacity
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $opacity
+/// @example scss - opacity class
+///   @each $opacity-prop, $opacity-value in $opacity {
+///     .#{$opacity-prop}{
+///       opacity: $opacity-value
+///     }
+///   }
+/// @example html - use text decoration line class
+///   <div class="underline opacity-50">
+///     <p>this line have text decoration line </p>
+///   </div> 
+///   <div class="hover:underline">
+///     <p>this line have text decoration line </p>
+///   </div> 
+@each $opacity-prop, $opacity-value in $opacity {
+  .#{$opacity-prop}{
+
+    opacity: $opacity-value
+
+  }
+}

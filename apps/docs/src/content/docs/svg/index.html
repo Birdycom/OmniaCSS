@@ -1,0 +1,211 @@
+<!--oc-page {"title": "OmniaCSS Docs - SVG", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="svg">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">SVG</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_svg.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">svg/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Style inline SVG with utilities: fill and stroke color, opacity and rules, dash patterns, line caps and joins, <code>paint-order</code>, non-scaling strokes, SVG text alignment and marker/stop/filter colors. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fill_stroke" target="_blank" rel="noopener">MDN: Fill and stroke</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="fill-stroke">Fill &amp; stroke</h3>
+          <p class="oc-section-content__desc"><code>fill</code> paints the inside of a shape, <code>stroke</code> its outline. Use <code>.fill-current</code> / <code>.stroke-current</code> so icons follow the text color of the parent: one class and the icon adapts to light, dark and hover states. <code>.stroke-n</code> sets the stroke width in user units (it scales with the viewBox), <code>.fill-rule-evenodd</code> punches holes where a path overlaps itself, and the opacity classes make the paint translucent. Gotcha: an SVG without a <code>fill</code> is black, and <code>fill-none</code> is needed for line icons. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/fill" target="_blank" rel="noopener">MDN: fill</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/stroke" target="_blank" rel="noopener">MDN: stroke</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.fill-{none|current|black|white|blue-500|red-500|green-500}</code></td><td>fill</td></tr>
+                <tr><td><code>.stroke-{none|current|black|white|blue-500|red-500|green-500}</code></td><td>stroke</td></tr>
+                <tr><td><code>.stroke-{0|1|2|3|4|8}</code></td><td>stroke-width</td></tr>
+                <tr><td><code>.fill-rule-{nonzero|evenodd} / .clip-rule-*</code></td><td>fill-rule / clip-rule</td></tr>
+                <tr><td><code>.fill-opacity-{0|50|100} / .stroke-opacity-*</code></td><td>fill-opacity / stroke-opacity</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+                    <oc-demo title="Fill, stroke and fill-rule on a pentagram"><div class="dm-grid" style="--dm-min:11rem">
+<div class="dm-tile"><code>.fill-current</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polygon points="50,6 80,94 4,38 96,38 20,94" class="fill-current"/></svg></div></div>
+<div class="dm-tile"><code>.fill-none .stroke-current .stroke-2</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polygon points="50,6 80,94 4,38 96,38 20,94" class="fill-none stroke-current stroke-2"/></svg></div></div>
+<div class="dm-tile"><code>.fill-current .fill-opacity-50 .stroke-current .stroke-4</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polygon points="50,6 80,94 4,38 96,38 20,94" class="fill-current fill-opacity-50 stroke-current stroke-4"/></svg></div></div>
+<div class="dm-tile"><code>.fill-rule-nonzero</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polygon points="50,6 80,94 4,38 96,38 20,94" class="fill-current fill-rule-nonzero"/></svg></div></div>
+<div class="dm-tile"><code>.fill-rule-evenodd</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polygon points="50,6 80,94 4,38 96,38 20,94" class="fill-current fill-rule-evenodd"/></svg></div></div>
+<div class="dm-tile"><code>.fill-current (text color follows)</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-orange-60);display:block" aria-hidden="true"><polygon points="50,6 80,94 4,38 96,38 20,94" class="fill-current"/></svg></div></div>
+</div><oc-code lang="html">&lt;svg viewBox="0 0 100 100" class="size-20 text-dodgerblue"&gt;
+  &lt;polygon class="fill-current fill-opacity-50 stroke-current stroke-4" points="…"/&gt;
+&lt;/svg&gt;</oc-code></oc-demo>
+          <oc-demo title="Stroke widths"><div class="dm-grid" style="--dm-min:8rem">
+<div class="dm-tile"><code>.stroke-1</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="10" y1="50" x2="90" y2="50" class="stroke-current stroke-1"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-2</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="10" y1="50" x2="90" y2="50" class="stroke-current stroke-2"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-3</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="10" y1="50" x2="90" y2="50" class="stroke-current stroke-3"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-4</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="10" y1="50" x2="90" y2="50" class="stroke-current stroke-4"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-8</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="10" y1="50" x2="90" y2="50" class="stroke-current stroke-8"/></svg></div></div>
+</div><oc-code lang="html">&lt;line class="stroke-current stroke-4" x1="10" y1="50" x2="90" y2="50"/&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-10" id="dashes">Dashes, caps &amp; joins</h3>
+          <p class="oc-section-content__desc"><code>stroke-dasharray</code> turns a solid stroke into dashes (lengths are in user units), <code>stroke-dashoffset</code> shifts the pattern, which animates nicely for line-drawing effects. Caps shape the ends of open lines and dashes: <code>butt</code> ends exactly at the point, <code>round</code> and <code>square</code> extend by half the stroke width (the thin guides mark the true end points). Joins shape the corners of paths; with <code>miter</code> a sharp angle is converted to a bevel once it exceeds <code>stroke-miterlimit</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/stroke-dasharray" target="_blank" rel="noopener">MDN: stroke-dasharray</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/stroke-linejoin" target="_blank" rel="noopener">MDN: stroke-linejoin</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.stroke-dash-{none|2|4|8|dot}</code></td><td>stroke-dasharray</td></tr>
+                <tr><td><code>.stroke-dashoffset-{0|4|8}</code></td><td>stroke-dashoffset</td></tr>
+                <tr><td><code>.stroke-cap-{butt|round|square}</code></td><td>stroke-linecap</td></tr>
+                <tr><td><code>.stroke-join-{miter|round|bevel}</code></td><td>stroke-linejoin</td></tr>
+                <tr><td><code>.stroke-miterlimit-{4|10}</code></td><td>stroke-miterlimit</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Dash patterns and offset"><div class="dm-grid" style="--dm-min:9rem">
+<div class="dm-tile"><code>.stroke-dash-2</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><circle cx="50" cy="50" r="30" class="fill-none stroke-current stroke-3 stroke-dash-2"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-dash-4</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><circle cx="50" cy="50" r="30" class="fill-none stroke-current stroke-3 stroke-dash-4"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-dash-8</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><circle cx="50" cy="50" r="30" class="fill-none stroke-current stroke-3 stroke-dash-8"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-dash-dot .stroke-cap-round</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><circle cx="50" cy="50" r="30" class="fill-none stroke-current stroke-3 stroke-dash-dot stroke-cap-round"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-dash-8 .stroke-dashoffset-4</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><circle cx="50" cy="50" r="30" class="fill-none stroke-current stroke-3 stroke-dash-8 stroke-dashoffset-4"/></svg></div></div>
+</div><oc-code lang="html">&lt;circle class="fill-none stroke-current stroke-3 stroke-dash-dot stroke-cap-round" cx="50" cy="50" r="30"/&gt;</oc-code></oc-demo>
+          <oc-demo title="Line caps"><div class="dm-grid" style="--dm-min:9rem">
+<div class="dm-tile"><code>.stroke-cap-butt</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="25" y1="50" x2="75" y2="50" class="stroke-current stroke-8 stroke-cap-butt"/><line x1="25" y1="30" x2="25" y2="70" stroke="currentColor" stroke-opacity=".35"/><line x1="75" y1="30" x2="75" y2="70" stroke="currentColor" stroke-opacity=".35"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-cap-round</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="25" y1="50" x2="75" y2="50" class="stroke-current stroke-8 stroke-cap-round"/><line x1="25" y1="30" x2="25" y2="70" stroke="currentColor" stroke-opacity=".35"/><line x1="75" y1="30" x2="75" y2="70" stroke="currentColor" stroke-opacity=".35"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-cap-square</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="25" y1="50" x2="75" y2="50" class="stroke-current stroke-8 stroke-cap-square"/><line x1="25" y1="30" x2="25" y2="70" stroke="currentColor" stroke-opacity=".35"/><line x1="75" y1="30" x2="75" y2="70" stroke="currentColor" stroke-opacity=".35"/></svg></div></div>
+</div><oc-code lang="html">&lt;line class="stroke-current stroke-8 stroke-cap-round" x1="25" y1="50" x2="75" y2="50"/&gt;</oc-code></oc-demo>
+          <oc-demo title="Line joins and miter limit"><div class="dm-grid" style="--dm-min:9rem">
+<div class="dm-tile"><code>.stroke-join-miter</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polyline points="20,80 50,25 80,80" class="fill-none stroke-current stroke-8 stroke-join-miter"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-join-round</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polyline points="20,80 50,25 80,80" class="fill-none stroke-current stroke-8 stroke-join-round"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-join-bevel</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polyline points="20,80 50,25 80,80" class="fill-none stroke-current stroke-8 stroke-join-bevel"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-join-miter .stroke-miterlimit-4</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polyline points="15,80 85,50 15,20" class="fill-none stroke-current stroke-4 stroke-join-miter stroke-miterlimit-4"/></svg></div></div>
+<div class="dm-tile"><code>.stroke-join-miter .stroke-miterlimit-10</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><polyline points="15,80 85,50 15,20" class="fill-none stroke-current stroke-4 stroke-join-miter stroke-miterlimit-10"/></svg></div></div>
+</div><oc-code lang="html">&lt;polyline class="fill-none stroke-current stroke-8 stroke-join-round" points="20,80 50,25 80,80"/&gt;</oc-code></oc-demo>
+
+          <oc-demo title="Stroke dashes, caps and an animated dash offset">
+            <div class="flex flex-wrap gap-3 align-items-center">
+              <svg viewBox="0 0 120 60" style="inline-size: 9rem; color: var(--color-vividblue-80);"><path class="stroke-current" d="M10 30 Q 35 5 60 30 T 110 30" fill="none" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 12"/></svg>
+              <svg viewBox="0 0 120 60" style="inline-size: 9rem; color: var(--color-orange-60);"><path class="stroke-current" d="M10 30 Q 35 5 60 30 T 110 30" fill="none" stroke-width="6" stroke-dasharray="18 8"/></svg>
+              <svg viewBox="0 0 60 60" style="inline-size: 4.5rem; color: var(--color-green-40);"><circle class="stroke-current oc-svg-spin" cx="30" cy="30" r="24" fill="none" stroke-width="6" stroke-linecap="round" stroke-dasharray="110 50"/></svg>
+            </div>
+          </oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="rendering">Paint order, vector effect &amp; rendering</h3>
+          <p class="oc-section-content__desc"><code>paint-order</code> sets the order in which fill, stroke and markers are drawn. The default paints the stroke on top and eats into thin letters; <code>.paint-order-stroke</code> draws the stroke first so only the outside half remains visible (clean outlined text, also available for HTML text through <code>-webkit-text-stroke</code> combos). <code>.vector-effect-non-scaling</code> keeps the stroke width in screen pixels when the SVG is scaled, which keeps chart gridlines hairline thin. <code>shape-rendering</code> trades anti-aliasing for crisp edges. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/paint-order" target="_blank" rel="noopener">MDN: paint-order</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/vector-effect" target="_blank" rel="noopener">MDN: vector-effect</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.paint-order-{normal|stroke}</code></td><td>paint-order</td></tr>
+                <tr><td><code>.vector-effect-{none|non-scaling}</code></td><td>vector-effect</td></tr>
+                <tr><td><code>.shape-rendering-{auto|crisp|geometric}</code></td><td>shape-rendering</td></tr>
+                <tr><td><code>.color-interpolation-{srgb|linear}</code></td><td>color-interpolation</td></tr>
+                <tr><td><code>.color-interpolation-filters-{srgb|linear}</code></td><td>color-interpolation-filters</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+                    <oc-demo title="paint-order"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.paint-order-normal</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><text x="50" y="68" font-size="58" font-weight="800" text-anchor="middle" class="stroke-8 stroke-join-round paint-order-normal" style="fill:var(--oc-background);stroke:var(--color-vividblue-80)" >Aa</text></svg></div></div>
+<div class="dm-tile"><code>.paint-order-stroke</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><text x="50" y="68" font-size="58" font-weight="800" text-anchor="middle" class="stroke-8 stroke-join-round paint-order-stroke" style="fill:var(--oc-background);stroke:var(--color-vividblue-80)" >Aa</text></svg></div></div>
+</div><oc-code lang="html">&lt;text class="stroke-8 paint-order-stroke" …&gt;Aa&lt;/text&gt;</oc-code></oc-demo>
+          <oc-demo title="vector-effect on a scaled viewBox (stroke-width 1 in a 10-unit box)"><div class="dm-grid" style="--dm-min:12rem">
+<div class="dm-tile"><code>default: stroke scales with the box</code><div class="dm-area "><svg viewBox="0 0 10 10" style="inline-size:7rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><rect x="1" y="1" width="8" height="8" class="fill-none stroke-current vector-effect-none" style="stroke-width:1"/></svg></div></div>
+<div class="dm-tile"><code>.vector-effect-non-scaling: 1px stays 1px</code><div class="dm-area "><svg viewBox="0 0 10 10" style="inline-size:7rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><rect x="1" y="1" width="8" height="8" class="fill-none stroke-current vector-effect-non-scaling" style="stroke-width:1"/></svg></div></div>
+</div><oc-code lang="html">&lt;rect class="fill-none stroke-current vector-effect-non-scaling" …/&gt;</oc-code></oc-demo>
+          <oc-demo title="shape-rendering"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.shape-rendering-auto</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:7rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><g class="shape-rendering-auto"><line x1="8" y1="14" x2="92" y2="58" class="stroke-current stroke-1"/><circle cx="50" cy="75" r="14" class="fill-none stroke-current stroke-1"/></g></svg></div></div>
+<div class="dm-tile"><code>.shape-rendering-crisp</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:7rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><g class="shape-rendering-crisp"><line x1="8" y1="14" x2="92" y2="58" class="stroke-current stroke-1"/><circle cx="50" cy="75" r="14" class="fill-none stroke-current stroke-1"/></g></svg></div></div>
+<div class="dm-tile"><code>.shape-rendering-geometric</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:7rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><g class="shape-rendering-geometric"><line x1="8" y1="14" x2="92" y2="58" class="stroke-current stroke-1"/><circle cx="50" cy="75" r="14" class="fill-none stroke-current stroke-1"/></g></svg></div></div>
+</div><oc-code lang="html">&lt;g class="shape-rendering-crisp"&gt;…&lt;/g&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-10" id="svg-text">SVG text, markers &amp; stops</h3>
+          <p class="oc-section-content__desc">SVG text is positioned by an x/y anchor point. <code>text-anchor</code> says which side of the text sits on x (<code>start</code>, <code>middle</code>, <code>end</code>); <code>dominant-baseline</code> says which baseline sits on y, so <code>.dominant-baseline-central</code> + <code>.text-anchor-middle</code> centres a label on a point. <code>baseline-shift</code> raises or lowers a span (sub/superscripts). Gotcha: Safari treats <code>alignment-baseline</code> differently on <code>&lt;text&gt;</code>, prefer <code>dominant-baseline</code> for the whole element. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-anchor" target="_blank" rel="noopener">MDN: text-anchor</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/dominant-baseline" target="_blank" rel="noopener">MDN: dominant-baseline</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.text-anchor-{start|middle|end}</code></td><td>text-anchor</td></tr>
+                <tr><td><code>.dominant-baseline-{auto|middle|central|hanging}</code></td><td>dominant-baseline</td></tr>
+                <tr><td><code>.alignment-baseline-{middle|central}</code></td><td>alignment-baseline</td></tr>
+                <tr><td><code>.baseline-shift-{sub|super}</code></td><td>baseline-shift</td></tr>
+                <tr><td><code>.baseline-source-{first|last}</code></td><td>baseline-source</td></tr>
+                <tr><td><code>.marker-none / .marker-{start|mid|end}-none</code></td><td>marker</td></tr>
+                <tr><td><code>.stop-color-current / .stop-opacity-{0|100}</code></td><td>stop-color / stop-opacity</td></tr>
+                <tr><td><code>.flood-color-current / .flood-opacity-50 / .lighting-color-current</code></td><td>flood-color / flood-opacity / lighting-color</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="text-anchor (vertical line is x = 50)"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.text-anchor-start</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="50" y1="0" x2="50" y2="50" stroke="currentColor" stroke-opacity=".4"/><text x="50" y="30" font-size="14" class="text-anchor-start fill-current">Text</text></svg></div></div>
+<div class="dm-tile"><code>.text-anchor-middle</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="50" y1="0" x2="50" y2="50" stroke="currentColor" stroke-opacity=".4"/><text x="50" y="30" font-size="14" class="text-anchor-middle fill-current">Text</text></svg></div></div>
+<div class="dm-tile"><code>.text-anchor-end</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="50" y1="0" x2="50" y2="50" stroke="currentColor" stroke-opacity=".4"/><text x="50" y="30" font-size="14" class="text-anchor-end fill-current">Text</text></svg></div></div>
+</div><oc-code lang="html">&lt;text x="50" y="30" class="text-anchor-middle fill-current"&gt;Text&lt;/text&gt;</oc-code></oc-demo>
+          <oc-demo title="dominant-baseline (horizontal line is y = 25)"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.dominant-baseline-auto</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="0" y1="25" x2="120" y2="25" stroke="currentColor" stroke-opacity=".4"/><text x="10" y="25" font-size="16" class="dominant-baseline-auto fill-current">Agx</text></svg></div></div>
+<div class="dm-tile"><code>.dominant-baseline-middle</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="0" y1="25" x2="120" y2="25" stroke="currentColor" stroke-opacity=".4"/><text x="10" y="25" font-size="16" class="dominant-baseline-middle fill-current">Agx</text></svg></div></div>
+<div class="dm-tile"><code>.dominant-baseline-central</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="0" y1="25" x2="120" y2="25" stroke="currentColor" stroke-opacity=".4"/><text x="10" y="25" font-size="16" class="dominant-baseline-central fill-current">Agx</text></svg></div></div>
+<div class="dm-tile"><code>.dominant-baseline-hanging</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><line x1="0" y1="25" x2="120" y2="25" stroke="currentColor" stroke-opacity=".4"/><text x="10" y="25" font-size="16" class="dominant-baseline-hanging fill-current">Agx</text></svg></div></div>
+</div><oc-code lang="html">&lt;text x="10" y="25" class="dominant-baseline-central fill-current"&gt;Agx&lt;/text&gt;</oc-code></oc-demo>
+          <oc-demo title="baseline-shift"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.baseline-shift-sub</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><text x="10" y="32" font-size="16" class="fill-current">H<tspan class="baseline-shift-sub" font-size="10">2</tspan>O</text></svg></div></div>
+<div class="dm-tile"><code>.baseline-shift-super</code><div class="dm-area "><svg viewBox="0 0 100 50" style="inline-size:8rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><text x="10" y="32" font-size="16" class="fill-current">H<tspan class="baseline-shift-super" font-size="10">2</tspan>O</text></svg></div></div>
+</div><oc-code lang="html">&lt;text&gt;H&lt;tspan class="baseline-shift-sub"&gt;2&lt;/tspan&gt;O&lt;/text&gt;</oc-code></oc-demo>
+          <oc-demo title="text-anchor-middle + dominant-baseline-central on a badge"><div class="dm-grid" style="--dm-min:14rem">
+<div class="dm-tile"><code>.text-anchor-middle .dominant-baseline-central</code><div class="dm-area "><svg viewBox="0 0 100 100" style="inline-size:5rem;block-size:auto;color:var(--color-vividblue-80);display:block" aria-hidden="true"><circle class="cx-50 cy-50 r-50 fill-current fill-opacity-50"/><text x="50" y="50" class="text-anchor-middle dominant-baseline-central fill-current" font-size="26" font-weight="700">SVG</text></svg></div></div>
+</div><oc-code lang="html">&lt;svg viewBox="0 0 100 100" class="size-24 text-dodgerblue"&gt;
+  &lt;circle class="cx-50 cy-50 r-50 fill-current fill-opacity-50"/&gt;
+  &lt;text x="50" y="50" class="text-anchor-middle dominant-baseline-central fill-current"&gt;SVG&lt;/text&gt;
+&lt;/svg&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">SVG presentation properties are broadly supported; <code>shape-rendering</code> and <code>alignment-baseline</code> differ slightly between engines.</p>
+          <oc-compat features="css.properties.fill css.properties.stroke-dasharray css.properties.stroke-linecap css.properties.paint-order css.properties.vector-effect css.properties.text-anchor css.properties.dominant-baseline css.properties.r"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            SVG utilities come from <code>_svg.scss</code>; geometry properties (<code>cx</code>, <code>r</code>, …) from <code>_layout_extras.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/paint-order" target="_blank" rel="noopener">MDN: paint-order</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_svg.scss</code></td><td>fill, stroke, rules, opacity, dashes, caps, joins, paint-order, vector-effect, rendering, text anchoring, markers, stops</td></tr>
+                  <tr><td><code>src/scss/utilities/_layout_extras.scss</code></td><td>.cx-*, .cy-*, .x-*, .y-*, .r-*, .rx-*, .ry-*, .d-none</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../utilities.html">Utilities</a>
+               · 
+              <a class="source-link" href="../shapes/">Shapes &amp; Clipping</a>
+               · 
+              <a class="source-link" href="../gradients/">Gradients</a>
+            </p>
+          </div>
+        </div>
+      </section>

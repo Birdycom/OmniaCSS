@@ -1,0 +1,22 @@
+// SCSS Document 
+// File: src/scss/utilities/_index.scss
+// Description: file for using @forward and @use in are utilities map 
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+
+
+@forward "../variables/variables";
+@forward "../config/omniacss.config";
+@forward "../functions/functions";
+@forward "../variables/modifiers";
+@forward "../variables/variables_effects";
+@forward "../variables/color_tone";
+@forward "../variables/variables_colors_omnia";
+@forward "../variables/variables_colors_ral";
+@forward "../variables/variables_colors_html";
+@forward "../variables/variables_typography";
+@forward "../variables/variables_layout";
+@forward "../variables/variables_flex_grid";
+@forward "../variables/mixins";

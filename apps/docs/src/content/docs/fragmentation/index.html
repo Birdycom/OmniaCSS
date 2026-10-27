@@ -1,0 +1,174 @@
+<!--oc-page {"title": "OmniaCSS Docs - Fragmentation", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="fragmentation">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Fragmentation</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_layout_flow.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">fragmentation/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Control how content breaks across pages (print) and columns: force or avoid breaks, keep a minimum number of lines together with <code>orphans</code>/<code>widows</code>, and decide how backgrounds and borders behave on a broken box with <code>box-decoration-break</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fragmentation" target="_blank" rel="noopener">MDN: CSS fragmentation</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="break-before">Break before</h3>
+          <p class="oc-section-content__desc">Break behaviour before the element. <strong>What:</strong> <code>break-before</code> asks the browser to start a new page, column or region before this element (<code>page</code>, <code>column</code>) or to avoid a break (<code>avoid</code>). <strong>When:</strong> print stylesheets (each chapter on a new page) and multi-column layouts (a heading that starts a column). <strong>Gotcha:</strong> breaks are requests; the page-related values only matter when printing or in paged media. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-before" target="_blank" rel="noopener">MDN: break-before</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.break-before-auto</code></td><td>break-before: auto</td></tr>
+                <tr><td><code>.break-before-avoid</code></td><td>break-before: avoid</td></tr>
+                <tr><td><code>.break-before-all</code></td><td>break-before: all</td></tr>
+                <tr><td><code>.break-before-page</code></td><td>break-before: page</td></tr>
+                <tr><td><code>.break-before-column</code></td><td>break-before: column</td></tr>
+                <tr><td><code>.break-before-avoid-page</code></td><td>break-before: avoid-page</td></tr>
+                <tr><td><code>.break-before-avoid-column</code></td><td>break-before: avoid-column</td></tr>
+                <tr><td><code>.break-before-left</code></td><td>break-before: left</td></tr>
+                <tr><td><code>.break-before-right</code></td><td>break-before: right</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="break-after">Break after</h3>
+          <p class="oc-section-content__desc">Break behaviour after the element. <strong>When:</strong> force a page break after a cover or keep a caption with the figure before it. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-after" target="_blank" rel="noopener">MDN: break-after</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.break-after-auto</code></td><td>break-after: auto</td></tr>
+                <tr><td><code>.break-after-avoid</code></td><td>break-after: avoid</td></tr>
+                <tr><td><code>.break-after-all</code></td><td>break-after: all</td></tr>
+                <tr><td><code>.break-after-page</code></td><td>break-after: page</td></tr>
+                <tr><td><code>.break-after-column</code></td><td>break-after: column</td></tr>
+                <tr><td><code>.break-after-avoid-page</code></td><td>break-after: avoid-page</td></tr>
+                <tr><td><code>.break-after-avoid-column</code></td><td>break-after: avoid-column</td></tr>
+                <tr><td><code>.break-after-left</code></td><td>break-after: left</td></tr>
+                <tr><td><code>.break-after-right</code></td><td>break-after: right</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="break-inside">Break inside</h3>
+          <p class="oc-section-content__desc">Prevent a card or figure from being split across columns or pages. <strong>Gotcha:</strong> <code>avoid</code> only works when the box fits in one fragment; a box taller than a page is split anyway. In multi-column layouts add <code>.break-inside-avoid</code> to every card, or they get cut in the middle. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside" target="_blank" rel="noopener">MDN: break-inside</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.break-inside-auto</code></td><td>break-inside: auto</td></tr>
+                <tr><td><code>.break-inside-avoid</code></td><td>break-inside: avoid</td></tr>
+                <tr><td><code>.break-inside-avoid-page</code></td><td>break-inside: avoid-page</td></tr>
+                <tr><td><code>.break-inside-avoid-column</code></td><td>break-inside: avoid-column</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="cols-2 + break-inside-avoid">
+            
+            <div class="cols-2 gap-1 round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
+              <div class="break-inside-avoid mb-1 p-1 round-2 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">Card 1 — never split across columns.</div>
+              <div class="break-inside-avoid mb-1 p-1 round-2 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30">Card 2 — OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</div>
+              <div class="break-inside-avoid mb-1 p-1 round-2 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30">Card 3 — never split across columns.</div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="cols-2 gap-1"&gt;
+  &lt;div class="break-inside-avoid mb-1"&gt;Card 1&lt;/div&gt;
+  &lt;div class="break-inside-avoid mb-1"&gt;Card 2&lt;/div&gt;
+  &lt;div class="break-inside-avoid mb-1"&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="orphans-widows">Orphans &amp; widows</h3>
+          <p class="oc-section-content__desc">Minimum number of lines left at the bottom (<code>orphans</code>) or carried to the top (<code>widows</code>) of a page or column. <strong>When:</strong> body text in print or columns, to avoid a single stranded line (a "widow" or "orphan"). Values of 2 or 3 are typical. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/orphans" target="_blank" rel="noopener">MDN: orphans</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.orphans-1 … .orphans-4</code></td><td>orphans: 1 … 4</td></tr>
+                <tr><td><code>.widows-1 … .widows-4</code></td><td>widows: 1 … 4</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="box-decoration">Box decoration break</h3>
+          <p class="oc-section-content__desc"><code>slice</code> renders a broken box as one continuous box; <code>clone</code> gives every fragment its own padding, border and radius. <code>.box-decoration-*</code> are the long names, <code>.decoration-*</code> the short aliases. <strong>When:</strong> inline highlights that wrap over several lines (a <code>&lt;mark&gt;</code> or a tag with padding and a radius) look much better with <code>clone</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-decoration-break" target="_blank" rel="noopener">MDN: box-decoration-break</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.decoration-slice</code></td><td>box-decoration-break: slice</td></tr>
+                <tr><td><code>.decoration-clone</code></td><td>box-decoration-break: clone</td></tr>
+                <tr><td><code>.box-decoration-slice</code></td><td>box-decoration-break: slice</td></tr>
+                <tr><td><code>.box-decoration-clone</code></td><td>box-decoration-break: clone</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="decoration-slice vs decoration-clone">
+            
+            <div class="w-12 font-1 leading-6 round-3 p-1 border-1 border-dashed border-stormblue-100">
+              <p class="mb-1"><span class="decoration-slice p-0.5 round-3 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">Slice: one box broken over several lines of text</span></p>
+              <p><span class="decoration-clone p-0.5 round-3 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30">Clone: each line gets its own padding and radius</span></p>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;span class="decoration-slice p-0.5 round-3"&gt;Slice: one box broken over several lines&lt;/span&gt;
+&lt;span class="decoration-clone p-0.5 round-3"&gt;Clone: each line gets its own padding and radius&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Break, orphans and widows are hints: browsers that do not support a value use their default breaking. Autoprefixer adds the <code>-webkit-</code> prefix for box-decoration-break.</p>
+          <oc-compat features="css.properties.break-before css.properties.break-after css.properties.break-inside css.properties.orphans css.properties.widows css.properties.box-decoration-break"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Fragmentation utilities come from <code>_layout_flow.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside" target="_blank" rel="noopener">MDN: break-inside</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-decoration-break" target="_blank" rel="noopener">MDN: box-decoration-break</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_layout_flow.scss</code></td><td>.break-before-*, .break-after-*, .break-inside-*, .orphans-*, .widows-*, .box-decoration-*, .decoration-slice/clone</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../columns/">Columns</a>
+               · 
+              <a class="source-link" href="../layout/flow.html">Layout flow</a>
+               · 
+              <a class="source-link" href="../generated-content/">Generated content</a>
+            </p>
+          </div>
+        </div>
+      </section>

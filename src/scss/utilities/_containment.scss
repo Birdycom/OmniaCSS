@@ -1,0 +1,82 @@
+// SCSS Document
+// File: src/scss/utilities/_containment.scss
+// Description: Container queries, containment and content-visibility utilities (CSS Containment Level 2/3).
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .container-*, .cq-name-*, .contain-*, .content-{auto,visible,hidden}, .contain-intrinsic-*
+//          and container query variants (.cq-xs\:flex, .cq-md\:grid-cols-3, ...).
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries
+// Note: .cq-inline / .cq-normal stay in _container.scss (backwards compatible aliases).
+// Map: container-type -> container-name -> contain -> content-visibility -> intrinsic size -> @container variants
+
+/* Container type — makes an element a query container */
+.container-normal { container-type: normal; }
+.container-size { container-type: size; }
+.container-inline-size { container-type: inline-size; }
+.container-scroll-state { container-type: scroll-state; }
+.cq-size { container-type: size; }
+.cq-scroll-state { container-type: scroll-state; }
+
+/* Container name — target a specific container in @container rules */
+.cq-name-none { container-name: none; }
+.cq-name-main { container-name: main; }
+.cq-name-sidebar { container-name: sidebar; }
+.cq-name-card { container-name: card; }
+
+/* Contain — isolate layout, paint, style and size calculations */
+.contain-none { contain: none; }
+.contain-strict { contain: strict; }
+.contain-content { contain: content; }
+.contain-size { contain: size; }
+.contain-inline-size { contain: inline-size; }
+.contain-layout { contain: layout; }
+.contain-style { contain: style; }
+.contain-paint { contain: paint; }
+
+/* Content visibility — skip rendering work for off-screen content */
+.content-visible { content-visibility: visible; }
+.content-auto { content-visibility: auto; }
+.content-hidden { content-visibility: hidden; }
+
+/* Contain intrinsic size — placeholder size for content-visibility: auto */
+.contain-intrinsic-none { contain-intrinsic-size: none; }
+.contain-intrinsic-auto-sm { contain-intrinsic-size: auto 200px; }
+.contain-intrinsic-auto-md { contain-intrinsic-size: auto 500px; }
+.contain-intrinsic-auto-lg { contain-intrinsic-size: auto 1000px; }
+
+// ---------------------------------------------------------------------------
+// Container query variants — same idea as _responsive.scss, but based on the
+// nearest query container (.container-inline-size / .cq-inline) instead of
+// the viewport. Pattern: .cq-{size}\:{utility}
+// ---------------------------------------------------------------------------
+$_cq-breakpoints: (
+  'xs': 20rem,
+  'sm': 24rem,
+  'md': 28rem,
+  'lg': 32rem,
+  'xl': 36rem
+);
+
+@each $prefix, $min-width in $_cq-breakpoints {
+  @container (min-width: #{$min-width}) {
+    // Display
+    .cq-#{$prefix}\:block { display: block; }
+    .cq-#{$prefix}\:hidden { display: none; }
+    .cq-#{$prefix}\:flex { display: flex; }
+    .cq-#{$prefix}\:grid { display: grid; }
+    .cq-#{$prefix}\:inline-flex { display: inline-flex; }
+
+    // Flex direction
+    .cq-#{$prefix}\:flex-row { flex-direction: row; }
+    .cq-#{$prefix}\:flex-col { flex-direction: column; }
+
+    // Grid template columns (1-6)
+    @for $i from 1 through 6 {
+      .cq-#{$prefix}\:grid-cols-#{$i} {
+        grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
+      }
+    }
+  }
+}

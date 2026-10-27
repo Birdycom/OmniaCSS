@@ -1,0 +1,35 @@
+<!--oc-page {"title":"OmniaCSS Docs - Table Layout","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="table-layout">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Table Layout</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_table_advanced.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Choose the algorithm used to size table columns: content driven or fixed.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc">With <code>.table-auto</code> (default) the browser reads the whole table to size the columns, so widths follow the content but the table can jump while loading. <code>.table-fixed</code> uses only the first row and the table width: columns are equal unless you set widths on cells, rendering is faster and predictable, and long content is clipped or wraps inside its column instead of widening it. Fixed layout needs a table width (e.g. <code>.w-full</code>). Combine it with <code>.truncate</code> for ellipsised cells. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout" target="_blank" rel="noopener">MDN: table-layout</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.table-auto</code></td><td>auto</td></tr>
+                <tr><td><code>.table-fixed</code></td><td>fixed</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8">Auto versus fixed</h3>
+
+          <p class="oc-section-content__desc">Both tables have the same markup: a short first column and a long unbreakable text in the second.</p>
+
+          <oc-demo title="table-layout values"><div class="dm-grid" style="--dm-min:15rem">
+<div class="dm-tile"><code>.table-auto .w-full</code><div class="dm-area "><table class="dm-tbl border-collapse table-auto w-full"><tr><td>Short</td><td>A_very_long_unbreakable_text_value_here</td></tr><tr><td>Row</td><td>Second row</td></tr></table></div></div>
+<div class="dm-tile"><code>.table-fixed .w-full</code><div class="dm-area "><table class="dm-tbl border-collapse table-fixed w-full"><tr><td>Short</td><td style="overflow:hidden;text-overflow:ellipsis">A_very_long_unbreakable_text_value_here</td></tr><tr><td>Row</td><td>Second row</td></tr></table></div></div>
+<div class="dm-tile"><code>.table-fixed with a column width (.w-perc-1/2)</code><div class="dm-area "><table class="dm-tbl border-collapse table-fixed w-full"><tr><td class="w-perc-1/2">50%</td><td>Rest of the table</td></tr><tr><td>Row</td><td>Second row</td></tr></table></div></div>
+</div><oc-code lang="html">&lt;table class="table-fixed w-full"&gt;
+  &lt;tr&gt;&lt;td class="w-perc-1/3"&gt;…&lt;/td&gt;&lt;td&gt;…&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</oc-code></oc-demo>
+        </div>
+      </section>

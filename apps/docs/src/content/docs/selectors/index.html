@@ -1,0 +1,188 @@
+<!--oc-page {"title":"OmniaCSS Docs - Selectors & Pseudo-classes","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .se-tabs { display: grid; gap: 0.75rem; inline-size: min(100%, 30rem); }\n    .se-tablist { display: flex; gap: 0.4rem; }\n    .se-tablist a { padding: 0.45rem 0.9rem; border-radius: 8px; background: var(--oc-muted); color: var(--oc-foreground); text-decoration: none; font-weight: 600; font-size: 0.85rem; }\n    .se-tabs:has(#se-p1:target) a[href=\"#se-p1\"], .se-tabs:has(#se-p2:target) a[href=\"#se-p2\"], .se-tabs:has(#se-p3:target) a[href=\"#se-p3\"], .se-tabs:not(:has(:target)) a[href=\"#se-p1\"] { background: var(--color-vividblue-80); color: var(--color-white-50); }\n    .se-panel { padding: 1rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); scroll-margin-top: 6rem; }\n    .se-tabs:not(:has(:target)) > .se-panel:first-of-type { display: block; }\n    .se-btn { padding: 0.5rem 1rem; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; font-weight: 600; }\n    .se-form { display: grid; gap: 0.4rem; inline-size: min(100%, 24rem); padding: 1rem; border: 2px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); transition: border-color 0.2s; }\n    .se-form label { font-size: 0.85rem; font-weight: 600; color: var(--oc-foreground); }\n    .se-form input { box-sizing: border-box; padding: 0.5rem 0.65rem; border-radius: 8px; background: var(--oc-background); color: var(--oc-foreground); font: inherit; }\n    .se-form small { font-size: 0.8rem; }\n    .se-pick { display: flex; flex-wrap: wrap; gap: 0.6rem; }\n    .se-pick label { display: grid; gap: 0.2rem; inline-size: 9rem; padding: 0.75rem; border: 2px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); cursor: pointer; font-size: 0.85rem; }\n    .se-pick input { accent-color: var(--color-vividblue-80); }\n    .se-drop { margin: 0; color: var(--oc-foreground); line-height: 1.5; }\n    .se-pe { display: grid; gap: 1rem; justify-items: start; }\n    .se-drop::first-letter { margin-inline-end: 0.08em; font-size: 3.2em; line-height: 0.8; font-weight: 800; }\n    .se-file::file-selector-button { margin-inline-end: 0.75rem; padding: 0.4rem 0.8rem; border: 0; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; }\n  </style>"]}-->
+<section class="oc-docs-section" id="selectors">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Selectors &amp; Pseudo-classes</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">Variant</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">variants.mjs</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">selectors/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.8.2</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            In OmniaCSS every pseudo-class and pseudo-element is a <strong>variant</strong>: put it in front of any utility, separated by a colon (<code>user-invalid:border-red-60</code>, <code>focus-visible:outline-2</code>, <code>target:block</code>). Variants combine (<code>md:hover:…</code>), work on parents and siblings (<code>group-*</code>, <code>peer-*</code>, <code>has-[…]</code>) and accept any selector in brackets (<code>[&amp;>li]:…</code>). <code>omniacss build</code> generates them on demand. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors" target="_blank" rel="noopener">MDN: CSS selectors</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="pseudo-classes">Pseudo-class variants</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Variant</th><th>Selector</th></tr></thead>
+              <tbody>
+                <tr><td><code>hover:</code> <code>focus:</code> <code>focus-visible:</code> <code>focus-within:</code> <code>active:</code> <code>visited:</code></td><td>User action</td></tr>
+                <tr><td><code>target:</code></td><td>:target — the element whose id is in the URL hash</td></tr>
+                <tr><td><code>user-valid:</code> <code>user-invalid:</code></td><td>Validity, only after the user interacted</td></tr>
+                <tr><td><code>valid:</code> <code>invalid:</code> <code>required:</code> <code>optional:</code> <code>in-range:</code> <code>out-of-range:</code> <code>read-only:</code> <code>placeholder-shown:</code> <code>autofill:</code></td><td>Form state</td></tr>
+                <tr><td><code>checked:</code> <code>indeterminate:</code> <code>default:</code> <code>disabled:</code> <code>enabled:</code></td><td>Control state</td></tr>
+                <tr><td><code>open:</code> <code>popover-open:</code> <code>inert:</code> <code>empty:</code></td><td>[open], :popover-open, :open, [inert], :empty</td></tr>
+                <tr><td><code>first:</code> <code>last:</code> <code>only:</code> <code>odd:</code> <code>even:</code> <code>first-of-type:</code> <code>last-of-type:</code> <code>only-of-type:</code></td><td>Structure</td></tr>
+                <tr><td><code>nth-3:</code> <code>nth-last-2:</code> <code>nth-of-type-2:</code> <code>nth-[2n+1_of_.is-on]:</code></td><td>:nth-child(), :nth-last-child(), :nth-of-type(), An+B of S</td></tr>
+                <tr><td><code>has-[…]:</code> <code>not-[…]:</code> <code>in-[…]:</code></td><td>:has(), :not(), ancestor :where()</td></tr>
+                <tr><td><code>group-hover:</code> <code>group-has-[…]:</code> <code>peer-checked:</code> <code>peer-user-invalid:</code> <code>group-hover/name:</code></td><td>State of a parent (.group) or previous sibling (.peer)</td></tr>
+                <tr><td><code>aria-expanded:</code> <code>aria-[sort=asc]:</code> <code>data-[state=open]:</code> <code>data-active:</code></td><td>Attribute selectors</td></tr>
+                <tr><td><code>rtl:</code> <code>ltr:</code> <code>dark:</code></td><td>:dir(), theme</td></tr>
+                <tr><td><code>[&amp;:nth-child(3)]:</code> <code>[&amp;>li]:</code> <code>*:</code> <code>**:</code></td><td>Arbitrary selector, direct children, all descendants</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="target">:target — tabs without JavaScript</h3>
+          <p class="oc-section-content__desc">A link to <code>#id</code> makes that element <code>:target</code>. The panels are <code>d-none target:block</code>; <code>:has()</code> highlights the active tab and shows the first panel when nothing is targeted. Use <code>scroll-margin-top</code> so a sticky header does not cover the target.</p>
+          <oc-demo title="d-none target:block">
+            <div class="se-tabs">
+              <nav class="se-tablist" aria-label="Demo tabs"><a href="#se-p1">Overview</a><a href="#se-p2">Details</a><a href="#se-p3">Reviews</a></nav>
+              <div id="se-p1" class="se-panel d-none target:block">Panel 1: the URL now ends in <code>#se-p1</code>.</div>
+              <div id="se-p2" class="se-panel d-none target:block">Panel 2: shareable — the link opens this tab.</div>
+              <div id="se-p3" class="se-panel d-none target:block">Panel 3: the back button goes to the previous tab.</div>
+            </div>
+          <oc-code lang="html">&lt;div class="se-tabs"&gt;
+  &lt;nav&gt;&lt;a href="#se-p1"&gt;Overview&lt;/a&gt; &lt;a href="#se-p2"&gt;Details&lt;/a&gt; &lt;a href="#se-p3"&gt;Reviews&lt;/a&gt;&lt;/nav&gt;
+  &lt;div id="se-p1" class="d-none target:block"&gt;…&lt;/div&gt;
+  &lt;div id="se-p2" class="d-none target:block"&gt;…&lt;/div&gt;
+  &lt;div id="se-p3" class="d-none target:block"&gt;…&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .se-tabs:not(:has(:target)) &gt; div:first-of-type { display: block; }
+  .se-tabs:has(#se-p2:target) a[href="#se-p2"] { background: var(--color-vividblue-80); }
+&lt;/style&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="focus-visible">:focus-visible — a focus ring for keyboard users only</h3>
+          <p class="oc-section-content__desc"><code>:focus</code> also matches after a mouse click; <code>:focus-visible</code> only when the browser decides a ring helps (keyboard, programmatic focus). Click both buttons, then press Tab.</p>
+          <oc-demo title="focus: versus focus-visible:">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <button type="button" class="se-btn outline-none focus:outline-solid focus:outline-2 focus:outline-orange-50 outline-offset-2">focus: (also on click)</button>
+              <button type="button" class="se-btn outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80 outline-offset-2">focus-visible: (keyboard)</button>
+            </div>
+          <oc-code lang="html">&lt;button class="outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80 outline-offset-2"&gt;
+  Save
+&lt;/button&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="user-valid">:user-valid and :user-invalid — validation that waits for the user</h3>
+          <p class="oc-section-content__desc"><code>:invalid</code> is red before anyone typed. <code>:user-invalid</code> waits until the user changed the field and left it (or submitted). The message uses <code>peer-user-invalid:block</code>, the form border reacts with <code>has-[:user-invalid]:</code>.</p>
+          <oc-demo title="user-invalid:, user-valid:, peer-user-invalid:, has-[:user-invalid]:">
+            <form class="se-form has-[:user-invalid]:border-red-60 has-[:user-valid]:border-green-50" novalidate>
+              <label for="se-mail">E-mail</label>
+              <input id="se-mail" type="email" required placeholder="you@example.com" class="peer border-2 border-solid border-mistblue-20 user-invalid:border-red-60 user-valid:border-green-50 outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">
+              <small class="d-none peer-user-invalid:block text-red-60">Please enter a valid e-mail address.</small>
+              <small class="d-none peer-user-valid:block text-green-60">Looks good.</small>
+            </form>
+          <oc-code lang="html">&lt;form class="has-[:user-invalid]:border-red-60 has-[:user-valid]:border-green-50"&gt;
+  &lt;input type="email" required
+         class="peer border-2 border-solid border-mistblue-20 user-invalid:border-red-60 user-valid:border-green-50"&gt;
+  &lt;small class="d-none peer-user-invalid:block text-red-60"&gt;Please enter a valid e-mail address.&lt;/small&gt;
+  &lt;small class="d-none peer-user-valid:block text-green-60"&gt;Looks good.&lt;/small&gt;
+&lt;/form&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="has">:has() — style the parent</h3>
+          <p class="oc-section-content__desc"><code>has-[input:checked]:</code> styles a card when the radio inside it is selected. The whole card is the label, so it is one click target.</p>
+          <oc-demo title="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20">
+            <div class="se-pick">
+              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20"><input type="radio" name="se-plan" checked> <b>Starter</b> Free</label>
+              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20"><input type="radio" name="se-plan"> <b>Pro</b> per month</label>
+              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20"><input type="radio" name="se-plan"> <b>Team</b> per seat</label>
+            </div>
+          <oc-code lang="html">&lt;label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20"&gt;
+  &lt;input type="radio" name="plan"&gt; &lt;b&gt;Pro&lt;/b&gt;
+&lt;/label&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="pseudo-elements">Pseudo-element variants</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Variant</th><th>Pseudo-element</th></tr></thead>
+              <tbody>
+                <tr><td><code>before:</code> <code>after:</code></td><td>::before, ::after (set <code>content</code> in your CSS)</td></tr>
+                <tr><td><code>first-letter:</code> <code>first-line:</code></td><td>::first-letter, ::first-line</td></tr>
+                <tr><td><code>marker:</code> <code>placeholder:</code> <code>selection:</code></td><td>::marker, ::placeholder, ::selection</td></tr>
+                <tr><td><code>file:</code> <code>backdrop:</code> <code>details-content:</code></td><td>::file-selector-button, ::backdrop, ::details-content</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+          <oc-demo title="first-letter:, selection:, marker:, file:">
+            <div class="se-pe">
+            <p class="se-drop first-letter:float-left first-letter:text-vividblue-80 selection:bg-magenta-50 selection:text-white-50">Select some of this text: the selection is magenta. The first letter is a drop cap in vivid blue, floated so the next lines wrap around it — all with variants on one paragraph.</p>
+            <ul class="list-disc marker:text-magenta-50"><li>marker:text-magenta-50</li><li>colors only the bullets</li></ul>
+            <input type="file" class="se-file file:bg-vividblue-80 file:text-white-50" aria-label="Choose a file">
+            </div>
+          <oc-code lang="html">&lt;p class="first-letter:float-left first-letter:text-vividblue-80
+          selection:bg-magenta-50 selection:text-white-50"&gt;…&lt;/p&gt;
+&lt;ul class="list-disc marker:text-magenta-50"&gt;…&lt;/ul&gt;
+&lt;input type="file" class="file:bg-vividblue-80 file:text-white-50"&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="attribute">Attribute selectors and combinators</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Selector</th><th>Matches / OmniaCSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>[attr]</code>, <code>[attr="v"]</code></td><td>Has the attribute / exact value — <code>data-active:</code>, <code>data-[state=open]:</code></td></tr>
+                <tr><td><code>[attr~="v"]</code>, <code>[attr|="v"]</code></td><td>Word in a list / v or v-… — <code>data-[tags~=new]:</code></td></tr>
+                <tr><td><code>[attr^="v"]</code>, <code>[attr$="v"]</code>, <code>[attr*="v"]</code></td><td>Starts with / ends with / contains — <code>[&amp;[href^=http]]:</code></td></tr>
+                <tr><td><code>[attr="v" i]</code></td><td>Case-insensitive</td></tr>
+                <tr><td><code>A B</code>, <code>A &gt; B</code></td><td>Descendant, child — <code>**:</code>, <code>*:</code>, <code>[&amp;>li]:</code></td></tr>
+                <tr><td><code>A + B</code>, <code>A ~ B</code></td><td>Next sibling, later sibling — <code>peer-*:</code>, <code>[&amp;+*]:</code></td></tr>
+                <tr><td><code>:is()</code>, <code>:where()</code>, <code>:not()</code></td><td>Grouping; <code>:where()</code> has zero specificity (OmniaCSS uses it for variants)</td></tr>
+                <tr><td><code>&amp;</code> (nesting), <code>!important</code></td><td>Native CSS nesting; <code>!bg-red-60</code> makes a utility important</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+          <oc-code lang="css">/* Native nesting + modern selectors in your own CSS next to the utilities */
+.card {
+  &amp;:has(img) { padding: 0; }
+  &amp; &gt; :is(h2, h3):where(:not(.plain)) { margin-block: 0 0.5rem; }
+  &amp; li:nth-child(odd of .is-on) { background: var(--color-mistblue-20); }
+  a[href^="http"]:not([href*="omniacss"])::after { content: " ↗"; }
+}</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">All selectors on this page work in current browsers. <code>:user-valid</code>/<code>:user-invalid</code> need Chrome 119, Firefox 88, Safari 16.5; <code>:has()</code> Chrome 105, Firefox 121, Safari 15.4.</p>
+          <oc-compat features="css.selectors.target css.selectors.focus-visible css.selectors.user-valid css.selectors.user-invalid css.selectors.has css.selectors.is css.selectors.where css.selectors.nth-child.of_syntax css.selectors.nesting css.selectors.file-selector-button"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The variants come from <code>packages/core/src/variants.mjs</code> and are generated by <code>omniacss build</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid" target="_blank" rel="noopener">MDN: :user-invalid</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible" target="_blank" rel="noopener">MDN: :focus-visible</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:target" target="_blank" rel="noopener">MDN: :target</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">Source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>packages/core/src/variants.mjs</code></td><td>pseudo-class, pseudo-element, group/peer, has/not/in, nth, aria/data variants</td></tr>
+                  <tr><td><code>src/scss/utilities/_state_variants.scss</code></td><td>hover/focus/active/focus-visible variants in the full build</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Variants are generated on demand by <code>omniacss build</code>; the full <code>omnia.css</code> contains the hover/focus/active/focus-visible set.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../responsive.html">Responsive &amp; Dark Mode</a>
+               ·
+              <a class="source-link" href="../interactivity/forms.html">Form controls</a>
+               ·
+              <a class="source-link" href="../at-rules/">At-rules</a>
+            </p>
+          </div>
+        </div>
+      </section>

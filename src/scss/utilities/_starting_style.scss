@@ -1,0 +1,53 @@
+// SCSS Document
+// File: src/scss/utilities/_starting_style.scss
+// Description: Entry/exit transition utilities — @starting-style, transition-behavior and interpolate-size.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .starting-* classes (initial state before first render), .transition-discrete
+//          and .interpolate-size-* so popovers, dialogs and <details> can animate in/out with CSS only.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
+// Note: combine with a transition utility (e.g. .transition .duration-300) on the same element.
+// Map: @starting-style -> transition-behavior -> interpolate-size -> details-content
+
+/* Starting style — values used before the element's first style update */
+.starting-opacity-0 {
+  @starting-style { opacity: 0; }
+}
+.starting-scale-95 {
+  @starting-style { scale: 0.95; }
+}
+.starting-translate-y-2 {
+  @starting-style { translate: 0 0.5rem; }
+}
+.starting-translate-y-n2 {
+  @starting-style { translate: 0 -0.5rem; }
+}
+.starting-translate-x-full {
+  @starting-style { translate: 100% 0; }
+}
+
+/* Transition behavior — allow transitions on discrete properties (display, overlay, content-visibility) */
+.transition-normal { transition-behavior: normal; }
+.transition-discrete { transition-behavior: allow-discrete; }
+
+/* Interpolate size — animate to/from intrinsic sizes like height: auto */
+.interpolate-size-numeric { interpolate-size: numeric-only; }
+.interpolate-size-keywords { interpolate-size: allow-keywords; }
+
+/* Details content — animate the open/close of <details> */
+.details-animate::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition: block-size 300ms ease, content-visibility 300ms allow-discrete;
+}
+.details-animate[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .details-animate::details-content {
+    transition: none;
+  }
+}

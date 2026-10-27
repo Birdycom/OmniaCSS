@@ -1,0 +1,97 @@
+<!--oc-page {"title":"OmniaCSS Docs","description":"OmniaCSS documentation: every page shows the classes, a live resizable demo, the code and the browser support from MDN.","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dx-start { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 0.75rem; margin-block: 1.5rem 0.5rem; }\n    .dx-start a { display: grid; gap: 0.25rem; padding: 1rem 1.1rem; border-radius: 14px; color: var(--color-white-50); text-decoration: none; transition: translate 0.2s; }\n    .dx-start a:hover { translate: 0 -3px; }\n    .dx-start a:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n    .dx-start a:nth-child(1) { background: linear-gradient(130deg, var(--color-vividblue-80), var(--color-indigo-60)); }\n    .dx-start a:nth-child(2) { background: linear-gradient(130deg, var(--color-magenta-50), var(--color-purple-60)); }\n    .dx-start a:nth-child(3) { background: linear-gradient(130deg, var(--color-orange-50), var(--color-red-60)); }\n    .dx-start a:nth-child(4) { background: linear-gradient(130deg, var(--color-teal-50), var(--color-green-60)); }\n    .dx-start b { font-family: var(--ocd-display); font-size: 1.1rem; }\n    .dx-start span { font-size: 0.85rem; opacity: 0.9; }\n    .dx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 0.75rem; }\n    .dx-card { display: grid; gap: 0.3rem; align-content: start; padding: 1rem 1.1rem; border: 1px solid var(--oc-border); border-radius: 14px; color: inherit; text-decoration: none; transition: border-color 0.2s, translate 0.2s; }\n    .dx-card:hover { border-color: var(--oc-primary); translate: 0 -2px; }\n    .dx-card:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n    .dx-card b { font-family: var(--ocd-display); font-size: 1.02rem; }\n    .dx-card span { font-size: 0.86rem; line-height: 1.5; color: var(--oc-muted-foreground); }\n    .dx-card small { font: 500 0.7rem var(--ocd-mono); color: var(--oc-primary); }\n    @media (prefers-reduced-motion: reduce) { .dx-start a, .dx-card { transition: none; } }\n  </style>"]}-->
+<section class="oc-hero" id="overview">
+        <h1 class="oc-hero-title">OmniaCSS documentation</h1>
+        <p class="oc-hero-text">Every page shows the classes, a live demo you can resize, the code, and which browsers support it, straight from MDN. Press <kbd>Ctrl K</kbd> to search, or start with one of these.</p>
+        <nav class="dx-start" aria-label="Start here">
+          <a href="configuration.html"><b>Install</b><span>CLI, PostCSS, Laravel in one minute</span></a>
+          <a href="colors/system.html"><b>Colors</b><span>The Omnia palette in OKLCH</span></a>
+          <a href="functions/"><b>Modern CSS</b><span>Functions, selectors, at-rules</span></a>
+          <a href="creative/"><b>Creative CSS</b><span>Effects that impress, in pure CSS</span></a>
+        </nav>
+      </section>
+
+      <section class="oc-docs-section" id="core-foundations">
+        <div class="oc-section-header"><h2 class="oc-section-header__title">Core Foundations</h2></div>
+        <div class="oc-section-content"><div class="dx-grid">
+          <a class="dx-card" href="configuration.html"><b>Configuration</b><span>Content globs, layers, components and the omnia.config.json options.</span></a>
+          <a class="dx-card" href="fluid.html"><b>Fluid values (clamp, min, max)</b><span>Font sizes and widths that scale with the viewport and stay within bounds.</span></a>
+          <a class="dx-card" href="functions/"><b>CSS Functions</b><span>From clamp() to progress(), stepped values, trigonometry, sibling-index() and typed attr().</span></a>
+          <a class="dx-card" href="variables/"><b>Variables</b><span>Custom properties, the Omnia tokens, @property and theming with :has().</span></a>
+          <a class="dx-card" href="units/"><b>Units</b><span>lh, rlh, cap, ch, small and dynamic viewport units, container units.</span></a>
+          <a class="dx-card" href="at-rules/"><b>At-rules (@supports, @layer …)</b><span>Feature queries as variants, cascade layers, @scope, @property and @function.</span></a>
+          <a class="dx-card" href="selectors/"><b>Selectors & Pseudo-classes</b><span>Every pseudo-class and pseudo-element as a variant: user-invalid:, target:, has-[…]:.</span></a>
+          <a class="dx-card" href="responsive.html"><b>Responsive & Dark Mode</b><span>Breakpoint and container variants, the CSS-only theme switch.</span></a>
+          <a class="dx-card" href="utilities.html"><b>Utilities</b><span>Cursor, scrolling, touch, SVG, accessibility and state variants.</span></a>
+        </div></div>
+      </section>
+
+      <section class="oc-docs-section" id="core-families">
+        <div class="oc-section-header"><h2 class="oc-section-header__title">Core Families</h2></div>
+        <div class="oc-section-content"><div class="dx-grid">
+          <a class="dx-card" href="alignment/"><b>Alignment</b><span>Justify, align and place (content/items/self) for flex and grid layouts.</span><small>9 pages</small></a>
+          <a class="dx-card" href="borders/"><b>Borders</b><span>Radius, width, style, color, outlines, focus rings and corner-shape.</span><small>11 pages</small></a>
+          <a class="dx-card" href="colors/"><b>Colors</b><span>Omnia, HTML and RAL palettes in OKLCH, tones, mix steps and color functions.</span><small>4 pages</small></a>
+          <a class="dx-card" href="effects/"><b>Effects</b><span>Opacity, shadows, blend modes, filters, transforms and transitions.</span><small>8 pages</small></a>
+          <a class="dx-card" href="flex-grid/"><b>Flex & Grid</b><span>Flexbox and CSS Grid utilities with direction, wrap, basis, grow, shrink, cols, rows.</span><small>10 pages</small></a>
+          <a class="dx-card" href="layout/"><b>Layout</b><span>Display, overflow, visibility, z-index, position, columns, float, clear, order.</span><small>7 pages</small></a>
+          <a class="dx-card" href="position/"><b>Position</b><span>Static, relative, absolute, fixed and sticky, inset and z-index.</span><small>3 pages</small></a>
+          <a class="dx-card" href="sizing/"><b>Sizing</b><span>Width, height, min and max sizes, aspect ratio and containers.</span><small>7 pages</small></a>
+          <a class="dx-card" href="spacing/"><b>Spacing</b><span>Padding and margin on every side, logical properties included.</span><small>2 pages</small></a>
+          <a class="dx-card" href="tables/"><b>Tables</b><span>Table layout, border-collapse, border-spacing, caption-side.</span><small>5 pages</small></a>
+          <a class="dx-card" href="typography/"><b>Typography</b><span>Font family, size, weight, style, text-align, decoration, transform and more.</span><small>15 pages</small></a>
+        </div></div>
+      </section>
+
+      <section class="oc-docs-section" id="extended-families">
+        <div class="oc-section-header"><h2 class="oc-section-header__title">Extended Families</h2></div>
+        <div class="oc-section-content"><div class="dx-grid">
+          <a class="dx-card" href="interactivity/"><b>Interactivity</b><span>Cursor, selection, scrolling, touch, form controls and performance.</span><small>4 pages</small></a>
+          <a class="dx-card" href="scroll-snap/"><b>Scroll Snap</b><span>Carousels with generated arrows and dots, full-height sections.</span></a>
+          <a class="dx-card" href="pagination/"><b>Pagination</b><span>Pagination patterns, CSS-generated page buttons and print pages.</span></a>
+          <a class="dx-card" href="scrollbars/"><b>Scrollbars</b><span>Thin, hidden and colored scrollbars with scrollbar-color and scrollbar-width.</span></a>
+          <a class="dx-card" href="gradients/"><b>Gradients</b><span>Linear, radial and conic gradients with Omnia color stops.</span></a>
+          <a class="dx-card" href="svg/"><b>SVG</b><span>fill, stroke, paint-order and vector-effect utilities.</span></a>
+          <a class="dx-card" href="lists/"><b>Lists & Counters</b><span>List style type, position, CSS counters (counter-reset, counter-increment, counter-set).</span></a>
+          <a class="dx-card" href="images/"><b>Images & Object Fit</b><span>Object-fit, object-position, image-rendering for controlling replaced element sizing.</span></a>
+          <a class="dx-card" href="columns/"><b>Columns</b><span>Multi-column layout: count, width, rule, span and fill.</span></a>
+          <a class="dx-card" href="container-queries/"><b>Container Queries</b><span>Container-type, container-name, cq-* query variants, contain, content-visibility for component-level responsive design.</span></a>
+          <a class="dx-card" href="writing-modes/"><b>Writing Modes</b><span>Writing-mode, direction, text-orientation, unicode-bidi, logical inset and logical sizing.</span></a>
+          <a class="dx-card" href="shapes/"><b>Shapes & Clipping</b><span>Clip-path (incl. shape()), shape-outside, shape-margin for geometric clipping and text wrapping.</span></a>
+          <a class="dx-card" href="fragmentation/"><b>Fragmentation</b><span>Break-before/after/inside, orphans, widows, box-decoration-break for print and column breaks.</span></a>
+          <a class="dx-card" href="generated-content/"><b>Generated Content</b><span>Content property, quotes for ::before/::after pseudo-element content.</span></a>
+        </div></div>
+      </section>
+
+      <section class="oc-docs-section" id="showcase">
+        <div class="oc-section-header"><h2 class="oc-section-header__title">Showcase</h2></div>
+        <div class="oc-section-content"><div class="dx-grid">
+          <a class="dx-card" href="creative/"><b>Creative CSS</b><span>Glowing borders, neon buttons, 3D cards, glass, text effects and loaders in pure CSS.</span></a>
+        </div></div>
+      </section>
+
+      <section class="oc-docs-section" id="experimental">
+        <div class="oc-section-header"><h2 class="oc-section-header__title">Experimental</h2></div>
+        <div class="oc-section-content"><div class="dx-grid">
+          <a class="dx-card" href="anchor-positioning/"><b>Anchor Positioning</b><span>Position elements relative to anchors without JS (anchor-name, position-anchor, position-area).</span></a>
+          <a class="dx-card" href="view-transitions/"><b>View Transitions</b><span>Animated transitions between view states and page navigations (view-transition-name).</span></a>
+          <a class="dx-card" href="scroll-animations/"><b>Scroll Animations</b><span>Drive animations with scroll progress (animation-timeline, scroll(), view() functions).</span></a>
+          <a class="dx-card" href="starting-style/"><b>Entry Animations</b><span>@starting-style, transition-behavior: allow-discrete, interpolate-size and animated &lt;details&gt;.</span></a>
+          <a class="dx-card" href="experimental-css/"><b>Newest CSS</b><span>Features that are still in one engine: gap decorations, caret shape, reading order.</span></a>
+        </div></div>
+      </section>
+
+      <section class="oc-docs-section" id="modules">
+        <div class="oc-section-header"><h2 class="oc-section-header__title">Modules</h2></div>
+        <div class="oc-section-content"><div class="dx-grid">
+          <a class="dx-card" href="layout-module.html"><b>Layout Module</b><span>The page layout helpers used by the docs and the blocks.</span></a>
+        </div></div>
+      </section>
+
+      <section class="oc-docs-section" id="special">
+        <div class="oc-section-header"><h2 class="oc-section-header__title">Special</h2></div>
+        <div class="oc-section-content"><div class="dx-grid">
+          <a class="dx-card" href="code-syntax-theme.html"><b>Theme to CSS</b><span>Turn a code editor theme into CSS for the code blocks.</span></a>
+          <a class="dx-card" href="code-syntax.html"><b>Code syntax</b><span>The highlighting used in every code block.</span></a>
+          <a class="dx-card" href="migrate.html"><b>Migreren / Migrate</b><span>Move from Tailwind or Bootstrap to OmniaCSS and OmniaUI.</span></a>
+        </div></div>
+      </section>

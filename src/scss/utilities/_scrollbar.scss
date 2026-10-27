@@ -1,0 +1,49 @@
+// SCSS Document
+// File: src/scss/utilities/_scrollbar.scss
+// Description: Scrollbar utilities — width, gutter and color (CSS Scrollbars Styling Level 1).
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .scrollbar-* classes for scrollbar-width, scrollbar-gutter and scrollbar-color.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
+// Note: .scrollbar-thumb-* and .scrollbar-track-* set custom properties; .scrollbar-color applies them.
+// Map: scrollbar-width -> scrollbar-gutter -> scrollbar-color -> .scrollbar-omnia (themed OmniaCSS scrollbar)
+
+/* Scrollbar width */
+.scrollbar-auto { scrollbar-width: auto; }
+.scrollbar-thin { scrollbar-width: thin; }
+.scrollbar-none { scrollbar-width: none; }
+
+/* Scrollbar gutter — reserve space so content does not jump when a scrollbar appears */
+.scrollbar-gutter-auto { scrollbar-gutter: auto; }
+.scrollbar-gutter-stable { scrollbar-gutter: stable; }
+.scrollbar-gutter-both { scrollbar-gutter: stable both-edges; }
+
+/* Scrollbar color */
+.scrollbar-color-auto { scrollbar-color: auto; }
+.scrollbar-color {
+  scrollbar-color: var(--oc-scrollbar-thumb, currentcolor) var(--oc-scrollbar-track, transparent);
+}
+.scrollbar-thumb-current { --oc-scrollbar-thumb: currentcolor; }
+.scrollbar-thumb-gray { --oc-scrollbar-thumb: var(--color-gray-50); }
+.scrollbar-thumb-blue { --oc-scrollbar-thumb: var(--color-vividblue-80); }
+.scrollbar-thumb-cyan { --oc-scrollbar-thumb: var(--color-skycyan-80); }
+.scrollbar-thumb-purple { --oc-scrollbar-thumb: var(--color-purple-20); }
+.scrollbar-track-transparent { --oc-scrollbar-track: transparent; }
+.scrollbar-track-gray { --oc-scrollbar-track: var(--color-silver-2); }
+
+/* OmniaCSS scrollbar: thin, Omnia-blue thumb on a transparent track, follows light/dark.
+   scrollbar-color is inherited, so one class on <html> themes every scroll area of the page. */
+.scrollbar-omnia,
+.scrollbar-omnia * {
+  scrollbar-width: thin;
+}
+.scrollbar-omnia {
+  --oc-scrollbar-thumb: light-dark(oklch(from var(--color-vividblue-95) l c h / 0.45), oklch(from var(--color-vividblue-60) l c h / 0.45));
+  --oc-scrollbar-track: transparent;
+  scrollbar-color: var(--oc-scrollbar-thumb) var(--oc-scrollbar-track);
+}
+.scrollbar-omnia:hover {
+  --oc-scrollbar-thumb: light-dark(var(--color-vividblue-95), var(--color-vividblue-60));
+}

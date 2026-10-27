@@ -1,0 +1,315 @@
+// SCSS Document 
+// File: src/scss/utilities/_colors_omnia.scss
+// Description: colors properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: background-color, color
+// Values: rgb, rgba, hsl, hsla, #
+
+@use "sass:string";
+@use "sass:color";
+@use "sass:list";
+@use "sass:math";
+@use "sass:map";
+@use '../utilities/' as *;
+// oc-tone-color() and $oc-tone-scale: see variables/_color_tone.scss (forwarded via utilities index).
+// oklch/oklab utilities use var(--color-{name}-{step}) from oc-colors.css so values stay in one place.
+
+/* The OMNIA Colors properties */
+///
+/// @group ColorsOMNIA
+///
+
+///
+/// This code defines a series of nested Sass @each loops that generate CSS background colors 
+/// and text colors based on a set of predefined color palettes. 
+/// The @each loops iterate through several arrays of color properties, 
+/// starting with a top-level array called $html-colors, and dig into subsequent arrays of 
+/// maincolorsomnia-prop, colorname-prop, pseudoclasses-prop, and opacitycolor-prop 
+/// to generate CSS classes for each color with different opacity and/or pseudo-class options. 
+/// 
+/// The code then generates CSS code block and sets the appropriate background-color 
+/// and color properties based on the selected color and opacity value. 
+/// The $DEFAULT-COLOR-TYPE-VALUE variable determines whether the color being iterated 
+/// through is set as a hexadecimal value, HSL, or RGB.
+///
+/// @group ColorsOMNIA
+/// @name colorsomnia
+/// @link src/scss/utilities/_colors_omnia.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $colorsomnia
+/// @require {variable} $pseudoclasses
+/// @require {variable} $opacitycolor
+/// @require str-replace
+/// @example scss - colors class
+///   @each $colorsomnia-prop, $colorsomnia-value in $omnia-colors { // first list 'omniacolors'
+///   @each $maincolorsomnia-prop, $maincolorsomnia-value in $colorsomnia-value { // first list 'omniacolors'
+///    @each $colorname-prop, $colorname-value in $maincolorsomnia-value { // second list 'colors name'
+///      @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+///        @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor { // set the opacity off the colors  
+///          #{".#{$pseudoclasses-value}" + "bg-" + to-lower-case("#{$colorname-prop}") + if($opacitycolor-value <= 90, "#{$opacitycolor-prop}#{$pseudoclasses-prop}","#{$pseudoclasses-prop}") } {
+///              @each $coloromnia-prop, $coloromnia-value in $colorname-value {
+///                @if $coloromnia-prop == $DEFAULT-COLOR-TYPE-VALUE {
+///                  @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {  
+///                    @if $opacitycolor-value <= 90 {
+///                      background-color: $coloromnia-value+#{$opacitycolor-value} 
+///                    } @else {
+///                      background-color: $coloromnia-value  
+///                    };
+///                  };
+///                  @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+///                    $h:(); $s:(); $l:();
+///                    @each $color-prop, $color-value in $coloromnia-value {
+///                        @if $color-prop == 'h' { $h: #{$color-value} }
+///                        @if $color-prop == 's' { $s: #{$color-value}+'%' }
+///                        @if $color-prop == 'l' { $l: #{$color-value}+'%' }
+///                    };
+///                    @if $opacitycolor-value <= 90 {
+///                      background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  } 
+///                    } @else {
+///                      background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+///                    };
+///                  };
+///                  @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+///                    $r:(); $g:(); $b:();
+///                    @each $color-prop, $color-value in $coloromnia-value {
+///                        @if $color-prop == 'r' { $r: #{$color-value} }
+///                        @if $color-prop == 'g' { $g: #{$color-value} }
+///                        @if $color-prop == 'b' { $b: #{$color-value} }
+///                    };
+///                    @if $opacitycolor-value <= 90 {
+///                      background-color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  } 
+///                    } @else {
+///                      background-color: #{'rgb('+ $r  $g  $b + ' )'  } 
+///                    };                  
+///                  };
+///                };    
+///              };
+///            };
+///          #{".#{$pseudoclasses-value}" + "text-" + to-lower-case("#{$colorname-prop}") + if($opacitycolor-value <= 90, "#{$opacitycolor-prop}#{$pseudoclasses-prop}","#{$pseudoclasses-prop}")}{
+///            @each $coloromnia-prop, $coloromnia-value in $colorname-value {
+///              @if $coloromnia-prop == $DEFAULT-COLOR-TYPE-VALUE {
+///                @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' { 
+///                  @if $opacitycolor-value <= 90 {
+///                    color: $coloromnia-value+#{$opacitycolor-value} 
+///                  } @else {
+///                    color: $coloromnia-value  
+///                  };                  
+///                };
+///                @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+///                  $h:(); $s:(); $l:();
+///                  @each $color-prop, $color-value in $coloromnia-value {
+///                      @if $color-prop == 'h' { $h: #{$color-value} }
+///                      @if $color-prop == 's' { $s: #{$color-value}+'%' }
+///                      @if $color-prop == 'l' { $l: #{$color-value}+'%' }
+///                  };
+///                  @if $opacitycolor-value <= 90 {
+///                    color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  } 
+///                  } @else {
+///                    color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ',)'  } 
+///                  };
+///                };
+///                @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+///                  $r:(); $g:(); $b:();
+///                  @each $color-prop, $color-value in $coloromnia-value {
+///                      @if $color-prop == 'r' { $r: #{$color-value} }
+///                      @if $color-prop == 'g' { $g: #{$color-value} }
+///                      @if $color-prop == 'b' { $b: #{$color-value} }
+///                  };
+///                  @if $opacitycolor-value <= 90 {
+///                       color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  } 
+///                     } @else {
+///                       color: #{'rgb('+ $r  $g  $b + ' )'  } 
+///                     };   
+///                   };
+///                 };    
+///               };
+///             };
+///           };
+///         };
+///       };
+///     };
+///   };
+/// @example html - use background, text and hover-color class
+///   <div class="bg-green-50 w-12 h-10 p-0.5 hover:text-red text-cyan">
+///     <p>text = Cyan</p>
+///     <p>background = darkgreen</p>
+///     <p>hover background = orange </p>
+///   </div> 
+@each $colorsomnia-prop, $colorsomnia-value in $omnia-colors { // first list 'omniacolors'
+
+  @each $maincolorsomnia-prop, $maincolorsomnia-value in $colorsomnia-value { // first list 'omniacolors'
+
+    @each $colorname-prop, $colorname-value in $maincolorsomnia-value { // second list 'colors name'
+  
+      @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+
+        @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor { // set the opacity off the colors
+          $step: list.nth($opacitycolor-value, 1);
+          $color-name: string.to-lower-case(#{$colorname-prop});
+          
+          $opacity-suffix: "#{$pseudoclasses-prop}";
+          @if $opacitycolor-value <= 95 {
+            $opacity-suffix: "#{$opacitycolor-prop}#{$pseudoclasses-prop}";
+          }
+
+          #{".#{$pseudoclasses-value}" + "bg-" + string.to-lower-case("#{$colorname-prop}") + $opacity-suffix }{
+        
+              @each $coloromnia-prop, $coloromnia-value in $colorname-value {
+        
+                @if $coloromnia-prop == $DEFAULT-COLOR-TYPE-VALUE or (($DEFAULT-COLOR-TYPE-VALUE == 'oklch' or $DEFAULT-COLOR-TYPE-VALUE == 'oklab') and $coloromnia-prop == 'hex') {
+                
+                  @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {
+
+                    @if $opacitycolor-value <= 95 {
+
+                      background-color: $coloromnia-value+#{$opacitycolor-value}; 
+
+                    } @else {
+
+                      background-color: $coloromnia-value;  
+                    }
+                  }
+        
+                  @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+                    
+                    $h:(); $s:(); $l:();
+                    
+                    @each $color-prop, $color-value in $coloromnia-value {
+                    
+                        @if $color-prop == 'h' { $h: #{$color-value}; }
+                        @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+                        @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+        
+                    }
+
+                    @if $opacitycolor-value <= 95 {
+
+                      background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  }; 
+
+                    } @else {
+
+                      background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+                    }
+                  }
+
+                  @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+                    
+                    $r:(); $g:(); $b:();
+                    
+                    @each $color-prop, $color-value in $coloromnia-value {
+                    
+                        @if $color-prop == 'r' { $r: #{$color-value}; }
+                        @if $color-prop == 'g' { $g: #{$color-value}; }
+                        @if $color-prop == 'b' { $b: #{$color-value}; }
+        
+                    }
+
+                    @if $opacitycolor-value <= 95 {
+
+                      background-color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  }; 
+
+                    } @else {
+
+                      background-color: #{'rgb('+ $r  $g  $b + ' )'  }; 
+                    }                  
+                  }
+
+                  @if $DEFAULT-COLOR-TYPE-VALUE == 'oklch' {
+                    // Use token from oc-colors.css so one source of truth; class matches --color-{name}-{step}.
+                    background-color: var(--color-#{$color-name}-#{$step});
+                  }
+
+                  @if $DEFAULT-COLOR-TYPE-VALUE == 'oklab' {
+                    // Same token naming as oklch; oc-colors emits from hex so token is shared.
+                    background-color: var(--color-#{$color-name}-#{$step});
+                  }
+                }    
+              }
+            }
+
+          #{".#{$pseudoclasses-value}" + "text-" + string.to-lower-case("#{$colorname-prop}") + $opacity-suffix}{
+      
+            @each $coloromnia-prop, $coloromnia-value in $colorname-value {
+      
+              @if $coloromnia-prop == $DEFAULT-COLOR-TYPE-VALUE or (($DEFAULT-COLOR-TYPE-VALUE == 'oklch' or $DEFAULT-COLOR-TYPE-VALUE == 'oklab') and $coloromnia-prop == 'hex') {
+              
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' { 
+
+                  @if $opacitycolor-value <= 95 {
+
+                    color: $coloromnia-value+#{$opacitycolor-value}; 
+
+                  } @else {
+
+                    color: $coloromnia-value;  
+                  }                  
+                }
+      
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+                  
+                  $h:(); $s:(); $l:();
+                  
+                  @each $color-prop, $color-value in $coloromnia-value {
+                  
+                      @if $color-prop == 'h' { $h: #{$color-value}; }
+                      @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+                      @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+      
+                  }
+      
+                  @if $opacitycolor-value <= 95 {
+
+                    color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  }; 
+
+                  } @else {
+
+                    color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+                  }
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+                  
+                  $r:(); $g:(); $b:();
+                  
+                  @each $color-prop, $color-value in $coloromnia-value {
+                  
+                      @if $color-prop == 'r' { $r: #{$color-value}; }
+                      @if $color-prop == 'g' { $g: #{$color-value}; }
+                      @if $color-prop == 'b' { $b: #{$color-value}; }
+      
+                  }
+      
+                  @if $opacitycolor-value <= 95 {
+
+                    color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  }; 
+
+                  } @else {
+
+                    color: #{'rgb('+ $r  $g  $b + ' )'  }; 
+                  }   
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklch' {
+                  color: var(--color-#{$color-name}-#{$step});
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklab' {
+                  color: var(--color-#{$color-name}-#{$step});
+                }
+              }    
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+/* End OMNIA Colors properties */

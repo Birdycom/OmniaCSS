@@ -1,0 +1,87 @@
+// File: src/scss/utilities/_colors_tokens.scss
+// Description: CSS custom properties for Omnia/HTML colors under @supports (color: oklch(...)).
+// Copyright: 2021-2026 Birdycom
+// Framework: OmniaCSS
+// Purpose: Emit tone/mix tokens for Omnia & HTML; single token per color for RAL.
+// Sources: $omnia-colors, $html-colors, $ral-colors; $opacitycolor, $color-mix-steps from _variables_effects; oc-tone-color() from _color_tone.scss.
+
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:string";
+@use '../utilities/' as *;
+
+/* ===================================================================
+   COLOR TOKENS (@supports oklch)
+   Omnia/HTML: --color-{name}-{step} (tone), --color-{name}-mix-{step} (color-mix).
+   RAL: --color-{name} only (one value per RAL code, no steps).
+   Use: var(--color-red-50); var(--color-red-mix-50); var(--color-ral9023);
+   =================================================================== */
+
+@mixin _emit-color-tokens($color-map) {
+  @each $colors-prop, $colors-value in $color-map {
+    @each $main-prop, $main-value in $colors-value {
+      @each $colorname-prop, $colorname-value in $main-value {
+        $hex: map.get($colorname-value, hex);
+        @if $hex {
+          $oklch-color: color.to-space($hex, oklch);
+          $name: string.to-lower-case(#{$colorname-prop});
+
+          @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor {
+            $step: list.nth($opacitycolor-value, 1);
+            $tone-color: oc-tone-color($oklch-color, $step);
+            --color-#{$name}-#{$step}: #{$tone-color};
+          }
+        }
+      }
+    }
+  }
+}
+
+/// Emit --color-{name}-mix-{step} for color-mix(in oklch, color step%, transparent). Steps from $color-mix-steps.
+@mixin _emit-color-mix-tokens($color-map) {
+  @each $colors-prop, $colors-value in $color-map {
+    @each $main-prop, $main-value in $colors-value {
+      @each $colorname-prop, $colorname-value in $main-value {
+        $hex: map.get($colorname-value, hex);
+        @if $hex {
+          $oklch-color: color.to-space($hex, oklch);
+          $name: string.to-lower-case(#{$colorname-prop});
+          @each $step in $color-mix-steps {
+            --color-#{$name}-mix-#{$step}: color-mix(in oklch, #{$oklch-color} #{$step * 1%}, transparent);
+          }
+        }
+      }
+    }
+  }
+}
+
+/// RAL: one token per color only (--color-ral1000, --color-ral9023, etc.), no tone/mix steps.
+@mixin _emit-ral-tokens($ral-map) {
+  @each $colors-prop, $colors-value in $ral-map {
+    @each $main-prop, $main-value in $colors-value {
+      @each $colorname-prop, $colorname-value in $main-value {
+        $hex: map.get($colorname-value, hex);
+        @if $hex {
+          $oklch-color: color.to-space($hex, oklch);
+          $name: string.to-lower-case(#{$colorname-prop});
+          --color-#{$name}: #{$oklch-color};
+        }
+      }
+    }
+  }
+}
+
+@supports (color: oklch(0 0 0)) {
+  :root,
+  :host {
+    /* Omnia palette (tone + mix) */
+    @include _emit-color-tokens($omnia-colors);
+    @include _emit-color-mix-tokens($omnia-colors);
+    /* HTML palette (tone + mix) */
+    @include _emit-color-tokens($html-colors);
+    @include _emit-color-mix-tokens($html-colors);
+    /* RAL palette (single token per color, no steps) */
+    @include _emit-ral-tokens($ral-colors);
+  }
+}

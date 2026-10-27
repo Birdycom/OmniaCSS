@@ -1,0 +1,273 @@
+<!--oc-page {"title": "OmniaCSS Docs - Responsive, Dark Mode & States", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-hero" id="overview">
+        <h1 class="oc-hero-title">Responsive, Dark Mode &amp; State Variants</h1>
+        <p class="oc-hero-text">Use prefix-based modifiers to apply utilities conditionally. Responsive (sm:/md:/lg:), dark mode (dark:/auto-dark:), states (hover:/focus:/active:) and group hover (group-hover:).</p>
+      </section>
+
+      <!-- Breakpoints -->
+      <section class="oc-docs-section" id="breakpoints">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Breakpoints <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">OmniaCSS uses three mobile-first breakpoints. Each prefix generates a <code>min-width</code> media query.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+          <thead><tr><th>Prefix</th><th>Min-width</th><th>CSS</th></tr></thead>
+          <tbody>
+            <tr><td><code>sm:</code></td><td>36rem (576px)</td><td><code>@media (min-width: 36rem)</code></td></tr>
+            <tr><td><code>md:</code></td><td>50rem (800px)</td><td><code>@media (min-width: 50rem)</code></td></tr>
+            <tr><td><code>lg:</code></td><td>64rem (1024px)</td><td><code>@media (min-width: 64rem)</code></td></tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Responsive utilities -->
+      <section class="oc-docs-section" id="responsive-utilities">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Responsive Utilities <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">The following utility families have responsive variants:</p>
+        </div>
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">Display</h3>
+        <oc-code>&lt;!-- Hidden on mobile, flex on medium+ --&gt;
+&lt;div class="hidden md:flex"&gt;...&lt;/div&gt;
+
+&lt;!-- Block on mobile, grid on large --&gt;
+&lt;div class="block lg:grid lg:grid-cols-3"&gt;...&lt;/div&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">Grid columns</h3>
+        <oc-code>&lt;!-- 1 column mobile, 2 medium, 4 large --&gt;
+&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+  &lt;div&gt;Item 4&lt;/div&gt;
+&lt;/div&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">Width</h3>
+        <oc-code>&lt;!-- Full width on mobile, half on medium, third on large --&gt;
+&lt;div class="w-full md:w-1/2 lg:w-1/3"&gt;...&lt;/div&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">Text alignment</h3>
+        <oc-code>&lt;!-- Center on mobile, left on large --&gt;
+&lt;p class="text-center lg:text-left"&gt;Responsive text&lt;/p&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">Spacing</h3>
+        <oc-code>&lt;!-- Tight padding on mobile, more on medium+ --&gt;
+&lt;div class="p-2 md:p-6 lg:p-8"&gt;Content&lt;/div&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">All responsive classes</h3>
+        <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+          <thead><tr><th>Category</th><th>Example classes</th></tr></thead>
+          <tbody>
+            <tr><td>Display</td><td><code>sm:hidden</code>, <code>md:flex</code>, <code>lg:grid</code>, <code>sm:inline-block</code></td></tr>
+            <tr><td>Flex</td><td><code>md:flex-row</code>, <code>lg:flex-col</code>, <code>sm:wrap</code>, <code>md:grow</code></td></tr>
+            <tr><td>Grid</td><td><code>md:grid-cols-2</code>, <code>lg:grid-cols-4</code>, <code>sm:col-span-full</code></td></tr>
+            <tr><td>Width</td><td><code>md:w-1/2</code>, <code>lg:w-1/3</code>, <code>sm:w-full</code>, <code>md:max-w-lg</code></td></tr>
+            <tr><td>Height</td><td><code>sm:h-full</code>, <code>md:h-screen</code>, <code>lg:h-auto</code></td></tr>
+            <tr><td>Text</td><td><code>sm:text-center</code>, <code>md:text-left</code>, <code>lg:text-right</code></td></tr>
+            <tr><td>Position</td><td><code>sm:relative</code>, <code>md:sticky</code>, <code>lg:fixed</code></td></tr>
+            <tr><td>Spacing</td><td><code>md:p-4</code>, <code>lg:m-auto</code>, <code>sm:px-2</code>, <code>md:mt-8</code></td></tr>
+            <tr><td>Gap</td><td><code>sm:gap-2</code>, <code>md:gap-4</code>, <code>lg:gap-8</code></td></tr>
+            <tr><td>Alignment</td><td><code>md:justify-center</code>, <code>lg:align-items-start</code></td></tr>
+            <tr><td>Visibility</td><td><code>sm:visible</code>, <code>md:invisible</code></td></tr>
+            <tr><td>Overflow</td><td><code>md:overflow-hidden</code>, <code>lg:overflow-auto</code></td></tr>
+            <tr><td>Order</td><td><code>sm:order-first</code>, <code>md:order-2</code>, <code>lg:order-last</code></td></tr>
+            <tr><td>Opacity</td><td><code>sm:opacity-50</code>, <code>md:opacity-100</code></td></tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live responsive demo -->
+      <section class="oc-docs-section" id="responsive-demo">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Demo <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">Resize your browser to see these change:</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5">
+          <!-- inline: background, border – demo-specific color coding -->
+          <div class="demo-box" style="background:oklch(from var(--color-vividblue-70) l c h / 0.2); border:1px solid var(--color-vividblue-70);">1</div>
+          <!-- inline: background, border – demo-specific color coding -->
+          <div class="demo-box" style="background:oklch(from var(--color-green-10) l c h / 0.2); border:1px solid var(--color-green-10);">2</div>
+          <!-- inline: background, border – demo-specific color coding -->
+          <div class="demo-box" style="background:oklch(from var(--color-orange-60) l c h / 0.2); border:1px solid var(--color-orange-60);">3</div>
+          <!-- inline: background, border – demo-specific color coding -->
+          <div class="demo-box" style="background:oklch(from var(--color-red-50) l c h / 0.2); border:1px solid var(--color-red-50);">4</div>
+        </div>
+        <oc-code>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"&gt;...</oc-code>
+        </div>
+      </section>
+
+      <!-- Dark mode -->
+      <section class="oc-docs-section" id="dark-mode">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Dark Mode <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">Dark mode works with CSS only: <code>color-scheme</code> + <code>light-dark()</code> tokens, switched with a radio group and <code>:has()</code>. No JavaScript is needed to switch.</p>
+        </div>
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">CSS-only switch (recommended)</h3>
+        <p>Every <code>--oc-*</code> theme token is <code>light-dark(light, dark)</code>. A <code>.oc-theme-switch</code> radio group anywhere on the page sets <code>color-scheme</code> on <code>:root</code> through <code>:has()</code>, so the whole page follows instantly (the header switch of this site works that way).</p>
+        <p>The demo below is deliberately isolated: it uses its own radio <code>name</code> and scopes the same <code>:has()</code> trick to the demo box (<code>.oc-theme-scope</code>) instead of <code>:root</code>, so it only themes the box and never fights with the header switch.</p>
+        <style>
+          .oc-theme-scope { display: grid; gap: 0.75rem; justify-items: start; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 0.75rem; background: var(--oc-background); color: var(--oc-foreground); }
+          .oc-theme-scope:has(input[value="light"]:checked) { color-scheme: light; }
+          .oc-theme-scope:has(input[value="dark"]:checked) { color-scheme: dark; }
+          .oc-theme-scope .oc-theme-pick { display: inline-flex; gap: 2px; padding: 3px; margin: 0; border: 1px solid var(--oc-border); border-radius: 999px; background: var(--oc-muted); }
+          .oc-theme-scope .oc-theme-pick label { position: relative; padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; color: var(--oc-muted-foreground); cursor: pointer; }
+          .oc-theme-scope .oc-theme-pick input { position: absolute; inset: 0; margin: 0; opacity: 0; pointer-events: none; }
+          .oc-theme-scope .oc-theme-pick label:has(input:checked) { background: var(--oc-background); color: var(--oc-foreground); }
+          .oc-theme-scope .oc-theme-pick label:has(input:focus-visible) { outline: 2px solid var(--oc-ring); }
+        </style>
+        <oc-demo title="Try it: this switch only themes this box">
+          <div class="oc-theme-scope">
+            <fieldset class="oc-theme-pick" aria-label="Color theme (demo box only)">
+              <label><input type="radio" name="oc-theme-demo" value="system" checked> System</label>
+              <label><input type="radio" name="oc-theme-demo" value="light"> Light</label>
+              <label><input type="radio" name="oc-theme-demo" value="dark"> Dark</label>
+            </fieldset>
+            <p style="margin:0">This box follows the switch above; the rest of the page does not.</p>
+          </div>
+        </oc-demo>
+        <oc-code>&lt;fieldset class="oc-theme-switch" aria-label="Color theme"&gt;
+  &lt;label&gt;&lt;input type="radio" name="oc-theme" value="system" checked&gt; System&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="oc-theme" value="light"&gt; Light&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="oc-theme" value="dark"&gt; Dark&lt;/label&gt;
+&lt;/fieldset&gt;
+
+/* components.css */
+:root:has(.oc-theme-switch input[value="light"]:checked) { color-scheme: light; }
+:root:has(.oc-theme-switch input[value="dark"]:checked)  { color-scheme: dark; }
+
+/* scoped variant (as in the demo above): only the container is themed */
+.oc-theme-scope:has(input[value="dark"]:checked) { color-scheme: dark; }
+
+/* your own styles */
+.card { background: light-dark(var(--color-white-50), var(--color-duskblue-100)); }</oc-code>
+        <p><strong>Remembering the choice:</strong> pure CSS cannot persist state between page loads. The docs site adds one optional, tiny progressive-enhancement script that only stores the selected value in <code>localStorage</code> and restores it as <code>data-theme</code>. The switching itself never depends on it; without the script the page simply starts in "System" again.</p>
+
+        <h3 class="oc-section-content__title">Fixed theme and the <code>dark:</code> variants</h3>
+        <p>Set a fixed theme in markup with <code>&lt;html data-theme="dark"&gt;</code> (or <code>class="dark"</code>). The <code>dark:</code> utilities apply below a <code>.dark</code> ancestor, so they are meant for pages that are dark from the server or from the markup.</p>
+        <oc-code>&lt;html class="dark"&gt;
+  &lt;body&gt;
+    &lt;div class="dark:bg-gray-900 dark:text-white"&gt;
+      Dark mode content
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">Auto-detection</h3>
+        <p>Uses <code>prefers-color-scheme: dark</code> to follow the OS. No JS needed.</p>
+        <oc-code>&lt;div class="auto-dark:bg-gray-900 auto-dark:text-white"&gt;
+  Automatically dark when OS is in dark mode
+&lt;/div&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">Available dark mode classes</h3>
+        <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+          <thead><tr><th>Category</th><th>Example classes</th></tr></thead>
+          <tbody>
+            <tr><td>Background</td><td><code>dark:bg-gray-900</code>, <code>dark:bg-surface</code>, <code>dark:bg-transparent</code></td></tr>
+            <tr><td>Text</td><td><code>dark:text-white</code>, <code>dark:text-gray-300</code>, <code>dark:text-muted</code></td></tr>
+            <tr><td>Border</td><td><code>dark:border-gray-700</code>, <code>dark:border-transparent</code></td></tr>
+            <tr><td>Shadow</td><td><code>dark:shadow-none</code>, <code>dark:shadow-md</code>, <code>dark:shadow-lg</code></td></tr>
+            <tr><td>Display</td><td><code>dark:hidden</code>, <code>dark:block</code></td></tr>
+            <tr><td>Opacity</td><td><code>dark:opacity-50</code>, <code>dark:opacity-75</code></td></tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- State variants -->
+      <section class="oc-docs-section" id="state-variants">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">State Variants <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">Apply utilities on hover, focus, active or focus-visible states.</p>
+        </div>
+        <div class="oc-section-content">
+          <oc-code>&lt;!-- Hover: scale up and add shadow --&gt;
+&lt;div class="hover:scale-105 hover:shadow-lg" style="transition:all 0.15s;"&gt;
+  Hover me
+&lt;/div&gt;
+
+&lt;!-- Focus: add ring --&gt;
+&lt;input class="focus:ring-2 focus:outline-none" type="text"&gt;
+
+&lt;!-- Active state --&gt;
+&lt;button class="hover:bg-gray-100 active:scale-95"&gt;Click me&lt;/button&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">Demo</h3>
+        <div class="flex gap-2.5 wrap mb-2.5">
+          <!-- inline: background, border, transition, cursor – demo-specific interactive styling -->
+          <div class="demo-box hover:scale-105 hover:shadow-lg" style="background:oklch(from var(--color-vividblue-50) l c h / 0.15); border:1px solid var(--color-vividblue-50); transition:all 0.15s; cursor:pointer;">Hover: scale + shadow</div>
+          <!-- inline: background, border, transition, cursor – demo-specific interactive styling -->
+          <div class="demo-box hover:opacity-50" style="background:oklch(from var(--color-green-10) l c h / 0.2); border:1px solid var(--color-green-10); transition:opacity 0.15s; cursor:pointer;">Hover: opacity-50</div>
+          <!-- inline: background, border, transition, cursor – demo-specific interactive styling -->
+          <div class="demo-box hover:rotate-3" style="background:oklch(from var(--color-orange-60) l c h / 0.2); border:1px solid var(--color-orange-60); transition:transform 0.15s; cursor:pointer;">Hover: rotate-3</div>
+        </div>
+
+        <h3 class="oc-section-content__title">Group hover</h3>
+        <p>Parent with class <code>.group</code> triggers child state changes on hover.</p>
+        <oc-code>&lt;div class="group"&gt;
+  &lt;img src="..." class="group-hover:scale-105"&gt;
+  &lt;p class="group-hover:text-white"&gt;Title&lt;/p&gt;
+&lt;/div&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">Disabled state</h3>
+        <oc-code>&lt;button class="disabled:opacity-50 disabled:cursor-not-allowed" disabled&gt;
+  Disabled button
+&lt;/button&gt;</oc-code>
+
+        <h3 class="oc-section-content__title">All state classes</h3>
+        <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+          <thead><tr><th>Category</th><th>Example classes</th></tr></thead>
+          <tbody>
+            <tr><td>Opacity</td><td><code>hover:opacity-50</code>, <code>focus:opacity-100</code></td></tr>
+            <tr><td>Shadow</td><td><code>hover:shadow-lg</code>, <code>focus:shadow-xl</code></td></tr>
+            <tr><td>Scale</td><td><code>hover:scale-105</code>, <code>active:scale-95</code></td></tr>
+            <tr><td>Rotate</td><td><code>hover:rotate-3</code>, <code>hover:rotate-12</code></td></tr>
+            <tr><td>Ring</td><td><code>focus:ring-2</code>, <code>focus:ring-4</code></td></tr>
+            <tr><td>Border</td><td><code>hover:border-blue-500</code>, <code>focus:border-gray-400</code></td></tr>
+            <tr><td>Background</td><td><code>hover:bg-gray-100</code>, <code>hover:bg-transparent</code></td></tr>
+            <tr><td>Text</td><td><code>hover:text-white</code>, <code>focus:text-blue-500</code></td></tr>
+            <tr><td>Decoration</td><td><code>hover:underline</code>, <code>hover:no-underline</code></td></tr>
+            <tr><td>Cursor</td><td><code>hover:cursor-pointer</code></td></tr>
+            <tr><td>Display</td><td><code>hover:hidden</code>, <code>hover:block</code></td></tr>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Combining -->
+      <section class="oc-docs-section" id="combining">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Combining Variants <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
+          
+        <p class="oc-section-header__desc">You can combine responsive, dark mode and state variants by stacking classes:</p>
+        </div>
+        <div class="oc-section-content">
+          <oc-code>&lt;!-- On mobile: block, on medium: flex, on hover: shadow --&gt;
+&lt;div class="block md:flex hover:shadow-lg dark:bg-gray-800"&gt;
+  Combined variants
+&lt;/div&gt;
+
+&lt;!-- Responsive grid with hover effects --&gt;
+&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-4"&gt;
+  &lt;div class="p-4 hover:scale-105 hover:shadow-lg dark:bg-gray-900"&gt;Card&lt;/div&gt;
+&lt;/div&gt;</oc-code>
+        </div>
+      </section>

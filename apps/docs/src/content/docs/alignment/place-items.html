@@ -1,0 +1,38 @@
+<!--oc-page {"title":"OmniaCSS Docs - Place Items","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="place-items">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Place Items</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_alignment.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Shorthand for <code>align-items</code> and <code>justify-items</code>: align grid items on both axes inside their cells.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><code>place-items</code> positions each item inside its grid cell horizontally and vertically in one go. <code>.place-items-center</code> is the shortest way to centre content in every cell, e.g. icon tiles or a single child (<code>.grid.place-items-center</code>). A single value is applied to both axes. In flexbox only the align part applies. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/place-items" target="_blank" rel="noopener">MDN: place-items</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Align + Justify</th></tr></thead>
+              <tbody>
+                <tr><td><code>.place-items-center</code></td><td>center center</td></tr>
+                <tr><td><code>.place-items-start</code></td><td>start start</td></tr>
+                <tr><td><code>.place-items-end</code></td><td>end end</td></tr>
+                <tr><td><code>.place-items-stretch</code></td><td>stretch stretch</td></tr>
+                <tr><td><code>.place-items-baseline</code></td><td>baseline baseline</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8">Every value in a 2 x 2 grid</h3>
+
+          <oc-demo title="place-items values"><div class="dm-grid" style="--dm-min:11rem">
+<div class="dm-tile"><code>.place-items-start</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-start" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w1">2</div><div class="dm-box dm-w1">3</div><div class="dm-box dm-w1">4</div></div></div>
+<div class="dm-tile"><code>.place-items-center</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-center" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w1">2</div><div class="dm-box dm-w1">3</div><div class="dm-box dm-w1">4</div></div></div>
+<div class="dm-tile"><code>.place-items-end</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-end" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w1">2</div><div class="dm-box dm-w1">3</div><div class="dm-box dm-w1">4</div></div></div>
+<div class="dm-tile"><code>.place-items-stretch</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-stretch" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box">1</div><div class="dm-box">2</div><div class="dm-box">3</div><div class="dm-box">4</div></div></div>
+<div class="dm-tile"><code>.place-items-baseline</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-baseline" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w1">2</div><div class="dm-box dm-w1">3</div><div class="dm-box dm-w1">4</div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-3 place-items-center"&gt;
+  &lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>

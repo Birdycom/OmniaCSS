@@ -1,0 +1,130 @@
+<!--oc-page {"title": "OmniaCSS Docs - Interactivity: Scrolling & touch", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="scrolling">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Scrolling &amp; touch</h2>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_interactivity.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.4.0</span>
+          <p class="oc-section-header__desc">Smooth scrolling, scroll snapping, CSS carousels with scroll markers, scroll anchoring and touch gestures. <a href="./">All interactivity utilities</a>.</p>
+        </div>
+        <div class="oc-section-content">
+<!-- Scroll Behavior -->
+          <h3 class="oc-section-content__title" id="scroll">Scroll Behavior</h3>
+          <p class="oc-section-content__desc"><strong>What:</strong> <code>scroll-behavior: smooth</code> animates jumps caused by anchor links and <code>scrollTo()</code>. <strong>When:</strong> in-page navigation. <strong>Gotchas:</strong> set it on the scroll container (often <code>html</code>), not on every element; wrap it in a <code>prefers-reduced-motion: no-preference</code> query for motion-sensitive users; sticky headers need <code>scroll-margin-top</code> on the targets so they do not hide the heading. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior" target="_blank" rel="noopener">MDN: scroll-behavior</a>.</p>
+          <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+            <tbody>
+              <tr><td><code>.scroll-auto</code></td><td>scroll-behavior: auto</td></tr>
+              <tr><td><code>.scroll-smooth</code></td><td>scroll-behavior: smooth</td></tr>
+            </tbody>
+          </table>
+
+          <oc-demo title="scroll-smooth: jump links glide instead of jump">
+            <div class="grid gap-1 w-full">
+              <nav class="flex gap-1"><a class="oc-btn oc-btn--sm oc-btn--outline" href="#oc-sb-1">Part 1</a><a class="oc-btn oc-btn--sm oc-btn--outline" href="#oc-sb-2">Part 2</a><a class="oc-btn oc-btn--sm oc-btn--outline" href="#oc-sb-3">Part 3</a></nav>
+              <div class="scroll-smooth overflow-y-auto" style="block-size: 9rem; border: 1px solid var(--oc-border); border-radius: 10px;">
+                <p id="oc-sb-1" class="p-1 m-0" style="block-size: 9rem;">Part 1 - click Part 3.</p>
+                <p id="oc-sb-2" class="p-1 m-0" style="block-size: 9rem;">Part 2</p>
+                <p id="oc-sb-3" class="p-1 m-0" style="block-size: 9rem;">Part 3 - reached smoothly.</p>
+              </div>
+            </div>
+          </oc-demo>
+
+          <!-- Scroll Snap -->
+          <h3 class="oc-section-content__title" id="scroll-snap">Scroll Snap</h3>
+          <p class="oc-section-content__desc"><strong>What:</strong> the scroller (<code>scroll-snap-type</code>) decides the axis and strictness, each child (<code>scroll-snap-align</code>) says where it wants to rest. <strong>When:</strong> carousels, galleries, onboarding steps, full-page sections. <strong>Gotchas:</strong> <code>mandatory</code> can trap users when an item is taller than the scrollport, so prefer <code>proximity</code> for long content; add <code>scroll-padding</code> to compensate for sticky bars. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type" target="_blank" rel="noopener">MDN: scroll-snap-type</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.snap-start</code></td><td>scroll-snap-align: start</td></tr>
+                <tr><td><code>.snap-end</code></td><td>scroll-snap-align: end</td></tr>
+                <tr><td><code>.snap-center</code></td><td>scroll-snap-align: center</td></tr>
+                <tr><td><code>.snap-align-none</code></td><td>scroll-snap-align: none</td></tr>
+                <tr><td><code>.snap-normal</code></td><td>scroll-snap-stop: normal</td></tr>
+                <tr><td><code>.snap-always</code></td><td>scroll-snap-stop: always</td></tr>
+                <tr><td><code>.snap-none</code></td><td>scroll-snap-type: none</td></tr>
+                <tr><td><code>.snap-x</code></td><td>scroll-snap-type: x mandatory</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.snap-y</code></td><td>scroll-snap-type: y mandatory</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.snap-both</code></td><td>scroll-snap-type: both mandatory</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.snap-proximity</code></td><td>scroll-snap-type: both proximity</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Scroll snap carousel (scroll sideways)">
+            <div class="snap-x overflow-x-auto scroll-smooth oc-carousel"><div class="snap-start oc-slide">Slide 1</div><div class="snap-start oc-slide">Slide 2</div><div class="snap-start oc-slide">Slide 3</div><div class="snap-start oc-slide">Slide 4</div><div class="snap-start oc-slide">Slide 5</div></div>
+          <oc-code lang="html">&lt;div class="snap-x overflow-x-auto scroll-smooth"&gt;
+  &lt;div class="snap-start"&gt;Slide 1&lt;/div&gt;
+  &lt;div class="snap-start"&gt;Slide 2&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <!-- Scroll Markers -->
+          <h3 class="oc-section-content__title mt-10" id="scroll-markers">Scroll Markers (CSS carousels)</h3>
+          <p class="oc-section-content__desc">Generates a group of navigation dots for a scroll container. Each child gets a <code>::scroll-marker</code> you can style; combine with <code>.snap-x</code> and <code>.overflow-x-auto</code> for a CSS-only carousel. <strong>Gotcha:</strong> Chromium only for now; without support the container is a plain scroll-snap list, which is a fine fallback. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-marker" target="_blank" rel="noopener">MDN: ::scroll-marker</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.scroll-markers-none</code></td><td>scroll-marker-group: none</td></tr>
+                <tr><td><code>.scroll-markers-before</code></td><td>scroll-marker-group: before</td></tr>
+                <tr><td><code>.scroll-markers-after</code></td><td>scroll-marker-group: after</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="CSS-only carousel with scroll markers (dots appear in Chrome 135+)">
+            <div class="snap-x overflow-x-auto scroll-smooth scroll-markers-after oc-carousel"><div class="snap-start oc-slide">Slide 1</div><div class="snap-start oc-slide">Slide 2</div><div class="snap-start oc-slide">Slide 3</div><div class="snap-start oc-slide">Slide 4</div><div class="snap-start oc-slide">Slide 5</div></div>
+          <oc-code lang="html">&lt;div class="snap-x overflow-x-auto scroll-markers-after"&gt;
+  &lt;div class="snap-start"&gt;Slide 1&lt;/div&gt;
+  &lt;div class="snap-start"&gt;Slide 2&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <!-- Touch Action -->
+          <h3 class="oc-section-content__title" id="touch">Touch Action</h3>
+          <p class="oc-section-content__desc"><strong>What:</strong> tells the browser which touch gestures it may handle. <strong>When:</strong> <code>pan-y</code> on a horizontal slider so vertical page scrolling still works, <code>none</code> on custom drawing surfaces, <code>manipulation</code> to remove the double-tap-to-zoom delay on buttons. <strong>Gotcha:</strong> restricting gestures can block zoom and scroll for users, so scope it to the element that needs it. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action" target="_blank" rel="noopener">MDN: touch-action</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.touch-auto</code></td><td>touch-action: auto</td></tr>
+                <tr><td><code>.touch-none</code></td><td>touch-action: none</td></tr>
+                <tr><td><code>.touch-pan-x</code></td><td>touch-action: pan-x</td></tr>
+                <tr><td><code>.touch-pan-y</code></td><td>touch-action: pan-y</td></tr>
+                <tr><td><code>.touch-pinch-zoom</code></td><td>touch-action: pinch-zoom</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.touch-manipulation</code></td><td>touch-action: manipulation</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.touch-pan-left</code></td><td>touch-action: pan-left</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.touch-pan-right</code></td><td>touch-action: pan-right</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.touch-pan-up</code></td><td>touch-action: pan-up</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.touch-pan-down</code></td><td>touch-action: pan-down</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <!-- Overflow Anchor & Print -->
+          <h3 class="oc-section-content__title mt-10" id="overflow-anchor">Scroll Anchoring &amp; Print Color</h3>
+          <p class="oc-section-content__desc">Disable scroll anchoring for feeds that should not jump, and force backgrounds and colors to print exactly (badges, charts). <strong>What:</strong> scroll anchoring keeps the visible content steady when content above it loads. Opt out only where it fights your own scroll logic. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-anchor" target="_blank" rel="noopener">MDN: overflow-anchor</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.overflow-anchor-auto</code></td><td>overflow-anchor: auto</td></tr>
+                <tr><td><code>.overflow-anchor-none</code></td><td>overflow-anchor: none</td></tr>
+                <tr><td><code>.print-exact</code></td><td>print-color-adjust: exact</td></tr>
+                <tr><td><code>.print-economy</code></td><td>print-color-adjust: economy</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+        </div>
+      </section>

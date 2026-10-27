@@ -1,0 +1,123 @@
+<!--oc-page {"title": "OmniaCSS Docs - Border-style", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n</style>"]}-->
+<section class="oc-docs-section" id="borders-style">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title font-clamp-1.5">Border-style</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span> 
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_borders_outlines.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">border-style.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            <strong>Border style</strong> sets how the border line is drawn: <code>solid</code>, <code>dashed</code>, <code>dotted</code>, <code>double</code>, or 3D-like <code>groove</code>, <code>ridge</code>, <code>inset</code>, <code>outset</code>. Use <code>.border-none</code> or <code>.border-hidden</code> when you need no visible border. Always combine with a width class (e.g. <code>.border-2</code>) and optionally a color so the border shows. Values from <code>$borderstyles</code> in <code>_variables_layout.scss</code>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>border-style</code> sets the line pattern of the border: <code>solid</code>, <code>dashed</code>, <code>dotted</code>, <code>double</code>, the 3D <code>groove</code>/<code>ridge</code>/<code>inset</code>/<code>outset</code>, or <code>none</code>/<code>hidden</code>. It is required: the default style is <code>none</code>, so no border appears without it. <strong>When to use:</strong> <code>solid</code> for almost everything, <code>dashed</code> for drop zones and placeholders, <code>dotted</code> for subtle separators. <strong>Gotchas:</strong> <code>hidden</code> wins over a neighbour in collapsed table borders while <code>none</code> loses; dashed and dotted patterns differ slightly between browsers; and the 3D styles depend on the color brightness. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style" target="_blank" rel="noopener">MDN: border-style</a>.</p>
+
+          <h3 class="mb-0.2 font-clamp-1">CSS classes</h3>
+          <p class="oc-docs-typo-meta font-clamp-0.8 mb-0.5">All classes set <code>border-style</code>. Use <code>.border-solid</code>, <code>.border-dashed</code>, <code>.border-dotted</code>, etc. for visible lines; <code>.border-none</code> or <code>.border-hidden</code> to hide the border. Pair with a width (e.g. <code>.border-1</code>) and a color for full control.</p>
+          <div class="oc-expandable-table">
+          <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+            <tbody>
+              <tr><td><code>.border-none</code></td><td>border-style: none</td></tr>
+              <tr><td><code>.border-hidden</code></td><td>border-style: hidden</td></tr>
+              <tr><td><code>.border-dotted</code></td><td>border-style: dotted</td></tr>
+              <tr><td><code>.border-dashed</code></td><td>border-style: dashed</td></tr>
+              <tr><td><code>.border-solid</code></td><td>border-style: solid</td></tr>
+              <tr><td><code>.border-double</code></td><td>border-style: double</td></tr>
+              <tr><td><code>.border-groove</code></td><td>border-style: groove</td></tr>
+              <tr><td><code>.border-ridge</code></td><td>border-style: ridge</td></tr>
+              <tr><td><code>.border-inset</code></td><td>border-style: inset</td></tr>
+              <tr><td><code>.border-outset</code></td><td>border-style: outset</td></tr>
+            </tbody>
+          </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title">Preview — border-style</h3>
+          <p class="oc-section-content__desc">Border style: <code>.border-none</code> (no border), <code>.border-hidden</code> (hidden border), <code>.border-dotted</code> (dotted border), <code>.border-dashed</code> (dashed border), <code>.border-solid</code> (solid border), <code>.border-double</code> (double border), <code>.border-groove</code> (groove border), <code>.border-ridge</code> (ridge border), <code>.border-inset</code> (inset border), <code>.border-outset</code> (outset border). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-dodgerblue-50</code>) om de rand te tonen.</p>
+
+          <oc-demo title="border-none, border-hidden, border-dotted, border-dashed, border-solid, border-double, border-groove, border-ridge, border-inset, border-outset">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-none</span><div class="border-1 border-none round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">none</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-hidden</span><div class="border-1 border-hidden round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">hidden</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-dotted</span><div class="border-1 border-dotted round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">dotted</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-dashed</span><div class="border-1 border-dashed round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">dashed</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-solid</span><div class="border-1 border-solid round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">solid</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-double</span><div class="border-4 border-double round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">double</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-groove</span><div class="border-4 border-groove round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">groove</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-ridge</span><div class="border-4 border-ridge round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">ridge</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-inset</span><div class="border-4 border-inset round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">inset</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-outset</span><div class="border-4 border-outset round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">outset</div></div>
+            </div>
+
+            
+            
+          <oc-code lang="html">
+                &lt;div class="border-1 border-none round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;none&lt;/div&gt;
+                &lt;div class="border-1 border-hidden round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;hidden&lt;/div&gt;
+                &lt;div class="border-1 border-dotted round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;dotted&lt;/div&gt;
+                &lt;div class="border-1 border-dashed round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;dashed&lt;/div&gt;
+                &lt;div class="border-1 border-solid round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;solid&lt;/div&gt;
+                &lt;div class="border-4 border-double round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;double&lt;/div&gt;
+                &lt;div class="border-4 border-groove round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;groove&lt;/div&gt;
+                &lt;div class="border-4 border-ridge round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;ridge&lt;/div&gt;
+                &lt;div class="border-4 border-inset round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;inset&lt;/div&gt;
+                &lt;div class="border-4 border-outset round-4 border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;outset&lt;/div&gt;
+              </oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Style and width together</h3>
+          <p class="oc-section-content__desc">Some styles only show with enough width: <code>double</code> needs at least 3px to show two lines, and <code>groove</code>, <code>ridge</code>, <code>inset</code> and <code>outset</code> shade the color to fake depth, which is subtle on 1px borders and in dark mode. Each row below uses the same style at 1, 3 and 6 pixels.</p>
+
+          <oc-demo title="border-style × border-width">
+            <div class="bd-grid" style="grid-template-columns: 1fr; gap: 14px">
+              <div class="bd-cell" style="grid-column: 1 / -1"><code>.border-solid</code><div class="bd-grid" style="grid-template-columns: repeat(3, 1fr)"><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:solid;border-width:1px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">1px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:solid;border-width:3px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">3px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:solid;border-width:6px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">6px</div></div></div></div>
+              <div class="bd-cell" style="grid-column: 1 / -1"><code>.border-dashed</code><div class="bd-grid" style="grid-template-columns: repeat(3, 1fr)"><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:dashed;border-width:1px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">1px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:dashed;border-width:3px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">3px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:dashed;border-width:6px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">6px</div></div></div></div>
+              <div class="bd-cell" style="grid-column: 1 / -1"><code>.border-dotted</code><div class="bd-grid" style="grid-template-columns: repeat(3, 1fr)"><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:dotted;border-width:1px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">1px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:dotted;border-width:3px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">3px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:dotted;border-width:6px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">6px</div></div></div></div>
+              <div class="bd-cell" style="grid-column: 1 / -1"><code>.border-double</code><div class="bd-grid" style="grid-template-columns: repeat(3, 1fr)"><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:double;border-width:1px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">1px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:double;border-width:3px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">3px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:double;border-width:6px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">6px</div></div></div></div>
+              <div class="bd-cell" style="grid-column: 1 / -1"><code>.border-groove</code><div class="bd-grid" style="grid-template-columns: repeat(3, 1fr)"><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:groove;border-width:1px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">1px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:groove;border-width:3px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">3px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:groove;border-width:6px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">6px</div></div></div></div>
+              <div class="bd-cell" style="grid-column: 1 / -1"><code>.border-ridge</code><div class="bd-grid" style="grid-template-columns: repeat(3, 1fr)"><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:ridge;border-width:1px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">1px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:ridge;border-width:3px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">3px</div></div><div class="bd-cell"><div class="bd-box round-2 border-solid" style="border-style:ridge;border-width:6px;border-color:var(--color-dodgerblue-90);aspect-ratio:3/1">6px</div></div></div></div>
+            </div>
+          <oc-code lang="html">&lt;div class="border-double border-6"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+        </div>
+        
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The border-style utilities come from <code>_borders_outlines.scss</code>; the map <code>$borderstyles</code> is defined in <code>_variables_layout.scss</code>. Classes: <code>.border-none</code>, <code>.border-hidden</code>, <code>.border-dotted</code>, <code>.border-dashed</code>, <code>.border-solid</code>, <code>.border-double</code>, <code>.border-groove</code>, <code>.border-ridge</code>, <code>.border-inset</code>, <code>.border-outset</code>. Combine with a width class and, optionally, a color class.
+          </p>
+        
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source (border-style)</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_borders_outlines.scss</code></td><td>border-style (<code>$borderstyles</code>)</td></tr>
+                  <tr><td><code>src/scss/variables/_variables_layout.scss</code></td><td><code>$borderstyles</code></td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes on this page end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="border-width.html">Border-width</a>
+               · 
+              <a class="source-link" href="border-color.html">Border-color</a>
+               · 
+              <a class="source-link" href="outline-style.html">Outline-style</a>
+            </p>
+          </div>
+        </div>
+      </section>

@@ -1,0 +1,172 @@
+<!--oc-page {"title": "OmniaCSS Docs - View Transitions", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="view-transitions">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">View Transitions</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_view_transitions.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">view-transitions/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Animate between two states of a page (same-document, via <code>document.startViewTransition()</code>) or between pages (cross-document). Give elements a <code>.vt-name-*</code> so the browser morphs them, and group them with <code>.vt-class-*</code> to share an animation. Animations are disabled automatically for <code>prefers-reduced-motion</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API" target="_blank" rel="noopener">MDN: View Transition API</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="view-transition-name">View transition name</h3>
+          <p class="oc-section-content__desc">Every name must be unique on the page at the moment of the transition. <code>match-element</code> lets the browser generate a unique name per element (lists). <strong>What:</strong> the browser takes a snapshot of every named element before and after the DOM change and morphs position, size and content between the two. <strong>When:</strong> reordering a list, opening a card into a detail view, toggling a layout, swapping a theme. <strong>Gotchas:</strong> two elements with the same name make the whole transition fail (it is skipped silently), so use <code>.vt-name-match-element</code> for repeated items; named elements get their own stacking context; and the page is non-interactive while the animation runs. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name" target="_blank" rel="noopener">MDN: view-transition-name</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.vt-name-none</code></td><td>view-transition-name: none</td></tr>
+                <tr><td><code>.vt-name-auto</code></td><td>view-transition-name: auto</td></tr>
+                <tr><td><code>.vt-name-match-element</code></td><td>view-transition-name: match-element</td></tr>
+                <tr><td><code>.vt-name-hero</code></td><td>view-transition-name: hero</td></tr>
+                <tr><td><code>.vt-name-header</code></td><td>view-transition-name: header</td></tr>
+                <tr><td><code>.vt-name-main</code></td><td>view-transition-name: main</td></tr>
+                <tr><td><code>.vt-name-media</code></td><td>view-transition-name: media</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Same-page view transition (one line of script starts it)">
+            <div class="grid gap-1 w-full">
+              <button class="oc-btn oc-btn--outline" style="justify-self: start;" onclick="const b=document.getElementById('oc-vt-box');const go=()=>b.classList.toggle('oc-vt-moved');document.startViewTransition?document.startViewTransition(go):go();">Move the card</button>
+              <div class="oc-race__track" style="block-size: auto; padding: 8px; border-radius: 14px;">
+                <div id="oc-vt-box" class="vt-name-hero oc-fx-card" style="inline-size: 9rem;"><strong>.vt-name-hero</strong><span>morphs smoothly</span></div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="vt-name-hero"&gt;…&lt;/div&gt;
+&lt;script&gt;document.startViewTransition(() =&gt; card.classList.toggle("moved"));&lt;/script&gt;
+
+&lt;!-- Between pages no script is needed: --&gt;
+&lt;style&gt;@view-transition { navigation: auto; }&lt;/style&gt;</oc-code></oc-demo>
+          <oc-demo title="Reorder a list: vt-name-match-element (the items glide to their new place)">
+            <div class="grid gap-1 w-full">
+              <button type="button" class="oc-btn oc-btn--outline" style="justify-self: start;" onclick="const l=document.getElementById('oc-vt-list');const go=()=>{[...l.children].reverse().forEach(c=>l.append(c))};document.startViewTransition?document.startViewTransition(go):go();">Reverse order</button>
+              <ul id="oc-vt-list" class="oc-fx-grid list-none p-0 m-0">
+                <li class="vt-name-match-element oc-fx-card"><strong>Alpha</strong></li>
+                <li class="vt-name-match-element oc-fx-card"><strong>Beta</strong></li>
+                <li class="vt-name-match-element oc-fx-card"><strong>Gamma</strong></li>
+                <li class="vt-name-match-element oc-fx-card"><strong>Delta</strong></li>
+              </ul>
+            </div>
+          <oc-code lang="html">&lt;ul id="list"&gt;
+  &lt;li class="vt-name-match-element"&gt;Alpha&lt;/li&gt; …
+&lt;/ul&gt;
+&lt;script&gt;
+  document.startViewTransition(() =&gt; list.append(...[...list.children].reverse()));   // move the existing nodes, do not recreate them
+&lt;/script&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">This documentation site itself uses cross-document view transitions: navigate between pages and the header and footer stay in place while the content cross-fades. Browsers without the API simply run the callback, as the demo buttons here do.</p>
+
+          <h3 class="oc-section-content__title mt-10" id="view-transition-class">View transition class</h3>
+          <p class="oc-section-content__desc">Applies a shared animation to all named elements with the same class. <code>fade</code> shortens the cross-fade to 200ms; <code>slide</code> slides old content out and new content in. <strong>What:</strong> a class is to view transitions what a CSS class is to elements: one rule such as <code>::view-transition-old(*.slide)</code> styles every named element carrying <code>view-transition-class: slide</code>. <strong>When:</strong> many named elements (list items, cards) that should share one animation. <strong>Gotcha:</strong> the class only targets the pseudo-elements, it does not make the element unique: it still needs a <code>view-transition-name</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-class" target="_blank" rel="noopener">MDN: view-transition-class</a>.</p>
+          <oc-demo title="vt-name-media + vt-class-slide: content slides out and in">
+            <div class="grid gap-1 w-full">
+              <button type="button" class="oc-btn oc-btn--outline" style="justify-self: start;" onclick="const p=document.getElementById('oc-vt-panel');const go=()=>{const n=p.dataset.n==='b'?'a':'b';p.dataset.n=n;p.innerHTML=n==='b'?'<strong>Panel B</strong><span>slid in from the right</span>':'<strong>Panel A</strong><span>the first panel</span>'};document.startViewTransition?document.startViewTransition(go):go();">Next panel</button>
+              <div id="oc-vt-panel" class="vt-name-media vt-class-slide oc-fx-card" data-n="a" style="max-inline-size: 24rem;"><strong>Panel A</strong><span>the first panel</span></div>
+            </div>
+          <oc-code lang="html">&lt;div id="panel" class="vt-name-media vt-class-slide"&gt;Panel A&lt;/div&gt;
+&lt;script&gt;
+  document.startViewTransition(() =&gt; { panel.textContent = "Panel B"; });
+&lt;/script&gt;</oc-code></oc-demo>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.vt-class-card</code></td><td>view-transition-class: card</td></tr>
+                <tr><td><code>.vt-class-fade</code></td><td>view-transition-class: fade (200ms cross-fade)</td></tr>
+                <tr><td><code>.vt-class-slide</code></td><td>view-transition-class: slide (slide out / slide in)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="at-rule">Cross-document opt-in</h3>
+          <p class="oc-section-content__desc">Multi-page sites opt in with the global <code>@view-transition</code> at-rule. OmniaCSS does not emit it by default; include the mixin in your own stylesheet. <strong>When:</strong> classic server-rendered sites that want smooth navigation without a client-side router. <strong>Gotchas:</strong> both pages must opt in, be same-origin and load quickly (a slow navigation skips the transition); named elements match across pages by <code>view-transition-name</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition" target="_blank" rel="noopener">MDN: @view-transition</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Mixin</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>@include view-transition-navigation</code></td><td>@view-transition { navigation: auto; }</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="pseudo-elements">Pseudo-elements</h3>
+          <p class="oc-section-content__desc">Style the transition itself with these pseudo-elements. <code>*.slide</code> targets every group with <code>view-transition-class: slide</code>. <strong>What:</strong> during a transition the browser builds a tree (<code>::view-transition</code> &gt; group &gt; image-pair &gt; old + new) above the page; each layer can be animated with normal CSS animations. <strong>Gotcha:</strong> old and new are replaced images that already cross-fade by default (<code>mix-blend-mode: plus-lighter</code>); set <code>height: 100%</code> on them when the size changes and you want the content to stretch. More: <a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using" target="_blank" rel="noopener">MDN: Using the View Transition API</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Pseudo-element</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><code>::view-transition</code></td><td>Root of the view transition overlay</td></tr>
+                <tr><td><code>::view-transition-group(*)</code></td><td>Container for a single element's transition</td></tr>
+                <tr><td><code>::view-transition-image-pair(*)</code></td><td>Container for old and new snapshots</td></tr>
+                <tr><td><code>::view-transition-old(*)</code></td><td>Snapshot of the old state</td></tr>
+                <tr><td><code>::view-transition-new(*)</code></td><td>Snapshot of the new state</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="usage">Usage example</h3>
+          <oc-code>&lt;img class="vt-name-hero vt-class-fade" src="photo.jpg" alt=""&gt;
+
+&lt;script&gt;
+  document.startViewTransition(() =&gt; updateDOM());
+&lt;/script&gt;
+
+/* Cross-document (MPA) opt-in in your own SCSS */
+@use 'omniacss/scss/utilities/view_transitions' as vt;
+@include vt.view-transition-navigation;</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Without support the DOM update happens instantly, without animation — view transitions are a progressive enhancement.</p>
+          <oc-compat features="css.properties.view-transition-name css.properties.view-transition-class css.at-rules.view-transition css.selectors.view-transition-old css.selectors.view-transition-new"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            View transition utilities come from <code>_view_transitions.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name" target="_blank" rel="noopener">MDN: view-transition-name</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_view_transitions.scss</code></td><td>.vt-name-*, .vt-class-*, preset pseudo-element animations, mixin view-transition-navigation</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../effects/transitions.html">Transitions</a>
+               · 
+              <a class="source-link" href="../effects/animations.html">Animations</a>
+               · 
+              <a class="source-link" href="../scroll-animations/">Scroll animations</a>
+            </p>
+          </div>
+        </div>
+      </section>

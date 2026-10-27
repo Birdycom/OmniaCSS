@@ -1,0 +1,124 @@
+// SCSS Document
+// File: src/scss/utilities/_typography_advanced.scss
+// Map: smoothing/stretch/clamp/list-image/text-overflow/wrap/indent/overflow-wrap/hyphens/content/quotes/counters/line-height keywords
+
+/* Font smoothing */
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.subpixel-antialiased {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+/* Font stretch */
+.font-stretch-ultra-condensed { font-stretch: ultra-condensed; }
+.font-stretch-extra-condensed { font-stretch: extra-condensed; }
+.font-stretch-condensed { font-stretch: condensed; }
+.font-stretch-semi-condensed { font-stretch: semi-condensed; }
+.font-stretch-normal { font-stretch: normal; }
+.font-stretch-semi-expanded { font-stretch: semi-expanded; }
+.font-stretch-expanded { font-stretch: expanded; }
+.font-stretch-extra-expanded { font-stretch: extra-expanded; }
+.font-stretch-ultra-expanded { font-stretch: ultra-expanded; }
+
+/* Line clamp */
+.line-clamp-none {
+  overflow: visible;
+  display: block;
+  -webkit-box-orient: horizontal;
+  -webkit-line-clamp: unset;
+}
+.line-clamp-1,
+.line-clamp-2,
+.line-clamp-3,
+.line-clamp-4,
+.line-clamp-5,
+.line-clamp-6 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.line-clamp-1 { -webkit-line-clamp: 1; }
+.line-clamp-2 { -webkit-line-clamp: 2; }
+.line-clamp-3 { -webkit-line-clamp: 3; }
+.line-clamp-4 { -webkit-line-clamp: 4; }
+.line-clamp-5 { -webkit-line-clamp: 5; }
+.line-clamp-6 { -webkit-line-clamp: 6; }
+
+/* List style image */
+.list-image-none { list-style-image: none; }
+.list-image-check { list-style-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%23059669' d='M10.3 3.3 5 8.6 1.7 5.3l1.1-1.1L5 6.4l4.2-4.2z'/%3E%3C/svg%3E"); }
+.list-image-dot { list-style-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%228%22 height=%228%22%3E%3Ccircle cx=%224%22 cy=%224%22 r=%223%22 fill=%22%233b82f6%22/%3E%3C/svg%3E'); }
+
+/* Text overflow */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-ellipsis { text-overflow: ellipsis; }
+.text-clip { text-overflow: clip; }
+
+/* Text wrap */
+.text-wrap { text-wrap: wrap; }
+.text-nowrap { text-wrap: nowrap; }
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+
+/* Text indent */
+.indent-0 { text-indent: 0; }
+.indent-1 { text-indent: 0.25rem; }
+.indent-2 { text-indent: 0.5rem; }
+.indent-4 { text-indent: 1rem; }
+.indent-8 { text-indent: 2rem; }
+
+/* Overflow wrap */
+.wrap-normal { overflow-wrap: normal; }
+.wrap-break-word { overflow-wrap: break-word; }
+.wrap-anywhere { overflow-wrap: anywhere; }
+
+/* Hyphens */
+.hyphens-none { hyphens: none; }
+.hyphens-manual { hyphens: manual; }
+.hyphens-auto { hyphens: auto; }
+
+/* Content helpers */
+.content-none::before,
+.content-none::after { content: none; }
+.content-empty::before,
+.content-empty::after { content: ""; }
+.content-open-quote::before { content: open-quote; }
+.content-close-quote::after { content: close-quote; }
+.content-attr::before { content: attr(data-oc-content); }
+
+/* Quotes */
+.quotes-none { quotes: none; }
+.quotes-auto { quotes: auto; }
+.quotes-french { quotes: "\00AB" "\00BB" "\2039" "\203A"; }
+.quotes-german { quotes: "\201E" "\201C" "\201A" "\2018"; }
+.quotes-english { quotes: "\201C" "\201D" "\2018" "\2019"; }
+
+/* Counters — reset/increment the "oc" counter and print it with ::before */
+.counter-reset { counter-reset: oc; }
+.counter-reset-none { counter-reset: none; }
+.counter-increment { counter-increment: oc; }
+.counter-increment-none { counter-increment: none; }
+.counter-set-0 { counter-set: oc 0; }
+.content-counter::before { content: counter(oc) ". "; }
+.content-counters::before { content: counters(oc, ".") " "; }
+
+/* List style type — newer predefined counter styles */
+.list-disclosure-open { list-style-type: disclosure-open; }
+.list-disclosure-closed { list-style-type: disclosure-closed; }
+.list-l-armenian { list-style-type: lower-armenian; }
+.list-cjk-decimal { list-style-type: cjk-decimal; }
+
+/* Line height keywords — unitless, scale with the font size (the .lineheight-{n} classes are fixed rem values) */
+.lineheight-none { line-height: 1; }
+.lineheight-tight { line-height: 1.25; }
+.lineheight-snug { line-height: 1.375; }
+.lineheight-relaxed { line-height: 1.625; }
+.lineheight-loose { line-height: 2; }
+.lineheight-normal { line-height: normal; }

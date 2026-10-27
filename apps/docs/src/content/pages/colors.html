@@ -1,0 +1,43 @@
+<!--oc-page {"title": "OmniaCSS - Colors", "layout": "plain", "shell": null, "shellClass": null, "bodyClass": "oc-page", "head": []}-->
+<div class="oc-wrap">
+    <section class="oc-hero">
+      <h1>Color Utilities Playground</h1>
+      <p>
+        Browse generated Omnia, HTML and RAL color utilities.
+        This page is used as the visual reference for tokens and color classes.
+      </p>
+      <p>
+        Color values now include modern models:
+        <strong>OKLCH</strong> and <strong>OKLAB</strong>.
+        You can set the generated utility output model via
+        <code>$DEFAULT-COLOR-TYPE-VALUE</code> in <code>omniacss.config.scss</code>.
+      </p>
+      <p>
+        Note: hover or focus a color card to see HEX, RGB, HSL, OKLCH and OKLAB in the tooltip.
+      </p>
+      <p>
+        In the palette preview, hover/focus the <strong>base</strong> swatch to read all values.
+      </p>
+
+      <div class="oc-tabs" aria-label="Choose color palette">
+        <button type="button" class="oc-tab" data-palette="omnia">Omnia palette</button>
+        <button type="button" class="oc-tab" data-palette="html">HTML palette</button>
+        <button type="button" class="oc-tab" data-palette="ral">RAL palette</button>
+      </div>
+    </section>
+
+    <section class="oc-panel">
+      <h3>Omnia scale palette preview (2-95 + base)</h3>
+      <section id="omniapalette" data-palette-section="omnia"></section>
+      <section id="htmlpalette" data-palette-section="html"></section>
+      <section id="ralpalette" data-palette-section="ral"></section>
+    </section>
+
+  </div>
+  
+  
+  <script>
+    window.omniaPaletteSteps = [2, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 'base'];
+    window.omniaPaletteLabel = '2-95 + base';
+  </script>
+  <script type="module" src="/js/colors.js"></script>

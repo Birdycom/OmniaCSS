@@ -1,0 +1,263 @@
+<!--oc-page {"title": "OmniaCSS Docs - Anchor Positioning", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="anchor-positioning">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Anchor Positioning</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_anchor_positioning.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">anchor-positioning/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Position an element relative to another element (the <em>anchor</em>) without JavaScript — ideal for tooltips, menus and popovers. Put <code>.anchor-{name}</code> on the trigger and <code>.anchored-{name}</code> plus an <code>.anchor-area-*</code> class on an <code>.absolute</code> or <code>.fixed</code> element. Available names: <code>oc</code>, <code>trigger</code>, <code>menu</code>, <code>tooltip</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning" target="_blank" rel="noopener">MDN: CSS anchor positioning</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="anchor-name">Anchor name &amp; position anchor</h3>
+          <p class="oc-section-content__desc">Register an anchor and attach a positioned element to it. <strong>What:</strong> <code>anchor-name</code> gives an element a dashed-ident name; <code>position-anchor</code> tells an absolutely or fixed positioned element which name to follow. <strong>When:</strong> tooltips, dropdowns, popovers, callouts, labels that must stay glued to another element without JavaScript. <strong>Gotcha:</strong> anchor names are global to the document, and when several elements share a name the <em>last one in tree order</em> wins, so a second tooltip on the page silently attaches to the wrong trigger. Put <code>.anchor-scope-all</code> on every repeated component (or on every demo) so each instance only sees its own anchor. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-name" target="_blank" rel="noopener">MDN: anchor-name</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-scope" target="_blank" rel="noopener">MDN: anchor-scope</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.anchor-oc</code></td><td>anchor-name: --oc</td></tr>
+                <tr><td><code>.anchor-trigger</code></td><td>anchor-name: --trigger</td></tr>
+                <tr><td><code>.anchor-menu</code></td><td>anchor-name: --menu</td></tr>
+                <tr><td><code>.anchor-tooltip</code></td><td>anchor-name: --tooltip</td></tr>
+                <tr><td><code>.anchor-none</code></td><td>anchor-name: none</td></tr>
+                <tr><td><code>.anchored-oc</code></td><td>position-anchor: --oc</td></tr>
+                <tr><td><code>.anchored-trigger</code></td><td>position-anchor: --trigger</td></tr>
+                <tr><td><code>.anchored-menu</code></td><td>position-anchor: --menu</td></tr>
+                <tr><td><code>.anchored-tooltip</code></td><td>position-anchor: --tooltip</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.anchored-auto</code></td><td>position-anchor: auto</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.anchor-scope-all</code></td><td>anchor-scope: all</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.anchor-scope-none</code></td><td>anchor-scope: none</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="position-area">Position area</h3>
+          <p class="oc-section-content__desc">Places the element in one of the nine cells of the grid around the anchor (top-left, top, top-right, left, center, ...). <strong>When:</strong> the easiest way to say "above / below / next to the anchor" with one declaration; the element is also limited to that cell, so it never exceeds the available room. <strong>Gotcha:</strong> the grid is built from the containing block (the nearest positioned ancestor), so give that ancestor <code>.relative</code>. Insets other than <code>auto</code> still apply inside the chosen cell (the popover UA style sets <code>inset: 0</code>, reset it with <code>inset: auto</code>). Logical values (<code>block-start</code>, <code>inline-end</code>) follow the writing direction. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position-area" target="_blank" rel="noopener">MDN: position-area</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.anchor-area-top</code></td><td>position-area: top</td></tr>
+                <tr><td><code>.anchor-area-bottom</code></td><td>position-area: bottom</td></tr>
+                <tr><td><code>.anchor-area-left</code></td><td>position-area: left</td></tr>
+                <tr><td><code>.anchor-area-right</code></td><td>position-area: right</td></tr>
+                <tr><td><code>.anchor-area-center</code></td><td>position-area: center</td></tr>
+                <tr><td><code>.anchor-area-top-left</code></td><td>position-area: top left</td></tr>
+                <tr><td><code>.anchor-area-top-right</code></td><td>position-area: top right</td></tr>
+                <tr><td><code>.anchor-area-bottom-left</code></td><td>position-area: bottom left</td></tr>
+                <tr><td><code>.anchor-area-bottom-right</code></td><td>position-area: bottom right</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.anchor-area-top-span-right</code></td><td>position-area: top span-right</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.anchor-area-bottom-span-right</code></td><td>position-area: bottom span-right</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.anchor-area-block-start</code></td><td>position-area: block-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.anchor-area-block-end</code></td><td>position-area: block-end</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.anchor-area-inline-start</code></td><td>position-area: inline-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.anchor-area-inline-end</code></td><td>position-area: inline-end</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="anchor-tooltip + anchored-tooltip anchor-area-top">
+            <div class="anchor-scope-all relative flex justify-center w-full p-2 round-3 border-1 border-dashed border-stormblue-100" style="padding-block-start: 4rem;">
+              <button type="button" class="oc-btn anchor-tooltip">Anchor</button>
+              <span class="absolute anchored-tooltip anchor-area-top anchor-try-flip-block whitespace-nowrap oc-pill oc-pill--accent" style="margin-block-end: 8px;">Tooltip above the anchor</span>
+            </div>
+          <oc-code lang="html">&lt;div class="relative anchor-scope-all"&gt;
+  &lt;button class="anchor-tooltip"&gt;Anchor&lt;/button&gt;
+  &lt;span class="absolute anchored-tooltip anchor-area-top anchor-try-flip-block"&gt;
+    Tooltip above the anchor
+  &lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="position-area around one anchor (no JavaScript)" size="tall">
+            <div class="anchor-scope-all relative grid w-full" style="place-items: center; min-block-size: 16rem;">
+              <div class="anchor-oc oc-fx-card" style="inline-size: 8rem;"><strong>.anchor-oc</strong><span>the anchor</span></div>
+              <span class="absolute anchored-oc anchor-area-top oc-pill oc-pill--accent">.anchor-area-top</span>
+              <span class="absolute anchored-oc anchor-area-bottom oc-pill oc-pill--accent">.anchor-area-bottom</span>
+              <span class="absolute anchored-oc anchor-area-left oc-pill oc-pill--accent">.anchor-area-left</span>
+              <span class="absolute anchored-oc anchor-area-right oc-pill oc-pill--accent">.anchor-area-right</span>
+              <span class="absolute anchored-oc anchor-area-top-right oc-pill">top-right</span>
+              <span class="absolute anchored-oc anchor-area-bottom-left oc-pill">bottom-left</span>
+            </div>
+          <oc-code lang="html">&lt;div class="relative anchor-scope-all"&gt;
+  &lt;div class="anchor-oc"&gt;Anchor&lt;/div&gt;
+  &lt;span class="absolute anchored-oc anchor-area-top"&gt;Above&lt;/span&gt;
+  &lt;span class="absolute anchored-oc anchor-area-right"&gt;Right&lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="anchor-function">anchor() insets</h3>
+          <p class="oc-section-content__desc">When the nine cells of <code>position-area</code> are not precise enough, use <code>anchor()</code> inside <code>top</code>, <code>left</code>, <code>inset-*</code> and friends: <code>top: anchor(bottom)</code> means "my top edge sits at the anchor's bottom edge". <strong>When:</strong> arrows, offsets, centering on an edge, lining up two specific edges. <strong>Gotcha:</strong> <code>anchor()</code> only works on absolutely or fixed positioned elements and only inside inset properties; use <code>anchor-size()</code> for sizes. Where anchor positioning is missing the declaration is invalid and the element keeps its static position. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/anchor" target="_blank" rel="noopener">MDN: anchor()</a>.</p>
+          <oc-demo title="top: anchor(bottom), left: anchor(center)">
+            <div class="anchor-scope-all relative w-full" style="min-block-size: 9rem;">
+              <div class="anchor-oc oc-fx-card" style="inline-size: 9rem; margin: 1rem auto 0;"><strong>anchor</strong><span>.anchor-oc</span></div>
+              <span class="absolute anchored-oc oc-pill oc-pill--accent whitespace-nowrap" style="top: anchor(bottom); left: anchor(center); translate: -50% 10px;">top: anchor(bottom)</span>
+              <span class="absolute anchored-oc oc-pill whitespace-nowrap" style="top: anchor(top); right: anchor(left); margin-inline-end: 10px;">right: anchor(left)</span>
+            </div>
+          <oc-code lang="html">&lt;div class="anchor-oc"&gt;anchor&lt;/div&gt;
+&lt;span class="absolute anchored-oc"
+      style="top: anchor(bottom); left: anchor(center); translate: -50% 10px"&gt;below, centered&lt;/span&gt;
+&lt;span class="absolute anchored-oc"
+      style="top: anchor(top); right: anchor(left)"&gt;left of the anchor&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="position-try">Position try &amp; visibility</h3>
+          <p class="oc-section-content__desc">Fallback positions when the element would overflow its containing block, and when to hide it. <strong>What:</strong> <code>position-try-fallbacks</code> lists alternatives (<code>flip-block</code>, <code>flip-inline</code> or your own <code>@position-try</code> rule) that the browser tries in order until one fits. <strong>When:</strong> tooltips and menus close to a screen or container edge. <strong>Gotcha:</strong> "fits" is measured against the containing block of the positioned element (for a fixed or popover element that is the viewport). <code>position-visibility</code> hides the element when its anchor scrolls out of view. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position-try-fallbacks" target="_blank" rel="noopener">MDN: position-try-fallbacks</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.anchor-try-none</code></td><td>position-try-fallbacks: none</td></tr>
+                <tr><td><code>.anchor-try-flip-block</code></td><td>position-try-fallbacks: flip-block</td></tr>
+                <tr><td><code>.anchor-try-flip-inline</code></td><td>position-try-fallbacks: flip-inline</td></tr>
+                <tr><td><code>.anchor-try-flip-both</code></td><td>position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline</td></tr>
+                <tr><td><code>.anchor-try-order-normal</code></td><td>position-try-order: normal</td></tr>
+                <tr><td><code>.anchor-try-order-most-width</code></td><td>position-try-order: most-width</td></tr>
+                <tr><td><code>.anchor-try-order-most-height</code></td><td>position-try-order: most-height</td></tr>
+                <tr><td><code>.anchor-visibility-always</code></td><td>position-visibility: always</td></tr>
+                <tr><td><code>.anchor-visibility-anchors-visible</code></td><td>position-visibility: anchors-visible</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.anchor-visibility-no-overflow</code></td><td>position-visibility: no-overflow</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="anchor-try-flip-block: tooltip flips when there is no room">
+            <div class="grid gap-2 w-full" style="grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));">
+              <div class="anchor-scope-all relative round-3 border-1 border-dashed border-stormblue-100" style="block-size: 8rem;">
+                <button type="button" class="oc-btn anchor-tooltip" style="margin: 6px;">Button at the top</button>
+                <span class="absolute anchored-tooltip anchor-area-top anchor-try-flip-block whitespace-nowrap oc-pill oc-pill--accent" style="margin: 6px;">asks for top, gets bottom</span>
+              </div>
+              <div class="anchor-scope-all relative round-3 border-1 border-dashed border-stormblue-100" style="block-size: 8rem;">
+                <button type="button" class="oc-btn anchor-tooltip absolute" style="inset-block-end: 6px; inset-inline-start: 6px;">Button at the bottom</button>
+                <span class="absolute anchored-tooltip anchor-area-bottom anchor-try-flip-block whitespace-nowrap oc-pill oc-pill--accent" style="margin: 6px;">asks for bottom, gets top</span>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="relative anchor-scope-all" style="height: 8rem"&gt;
+  &lt;button class="anchor-tooltip"&gt;Button at the top&lt;/button&gt;
+  &lt;!-- no room above the button inside the box: the browser flips it below --&gt;
+  &lt;span class="absolute anchored-tooltip anchor-area-top anchor-try-flip-block"&gt;…&lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="popover-anchor">Popover + anchor</h3>
+          <p class="oc-section-content__desc">A <code>popover</code> lives in the top layer, so it escapes <code>overflow: hidden</code> and z-index battles, but it is also positioned against the viewport. Anchor positioning is the missing half: it glues the popover to its trigger. <strong>Two ways:</strong> name the trigger with <code>.anchor-*</code> and attach with <code>.anchored-*</code>, or skip the names entirely: a popover opened through <code>popovertarget</code> has the invoking button as <em>implicit anchor</em> (<code>position-anchor: auto</code>). <strong>Gotchas:</strong> the UA style gives popovers <code>inset: 0; margin: auto</code>, so reset with <code>inset: auto</code> and set your own margin; browsers without anchor positioning centre the popover in the viewport, which is still usable. Fallbacks (<code>.anchor-try-flip-*</code>) on a popover are evaluated against the viewport when it opens; inside an inner scroll container (like this documentation page) they can flip unexpectedly, so test them in your own layout. More: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using" target="_blank" rel="noopener">MDN: Using the Popover API</a>.</p>
+
+          <oc-demo title="Popover with a named anchor (click the button)" size="tall">
+            <div class="anchor-scope-all flex flex-wrap gap-2">
+              <button type="button" class="oc-btn oc-btn--outline anchor-tooltip" popovertarget="oc-anchor-pop-named">Show popover</button>
+              <div id="oc-anchor-pop-named" popover class="anchored-tooltip anchor-area-bottom-span-right oc-fx-card" style="inset: auto; margin: 8px; cursor: default;"><strong>Named anchor</strong><span>.anchor-tooltip + .anchored-tooltip</span></div>
+            </div>
+          <oc-code lang="html">&lt;button class="anchor-tooltip" popovertarget="tip"&gt;Show popover&lt;/button&gt;
+&lt;div id="tip" popover class="anchored-tooltip anchor-area-bottom-span-right"
+     style="inset: auto; margin: 8px"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="Popover with the implicit anchor (no anchor-name at all)" size="tall">
+            <div class="flex flex-wrap gap-2">
+              <button type="button" class="oc-btn oc-btn--outline" popovertarget="oc-anchor-pop-implicit">Implicit anchor</button>
+              <div id="oc-anchor-pop-implicit" popover class="anchored-auto anchor-area-right anchor-try-flip-inline oc-fx-card" style="inset: auto; margin: 8px; cursor: default;"><strong>Implicit anchor</strong><span>opened by popovertarget</span></div>
+            </div>
+          <oc-code lang="html">&lt;button popovertarget="tip"&gt;Implicit anchor&lt;/button&gt;
+&lt;!-- position-anchor: auto = the invoking button --&gt;
+&lt;div id="tip" popover class="anchored-auto anchor-area-right anchor-try-flip-inline"
+     style="inset: auto; margin: 8px"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="anchor-size">Anchor size</h3>
+          <p class="oc-section-content__desc">Size the positioned element after its anchor, e.g. a dropdown menu as wide as its button. <strong>When:</strong> select-like menus, comboboxes, autocomplete lists. <strong>Gotcha:</strong> <code>anchor-size()</code> works in sizing properties (<code>width</code>, <code>min-width</code>, <code>max-block-size</code>, margins and insets); if the menu content can be wider, use <code>.min-w-anchor</code> instead of <code>.w-anchor</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/anchor-size" target="_blank" rel="noopener">MDN: anchor-size()</a>.</p>
+          <oc-demo title="w-anchor: the menu is as wide as its button">
+            <div class="anchor-scope-all relative w-full" style="min-block-size: 11rem;">
+              <button type="button" class="oc-btn anchor-menu" style="inline-size: 16rem;">Wide button (16rem)</button>
+              <ul class="absolute anchored-menu anchor-area-bottom w-anchor oc-fx-card list-none" style="margin: 6px 0 0; text-align: start; cursor: default;">
+                <li>Profile</li><li>Settings</li><li>Sign out</li>
+              </ul>
+            </div>
+          <oc-code lang="html">&lt;button class="anchor-menu"&gt;Wide button&lt;/button&gt;
+&lt;ul class="absolute anchored-menu anchor-area-bottom w-anchor"&gt;…&lt;/ul&gt;</oc-code></oc-demo>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.w-anchor</code></td><td>width: anchor-size(width)</td></tr>
+                <tr><td><code>.min-w-anchor</code></td><td>min-width: anchor-size(width)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="functions">Functions &amp; at-rules</h3>
+          <p class="oc-section-content__desc">For custom positions write your own CSS with these functions.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Syntax</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><code>anchor()</code></td><td>Returns the position of an anchor edge, e.g. <code>top: anchor(bottom)</code></td></tr>
+                <tr><td><code>anchor-size()</code></td><td>Returns the size of the anchor element</td></tr>
+                <tr><td><code>@position-try</code></td><td>Defines a named custom fallback position</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="usage">Usage example</h3>
+          <oc-code>/* Custom fallback with @position-try */
+@position-try --below-left {
+  position-area: bottom span-left;
+}
+
+.my-popover {
+  position: fixed;
+  position-anchor: --menu;
+  position-area: bottom span-right;
+  position-try-fallbacks: --below-left, flip-block;
+}</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Without anchor positioning the element keeps its normal absolute/fixed position, so place a sensible fallback position on it.</p>
+          <oc-compat features="css.properties.anchor-name css.properties.position-anchor css.properties.anchor-scope css.properties.position-area css.properties.position-try-fallbacks css.properties.position-try-order css.properties.position-visibility css.types.anchor-size css.at-rules.position-try"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Anchor positioning utilities come from <code>_anchor_positioning.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position-area" target="_blank" rel="noopener">MDN: position-area</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position-try-fallbacks" target="_blank" rel="noopener">MDN: position-try-fallbacks</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_anchor_positioning.scss</code></td><td>anchor-name, position-anchor, anchor-scope, position-area, position-try-*, position-visibility, anchor-size()</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../position/types.html">Position types</a>
+               · 
+              <a class="source-link" href="../starting-style/">Entry animations</a>
+               · 
+              <a class="source-link" href="../../ui/components/tooltip.html">Tooltip component</a>
+            </p>
+          </div>
+        </div>
+      </section>

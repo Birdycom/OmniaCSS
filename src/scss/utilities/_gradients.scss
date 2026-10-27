@@ -1,0 +1,99 @@
+// SCSS Document
+// File: src/scss/utilities/_gradients.scss
+// Description: Gradient utilities — linear, radial, conic and repeating gradients with composable color stops.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .bg-linear-*, .bg-radial-*, .bg-conic-*, .bg-repeating-* (shape/direction) and
+//          .from-{color}, .via-{color}, .to-{color} (stops) for every Omnia color.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/gradient
+// Note: stop positions (.from-pos-10 …) live in _gradient_stops.scss.
+//       combine one shape class with stop classes, e.g. class="bg-linear-to-r from-red via-yellow to-green".
+//       The existing .bg-image-gradient-* / .bg-image-radial presets in _backgrounds.scss stay available.
+// Map: stops -> linear -> radial -> conic -> repeating -> color stops per Omnia color
+
+@use "sass:string";
+@use "sass:map";
+@use '../utilities/' as *;
+
+// Stops: from -> (via) -> to. A .via-* class switches to a three-stop gradient.
+$_stops: var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos,), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos,));
+
+/* Linear gradients — direction */
+$_linear: (
+  't': to top, 'tr': to top right, 'r': to right, 'br': to bottom right,
+  'b': to bottom, 'bl': to bottom left, 'l': to left, 'tl': to top left
+);
+@each $key, $dir in $_linear {
+  .bg-linear-to-#{$key} { background-image: linear-gradient(#{$dir}, #{$_stops}); }
+}
+@each $deg in (0, 45, 90, 135, 180, 225, 270, 315) {
+  .bg-linear-#{$deg} { background-image: linear-gradient(#{$deg}deg, #{$_stops}); }
+}
+
+/* Linear gradient in a perceptual color space (smoother mid tones) */
+.bg-linear-to-r-oklch { background-image: linear-gradient(to right in oklch, #{$_stops}); }
+
+/* Radial gradients — shape and position */
+.bg-radial { background-image: radial-gradient(#{$_stops}); }
+.bg-radial-circle { background-image: radial-gradient(circle, #{$_stops}); }
+.bg-radial-ellipse { background-image: radial-gradient(ellipse, #{$_stops}); }
+.bg-radial-at-t { background-image: radial-gradient(at top, #{$_stops}); }
+.bg-radial-at-b { background-image: radial-gradient(at bottom, #{$_stops}); }
+.bg-radial-at-l { background-image: radial-gradient(at left, #{$_stops}); }
+.bg-radial-at-r { background-image: radial-gradient(at right, #{$_stops}); }
+.bg-radial-at-tl { background-image: radial-gradient(at top left, #{$_stops}); }
+.bg-radial-at-br { background-image: radial-gradient(at bottom right, #{$_stops}); }
+
+/* Conic gradients */
+.bg-conic { background-image: conic-gradient(#{$_stops}); }
+.bg-conic-90 { background-image: conic-gradient(from 90deg, #{$_stops}); }
+.bg-conic-180 { background-image: conic-gradient(from 180deg, #{$_stops}); }
+.bg-conic-at-t { background-image: conic-gradient(at top, #{$_stops}); }
+.bg-conic-wheel { background-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red); }
+
+/* Repeating gradients (stripes and rings) */
+.bg-repeating-stripes {
+  background-image: repeating-linear-gradient(45deg, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
+}
+.bg-repeating-stripes-x {
+  background-image: repeating-linear-gradient(90deg, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
+}
+.bg-repeating-rings {
+  background-image: repeating-radial-gradient(circle, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
+}
+
+/* Color stops — keywords */
+@each $name, $value in ('transparent': transparent, 'current': currentcolor, 'white': var(--color-white-50), 'black': var(--color-black-50)) {
+  .from-#{$name} { --oc-gradient-from: #{$value}; }
+  .to-#{$name} { --oc-gradient-to: #{$value}; }
+  .via-#{$name} {
+    --oc-gradient-via: #{$value};
+    --oc-gradient-stops: var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos,), var(--oc-gradient-via) var(--oc-gradient-via-pos,), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos,);
+  }
+}
+
+/* Color stops — every Omnia color (base tone via the color tokens, hex fallback) */
+@each $group, $families in $omnia-colors {
+  @each $family, $colors in $families {
+    @each $color, $props in $colors {
+      $name: string.to-lower-case(#{$color});
+      $value: var(--color-#{$name}-100, #{map.get($props, hex)});
+      .from-#{$name} { --oc-gradient-from: #{$value}; }
+      .to-#{$name} { --oc-gradient-to: #{$value}; }
+      .via-#{$name} {
+        --oc-gradient-via: #{$value};
+        --oc-gradient-stops: var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos,), var(--oc-gradient-via) var(--oc-gradient-via-pos,), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos,);
+      }
+    }
+  }
+}
+
+/* Gradient text — combine with a gradient class: class="text-gradient bg-linear-to-r from-red to-blue" */
+.text-gradient {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}

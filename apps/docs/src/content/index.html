@@ -1,0 +1,282 @@
+<!--oc-page {"title":"OmniaCSS — modern CSS as utility classes","description":"Modern CSS as utility classes: OKLCH colors, container queries, :has(), scroll snap and the newest CSS, with an on-demand build and zero JavaScript.","layout":"plain","shell":null,"shellClass":null,"bodyClass":"oc-home","head":["<style>\n  /* OmniaCSS home. Map: page -> hero (copy + playground) -> native strip -> palette band -> frameworks -> numbers\n     -> modern CSS grid -> start -> closing call. Colors: Omnia tokens only. */\n  .oc-home { margin: 0; padding-bottom: var(--ocm-footer-height); background: var(--oc-background); color: var(--oc-foreground); }\n  .hm { overflow-x: clip; --hm-pad: max(1.25rem, env(safe-area-inset-left, 0px)); --hm-max: 92rem; display: grid; gap: clamp(4.5rem, 9vw, 8rem); padding-block: calc(var(--ocm-header-height) + clamp(2.5rem, 6vw, 5rem)) 6rem; }\n  .hm-wrap { inline-size: min(100% - 2 * var(--hm-pad), var(--hm-max)); margin-inline: auto; }\n  .hm-wrap > *, .hm-wrap .oc-tabset, .hm-wrap .oc-tab-panel { min-inline-size: 0; }\n  .hm h1, .hm h2, .hm h3 { font-family: var(--ocd-display); letter-spacing: -0.025em; text-wrap: balance; margin: 0; }\n  .hm p { margin: 0; text-wrap: pretty; }\n  .hm-eyebrow { font: 600 0.72rem var(--ocd-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--oc-primary); }\n  .hm-lead { font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.65; color: var(--oc-muted-foreground); max-inline-size: 40rem; }\n  .hm-head { display: grid; gap: 0.9rem; max-inline-size: 48rem; margin-block-end: 2.5rem; }\n  .hm-head h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 800; line-height: 1.04; }\n  .hm-grad { background: linear-gradient(100deg, var(--color-vividblue-80), var(--color-magenta-50) 55%, var(--color-orange-50)); -webkit-background-clip: text; background-clip: text; color: transparent; }\n\n  /* ---- Hero ---- */\n  .hm-hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }\n  .hm-hero::before {\n    content: \"\"; position: absolute; inset: -12rem -20vw auto auto; inline-size: 52rem; aspect-ratio: 1; z-index: -1; pointer-events: none;\n    background: radial-gradient(closest-side, oklch(from var(--color-vividblue-80) l c h / 0.16), transparent), radial-gradient(closest-side at 30% 70%, oklch(from var(--color-magenta-50) l c h / 0.12), transparent);\n    filter: blur(10px);\n  }\n  .hm-hero-copy { display: grid; gap: 1.5rem; align-content: start; }\n  .hm-badges { display: flex; flex-wrap: wrap; gap: 0.45rem; }\n  .hm-badges span { --b: var(--oc-muted-foreground); display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.32rem 0.6rem; border: 1px solid oklch(from var(--b) l c h / 0.32); border-radius: 7px; background: oklch(from var(--b) l c h / 0.07); color: var(--b); font: 500 0.74rem/1 var(--ocd-mono); }\n  .hm-badges span::before { content: \"\"; inline-size: 0.42rem; aspect-ratio: 1; border-radius: 2px; background: currentColor; }\n  .hm-badges .b1 { --b: light-dark(var(--color-orange-95), var(--color-orange-40)); }\n  .hm-badges .b2 { --b: light-dark(var(--color-green-80), var(--color-green-10)); }\n  .hm-badges .b3 { --b: light-dark(var(--color-purple-50), var(--color-magenta-50)); }\n  .hm-hero h1 { font-size: clamp(2.7rem, 6.2vw, 5.4rem); font-weight: 800; line-height: 0.98; letter-spacing: -0.035em; }\n  .hm-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }\n  .hm-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.25rem; border-radius: 11px; font: 600 0.98rem var(--ocd-text); text-decoration: none; border: 1px solid var(--oc-border); color: var(--oc-foreground); background: var(--oc-background); transition: translate 0.2s, box-shadow 0.2s, border-color 0.2s; }\n  .hm-btn:hover { translate: 0 -2px; border-color: var(--oc-border-strong); }\n  .hm-btn:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n  .hm-btn--main { border-color: transparent; color: var(--color-white-50); background: linear-gradient(100deg, var(--color-vividblue-80), var(--color-indigo-60)); box-shadow: 0 12px 30px -12px oklch(from var(--color-vividblue-80) l c h / 0.7); }\n  .hm-install { justify-self: start; display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.35rem 0.35rem 0.35rem 0.9rem; border: 1px solid var(--oc-border); border-radius: 11px; background: oklch(from var(--oc-foreground) l c h / 0.04); font: 500 0.88rem var(--ocd-mono); }\n  .hm-install b { color: var(--oc-primary); font-weight: 600; }\n  .hm-install button { padding: 0.45rem 0.7rem; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-background); color: var(--oc-muted-foreground); font: 500 0.75rem var(--ocd-text); cursor: pointer; }\n  .hm-install button:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n  .hm-trust { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.86rem; color: var(--oc-muted-foreground); }\n  .hm-trust b { color: var(--oc-foreground); font-weight: 600; }\n\n  /* Playground */\n  .hm-play { border: 1px solid var(--oc-border); border-radius: 18px; background: var(--oc-background); box-shadow: 0 40px 80px -45px oklch(from var(--color-black-50) l c h / 0.6), 0 0 0 6px oklch(from var(--oc-foreground) l c h / 0.025); overflow: hidden; }\n  .hm-play-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1rem; border-block-end: 1px solid var(--oc-border); background: oklch(from var(--oc-foreground) l c h / 0.03); font: 500 0.78rem var(--ocd-mono); color: var(--oc-muted-foreground); }\n  .hm-play-bar i { inline-size: 0.65rem; aspect-ratio: 1; border-radius: 50%; background: var(--oc-border-strong); }\n  .hm-play-bar span { margin-inline-start: 0.5rem; }\n  .hm-play-field { display: grid; gap: 0.5rem; padding: 1rem 1rem 0.75rem; }\n  .hm-play-field label { font: 600 0.68rem var(--ocd-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--oc-muted-foreground); }\n  .hm-play-field input { inline-size: 100%; box-sizing: border-box; padding: 0.7rem 0.8rem; border: 1px solid var(--oc-border-strong); border-radius: 10px; background: var(--oc-background); color: var(--oc-foreground); font: 500 0.9rem var(--ocd-mono); }\n  .hm-play-field input:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }\n  .hm-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0 1rem 1rem; }\n  .hm-chips button { padding: 0.28rem 0.55rem; border: 1px dashed var(--oc-border-strong); border-radius: 999px; background: none; color: var(--oc-muted-foreground); font: 500 0.72rem var(--ocd-mono); cursor: pointer; }\n  .hm-chips button:hover { color: var(--oc-primary); border-color: var(--oc-primary); }\n  .hm-chips button[aria-pressed=\"true\"] { border-style: solid; color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.1); }\n  .hm-chips button:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n  .hm-stage { display: grid; place-items: center; min-block-size: 13rem; padding: 2rem 1rem; border-block: 1px solid var(--oc-border); background: radial-gradient(circle at 1px 1px, oklch(from var(--oc-foreground) l c h / 0.1) 1px, transparent 0) 0 0 / 16px 16px; }\n  .hm-stage > div { font-family: var(--ocd-display); font-weight: 700; font-size: 1.15rem; transition: all 0.3s ease; }\n  .hm-css { margin: 0; min-block-size: 7.5rem; max-block-size: 11rem; overflow: auto; padding: 0.9rem 1rem; background: light-dark(var(--color-shallowblue-95), var(--color-black-40)); color: var(--color-white-60); font: 400 0.76rem/1.65 var(--ocd-mono); white-space: pre-wrap; }\n  .hm-css .p { color: var(--color-skycyan-50); } .hm-css .v { color: var(--color-magenta-40); } .hm-css .c { color: var(--color-mistblue-70); }\n\n  /* ---- Native strip ---- */\n  .hm-native { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }\n  .hm-card { display: grid; gap: 0.8rem; align-content: start; padding: 1.4rem; border: 1px solid var(--oc-border); border-radius: 16px; background: var(--oc-background); transition: border-color 0.2s, translate 0.2s; }\n  .hm-card:hover { border-color: var(--oc-border-strong); translate: 0 -3px; }\n  .hm-card h3 { font-size: 1.2rem; font-weight: 700; }\n  .hm-card p { font-size: 0.92rem; line-height: 1.6; color: var(--oc-muted-foreground); }\n  .hm-card code { font-family: var(--ocd-mono); font-size: 0.82em; padding: 0.08em 0.35em; border-radius: 5px; background: oklch(from var(--oc-foreground) l c h / 0.06); }\n  .hm-card .hm-try { min-block-size: 6.5rem; display: grid; align-content: center; justify-items: start; padding: 1rem; border-radius: 12px; background: oklch(from var(--oc-foreground) l c h / 0.035); }\n  .hm-snap { display: flex; gap: 0.6rem; inline-size: 100%; padding-block-end: 0.25rem; }\n  .hm-snap > div { flex: none; display: grid; place-items: center; inline-size: 82%; block-size: 4.2rem; border-radius: 10px; color: var(--color-white-50); font-weight: 700; }\n  .hm-snap > div:nth-child(1) { background: linear-gradient(120deg, var(--color-vividblue-80), var(--color-indigo-60)); }\n  .hm-snap > div:nth-child(2) { background: linear-gradient(120deg, var(--color-magenta-50), var(--color-purple-60)); }\n  .hm-snap > div:nth-child(3) { background: linear-gradient(120deg, var(--color-orange-50), var(--color-red-60)); }\n\n  /* ---- Palette band ---- */\n  .hm-palette { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 3px; border-radius: 18px; overflow: hidden; }\n  .hm-palette i { display: block; block-size: clamp(1.4rem, 2.8vw, 2.4rem); background: var(--c); transition: scale 0.2s; }\n  .hm-palette i:hover { scale: 1.15; z-index: 1; border-radius: 4px; }\n  .hm-palette-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; margin-block-start: 1rem; font-size: 0.86rem; color: var(--oc-muted-foreground); }\n  .hm-palette-note code { font-family: var(--ocd-mono); color: var(--oc-foreground); }\n\n  /* ---- Frameworks ---- */\n  .hm-fw { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }\n  .hm-fw .oc-tabset { min-inline-size: 0; }\n  .hm-fw .oc-tab-panel { padding-top: 0.75rem; }\n  .hm-fw ul { display: grid; gap: 0.6rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }\n  .hm-fw li { display: flex; gap: 0.6rem; color: var(--oc-muted-foreground); }\n  .hm-fw li::before { content: \"✓\"; color: var(--oc-primary); font-weight: 700; }\n\n  /* ---- Numbers ---- */\n  .hm-numbers { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); border-block: 1px solid var(--oc-border); }\n  .hm-numbers div { display: grid; gap: 0.3rem; padding: 2rem 1.5rem; }\n  .hm-numbers div + div { border-inline-start: 1px solid var(--oc-border); }\n  .hm-numbers b { font: 800 clamp(2.2rem, 4vw, 3.2rem)/1 var(--ocd-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }\n  .hm-numbers span { font-size: 0.9rem; color: var(--oc-muted-foreground); }\n\n  /* ---- Modern CSS grid ---- */\n  .hm-topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: 1rem; }\n  .hm-topic { position: relative; display: grid; gap: 0.5rem; padding: 1.3rem 1.4rem 1.4rem; border: 1px solid var(--oc-border); border-radius: 16px; color: inherit; text-decoration: none; overflow: hidden; transition: border-color 0.2s, translate 0.2s; }\n  .hm-topic::after { content: \"→\"; position: absolute; inset: 1.2rem 1.3rem auto auto; color: var(--oc-muted-foreground); transition: translate 0.2s, color 0.2s; }\n  .hm-topic:hover { border-color: var(--oc-primary); translate: 0 -3px; }\n  .hm-topic:hover::after { translate: 4px 0; color: var(--oc-primary); }\n  .hm-topic:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n  .hm-topic code { justify-self: start; font: 600 0.78rem var(--ocd-mono); color: var(--oc-primary); }\n  .hm-topic b { font: 700 1.15rem var(--ocd-display); }\n  .hm-topic span { font-size: 0.9rem; line-height: 1.55; color: var(--oc-muted-foreground); }\n\n  /* ---- Start + closing ---- */\n  .hm-start { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }\n  .hm-start .oc-tab-panel { padding-top: 0.75rem; }\n  .hm-close { display: grid; justify-items: center; gap: 1.5rem; padding: clamp(3rem, 7vw, 5.5rem) 1.5rem; border-radius: 28px; text-align: center; color: var(--color-white-50);\n    background: radial-gradient(circle at 15% 20%, oklch(from var(--color-magenta-50) l c h / 0.55), transparent 45%), radial-gradient(circle at 85% 80%, oklch(from var(--color-orange-50) l c h / 0.4), transparent 45%), linear-gradient(130deg, var(--color-indigo-60), var(--color-vividblue-95)); }\n  .hm-close h2 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 800; line-height: 1.05; max-inline-size: 22ch; }\n  .hm-close p { max-inline-size: 40rem; color: oklch(from var(--color-white-50) l c h / 0.85); font-size: 1.1rem; }\n  .hm-close .hm-btn { border-color: oklch(from var(--color-white-50) l c h / 0.4); color: var(--color-white-50); background: oklch(from var(--color-white-50) l c h / 0.1); }\n  .hm-close .hm-btn--main { color: var(--color-indigo-60); background: var(--color-white-50); border-color: transparent; box-shadow: none; }\n\n  @media (max-width: 62rem) { .hm-hero, .hm-fw, .hm-start { grid-template-columns: minmax(0, 1fr); } .hm-numbers div + div { border-inline-start: 0; } .hm-numbers div:nth-child(n + 2) { border-block-start: 1px solid var(--oc-border); } }\n  @media (prefers-reduced-motion: reduce) { .hm-btn, .hm-card, .hm-topic, .hm-stage > div, .hm-palette i { transition: none; } }\n\n</style>"]}-->
+<main class="hm" id="top">
+
+  <!-- Hero: the message and a live playground -->
+  <section class="hm-wrap hm-hero" aria-labelledby="hm-title">
+    <div class="hm-hero-copy">
+      <div class="hm-badges"><span class="b1">0 KB JavaScript</span><span class="b2">Baseline-aware</span><span class="b3">OKLCH palette</span></div>
+      <h1 id="hm-title">Modern CSS, <span class="hm-grad">as classes</span>.</h1>
+      <p class="hm-lead">OmniaCSS turns container queries, anchor positioning, <code>:has()</code>, scroll snap, view transitions and OKLCH colors into utility classes. Its build ships only the classes you use, and OmniaUI adds 140 components and 80 blocks that run on native HTML.</p>
+      <div class="hm-cta">
+        <a class="hm-btn hm-btn--main" href="/docs/index.html">Get started →</a>
+        <a class="hm-btn" href="/ui/components.html">Browse components</a>
+      </div>
+      <div class="hm-install"><span><b>npx</b> omniacss init</span><button type="button" data-hm-copy="npx omniacss init">Copy</button></div>
+      <p class="hm-trust"><span><b>HTML</b> · <b>Vue</b> · <b>React</b> · <b>Laravel</b> · <b>Livewire</b></span><span>Support tables from MDN on every page</span></p>
+    </div>
+
+    <div class="hm-play" aria-labelledby="hm-play-label">
+      <div class="hm-play-bar"><i></i><i></i><i></i><span id="hm-play-label">playground — type classes</span></div>
+      <div class="hm-play-field">
+        <label for="hm-play-input">class=""</label>
+        <input id="hm-play-input" value="p-3 round-4 bg-linear-to-r from-vividblue to-magenta text-white-50 shadow-xl" spellcheck="false" autocomplete="off">
+      </div>
+      <div class="hm-chips" role="group" aria-label="Add a class"><button type="button" data-hm-chip="bg-magenta-50">bg-magenta-50</button><button type="button" data-hm-chip="bg-linear-to-r from-vividblue to-magenta">bg-linear-to-r</button><button type="button" data-hm-chip="round-full">round-full</button><button type="button" data-hm-chip="shadow-xl">shadow-xl</button><button type="button" data-hm-chip="rotate-prop-n90">rotate-prop-n90</button><button type="button" data-hm-chip="animate-bounce">animate-bounce</button><button type="button" data-hm-chip="uppercase">uppercase</button><button type="button" data-hm-chip="border-2 border-solid border-white-50">border-2</button></div>
+      <div class="hm-stage"><div id="hm-play-box">Omnia</div></div>
+      <pre class="hm-css" id="hm-play-css" aria-live="polite" aria-label="Generated CSS"></pre>
+    </div>
+  </section>
+
+  <!-- Native features that need no JavaScript -->
+  <section class="hm-wrap" aria-labelledby="hm-native-title">
+    <div class="hm-head">
+      <span class="hm-eyebrow">Native first</span>
+      <h2 id="hm-native-title">The browser already does it. <span class="hm-grad">We style it.</span></h2>
+      <p class="hm-lead">Every component starts from a platform feature: dialog, popover, details, <code>:has()</code>, scroll snap. Try them here; this page loads no component script.</p>
+    </div>
+    <div class="hm-native">
+      <article class="hm-card">
+        <h3>Dialog</h3>
+        <p>A modal on <code>&lt;dialog&gt;</code>, opened with <code>command="show-modal"</code>. Focus trap and Esc come free.</p>
+        <div class="hm-try">
+          <button class="oc-btn" type="button" command="show-modal" commandfor="hm-dialog">Open dialog</button>
+          <dialog class="oc-modal" id="hm-dialog" closedby="any" aria-labelledby="hm-dialog-title">
+            <div class="oc-modal-content">
+              <div class="oc-modal-header">
+                <h2 class="oc-modal-title" id="hm-dialog-title">Straight from the browser</h2>
+                <p class="oc-modal-description">This dialog has a backdrop, a focus trap and closes with Esc or a click outside. No script was loaded to open it.</p>
+              </div>
+              <div class="oc-modal-footer"><button class="oc-btn" type="button" command="close" commandfor="hm-dialog">Close</button></div>
+            </div>
+          </dialog>
+        </div>
+      </article>
+      <article class="hm-card">
+        <h3>Dropdown</h3>
+        <p><code>popover</code> plus anchor positioning: the menu sits next to its button and closes on a click outside.</p>
+        <div class="hm-try">
+          <button class="oc-btn oc-btn--outline" type="button" popovertarget="hm-menu">Options ▾</button>
+          <div class="oc-dropdown-menu" id="hm-menu" popover>
+            <a class="oc-dropdown-item" href="/docs/index.html">Documentation</a>
+            <a class="oc-dropdown-item" href="/docs/functions/index.html">CSS functions</a>
+            <a class="oc-dropdown-item" href="/docs/creative/index.html">Creative CSS</a>
+          </div>
+        </div>
+      </article>
+      <article class="hm-card">
+        <h3>Accordion</h3>
+        <p><code>&lt;details name&gt;</code> keeps one item open; <code>interpolate-size</code> animates the height.</p>
+        <div class="hm-try">
+          <div class="oc-accordion" style="inline-size: 100%">
+            <details class="oc-accordion-item" name="hm-faq" open><summary class="oc-accordion-trigger">Do I need a framework?</summary><div class="oc-accordion-content">No. Anything that outputs HTML works.</div></details>
+            <details class="oc-accordion-item" name="hm-faq"><summary class="oc-accordion-trigger">Is SCSS required?</summary><div class="oc-accordion-content">No. Your project only uses the CSS.</div></details>
+          </div>
+        </div>
+      </article>
+      <article class="hm-card">
+        <h3>Carousel</h3>
+        <p>Scroll snap with generated arrows and dots: <code>.snap-x .scroll-buttons .scroll-markers-after</code>.</p>
+        <div class="hm-try">
+          <div class="hm-snap overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-markers-after">
+            <div class="snap-center">One</div><div class="snap-center">Two</div><div class="snap-center">Three</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- The Omnia palette -->
+  <section class="hm-wrap" aria-labelledby="hm-palette-title">
+    <div class="hm-head">
+      <span class="hm-eyebrow">One color system</span>
+      <h2 id="hm-palette-title">Every color, <span class="hm-grad">in OKLCH</span>, in light and dark.</h2>
+      <p class="hm-lead">The Omnia palette has 34 colors with tones from 2 to 95, plus the HTML and RAL colors. Each tone is a token you can use anywhere: <code>var(--color-magenta-50)</code>. Hover a swatch to see its name.</p>
+    </div>
+    <div class="hm-palette" style="--cols: 24" role="img" aria-label="Omnia palette: 24 colors in 10 tones">
+      <i style="--c: var(--color-red-2)" title="--color-red-2"></i><i style="--c: var(--color-orange-2)" title="--color-orange-2"></i><i style="--c: var(--color-yellow-2)" title="--color-yellow-2"></i><i style="--c: var(--color-lime-2)" title="--color-lime-2"></i><i style="--c: var(--color-green-2)" title="--color-green-2"></i><i style="--c: var(--color-teal-2)" title="--color-teal-2"></i><i style="--c: var(--color-turquoise-2)" title="--color-turquoise-2"></i><i style="--c: var(--color-cyan-2)" title="--color-cyan-2"></i><i style="--c: var(--color-skycyan-2)" title="--color-skycyan-2"></i><i style="--c: var(--color-blue-2)" title="--color-blue-2"></i><i style="--c: var(--color-vividblue-2)" title="--color-vividblue-2"></i><i style="--c: var(--color-indigo-2)" title="--color-indigo-2"></i><i style="--c: var(--color-violet-2)" title="--color-violet-2"></i><i style="--c: var(--color-purple-2)" title="--color-purple-2"></i><i style="--c: var(--color-magenta-2)" title="--color-magenta-2"></i><i style="--c: var(--color-pink-2)" title="--color-pink-2"></i><i style="--c: var(--color-peru-2)" title="--color-peru-2"></i><i style="--c: var(--color-brown-2)" title="--color-brown-2"></i><i style="--c: var(--color-wheat-2)" title="--color-wheat-2"></i><i style="--c: var(--color-mistblue-2)" title="--color-mistblue-2"></i><i style="--c: var(--color-stormblue-2)" title="--color-stormblue-2"></i><i style="--c: var(--color-duskblue-2)" title="--color-duskblue-2"></i><i style="--c: var(--color-gray-2)" title="--color-gray-2"></i><i style="--c: var(--color-black-2)" title="--color-black-2"></i>
+      <i style="--c: var(--color-red-10)" title="--color-red-10"></i><i style="--c: var(--color-orange-10)" title="--color-orange-10"></i><i style="--c: var(--color-yellow-10)" title="--color-yellow-10"></i><i style="--c: var(--color-lime-10)" title="--color-lime-10"></i><i style="--c: var(--color-green-10)" title="--color-green-10"></i><i style="--c: var(--color-teal-10)" title="--color-teal-10"></i><i style="--c: var(--color-turquoise-10)" title="--color-turquoise-10"></i><i style="--c: var(--color-cyan-10)" title="--color-cyan-10"></i><i style="--c: var(--color-skycyan-10)" title="--color-skycyan-10"></i><i style="--c: var(--color-blue-10)" title="--color-blue-10"></i><i style="--c: var(--color-vividblue-10)" title="--color-vividblue-10"></i><i style="--c: var(--color-indigo-10)" title="--color-indigo-10"></i><i style="--c: var(--color-violet-10)" title="--color-violet-10"></i><i style="--c: var(--color-purple-10)" title="--color-purple-10"></i><i style="--c: var(--color-magenta-10)" title="--color-magenta-10"></i><i style="--c: var(--color-pink-10)" title="--color-pink-10"></i><i style="--c: var(--color-peru-10)" title="--color-peru-10"></i><i style="--c: var(--color-brown-10)" title="--color-brown-10"></i><i style="--c: var(--color-wheat-10)" title="--color-wheat-10"></i><i style="--c: var(--color-mistblue-10)" title="--color-mistblue-10"></i><i style="--c: var(--color-stormblue-10)" title="--color-stormblue-10"></i><i style="--c: var(--color-duskblue-10)" title="--color-duskblue-10"></i><i style="--c: var(--color-gray-10)" title="--color-gray-10"></i><i style="--c: var(--color-black-10)" title="--color-black-10"></i>
+      <i style="--c: var(--color-red-20)" title="--color-red-20"></i><i style="--c: var(--color-orange-20)" title="--color-orange-20"></i><i style="--c: var(--color-yellow-20)" title="--color-yellow-20"></i><i style="--c: var(--color-lime-20)" title="--color-lime-20"></i><i style="--c: var(--color-green-20)" title="--color-green-20"></i><i style="--c: var(--color-teal-20)" title="--color-teal-20"></i><i style="--c: var(--color-turquoise-20)" title="--color-turquoise-20"></i><i style="--c: var(--color-cyan-20)" title="--color-cyan-20"></i><i style="--c: var(--color-skycyan-20)" title="--color-skycyan-20"></i><i style="--c: var(--color-blue-20)" title="--color-blue-20"></i><i style="--c: var(--color-vividblue-20)" title="--color-vividblue-20"></i><i style="--c: var(--color-indigo-20)" title="--color-indigo-20"></i><i style="--c: var(--color-violet-20)" title="--color-violet-20"></i><i style="--c: var(--color-purple-20)" title="--color-purple-20"></i><i style="--c: var(--color-magenta-20)" title="--color-magenta-20"></i><i style="--c: var(--color-pink-20)" title="--color-pink-20"></i><i style="--c: var(--color-peru-20)" title="--color-peru-20"></i><i style="--c: var(--color-brown-20)" title="--color-brown-20"></i><i style="--c: var(--color-wheat-20)" title="--color-wheat-20"></i><i style="--c: var(--color-mistblue-20)" title="--color-mistblue-20"></i><i style="--c: var(--color-stormblue-20)" title="--color-stormblue-20"></i><i style="--c: var(--color-duskblue-20)" title="--color-duskblue-20"></i><i style="--c: var(--color-gray-20)" title="--color-gray-20"></i><i style="--c: var(--color-black-20)" title="--color-black-20"></i>
+      <i style="--c: var(--color-red-30)" title="--color-red-30"></i><i style="--c: var(--color-orange-30)" title="--color-orange-30"></i><i style="--c: var(--color-yellow-30)" title="--color-yellow-30"></i><i style="--c: var(--color-lime-30)" title="--color-lime-30"></i><i style="--c: var(--color-green-30)" title="--color-green-30"></i><i style="--c: var(--color-teal-30)" title="--color-teal-30"></i><i style="--c: var(--color-turquoise-30)" title="--color-turquoise-30"></i><i style="--c: var(--color-cyan-30)" title="--color-cyan-30"></i><i style="--c: var(--color-skycyan-30)" title="--color-skycyan-30"></i><i style="--c: var(--color-blue-30)" title="--color-blue-30"></i><i style="--c: var(--color-vividblue-30)" title="--color-vividblue-30"></i><i style="--c: var(--color-indigo-30)" title="--color-indigo-30"></i><i style="--c: var(--color-violet-30)" title="--color-violet-30"></i><i style="--c: var(--color-purple-30)" title="--color-purple-30"></i><i style="--c: var(--color-magenta-30)" title="--color-magenta-30"></i><i style="--c: var(--color-pink-30)" title="--color-pink-30"></i><i style="--c: var(--color-peru-30)" title="--color-peru-30"></i><i style="--c: var(--color-brown-30)" title="--color-brown-30"></i><i style="--c: var(--color-wheat-30)" title="--color-wheat-30"></i><i style="--c: var(--color-mistblue-30)" title="--color-mistblue-30"></i><i style="--c: var(--color-stormblue-30)" title="--color-stormblue-30"></i><i style="--c: var(--color-duskblue-30)" title="--color-duskblue-30"></i><i style="--c: var(--color-gray-30)" title="--color-gray-30"></i><i style="--c: var(--color-black-30)" title="--color-black-30"></i>
+      <i style="--c: var(--color-red-40)" title="--color-red-40"></i><i style="--c: var(--color-orange-40)" title="--color-orange-40"></i><i style="--c: var(--color-yellow-40)" title="--color-yellow-40"></i><i style="--c: var(--color-lime-40)" title="--color-lime-40"></i><i style="--c: var(--color-green-40)" title="--color-green-40"></i><i style="--c: var(--color-teal-40)" title="--color-teal-40"></i><i style="--c: var(--color-turquoise-40)" title="--color-turquoise-40"></i><i style="--c: var(--color-cyan-40)" title="--color-cyan-40"></i><i style="--c: var(--color-skycyan-40)" title="--color-skycyan-40"></i><i style="--c: var(--color-blue-40)" title="--color-blue-40"></i><i style="--c: var(--color-vividblue-40)" title="--color-vividblue-40"></i><i style="--c: var(--color-indigo-40)" title="--color-indigo-40"></i><i style="--c: var(--color-violet-40)" title="--color-violet-40"></i><i style="--c: var(--color-purple-40)" title="--color-purple-40"></i><i style="--c: var(--color-magenta-40)" title="--color-magenta-40"></i><i style="--c: var(--color-pink-40)" title="--color-pink-40"></i><i style="--c: var(--color-peru-40)" title="--color-peru-40"></i><i style="--c: var(--color-brown-40)" title="--color-brown-40"></i><i style="--c: var(--color-wheat-40)" title="--color-wheat-40"></i><i style="--c: var(--color-mistblue-40)" title="--color-mistblue-40"></i><i style="--c: var(--color-stormblue-40)" title="--color-stormblue-40"></i><i style="--c: var(--color-duskblue-40)" title="--color-duskblue-40"></i><i style="--c: var(--color-gray-40)" title="--color-gray-40"></i><i style="--c: var(--color-black-40)" title="--color-black-40"></i>
+      <i style="--c: var(--color-red-50)" title="--color-red-50"></i><i style="--c: var(--color-orange-50)" title="--color-orange-50"></i><i style="--c: var(--color-yellow-50)" title="--color-yellow-50"></i><i style="--c: var(--color-lime-50)" title="--color-lime-50"></i><i style="--c: var(--color-green-50)" title="--color-green-50"></i><i style="--c: var(--color-teal-50)" title="--color-teal-50"></i><i style="--c: var(--color-turquoise-50)" title="--color-turquoise-50"></i><i style="--c: var(--color-cyan-50)" title="--color-cyan-50"></i><i style="--c: var(--color-skycyan-50)" title="--color-skycyan-50"></i><i style="--c: var(--color-blue-50)" title="--color-blue-50"></i><i style="--c: var(--color-vividblue-50)" title="--color-vividblue-50"></i><i style="--c: var(--color-indigo-50)" title="--color-indigo-50"></i><i style="--c: var(--color-violet-50)" title="--color-violet-50"></i><i style="--c: var(--color-purple-50)" title="--color-purple-50"></i><i style="--c: var(--color-magenta-50)" title="--color-magenta-50"></i><i style="--c: var(--color-pink-50)" title="--color-pink-50"></i><i style="--c: var(--color-peru-50)" title="--color-peru-50"></i><i style="--c: var(--color-brown-50)" title="--color-brown-50"></i><i style="--c: var(--color-wheat-50)" title="--color-wheat-50"></i><i style="--c: var(--color-mistblue-50)" title="--color-mistblue-50"></i><i style="--c: var(--color-stormblue-50)" title="--color-stormblue-50"></i><i style="--c: var(--color-duskblue-50)" title="--color-duskblue-50"></i><i style="--c: var(--color-gray-50)" title="--color-gray-50"></i><i style="--c: var(--color-black-50)" title="--color-black-50"></i>
+      <i style="--c: var(--color-red-60)" title="--color-red-60"></i><i style="--c: var(--color-orange-60)" title="--color-orange-60"></i><i style="--c: var(--color-yellow-60)" title="--color-yellow-60"></i><i style="--c: var(--color-lime-60)" title="--color-lime-60"></i><i style="--c: var(--color-green-60)" title="--color-green-60"></i><i style="--c: var(--color-teal-60)" title="--color-teal-60"></i><i style="--c: var(--color-turquoise-60)" title="--color-turquoise-60"></i><i style="--c: var(--color-cyan-60)" title="--color-cyan-60"></i><i style="--c: var(--color-skycyan-60)" title="--color-skycyan-60"></i><i style="--c: var(--color-blue-60)" title="--color-blue-60"></i><i style="--c: var(--color-vividblue-60)" title="--color-vividblue-60"></i><i style="--c: var(--color-indigo-60)" title="--color-indigo-60"></i><i style="--c: var(--color-violet-60)" title="--color-violet-60"></i><i style="--c: var(--color-purple-60)" title="--color-purple-60"></i><i style="--c: var(--color-magenta-60)" title="--color-magenta-60"></i><i style="--c: var(--color-pink-60)" title="--color-pink-60"></i><i style="--c: var(--color-peru-60)" title="--color-peru-60"></i><i style="--c: var(--color-brown-60)" title="--color-brown-60"></i><i style="--c: var(--color-wheat-60)" title="--color-wheat-60"></i><i style="--c: var(--color-mistblue-60)" title="--color-mistblue-60"></i><i style="--c: var(--color-stormblue-60)" title="--color-stormblue-60"></i><i style="--c: var(--color-duskblue-60)" title="--color-duskblue-60"></i><i style="--c: var(--color-gray-60)" title="--color-gray-60"></i><i style="--c: var(--color-black-60)" title="--color-black-60"></i>
+      <i style="--c: var(--color-red-70)" title="--color-red-70"></i><i style="--c: var(--color-orange-70)" title="--color-orange-70"></i><i style="--c: var(--color-yellow-70)" title="--color-yellow-70"></i><i style="--c: var(--color-lime-70)" title="--color-lime-70"></i><i style="--c: var(--color-green-70)" title="--color-green-70"></i><i style="--c: var(--color-teal-70)" title="--color-teal-70"></i><i style="--c: var(--color-turquoise-70)" title="--color-turquoise-70"></i><i style="--c: var(--color-cyan-70)" title="--color-cyan-70"></i><i style="--c: var(--color-skycyan-70)" title="--color-skycyan-70"></i><i style="--c: var(--color-blue-70)" title="--color-blue-70"></i><i style="--c: var(--color-vividblue-70)" title="--color-vividblue-70"></i><i style="--c: var(--color-indigo-70)" title="--color-indigo-70"></i><i style="--c: var(--color-violet-70)" title="--color-violet-70"></i><i style="--c: var(--color-purple-70)" title="--color-purple-70"></i><i style="--c: var(--color-magenta-70)" title="--color-magenta-70"></i><i style="--c: var(--color-pink-70)" title="--color-pink-70"></i><i style="--c: var(--color-peru-70)" title="--color-peru-70"></i><i style="--c: var(--color-brown-70)" title="--color-brown-70"></i><i style="--c: var(--color-wheat-70)" title="--color-wheat-70"></i><i style="--c: var(--color-mistblue-70)" title="--color-mistblue-70"></i><i style="--c: var(--color-stormblue-70)" title="--color-stormblue-70"></i><i style="--c: var(--color-duskblue-70)" title="--color-duskblue-70"></i><i style="--c: var(--color-gray-70)" title="--color-gray-70"></i><i style="--c: var(--color-black-70)" title="--color-black-70"></i>
+      <i style="--c: var(--color-red-80)" title="--color-red-80"></i><i style="--c: var(--color-orange-80)" title="--color-orange-80"></i><i style="--c: var(--color-yellow-80)" title="--color-yellow-80"></i><i style="--c: var(--color-lime-80)" title="--color-lime-80"></i><i style="--c: var(--color-green-80)" title="--color-green-80"></i><i style="--c: var(--color-teal-80)" title="--color-teal-80"></i><i style="--c: var(--color-turquoise-80)" title="--color-turquoise-80"></i><i style="--c: var(--color-cyan-80)" title="--color-cyan-80"></i><i style="--c: var(--color-skycyan-80)" title="--color-skycyan-80"></i><i style="--c: var(--color-blue-80)" title="--color-blue-80"></i><i style="--c: var(--color-vividblue-80)" title="--color-vividblue-80"></i><i style="--c: var(--color-indigo-80)" title="--color-indigo-80"></i><i style="--c: var(--color-violet-80)" title="--color-violet-80"></i><i style="--c: var(--color-purple-80)" title="--color-purple-80"></i><i style="--c: var(--color-magenta-80)" title="--color-magenta-80"></i><i style="--c: var(--color-pink-80)" title="--color-pink-80"></i><i style="--c: var(--color-peru-80)" title="--color-peru-80"></i><i style="--c: var(--color-brown-80)" title="--color-brown-80"></i><i style="--c: var(--color-wheat-80)" title="--color-wheat-80"></i><i style="--c: var(--color-mistblue-80)" title="--color-mistblue-80"></i><i style="--c: var(--color-stormblue-80)" title="--color-stormblue-80"></i><i style="--c: var(--color-duskblue-80)" title="--color-duskblue-80"></i><i style="--c: var(--color-gray-80)" title="--color-gray-80"></i><i style="--c: var(--color-black-80)" title="--color-black-80"></i>
+      <i style="--c: var(--color-red-95)" title="--color-red-95"></i><i style="--c: var(--color-orange-95)" title="--color-orange-95"></i><i style="--c: var(--color-yellow-95)" title="--color-yellow-95"></i><i style="--c: var(--color-lime-95)" title="--color-lime-95"></i><i style="--c: var(--color-green-95)" title="--color-green-95"></i><i style="--c: var(--color-teal-95)" title="--color-teal-95"></i><i style="--c: var(--color-turquoise-95)" title="--color-turquoise-95"></i><i style="--c: var(--color-cyan-95)" title="--color-cyan-95"></i><i style="--c: var(--color-skycyan-95)" title="--color-skycyan-95"></i><i style="--c: var(--color-blue-95)" title="--color-blue-95"></i><i style="--c: var(--color-vividblue-95)" title="--color-vividblue-95"></i><i style="--c: var(--color-indigo-95)" title="--color-indigo-95"></i><i style="--c: var(--color-violet-95)" title="--color-violet-95"></i><i style="--c: var(--color-purple-95)" title="--color-purple-95"></i><i style="--c: var(--color-magenta-95)" title="--color-magenta-95"></i><i style="--c: var(--color-pink-95)" title="--color-pink-95"></i><i style="--c: var(--color-peru-95)" title="--color-peru-95"></i><i style="--c: var(--color-brown-95)" title="--color-brown-95"></i><i style="--c: var(--color-wheat-95)" title="--color-wheat-95"></i><i style="--c: var(--color-mistblue-95)" title="--color-mistblue-95"></i><i style="--c: var(--color-stormblue-95)" title="--color-stormblue-95"></i><i style="--c: var(--color-duskblue-95)" title="--color-duskblue-95"></i><i style="--c: var(--color-gray-95)" title="--color-gray-95"></i><i style="--c: var(--color-black-95)" title="--color-black-95"></i>
+    </div>
+    <p class="hm-palette-note"><span><code>bg-magenta-50</code> · <code>text-vividblue-80</code> · <code>border-teal-30</code> · <code>bg-magenta-mix-40</code></span><a href="/docs/colors/system.html">Explore the color system →</a></p>
+  </section>
+
+  <!-- Numbers -->
+  <section class="hm-wrap" aria-label="OmniaCSS in numbers">
+    <div class="hm-numbers">
+      <div><b>524</b><span>CSS properties as utilities</span></div>
+      <div><b>140</b><span>OmniaUI components</span></div>
+      <div><b>80</b><span>blocks: sites, dashboards, admin</span></div>
+      <div><b>0 KB</b><span>JavaScript in the components</span></div>
+    </div>
+  </section>
+
+  <!-- One component, every stack -->
+  <section class="hm-wrap hm-fw" aria-labelledby="hm-fw-title">
+    <div class="hm-head" style="margin: 0">
+      <span class="hm-eyebrow">Your stack</span>
+      <h2 id="hm-fw-title">Same component. <span class="hm-grad">Every stack.</span></h2>
+      <p class="hm-lead">Plain HTML works everywhere. For Vue, React and Laravel the wrappers render exactly the same markup, so the docs, the CSS and the accessibility stay the same.</p>
+      <ul><li>Vue 3 with <code>v-model:open</code></li><li>React with <code>open</code> and <code>onOpenChange</code></li><li>Blade components and Livewire state</li></ul>
+    </div>
+    <div class="oc-tabset">
+      <div class="oc-tab-list oc-tab-list--pill" role="tablist">
+        <label class="oc-tab-trigger"><input type="radio" name="hm-fw" checked> HTML</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Vue</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> React</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Blade</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Livewire</label>
+      </div>
+      <div class="oc-tab-panel"><oc-code lang="html">&lt;button class="oc-btn" command="show-modal" commandfor="invite"&gt;Invite&lt;/button&gt;
+&lt;dialog class="oc-modal" id="invite" closedby="any"&gt;
+  &lt;div class="oc-modal-content"&gt;
+    &lt;h2 class="oc-modal-title"&gt;Invite a colleague&lt;/h2&gt;
+    &lt;button class="oc-btn" command="close" commandfor="invite"&gt;Done&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/dialog&gt;</oc-code></div>
+      <div class="oc-tab-panel"><oc-code lang="vue">&lt;script setup&gt;
+import { ref } from "vue";
+import { OcModal } from "@birdycom/omniaui-vue";
+const open = ref(false);
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;button class="oc-btn" @click="open = true"&gt;Invite&lt;/button&gt;
+  &lt;OcModal v-model:open="open" title="Invite a colleague"&gt;…&lt;/OcModal&gt;
+&lt;/template&gt;</oc-code></div>
+      <div class="oc-tab-panel"><oc-code lang="tsx">import { useState } from "react";
+import { Modal } from "@birdycom/omniaui-react";
+
+export function Invite() {
+  const [open, setOpen] = useState(false);
+  return (
+    &lt;&gt;
+      &lt;button className="oc-btn" onClick={() =&gt; setOpen(true)}&gt;Invite&lt;/button&gt;
+      &lt;Modal open={open} onOpenChange={setOpen} title="Invite a colleague"&gt;…&lt;/Modal&gt;
+    &lt;/&gt;
+  );
+}</oc-code></div>
+      <div class="oc-tab-panel"><oc-code lang="html">&lt;x-oc::modal id="invite" title="Invite a colleague"&gt;
+    &lt;x-slot:trigger&gt;
+        &lt;button class="oc-btn" command="show-modal" commandfor="invite"&gt;Invite&lt;/button&gt;
+    &lt;/x-slot:trigger&gt;
+    …
+&lt;/x-oc::modal&gt;</oc-code></div>
+      <div class="oc-tab-panel"><oc-code lang="html">{{-- public bool $showInvite = false; --}}
+&lt;button class="oc-btn" wire:click="$set('showInvite', true)"&gt;Invite&lt;/button&gt;
+&lt;x-oc::wire.modal model="showInvite" title="Invite a colleague"&gt;…&lt;/x-oc::wire.modal&gt;</oc-code></div>
+    </div>
+  </section>
+
+  <!-- Modern CSS topics -->
+  <section class="hm-wrap" aria-labelledby="hm-topics-title">
+    <div class="hm-head">
+      <span class="hm-eyebrow">All of modern CSS</span>
+      <h2 id="hm-topics-title">Documented with live demos and <span class="hm-grad">real support data</span>.</h2>
+      <p class="hm-lead">Every page shows what works in which browser, straight from MDN, and every demo runs in your browser right now.</p>
+    </div>
+    <div class="hm-topics">
+      <a class="hm-topic" href="/docs/functions/index.html"><code>progress() · sibling-index()</code><b>CSS functions</b><span>From clamp() to progress(), stepped values, trigonometry and typed attr().</span></a>
+      <a class="hm-topic" href="/docs/selectors/index.html"><code>:has() · :user-invalid</code><b>Selectors as variants</b><span>Every pseudo-class in front of any utility: user-invalid:border-red-60.</span></a>
+      <a class="hm-topic" href="/docs/at-rules/index.html"><code>@supports · @layer · @scope</code><b>At-rules</b><span>Feature queries as classes, cascade layers, scoped styles and @function.</span></a>
+      <a class="hm-topic" href="/docs/anchor-positioning/index.html"><code>anchor() · position-try</code><b>Anchor positioning</b><span>Tooltips and menus that follow their button, with fallbacks.</span></a>
+      <a class="hm-topic" href="/docs/scroll-snap/index.html"><code>::scroll-button · snapped:</code><b>Scroll snap</b><span>Carousels with generated arrows and dots, without a script.</span></a>
+      <a class="hm-topic" href="/docs/creative/index.html"><code>@property · clip-path</code><b>Creative CSS</b><span>Glowing borders, 3D cards, glass and text effects in pure CSS.</span></a>
+    </div>
+  </section>
+
+  <!-- Start -->
+  <section class="hm-wrap hm-start" id="start" aria-labelledby="hm-start-title">
+    <div class="hm-head" style="margin: 0">
+      <span class="hm-eyebrow">Install</span>
+      <h2 id="hm-start-title">Start in <span class="hm-grad">one minute</span>.</h2>
+      <p class="hm-lead">Every setup scans your files and writes only the classes, color tokens and fonts you use.</p>
+    </div>
+    <div class="oc-tabset">
+      <div class="oc-tab-list oc-tab-list--pill" role="tablist">
+        <label class="oc-tab-trigger"><input type="radio" name="hm-start" checked> CLI</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Vite / PostCSS</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Laravel</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Components</label>
+      </div>
+      <div class="oc-tab-panel"><oc-code lang="shell">npm install -D @birdycom/omniacss-cli
+npx omniacss init
+npx omniacss build --watch      # while you work
+npx omniacss build --minify     # for production</oc-code></div>
+      <div class="oc-tab-panel"><oc-code lang="js">// postcss.config.js
+import omniacss from "@birdycom/omniacss/postcss";
+export default {
+  plugins: [omniacss({ content: ["index.html", "src/**/*.{js,ts,jsx,tsx,vue,svelte}"] })],
+};
+/* src/style.css */
+@omnia;</oc-code></div>
+      <div class="oc-tab-panel"><oc-code lang="js">// postcss.config.js (Laravel + Vite)
+import omniacss from "@birdycom/omniacss/postcss";
+export default {
+  plugins: [omniacss({ content: ["resources/views/**/*.blade.php", "resources/js/**/*.{js,vue,tsx}"] })],
+};
+/* resources/css/app.css */
+@omnia;</oc-code></div>
+      <div class="oc-tab-panel"><oc-code lang="shell">npm install -D @birdycom/omniaui
+npx omniaui list
+npx omniaui add modal
+npx omniaui add cms-dashboard --to resources/views/admin</oc-code></div>
+    </div>
+  </section>
+
+  <!-- Closing call -->
+  <section class="hm-wrap" aria-labelledby="hm-close-title">
+    <div class="hm-close">
+      <h2 id="hm-close-title">Build with the CSS of today.</h2>
+      <p>Utilities, a color system, components and blocks that share one design language, from a landing page to a full admin.</p>
+      <div class="hm-cta" style="justify-content: center">
+        <a class="hm-btn hm-btn--main" href="/docs/index.html">Read the docs</a>
+        <a class="hm-btn" href="/ui/blocks.html">See the blocks</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Classes the playground can use (keeps them in the on-demand build) -->
+  <template id="hm-play-classes"><i class="p-2 p-3 round-4 round-full bg-vividblue-80 bg-magenta-50 bg-orange-50 bg-teal-50 bg-linear-to-r from-vividblue to-magenta text-white-50 font-bold uppercase font-italic shadow-xl border-2 border-solid border-white-50 scale-110 rotate-prop-n90 skew-x-6 opacity-50 blur-sm animate-pulse animate-bounce"></i></template>
+</main>
+<script>
+// Home: copy the install command, and the class playground (applies classes, prints the CSS the site stylesheet has for them).
+(() => {
+  document.addEventListener("click", async (e) => {
+    const b = e.target.closest("[data-hm-copy]");
+    if (!b) return;
+    try { await navigator.clipboard.writeText(b.dataset.hmCopy); b.textContent = "Copied"; } catch { b.textContent = "Select it"; }
+    setTimeout(() => { b.textContent = "Copy"; }, 1500);
+  });
+  const input = document.getElementById("hm-play-input"), box = document.getElementById("hm-play-box"), out = document.getElementById("hm-play-css");
+  if (!input) return;
+  const rules = new Map();
+  const collect = (list) => { for (const r of list) { if (r.selectorText) for (const sel of r.selectorText.split(",")) { const m = sel.trim().match(/^\.((?:\\.|[\w-])+)$/); if (m) { const name = m[1].replace(/\\(.)/g, "$1"); if (!rules.has(name)) rules.set(name, r.style.cssText); } } else if (r.cssRules && !r.media) collect(r.cssRules); } };
+  for (const s of document.styleSheets) { try { collect(s.cssRules); } catch {} }
+  const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]);
+  const pretty = (cls, text) => `.${esc(cls)} {\n${text.split(/;\s*/).filter(Boolean).map((d) => { const i = d.indexOf(":"); return `  <span class="p">${esc(d.slice(0, i).trim())}</span>: <span class="v">${esc(d.slice(i + 1).trim())}</span>;`; }).join("\n")}\n}`;
+  function render() {
+    const list = input.value.trim().split(/\s+/).filter(Boolean);
+    box.className = list.join(" ");
+    out.innerHTML = list.map((c) => rules.has(c) ? pretty(c, rules.get(c)) : `<span class="c">/* ${esc(c)}: not on this page — see the docs */</span>`).join("\n") || '<span class="c">/* type a class, e.g. round-full */</span>';
+    document.querySelectorAll("[data-hm-chip]").forEach((chip) => chip.setAttribute("aria-pressed", String(chip.dataset.hmChip.split(" ").every((c) => list.includes(c)))));
+  }
+  document.addEventListener("click", (e) => {
+    const chip = e.target.closest("[data-hm-chip]");
+    if (!chip) return;
+    const add = chip.dataset.hmChip.split(" ");
+    let list = input.value.trim().split(/\s+/).filter(Boolean);
+    list = add.every((c) => list.includes(c)) ? list.filter((c) => !add.includes(c)) : [...list, ...add.filter((c) => !list.includes(c))];
+    input.value = list.join(" ");
+    render();
+  });
+  input.addEventListener("input", render);
+  render();
+})();
+</script>

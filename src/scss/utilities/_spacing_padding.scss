@@ -1,0 +1,195 @@
+// SCSS Document 
+// File: src/utilities/_spacing_padding.scss
+// Description: Padding properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: padding, padding-inline, padding-inline-start, padding-inline-end, padding-block, padding-block-start, padding-block-end
+// Values: value in rem, auto
+
+@use "sass:string";
+@use "sass:map";
+@use '../utilities/' as *;
+
+// loop true the $sizes list and make the new css-elements 
+// $sizesrem-prop is the first set from the list-item ( "size-1" ), the text before the :-sign
+// $sizesrem-value is the second set from the list item ( $base-size * 0.125 ), the text after the :-sign
+
+/* The Padding property */
+
+///
+/// The position property specifies the type of positioning method used for an element.
+/// @group Padding
+/// @name padding
+/// @link src/scss/utilities/_spacing_padding.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements, except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column. It also applies to ::first-letter and ::first-line.
+///
+/// @example scss - padding class
+///   $min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+///   $run: 0;
+///   @while $min-group <= $DEFAULT-BASE-SECOND-MAX-GROUP {
+///   $result: omnia-generate-sizing($min-group, 'padding', true, $run);
+///   $min-group: map.get($result,1); 
+///   $run: map.get($result,6);
+///   .#{string.slice(map.get($result,5),1,1)}-#{map.get($result,2)} {
+///     #{map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'t'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-top'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'r'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-right'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'b'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-bottom'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'l'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-left'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'h'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-right'} : map.get($result,3) + #{map.get($result,4)};
+///     #{map.get($result,5)+'-left'} : map.get($result,3) + #{map.get($result,4)}
+///   } 
+///   .#{string.slice(map.get($result,5),1,1)+'v'}-#{map.get($result,2)} {
+///     #{map.get($result,5)+'-top'} : map.get($result,3) + #{map.get($result,4)};
+///     #{map.get($result,5)+'-bottom'} : map.get($result,3) + #{map.get($result,4)}
+///   }  
+/// };  
+/// @example html - use the padding class
+///   <div class="container p-5">
+///     <h2>Voorbeeld padding p-5 </h2>
+///   </div>
+//
+$min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+$run: 0;
+@while $min-group <= $SPACING-SECOND-MAX-GROUP {
+
+  $result: omnia-generate-sizing($min-group, 'padding', false, $run);
+
+  $min-group: map.get($result,1); 
+  $run: map.get($result,6);
+  // padding      
+  .#{string.slice(map.get($result,5),1,1)}-#{map.get($result,2)} {
+
+    #{map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+      
+  }
+  // padding-top
+  .#{string.slice(map.get($result,5),1,1)+'t'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-top'} : map.get($result,3) + #{map.get($result,4)}
+     
+  }
+  // padding-right
+  .#{string.slice(map.get($result,5),1,1)+'r'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-right'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+  // padding-bottom
+  .#{string.slice(map.get($result,5),1,1)+'b'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-bottom'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }
+  // padding-left
+  .#{string.slice(map.get($result,5),1,1)+'l'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-left'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+  // padding horizontal
+  .#{string.slice(map.get($result,5),1,1)+'h'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-right'} : map.get($result,3) + #{map.get($result,4)};
+    #{map.get($result,5)+'-left'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+  // padding vertical
+  .#{string.slice(map.get($result,5),1,1)+'v'}-#{map.get($result,2)} {
+
+    #{map.get($result,5)+'-top'} : map.get($result,3) + #{map.get($result,4)};
+    #{map.get($result,5)+'-bottom'} : map.get($result,3) + #{map.get($result,4)}
+    
+  }  
+};
+  // padding new version CSS
+/// @group Padding
+/// @name padding 
+/// 
+/// @link src/scss/utilities/_spacing_padding.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// css property - inline, inline-start, inline-end, block, block-start, block-end
+/// 
+/// Applies to:	all elements, except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column. It also applies to ::first-letter and ::first-line.
+///
+/// @require $sides -inline, inline-start, inline-end, block, block-start, block-end
+/// @example scss - padding inline class
+///   $min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+///   $run: 0;
+///   @while $min-group <= $DEFAULT-BASE-SECOND-MAX-GROUP {
+///     $result: omnia-generate-sizing($min-group, 'padding', true, $run);
+///     $min-group: map.get($result,1); 
+///     $run: map.get($result,6);
+///     @each $sides-prop in $sides {
+///       .#{string.slice(map.get($result,5),1,1)}-#{$sides-prop}-#{map.get($result,2)} {
+///         #{map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+///       }
+///     }
+///   }; 
+/// @example html - use the padding class
+///   <div class="container p-5">
+///     <h2>Voorbeeld padding p-5 </h2>
+///   </div>
+// 
+$min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+$run: 0;
+@while $min-group <= $SPACING-SECOND-MAX-GROUP {
+
+  $result: omnia-generate-sizing($min-group, 'padding', true, $run);
+  
+  $min-group: map.get($result,1); 
+  $run: map.get($result,6);
+  
+  @each $sides-prop in $sides {
+   
+    .#{string.slice(map.get($result,5),1,1)}-#{$sides-prop}-#{map.get($result,2)} {
+
+      #{map.get($result,5)}-#{$sides-prop}: map.get($result,3) + #{map.get($result,4)}
+      
+    }
+  }
+ 
+};
+
+/* Padding with var(--spacing): .p-var-0 … .p-var-10 (value = calc(var(--spacing) * n)). Set --spacing on :root or component (e.g. 1rem). */
+:root {
+  --spacing: 1rem;
+}
+@for $n from 0 through 10 {
+  @if $n == 0 {
+    .p-var-0 { padding: 0; }
+    .pt-var-0 { padding-top: 0; }
+    .pr-var-0 { padding-right: 0; }
+    .pb-var-0 { padding-bottom: 0; }
+    .pl-var-0 { padding-left: 0; }
+    .ph-var-0 { padding-left: 0; padding-right: 0; }
+    .pv-var-0 { padding-top: 0; padding-bottom: 0; }
+  } @else {
+    .p-var-#{$n} { padding: calc(var(--spacing) * #{$n}); }
+    .pt-var-#{$n} { padding-top: calc(var(--spacing) * #{$n}); }
+    .pr-var-#{$n} { padding-right: calc(var(--spacing) * #{$n}); }
+    .pb-var-#{$n} { padding-bottom: calc(var(--spacing) * #{$n}); }
+    .pl-var-#{$n} { padding-left: calc(var(--spacing) * #{$n}); }
+    .ph-var-#{$n} { padding-left: calc(var(--spacing) * #{$n}); padding-right: calc(var(--spacing) * #{$n}); }
+    .pv-var-#{$n} { padding-top: calc(var(--spacing) * #{$n}); padding-bottom: calc(var(--spacing) * #{$n}); }
+  }
+}
+
+/* End Padding property */

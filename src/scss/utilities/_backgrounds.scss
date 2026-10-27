@@ -1,0 +1,49 @@
+// SCSS Document
+// File: src/scss/utilities/_backgrounds.scss
+// Map: attachment -> clip -> image -> origin -> position -> repeat -> size
+
+/* Background attachment */
+.bg-fixed { background-attachment: fixed; }
+.bg-local { background-attachment: local; }
+.bg-scroll { background-attachment: scroll; }
+
+/* Background clip */
+.bg-clip-border { background-clip: border-box; }
+.bg-clip-padding { background-clip: padding-box; }
+.bg-clip-content { background-clip: content-box; }
+.bg-clip-text { -webkit-background-clip: text; background-clip: text; }
+
+/* Background image */
+.bg-image-none { background-image: none; }
+.bg-image-gradient-to-r { background-image: linear-gradient(to right, var(--color-vividblue-60), var(--color-vividblue-90)); }
+.bg-image-gradient-to-b { background-image: linear-gradient(to bottom, var(--color-vividblue-60), var(--color-vividblue-90)); }
+.bg-image-radial { background-image: radial-gradient(circle, var(--color-vividblue-60), var(--color-vividblue-95)); }
+
+/* Background origin */
+.bg-origin-border { background-origin: border-box; }
+.bg-origin-padding { background-origin: padding-box; }
+.bg-origin-content { background-origin: content-box; }
+
+/* Background position */
+.bg-pos-center { background-position: center; }
+.bg-pos-top { background-position: top; }
+.bg-pos-bottom { background-position: bottom; }
+.bg-pos-left { background-position: left; }
+.bg-pos-right { background-position: right; }
+.bg-pos-left-top { background-position: left top; }
+.bg-pos-left-bottom { background-position: left bottom; }
+.bg-pos-right-top { background-position: right top; }
+.bg-pos-right-bottom { background-position: right bottom; }
+
+/* Background repeat */
+.bg-repeat { background-repeat: repeat; }
+.bg-no-repeat { background-repeat: no-repeat; }
+.bg-repeat-x { background-repeat: repeat-x; }
+.bg-repeat-y { background-repeat: repeat-y; }
+.bg-repeat-round { background-repeat: round; }
+.bg-repeat-space { background-repeat: space; }
+
+/* Background size */
+.bg-size-auto { background-size: auto; }
+.bg-cover { background-size: cover; }
+.bg-contain { background-size: contain; }

@@ -1,0 +1,73 @@
+// SCSS Document 
+// File: src/utilities/_aspect.scss
+// Description: CSS layout properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: aspect-ratio
+// Values: 
+
+@use "sass:string";
+@use '../utilities/' as *;
+
+/* The aspect-ratio properties */
+
+///
+/// The aspect-ratio Property
+/// @group aspect
+///
+
+///
+/// The aspect-ratio property sets the Text decoration.
+/// @group aspect
+/// @name aspect
+/// @link src/scss/utilities/_variables_layout.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $aspect
+/// @example scss -  aspect-ratio class
+///   @each $aspect-prop, $aspect-value in $aspect {
+///       #{".#{$aspect-prop}"}{
+///         aspect-ratio: $aspect-value ;
+///       }
+///   }
+/// @example html - use text decoration line class
+///   <div class="h-100vh">
+///     <div class="output" >
+///     <p>1. <code>aspect-ratio: aspect-auto</code></p>
+///       <section class="h-full text-center">
+///         <img class="aspect-auto w-auto h-full" id="example-element" src="../image/plumeria.jpg" class="transition-all" width="466" height="640">
+///       </section>
+///     </div> 
+///     <div class="output" >
+///     <p>2. <code>aspect-ratio: aspect-1 (1/1)</code></p>
+///      <section class="h-full text-center">
+///         <img class="aspect-1 w-auto h-full" id="example-element" src="../image/plumeria.jpg" class="transition-all" width="466" height="640">
+///      </section>
+///    </div> 
+///     <div class="output" >
+///     <p>3. <code>aspect-ratio: aspect-16 (16/9)</code></p>
+///       <section class="h-full text-center">
+///        <img class="aspect-16 w-auto h-full" id="example-element" src="../image/plumeria.jpg" class="transition-all" width="466" height="640">
+///      </section>
+///    </div> 
+///     <div class="output" >
+///     <p>4. <code>aspect-ratio: aspect-21 (21/9)</code></p>
+///       <section class="h-full text-center">
+///        <img class="aspect-21 w-auto h-full" id="example-element" src="../image/plumeria.jpg" class="transition-all" width="466" height="640">
+///      </section>
+///    </div>
+///   </div>
+@each $aspect-prop, $aspect-value in $aspect {
+
+  #{".#{$aspect-prop}"}{
+
+    aspect-ratio: string.unquote($aspect-value) ;
+
+  }
+}
+/* End The aspect-ratio properties */
