@@ -1,0 +1,220 @@
+<!--oc-page {"title": "OmniaCSS Docs - Animation Properties & Motion Path", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="animation-properties">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Animation Properties &amp; Motion Path</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_animation_properties.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">animation-properties.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Control every part of an animation separately (duration, delay, iterations, direction, fill mode, play state, composition), use modern easing with <code>linear()</code> and <code>steps()</code>, move elements along a path with <code>offset-*</code>, and rotate with the individual <code>rotate</code> property. The ready-made animations (<code>.animate-spin</code>, …) are on the <a href="animations.html">Animations</a> page. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation" target="_blank" rel="noopener">MDN: animation</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="longhands">Animation longhands</h3>
+          <p class="oc-section-content__desc">Combine with an animation name (<code>.animate-name-*</code>) or a preset.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.animate-duration-{75|150|300|500|700|1000|2000}</code></td><td>animation-duration: {n}ms</td></tr>
+                <tr><td><code>.animate-delay-{0|75|150|300|500|1000}</code></td><td>animation-delay: {n}ms</td></tr>
+                <tr><td><code>.animate-repeat-{1|2|3|infinite}</code></td><td>animation-iteration-count</td></tr>
+                <tr><td><code>.animate-direction-{normal|reverse|alternate|alternate-reverse}</code></td><td>animation-direction</td></tr>
+                <tr><td><code>.animate-fill-{none|forwards|backwards|both}</code></td><td>animation-fill-mode</td></tr>
+                <tr><td><code>.animate-running / .animate-paused</code></td><td>animation-play-state</td></tr>
+                <tr><td><code>.animate-compose-{replace|add|accumulate}</code></td><td>animation-composition</td></tr>
+                <tr><td><code>.animate-name-{none|spin|pulse|bounce|ping}</code></td><td>animation-name</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="animate-name-spin + duration/direction">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.animate-duration-2000</span>
+                <div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-linear bg-linear-to-r from-red to-blue size-12 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.animate-direction-alternate</span>
+                <div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-direction-alternate bg-linear-to-r from-green to-yellow size-12 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.animate-paused</span>
+                <div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-paused bg-linear-to-r from-gray to-white size-12 round-3"></div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-linear bg-linear-to-r from-red to-blue size-12 round-3"&gt;&lt;/div&gt;
+&lt;div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-direction-alternate bg-linear-to-r from-green to-yellow size-12 round-3"&gt;&lt;/div&gt;
+&lt;div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-paused bg-linear-to-r from-gray to-white size-12 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="easing">Easing functions</h3>
+          <p class="oc-section-content__desc"><code>linear()</code> approximates springs and bounces with many points; <code>steps()</code> jumps between frames. <code>.animate-ease-*</code> for animations, <code>.ease-*</code> for transitions.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.animate-ease-{linear|in|out|in-out}</code></td><td>animation-timing-function</td></tr>
+                <tr><td><code>.animate-ease-steps-4</code></td><td>animation-timing-function: steps(4, end)</td></tr>
+                <tr><td><code>.animate-ease-spring</code></td><td>animation-timing-function: linear(… spring curve …)</td></tr>
+                <tr><td><code>.ease-spring / .ease-bounce</code></td><td>transition-timing-function: linear(…)</td></tr>
+                <tr><td><code>.ease-steps-4 / .ease-step-start / .ease-step-end</code></td><td>transition-timing-function: steps()</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="animate-ease-steps-4, animate-ease-spring">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.animate-ease-steps-4</span>
+                <div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-steps-4 bg-linear-to-r from-magenta to-blue size-12 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.animate-ease-spring</span>
+                <div class="animate-name-bounce animate-duration-1000 animate-repeat-infinite animate-ease-spring bg-dodgerblue size-12 round-full"></div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-steps-4 bg-linear-to-r from-magenta to-blue size-12 round-3"&gt;&lt;/div&gt;
+&lt;div class="animate-name-bounce animate-duration-1000 animate-repeat-infinite animate-ease-spring bg-dodgerblue size-12 round-full"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="motion-path">Motion path</h3>
+          <p class="oc-section-content__desc">Move an element along a path (<code>offset-path</code>) and set its position on that path (<code>offset-distance</code>). <code>.animate-follow-path</code> animates the distance from 0% to 100%.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.offset-path-{none|circle|ellipse|inset|wave|ray}</code></td><td>offset-path</td></tr>
+                <tr><td><code>.offset-distance-{0|25|50|75|100}</code></td><td>offset-distance: {n}%</td></tr>
+                <tr><td><code>.offset-rotate-{auto|reverse|0}</code></td><td>offset-rotate</td></tr>
+                <tr><td><code>.offset-anchor-{center|auto}</code></td><td>offset-anchor</td></tr>
+                <tr><td><code>.offset-position-{normal|center}</code></td><td>offset-position</td></tr>
+                <tr><td><code>.offset-none</code></td><td>offset: none</td></tr>
+                <tr><td><code>.animate-follow-path</code></td><td>animation: offset-distance 0% → 100% (3s, alternate)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="offset-path-wave + animate-follow-path">
+            
+            <div class="relative w-16 h-8 round-3 p-1 border-1 border-dashed border-stormblue-100">
+              <div class="absolute top-0 left-0 offset-path-wave offset-rotate-auto animate-follow-path size-4 round-full bg-dodgerblue"></div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="relative w-16 h-8"&gt;
+  &lt;div class="absolute top-0 left-0 offset-path-wave offset-rotate-auto animate-follow-path size-4 round-full"&gt;&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="rotate">Rotate property &amp; transform-box</h3>
+          <p class="oc-section-content__desc">The individual <code>rotate</code> property works independently of <code>transform</code>, so it does not overwrite translate/scale utilities. <code>transform-box</code> sets the reference box for <code>transform-origin</code> (useful in SVG).</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.rotate-prop-{0|45|90|180|n45|n90}</code></td><td>rotate: {n}deg</td></tr>
+                <tr><td><code>.rotate-prop-x-180 / .rotate-prop-y-180</code></td><td>rotate: x 180deg | y 180deg</td></tr>
+                <tr><td><code>.transform-box-{content|border|fill|stroke|view}</code></td><td>transform-box</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="rotate-prop-45, rotate-prop-y-180">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.rotate-prop-45</span>
+                <div class="rotate-prop-45 bg-linear-to-r from-orange to-red size-12 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.rotate-prop-n90</span>
+                <div class="rotate-prop-n90 bg-linear-to-r from-teal to-blue size-12 round-3"></div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="rotate-prop-45 bg-linear-to-r from-orange to-red size-12 round-3"&gt;&lt;/div&gt;
+&lt;div class="rotate-prop-n90 bg-linear-to-r from-teal to-blue size-12 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="timeline-longhands">Timeline longhands</h3>
+          <p class="oc-section-content__desc">Longhands of the scroll-driven animation shorthands on the <a href="../scroll-animations/">Scroll animations</a> page.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.animate-range-start-{entry|contain}</code></td><td>animation-range-start</td></tr>
+                <tr><td><code>.animate-range-end-{exit|contain}</code></td><td>animation-range-end</td></tr>
+                <tr><td><code>.scroll-timeline-axis-{block|inline}</code></td><td>scroll-timeline-axis</td></tr>
+                <tr><td><code>.scroll-timeline-name-oc</code></td><td>scroll-timeline-name: --oc-timeline</td></tr>
+                <tr><td><code>.view-timeline-axis-{block|inline}</code></td><td>view-timeline-axis</td></tr>
+                <tr><td><code>.view-timeline-name-oc</code></td><td>view-timeline-name: --oc-timeline</td></tr>
+                <tr><td><code>.view-timeline-inset-{auto|10}</code></td><td>view-timeline-inset</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Animation longhands and the rotate property are broadly supported; <code>linear()</code> easing and <code>animation-composition</code> need a recent browser, older ones fall back to linear timing.</p>
+          <oc-compat features="css.properties.animation-duration css.properties.animation-composition css.types.easing-function.linear-function css.properties.offset-path css.properties.offset-distance css.properties.offset-rotate css.properties.rotate css.properties.transform-box css.properties.animation-range-start"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            These utilities come from <code>_animation_properties.scss</code>; transitions, presets and transforms from <code>_motion_transforms.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path" target="_blank" rel="noopener">MDN: offset-path</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/linear" target="_blank" rel="noopener">MDN: linear()</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_animation_properties.scss</code></td><td>animation longhands, easing, motion path, rotate property, transform-box, timeline longhands</td></tr>
+                  <tr><td><code>src/scss/utilities/_motion_transforms.scss</code></td><td>transition-*, .animate-spin/ping/pulse/bounce, transforms</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="animations.html">Animations</a>
+               · 
+              <a class="source-link" href="transitions.html">Transitions</a>
+               · 
+              <a class="source-link" href="../scroll-animations/">Scroll animations</a>
+            </p>
+          </div>
+        </div>
+      </section>

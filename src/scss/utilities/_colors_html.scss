@@ -1,0 +1,341 @@
+// SCSS Document 
+// File: src/scss/utilities/_colors_html.scss
+// Description: colors properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: background-color, color
+// Values: rgb, rgba, hsl, hsla, #
+
+@use "sass:string";
+@use "sass:color";
+@use "sass:list";
+@use "sass:math";
+@use "sass:map";
+@use '../utilities/' as *;
+// Tone scale for color steps 5..95.
+// This keeps low steps vivid (no gray overlay) and darkens high steps.
+$oc-tone-scale: (
+  2: (lightness: 56%, chroma: -18%),
+  10: (lightness: 38%, chroma: -12%),
+  20: (lightness: 30%, chroma: -10%),
+  30: (lightness: 22%, chroma: -8%),
+  40: (lightness: 14%, chroma: -6%),
+  50: (lightness: 6%, chroma: -4%),
+  60: (lightness: -6%, chroma: 2%),
+  70: (lightness: -12%, chroma: 4%),
+  80: (lightness: -18%, chroma: 6%),
+  90: (lightness: -24%, chroma: 8%),
+  95: (lightness: -32%, chroma: 10%)
+);
+
+@function oc-tone-color($source-color, $step) {
+  $tone: map.get($oc-tone-scale, $step);
+  @if $tone == null {
+    @return $source-color;
+  }
+
+  @return color.scale(
+    $source-color,
+    $lightness: map.get($tone, lightness),
+    $chroma: map.get($tone, chroma)
+  );
+}
+
+
+/* The HTML Colors properties */
+///
+/// @group ColorsHTML
+///
+
+///
+/// This code defines a series of nested Sass @each loops that generate CSS background colors 
+/// and text colors based on a set of predefined color palettes. 
+/// The @each loops iterate through several arrays of color properties, 
+/// starting with a top-level array called $html-colors, and dig into subsequent arrays of 
+/// maincolorshtml-prop, colorname-prop, pseudoclasses-prop, and opacitycolor-prop 
+/// to generate CSS classes for each color with different opacity and/or pseudo-class options. 
+/// 
+/// The code then generates CSS code block and sets the appropriate background-color 
+/// and color properties based on the selected color and opacity value. 
+/// The $DEFAULT-COLOR-TYPE-VALUE variable determines whether the color being iterated 
+/// through is set as a hexadecimal value, HSL, or RGB.
+///
+/// @group ColorsHTML
+/// @name colorshtml
+/// @link src/scss/utilities/_colors_html.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $colorshtml
+/// @require {variable} $pseudoclasses
+/// @require {variable} $opacitycolor
+/// @require str-replace
+/// @example scss - colors class
+///   @each $colorshtml-prop, $colorshtml-value in $html-colors { // first list 'htmlcolors'
+///   @each $maincolorshtml-prop, $maincolorshtml-value in $colorshtml-value { // first list 'htmlcolors'
+///     @each $colorname-prop, $colorname-value in $maincolorshtml-value { // second list 'colors name'
+///       @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+///         @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor { // set the opacity off the colors  
+///           #{".#{$pseudoclasses-value}" + "bg-" + to-lower-case("#{$colorname-prop}") + if($opacitycolor-value <= 90, "#{$opacitycolor-prop}#{$pseudoclasses-prop}","#{$pseudoclasses-prop}")}{
+///             @each $colorhtml-prop, $colorhtml-value in $colorname-value {
+///               @if $colorhtml-prop == $DEFAULT-COLOR-TYPE-VALUE {
+///                 @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {  
+///                   @if $opacitycolor-value <= 90 {
+///                     background-color: $coloromnia-value+#{$opacitycolor-value}; 
+///                   } @else {
+///                     background-color: $coloromnia-value;  
+///                   };
+///                 };
+///                 @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+///                   $h:(); $s:(); $l:();
+///                   @each $color-prop, $color-value in $colorhtml-value {
+///                       @if $color-prop == 'h' { $h: #{$color-value}; }
+///                       @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+///                       @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+///                   };
+///                   @if $opacitycolor-value <= 90 {
+///                     background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  }; 
+///                   } @else {
+///                     background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+///                   };
+///                 };
+///                 @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+///                   $r:(); $g:(); $b:();
+///                   @each $color-prop, $color-value in $colorhtml-value {
+///                       @if $color-prop == 'r' { $r: #{$color-value}; }
+///                       @if $color-prop == 'g' { $g: #{$color-value}; }
+///                       @if $color-prop == 'b' { $b: #{$color-value}; }
+///                   };
+///                     @if $opacitycolor-value <= 90 {
+///                       background-color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  }; 
+///                     } @else {
+///                       background-color: #{'rgb('+ $r  $g  $b + ' )'  }; 
+///                     };
+///                 };
+///               };    
+///             };
+///           };
+///           #{".#{$pseudoclasses-value}" + "text-"  + to-lower-case("#{$colorname-prop}") + if($opacitycolor-value <= 90, "#{$opacitycolor-prop}#{$pseudoclasses-prop}","#{$pseudoclasses-prop}")}{
+///             @each $colorhtml-prop, $colorhtml-value in $colorname-value {
+///               @if $colorhtml-prop == $DEFAULT-COLOR-TYPE-VALUE {
+///                 @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {   
+///                   @if $opacitycolor-value <= 90 {
+///                     color: $coloromnia-value+#{$opacitycolor-value}; 
+///                   } @else {
+///                     color: $coloromnia-value;  
+///                   };  
+///                 };
+///                 @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+///                   $h:(); $s:(); $l:();
+///                   @each $color-prop, $color-value in $colorhtml-value {
+///                       @if $color-prop == 'h' { $h: #{$color-value}; }
+///                       @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+///                       @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+///                   };
+///                   @if $opacitycolor-value <= 90 {
+///                     color: #{'hsl('+$h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  }; 
+///                   } @else {
+///                     color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+///                   }; 
+///                 };
+///                 @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+///                   $r:(); $g:(); $b:();
+///                   @each $color-prop, $color-value in $colorhtml-value {
+///                       @if $color-prop == 'r' { $r: #{$color-value}; }
+///                       @if $color-prop == 'g' { $g: #{$color-value}; }
+///                       @if $color-prop == 'b' { $b: #{$color-value}; }
+///                   };
+///                   @if $opacitycolor-value <= 90 {
+///                     color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  }; 
+///                   } @else {
+///                     color: #{'rgb('+ $r  $g  $b + ' )'  }; 
+///                   };  
+///                 };
+///               };    
+///             };
+///           };
+///         };
+///       };
+///     };
+///   };
+/// };
+/// @example html - use background, text and hover-color class
+///   <div class="bg-darkgreen w-12 h-10 p-0.5 hover:bg-orange text-cyan">
+///     <p>text = Cyan</p>
+///     <p>background = darkgreen</p>
+///     <p>hover background = orange </p>
+///   </div> 
+@each $colorshtml-prop, $colorshtml-value in $html-colors { // first list 'htmlcolors'
+
+  @each $maincolorshtml-prop, $maincolorshtml-value in $colorshtml-value { // first list 'htmlcolors'
+
+    @each $colorname-prop, $colorname-value in $maincolorshtml-value { // second list 'colors name'
+
+      @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+
+        @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor { // set the opacity off the colors
+          $step: list.nth($opacitycolor-value, 1);
+          $color-name: string.to-lower-case(#{$colorname-prop});
+
+          $opacity-suffix: "#{$pseudoclasses-prop}";
+          @if $opacitycolor-value <= 95 {
+            $opacity-suffix: "#{$opacitycolor-prop}#{$pseudoclasses-prop}";
+          }
+
+          #{".#{$pseudoclasses-value}" + "bg-" + string.to-lower-case("#{$colorname-prop}") + $opacity-suffix}{
+
+            @each $colorhtml-prop, $colorhtml-value in $colorname-value {
+
+              @if $colorhtml-prop == $DEFAULT-COLOR-TYPE-VALUE or (($DEFAULT-COLOR-TYPE-VALUE == 'oklch' or $DEFAULT-COLOR-TYPE-VALUE == 'oklab') and $colorhtml-prop == 'hex') {
+              
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {  
+
+                  @if $opacitycolor-value <= 95 {
+
+                    background-color: $colorhtml-value+#{$opacitycolor-value}; 
+
+                  } @else {
+
+                    background-color: $colorhtml-value;  
+                  }
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+                  
+                  $h:(); $s:(); $l:();
+                  
+                  @each $color-prop, $color-value in $colorhtml-value {
+                  
+                      @if $color-prop == 'h' { $h: #{$color-value}; }
+                      @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+                      @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+
+                  }
+
+                  @if $opacitycolor-value <= 95 {
+
+                    background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  }; 
+
+                  } @else {
+
+                    background-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+                  }
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+                  
+                  $r:(); $g:(); $b:();
+                  
+                  @each $color-prop, $color-value in $colorhtml-value {
+                  
+                      @if $color-prop == 'r' { $r: #{$color-value}; }
+                      @if $color-prop == 'g' { $g: #{$color-value}; }
+                      @if $color-prop == 'b' { $b: #{$color-value}; }
+
+                  }
+
+                    @if $opacitycolor-value <= 95 {
+
+                      background-color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  }; 
+
+                    } @else {
+
+                      background-color: #{'rgb('+ $r  $g  $b + ' )'  }; 
+                    } 
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklch' {
+                  background-color: var(--color-#{$color-name}-#{$step});
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklab' {
+                  background-color: var(--color-#{$color-name}-#{$step});
+                }
+              }    
+            }
+          }
+          
+          #{".#{$pseudoclasses-value}" + "text-"  + string.to-lower-case("#{$colorname-prop}") + $opacity-suffix}{
+
+          // @extend .#{$colorshtml-prop};
+
+            @each $colorhtml-prop, $colorhtml-value in $colorname-value {
+
+              @if $colorhtml-prop == $DEFAULT-COLOR-TYPE-VALUE or (($DEFAULT-COLOR-TYPE-VALUE == 'oklch' or $DEFAULT-COLOR-TYPE-VALUE == 'oklab') and $colorhtml-prop == 'hex') {
+              
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {   
+
+                  @if $opacitycolor-value <= 95 {
+
+                    color: $colorhtml-value+#{$opacitycolor-value}; 
+
+                  } @else {
+
+                    color: $colorhtml-value;  
+                  }  
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+                  
+                  $h:(); $s:(); $l:();
+                  
+                  @each $color-prop, $color-value in $colorhtml-value {
+                  
+                      @if $color-prop == 'h' { $h: #{$color-value}; }
+                      @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+                      @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+
+                  }
+
+                  @if $opacitycolor-value <= 95 {
+
+                    color: #{'hsl('+$h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  }; 
+
+                  } @else {
+
+                    color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+                  } 
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+                  
+                  $r:(); $g:(); $b:();
+                  
+                  @each $color-prop, $color-value in $colorhtml-value {
+                  
+                      @if $color-prop == 'r' { $r: #{$color-value}; }
+                      @if $color-prop == 'g' { $g: #{$color-value}; }
+                      @if $color-prop == 'b' { $b: #{$color-value}; }
+
+                  }
+
+                  @if $opacitycolor-value <= 95 {
+
+                    color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  }; 
+
+                  } @else {
+
+                    color: #{'rgb('+ $r  $g  $b + ' )'  }; 
+                  }  
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklch' {
+                  color: var(--color-#{$color-name}-#{$step});
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklab' {
+                  color: var(--color-#{$color-name}-#{$step});
+                }
+              }    
+            }
+          }
+        }
+      }
+    }
+  }
+};
+/* End html Colors properties */

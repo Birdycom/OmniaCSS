@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Brand mark (same as .oc-topbar-brand::before). Colors: --color-vividblue-80, magenta-50, orange-50, teal-50, white-50 as OKLCH. -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="oklch(59.7962% 0.15662 258.2808)"/>
+      <stop offset="0.38" stop-color="oklch(71.9573% 0.30959 328.3634)"/>
+      <stop offset="0.7" stop-color="oklch(80.5127% 0.16418 70.6699)"/>
+      <stop offset="1" stop-color="oklch(57.0535% 0.089 194.769)"/>
+    </linearGradient>
+    <radialGradient id="h" cx="0.3" cy="0.3" r="0.45">
+      <stop offset="0" stop-color="oklch(100% 0 0)" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="oklch(100% 0 0)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#g)"/>
+  <rect width="32" height="32" rx="8" fill="url(#h)"/>
+</svg>

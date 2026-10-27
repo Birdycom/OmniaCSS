@@ -1,0 +1,252 @@
+<!--oc-page {"title": "OmniaCSS Docs - Scroll-driven Animations", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .sd-scroller { box-sizing: border-box; inline-size: 100%; block-size: 17rem; overflow-y: auto; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-background); color: var(--oc-foreground); }\n    .sd-stack { display: grid; gap: 1rem; padding: 1rem; }\n    .sd-hint { margin: 0; text-align: center; color: var(--oc-muted-foreground); font-size: 0.85rem; }\n    .sd-gap { block-size: 10rem; }\n    .sd-bar { position: sticky; inset-block-start: 0; z-index: 2; block-size: 6px; background: var(--oc-gradient-brand); transform-origin: 0 50%; animation: oc-scroll-progress linear both; animation-timeline: scroll(); }\n    .sd-bar-out { block-size: 6px; border-radius: 3px; background: var(--oc-gradient-brand); transform-origin: 0 50%; animation-name: oc-scroll-progress; animation-timing-function: linear; animation-fill-mode: both; }\n    .sd-track { inline-size: 100%; border-radius: 3px; background: var(--oc-muted); }\n    .sd-parallax { position: relative; block-size: 11rem; overflow: hidden; border-radius: 10px; background: var(--oc-muted); }\n    .sd-layer { position: absolute; inset: -30% 0; display: grid; place-items: center; font-weight: 700; color: var(--color-white-50); background: var(--oc-gradient-brand); animation: sd-parallax linear both; animation-timeline: view(); }\n    .sd-layer--slow { animation-name: sd-parallax-slow; }\n    .sd-cap { position: relative; z-index: 1; display: grid; place-items: center; block-size: 100%; color: var(--color-white-50); font-weight: 700; text-shadow: 0 1px 6px oklch(from var(--color-black-60) l c h / 0.6); }\n    .sd-hscroll { display: flex; gap: 1rem; inline-size: 100%; padding: 1rem; overflow-x: auto; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-background); scroll-snap-type: x proximity; }\n    .sd-hitem { flex: 0 0 9rem; display: grid; place-items: center; block-size: 7rem; border-radius: 12px; color: var(--color-white-50); font-weight: 700; background: var(--oc-gradient-brand); scroll-snap-align: center; animation: sd-pop linear both; animation-timeline: view(inline); }\n    .sd-tint { padding: 1rem; border-radius: 10px; border: 1px solid var(--oc-border); background: var(--oc-card); color: var(--oc-foreground); animation-name: sd-tint; animation-timing-function: linear; animation-fill-mode: both; }\n    .sd-label { font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    @keyframes sd-parallax { from { translate: 0 -16%; } to { translate: 0 16%; } }\n    @keyframes sd-parallax-slow { from { translate: 0 -6%; } to { translate: 0 6%; } }\n    @keyframes sd-pop { 0% { scale: 0.7; opacity: 0.3; } 50% { scale: 1; opacity: 1; } 100% { scale: 0.7; opacity: 0.3; } }\n    @keyframes sd-tint { from { background: var(--oc-card); } to { background: oklch(from var(--color-vividblue-80) l c h / 0.45); } }\n    @media (prefers-reduced-motion: reduce) { .sd-bar, .sd-bar-out, .sd-layer, .sd-hitem, .sd-tint { animation: none; } }\n  </style>"]}-->
+<section class="oc-docs-section" id="scroll-animations">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Scroll-driven Animations</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_scroll_animations.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">scroll-animations/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Drive CSS animations by scroll progress instead of time. Use a ready-made preset (<code>.animate-view-fade-in</code>, <code>.animate-scroll-progress</code>) or combine your own animation with <code>.timeline-*</code> and <code>.animate-range-*</code>. Presets are wrapped in <code>@supports</code>, so content stays visible in browsers without support. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations" target="_blank" rel="noopener">MDN: Scroll-driven animations</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="presets">Presets</h3>
+          <p class="oc-section-content__desc">Complete scroll-driven animations: add one class. <strong>What:</strong> instead of running for a number of seconds, the animation progresses as the user scrolls, entirely on the compositor and without <code>IntersectionObserver</code> or scroll listeners. <strong>When:</strong> reading-progress bars, reveal-on-scroll, parallax, sticky headers that shrink. <strong>Gotchas:</strong> the presets use <code>scroll(root)</code> or <code>view()</code>; <code>view()</code> looks at the <em>nearest scrolling ancestor</em>, so it works inside any scroll container, while <code>scroll(root)</code> needs the page itself to scroll. The animation has no duration: <code>animation-duration</code> is ignored (<code>auto</code>), and <code>animation: x 1s</code> shorthands reset the timeline, so set the timeline after the shorthand. Presets switch off for <code>prefers-reduced-motion</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations" target="_blank" rel="noopener">MDN: Scroll-driven animations</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.animate-scroll-progress</code></td><td>scaleX 0 → 1 driven by scroll(root) — reading progress bar</td></tr>
+                <tr><td><code>.animate-view-fade-in</code></td><td>fade + slide up while the element enters the scrollport</td></tr>
+                <tr><td><code>.animate-view-zoom-in</code></td><td>fade + scale up while the element enters the scrollport</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="animate-view-fade-in + animate-view-zoom-in (reveal on scroll)">
+            <div class="sd-scroller" tabindex="0" aria-label="Scrollable demo">
+              <div class="sd-stack">
+                <p class="sd-hint">Scroll this box down ↓</p>
+                <div class="sd-gap"></div>
+                <div class="animate-view-fade-in oc-fx-card"><strong>.animate-view-fade-in</strong><span>fades in while entering</span></div>
+                <div class="animate-view-zoom-in oc-fx-card"><strong>.animate-view-zoom-in</strong><span>zooms in while entering</span></div>
+                <div class="animate-view-fade-in oc-fx-card"><strong>.animate-view-fade-in</strong><span>no JavaScript, no IntersectionObserver</span></div>
+                <div class="animate-view-zoom-in oc-fx-card"><strong>.animate-view-zoom-in</strong><span>scrubbed by the scroll position</span></div>
+                <div class="animate-view-fade-in oc-fx-card"><strong>.animate-view-fade-in</strong><span>scroll back up to reverse it</span></div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div style="height: 17rem; overflow-y: auto"&gt;
+  &lt;div class="animate-view-fade-in"&gt;…&lt;/div&gt;
+  &lt;div class="animate-view-zoom-in"&gt;…&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="scroll(): progress bar of a scroll container">
+            <div class="sd-scroller" tabindex="0" aria-label="Scrollable demo with progress bar">
+              <div class="sd-bar"></div>
+              <div class="sd-stack">
+                <p class="sd-hint">Scroll this box: the bar at the top follows the progress.</p>
+                <div class="oc-fx-card"><strong>Section one</strong><span>The bar is sticky and scaled by <code>scroll()</code>.</span></div>
+                <div class="oc-fx-card"><strong>Section two</strong><span>0% at the top, 100% at the bottom.</span></div>
+                <div class="oc-fx-card"><strong>Section three</strong><span>The same keyframes as <code>.animate-scroll-progress</code>.</span></div>
+                <div class="oc-fx-card"><strong>Section four</strong><span>Nothing here listens to scroll events.</span></div>
+                <div class="oc-fx-card"><strong>Section five</strong><span>Almost there.</span></div>
+                <div class="oc-fx-card"><strong>The end</strong><span>Bar full.</span></div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="scroller" style="overflow-y: auto"&gt;
+  &lt;div class="animate-scroll-progress"
+       style="position: sticky; top: 0; height: 6px; animation-timeline: scroll()"&gt;&lt;/div&gt;
+  …
+&lt;/div&gt;
+&lt;!-- For the whole page use the preset as is: scroll(root) --&gt;
+&lt;div class="fixed top-0 left-0 w-full h-1 animate-scroll-progress"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="animation-timeline">Animation timeline</h3>
+          <p class="oc-section-content__desc">Which timeline drives the animation on the element. <strong>What:</strong> <code>scroll()</code> follows how far a scroller is scrolled (0% to 100%); <code>view()</code> follows how far the element itself has travelled through the scrollport (entering, covering, exiting). <strong>When:</strong> use <code>scroll()</code> for progress bars and header effects, <code>view()</code> for reveals, parallax and highlights. <strong>Gotchas:</strong> the axis matters (<code>.timeline-scroll-x</code>, <code>.timeline-view-x</code> for horizontal scrollers); the scroller must really overflow, and <code>overflow: hidden</code> ancestors also count as scrollers and can steal the timeline. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" target="_blank" rel="noopener">MDN: animation-timeline</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.timeline-auto</code></td><td>animation-timeline: auto</td></tr>
+                <tr><td><code>.timeline-none</code></td><td>animation-timeline: none</td></tr>
+                <tr><td><code>.timeline-scroll</code></td><td>animation-timeline: scroll()</td></tr>
+                <tr><td><code>.timeline-scroll-x</code></td><td>animation-timeline: scroll(x)</td></tr>
+                <tr><td><code>.timeline-scroll-root</code></td><td>animation-timeline: scroll(root)</td></tr>
+                <tr><td><code>.timeline-view</code></td><td>animation-timeline: view()</td></tr>
+                <tr><td><code>.timeline-view-x</code></td><td>animation-timeline: view(x)</td></tr>
+                <tr><td><code>.timeline-oc</code></td><td>animation-timeline: --oc-timeline</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="view(): parallax layers (translate driven by the position in the scrollport)">
+            <div class="sd-scroller" tabindex="0" aria-label="Scrollable parallax demo">
+              <div class="sd-stack">
+                <p class="sd-hint">Scroll this box ↓</p>
+                <div class="sd-gap"></div>
+                <div class="sd-parallax"><div class="sd-layer"></div><span class="sd-cap">fast background</span></div>
+                <div class="sd-gap"></div>
+                <div class="sd-parallax"><div class="sd-layer sd-layer--slow"></div><span class="sd-cap">slow background</span></div>
+                <div class="sd-gap"></div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="parallax"&gt;&lt;div class="layer"&gt;…&lt;/div&gt;&lt;/div&gt;
+
+.layer { animation: shift linear both; animation-timeline: view(); }
+@keyframes shift { from { translate: 0 -16%; } to { translate: 0 16%; } }</oc-code></oc-demo>
+
+          <oc-demo title="view(inline): items scale up while they cross the middle of a horizontal scroller">
+            <div class="sd-hscroll" tabindex="0" aria-label="Horizontal scrollable demo">
+              <div class="sd-hitem">One</div><div class="sd-hitem">Two</div><div class="sd-hitem">Three</div><div class="sd-hitem">Four</div><div class="sd-hitem">Five</div><div class="sd-hitem">Six</div><div class="sd-hitem">Seven</div><div class="sd-hitem">Eight</div>
+            </div>
+          <oc-code lang="html">.item { animation: pop linear both; animation-timeline: view(inline); }
+@keyframes pop { 0%, 100% { scale: 0.7; opacity: 0.3 } 50% { scale: 1; opacity: 1 } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="animation-range">Animation range</h3>
+          <p class="oc-section-content__desc">Which part of the timeline the animation runs in. <strong>What:</strong> a view timeline has named phases: <code>entry</code> (starts to enter until fully inside), <code>contain</code>, <code>cover</code> (whole crossing) and <code>exit</code>; you can also use offsets like <code>entry 0% entry 50%</code>. <strong>When:</strong> to let a reveal finish early (<code>entry</code>) or to fade an element out at the end (<code>exit</code>). <strong>Gotcha:</strong> <code>animation-range</code> shorthand resets when you write the <code>animation</code> shorthand afterwards, so order your declarations. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-range" target="_blank" rel="noopener">MDN: animation-range</a>.</p>
+          <oc-demo title="timeline-view + animate-range-entry / cover / exit">
+            <div class="sd-scroller" tabindex="0" aria-label="Scrollable range demo">
+              <div class="sd-stack">
+                <p class="sd-hint">Scroll this box: each card tints in a different phase.</p>
+                <div class="sd-gap"></div>
+                <div class="sd-tint timeline-view animate-range-entry"><strong>.animate-range-entry</strong><br><span class="sd-label">tinted while it enters, then stays</span></div>
+                <div class="sd-tint timeline-view animate-range-cover"><strong>.animate-range-cover</strong><br><span class="sd-label">tinted over the whole crossing</span></div>
+                <div class="sd-tint timeline-view animate-range-exit"><strong>.animate-range-exit</strong><br><span class="sd-label">tinted while it leaves</span></div>
+                <div class="sd-gap"></div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="timeline-view animate-range-entry"&gt;…&lt;/div&gt;
+&lt;div class="timeline-view animate-range-cover"&gt;…&lt;/div&gt;
+&lt;div class="timeline-view animate-range-exit"&gt;…&lt;/div&gt;
+
+.tint { animation-name: tint; animation-timing-function: linear; animation-fill-mode: both; }</oc-code></oc-demo>
+
+          
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.animate-range-normal</code></td><td>animation-range: normal</td></tr>
+                <tr><td><code>.animate-range-cover</code></td><td>animation-range: cover</td></tr>
+                <tr><td><code>.animate-range-contain</code></td><td>animation-range: contain</td></tr>
+                <tr><td><code>.animate-range-entry</code></td><td>animation-range: entry</td></tr>
+                <tr><td><code>.animate-range-exit</code></td><td>animation-range: exit</td></tr>
+                <tr><td><code>.animate-range-entry-half</code></td><td>animation-range: entry 0% entry 50%</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="scroll-timeline">Named timelines &amp; scope</h3>
+          <p class="oc-section-content__desc">Create the named timeline <code>--oc-timeline</code> on a scroller or subject and use it elsewhere with <code>.timeline-oc</code>. <code>.timeline-scope-oc</code> on a common ancestor makes it visible to elements outside the subtree. <strong>What:</strong> a named timeline lets an element that is <em>not</em> a descendant of the scroller (a sticky header, a sidebar, a progress indicator) follow it. <strong>Gotcha:</strong> without <code>timeline-scope</code> on a shared ancestor the name is only visible to the descendants of the element that defines it, and the name must be unique inside that scope. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/timeline-scope" target="_blank" rel="noopener">MDN: timeline-scope</a>.</p>
+          <oc-demo title="scroll-timeline-oc + timeline-scope-oc + timeline-oc: indicator outside the scroller">
+            <div class="timeline-scope-oc grid gap-1 w-full">
+              <div class="sd-track"><div class="sd-bar-out timeline-oc"></div></div>
+              <div class="sd-scroller scroll-timeline-oc" tabindex="0" aria-label="Scrollable named timeline demo">
+                <div class="sd-stack">
+                  <p class="sd-hint">The bar above lives outside this box.</p>
+                  <div class="oc-fx-card"><strong>One</strong><span>scroll-timeline: --oc-timeline</span></div>
+                  <div class="oc-fx-card"><strong>Two</strong><span>timeline-scope on the shared parent</span></div>
+                  <div class="oc-fx-card"><strong>Three</strong><span>animation-timeline: --oc-timeline</span></div>
+                  <div class="oc-fx-card"><strong>Four</strong><span>keep scrolling</span></div>
+                  <div class="oc-fx-card"><strong>Five</strong><span>done</span></div>
+                </div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="timeline-scope-oc"&gt;
+  &lt;div class="timeline-oc" style="animation-name: progress"&gt;&lt;/div&gt;   &lt;!-- outside the scroller --&gt;
+  &lt;div class="scroll-timeline-oc" style="overflow-y: auto"&gt;…&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.scroll-timeline-oc</code></td><td>scroll-timeline: --oc-timeline block</td></tr>
+                <tr><td><code>.scroll-timeline-oc-x</code></td><td>scroll-timeline: --oc-timeline inline</td></tr>
+                <tr><td><code>.view-timeline-oc</code></td><td>view-timeline: --oc-timeline block</td></tr>
+                <tr><td><code>.view-timeline-oc-x</code></td><td>view-timeline: --oc-timeline inline</td></tr>
+                <tr><td><code>.timeline-scope-oc</code></td><td>timeline-scope: --oc-timeline</td></tr>
+                <tr><td><code>.timeline-scope-none</code></td><td>timeline-scope: none</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="functions">Timeline functions</h3>
+          <p class="oc-section-content__desc">The anonymous forms need no names: <code>scroll(&lt;scroller&gt; &lt;axis&gt;)</code> takes <code>nearest</code> (default), <code>root</code> or <code>self</code> plus <code>block</code>, <code>inline</code>, <code>x</code> or <code>y</code>; <code>view(&lt;axis&gt; &lt;inset&gt;)</code> can shrink the observed area with an inset such as <code>view(block 10% 10%)</code>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Function</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><code>scroll()</code></td><td>Anonymous scroll progress timeline of the nearest (or root) scroller</td></tr>
+                <tr><td><code>view()</code></td><td>Anonymous view progress timeline — the element crossing the scrollport</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="usage">Usage example</h3>
+          <p class="oc-section-content__desc">Combine an existing animation with a timeline and range.</p>
+          <oc-code>&lt;div class="animate-spin timeline-view animate-range-cover"&gt;…&lt;/div&gt;
+
+/* Custom keyframes */
+.card {
+  animation: my-reveal linear both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 100%;
+}</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Presets are wrapped in <code>@supports (animation-timeline: scroll())</code>: browsers without support show the content without animation.</p>
+          <oc-compat features="css.properties.animation-timeline css.properties.animation-timeline.scroll css.properties.animation-timeline.view css.properties.animation-range css.properties.scroll-timeline css.properties.view-timeline css.properties.timeline-scope"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Scroll-driven animation utilities come from <code>_scroll_animations.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" target="_blank" rel="noopener">MDN: animation-timeline</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_scroll_animations.scss</code></td><td>.timeline-*, .animate-range-*, .scroll-timeline-*, .view-timeline-*, .timeline-scope-*, presets</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../effects/animations.html">Animations</a>
+               · 
+              <a class="source-link" href="../view-transitions/">View transitions</a>
+               · 
+              <a class="source-link" href="../scrollbars/">Scrollbars</a>
+            </p>
+          </div>
+        </div>
+      </section>

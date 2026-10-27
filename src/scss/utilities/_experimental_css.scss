@@ -1,0 +1,149 @@
+// SCSS Document
+// File: src/scss/utilities/_experimental_css.scss
+// Description: Newest CSS features that are (still) implemented in one browser engine: gap decorations,
+//              caret shape/animation, interactivity, interest invokers, scroll targets, reading-order, overlay,
+//              text-size-adjust, object-view-box, text-decoration-inset, view-transition-group and per-corner shapes.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Progressive enhancement only — every class is ignored by browsers without support.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_gaps
+// Map: gap decorations -> caret -> interactivity -> interest delay -> scroll targets -> reading-order -> overlay
+//      -> text-size-adjust -> object-view-box -> text-decoration-inset -> view-transition-group -> per-corner shapes
+//      -> intrinsic sizes -> mask border -> shape-image-threshold -> font-width
+
+/* Gap decorations — lines drawn in the gaps of grid, flex and multi-column layouts */
+.rule-solid { rule-style: solid; }
+.rule-dashed { rule-style: dashed; }
+.rule-dotted { rule-style: dotted; }
+.rule-1 { rule-width: 1px; }
+.rule-2 { rule-width: 2px; }
+.rule-current { rule-color: currentcolor; }
+.row-rule-solid { row-rule-style: solid; }
+.row-rule-1 { row-rule-width: 1px; }
+.row-rule-current { row-rule-color: currentcolor; }
+.rule-break-none { rule-break: none; }
+.rule-break-spanning-item { rule-break: spanning-item; }
+.rule-break-intersection { rule-break: intersection; }
+.rule-inset-0 { rule-inset: 0; }
+.rule-inset-2 { rule-inset: 0.5rem; }
+.column-rule-solid-1 { column-rule: 1px solid currentcolor; }
+
+/* Caret shape and animation (text input cursor) */
+.caret-shape-auto { caret-shape: auto; }
+.caret-shape-bar { caret-shape: bar; }
+.caret-shape-block { caret-shape: block; }
+.caret-shape-underscore { caret-shape: underscore; }
+.caret-animation-auto { caret-animation: auto; }
+.caret-animation-manual { caret-animation: manual; }
+
+/* Interactivity — make a subtree inert from CSS */
+.interactivity-auto { interactivity: auto; }
+.interactivity-inert { interactivity: inert; }
+
+/* Interest invokers (hover/focus to show a popover) */
+.interest-delay-0 { interest-delay: 0s; }
+.interest-delay-short { interest-delay: 0.2s 0.1s; }
+.interest-delay-normal { interest-delay: normal; }
+
+/* Scroll targets — initial scroll position and scroll-spy groups */
+.scroll-initial-target-nearest { scroll-initial-target: nearest; }
+.scroll-initial-target-none { scroll-initial-target: none; }
+.scroll-target-group-auto { scroll-target-group: auto; }
+.scroll-target-group-none { scroll-target-group: none; }
+
+/* Reading order of individual items (works with reading-flow on the parent) */
+.reading-order-first { reading-order: -1; }
+.reading-order-0 { reading-order: 0; }
+.reading-order-last { reading-order: 1; }
+
+/* Overlay (top layer) — transition it with .transition-discrete for exit animations */
+.overlay-auto { overlay: auto; }
+.overlay-none { overlay: none; }
+
+/* Text size adjust (mobile text inflation) */
+.text-size-adjust-none { -webkit-text-size-adjust: none; text-size-adjust: none; }
+.text-size-adjust-auto { -webkit-text-size-adjust: auto; text-size-adjust: auto; }
+.text-size-adjust-100 { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* Object view box — crop/zoom a replaced element */
+.object-view-box-none { object-view-box: none; }
+.object-view-box-center { object-view-box: inset(25%); }
+
+/* Text decoration inset — shorten underlines at both ends */
+.decoration-inset-0 { text-decoration-inset: 0; }
+.decoration-inset-auto { text-decoration-inset: auto; }
+.decoration-inset-2 { text-decoration-inset: 0.125em; }
+
+/* View transition group */
+.vt-group-normal { view-transition-group: normal; }
+.vt-group-contain { view-transition-group: contain; }
+.vt-group-nearest { view-transition-group: nearest; }
+
+/* Per-corner shapes (combine with .round-*) */
+.corner-t-bevel { corner-top-shape: bevel; }
+.corner-b-bevel { corner-bottom-shape: bevel; }
+.corner-l-scoop { corner-left-shape: scoop; }
+.corner-r-scoop { corner-right-shape: scoop; }
+.corner-tl-notch { corner-top-left-shape: notch; }
+.corner-tr-notch { corner-top-right-shape: notch; }
+.corner-bl-squircle { corner-bottom-left-shape: squircle; }
+.corner-br-squircle { corner-bottom-right-shape: squircle; }
+
+/* Intrinsic sizes per axis (with content-visibility: auto) */
+.contain-intrinsic-w-auto-md { contain-intrinsic-width: auto 300px; }
+.contain-intrinsic-h-auto-md { contain-intrinsic-height: auto 500px; }
+.contain-intrinsic-inline-auto-md { contain-intrinsic-inline-size: auto 300px; }
+.contain-intrinsic-block-auto-md { contain-intrinsic-block-size: auto 500px; }
+
+/* Mask border and shape image threshold */
+.mask-border-none { mask-border: none; }
+.mask-border-gradient {
+  mask-border-source: linear-gradient(#000, transparent);
+  mask-border-slice: 30 fill;
+  mask-border-width: 30px;
+  mask-border-repeat: stretch;
+  mask-border-outset: 0;
+}
+.shape-image-threshold-0 { shape-image-threshold: 0; }
+.shape-image-threshold-50 { shape-image-threshold: 0.5; }
+
+/* Font width (new name of font-stretch) */
+.font-width-condensed { font-width: condensed; }
+.font-width-normal { font-width: normal; }
+.font-width-expanded { font-width: expanded; }
+
+/* Gap decoration shorthands and longhands */
+.rule-line { rule: 1px solid currentcolor; }
+.row-rule-line { row-rule: 1px solid currentcolor; }
+.column-rule-break-intersection { column-rule-break: intersection; }
+.row-rule-break-intersection { row-rule-break: intersection; }
+.column-rule-inset-2 { column-rule-inset: 0.5rem; }
+.row-rule-inset-2 { row-rule-inset: 0.5rem; }
+.rule-overlap-row { rule-overlap: row-over-column; }
+.rule-overlap-column { rule-overlap: column-over-row; }
+.rule-visibility-around { rule-visibility-items: around; }
+
+/* Multi-column wrapping into rows */
+.column-wrap-wrap { column-wrap: wrap; }
+.column-height-sm { column-height: 10rem; }
+
+/* Logical per-corner shapes */
+.corner-ss-bevel { corner-start-start-shape: bevel; }
+.corner-ee-bevel { corner-end-end-shape: bevel; }
+.corner-inline-start-scoop { corner-inline-start-shape: scoop; }
+.corner-block-end-notch { corner-block-end-shape: notch; }
+
+/* Misc newest */
+.font-synthesis-position-none { font-synthesis-position: none; }
+.decoration-skip-spaces-all { text-decoration-skip-spaces: all; }
+.decoration-skip-spaces-none { text-decoration-skip-spaces: none; }
+.text-fit-grow { text-fit: grow; }
+.text-fit-shrink { text-fit: shrink; }
+.vt-scope-all { view-transition-scope: all; }
+.interest-delay-start-0 { interest-delay-start: 0s; }
+.interest-delay-end-0 { interest-delay-end: 0s; }
+.stroke-color-current { stroke-color: currentcolor; }
+.speak-as-spell-out { speak-as: spell-out; }
+.speak-as-digits { speak-as: digits; }

@@ -1,0 +1,159 @@
+<!--oc-page {"title":"OmniaCSS Docs - CSS Units","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .un-line { display: flex; gap: 0.5em; align-items: start; margin: 0; font-size: 1.35rem; line-height: 1.5; color: var(--oc-foreground); }\n    .un-line svg { flex: none; fill: none; stroke: var(--color-vividblue-80); stroke-width: 2.4; }\n    .un-cap { display: flex; align-items: baseline; gap: 0.3em; margin: 0; font-size: 2.25rem; font-weight: 700; color: var(--oc-foreground); }\n    .un-cap span { display: inline-block; inline-size: 1cap; block-size: 1cap; border-radius: 3px; background: var(--color-magenta-50); }\n    .un-notebook { box-sizing: border-box; inline-size: min(100%, 28rem); min-block-size: 4lh; padding: 0 0.75rem; border: 1px solid var(--oc-border); border-radius: 8px; font: inherit; font-size: 1rem; line-height: 1.75; color: var(--oc-foreground); background: var(--oc-card) repeating-linear-gradient(transparent 0 calc(1lh - 1px), var(--color-mistblue-20) calc(1lh - 1px) 1lh) local; resize: none; }\n    .un-clamp { inline-size: min(100%, 28rem); padding-inline: 0.75rem; border-left: 3px solid var(--color-vividblue-80); line-height: 1.6; overflow: auto; color: var(--oc-foreground); }\n    .un-clamp p { margin: 0; }\n    .un-measure { margin: 0; padding: 1rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); line-height: 1.6; }\n    .un-measure.is-wide { max-inline-size: none; }\n    .un-measure.is-ch { max-inline-size: 45ch; }\n    .un-cq { container-type: inline-size; resize: horizontal; overflow: hidden; inline-size: 75%; min-inline-size: 12rem; max-inline-size: 100%; padding: 1rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    .un-cq h4 { margin: 0 0 0.25rem; font-size: clamp(1rem, 7cqi, 2.75rem); line-height: 1.1; color: var(--oc-foreground); }\n    .un-cq p { margin: 0; font-size: clamp(0.75rem, 2.8cqi, 1rem); color: var(--oc-muted-foreground); }\n    .un-vp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; inline-size: min(100%, 30rem); }\n    .un-vp div { display: grid; grid-template-rows: auto 1fr; gap: 0.3rem; font-size: 0.75rem; text-align: center; color: var(--oc-muted-foreground); }\n    .un-phone { position: relative; block-size: 9rem; border: 2px solid var(--oc-border-strong); border-radius: 12px; overflow: hidden; background: var(--oc-muted); }\n    .un-phone::before { content: \"\"; position: absolute; inset: 0 0 auto; block-size: 1.2rem; background: var(--color-mistblue-60); }\n    .un-phone::after { content: \"\"; position: absolute; inset: auto 0 0; block-size: 1rem; background: var(--color-mistblue-60); }\n    .un-phone i { position: absolute; inset-inline: 0.4rem; border-radius: 6px; background: oklch(from var(--color-vividblue-80) l c h / 0.75); z-index: 1; }\n    .un-s i { top: 1.2rem; bottom: 1rem; }\n    .un-l i { top: 0; bottom: 0; }\n    .un-d i { top: 1.2rem; bottom: 1rem; animation: un-dyn 3s ease-in-out infinite alternate; }\n    @keyframes un-dyn { to { top: 0; bottom: 0; } }\n    @media (prefers-reduced-motion: reduce) { .un-d i { animation: none; } }\n  </style>"]}-->
+<section class="oc-docs-section" id="units">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">CSS Units</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_sizing_logical.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">units/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.8.2</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Lengths can be absolute (<code>px</code>, <code>cm</code>), relative to the font (<code>em</code>, <code>rem</code>, <code>ch</code>, <code>cap</code>, <code>ic</code>, <code>lh</code>, <code>rlh</code>), to the viewport (<code>vw</code>, <code>svh</code>, <code>lvh</code>, <code>dvh</code>) or to a container (<code>cqi</code>, <code>cqb</code>). OmniaCSS uses <code>rem</code> for its scale (<code>.size-4</code> = 1rem) and has dedicated utilities for line-height and viewport units. See <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Values_and_units" target="_blank" rel="noopener">MDN: Values and units</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="overview">All length units</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Unit</th><th>Relative to</th></tr></thead>
+              <tbody>
+                <tr><td><code>px</code>, <code>cm</code>, <code>mm</code>, <code>Q</code>, <code>in</code>, <code>pt</code>, <code>pc</code></td><td>Absolute (1in = 96px = 2.54cm)</td></tr>
+                <tr><td><code>em</code> / <code>rem</code></td><td>Font size of the element / of the root</td></tr>
+                <tr><td><code>lh</code> / <code>rlh</code></td><td>Line height of the element / of the root</td></tr>
+                <tr><td><code>ch</code> / <code>rch</code></td><td>Width of the "0" glyph (element / root)</td></tr>
+                <tr><td><code>ex</code> / <code>rex</code></td><td>x-height</td></tr>
+                <tr><td><code>cap</code> / <code>rcap</code></td><td>Height of capital letters</td></tr>
+                <tr><td><code>ic</code> / <code>ric</code></td><td>Width of the CJK water ideograph "水" (full-width character)</td></tr>
+                <tr><td><code>vw</code>, <code>vh</code>, <code>vi</code>, <code>vb</code>, <code>vmin</code>, <code>vmax</code></td><td>1% of the viewport (inline/block = writing-mode aware)</td></tr>
+                <tr><td><code>svh</code> / <code>lvh</code> / <code>dvh</code> (and <code>sv*</code>, <code>lv*</code>, <code>dv*</code>)</td><td>Small (browser bars shown), large (bars hidden), dynamic (follows the bars)</td></tr>
+                <tr><td><code>cqw</code>, <code>cqh</code>, <code>cqi</code>, <code>cqb</code>, <code>cqmin</code>, <code>cqmax</code></td><td>1% of the nearest size container</td></tr>
+                <tr><td><code>%</code>, <code>fr</code></td><td>Parent size, free space in a grid</td></tr>
+                <tr><td><code>deg</code>, <code>rad</code>, <code>grad</code>, <code>turn</code> · <code>s</code>, <code>ms</code> · <code>dpi</code>, <code>dppx</code>, <code>x</code></td><td>Angles · time · resolution</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="lh">The lh unit: size things in lines of text</h3>
+          <p class="oc-section-content__desc"><code>1lh</code> is the computed line height of the element. An icon of <code>1lh</code> always lines up with the first line, a box of <code>3lh</code> shows exactly three lines, and a background of <code>1lh</code> stripes follows the text, whatever the font size.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.size-lh</code>, <code>.w-lh</code>, <code>.h-lh</code></td><td>width/height: 1lh</td></tr>
+                <tr><td><code>.h-{2|3|4|5|6|8|10}lh</code></td><td>height: {n}lh</td></tr>
+                <tr><td><code>.min-h-{n}lh</code>, <code>.max-h-{n}lh</code></td><td>min-height / max-height: {n}lh</td></tr>
+                <tr><td><code>.block-size-{n}lh</code></td><td>block-size: {n}lh</td></tr>
+                <tr><td><code>.size-rlh</code>, <code>.h-rlh</code>, <code>.max-h-rlh</code> …</td><td>Same with rlh (root line height)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Icon of .size-lh next to a wrapping line">
+            <p class="un-line"><svg class="size-lh" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The check mark is exactly one line high, so it stays aligned with the first line even when the text wraps to a second line.</p>
+          <oc-code lang="html">&lt;p class="flex gap-2"&gt;&lt;svg class="size-lh" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;Text that may wrap …&lt;/p&gt;</oc-code></oc-demo>
+
+          <oc-demo title="Show three lines, scroll the rest: .max-h-3lh">
+            <div class="un-clamp max-h-3lh"><p>OmniaCSS sizes this quote in lines, not in pixels. Whatever the font size or line height, the box shows exactly three lines and scrolls the remaining text. Change the font size and the box follows, because lh is computed from the element itself. Useful for previews, comments and log output.</p></div>
+          <oc-code lang="html">&lt;div class="max-h-3lh overflow-auto"&gt;Long text …&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="Notebook lines with 1lh stripes + field-sizing-content">
+            <textarea class="un-notebook field-sizing-content" aria-label="Notes">Type here: the ruled lines are 1lh apart,
+so they always match the text.
+The textarea grows with its content.</textarea>
+          <oc-code lang="css">.un-notebook {
+  line-height: 1.75;
+  min-block-size: 4lh;
+  background: var(--oc-card) repeating-linear-gradient(transparent 0 calc(1lh - 1px),
+              var(--color-mistblue-20) calc(1lh - 1px) 1lh) local;
+}
+/* &lt;textarea class="un-notebook field-sizing-content"&gt;&lt;/textarea&gt; */</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="cap-ch">cap, ch and ic</h3>
+          <p class="oc-section-content__desc"><code>1cap</code> matches the height of capital letters (icons next to headings), <code>ch</code> counts characters (a readable line length of 45–75ch), <code>ic</code> does the same for CJK text.</p>
+          <oc-demo title="A 1cap square next to capitals, and a 45ch measure">
+            <p class="un-cap"><span></span>CAPITAL HEIGHT</p>
+            <p class="un-measure is-ch mt-4">This paragraph has max-inline-size: 45ch, about 45 characters per line, which keeps long texts comfortable to read on wide screens.</p>
+          <oc-code lang="css">.un-cap span { inline-size: 1cap; block-size: 1cap; }
+.un-measure  { max-inline-size: 45ch; }
+.cjk         { max-inline-size: 30ic; }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="viewport">Viewport units: svh, lvh and dvh</h3>
+          <p class="oc-section-content__desc">On mobile the browser bars come and go. <code>100svh</code> fits with the bars shown, <code>100lvh</code> with them hidden, <code>100dvh</code> follows them live (and may cause layout shifts while scrolling). Pick <code>svh</code> for hero sections that must fit, <code>dvh</code> for full-screen apps.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.h-screen</code> / <code>.h-svh</code> / <code>.h-lvh</code> / <code>.h-dvh</code></td><td>height: 100vh / 100svh / 100lvh / 100dvh</td></tr>
+                <tr><td><code>.min-h-svh</code>, <code>.min-h-lvh</code>, <code>.min-h-dvh</code></td><td>min-height</td></tr>
+                <tr><td><code>.max-h-svh</code>, <code>.max-h-lvh</code>, <code>.max-h-dvh</code></td><td>max-height</td></tr>
+                <tr><td><code>.w-svw</code>, <code>.w-lvw</code>, <code>.w-dvw</code>, <code>.min-w-dvw</code>, <code>.max-w-dvw</code></td><td>width</td></tr>
+                <tr><td><code>.h-screen-safe</code></td><td>height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom))</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+          <oc-demo title="What 100svh, 100lvh and 100dvh cover (bars = browser UI)">
+            <div class="un-vp">
+              <div><span>.h-svh</span><div class="un-phone un-s"><i></i></div></div>
+              <div><span>.h-lvh</span><div class="un-phone un-l"><i></i></div></div>
+              <div><span>.h-dvh</span><div class="un-phone un-d"><i></i></div></div>
+            </div>
+          <oc-code lang="html">&lt;section class="min-h-svh grid place-items-center"&gt;Hero that always fits&lt;/section&gt;
+&lt;div class="h-dvh"&gt;Full-screen app shell&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="container-units">Container units: cqi and cqb</h3>
+          <p class="oc-section-content__desc">Inside a size container (<code>.cq-inline</code>), <code>1cqi</code> is 1% of its inline size. Type scales with the card, not with the screen. Drag the corner.</p>
+          <oc-demo title="font-size: clamp(1rem, 7cqi, 2.75rem)">
+            <div class="un-cq">
+              <h4>Container-sized heading</h4>
+              <p>The text follows the width of this box.</p>
+            </div>
+          <oc-code lang="css">.card    { container-type: inline-size; }            /* = class="cq-inline" */
+.card h4 { font-size: clamp(1rem, 7cqi, 2.75rem); }
+.card p  { font-size: clamp(0.75rem, 2.8cqi, 1rem); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc"><code>lh</code>, <code>rlh</code>, <code>cap</code>, <code>ic</code>, the small/large/dynamic viewport units and container units work in all current browsers.</p>
+          <oc-compat features="css.types.length.lh css.types.length.rlh css.types.length.cap css.types.length.ic css.types.length.ch css.types.length.viewport_percentage_units_small css.types.length.viewport_percentage_units_large css.types.length.viewport_percentage_units_dynamic css.types.length.container_query_length_units"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The line-height and viewport utilities come from <code>_sizing_logical.scss</code> and <code>_sizing.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="noopener">MDN: &lt;length&gt;</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_sizing_logical.scss</code></td><td>lh/rlh sizes, multi-line heights, svh/lvh/svw/lvw</td></tr>
+                  <tr><td><code>src/scss/utilities/_sizing.scss</code></td><td>.h-screen, .h-dvh, .w-dvw, min/max heights</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../sizing/">Sizing</a>
+               ·
+              <a class="source-link" href="../functions/">CSS Functions</a>
+               ·
+              <a class="source-link" href="../container-queries/">Container queries</a>
+            </p>
+          </div>
+        </div>
+      </section>

@@ -1,0 +1,163 @@
+/* File: packages/ui/src/code-block.css — Code-block component (line numbers + Omnia syntax theme) */
+/* Map: pre.code base -> CSS variables -> token spans (.hl-tag, .hl-attr, .hl-string, etc.) */
+/*
+ * Shared code-block and syntax-highlight styles.
+ * Used by: docs (via oc-docs-shell.css), UI blocks, UI components.
+ * Load this file wherever you show <pre class="code"><code>...</code></pre>
+ * with syntax spans (.hl-tag, .hl-attr, .hl-string, .hl-keyword, etc.).
+ *
+ * Theme: Birdycom Omnia Dark — colors from src/json/omniathememain.json.
+ * To refresh from theme: npm run code-syntax-theme (updates :root in this file).
+ * Per-language mapping: docs/code-syntax-theme.html. Supports HTML, CSS, PHP, JS, JSON, Python.
+ */
+
+/* ========== Theme variables (Birdycom Omnia Dark) ========== */
+:root {
+  --oc-syntax-bg: var(--color-black-30); /* oklch(22% 0 none) */
+  --oc-syntax-bg-preview: var(--color-shallowblue-60); /* oklch(16.6694200968% 0.0414311339 269.5585332855deg) */
+  --oc-syntax-fg: var(--color-silver-60); /* oklch(75.9328463574% 0.008 none) */
+  --oc-syntax-comment: var(--color-purple-2); /* oklch(74.5202011783% 0.1586314015 328.363415175deg) */
+  --oc-syntax-string: var(--color-green-2); /* oklch(78.869080581% 0.1450237607 142.4953450414deg) */
+  --oc-syntax-keyword: var(--color-purple-2); /* oklch(74.5202011783% 0.1586314015 328.363415175deg) */
+  --oc-syntax-variable: var(--color-skycyan-30); /* oklch(86.5517470794% 0.0931746865 230.317904058deg) */
+  --oc-syntax-function: var(--color-skycyan-60); /* oklch(77.7931310956% 0.1072512965 230.317904058deg) */
+  --oc-syntax-number: var(--color-peru-40); /* oklch(72.3245616775% 0.1153837684 62.1815775778deg) */
+  --oc-syntax-operator: var(--color-red-50); /* oklch(65.0278042086% 0.2473759717 29.2338802796deg) */
+  --oc-syntax-constant: var(--color-skycyan-70); /* oklch(72.8276120895% 0.1132257599 230.317904058deg) */
+  --oc-syntax-storage: var(--color-green-2); /* oklch(78.869080581% 0.1450237607 142.4953450414deg) */
+  --oc-syntax-tag: var(--color-brown-10); /* oklch(67.7979779433% 0.1404981732 25.5621058937deg) */
+  --oc-syntax-attr: var(--color-skycyan-70); /* oklch(72.8276120895% 0.1132257599 230.317904058deg) */
+  --oc-syntax-prop: var(--color-green-2); /* oklch(78.869080581% 0.1450237607 142.4953450414deg) */
+  --oc-syntax-value: var(--color-teal-10); /* oklch(71.6735992853% 0.0815848415 194.768959898deg) */
+  --oc-syntax-cls: var(--color-wheat-70); /* oklch(79.977339078% 0.0750386695 83.0327715335deg) */
+  --oc-syntax-id: var(--color-skycyan-70); /* oklch(72.8276120895% 0.1132257599 230.317904058deg) */
+  --oc-syntax-unit: var(--color-peru-40); /* oklch(72.3245616775% 0.1153837684 62.1815775778deg) */
+  --oc-syntax-key: var(--color-brown-10); /* oklch(67.7979779433% 0.1404981732 25.5621058937deg) */
+
+  /* oc-code-block: line numbers and tab size (match editor: 2 spaces) */
+  --oc-code-block-tab-size: 2;
+  --oc-code-block-line-number-color: oklch(from var(--color-white-2) l c h / 0.25);
+}
+
+/* ========== oc-code-block wrapper (line numbers + tab-size) ========== */
+/* The Code-block always uses the dark Omnia syntax theme, also on light pages:
+   color-scheme: dark makes every light-dark() value inside it resolve to the dark variant. */
+.oc-code-block,
+pre.code-preview {
+  color-scheme: dark;
+}
+
+.oc-code-block {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 0 0 14px;
+  overflow: hidden;
+  border: 1px solid var(--oc-border, var(--color-twilightblue-40));
+  background: var(--oc-syntax-bg);
+  border-radius: 8px;
+}
+
+.oc-code-block__gutter {
+  margin: 0;
+  padding: 14px 12px 14px 16px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+  color: var(--oc-code-block-line-number-color);
+  background: var(--oc-syntax-bg);
+  text-align: right;
+  user-select: none;
+  white-space: pre;
+}
+
+.oc-code-block pre.code-preview {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  tab-size: var(--oc-code-block-tab-size, 2);
+  padding-left: 12px;
+}
+
+/* Scrollbars: same on .oc-code-block pre.code (inherited from pre.code rules below) */
+
+/* ========== Base block: <pre class="code"> ========== */
+pre.code-preview {
+  position: relative;
+  margin: 0 0 14px;
+  overflow-x: auto;
+  border: 1px solid var(--oc-border, var(--color-twilightblue-40));
+  background: var(--oc-syntax-bg-preview);
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: var(--oc-syntax-fg);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+  white-space: pre;
+}
+
+
+/* Code inhoud: spaties en newlines behouden, regels onder elkaar, monospace voor uitlijning */
+pre.code-preview code {
+  display: block;
+  white-space: pre;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+/* WebKit (Chrome, Edge, Safari): same as docs sidebar */
+pre.code-preview::-webkit-scrollbar { width: 8px; height: 8px; }
+pre.code-preview::-webkit-scrollbar-track { background: transparent; }
+pre.code-preview::-webkit-scrollbar-thumb {
+  background: oklch(from var(--color-vividblue-50) l c h / 0.18);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+pre.code-preview::-webkit-scrollbar-thumb:hover {
+  background: oklch(from var(--color-vividblue-50) l c h / 0.35);
+  background-clip: content-box;
+}
+
+/* ========== HTML ========== */
+pre.code-preview .tag,
+pre.code-preview .hl-tag { color: var(--oc-syntax-tag); }
+
+pre.code-preview .attr,
+pre.code-preview .hl-attr { color: var(--oc-syntax-attr); }
+
+pre.code-preview .val,
+pre.code-preview .hl-val,
+pre.code-preview .hl-string { color: var(--oc-syntax-string); }
+
+pre.code-preview .cmt,
+pre.code-preview .hl-comment { color: var(--oc-syntax-comment); font-style: italic; }
+
+/* ========== CSS ========== */
+pre.code-preview .prop,
+pre.code-preview .hl-prop { color: var(--oc-syntax-prop); }
+
+pre.code-preview .hl-value { color: var(--oc-syntax-value); }
+
+pre.code-preview .cls { color: var(--oc-syntax-cls); }
+
+pre.code-preview .hl-id { color: var(--oc-syntax-id); }
+
+pre.code-preview .hl-unit { color: var(--oc-syntax-unit); }
+
+/* ========== Generic (PHP, JS, Python, JSON, etc.) ========== */
+pre.code-preview .hl-keyword { color: var(--oc-syntax-keyword); }
+
+pre.code-preview .hl-variable { color: var(--oc-syntax-variable); }
+
+pre.code-preview .hl-function { color: var(--oc-syntax-function); }
+
+pre.code-preview .hl-number { color: var(--oc-syntax-number); }
+
+pre.code-preview .hl-operator { color: var(--oc-syntax-operator); }
+
+pre.code-preview .hl-constant { color: var(--oc-syntax-constant); }
+
+pre.code-preview .hl-storage { color: var(--oc-syntax-storage); }
+
+pre.code-preview .hl-key { color: var(--oc-syntax-key); }

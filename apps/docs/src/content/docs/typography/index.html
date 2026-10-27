@@ -1,0 +1,92 @@
+<!--oc-page {"title": "OmniaCSS Docs - Typography", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="overview">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Typography</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Core utilities for controlling font styles, text alignment, and advanced typographic features.
+          </p>
+        </div>
+        
+        <div class="oc-section-content">
+          <p>
+            The Typography module provides a comprehensive suite of utilities for handling everything 
+            from basic font sizing to advanced layout concerns like line-clamping and truncation.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-1.5">
+            <div class="oc-card p-1.2 border border-subtle">
+              <h3 class="font-bold mb-0.5">Font Styles</h3>
+              <ul class="oc-docs-list">
+                <li><a href="font-size.html">Font Size</a></li>
+                <li><a href="font-weight.html">Font Weight</a></li>
+                <li><a href="font-family.html">Font Family</a></li>
+                <li><a href="font-style.html">Font Style</a></li>
+              </ul>
+            </div>
+            <div class="oc-card p-1.2 border border-subtle">
+              <h3 class="font-bold mb-0.5">Font Families</h3>
+              <ul class="oc-docs-list">
+                <li><a href="fonts.html">Font Families</a></li>
+                <li><a href="font-families.html">Families Reference</a></li>
+                <li><a href="font-usage.html">Fonts Usage</a></li>
+              </ul>
+            </div>
+            <div class="oc-card p-1.2 border border-subtle">
+              <h3 class="font-bold mb-0.5">Text Layout</h3>
+              <ul class="oc-docs-list">
+                <li><a href="text-align.html">Text Alignment</a></li>
+                <li><a href="line-height.html">Line Height</a></li>
+                <li><a href="letter-spacing.html">Letter Spacing</a></li>
+              </ul>
+            </div>
+            <div class="oc-card p-1.2 border border-subtle">
+              <h3 class="font-bold mb-0.5">Decoration &amp; Transform</h3>
+              <ul class="oc-docs-list">
+                <li><a href="text-decoration.html">Text Decoration</a></li>
+                <li><a href="text-transform.html">Text Transform</a></li>
+              </ul>
+            </div>
+            <div class="oc-card p-1.2 border border-subtle">
+              <h3 class="font-bold mb-0.5">Advanced</h3>
+              <ul class="oc-docs-list">
+                <li><a href="advanced.html">Advanced Features</a></li>
+                <li><a href="modern.html">Modern Typography</a></li>
+                <li><a href="variants.html">Font Variants &amp; Text Effects</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Standard footer (same layout as effects/animation-properties.html). Browser support is placed above it at build time. -->
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The typography utilities come from five SCSS partials in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font" target="_blank" rel="noopener">MDN: font</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap" target="_blank" rel="noopener">MDN: text-wrap</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_fonts.scss</code></td><td>Font family, size, style and weight</td></tr>
+                  <tr><td><code>src/scss/utilities/_text.scss</code></td><td>Text align, decoration, transform, letter spacing, line height</td></tr>
+                  <tr><td><code>src/scss/utilities/_typography_advanced.scss</code></td><td>text-wrap, line clamp, truncation, font smoothing, hyphens</td></tr>
+                  <tr><td><code>src/scss/utilities/_typography_modern.scss</code></td><td>text-box trimming, initial letters, emphasis marks, whitespace collapsing, kerning</td></tr>
+                  <tr><td><code>src/scss/utilities/_font_variants.scss</code></td><td>Font variants, variable font axes, font-size-adjust, text stroke and fill, ruby</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="font-size.html">Font Size</a> · <a class="source-link" href="fonts.html">Fonts</a> · <a class="source-link" href="modern.html">Modern Typography</a>
+            </p>
+          </div>
+        </div>
+      </section>

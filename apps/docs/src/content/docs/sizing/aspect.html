@@ -1,0 +1,53 @@
+<!--oc-page {"title":"OmniaCSS Docs - Aspect Ratio","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="aspect-ratio">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Aspect Ratio</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_aspect.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Utilities for setting the preferred aspect ratio of an element.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><code>aspect-ratio</code> keeps width and height in proportion, so media boxes reserve their space before an image or video loads (no layout shift) and cards stay uniform. It needs one <em>auto</em> dimension: if both width and height are set, the ratio is ignored. The ratio is a preferred value: content that is taller than the box (or <code>min-height</code>) makes it grow, unless you add <code>.overflow-hidden</code> and a fixed size. For replaced elements like <code>&lt;img&gt;</code> and <code>&lt;video&gt;</code>, <code>.aspect-auto</code> uses the intrinsic ratio of the file. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio" target="_blank" rel="noopener">MDN: aspect-ratio</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.aspect-1</code></td><td>1 / 1</td></tr>
+                <tr><td><code>.aspect-16</code></td><td>16 / 9</td></tr>
+                <tr><td><code>.aspect-4</code></td><td>4 / 3</td></tr>
+                <tr><td><code>.aspect-3</code></td><td>3 / 2</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.aspect-2</code></td><td>2 / 3</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.aspect-21</code></td><td>21 / 9</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.aspect-auto</code></td><td>auto</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8">Ratio values</h3>
+
+          <oc-demo title="Every ratio at the same width"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.aspect-1</code><div class="dm-area "><div class="aspect-1 dm-box">1:1</div></div></div>
+<div class="dm-tile"><code>.aspect-16</code><div class="dm-area "><div class="aspect-16 dm-box">16:9</div></div></div>
+<div class="dm-tile"><code>.aspect-4</code><div class="dm-area "><div class="aspect-4 dm-box">4:3</div></div></div>
+<div class="dm-tile"><code>.aspect-3</code><div class="dm-area "><div class="aspect-3 dm-box">3:2</div></div></div>
+<div class="dm-tile"><code>.aspect-2</code><div class="dm-area "><div class="aspect-2 dm-box">2:3</div></div></div>
+<div class="dm-tile"><code>.aspect-21</code><div class="dm-area "><div class="aspect-21 dm-box">21:9</div></div></div>
+</div><oc-code lang="html">&lt;div class="aspect-16"&gt;&lt;iframe class="size-full" src="…"&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;img class="aspect-4 object-cover w-full" src="photo.jpg" alt=""&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Ratio with images and content overflow</h3>
+
+          <p class="oc-section-content__desc">Pair the ratio with <code>.object-cover</code> to crop a differently shaped image to the box. The right tile shows the gotcha: long content grows the box beyond its ratio.</p>
+
+          <oc-demo title="Ratio gotcha"><div class="dm-grid" style="--dm-min:13rem">
+<div class="dm-tile"><code>.aspect-16 with short content</code><div class="dm-area "><div class="aspect-16 dm-box">16:9</div></div></div>
+<div class="dm-tile"><code>.aspect-16 with too much content</code><div class="dm-area "><div class="aspect-16 dm-box dm-box--alt">This text is much longer than the box needs and therefore forces the box to grow taller than the ratio would give, which is the intended behaviour of min-height auto. This keeps content readable.</div></div></div>
+<div class="dm-tile"><code>.aspect-16 .overflow-hidden</code><div class="dm-area "><div class="aspect-16 overflow-hidden dm-box dm-box--alt" style="min-block-size:0">This text is much longer than the box needs and is clipped instead of growing the box when overflow is hidden and min-height is reset to zero in this box.</div></div></div>
+</div><oc-code lang="html">&lt;div class="aspect-16 overflow-hidden min-h-0"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>

@@ -1,0 +1,154 @@
+<!--oc-page {"title":"OmniaCSS Docs - Scroll Snap","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .ss-wrap { position: relative; inline-size: 100%; padding-block-end: 1.75rem; }\n    .ss-track { display: flex; gap: 1rem; padding: 0.5rem 0.25rem 0.75rem; overscroll-behavior-x: contain; }\n    .ss-slide { flex: none; display: grid; align-content: end; gap: 0.25rem; inline-size: min(78%, 18rem); aspect-ratio: 4 / 3; padding: 1rem; border-radius: 16px; color: var(--color-white-50); background: linear-gradient(150deg, var(--a), var(--b)); }\n    .ss-slide b { font-size: 1.15rem; }\n    .ss-slide span { font-size: 0.8rem; opacity: 0.9; }\n    .ss-s1 { --a: var(--color-vividblue-80); --b: var(--color-indigo-60); }\n    .ss-s2 { --a: var(--color-magenta-50); --b: var(--color-purple-60); }\n    .ss-s3 { --a: var(--color-orange-50); --b: var(--color-red-60); }\n    .ss-s4 { --a: var(--color-teal-50); --b: var(--color-green-60); }\n    .ss-s5 { --a: var(--color-skycyan-60); --b: var(--color-blue-60); }\n    .ss-state { display: flex; gap: 1rem; padding: 1rem 30%; overflow-x: auto; }\n    .ss-state > div { flex: none; inline-size: 9rem; }\n    .ss-card { display: grid; place-items: center; block-size: 9rem; border-radius: 14px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 700; transition: scale 0.3s, opacity 0.3s, filter 0.3s; }\n    .ss-pages { inline-size: 100%; border: 1px solid var(--oc-border); border-radius: 14px; }\n    .ss-pages section { display: grid; place-items: center; block-size: 100%; font-size: 1.4rem; font-weight: 700; color: var(--color-white-50); }\n    .ss-pages section:nth-child(1) { background: var(--color-vividblue-80); }\n    .ss-pages section:nth-child(2) { background: var(--color-magenta-50); }\n    .ss-pages section:nth-child(3) { background: var(--color-teal-50); }\n    .ss-header { position: sticky; top: 0; z-index: 1; padding: 0.6rem 1rem; background: oklch(from var(--color-black-40) l c h / 0.85); color: var(--color-white-50); font-weight: 600; font-size: 0.85rem; }\n    .ss-list { block-size: 14rem; inline-size: min(100%, 26rem); border: 1px solid var(--oc-border); border-radius: 12px; }\n    .ss-list p { margin: 0; padding: 1.25rem 1rem; border-bottom: 1px solid var(--oc-border); color: var(--oc-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="scroll-snap">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Scroll Snap</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_interactivity.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">scroll-snap/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.8.2</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Scroll snapping makes a scroll container stop on its items: carousels, full-screen sections and pickers, without JavaScript. Put <code>.snap-x</code> or <code>.snap-y</code> on the container and <code>.snap-start</code>/<code>.snap-center</code> on the items. Modern CSS adds generated controls (<code>.scroll-markers-after</code> for dots, <code>.scroll-buttons</code> for arrows) and lets you style the snapped item with the <code>snapped:</code> variant. Basics are also on <a href="../interactivity/scrolling.html">Scrolling &amp; touch</a>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap" target="_blank" rel="noopener">MDN: CSS scroll snap</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="classes">Classes</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.snap-x</code> / <code>.snap-y</code> / <code>.snap-both</code></td><td>scroll-snap-type: x | y | both mandatory</td></tr>
+                <tr><td><code>.snap-proximity</code> / <code>.snap-none</code></td><td>scroll-snap-type: both proximity | none</td></tr>
+                <tr><td><code>.snap-start</code> / <code>.snap-center</code> / <code>.snap-end</code> / <code>.snap-align-none</code></td><td>scroll-snap-align</td></tr>
+                <tr><td><code>.snap-always</code> / <code>.snap-normal</code></td><td>scroll-snap-stop: always | normal (never skip an item)</td></tr>
+                <tr><td><code>.scroll-p-{n}</code>, <code>.scroll-m-{n}</code> (+ block/inline sides)</td><td>scroll-padding / scroll-margin (sticky headers, peeking)</td></tr>
+                <tr><td><code>.scroll-markers-before</code> / <code>.scroll-markers-after</code></td><td>scroll-marker-group + styled ::scroll-marker dots</td></tr>
+                <tr><td><code>.scroll-buttons</code></td><td>::scroll-button(inline-start / inline-end) arrows, positioned with anchor positioning</td></tr>
+                <tr><td><code>.container-scroll-state</code> + <code>snapped:</code>, <code>snapped-x:</code>, <code>snapped-y:</code></td><td>@container scroll-state(snapped: x)</td></tr>
+                <tr><td><code>.scroll-smooth</code>, <code>.overscroll-contain</code></td><td>scroll-behavior, overscroll-behavior</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="carousel">A complete carousel in HTML + classes</h3>
+          <p class="oc-section-content__desc">Snapping, arrows and dots, keyboard and screen-reader friendly, zero JavaScript. Browsers without <code>::scroll-button()</code> and <code>::scroll-marker</code> still get a snapping, swipeable row.</p>
+          <oc-demo title=".snap-x .scroll-buttons .scroll-markers-after">
+            <div class="ss-wrap">
+              <div class="ss-track overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-markers-after">
+                <article class="ss-slide ss-s1 snap-center"><b>Omnia</b><span>Slide 1 of 5</span></article>
+                <article class="ss-slide ss-s2 snap-center"><b>Magenta</b><span>Slide 2 of 5</span></article>
+                <article class="ss-slide ss-s3 snap-center"><b>Orange</b><span>Slide 3 of 5</span></article>
+                <article class="ss-slide ss-s4 snap-center"><b>Teal</b><span>Slide 4 of 5</span></article>
+                <article class="ss-slide ss-s5 snap-center"><b>Sky</b><span>Slide 5 of 5</span></article>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="flex gap-4 overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-markers-after"&gt;
+  &lt;article class="snap-center"&gt;…&lt;/article&gt;
+  &lt;article class="snap-center"&gt;…&lt;/article&gt;
+  …
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="snapped">Style the snapped item: snapped-x:</h3>
+          <p class="oc-section-content__desc">Make each item a scroll-state container (<code>.container-scroll-state</code>); its child can then react to "I am snapped" with <code>snapped-x:</code>. The centered card grows, the others fade. Scroll sideways.</p>
+          <oc-demo title=".container-scroll-state + snapped-x:scale-110 snapped-x:opacity-100">
+            <div class="ss-state snap-x scrollbar-thin">
+              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">1</div></div>
+              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">2</div></div>
+              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">3</div></div>
+              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">4</div></div>
+              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">5</div></div>
+            </div>
+          <oc-code lang="html">&lt;div class="flex overflow-x-auto snap-x"&gt;
+  &lt;div class="snap-center container-scroll-state"&gt;
+    &lt;div class="opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110 transition-all"&gt;1&lt;/div&gt;
+  &lt;/div&gt;
+  …
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="pages">Full-height sections: .snap-y + .snap-always</h3>
+          <p class="oc-section-content__desc">A vertical pager: every wheel tick or swipe moves exactly one section, because <code>.snap-always</code> forbids skipping.</p>
+          <oc-demo title=".snap-y on the container, .snap-start .snap-always on each section">
+            <div class="ss-pages block-size-64 overflow-y-auto snap-y scrollbar-thin">
+              <section class="snap-start snap-always">Section 1 ↓</section>
+              <section class="snap-start snap-always">Section 2 ↓</section>
+              <section class="snap-start snap-always">Section 3</section>
+            </div>
+          <oc-code lang="html">&lt;main class="h-svh overflow-y-auto snap-y"&gt;
+  &lt;section class="h-svh snap-start snap-always"&gt;…&lt;/section&gt;
+  &lt;section class="h-svh snap-start snap-always"&gt;…&lt;/section&gt;
+&lt;/main&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="scroll-padding">Sticky header: scroll-padding</h3>
+          <p class="oc-section-content__desc">Without padding, snapped items slide under a sticky header. <code>.scroll-p-12</code> tells the snap area where the visible part starts.</p>
+          <oc-demo title=".snap-y .scroll-p-12 with a sticky header">
+            <div class="ss-list overflow-y-auto snap-y scroll-p-12 scrollbar-thin">
+              <div class="ss-header">Sticky header</div>
+              <p class="snap-start">Item 1 — starts below the header</p>
+              <p class="snap-start">Item 2</p>
+              <p class="snap-start">Item 3</p>
+              <p class="snap-start">Item 4</p>
+              <p class="snap-start">Item 5</p>
+              <p class="snap-start">Item 6</p>
+              <p class="snap-start">Item 7</p>
+            </div>
+          <oc-code lang="html">&lt;div class="overflow-y-auto snap-y scroll-p-12"&gt;
+  &lt;div class="sticky top-0"&gt;Sticky header&lt;/div&gt;
+  &lt;p class="snap-start"&gt;Item 1&lt;/p&gt;
+  …
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="css">The CSS behind .scroll-buttons and the markers</h3>
+          <oc-code lang="css">.scroll-buttons { anchor-name: --oc-scroller; anchor-scope: --oc-scroller; }
+.scroll-buttons::scroll-button(*) {
+  position: absolute; position-anchor: --oc-scroller;
+  top: anchor(center); translate: 0 -50%;
+  background: oklch(from var(--color-mistblue-95) l c h / 0.75);
+}
+.scroll-buttons::scroll-button(inline-start) { content: "‹" / "Previous"; left: calc(anchor(left) + 0.5rem); }
+.scroll-buttons::scroll-button(inline-end)   { content: "›" / "Next";     right: calc(anchor(right) + 0.5rem); }
+.scroll-buttons::scroll-button(*):disabled { opacity: 0.3; }
+
+.scroll-markers-after { scroll-marker-group: after; }
+.scroll-markers-after &gt; *::scroll-marker { content: ""; inline-size: 0.7rem; aspect-ratio: 1; border-radius: 50%; }
+.scroll-markers-after &gt; *::scroll-marker:target-current { background: var(--color-vividblue-80); }</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Scroll snapping works everywhere. Scroll buttons, markers and <code>scroll-state()</code> queries are Chromium-only for now; other browsers simply show a snapping row without controls.</p>
+          <oc-compat features="css.properties.scroll-snap-type css.properties.scroll-snap-align css.properties.scroll-snap-stop css.properties.scroll-padding css.selectors.scroll-button css.selectors.scroll-marker css.properties.scroll-marker-group css.at-rules.container.scroll-state_queries"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            These utilities come from <code>_interactivity.scss</code> and <code>_scroll_spacing.scss</code>; the <code>snapped:</code> variants from <code>variants.mjs</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-button" target="_blank" rel="noopener">MDN: ::scroll-button()</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-marker" target="_blank" rel="noopener">MDN: ::scroll-marker</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_interactivity.scss</code></td><td>.snap-*, .scroll-markers-*, .scroll-buttons</td></tr>
+                  <tr><td><code>src/scss/utilities/_scroll_spacing.scss</code></td><td>.scroll-p-*, .scroll-m-*</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../interactivity/scrolling.html">Scrolling &amp; touch</a>
+               ·
+              <a class="source-link" href="../pagination/">Pagination</a>
+               ·
+              <a class="source-link" href="../scroll-animations/">Scroll animations</a>
+            </p>
+          </div>
+        </div>
+      </section>

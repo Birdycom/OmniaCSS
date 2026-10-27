@@ -1,0 +1,105 @@
+<!--oc-page {"title": "OmniaCSS Docs - Layout Flow", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n.lay-tile { padding: 8px 10px; border-radius: 8px; background: var(--color-dodgerblue-90); color: var(--color-white-50); font: 600 0.78rem/1.2 ui-monospace, monospace; }\n.lay-tile--b { background: var(--color-forestgreen-90); } .lay-tile--c { background: var(--color-darkorange-90); } .lay-tile--d { background: var(--color-magenta-90); }\n.lay-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 16px; inline-size: 100%; }\n.lay-cell { display: grid; gap: 6px; align-content: start; font-size: 0.75rem; }\n.lay-cell > code { justify-self: start; }\n.lay-note { font-size: 0.75rem; color: var(--oc-muted-foreground); }\n.lay-textbox { font-size: 0.82rem; line-height: 1.6; padding: 4px; }\n</style>","<style>\n    .demo-container { background: var(--bg-soft); padding: 24px; border-radius: 12px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 32px; }\n    .demo-box { background: var(--accent); color: light-dark(var(--color-white-95), var(--color-white-2)); padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; text-align: center; }\n    .demo-float-img { width: 80px; height: 80px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--accent); }\n  </style>"]}-->
+<section class="oc-docs-section" id="layout-flow">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Layout Flow</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_layout_flow.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Utilities for controlling Floats, Object Fit, Order, and Multi-column layouts.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> floats take an element out of the normal flow and push it to one side so text wraps around it; multi-column utilities flow content into newspaper-style columns. <strong>When to use:</strong> images inside articles and long text that should be read in columns. For page layout use flex or grid instead. <strong>Gotchas:</strong> floats do not give the parent height (use <code>.flow-root</code>), <code>.float-start/-end</code> follow the writing direction while <code>.float-left/-right</code> do not, and columns balance their height so very short content can look uneven. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float" target="_blank" rel="noopener">MDN: float</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/columns" target="_blank" rel="noopener">MDN: columns</a>.</p>
+
+          <h3 class="oc-section-content__title">Floats</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.float-start</code></td><td>inline-start</td></tr>
+                <tr><td><code>.float-end</code></td><td>inline-end</td></tr>
+                <tr><td><code>.float-left</code></td><td>left</td></tr>
+                <tr><td><code>.float-right</code></td><td>right</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.float-none</code></td><td>none</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title">Float Demo</h3>
+          <oc-demo title="Float Demo"><div class="preview demo-container">
+            <div class="flow-root">
+              <div class="float-start demo-float-img mr-4 mb-2">Float Start</div>
+              <p class="oc-docs-typo-meta">
+                This text wraps around the floated element. Floats are helpful for simple image positioning 
+                within text-heavy layouts. The <code>.flow-root</code> parent clears the float.
+              </p>
+            </div>
+          </div></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Multi-Columns</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.columns-1</code> to <code>.columns-6</code></td><td>1 to 6 columns</td></tr>
+                <tr><td><code>.columns-auto</code></td><td>auto</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.columns-xs</code></td><td>20rem</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.columns-sm</code></td><td>24rem</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.columns-md</code></td><td>28rem</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title">Columns Demo</h3>
+          <oc-demo title="Columns Demo"><div class="preview demo-container">
+            <div class="columns-2 gap-6">
+              <p class="oc-docs-typo-meta mb-4">Column 1 content flows into column 2 naturally.</p>
+              <p class="oc-docs-typo-meta">Multi-column layouts are useful for newspaper-style text distribution.</p>
+            </div>
+          </div><oc-code lang="html">&lt;div class="columns-3 gap-8"&gt;
+  &lt;p&gt;Three column text flow...&lt;/p&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Floats: start, end, left, right, none</h3>
+          <p class="oc-section-content__desc">Compare the five float classes with the same box and text. <code>.float-none</code> keeps the box in the normal flow above the text.</p>
+
+          <oc-demo title="All float values">
+            <div class="lay-grid" style="grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr))">
+              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-start lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-start</code></div>
+              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-end lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-end</code></div>
+              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-left lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-left</code></div>
+              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-right lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-right</code></div>
+              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-none lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-none</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="flow-root"&gt;
+  &lt;img class="float-start" src="…"&gt;
+  &lt;p&gt;Text wraps around the image…&lt;/p&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Columns: 1 to 6, and by minimum width</h3>
+          <p class="oc-section-content__desc"><code>.columns-{n}</code> asks for exactly <em>n</em> columns; <code>.columns-xs/sm/md</code> ask for columns of at least 20, 24 or 28rem and let the browser decide how many fit, which is naturally responsive.</p>
+
+          <oc-demo title="columns-1 … columns-6">
+            <div class="lay-grid" style="grid-template-columns: 1fr">
+              <div class="lay-cell"><div class="columns-1 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-1</code></div>
+              <div class="lay-cell"><div class="columns-2 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-2</code></div>
+              <div class="lay-cell"><div class="columns-3 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-3</code></div>
+              <div class="lay-cell"><div class="columns-4 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-4</code></div>
+              <div class="lay-cell"><div class="columns-6 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-6</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="columns-3 gap-4"&gt;…long text…&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="columns-xs, columns-sm, columns-md (resize the window)">
+            <div class="lay-grid" style="grid-template-columns: 1fr">
+              <div class="lay-cell"><div class="columns-xs gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-xs</code></div>
+              <div class="lay-cell"><div class="columns-sm gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-sm</code></div>
+              <div class="lay-cell"><div class="columns-md gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-md</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="columns-sm gap-4"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+        </div>
+      </section>

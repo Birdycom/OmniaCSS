@@ -1,0 +1,12 @@
+/* SCSS Document
+* file: src/scss/profiles/omnia_main.oklab.scss
+* map:
+* - override color model to oklab
+* - load default framework entrypoint
+*/
+
+@use "../config/omniacss.config.scss" with (
+  $DEFAULT-COLOR-TYPE-VALUE: oklab
+);
+
+@use "../omnia_main.scss";

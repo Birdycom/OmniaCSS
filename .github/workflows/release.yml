@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write   # npm Trusted Publishing (OIDC): no npm token needed
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"   # npm 11.5+ for Trusted Publishing
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org"
+
+      - run: npm ci
+
+      - name: Check tag matches package version
+        run: |
+          V=$(node -p "require('./packages/core/package.json').version")
+          if [ "v$V" != "${GITHUB_REF_NAME}" ]; then echo "Tag ${GITHUB_REF_NAME} != package version v$V"; exit 1; fi
+
+      # build:packages copies the committed compiled CSS (public/css/omnia_main*.css) into packages/core/dist.
+      - run: npm run build:packages
+
+      - run: npm test -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate
+
+      # Order matters: omniacss (utilities) first, then cli and migrate (they depend on it).
+      # apps/docs is private and not published. Components/blocks are released from the OmniaUI repo.
+      - name: Publish
+        run: >
+          npm publish --access public
+          -w @birdycom/omniacss -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate

@@ -1,0 +1,17 @@
+{
+  "name": "@birdycom/omniacss-docs",
+  "version": "0.11.0",
+  "private": true,
+  "type": "module",
+  "description": "OmniaCSS documentation site (Astro, static output without client JavaScript).",
+  "scripts": {
+    "predev": "node scripts/routes.mjs",
+    "dev": "astro dev",
+    "prebuild": "node scripts/routes.mjs",
+    "build": "astro build"
+  },
+  "devDependencies": {
+    "astro": "^7.3.8",
+    "linkedom": "^0.18.12"
+  }
+}

@@ -1,0 +1,201 @@
+<!--oc-page {"title": "OmniaCSS Docs - Newest CSS", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .ex-carousel { display: flex; gap: 1rem; inline-size: 100%; margin: 0; padding: 0.5rem; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-background); }\n    .ex-slide { flex: 0 0 min(100%, 24rem); display: grid; place-items: center; block-size: 8rem; border-radius: 12px; scroll-snap-align: center; color: var(--color-white-50); font-weight: 700; background: var(--oc-gradient-brand); }\n    .ex-carousel::scroll-button(inline-end), .ex-carousel::scroll-button(inline-start) { content: \"\u203a\" / \"Next\"; display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border: 1px solid var(--oc-border); border-radius: 50%; background: var(--oc-card); color: var(--oc-foreground); font-size: 1.25rem; cursor: pointer; }\n    .ex-carousel::scroll-button(inline-start) { content: \"\u2039\" / \"Previous\"; }\n    .ex-carousel::scroll-button(inline-end):disabled, .ex-carousel::scroll-button(inline-start):disabled { opacity: 0.35; cursor: default; }\n    .ex-fs { inline-size: 100%; max-inline-size: 22rem; padding: 0.5rem 0.75rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; resize: none; }\n    .ex-gap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-background); color: var(--oc-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="experimental-css">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Newest CSS</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_experimental_css.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">experimental-css/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">Experimental</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            The newest CSS features, most of them shipped in one browser engine so far. Every class is a <strong>progressive enhancement</strong>: browsers without support ignore it. Check the support table below before relying on them. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_gaps" target="_blank" rel="noopener">MDN: CSS gaps</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="gap-decorations">Gap decorations</h3>
+          <p class="oc-section-content__desc">Draw lines in the gaps of grid, flex and multi-column layouts — no borders or pseudo-elements needed. <strong>What:</strong> the <code>rule</code> family generalises the old <code>column-rule</code> from multi-column to every gap-based layout. <strong>When:</strong> divider lines between cards, table-like grids, toolbars, without the usual <code>:not(:last-child)</code> border hacks that break when items wrap. <strong>Gotcha:</strong> experimental and only in recent Chromium: elsewhere no line shows, so never rely on it as the only separator. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap-decorations" target="_blank" rel="noopener">MDN: Gap decorations</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.rule-line / .row-rule-line</code></td><td>rule / row-rule: 1px solid currentcolor</td></tr>
+                <tr><td><code>.rule-{solid|dashed|dotted} / .rule-{1|2} / .rule-current</code></td><td>rule-style / rule-width / rule-color</td></tr>
+                <tr><td><code>.row-rule-{solid|1|current}</code></td><td>row-rule-style / -width / -color</td></tr>
+                <tr><td><code>.rule-break-{none|spanning-item|intersection}</code></td><td>rule-break</td></tr>
+                <tr><td><code>.column-rule-break-intersection / .row-rule-break-intersection</code></td><td>column-rule-break / row-rule-break</td></tr>
+                <tr><td><code>.rule-inset-{0|2} / .column-rule-inset-2 / .row-rule-inset-2</code></td><td>rule-inset</td></tr>
+                <tr><td><code>.rule-overlap-{row|column}</code></td><td>rule-overlap</td></tr>
+                <tr><td><code>.rule-visibility-around</code></td><td>rule-visibility-items: around</td></tr>
+                <tr><td><code>.column-rule-solid-1</code></td><td>column-rule: 1px solid currentcolor</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.column-wrap-wrap / .column-height-sm</code></td><td>column-wrap / column-height</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="grid + rule-line">
+            
+            <div class="grid grid-cols-3 gap-2 rule-line ex-gap">
+              <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="grid grid-cols-3 gap-2 rule-line"&gt;
+  &lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;
+  &lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;&lt;div&gt;6&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="caret">Caret &amp; interactivity</h3>
+          <p class="oc-section-content__desc">Shape and blink behaviour of the text cursor, and making a subtree inert from CSS. <strong>What:</strong> <code>caret-shape</code> switches the text cursor between bar, block and underscore (useful for code editors and terminals); <code>interactivity: inert</code> does what the <code>inert</code> attribute does, but from a stylesheet. <strong>Gotchas:</strong> <code>caret-color</code> still decides the colour; <code>interactivity: inert</code> hides the subtree from assistive technology and blocks focus, so use it only for content that really is unavailable. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/caret-shape" target="_blank" rel="noopener">MDN: caret-shape</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.caret-shape-{auto|bar|block|underscore}</code></td><td>caret-shape</td></tr>
+                <tr><td><code>.caret-animation-{auto|manual}</code></td><td>caret-animation</td></tr>
+                <tr><td><code>.interactivity-{auto|inert}</code></td><td>interactivity</td></tr>
+                <tr><td><code>.interest-delay-{0|short|normal}</code></td><td>interest-delay</td></tr>
+                <tr><td><code>.interest-delay-start-0 / .interest-delay-end-0</code></td><td>interest-delay-start / -end</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="caret-shape-block, caret-shape-underscore">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.caret-shape-block</span>
+                <input class="caret-shape-block oc-demo-input p-0.5 round-2 font-1" value="Click to type" aria-label="caret-shape block">
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.caret-shape-underscore</span>
+                <input class="caret-shape-underscore oc-demo-input p-0.5 round-2 font-1" value="Click to type" aria-label="caret-shape underscore">
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;input class="caret-shape-block oc-demo-input p-0.5 round-2 font-1" value="Click to type" aria-label="caret-shape block"&gt;
+&lt;input class="caret-shape-underscore oc-demo-input p-0.5 round-2 font-1" value="Click to type" aria-label="caret-shape underscore"&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="scroll-reading">Scroll targets, reading order &amp; overlay</h3>
+          <p class="oc-section-content__desc">Start a scroller at a given item, build scroll-spy navigation, reorder items for assistive technology and animate the top layer. <strong>What:</strong> <code>scroll-initial-target</code> chooses where a scroller starts, <code>scroll-target-group</code> turns a list of in-page links into a scroll-spy (the link of the visible section matches <code>:target-current</code>), <code>reading-order</code> tweaks the focus and reading sequence. <strong>Gotcha:</strong> reordering visually without matching the DOM order is an accessibility risk: change <code>reading-flow</code> or <code>reading-order</code> instead of faking order with <code>order</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-target-group" target="_blank" rel="noopener">MDN: scroll-target-group</a>.</p>
+          <oc-demo title="::scroll-marker + ::scroll-button: a carousel without JavaScript (Chromium)">
+            <ul class="ex-carousel scroll-markers-after" tabindex="0" aria-label="Carousel with scroll markers">
+              <li class="ex-slide">Slide 1</li><li class="ex-slide">Slide 2</li><li class="ex-slide">Slide 3</li><li class="ex-slide">Slide 4</li>
+            </ul>
+          <oc-code lang="html">.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-marker-group: after; }   /* = .scroll-markers-after */
+.carousel::scroll-marker-group { display: flex; justify-content: center; gap: .5rem; }
+.slide::scroll-marker { content: ""; width: .7rem; height: .7rem; border-radius: 50%; background: var(--oc-muted-foreground); }
+.slide::scroll-marker:target-current { background: var(--oc-primary); }
+.carousel::scroll-button(inline-end) { content: "›" / "Next"; }
+.carousel::scroll-button(inline-start) { content: "‹" / "Previous"; }</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Where scroll markers are not supported the list is still a normal scroll-snap carousel you can swipe or scroll; the dots and arrows are an enhancement. Always keep an accessible alternative for the pointer-free case (<code>tabindex="0"</code> on the scroller).</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.scroll-initial-target-{nearest|none}</code></td><td>scroll-initial-target</td></tr>
+                <tr><td><code>.scroll-target-group-{auto|none}</code></td><td>scroll-target-group</td></tr>
+                <tr><td><code>.reading-order-{first|0|last}</code></td><td>reading-order: -1 | 0 | 1</td></tr>
+                <tr><td><code>.overlay-{auto|none}</code></td><td>overlay</td></tr>
+                <tr><td><code>.vt-group-{normal|contain|nearest}</code></td><td>view-transition-group</td></tr>
+                <tr><td><code>.vt-scope-all</code></td><td>view-transition-scope: all</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="text-newest">Text, images &amp; shapes</h3>
+          <p class="oc-section-content__desc">Mobile text inflation, auto-fitting text, underline insets, cropping images and per-corner shapes. <strong>What:</strong> <code>corner-shape</code> changes how a <code>border-radius</code> is drawn (bevel, scoop, notch, squircle) without clip-path or SVG; <code>text-decoration-inset</code> shortens underlines; <code>text-fit</code> scales a line to fill its container. <strong>Gotchas:</strong> <code>corner-shape</code> only does something where a <code>border-radius</code> is set, and borders and shadows follow the new shape; pair experimental features with <code>@supports</code> or accept the plain fallback (round corners, full underline). More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape" target="_blank" rel="noopener">MDN: corner-shape</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.text-size-adjust-{none|auto|100}</code></td><td>text-size-adjust</td></tr>
+                <tr><td><code>.text-fit-{grow|shrink}</code></td><td>text-fit</td></tr>
+                <tr><td><code>.decoration-inset-{0|auto|2}</code></td><td>text-decoration-inset</td></tr>
+                <tr><td><code>.decoration-skip-spaces-{all|none}</code></td><td>text-decoration-skip-spaces</td></tr>
+                <tr><td><code>.font-synthesis-position-none</code></td><td>font-synthesis-position: none</td></tr>
+                <tr><td><code>.font-width-{condensed|normal|expanded}</code></td><td>font-width</td></tr>
+                <tr><td><code>.speak-as-{spell-out|digits}</code></td><td>speak-as</td></tr>
+                <tr><td><code>.object-view-box-{none|center}</code></td><td>object-view-box</td></tr>
+                <tr><td><code>.corner-{t|b}-bevel / .corner-{l|r}-scoop</code></td><td>corner-{side}-shape</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.corner-{tl|tr}-notch / .corner-{bl|br}-squircle</code></td><td>corner-{corner}-shape</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.corner-{ss|ee}-bevel / .corner-inline-start-scoop / .corner-block-end-notch</code></td><td>logical corner shapes</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.contain-intrinsic-{w|h|inline|block}-auto-md</code></td><td>contain-intrinsic-width / -height / -inline-size / -block-size</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mask-border-{none|gradient}</code></td><td>mask-border</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.shape-image-threshold-{0|50}</code></td><td>shape-image-threshold</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.stroke-color-current</code></td><td>stroke-color (text stroke)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="corner-tl-notch + corner-br-squircle">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.corner-tl-notch .corner-br-squircle</span>
+                <div class="round-6 corner-tl-notch corner-br-squircle bg-dodgerblue-mix-30 border-1 border-solid border-dodgerblue-50 size-24"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.decoration-inset-2</span>
+                <span class="underline decoration-inset-2 font-2">Inset underline</span>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="round-6 corner-tl-notch corner-br-squircle bg-dodgerblue-mix-30 border-1 border-solid border-dodgerblue-50 size-24"&gt;&lt;/div&gt;
+&lt;span class="underline decoration-inset-2 font-2"&gt;Inset underline&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">These features are new; see per row which browsers already ship them. Unsupported browsers simply keep the default rendering.</p>
+          <oc-compat features="css.properties.rule css.properties.row-rule css.properties.column-rule-break css.properties.column-wrap css.properties.caret-shape css.properties.caret-animation css.properties.interactivity css.properties.interest-delay css.properties.scroll-initial-target css.properties.scroll-target-group css.properties.reading-order css.properties.overlay css.properties.text-size-adjust css.properties.text-fit css.properties.text-decoration-inset css.properties.object-view-box css.properties.view-transition-group css.properties.corner-top-left-shape css.properties.mask-border css.properties.font-width"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            These utilities come from <code>_experimental_css.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/caret-shape" target="_blank" rel="noopener">MDN: caret-shape</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/interactivity" target="_blank" rel="noopener">MDN: interactivity</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_experimental_css.scss</code></td><td>gap decorations, caret, interactivity, interest delay, scroll targets, reading-order, overlay, text-size-adjust, text-fit, object-view-box, decoration inset, view-transition-group/scope, corner shapes, intrinsic sizes, mask-border, font-width</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../anchor-positioning/">Anchor positioning</a>
+               · 
+              <a class="source-link" href="../starting-style/">Entry animations</a>
+               · 
+              <a class="source-link" href="../interactivity/">Interactivity</a>
+            </p>
+          </div>
+        </div>
+      </section>

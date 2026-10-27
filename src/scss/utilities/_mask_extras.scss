@@ -1,0 +1,62 @@
+// SCSS Document
+// File: src/scss/utilities/_mask_extras.scss
+// Description: More mask utilities — edge fades, composable linear/radial masks with stop positions, and the missing
+//              position, size, clip and mode keywords next to the .mask-* classes of _effects_advanced.scss.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.4.0
+// Framework: OmniaCSS
+// Purpose: Generate .mask-fade-{t|l|y}, .mask-linear-{deg}, .mask-radial-{circle|ellipse}, .mask-from-{n}, .mask-to-{n},
+//          .mask-position-{side|corner}, .mask-size-{n}, .mask-clip-no-clip, .mask-mode-match-source, .mask-composite-*.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/mask
+// Note: .mask-linear-* / .mask-radial-* fade from opaque to transparent between --oc-mask-from and --oc-mask-to;
+//       move the stops with .mask-from-{n} / .mask-to-{n}: class="mask-linear-180 mask-from-60".
+// Map: edge fades -> composable gradient masks -> position -> size -> clip and mode
+
+/* Edge fades (.mask-fade-b, -r and -x live in _layout_extras.scss) */
+.mask-fade-t { mask: linear-gradient(to top, black 60%, transparent); }
+.mask-fade-l { mask: linear-gradient(to left, black 60%, transparent); }
+.mask-fade-y { mask: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent); }
+
+/* Composable gradient masks */
+@each $deg in (0, 45, 90, 135, 180, 225, 270, 315) {
+  .mask-linear-#{$deg} {
+    mask-image: linear-gradient(#{$deg}deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
+  }
+}
+.mask-radial-circle {
+  mask-image: radial-gradient(circle, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
+}
+.mask-radial-ellipse {
+  mask-image: radial-gradient(ellipse, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
+}
+.mask-conic {
+  mask-image: conic-gradient(black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
+}
+@each $n in (0, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100) {
+  .mask-from-#{$n} { --oc-mask-from: #{$n}%; }
+  .mask-to-#{$n} { --oc-mask-to: #{$n}%; }
+}
+
+/* Mask position */
+$_mask-positions: ('left': left, 'right': right, 'left-top': left top, 'right-top': right top, 'left-bottom': left bottom, 'right-bottom': right bottom);
+@each $key, $value in $_mask-positions {
+  .mask-position-#{$key} { mask-position: $value; }
+}
+
+/* Mask repeat */
+.mask-repeat-x { mask-repeat: repeat-x; }
+.mask-repeat-y { mask-repeat: repeat-y; }
+.mask-repeat-space { mask-repeat: space; }
+.mask-repeat-round { mask-repeat: round; }
+
+/* Mask size in percent and rem */
+@each $n in (25, 50, 75, 100) {
+  .mask-size-#{$n} { mask-size: #{$n}%; }
+}
+
+/* Mask clip, mode, composite and reset */
+.mask-clip-no-clip { mask-clip: no-clip; }
+.mask-clip-text { mask-clip: text; }
+.mask-mode-match-source { mask-mode: match-source; }
+.mask-composite-source-over { mask-composite: add; }

@@ -1,0 +1,84 @@
+// SCSS Document
+// File: src/scss/utilities/_colors_mix.scss
+// Description: color-mix(in oklch, color X%, transparent) utilities for Omnia, HTML, and RAL. Omnia/HTML use var(--color-{name}-mix-{step}); RAL uses color-mix(in oklch, var(--color-{name}) step%, transparent) (one token per RAL).
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Purpose: Generate .bg-{color}-mix-{step} and .text-{color}-mix-{step} (step: 0,5,10,20,...,100).
+// Uses var(--color-{name}-mix-{step}) from oc-colors.css so one source of truth (tokens in _colors_tokens.scss).
+
+@use "sass:string";
+@use "sass:map";
+@use '../utilities/' as *;
+
+/* ===================================================================
+   COLOR-MIX (with transparent)
+   Per color: .bg-{name}-mix-{step} and .text-{name}-mix-{step} reference
+   var(--color-{name}-mix-{step}) from oc-colors.css (tokens emitted in _colors_tokens.scss).
+   =================================================================== */
+
+@mixin _generate-color-mix($color-map) {
+  @each $colors-prop, $colors-value in $color-map {
+    @each $main-prop, $main-value in $colors-value {
+      @each $colorname-prop, $colorname-value in $main-value {
+        $hex: map.get($colorname-value, hex);
+        @if $hex {
+          $name: string.to-lower-case(#{$colorname-prop});
+          @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+            @each $step in $color-mix-steps {
+              $suffix: "-#{$step}#{$pseudoclasses-prop}";
+              #{".#{$pseudoclasses-value}bg-" + $name + "-mix" + $suffix} {
+                background-color: var(--color-#{$name}-mix-#{$step});
+              }
+              #{".#{$pseudoclasses-value}text-" + $name + "-mix" + $suffix} {
+                color: var(--color-#{$name}-mix-#{$step});
+              }
+              #{".#{$pseudoclasses-value}border-" + $name + "-mix" + $suffix} {
+                border-color: var(--color-#{$name}-mix-#{$step});
+              }
+              #{".#{$pseudoclasses-value}outline-" + $name + "-mix" + $suffix} {
+                outline-color: var(--color-#{$name}-mix-#{$step});
+              }              
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/// RAL: one token per color; mix utilities use color-mix(in oklch, var(--color-{name}) step%, transparent) (no -mix-{step} token).
+@mixin _generate-ral-color-mix($ral-map) {
+  @each $colors-prop, $colors-value in $ral-map {
+    @each $main-prop, $main-value in $colors-value {
+      @each $colorname-prop, $colorname-value in $main-value {
+        $hex: map.get($colorname-value, hex);
+        @if $hex {
+          $name: string.to-lower-case(#{$colorname-prop});
+          @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+            @each $step in $color-mix-steps {
+              $suffix: "-#{$step}#{$pseudoclasses-prop}";
+              #{".#{$pseudoclasses-value}bg-" + $name + "-mix" + $suffix} {
+                background-color: color-mix(in oklch, var(--color-#{$name}) #{$step * 1%}, transparent);
+              }
+              #{".#{$pseudoclasses-value}text-" + $name + "-mix" + $suffix} {
+                color: color-mix(in oklch, var(--color-#{$name}) #{$step * 1%}, transparent);
+              }
+              #{".#{$pseudoclasses-value}border-" + $name + "-mix" + $suffix} {
+                border-color: color-mix(in oklch, var(--color-#{$name}) #{$step * 1%}, transparent);
+              }
+              #{".#{$pseudoclasses-value}outline-" + $name + "-mix" + $suffix} {
+                outline-color: color-mix(in oklch, var(--color-#{$name}) #{$step * 1%}, transparent);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include _generate-color-mix($omnia-colors);
+@include _generate-color-mix($html-colors);
+@include _generate-ral-color-mix($ral-colors);

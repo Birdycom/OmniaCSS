@@ -1,0 +1,179 @@
+<!--oc-page {"title": "OmniaCSS Docs - Transforms", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .tf3d-scene { inline-size: 12rem; block-size: 7.5rem; outline-offset: 4px; }\n    .tf3d-card { position: relative; inline-size: 100%; block-size: 100%; transition: rotate 0.7s; }\n    .tf3d-scene:is(:hover, :focus-visible) .tf3d-card { rotate: y 180deg; }\n    .tf3d-face { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 12px; font-weight: 800; background: var(--oc-gradient-brand); color: var(--color-white-50); }\n    .tf3d-back { rotate: y 180deg; background: var(--color-forestgreen-90); }\n  </style>"]}-->
+<section class="oc-docs-section" id="scale-rotate">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Scale &amp; Rotate</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_motion_transforms.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.4.0</span>
+          <p class="oc-section-header__desc">
+            Resize and rotate elements with <code>.scale-{n}</code> and <code>.rotate-{deg}</code>. They use the individual CSS properties <code>scale</code> and <code>rotate</code>, so each class works on its own and classes combine freely (no extra <code>.transform</code> class needed). The dashed outline shows the original position.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>scale</code> grows or shrinks an element and <code>rotate</code> turns it, both around the <code>transform-origin</code> (the center by default, change it with <code>.origin-*</code>). <strong>When to use:</strong> hover and focus feedback, icons, decorative tilts. <strong>Gotchas:</strong> transforms do not change layout (neighbours do not move and the original space stays reserved), they create a stacking context, and scaling text can make it blurry. These classes use the individual <code>scale</code> and <code>rotate</code> properties, so they combine without overriding each other. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scale" target="_blank" rel="noopener">MDN: scale</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/rotate" target="_blank" rel="noopener">MDN: rotate</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin" target="_blank" rel="noopener">MDN: transform-origin</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.scale-0</code> … <code>.scale-150</code></td><td>scale: 0, .5, .75, .9, .95, 1, 1.05, 1.1, 1.25, 1.5</td></tr>
+                <tr><td><code>.rotate-0</code> · <code>.rotate-45</code> · <code>.rotate-90</code> · <code>.rotate-180</code></td><td>rotate: 0deg / 45deg / 90deg / 180deg</td></tr>
+                <tr><td><code>.origin-{side}</code></td><td>transform-origin: center, top, top right, right, bottom right, bottom, bottom left, left, top left</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.hover:scale-110</code> · <code>.hover:rotate-45</code></td><td>applied on :hover — combine with .transition-transform</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <oc-demo title="All scale values">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-0">0</div></div><span class="oc-preview__label">.scale-0</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-50">50</div></div><span class="oc-preview__label">.scale-50</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-75">75</div></div><span class="oc-preview__label">.scale-75</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-90">90</div></div><span class="oc-preview__label">.scale-90</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-95">95</div></div><span class="oc-preview__label">.scale-95</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-100">100</div></div><span class="oc-preview__label">.scale-100</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-105">105</div></div><span class="oc-preview__label">.scale-105</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-110">110</div></div><span class="oc-preview__label">.scale-110</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-125">125</div></div><span class="oc-preview__label">.scale-125</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-150">150</div></div><span class="oc-preview__label">.scale-150</span></div>
+            </div>
+          <oc-code lang="html">&lt;div class="scale-110"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="All transform origins (rotate-45)">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-center">45°</div></div><span class="oc-preview__label">.origin-center</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-top">45°</div></div><span class="oc-preview__label">.origin-top</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-top-right">45°</div></div><span class="oc-preview__label">.origin-top-right</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-right">45°</div></div><span class="oc-preview__label">.origin-right</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-bottom-right">45°</div></div><span class="oc-preview__label">.origin-bottom-right</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-bottom">45°</div></div><span class="oc-preview__label">.origin-bottom</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-bottom-left">45°</div></div><span class="oc-preview__label">.origin-bottom-left</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-left">45°</div></div><span class="oc-preview__label">.origin-left</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-top-left">45°</div></div><span class="oc-preview__label">.origin-top-left</span></div>
+            </div>
+          <oc-code lang="html">&lt;div class="rotate-45 origin-top-left"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="Scale">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-50">50%</div></div><span class="oc-preview__label">.scale-50</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-75">75%</div></div><span class="oc-preview__label">.scale-75</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-100">100%</div></div><span class="oc-preview__label">.scale-100</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-110">110%</div></div><span class="oc-preview__label">.scale-110</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-125">125%</div></div><span class="oc-preview__label">.scale-125</span></div>
+            </div>
+          </oc-demo>
+          <oc-demo title="Rotate and transform origin">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45">45°</div></div><span class="oc-preview__label">.rotate-45</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-90">90°</div></div><span class="oc-preview__label">.rotate-90</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-top-left">45° ↖</div></div><span class="oc-preview__label">.rotate-45 .origin-top-left</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-bottom-right">45° ↘</div></div><span class="oc-preview__label">.rotate-45 .origin-bottom-right</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-75 rotate-45">both</div></div><span class="oc-preview__label">.scale-75 .rotate-45</span></div>
+            </div>
+          </oc-demo>
+          <oc-demo title="On hover (transition + hover variant)">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-300 ease-out hover:scale-125" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:scale-125</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-500 ease-spring hover:rotate-180" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:rotate-180 .ease-spring</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-300 hover:skew-x-12" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:skew-x-12</span></div>
+            </div>
+          </oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="translate-skew">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Translate &amp; Skew</h2>
+          <p class="oc-section-header__desc">Move elements with <code>.translate-x-{n}</code> / <code>.translate-y-{n}</code> (CSS <code>translate</code>; x and y combine) and tilt them with <code>.skew-x-{deg}</code> / <code>.skew-y-{deg}</code>. Translating never changes the layout: the space of the original box stays reserved.</p>
+        </div>
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>translate</code> moves an element along x and/or y without touching the layout; <code>skew</code> slants it. <strong>When to use:</strong> slide-in effects, hover lifts, parallelogram buttons. <strong>Gotchas:</strong> percentages (<code>.translate-x-full</code>) are relative to the element's own size, not its parent; skew has no individual CSS property yet, so <code>.skew-x-*</code> and <code>.skew-y-*</code> set <code>transform</code> and replace each other. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/translate" target="_blank" rel="noopener">MDN: translate</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skew" target="_blank" rel="noopener">MDN: skew()</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.translate-x-{0,1,2,4,8,full}</code></td><td>translate: 0 / .25rem / .5rem / 1rem / 2rem / 100% (x)</td></tr>
+                <tr><td><code>.translate-y-{0,1,2,4,8,full}</code></td><td>translate: … (y)</td></tr>
+                <tr><td><code>.skew-x-{0,3,6,12}</code></td><td>transform: skewX(…deg)</td></tr>
+                <tr><td><code>.skew-y-{0,3,6,12}</code></td><td>transform: skewY(…deg)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.hover:translate-x-4</code> · <code>.hover:-translate-y-2</code> · <code>.hover:skew-x-6</code></td><td>applied on :hover</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Translate">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box translate-x-4">x 1rem</div></div><span class="oc-preview__label">.translate-x-4</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box translate-y-4">y 1rem</div></div><span class="oc-preview__label">.translate-y-4</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box translate-x-8 translate-y-2">x + y</div></div><span class="oc-preview__label">.translate-x-8 .translate-y-2</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box translate-x-full">x 100%</div></div><span class="oc-preview__label">.translate-x-full</span></div>
+            </div>
+          </oc-demo>
+          <oc-demo title="Skew">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box skew-x-6">x 6°</div></div><span class="oc-preview__label">.skew-x-6</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box skew-x-12">x 12°</div></div><span class="oc-preview__label">.skew-x-12</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box skew-y-6">y 6°</div></div><span class="oc-preview__label">.skew-y-6</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box skew-y-12">y 12°</div></div><span class="oc-preview__label">.skew-y-12</span></div>
+            </div>
+          </oc-demo>
+          <oc-demo title="Hover: slide and lift">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-300 ease-out hover:translate-x-8" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:translate-x-8</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-300 ease-out hover:-translate-y-4" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:-translate-y-4</span></div>
+            </div>
+          </oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="transforms-3d">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">3D Transforms</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_motion_transforms.scss</span>
+          <p class="oc-section-header__desc">Depth with <code>.perspective-*</code>, <code>.transform-3d</code> and <code>.backface-hidden</code>.</p>
+        </div>
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>perspective</code> on a parent sets how strongly its children recede into the screen (smaller value = stronger effect); <code>transform-style: preserve-3d</code> (<code>.transform-3d</code>) lets nested children keep their own depth; <code>backface-visibility: hidden</code> hides an element once it is turned away from you. <strong>When to use:</strong> flip cards, tilt-on-hover, product spins. <strong>Gotchas:</strong> perspective goes on the <em>parent</em> of the rotating element, <code>overflow</code> and <code>filter</code> on the parent flatten the 3D scene, and rotation about x or y needs the individual <code>rotate: y 40deg</code> syntax (or <code>transform: rotateY()</code>) since <code>.rotate-*</code> only turns around z. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/perspective" target="_blank" rel="noopener">MDN: perspective</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backface-visibility" target="_blank" rel="noopener">MDN: backface-visibility</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.perspective-none</code> · <code>.perspective-250</code> · <code>.perspective-500</code> · <code>.perspective-750</code> · <code>.perspective-1000</code></td><td>perspective: none / 250px / 500px / 750px / 1000px</td></tr>
+                <tr><td><code>.perspective-origin-{center,top,bottom,left,right}</code></td><td>perspective-origin</td></tr>
+                <tr><td><code>.transform-flat</code> · <code>.transform-3d</code></td><td>transform-style: flat / preserve-3d</td></tr>
+                <tr><td><code>.backface-visible</code> · <code>.backface-hidden</code></td><td>backface-visibility</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8">Perspective strength</h3>
+          <oc-demo title="perspective-250 / 500 / 750 / 1000 (same rotateY)">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><div class="oc-ghost perspective-250"><div class="oc-ghost__box" style="rotate: y 45deg">250</div></div><span class="oc-preview__label">.perspective-250</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost perspective-500"><div class="oc-ghost__box" style="rotate: y 45deg">500</div></div><span class="oc-preview__label">.perspective-500</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost perspective-750"><div class="oc-ghost__box" style="rotate: y 45deg">750</div></div><span class="oc-preview__label">.perspective-750</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost perspective-1000"><div class="oc-ghost__box" style="rotate: y 45deg">1000</div></div><span class="oc-preview__label">.perspective-1000</span></div>
+              <div class="oc-preview__item"><div class="oc-ghost perspective-none"><div class="oc-ghost__box" style="rotate: y 45deg">none</div></div><span class="oc-preview__label">.perspective-none</span></div>
+            </div>
+          <oc-code lang="html">&lt;div class="perspective-500"&gt;
+  &lt;div style="rotate: y 45deg"&gt;…&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Flip card with backface-hidden</h3>
+          <p class="oc-section-content__desc">Hover or focus the card. Both faces have <code>.backface-hidden</code>, the back face is pre-rotated 180 degrees, and the card uses <code>.transform-3d</code> so the faces keep their depth.</p>
+          <oc-demo title="transform-3d + backface-hidden">
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="tf3d-scene perspective-1000" tabindex="0">
+                <div class="tf3d-card transform-3d">
+                  <div class="tf3d-face backface-hidden">Front</div>
+                  <div class="tf3d-face tf3d-back backface-hidden">Back</div>
+                </div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="perspective-1000"&gt;
+  &lt;div class="card transform-3d"&gt;   &lt;!-- rotates on hover --&gt;
+    &lt;div class="face backface-hidden"&gt;Front&lt;/div&gt;
+    &lt;div class="face backface-hidden" style="rotate: y 180deg"&gt;Back&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>

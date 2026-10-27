@@ -1,0 +1,96 @@
+<!--oc-page {"title":"OmniaCSS Docs - Grid Rows","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="grid-rows">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Grid Rows</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_grid.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Define row tracks with <code>.grid-rows-{n}</code> and let items span rows with <code>.row-span-{n}</code>.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">Template Rows</h3>
+
+          <p class="oc-section-content__desc">Rows are normally created automatically, so <code>.grid-rows-n</code> is only needed when you want a fixed number of equal-height rows, most often together with <code>.grid-flow-col</code> (fill columns first) or a container with a fixed height. Each row is <code>minmax(0, 1fr)</code>, so they divide the available height, which means the container needs a height of its own. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows" target="_blank" rel="noopener">MDN: grid-template-rows</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Grid Template Rows</th></tr></thead>
+              <tbody>
+                <tr><td><code>.grid-rows-1 … .grid-rows-6</code></td><td>repeat(n, minmax(0, 1fr))</td></tr>
+                <tr><td><code>.grid-rows-none</code></td><td>grid-template-rows: none</td></tr>
+                <tr><td><code>.grid-rows-subgrid</code></td><td>grid-template-rows: subgrid</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <oc-demo title="grid-rows values"><div class="dm-grid" style="--dm-min:12rem">
+<div class="dm-tile"><code>.grid-rows-1 .grid-flow-col</code><div class="dm-area grid grid-rows-1 grid-flow-col gap-0.3" style="block-size:9rem"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
+<div class="dm-tile"><code>.grid-rows-2 .grid-flow-col</code><div class="dm-area grid grid-rows-2 grid-flow-col gap-0.3" style="block-size:9rem"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
+<div class="dm-tile"><code>.grid-rows-3 .grid-flow-col</code><div class="dm-area grid grid-rows-3 grid-flow-col gap-0.3" style="block-size:9rem"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
+<div class="dm-tile"><code>.grid-rows-4 .grid-flow-col</code><div class="dm-area grid grid-rows-4 grid-flow-col gap-0.3" style="block-size:9rem"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-rows-3 grid-flow-col gap-1" style="height: 12rem"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Row Spanning</h3>
+
+          <p class="oc-section-content__desc"><code>row-span-n</code> stretches an item over n rows. Combined with a column flow this creates sidebar-and-content shapes without nesting.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Span Amount</th></tr></thead>
+              <tbody>
+                <tr><td><code>.row-span-1 … .row-span-6</code></td><td>Span 1 to 6 rows</td></tr>
+                <tr><td><code>.row-span-full</code></td><td>Span all available rows</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <oc-demo title="row-span values"><div class="dm-grid" style="--dm-min:13rem">
+<div class="dm-tile"><code>.row-span-2</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="dm-box row-span-2">span 2</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
+<div class="dm-tile"><code>.row-span-3</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="dm-box row-span-3">span 3</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
+<div class="dm-tile"><code>.row-span-full</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="dm-box row-span-full">full</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-rows-3 grid-flow-col gap-1"&gt;
+  &lt;div class="row-span-3"&gt;Sidebar&lt;/div&gt;
+  &lt;div class="col-span-2"&gt;…&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Subgrid rows</h3>
+
+          <p class="oc-section-content__desc">Cards of different content length normally have misaligned headers and footers. Let each card span three parent rows and use <code>.grid-rows-subgrid</code>: the title, body and footer rows are then shared, so all footers line up. The cards keep the parent's row gap. Subgrid is supported in all current browsers; older ones show the cards without alignment. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows" target="_blank" rel="noopener">MDN: subgrid</a>.</p>
+
+          <oc-demo title="card alignment with subgrid"><div class="dm-grid" style="--dm-min:100%">
+<div class="dm-tile"><code>Parent: .grid .grid-cols-3, cards: .row-span-3 .grid .grid-rows-subgrid</code><div class="dm-area grid grid-cols-3 gap-x-0.3"><div class="grid grid-rows-subgrid row-span-3 gap-0.3 dm-ring" style="padding:0.3rem"><div class="dm-box dm-h1">A</div><div class="dm-box dm-box--alt" style="min-block-size:1rem">body</div><div class="dm-box dm-h1">footer</div></div><div class="grid grid-rows-subgrid row-span-3 gap-0.3 dm-ring" style="padding:0.3rem"><div class="dm-box dm-h1">B</div><div class="dm-box dm-box--alt" style="min-block-size:4rem">body</div><div class="dm-box dm-h1">footer</div></div><div class="grid grid-rows-subgrid row-span-3 gap-0.3 dm-ring" style="padding:0.3rem"><div class="dm-box dm-h1">C</div><div class="dm-box dm-box--alt" style="min-block-size:2rem">body</div><div class="dm-box dm-h1">footer</div></div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-x-1"&gt;
+  &lt;article class="grid row-span-3 grid-rows-subgrid"&gt;
+    &lt;h3&gt;Title&lt;/h3&gt;&lt;p&gt;Body&lt;/p&gt;&lt;footer&gt;Footer&lt;/footer&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="row-placement">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Line Placement</h2>
+          <p class="oc-section-header__desc">Explicitly position items by start and end row lines.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc">Like columns, rows are addressed by grid line number. <code>.row-start-2 .row-end-4</code> covers rows 2 and 3. Explicit placement can overlap other items: later items paint on top. Use it for hero layouts, overlays and captions on images.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.row-start-{n}</code></td><td>grid-row-start: n</td></tr>
+                <tr><td><code>.row-end-{n}</code></td><td>grid-row-end: n</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <oc-demo title="row-start and row-end"><div class="dm-grid" style="--dm-min:15rem">
+<div class="dm-tile"><code>.row-start-2 .row-end-4</code><div class="dm-area grid grid-cols-3 grid-rows-3 gap-0.3" style="block-size:9rem"><div class="dm-box row-start-2 row-end-4">2 to 4</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div></div></div>
+<div class="dm-tile"><code>.row-start-3 (col-start-3)</code><div class="dm-area grid grid-cols-3 grid-rows-3 gap-0.3" style="block-size:9rem"><div class="dm-box row-start-3 col-start-3">3</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-rows-3"&gt;
+  &lt;div class="row-start-2 row-end-4"&gt;…&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>

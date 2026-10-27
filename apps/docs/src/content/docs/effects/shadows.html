@@ -1,0 +1,131 @@
+<!--oc-page {"title": "OmniaCSS Docs - Shadows", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="shadows">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Box Shadows</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_effects.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Elevation effects using <code>.shadow-{size}</code>. Built with optimized RGB alpha values.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Elevation Level</th></tr></thead>
+              <tbody>
+                <tr><td><code>.shadow-sm</code></td><td>Small subtle shadow</td></tr>
+                <tr><td><code>.shadow</code></td><td>Base shadow</td></tr>
+                <tr><td><code>.shadow-md</code></td><td>Medium elevation</td></tr>
+                <tr><td><code>.shadow-lg</code></td><td>Large elevation</td></tr>
+                <tr><td><code>.shadow-xl</code></td><td>Extremely large elevation</td></tr>
+                <tr><td><code>.shadow-2xl</code></td><td>Maximum elevation</td></tr>
+                <tr><td><code>.shadow-inner</code></td><td>Inset shadow</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title">Elevation demo — light and dark stage</h3>
+          <p class="oc-section-content__desc">The shadow utilities are <code>light-dark()</code> aware: in a dark color scheme the shadow alpha is much stronger and a faint light ring (plus a top highlight on <code>.shadow-lg</code> and up) lifts the edge of the surface, so elevation stays visible on dark backgrounds. The first demo follows the current page theme; the next two are pinned light and dark stages.</p>
+          <oc-demo title="Elevation on the current theme (switch the theme in the header)">
+            <div class="oc-stage oc-stage--auto">
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-sm">sm</div><span class="oc-preview__label">.shadow-sm</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow">shadow</div><span class="oc-preview__label">.shadow</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-md">md</div><span class="oc-preview__label">.shadow-md</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg">lg</div><span class="oc-preview__label">.shadow-lg</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-xl">xl</div><span class="oc-preview__label">.shadow-xl</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-2xl">2xl</div><span class="oc-preview__label">.shadow-2xl</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-inner">inner</div><span class="oc-preview__label">.shadow-inner</span></div>
+            </div>
+          </oc-demo>
+          <oc-demo title="Elevation on a light stage">
+            <div class="oc-stage oc-stage--light">
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-sm">sm</div><span class="oc-preview__label">.shadow-sm</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow">shadow</div><span class="oc-preview__label">.shadow</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-md">md</div><span class="oc-preview__label">.shadow-md</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg">lg</div><span class="oc-preview__label">.shadow-lg</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-xl">xl</div><span class="oc-preview__label">.shadow-xl</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-2xl">2xl</div><span class="oc-preview__label">.shadow-2xl</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-inner">inner</div><span class="oc-preview__label">.shadow-inner</span></div>
+            </div>
+          <oc-code lang="html">&lt;div class="shadow-lg"&gt;Elevated card&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="Elevation on a dark stage">
+            <div class="oc-stage oc-stage--dark">
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-sm">sm</div><span class="oc-preview__label">.shadow-sm</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow">shadow</div><span class="oc-preview__label">.shadow</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-md">md</div><span class="oc-preview__label">.shadow-md</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg">lg</div><span class="oc-preview__label">.shadow-lg</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-xl">xl</div><span class="oc-preview__label">.shadow-xl</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-2xl">2xl</div><span class="oc-preview__label">.shadow-2xl</span></div>
+                <div class="oc-preview__item"><div class="oc-shadow-box shadow-inner">inner</div><span class="oc-preview__label">.shadow-inner</span></div>
+            </div>
+          <oc-code lang="html">&lt;div class="shadow-xl"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title" id="colored-shadows">Colored shadows &amp; glow</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.shadow-blue</code> · <code>.shadow-cyan</code> · <code>.shadow-purple</code> · <code>.shadow-green</code> · <code>.shadow-red</code></td><td>--oc-shadow-color: var(--color-…) — tints every .shadow-* / .drop-shadow-* / .text-shadow-*</td></tr>
+                <tr><td><code>.shadow-glow</code></td><td>box-shadow: 0 0 0 1px …, 0 0 32px -4px (shadow color)</td></tr>
+                <tr><td><code>.hover:shadow-lg</code> · <code>.hover:shadow-glow</code></td><td>the shadow appears on :hover (combine with .transition-shadow)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="Colored shadows on a dark stage (hover the last two)">
+            <div class="oc-stage oc-stage--dark">
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-xl shadow-blue">blue</div><span class="oc-preview__label">.shadow-xl .shadow-blue</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-xl shadow-purple">purple</div><span class="oc-preview__label">.shadow-xl .shadow-purple</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-xl shadow-green">green</div><span class="oc-preview__label">.shadow-xl .shadow-green</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-glow">glow</div><span class="oc-preview__label">.shadow-glow</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box transition-shadow duration-300 hover:shadow-glow shadow-cyan" tabindex="0">hover</div><span class="oc-preview__label">.hover:shadow-glow</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box transition-shadow duration-300 hover:shadow-lg shadow-blue" tabindex="0">hover</div><span class="oc-preview__label">.hover:shadow-lg</span></div>
+            </div>
+          </oc-demo>
+
+          <h3 class="oc-section-content__title" id="more-shadow-demos">More shadow demos</h3>
+          <oc-demo title="Cards: resting, hover lift and pressed (hover and press the cards)">
+            <div class="oc-stage oc-stage--auto">
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-sm transition-shadow duration-300 hover:shadow-lg" tabindex="0">hover</div><span class="oc-preview__label">.shadow-sm .hover:shadow-lg</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg transition-shadow duration-300 hover:shadow-inner" tabindex="0">press</div><span class="oc-preview__label">.shadow-lg to .hover:shadow-inner</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-md round-full">pill</div><span class="oc-preview__label">.shadow-md on a circle</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-xl" style="border-radius: 2rem 0.5rem 2rem 0.5rem;">shape</div><span class="oc-preview__label">.shadow-xl on a custom radius</span></div>
+            </div>
+          </oc-demo>
+          <oc-demo title="Shadow color: every .shadow-{size} takes the color of .shadow-{color}">
+            <div class="oc-stage oc-stage--auto">
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg shadow-blue">blue</div><span class="oc-preview__label">.shadow-lg .shadow-blue</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg shadow-cyan">cyan</div><span class="oc-preview__label">.shadow-lg .shadow-cyan</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg shadow-purple">purple</div><span class="oc-preview__label">.shadow-lg .shadow-purple</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg shadow-green">green</div><span class="oc-preview__label">.shadow-lg .shadow-green</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg shadow-red">red</div><span class="oc-preview__label">.shadow-lg .shadow-red</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-lg shadow-black">black</div><span class="oc-preview__label">.shadow-lg .shadow-black</span></div>
+            </div>
+          </oc-demo>
+          <oc-demo title="Layered shadows and a custom --oc-shadow-color (any Omnia color token)">
+            <div class="oc-stage oc-stage--auto">
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-md shadow-xl">stack</div><span class="oc-preview__label">.shadow-md + .shadow-xl (last wins)</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-xl" style="--oc-shadow-color: var(--color-orange-60);">orange</div><span class="oc-preview__label">--oc-shadow-color: orange</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-glow" style="--oc-shadow-color: var(--color-teal-60);">glow</div><span class="oc-preview__label">.shadow-glow teal</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-none">none</div><span class="oc-preview__label">.shadow-none</span></div>
+            </div>
+          <oc-code lang="html">&lt;div class="shadow-xl" style="--oc-shadow-color: var(--color-orange-60);"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="Inner shadow on inputs and wells">
+            <div class="oc-stage oc-stage--auto">
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-inner" style="inline-size: 12rem; aspect-ratio: 3 / 1;">well</div><span class="oc-preview__label">.shadow-inner</span></div>
+              <div class="oc-preview__item"><div class="oc-shadow-box shadow-inner shadow-blue" style="inline-size: 12rem; aspect-ratio: 3 / 1;">blue well</div><span class="oc-preview__label">.shadow-inner .shadow-blue</span></div>
+            </div>
+          </oc-demo>
+
+          <h3 class="oc-section-content__title" id="text-drop-shadow">Text shadow &amp; drop shadow</h3>
+          <oc-demo title="Text shadow and drop-shadow (follows the shape)">
+            <div class="oc-stage oc-stage--light">
+              <div class="oc-preview__item"><span class="font-2 font-bold text-shadow-md">Text shadow</span><span class="oc-preview__label">.text-shadow-md</span></div>
+              <div class="oc-preview__item"><span class="font-2 font-bold text-shadow-lg shadow-blue">Blue text shadow</span><span class="oc-preview__label">.text-shadow-lg .shadow-blue</span></div>
+              <div class="oc-preview__item"><div class="drop-shadow-lg"><div class="clip-polygon-hexagon" style="inline-size: 5rem; aspect-ratio: 1; background: var(--color-orange-60);"></div></div><span class="oc-preview__label">.drop-shadow-lg around a .clip-polygon-hexagon</span></div>
+            </div>
+          </oc-demo>
+
+          
+        </div>
+      </section>

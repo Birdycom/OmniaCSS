@@ -1,0 +1,95 @@
+<!--oc-page {"title":"OmniaCSS Docs - Grid Auto Flow","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="grid-flow">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Grid Auto Flow</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_grid.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Control the auto-placement algorithm for items in a grid using <code>.grid-flow-{type}</code>.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc">Auto-placement puts every item in the next free cell. <code>row</code> (default) fills rows left to right, <code>col</code> fills columns top to bottom (you then set the number of rows with <code>.grid-rows-n</code>). By default the cursor never moves back, so a wide item that does not fit leaves a hole. <code>dense</code> lets later, smaller items backfill those holes. Gotcha: dense packing changes the visual order but not the DOM order, which hurts keyboard and screen reader users, so avoid it for content that has a meaning in sequence (use it for galleries and tiles). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow" target="_blank" rel="noopener">MDN: grid-auto-flow</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Placement Algorithm</th></tr></thead>
+              <tbody>
+                <tr><td><code>.grid-flow-row</code></td><td>Fill each row in turn (default)</td></tr>
+                <tr><td><code>.grid-flow-col</code></td><td>Fill each column in turn</td></tr>
+                <tr><td><code>.grid-flow-dense</code></td><td>Fill holes in the grid (dense packing)</td></tr>
+                <tr><td><code>.grid-flow-row-dense</code></td><td>Row-based dense packing</td></tr>
+                <tr><td><code>.grid-flow-col-dense</code></td><td>Col-based dense packing</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8">Row flow: holes versus dense</h3>
+
+          <p class="oc-section-content__desc">Items 1 and 2 span two of the three columns. Without dense, item 2 does not fit next to item 1, so the third column of row 1 stays empty. With dense, item 3 jumps back into the hole.</p>
+
+          <oc-demo title="grid-flow-row and row-dense"><div class="dm-grid" style="--dm-min:14rem">
+<div class="dm-tile"><code>.grid-flow-row</code><div class="dm-area grid grid-cols-3 grid-flow-row gap-0.3"><div class="dm-box col-span-2">1</div><div class="dm-box col-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
+<div class="dm-tile"><code>.grid-flow-row-dense</code><div class="dm-area grid grid-cols-3 grid-flow-row-dense gap-0.3"><div class="dm-box col-span-2">1</div><div class="dm-box col-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
+<div class="dm-tile"><code>.grid-flow-dense (same as row-dense)</code><div class="dm-area grid grid-cols-3 grid-flow-dense gap-0.3"><div class="dm-box col-span-2">1</div><div class="dm-box col-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-3 grid-flow-row-dense gap-1"&gt;
+  &lt;div class="col-span-2"&gt;High priority&lt;/div&gt;
+  &lt;div class="col-span-2"&gt;Wide&lt;/div&gt;
+  &lt;div&gt;Fills the hole&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Column flow</h3>
+
+          <p class="oc-section-content__desc">With <code>grid-flow-col</code> items go down first. Three explicit rows are defined; items 1 and 2 span two rows.</p>
+
+          <oc-demo title="grid-flow-col and col-dense"><div class="dm-grid" style="--dm-min:14rem">
+<div class="dm-tile"><code>.grid-flow-col</code><div class="dm-area grid grid-rows-3 grid-flow-col gap-0.3" style="block-size:8rem"><div class="dm-box row-span-2">1</div><div class="dm-box row-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
+<div class="dm-tile"><code>.grid-flow-col-dense</code><div class="dm-area grid grid-rows-3 grid-flow-col-dense gap-0.3" style="block-size:8rem"><div class="dm-box row-span-2">1</div><div class="dm-box row-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-rows-3 grid-flow-col-dense gap-1"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="auto-sizing">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Auto Sizing</h2>
+          <p class="oc-section-header__desc">Control the size of implicitly created grid tracks.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc">Tracks that you did not define (for example the columns created by <code>.grid-flow-col</code>) are <em>implicit</em>. These classes set <code>grid-auto-columns</code> / <code>grid-auto-rows</code> for them: <code>auto</code> sizes by content and stretches into free space, <code>fr</code> makes equal shares (<code>minmax(0, 1fr)</code>), <code>min</code> / <code>max</code> hug the smallest or largest content. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns" target="_blank" rel="noopener">MDN: grid-auto-columns</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.grid-cols-auto</code></td><td>grid-auto-columns: auto</td></tr>
+                <tr><td><code>.grid-rows-auto</code></td><td>grid-auto-rows: auto</td></tr>
+                <tr><td><code>.grid-cols-fr</code></td><td>grid-auto-columns: minmax(0, 1fr)</td></tr>
+                <tr><td><code>.grid-rows-fr</code></td><td>grid-auto-rows: minmax(0, 1fr)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.grid-cols-min</code></td><td>grid-auto-columns: min-content</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.grid-cols-max</code></td><td>grid-auto-columns: max-content</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="implicit column sizing"><div class="dm-grid" style="--dm-min:16rem">
+<div class="dm-tile"><code>.grid-flow-col .grid-cols-auto</code><div class="dm-area grid grid-flow-col grid-cols-auto gap-0.3"><div class="dm-box">short</div><div class="dm-box">a longer label</div><div class="dm-box">mid</div></div></div>
+<div class="dm-tile"><code>.grid-flow-col .grid-cols-fr</code><div class="dm-area grid grid-flow-col grid-cols-fr gap-0.3"><div class="dm-box">short</div><div class="dm-box">a longer label</div><div class="dm-box">mid</div></div></div>
+<div class="dm-tile"><code>.grid-flow-col .grid-cols-min</code><div class="dm-area grid grid-flow-col grid-cols-min gap-0.3"><div class="dm-box">short</div><div class="dm-box">a longer label</div><div class="dm-box">mid</div></div></div>
+<div class="dm-tile"><code>.grid-flow-col .grid-cols-max</code><div class="dm-area grid grid-flow-col grid-cols-max gap-0.3"><div class="dm-box">short</div><div class="dm-box">a longer label</div><div class="dm-box">mid</div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-flow-col grid-cols-fr gap-1"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Masonry / grid-lanes (experimental)</h3>
+
+          <p class="oc-section-content__desc">A native masonry layout (items packed in lanes without row alignment) is being standardised as <code>display: grid-lanes</code> (earlier drafts: <code>grid-template-rows: masonry</code>). It is available behind a flag or in preview builds only, so there is no OmniaCSS class yet. Use it as progressive enhancement over a normal grid, and check <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Masonry" target="_blank" rel="noopener">MDN: Masonry layout</a> for the current status.</p>
+
+          <oc-code lang="css">.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 1rem; }
+
+/* Experimental: only where supported */
+@supports (display: grid-lanes) {
+  .gallery { display: grid-lanes; }
+}</oc-code>
+        </div>
+      </section>

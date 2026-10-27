@@ -1,0 +1,146 @@
+<!--oc-page {"title": "OmniaCSS Docs - Theme to CSS", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\r\n    /* Color swatch: small square next to hex in theme tables; border for dark colors on dark bg */\r\n    .oc-syntax-swatch {\r\n      display: inline-block;\r\n      width: 14px;\r\n      height: 14px;\r\n      border-radius: 3px;\r\n      vertical-align: middle;\r\n      margin-right: 6px;\r\n      border: 1px solid var(--oc-border);\r\n    }\r\n  </style>"]}-->
+<section class="oc-docs-section" id="overview">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">From VS Code theme to code-syntax CSS</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">oc-code-syntax.css</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Uitleg hoe we uit het VS Code-thema (Birdycom Omnia Dark) de kleuren voor codeblokken halen en in CSS gebruiken. Eén gedeelde set variabelen voor HTML, CSS, PHP, JS, JSON, Python. Voor de technische reference (bestanden, script, token variables) zie <a href="code-syntax.html">Code syntax</a>.</p>
+        </div>
+        <div class="oc-section-content">
+<h3 class="oc-section-content__title mt-10" id="situatie">Situatie</h3>
+          <p class="oc-section-content__desc">Het thema <code>src/json/omniathememain.json</code> bevat <code>colors</code> (editor UI) en <code>tokenColors</code> (scope → foreground/fontStyle). Onze syntax-CSS (<code>oc-code-syntax.css</code>) kleurt klassen zoals <code>.hl-tag</code>, <code>.hl-attr</code>, <code>.hl-string</code>; die spans worden bij de build toegevoegd door de docs-highlighter (<code>apps/docs/src/lib/highlight.mjs</code>). Doel: dezelfde kleuren als in de editor voor codeblokken op de site, met één theme-CSS file voor alle talen.</p>
+
+          
+        
+<h3 class="oc-section-content__title mt-10" id="overview-per-language">Overzicht per programmeertaal (thema → CSS)</h3>
+          <p class="oc-section-content__desc">Eén set CSS custom properties; het conversiescript leest de theme JSON en vult <code>--oc-syntax-*</code>. Zo blijft één file bruikbaar voor HTML, PHP, JS, enz.</p>
+
+          <h3 class="oc-section-content__title">Algemene token-types</h3>
+        <div class="oc-expandable-table">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+            <thead>
+              <tr><th class="w-perc-1/3">Token-type</th><th>CSS variable / klas</th><th class="w-perc-1/3">Omnia (voorbeeld)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Comment</td><td><code>--oc-syntax-comment</code> / <code>.hl-comment</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-purple-2)"></span><code>var(--color-purple-2)</code></td></tr>
+              <tr><td>String</td><td><code>--oc-syntax-string</code> / <code>.hl-string</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-green-2)"></span><code>var(--color-green-2)</code></td></tr>
+              <tr><td>Keyword</td><td><code>--oc-syntax-keyword</code> / <code>.hl-keyword</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-purple-2)"></span><code>var(--color-purple-2)</code></td></tr>
+              <tr><td>Variable</td><td><code>--oc-syntax-variable</code> / <code>.hl-variable</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-skycyan-30)"></span><code>var(--color-skycyan-30)</code></td></tr>
+              <tr><td>Function</td><td><code>--oc-syntax-function</code> / <code>.hl-function</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-skycyan-60)"></span><code>var(--color-skycyan-60)</code></td></tr>
+              <tr><td>Number</td><td><code>--oc-syntax-number</code> / <code>.hl-number</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-peru-40)"></span><code>var(--color-peru-40)</code></td></tr>
+              <tr><td>Operator</td><td><code>--oc-syntax-operator</code> / <code>.hl-operator</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-red-50)"></span><code>var(--color-red-50)</code></td></tr>
+              <tr><td>Constant</td><td><code>--oc-syntax-constant</code> / <code>.hl-constant</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-skycyan-70)"></span><code>var(--color-skycyan-70)</code></td></tr>
+              <tr><td>Storage</td><td><code>--oc-syntax-storage</code> / <code>.hl-storage</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-green-2)"></span><code>var(--color-green-2)</code></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+
+        <h3 class="oc-section-content__title">HTML</h3>
+        <div class="oc-expandable-table">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+            <thead>
+              <tr><th class="w-perc-1/3">Token-type</th><th>CSS variable / klas</th><th class="w-perc-1/3">Kleur</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Tag</td><td><code>--oc-syntax-tag</code> / <code>.hl-tag</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-brown-10)"></span><code>var(--color-brown-10)</code></td></tr>
+              <tr><td>Attribuut</td><td><code>--oc-syntax-attr</code> / <code>.hl-attr</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-skycyan-70)"></span><code>var(--color-skycyan-70)</code></td></tr>
+              <tr><td>Attribuutwaarde</td><td><code>--oc-syntax-string</code> / <code>.hl-string</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-green-2)"></span><code>var(--color-green-2)</code></td></tr>
+              <tr><td>Comment</td><td><code>--oc-syntax-comment</code> / <code>.hl-comment</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-purple-2)"></span><code>var(--color-purple-2)</code></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+
+        <h3 class="oc-section-content__title">CSS</h3>
+        <div class="oc-expandable-table">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+            <thead>
+              <tr><th class="w-perc-1/3">Token-type</th><th>CSS variable / klas</th><th class="w-perc-1/3">Kleur</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Property</td><td><code>--oc-syntax-prop</code> / <code>.hl-prop</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-green-2)"></span><code>var(--color-green-2)</code></td></tr>
+              <tr><td>Value</td><td><code>--oc-syntax-value</code> / <code>.hl-value</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-teal-10)"></span><code>var(--color-teal-10)</code></td></tr>
+              <tr><td>Selector .class</td><td><code>--oc-syntax-cls</code> / <code>.cls</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-wheat-70)"></span><code>var(--color-wheat-70)</code></td></tr>
+              <tr><td>Selector #id</td><td><code>--oc-syntax-id</code> / <code>.hl-id</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-skycyan-70)"></span><code>var(--color-skycyan-70)</code></td></tr>
+              <tr><td>Unit</td><td><code>--oc-syntax-unit</code> / <code>.hl-unit</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-peru-40)"></span><code>var(--color-peru-40)</code></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+
+        <h3 class="oc-section-content__title">Editor (alle talen)</h3>
+        <div class="oc-expandable-table">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+            <thead>
+              <tr><th class="w-perc-1/3">Gebruik</th><th>CSS variable</th><th class="w-perc-1/3">Kleur</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Achtergrond codeblok</td><td><code>--oc-syntax-bg</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-black-30)"></span><code>var(--color-black-30)</code></td></tr>
+              <tr><td>Standaardtekst</td><td><code>--oc-syntax-fg</code></td><td><span class="oc-syntax-swatch" style="background:var(--color-silver-60)"></span><code>var(--color-silver-60)</code></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+        <p class="desc">PHP, JS, JSON en Python gebruiken dezelfde algemene token-types hierboven; de theme JSON bevat voor elke taal de juiste scope-namen. Het script zoekt op scope/name en vult één set variabelen.</p>
+        
+<h3 class="oc-section-content__title mt-10" id="mapping">Mapping: thema-scope → onze klas (HTML)</h3>
+          <p class="oc-section-content__desc">Voor de huidige HTML-highlighter: welke theme-entry bij welke CSS-klas hoort.</p>
+
+          <div class="oc-expandable-table">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+            <thead>
+              <tr><th class="w-perc-1/3">Onze klasse</th><th>Gebruik</th><th class="w-perc-1/3">Thema-bron (scope / name)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>.hl-tag</code> / <code>.tag</code></td><td>HTML-tagnamen</td><td>HTML Entity Name Tag</td></tr>
+              <tr><td><code>.hl-attr</code> / <code>.attr</code></td><td>HTML-attribuutnamen</td><td>Entity Other Attribute Name</td></tr>
+              <tr><td><code>.hl-string</code> / <code>.val</code></td><td>Attribuutwaarde / string</td><td>HTML String</td></tr>
+              <tr><td><code>.hl-comment</code> / <code>.cmt</code></td><td>Commentaar</td><td>Comment</td></tr>
+              <tr><td><code>.hl-prop</code> / <code>.prop</code></td><td>CSS property-naam</td><td>[VSCODE-CUSTOM] Css Property Name</td></tr>
+              <tr><td><code>.hl-value</code></td><td>CSS property-waarde</td><td>[VSCODE-CUSTOM] Css Property Value</td></tr>
+              <tr><td><code>.cls</code></td><td>Class in code</td><td>[VSCODE-CUSTOM] Css Entity Other Attribute Name Class</td></tr>
+              <tr><td><strong>pre.code</strong></td><td>Achtergrond/tekst</td><td>colors.editor.background / editor.foreground</td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+          </div>
+        </div>
+        
+<h3 class="oc-section-content__title mt-10" id="aanpak">Hoe we aan de CSS komen</h3>
+          <p class="oc-section-content__desc">We gebruiken een <strong>build script</strong>: <code>oc-code-syntax.css</code> bevat alle token-klassen en de Omnia Dark theme variables in één bestand. Het script leest <code>src/json/omniathememain.json</code>, zoekt per token-type de juiste <code>tokenColors</code>- of <code>colors</code>-entry, en werkt het <code>:root</code>-blok in <code>oc-code-syntax.css</code> bij.</p>
+
+          <p class="desc">Zie <a href="code-syntax.html#theme-generation">Code syntax → Theme generation</a> voor het commando (<code>npm run code-syntax-theme</code>) en de scriptlocatie.</p>
+        
+<h3 class="oc-section-content__title mt-10" id="andere-talen">Gebruik voor andere talen (bv. PHP)</h3>
+          <p class="oc-section-content__desc">Dezelfde CSS-file geldt voor alle codeblokken. Voor PHP of JS moet een highlighter de bron omzetten naar HTML met dezelfde klassen (<code>.hl-keyword</code>, <code>.hl-string</code>, <code>.hl-variable</code>, enz.), bijv. via Prism/Highlight.js met een custom theme of een uitbreiding van <code>apps/docs/src/lib/highlight.mjs</code>. Het overzicht per taal in deze doc is de referentie voor welke theme-scope bij welk token-type hoort.</p>
+
+          
+        
+<h3 class="oc-section-content__title mt-10" id="next">Volgende stap</h3>
+          <p class="oc-section-content__desc">Voor bestanden, usage, theme-generation script en token-variables: <a href="code-syntax.html">Code syntax</a>.</p>
+
+          
+        
+        </div>
+      </section>

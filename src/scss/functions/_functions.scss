@@ -1,0 +1,407 @@
+// SCSS Document 
+// File: src/scss/utilities/_functions.scss
+// Description: All the sass functions
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Functions: str_replace
+@use "sass:math";
+@use "sass:list";
+@use "sass:string";
+@use '../config/omniacss.config.scss' as *;
+///
+/// The functions 
+/// @group Functions
+///
+
+///
+/// Replace `$search` with `$replace` in `$string` for sass
+/// @group Functions
+///
+/// @name str-replace
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+/// @param {String} $string - Initial string
+/// @param {String} $search - Substring to replace
+/// @param {String} $replace ('') - New value
+/// @return {String} - Updated string
+@function str-replace($string, $search, $replace: '') {
+  $index: string.index($string, $search);
+  
+  @if $index {
+    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+  }
+  
+  @return $string;
+}
+
+///
+/// Replace `$search` with `$trim` in `$string` for sass
+/// @group Functions
+///
+/// @name str-trim
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+/// @param {String} $string - Initial string
+/// @param {String} $search - Substring to replace
+/// @param {String} $replace ('') - New value
+/// @return {String} - Updated string
+@function str-trim($string) {
+  @if (string.slice($string, 1, 1) == ' ') {
+    @return str-trim(string.slice($string, 2));
+  } @else if (string.slice($string, string.length($string), -1) == ' ') {
+    @return str-trim(string.slice($string, 1, -2));
+  } @else {
+    @return $string;
+  }
+}
+
+// @see https://github.com/zurb/foundation/blob/master/scss/foundation/_functions.scss
+// CASTING A STRING TO A NUMBER
+// @see http://hugogiraudel.com/2014/01/15/sass-string-to-number/
+
+///
+/// This code defines a SASS function called "omnia-length" that takes two arguments: a number and a unit. 
+/// It then creates two lists: $strings and $units. 
+/// The $strings list holds strings representing various CSS unit types, while the $units list holds numerical values for each unit type.
+/// 
+/// The function then uses the SASS index function to find the index of the unit type passed in as an argument. 
+/// If the unit type is not found in the $strings list, the function issues a warning message and returns false.
+/// 
+/// If the unit is successfully found, the function multiplies the numerical value of the input number by 
+/// the corresponding value in the $units list and returns the result.
+/// 
+/// @group Functions
+///
+/// @name omnia-length
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+/// @param {Number} $number - the given number 
+/// @param {String} $unit - the type of unit (px, cm, mm, %, ch, pica, in, em, rem, pt, pc, ex, vw, vh, vmin, vmax)
+/// @return {String} - the string that was mutiplies with the number and also get the value of the unit.
+@function omnia-length($number, $unit) {
+  $strings: "px" "cm" "mm" "%" "ch" "pica" "in" "em" "rem" "pt" "pc" "ex" "vw" "vh" "vmin" "vmax";
+  $units: 1px 1cm 1mm 1% 1ch 1pica 1in 1em 1rem 1pt 1pc 1ex 1vw 1vh 1vmin 1vmax;
+  $index: list.index($strings, $unit);
+
+  @if not $index {
+      @warn "Invalid unit `#{$unit}`.";
+
+      @return false;
+  }
+
+  @return $number * list.nth($units, $index);
+}
+
+///
+/// This code defines a function called "omnia-number" that takes in a string as an argument. 
+/// The function then loops through each character in the string and determines if it is a digit or 
+/// a separator (a hyphen or a period). If the character is a digit, it is added to the result. 
+/// If the character is a separator, the code sets a flag to indicate that the next digit is to the 
+/// right of the decimal place. The final result is returned as a number. 
+/// If the string begins with a hyphen, the result will be made negative. 
+/// If there are any invalid characters in the string, the function will return NaN.
+/// 
+/// @group Functions
+///
+/// @name omnia-number
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+/// @param {String} $string - the given string 
+/// @return {String} - a number.
+/// 
+@function omnia-number($string) {
+  // Matrices
+  $strings: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9";
+  $numbers: 0 1 2 3 4 5 6 7 8 9;
+
+  // Result
+  $result: 0;
+  $divider: 0;
+  $minus: false;
+
+  // Looping through all characters
+  @for $i from 1 through string.length($string) {
+      $character: string.slice($string, $i, $i);
+      $index: list.index($strings, $character);
+
+      @if $character == "-" {
+          $minus: true;
+      }
+      @else if $character == "." {
+          $divider: 1;
+      }
+      @else {
+          @if not $index {
+              @if $minus {
+                $result: $result * -1;
+              }
+
+              @return omnia-length($result, string.slice($string, $i));
+          }
+
+          $number: list.nth($numbers, $index);
+
+          @if $divider == 0 {
+              $result: $result * 10;
+          }
+          @else {
+              // Move the decimal dot to the left
+              $divider: $divider * 10;
+              $number: math.div($number, $divider);
+          }
+
+          $result: $result + $number;
+      }
+  }
+
+  @if $minus {
+    @return $result * -1;
+  }
+
+  @return $result;
+}
+
+// UNIT MANAGER
+// @see https://github.com/zurb/foundation/blob/master/scss/foundation/_functions.scss
+
+///
+/// This code defines a function called "omnia-strip-unit" that removes the unit from a CSS value passed as a parameter. 
+/// The parameter is named "$num" and is expected to be a numeric value with a unit attached (e.g. "10px" or "5em"). 
+/// 
+/// The function uses the Sass built-in function "math.div" to divide the value by itself multiplied by 0 plus 1. 
+/// This "tricks" Sass into removing the unit from the value, effectively returning just the numeric part of 
+/// the original value. 
+/// 
+/// The function then returns the stripped numeric value.
+/// 
+/// @group Functions
+///
+/// @name omnia-strip-unit
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+/// @param {number} $num - the given string 
+/// @return {number} - a stripped numeric value.
+/// 
+@function omnia-strip-unit($num) {
+
+  @return math.div($num , ($num * 0 + 1));
+
+}
+
+///
+/// This code defines a SASS function called omnia-convert that takes two required arguments unit and value, 
+/// and one optional argument base-font-size. 
+/// The function converts a value from one unit to another based on the base-font-size. 
+/// The unit argument specifies the unit to which the value will be converted. 
+/// The default value of base-font-size is set to $DEFAULT-BASE-FONT-SIZE.
+/// 
+/// The function uses SASS' built-in math.div() and math.add() functions to perform the necessary calculations. 
+/// It strips the unit from the value and the base-font-size arguments using the custom omnia-strip-unit() function 
+/// and then calculates the result using basic arithmetic operations. 
+/// 
+/// An if statement is used to check whether the final result should be 0 plus the unit. 
+/// If so, the function sets the result to 0 to avoid unnecessary 0 values with units. 
+/// Finally, the calculated value is returned using the SASS @return directive.
+/// 
+/// @group Functions
+///
+/// @name omnia-convert
+///
+/// @since 1.0.0
+/// @author Serge Cools
+/// 
+/// @param {string} $unit - the target unit to which the input value should be converted 
+/// @param {string} $value - the input value to be converted
+/// @param {string} $base-font-size - The setting of the base font size, if not set then the default setting
+/// @return {string} - the converted value with the target unit.
+/// 
+@function omnia-convert($unit, $value, $base-font-size : $DEFAULT-BASE-FONT-SIZE) {
+
+    $value: math.div(omnia-strip-unit($value), omnia-strip-unit($base-font-size)) * omnia-number(1 + $unit);
+
+    @if $value == 0 + $unit {
+      $value: 0;
+    }
+
+    @return $value;
+
+}
+
+// REM AND EM CALCULATOR
+
+///
+/// Function for making the px to rem 
+/// This code defines a SCSS/Sass function named omnia-px2rem that takes two parameters, 
+/// $px and $base-font-size (which defaults to $DEFAULT-BASE-FONT-SIZE). 
+/// 
+/// The purpose of the function is to convert a given value in pixels to rems (a relative unit used to specify font-sizes). 
+/// It does so by dividing $px by $base-font-size and then multiplying that by 1rem. 
+/// 
+/// The resulting value is returned by the function using the @return directive.
+/// @group Functions
+///
+/// @name omnia-px2rem
+///
+/// @since 1.0.0
+/// @author Serge Cools
+/// 
+/// @param {String} $px - is the size value in pixels that needs to be converted to rem 
+/// @param {String} $base-font-size - is the base font size from which the rem calculations will be based. 
+///                                   The default is set to $DEFAULT-BASE-FONT-SIZE.
+/// @return {String} - result of the conversion in rem units
+///
+@function omnia-px2rem($px, $base-font-size: $DEFAULT-BASE-FONT-SIZE) {
+
+  @return omnia-convert("rem", $px , $base-font-size);
+
+}
+// The code defines a SASS function called "omnia-px2rem" that takes 
+// two parameters: $px is the size in pixels (to be converted to rem), and $base-font-size (optional) is the base font size in pixels. 
+// The function uses math to calculate the corresponding size in rem by dividing the input size by the base font size and multiplying by 1rem. 
+// It then returns the calculated value as the output of the function. 
+// This function can be used in SASS code to convert pixel sizes to rem sizes for responsive design.
+
+
+///
+/// Function for making the px to em 
+/// This code defines a SCSS/Sass function named omnia-px2em that takes two parameters, 
+/// $px and $base-font-size (which defaults to $DEFAULT-BASE-FONT-SIZE). 
+/// 
+/// The purpose of the function is to convert a given value in pixels to rems (a relative unit used to specify font-sizes). 
+/// It does so by dividing $px by $base-font-size and then multiplying that by 1em. 
+/// 
+/// The resulting value is returned by the function using the @return directive.
+/// @group Functions
+///
+/// @name omnia-px2em
+///
+/// @since 1.0.0
+/// @author Serge Cools
+/// 
+/// @param {String} $px - is the size value in pixels that needs to be converted to em 
+/// @param {String} $base-font-size - is the base font size from which the rem calculations will be based. 
+///                                   The default is set to $DEFAULT-BASE-FONT-SIZE.
+/// @return {String} - result of the conversion in rem units
+///
+@function omnia-px2em($px, $base-font-size: $DEFAULT-BASE-FONT-SIZE) {
+
+  @return omnia-convert("em", $px , $base-font-size);
+
+}
+
+
+///
+/// This is a Sass function called "omnia-generate-sizing". 
+/// The purpose of this function is to generate CSS classes with different sizing based on a 
+/// given minimum size value, a step increment, and a prefix. 
+/// This function takes in three parameters:
+/// 
+/// The function first initializes two variables, "$css-classe" and "$command", both set to "null". 
+/// Then it creates the "$command" variable by concatenating the provided $min-group value with a CSS command.
+///  The $value variable is assigned the value of "$min-group" converted from pixels to rems, 
+/// and "$valuetrim" is assigned the value of "$value" without the "rem" unit.
+/// 
+/// The function then uses conditional statements to determine the class name to be generated. 
+/// If "$value" is equal to 0rem, "$css-classe" will be set to 0. Otherwise, 
+/// if "$valuetrim" is greater than or equal to 10, "$css-classe" will be set to the first 
+/// four digits of "$valuetrim" with a period replaced by a backslash. Finally, if "$valuetrim" 
+/// is between 1 and 9, "$css-classe" will be set to the first three digits of "$valuetrim" 
+/// with a period replaced by a backslash. This class name is then associated with the current 
+/// "$min-group" value, and the process is repeated for the next size using the incremented minimum size.
+/// 
+/// The function returns a list containing five values: the new minimum size, 
+/// the generated class name, the "$value" converted to rems, the CSS command, and the prefix. 
+/// This list can be used to generate the appropriate CSS properties for each generated class.
+/// @group Functions
+///
+/// @name omnia-generate-sizing
+///
+/// @since 1.0.0
+/// @author Serge Cools
+/// 
+/// @param {String} $min-group - The starting minimum size for the generated classes 
+/// @param {String} $step - The increment by which the minimum size will increase for each generated class. 
+/// @param {String} $prefix -  A string that will be appended to the beginning of each class name.
+/// 
+/// @return {List} - a list containing five values: the new minimum size, 
+/// the generated class name, the "$value" converted to rems, the CSS command, and the prefix.
+///
+@function omnia-generate-sizing($min-group, $prefix, $auto: false, $run ){
+
+  $css-classe: null;
+  $command: null;
+  $step: null;
+
+  // setting for auto
+  @if $auto == true and $run == 0 and $min-group == 0 {
+
+    $css-classe: 'auto';
+    $auto: false;
+    $run: 1;
+    $result: (1: $min-group, 2: $css-classe, 3: auto, 4: ';  /* auto */', 5: $prefix, 6: $run);
+
+  @return  $result;
+
+  } @else {  
+
+  $command: ';  /* ' + $min-group + 'px */'; //make the css command
+  $value: omnia-px2rem($min-group);
+  $valuetrim: omnia-strip-unit($value);
+
+  // step for 1px setting
+  @if $min-group == 1  {
+    
+    $set: null;
+    $set: $min-group;
+    $css-classe: 'px';
+    $min-group:  $DEFAULT-BASE-FIRST-STEP;
+    $result: (1: $min-group, 2: $css-classe, 3: $set + px, 4: $command, 5: $prefix);
+
+  @return  $result;
+
+  }  
+
+  @if $valuetrim < 1   {
+
+    $step: $DEFAULT-BASE-FIRST-STEP;
+     
+  } @else {
+
+    $step: $DEFAULT-BASE-SECOND-STEP;
+  
+  } ;
+
+  @if $min-group == 0   {
+
+    $css-classe: 0;
+    $step: 1;
+  
+  } @else if $valuetrim >= 10   {
+
+    $css-classe: str-replace(string.slice(#{$valuetrim}, 1, 4),'.', '\\.');
+     
+  } @else {
+
+    $css-classe: str-replace(string.slice(#{$valuetrim}, 1, 3),'.', '\\.');
+  }
+  
+  $min-group: $min-group + $step;
+  $result: (1: $min-group, 2: $css-classe, 3: $value, 4: $command, 5: $prefix);
+
+  @return  $result;
+}
+}
+
+// End Functions

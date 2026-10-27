@@ -1,0 +1,292 @@
+<!--oc-page {"title": "OmniaCSS Docs - Gradients", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background-color: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n@property --angle { syntax: \"<angle>\"; inherits: false; initial-value: 0deg; }\n.grd-spin { background: linear-gradient(var(--angle), var(--color-dodgerblue-90), var(--color-magenta-90), var(--color-darkorange-90)); color: var(--color-white-50); transition: --angle 1.2s ease; }\n.grd-spin:is(:hover, :focus-visible) { --angle: 360deg; }\n</style>"]}-->
+<section class="oc-docs-section" id="gradients">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Gradients</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_gradients.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">gradients/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Compose gradients from two kinds of classes: a <strong>shape/direction</strong> class (<code>.bg-linear-to-r</code>, <code>.bg-radial</code>, <code>.bg-conic</code>, …) and <strong>color stops</strong> (<code>.from-{color}</code>, optional <code>.via-{color}</code>, <code>.to-{color}</code>) for every Omnia color plus <code>white</code>, <code>black</code>, <code>current</code> and <code>transparent</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient" target="_blank" rel="noopener">MDN: gradient</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> CSS gradients are generated images: <em>linear</em> blends along a line, <em>radial</em> out from a point, <em>conic</em> around a point. The classes set the shape and the <code>.from-*</code>, <code>.via-*</code> and <code>.to-*</code> classes set the stops from Omnia colors. <strong>When to use:</strong> hero backgrounds, buttons, borders (via <code>border-image</code>), gradient text, progress and chart backgrounds. <strong>Gotchas:</strong> a gradient is a <code>background-image</code>, so it replaces other background images and can be tinted with <code>background-blend-mode</code>; the default interpolation is sRGB which can look muddy between complementary colors (use <code>in oklch</code>); and gradients are not animatable directly (use <code>@property</code> or move the background position). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient" target="_blank" rel="noopener">MDN: gradient</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient" target="_blank" rel="noopener">MDN: linear-gradient()</a>.</p>
+
+          <h3 class="oc-section-content__title" id="linear">Linear gradients</h3>
+          <p class="oc-section-content__desc">Direction keywords (<code>to-t</code>, <code>to-tr</code>, … <code>to-tl</code>) or fixed angles. <code>.bg-linear-to-r-oklch</code> interpolates in OKLCH for smoother mid tones.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.bg-linear-to-{t|tr|r|br|b|bl|l|tl}</code></td><td>background-image: linear-gradient(to {direction}, stops)</td></tr>
+                <tr><td><code>.bg-linear-{0|45|90|135|180|225|270|315}</code></td><td>background-image: linear-gradient({n}deg, stops)</td></tr>
+                <tr><td><code>.bg-linear-to-r-oklch</code></td><td>background-image: linear-gradient(to right in oklch, stops)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="bg-linear-to-r, bg-linear-to-br, bg-linear-45 + via">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-linear-to-r</span>
+                <div class="bg-linear-to-r from-red to-blue size-24 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-linear-to-br</span>
+                <div class="bg-linear-to-br from-yellow to-magenta size-24 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-linear-45 .via-white</span>
+                <div class="bg-linear-45 from-green via-white to-teal size-24 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-linear-to-r-oklch</span>
+                <div class="bg-linear-to-r-oklch from-red to-blue size-24 round-3"></div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="bg-linear-to-r from-red to-blue size-24 round-3"&gt;&lt;/div&gt;
+&lt;div class="bg-linear-to-br from-yellow to-magenta size-24 round-3"&gt;&lt;/div&gt;
+&lt;div class="bg-linear-45 from-green via-white to-teal size-24 round-3"&gt;&lt;/div&gt;
+&lt;div class="bg-linear-to-r-oklch from-red to-blue size-24 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="radial">Radial gradients</h3>
+          <p class="oc-section-content__desc">Circle or ellipse, optionally positioned at an edge or corner.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.bg-radial</code></td><td>radial-gradient(stops)</td></tr>
+                <tr><td><code>.bg-radial-circle</code></td><td>radial-gradient(circle, stops)</td></tr>
+                <tr><td><code>.bg-radial-ellipse</code></td><td>radial-gradient(ellipse, stops)</td></tr>
+                <tr><td><code>.bg-radial-at-{t|b|l|r|tl|br}</code></td><td>radial-gradient(at {position}, stops)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="bg-radial-circle, bg-radial-at-tl">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-radial-circle</span>
+                <div class="bg-radial-circle from-yellow to-red size-24 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-radial-at-tl</span>
+                <div class="bg-radial-at-tl from-white to-blue size-24 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-radial-at-b</span>
+                <div class="bg-radial-at-b from-orange via-red to-black size-24 round-3"></div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="bg-radial-circle from-yellow to-red size-24 round-3"&gt;&lt;/div&gt;
+&lt;div class="bg-radial-at-tl from-white to-blue size-24 round-3"&gt;&lt;/div&gt;
+&lt;div class="bg-radial-at-b from-orange via-red to-black size-24 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="conic">Conic gradients</h3>
+          <p class="oc-section-content__desc">Colors rotate around a center point — pie charts, color wheels, spinners.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.bg-conic</code></td><td>conic-gradient(stops)</td></tr>
+                <tr><td><code>.bg-conic-90 / .bg-conic-180</code></td><td>conic-gradient(from 90deg | 180deg, stops)</td></tr>
+                <tr><td><code>.bg-conic-at-t</code></td><td>conic-gradient(at top, stops)</td></tr>
+                <tr><td><code>.bg-conic-wheel</code></td><td>conic-gradient(red, yellow, lime, aqua, blue, magenta, red)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="bg-conic, bg-conic-wheel">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-conic</span>
+                <div class="bg-conic from-red via-yellow to-red size-24 round-full"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-conic-wheel</span>
+                <div class="bg-conic-wheel size-24 round-full"></div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="bg-conic from-red via-yellow to-red size-24 round-full"&gt;&lt;/div&gt;
+&lt;div class="bg-conic-wheel size-24 round-full"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="repeating">Repeating gradients</h3>
+          <p class="oc-section-content__desc">Stripes and rings from the <code>from</code> and <code>to</code> colors (10px bands).</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.bg-repeating-stripes</code></td><td>repeating-linear-gradient(45deg, from 0 10px, to 10px 20px)</td></tr>
+                <tr><td><code>.bg-repeating-stripes-x</code></td><td>repeating-linear-gradient(90deg, from 0 10px, to 10px 20px)</td></tr>
+                <tr><td><code>.bg-repeating-rings</code></td><td>repeating-radial-gradient(circle, from 0 10px, to 10px 20px)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="stripes and rings">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-repeating-stripes</span>
+                <div class="bg-repeating-stripes from-yellow to-black size-24 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-repeating-stripes-x</span>
+                <div class="bg-repeating-stripes-x from-white to-blue size-24 round-3"></div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.bg-repeating-rings</span>
+                <div class="bg-repeating-rings from-red to-white size-24 round-3"></div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;div class="bg-repeating-stripes from-yellow to-black size-24 round-3"&gt;&lt;/div&gt;
+&lt;div class="bg-repeating-stripes-x from-white to-blue size-24 round-3"&gt;&lt;/div&gt;
+&lt;div class="bg-repeating-rings from-red to-white size-24 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="color-stops">Color stops &amp; gradient text</h3>
+          <p class="oc-section-content__desc">Stops set custom properties, so they combine with every gradient class. <code>.text-gradient</code> clips the gradient to the text.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.from-{color}</code></td><td>--oc-gradient-from: var(--color-{color}-100)</td></tr>
+                <tr><td><code>.via-{color}</code></td><td>--oc-gradient-via + three-stop gradient</td></tr>
+                <tr><td><code>.to-{color}</code></td><td>--oc-gradient-to: var(--color-{color}-100)</td></tr>
+                <tr><td><code>.from-/to-/via-{white|black|current|transparent}</code></td><td>keyword stops</td></tr>
+                <tr><td><code>.text-gradient</code></td><td>background-clip: text; color: transparent</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="text-gradient">
+            
+            <p class="text-gradient bg-linear-to-r from-orange via-magenta to-blue font-3 font-bold">Gradient text</p>
+
+            
+            
+          <oc-code lang="html">&lt;p class="text-gradient bg-linear-to-r from-orange via-magenta to-blue font-3 font-bold"&gt;Gradient text&lt;/p&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">All radial shapes and positions</h3>
+          <p class="oc-section-content__desc">The same two stops with every radial class. <code>at-t</code>, <code>at-bl</code> style names place the center at an edge or corner.</p>
+
+          <oc-demo title="bg-radial-* positions">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-3 bg-radial-circle from-yellow to-blue">&nbsp;</div><code>.bg-radial-circle</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-radial-ellipse from-yellow to-blue">&nbsp;</div><code>.bg-radial-ellipse</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-radial-at-t from-yellow to-blue">&nbsp;</div><code>.bg-radial-at-t</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-radial-at-b from-yellow to-blue">&nbsp;</div><code>.bg-radial-at-b</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-radial-at-l from-yellow to-blue">&nbsp;</div><code>.bg-radial-at-l</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-radial-at-r from-yellow to-blue">&nbsp;</div><code>.bg-radial-at-r</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-radial-at-tl from-yellow to-blue">&nbsp;</div><code>.bg-radial-at-tl</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-radial-at-br from-yellow to-blue">&nbsp;</div><code>.bg-radial-at-br</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="bg-radial-at-tl from-yellow to-blue"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">All conic variants</h3>
+          <p class="oc-section-content__desc">Conic gradients sweep around a center, ideal for pie charts, color wheels and loading rings. <code>.bg-conic-90</code> and <code>-180</code> rotate the start angle; <code>.bg-conic-wheel</code> is a full hue wheel.</p>
+
+          <oc-demo title="bg-conic-*">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic">&nbsp;</div><code>.bg-conic</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic-90">&nbsp;</div><code>.bg-conic-90</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic-180">&nbsp;</div><code>.bg-conic-180</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic-at-t">&nbsp;</div><code>.bg-conic-at-t</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic-wheel">&nbsp;</div><code>.bg-conic-wheel</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="bg-conic"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Interpolation color space: sRGB vs OKLCH</h3>
+          <p class="oc-section-content__desc"><code>linear-gradient(in oklch, …)</code> blends in a perceptual color space, so mid-points stay vivid instead of turning grey. Compare the middle of both bars (same stops).</p>
+
+          <oc-demo title="bg-linear-to-r vs bg-linear-to-r-oklch">
+            <div class="bd-grid" style="grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))">
+              <div class="bd-cell"><div class="bd-box round-3 bg-linear-to-r from-yellow to-blue" style="aspect-ratio: 5 / 1">&nbsp;</div><code>.bg-linear-to-r (sRGB)</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-linear-to-r-oklch from-yellow to-blue" style="aspect-ratio: 5 / 1">&nbsp;</div><code>.bg-linear-to-r-oklch</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-linear-to-r from-green to-magenta" style="aspect-ratio: 5 / 1">&nbsp;</div><code>.bg-linear-to-r (sRGB)</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-linear-to-r-oklch from-green to-magenta" style="aspect-ratio: 5 / 1">&nbsp;</div><code>.bg-linear-to-r-oklch</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="bg-linear-to-r-oklch from-yellow to-blue"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Animate a gradient with @property</h3>
+          <p class="oc-section-content__desc">A gradient cannot transition, but a registered custom property can. <code>@property --angle</code> makes the angle numeric, so a transition (or animation) on it spins the gradient smoothly. Hover or focus the card. This is plain CSS (Chrome, Edge, Safari 16.4+, Firefox 128+).</p>
+
+          <oc-demo title="@property --angle + transition">
+            <div class="bd-grid">
+              <div class="bd-cell"><div class="bd-box round-3 grd-spin" tabindex="0">hover</div><code>--angle: 0deg to 360deg</code></div>
+            </div>
+          <oc-code lang="html">@property --angle { syntax: "&lt;angle&gt;"; inherits: false; initial-value: 0deg; }
+.card { background: linear-gradient(var(--angle), …); transition: --angle 1s; }
+.card:hover { --angle: 360deg; }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Linear and radial gradients work everywhere; conic gradients and <code>in oklch</code> interpolation need a modern browser — older ones show no background image.</p>
+          <oc-compat features="css.types.gradient.linear-gradient css.types.gradient.radial-gradient css.types.gradient.conic-gradient css.types.gradient.repeating-linear-gradient css.types.gradient.linear-gradient.interpolation_color_space css.properties.background-clip.text"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Gradient utilities come from <code>_gradients.scss</code>; the older presets <code>.bg-image-gradient-*</code> stay in <code>_backgrounds.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient" target="_blank" rel="noopener">MDN: linear-gradient()</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_gradients.scss</code></td><td>.bg-linear-*, .bg-radial-*, .bg-conic-*, .bg-repeating-*, .from-*, .via-*, .to-*, .text-gradient</td></tr>
+                  <tr><td><code>src/scss/utilities/_backgrounds.scss</code></td><td>.bg-image-*, .bg-pos-*, .bg-size-*</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../layout/backgrounds.html">Backgrounds</a>
+               · 
+              <a class="source-link" href="../colors/">Colors</a>
+               · 
+              <a class="source-link" href="../borders/sides-images.html">Border sides &amp; images</a>
+            </p>
+          </div>
+        </div>
+      </section>

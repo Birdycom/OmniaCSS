@@ -1,0 +1,14 @@
+# Normalize line endings to CRLF on checkout (Windows).
+# This avoids "LF will be replaced by CRLF" warnings when adding files.
+* text=auto eol=crlf
+
+# Binary files: do not modify line endings
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary

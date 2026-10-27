@@ -1,0 +1,26 @@
+// SCSS Document
+// File: src/scss/utilities/_drop_shadow_colors.scss
+// Description: Color classes for the drop-shadow filter (.drop-shadow-sm … -lg read --oc-shadow-color).
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.4.0
+// Framework: OmniaCSS
+// Purpose: Generate .drop-shadow-current, .drop-shadow-transparent and .drop-shadow-{omnia color} (also hover: via the engine).
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow
+// Note: class="drop-shadow-lg drop-shadow-vividblue" — the color class only sets --oc-shadow-color,
+//       the size class draws the shadow with a 25-30% alpha of that color.
+// Map: keywords -> every Omnia color
+
+@use "sass:string";
+@use '../utilities/' as *;
+
+.drop-shadow-current { --oc-shadow-color: currentcolor; }
+.drop-shadow-transparent { --oc-shadow-color: transparent; }
+
+@each $group, $families in $omnia-colors {
+  @each $family, $colors in $families {
+    @each $color, $props in $colors {
+      .drop-shadow-#{string.to-lower-case(#{$color})} { --oc-shadow-color: var(--color-#{string.to-lower-case(#{$color})}-50); }
+    }
+  }
+}

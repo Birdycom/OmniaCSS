@@ -1,0 +1,33 @@
+// SCSS Document
+// File: src/scss/utilities/_scroll_spacing.scss
+// Description: Completes scroll-margin and scroll-padding: every side (t, r, b, l, x, y) on the same steps as .scroll-m-4.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.4.0
+// Framework: OmniaCSS
+// Purpose: Generate .scroll-{m|p}-{12|16}, .scroll-{m|p}{t|r|b|l|x|y}-{0|1|2|8|12|16}.
+// Note: .scroll-{m|p}{s|e}-* (logical) live in _layout_extras.scss; the -4 steps and .scroll-{m|p}-{0|1|2|4|8} in _interactivity.scss.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin
+// Map: scroll-margin sides -> scroll-padding sides -> scrollbar
+
+$_scroll-steps: ('0': 0, '1': 0.25rem, '2': 0.5rem, '4': 1rem, '8': 2rem, '12': 3rem, '16': 4rem);
+$_scroll-sides: (
+  't': (top), 'r': (right), 'b': (bottom), 'l': (left),
+  'x': (left, right), 'y': (top, bottom)
+);
+
+@each $prop, $letter in ('margin': 'm', 'padding': 'p') {
+  @each $key, $value in $_scroll-steps {
+    @if $key != '0' and $key != '1' and $key != '2' and $key != '4' and $key != '8' {
+      .scroll-#{$letter}-#{$key} { scroll-#{$prop}: $value; }
+    }
+    @each $side, $edges in $_scroll-sides {
+      // .scroll-m{x|y|t|r|b|l}-4 already exist (_interactivity.scss): skip the exact duplicates
+      @if $key != '4' {
+        .scroll-#{$letter}#{$side}-#{$key} {
+          @each $edge in $edges { scroll-#{$prop}-#{$edge}: $value; }
+        }
+      }
+    }
+  }
+}

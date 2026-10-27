@@ -1,0 +1,72 @@
+// SCSS Document
+// File: src/scss/utilities/_writing_modes.scss
+// Description: Writing modes, direction, text orientation, unicode-bidi and logical inset/sizing utilities.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .write-*, .dir-*, .text-orient-*, .bidi-*, .start-* / .end-* / .inset-inline-* / .inset-block-*
+//          and .inline-size-* / .block-size-* classes.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values
+// Note: logical margin/padding live in _spacing_margin.scss / _spacing_padding.scss (.m-inline-*, .p-block-start-*).
+//       The older .writingmode-* classes in _text.scss remain available.
+// Map: writing-mode -> direction -> text-orientation -> unicode-bidi -> logical inset -> logical sizing
+
+/* Writing mode */
+.write-horizontal { writing-mode: horizontal-tb; }
+.write-vertical-rl { writing-mode: vertical-rl; }
+.write-vertical-lr { writing-mode: vertical-lr; }
+.write-sideways-rl { writing-mode: sideways-rl; }
+.write-sideways-lr { writing-mode: sideways-lr; }
+
+/* Direction */
+.dir-ltr { direction: ltr; }
+.dir-rtl { direction: rtl; }
+
+/* Text orientation (vertical writing modes only) */
+.text-orient-mixed { text-orientation: mixed; }
+.text-orient-upright { text-orientation: upright; }
+.text-orient-sideways { text-orientation: sideways; }
+
+/* Unicode bidi */
+.bidi-normal { unicode-bidi: normal; }
+.bidi-embed { unicode-bidi: embed; }
+.bidi-isolate { unicode-bidi: isolate; }
+.bidi-override { unicode-bidi: bidi-override; }
+.bidi-isolate-override { unicode-bidi: isolate-override; }
+.bidi-plaintext { unicode-bidi: plaintext; }
+
+// ---------------------------------------------------------------------------
+// Logical inset — follows writing-mode and direction (start = left in LTR, right in RTL)
+// ---------------------------------------------------------------------------
+$_logical-inset: (
+  'auto': auto,
+  '0': 0,
+  '1': 0.25rem,
+  '2': 0.5rem,
+  '4': 1rem,
+  '8': 2rem,
+  'full': 100%
+);
+
+/* Logical inset */
+@each $key, $value in $_logical-inset {
+  .start-#{$key} { inset-inline-start: $value; }
+  .end-#{$key} { inset-inline-end: $value; }
+  .inset-inline-#{$key} { inset-inline: $value; }
+  .inset-block-#{$key} { inset-block: $value; }
+}
+
+/* Logical sizing — inline-size (width in horizontal-tb) and block-size (height in horizontal-tb) */
+.inline-size-auto { inline-size: auto; }
+.inline-size-full { inline-size: 100%; }
+.inline-size-fit { inline-size: fit-content; }
+.inline-size-min { inline-size: min-content; }
+.inline-size-max { inline-size: max-content; }
+.block-size-auto { block-size: auto; }
+.block-size-full { block-size: 100%; }
+.block-size-fit { block-size: fit-content; }
+.block-size-min { block-size: min-content; }
+.block-size-max { block-size: max-content; }
+.max-inline-size-prose { max-inline-size: 65ch; }
+.max-inline-size-full { max-inline-size: 100%; }

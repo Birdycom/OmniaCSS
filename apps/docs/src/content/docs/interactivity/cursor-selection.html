@@ -1,0 +1,89 @@
+<!--oc-page {"title": "OmniaCSS Docs - Interactivity: Cursor, selection & pointer", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="cursor-selection">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Cursor, selection &amp; pointer</h2>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_interactivity.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.4.0</span>
+          <p class="oc-section-header__desc">How the pointer looks and what the user can select or click. <a href="./">All interactivity utilities</a>.</p>
+        </div>
+        <div class="oc-section-content">
+<!-- Cursor -->
+          <h3 class="oc-section-content__title" id="cursor">Cursor</h3>
+          <p class="oc-section-content__desc"><strong>What:</strong> the mouse pointer shape while hovering an element. <strong>When:</strong> <code>pointer</code> for custom clickable elements, <code>not-allowed</code> for disabled actions, <code>grab</code>/<code>grabbing</code> for draggable items, <code>wait</code> and <code>progress</code> during loading. <strong>Gotchas:</strong> real buttons and links already get the right cursor, so add it only to non-semantic elements (and prefer making them real buttons); the cursor is invisible on touch devices. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/cursor" target="_blank" rel="noopener">MDN: cursor</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.cursor-auto</code></td><td>cursor: auto</td></tr>
+                <tr><td><code>.cursor-default</code></td><td>cursor: default</td></tr>
+                <tr><td><code>.cursor-pointer</code></td><td>cursor: pointer</td></tr>
+                <tr><td><code>.cursor-wait</code></td><td>cursor: wait</td></tr>
+                <tr><td><code>.cursor-text</code></td><td>cursor: text</td></tr>
+                <tr><td><code>.cursor-move</code></td><td>cursor: move</td></tr>
+                <tr><td><code>.cursor-help</code></td><td>cursor: help</td></tr>
+                <tr><td><code>.cursor-not-allowed</code></td><td>cursor: not-allowed</td></tr>
+                <tr><td><code>.cursor-grab</code></td><td>cursor: grab</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.cursor-grabbing</code></td><td>cursor: grabbing</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.cursor-crosshair</code></td><td>cursor: crosshair</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Hover each card to see the cursor">
+            <div class="oc-fx-grid">
+              <div class="oc-fx-card cursor-pointer" tabindex="0"><strong>.cursor-pointer</strong><span>link / button</span></div>
+              <div class="oc-fx-card cursor-help" tabindex="0"><strong>.cursor-help</strong><span>help</span></div>
+              <div class="oc-fx-card cursor-wait" tabindex="0"><strong>.cursor-wait</strong><span>busy</span></div>
+              <div class="oc-fx-card cursor-text" tabindex="0"><strong>.cursor-text</strong><span>text</span></div>
+              <div class="oc-fx-card cursor-move" tabindex="0"><strong>.cursor-move</strong><span>move</span></div>
+              <div class="oc-fx-card cursor-not-allowed" tabindex="0"><strong>.cursor-not-allowed</strong><span>disabled</span></div>
+              <div class="oc-fx-card cursor-grab" tabindex="0"><strong>.cursor-grab</strong><span>grab</span></div>
+              <div class="oc-fx-card cursor-crosshair" tabindex="0"><strong>.cursor-crosshair</strong><span>crosshair</span></div>
+            </div>
+          </oc-demo>
+
+          <!-- User Select -->
+          <h3 class="oc-section-content__title" id="user-select">User Select</h3>
+          <p class="oc-section-content__desc"><strong>What:</strong> whether text can be selected. <strong>When:</strong> <code>none</code> on UI chrome such as button labels or drag handles, <code>all</code> on values users copy in one click (API keys, IDs). <strong>Gotcha:</strong> do not disable selection on real content; it hurts accessibility and copy and paste. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/user-select" target="_blank" rel="noopener">MDN: user-select</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.select-none</code></td><td>user-select: none</td></tr>
+                <tr><td><code>.select-text</code></td><td>user-select: text</td></tr>
+                <tr><td><code>.select-all</code></td><td>user-select: all</td></tr>
+                <tr><td><code>.select-auto</code></td><td>user-select: auto</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <oc-demo title="Try to select the text">
+            <div class="oc-fx-grid">
+              <div class="oc-fx-card select-none"><strong>.select-none</strong><span>This text cannot be selected.</span></div>
+              <div class="oc-fx-card select-all"><strong>.select-all</strong><span>One click selects everything.</span></div>
+              <div class="oc-fx-card select-text"><strong>.select-text</strong><span>Normal text selection.</span></div>
+            </div>
+          </oc-demo>
+
+          <!-- Pointer Events -->
+          <h3 class="oc-section-content__title" id="pointer-events">Pointer Events</h3>
+          <p class="oc-section-content__desc"><strong>What:</strong> whether an element is a target of mouse and touch events. <strong>When:</strong> <code>none</code> lets clicks fall through decorative overlays, gradients and disabled-looking items to what is beneath. <strong>Gotcha:</strong> it does not remove an element from keyboard navigation: a link with <code>pointer-events: none</code> can still be tabbed to and activated, so also use <code>inert</code> or <code>aria-disabled</code> semantics. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events" target="_blank" rel="noopener">MDN: pointer-events</a>.</p>
+          <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+            <tbody>
+              <tr><td><code>.pointer-events-none</code></td><td>pointer-events: none</td></tr>
+              <tr><td><code>.pointer-events-auto</code></td><td>pointer-events: auto</td></tr>
+            </tbody>
+          </table>
+
+          <oc-demo title="pointer-events-none: the element ignores the mouse">
+            <div class="oc-fx-grid">
+              <a class="oc-fx-card" href="#pointer-events"><strong>normal link</strong><span>hover: pointer, clickable</span></a>
+              <a class="oc-fx-card pointer-events-none" href="#pointer-events"><strong>.pointer-events-none</strong><span>no hover, not clickable</span></a>
+            </div>
+          </oc-demo>
+        </div>
+      </section>

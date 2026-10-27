@@ -1,0 +1,123 @@
+<!--oc-page {"title": "OmniaCSS Docs - Interactivity: Form controls", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="forms">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Form controls</h2>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_interactivity.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.4.0</span>
+          <p class="oc-section-header__desc">Accent and caret color, appearance, color scheme, resizable boxes, auto-growing fields and the customizable select. <a href="./">All interactivity utilities</a>.</p>
+        </div>
+        <div class="oc-section-content">
+<!-- Accent, Appearance, Caret, Scheme -->
+          <h3 class="oc-section-content__title" id="accent">Accent Color, Appearance, Caret &amp; Color Scheme</h3>
+          <p class="oc-section-content__desc"><strong>What:</strong> <code>accent-color</code> tints native checkboxes, radios, range and progress in one declaration; <code>appearance</code> removes or restores native styling; <code>caret-color</code> colors the text cursor; <code>color-scheme</code> tells the browser which scheme the element supports so it can render native widgets, scrollbars and default colors to match. <strong>Gotchas:</strong> <code>accent-color</code> picks a readable contrast color itself, so test light and dark; <code>appearance: none</code> removes the focus ring and the check mark, and you must rebuild both. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/accent-color" target="_blank" rel="noopener">MDN: accent-color</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+              <tbody>
+                <tr><td><code>.accent-auto</code></td><td>accent-color: auto</td></tr>
+                <tr><td><code>.accent-blue</code></td><td>accent-color: var(--color-vividblue-95)</td></tr>
+                <tr><td><code>.accent-red</code></td><td>accent-color: var(--color-red-60)</td></tr>
+                <tr><td><code>.accent-green</code></td><td>accent-color: var(--color-green-40)</td></tr>
+                <tr><td><code>.appearance-none</code></td><td>appearance: none</td></tr>
+                <tr><td><code>.appearance-auto</code></td><td>appearance: auto</td></tr>
+                <tr><td><code>.caret-auto</code></td><td>caret-color: auto</td></tr>
+                <tr><td><code>.caret-transparent</code></td><td>caret-color: transparent</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.scheme-normal</code></td><td>color-scheme: normal</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.scheme-light</code></td><td>color-scheme: light</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.scheme-dark</code></td><td>color-scheme: dark</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.scheme-light-dark</code></td><td>color-scheme: light dark</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.scheme-only-light</code></td><td>color-scheme: only light</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.scheme-only-dark</code></td><td>color-scheme: only dark</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="accent-color and caret-color on native controls">
+            <div class="flex flex-wrap gap-3 align-items-center">
+              <label class="flex gap-0.5 align-items-center accent-blue"><input type="checkbox" checked> .accent-blue</label>
+              <label class="flex gap-0.5 align-items-center accent-red"><input type="radio" checked> .accent-red</label>
+              <label class="flex gap-0.5 align-items-center accent-green"><input type="range" value="70"> .accent-green</label>
+              <input class="caret-red p-0.5 round-2 oc-demo-input" value="Type here: red caret (.caret-red)">
+            </div>
+          </oc-demo>
+          <oc-demo title="color-scheme switches the native widgets">
+            <div class="flex flex-wrap gap-2">
+              <div class="scheme-light oc-fx-card oc-canvas"><strong>.scheme-light</strong><select><option>Light select</option></select><input type="date"></div>
+              <div class="scheme-dark oc-fx-card oc-canvas"><strong>.scheme-dark</strong><select><option>Dark select</option></select><input type="date"></div>
+            </div>
+          </oc-demo>
+
+          <!-- Resize -->
+          <h3 class="oc-section-content__title" id="resize">Resize</h3>
+          <p class="oc-section-content__desc"><strong>What:</strong> lets the user drag the corner of an element to resize it. <strong>When:</strong> textareas (<code>vertical</code> only is the common choice) and panels. <strong>Gotcha:</strong> it only works when <code>overflow</code> is not <code>visible</code>, and it is a pointer feature: keyboard users cannot resize, so do not hide content behind it. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/resize" target="_blank" rel="noopener">MDN: resize</a>.</p>
+          <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
+            <tbody>
+              <tr><td><code>.resize-none</code></td><td>resize: none</td></tr>
+              <tr><td><code>.resize</code></td><td>resize: both</td></tr>
+              <tr><td><code>.resize-x</code></td><td>resize: horizontal</td></tr>
+              <tr><td><code>.resize-y</code></td><td>resize: vertical</td></tr>
+            </tbody>
+          </table>
+
+          <oc-demo title="Drag the bottom-right corner">
+            <div class="flex flex-wrap gap-2">
+              <div class="oc-fx-card resize overflow-auto" style="min-inline-size: 10rem; min-block-size: 5rem;"><strong>.resize</strong><span>both directions</span></div>
+              <div class="oc-fx-card resize-x overflow-auto" style="min-inline-size: 10rem;"><strong>.resize-x</strong><span>horizontal only</span></div>
+              <div class="oc-fx-card resize-y overflow-auto" style="min-block-size: 5rem;"><strong>.resize-y</strong><span>vertical only</span></div>
+            </div>
+          </oc-demo>
+
+          <!-- Field Sizing -->
+          <h3 class="oc-section-content__title mt-10" id="field-sizing">Field Sizing</h3>
+          <p class="oc-section-content__desc">Let <code>&lt;textarea&gt;</code>, <code>&lt;input&gt;</code> and <code>&lt;select&gt;</code> grow and shrink with their content — no JavaScript auto-resize needed. Combine with a <code>min-*</code>/<code>max-*</code> size to keep the field in bounds. <strong>Gotcha:</strong> a field with <code>field-sizing: content</code> has no intrinsic width of its own (about one character when empty), so set a <code>min-inline-size</code> as well. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing" target="_blank" rel="noopener">MDN: field-sizing</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.field-sizing-content</code></td><td>field-sizing: content</td></tr>
+                <tr><td><code>.field-sizing-fixed</code></td><td>field-sizing: fixed</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          
+
+          <oc-demo title="field-sizing-content: the field grows while you type">
+            <div class="flex flex-wrap gap-2 align-items-start">
+              <textarea class="field-sizing-content oc-demo-input p-0.5 round-2" style="min-inline-size: 12rem; max-inline-size: 28rem;" aria-label="Auto-growing textarea">Type here - the textarea grows with its content.</textarea>
+              <input class="field-sizing-content oc-demo-input p-0.5 round-2" value="short" aria-label="Auto-growing input">
+            </div>
+          <oc-code lang="html">&lt;textarea class="field-sizing-content"&gt;&lt;/textarea&gt;</oc-code></oc-demo>
+
+          <!-- Customizable Select -->
+          <h3 class="oc-section-content__title mt-10" id="base-select">Customizable Select</h3>
+          <p class="oc-section-content__desc"><code>.appearance-base-select</code> opts a <code>&lt;select&gt;</code> (and its <code>::picker(select)</code> dropdown) into the new fully stylable rendering, so options can contain icons and rich HTML. <strong>Gotchas:</strong> only Chromium renders it today, other browsers show a normal select (a good fallback); the option content must stay accessible text, and you style the open list through <code>::picker(select)</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/appearance" target="_blank" rel="noopener">MDN: appearance</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.appearance-base-select</code></td><td>appearance: base-select (select and ::picker(select))</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="appearance-base-select (Chrome 135+; other browsers show a normal select)">
+            <select class="appearance-base-select oc-rich-select" aria-label="Choose a fruit">
+              <button><selectedcontent></selectedcontent></button>
+              <option value="apple">&#x1F34E; Apple</option>
+              <option value="banana">&#x1F34C; Banana</option>
+              <option value="grapes">&#x1F347; Grapes</option>
+            </select>
+          </oc-demo>
+        </div>
+      </section>

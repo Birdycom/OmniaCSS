@@ -1,0 +1,93 @@
+<!--oc-page {"title":"OmniaCSS Docs - Height","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<section class="oc-docs-section" id="height">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Height</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_sizing.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Utilities for setting the height of an element using rem-based scales, percentages, intrinsic keywords or viewport units.</p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc">Height utilities set <code>height</code>. Unlike width, a percentage height only works when the parent has a definite height; otherwise it falls back to <code>auto</code>, which is the number one reason <code>.h-full</code> "does not work". Prefer letting content define the height and use <code>min-height</code> for floors. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/height" target="_blank" rel="noopener">MDN: height</a>.</p>
+
+          <h3 class="oc-section-content__title mt-8">Scale Classes</h3>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.h-1</code></td><td>1rem (16px)</td></tr>
+                <tr><td><code>.h-4</code></td><td>4rem</td></tr>
+                <tr><td><code>.h-8</code></td><td>8rem</td></tr>
+                <tr><td><code>.h-12</code></td><td>12rem</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.h-full</code></td><td>100%</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.h-screen</code></td><td>100vh</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.h-px</code></td><td>1px</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Height scale"><div class="dm-grid" style="--dm-min:7rem"><div class="dm-tile"><code>.h-1</code><div class="dm-area flex align-items-end"><div class="dm-box h-1 dm-box--tiny">h-1</div></div></div><div class="dm-tile"><code>.h-4</code><div class="dm-area flex align-items-end"><div class="dm-box h-4 w-4">h-4</div></div></div><div class="dm-tile"><code>.h-8</code><div class="dm-area flex align-items-end"><div class="dm-box h-8 w-4">h-8</div></div></div><div class="dm-tile"><code>.h-12</code><div class="dm-area flex align-items-end"><div class="dm-box h-12 w-4">h-12</div></div></div><div class="dm-tile"><code>.h-full</code><div class="dm-area" style="block-size:8rem"><div class="dm-box h-full">h-full</div></div></div></div><oc-code lang="html">&lt;div class="h-8"&gt;8rem tall&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Keyword Classes</h3>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.h-auto</code></td><td>auto</td></tr>
+                <tr><td><code>.h-min</code></td><td>min-content</td></tr>
+                <tr><td><code>.h-max</code></td><td>max-content</td></tr>
+                <tr><td><code>.h-fit</code></td><td>fit-content</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.h-stretch</code></td><td>stretch — fills the containing block, margins included (falls back to <code>-webkit-fill-available</code> / <code>-moz-available</code>)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.h-screen</code></td><td>100vh</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="Keyword heights in a 8rem parent"><div class="dm-grid" style="--dm-min:10rem">
+<div class="dm-tile"><code>.h-auto</code><div class="dm-area "><div style="block-size:7rem;" class="dm-ring"><div class="h-auto dm-box">Content</div></div></div></div>
+<div class="dm-tile"><code>.h-min</code><div class="dm-area "><div style="block-size:7rem;" class="dm-ring"><div class="h-min dm-box">Content</div></div></div></div>
+<div class="dm-tile"><code>.h-fit</code><div class="dm-area "><div style="block-size:7rem;" class="dm-ring"><div class="h-fit dm-box">Content</div></div></div></div>
+<div class="dm-tile"><code>.h-stretch</code><div class="dm-area "><div style="block-size:7rem;" class="dm-ring"><div class="h-stretch dm-box">Content</div></div></div></div>
+<div class="dm-tile"><code>.h-full</code><div class="dm-area "><div style="block-size:7rem;" class="dm-ring"><div class="h-full dm-box">Content</div></div></div></div>
+</div><oc-code lang="html">&lt;div class="h-stretch"&gt;Fills the available height&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Viewport heights: vh, dvh, svh, lvh</h3>
+
+          <p class="oc-section-content__desc">On mobile the browser toolbar slides away while scrolling, so <code>100vh</code> is as tall as the <em>largest</em> viewport and the bottom of a "full screen" element can hide behind the toolbar. Three newer unit families fix this: <code>svh</code> is the <em>small</em> viewport (toolbar visible), <code>lvh</code> the <em>large</em> one (toolbar hidden) and <code>dvh</code> the <em>dynamic</em> viewport that follows the toolbar and therefore resizes while scrolling. OmniaCSS ships <code>.h-dvh</code>, <code>.min-h-dvh</code> and <code>.max-h-dvh</code>; <code>.h-screen-safe</code> additionally subtracts the safe-area insets of notched devices. On desktop all units are identical. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length#viewport-percentage_lengths" target="_blank" rel="noopener">MDN: viewport units</a>.</p>
+
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class / unit</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><code>.h-screen</code></td><td>100vh — largest viewport (legacy)</td></tr>
+                <tr><td><code>.h-dvh</code></td><td>100dvh — dynamic: follows the browser UI</td></tr>
+                <tr><td><code>.min-h-dvh</code></td><td>min-height: 100dvh</td></tr>
+                <tr><td><code>.h-screen-safe</code></td><td>100dvh minus safe-area insets</td></tr>
+                <tr><td><code>svh</code> / <code>lvh</code></td><td>Small and large viewport; use in custom CSS, e.g. <code>height: 100svh</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <oc-demo title="vh versus dvh versus svh (10 percent bars)"><div class="dm-grid" style="--dm-min:9rem">
+<div class="dm-tile"><code>height: 10vh</code><div class="dm-area "><div style="block-size:10vh" class="dm-bar">10vh</div></div></div>
+<div class="dm-tile"><code>height: 10svh</code><div class="dm-area "><div style="block-size:10svh" class="dm-bar">10svh</div></div></div>
+<div class="dm-tile"><code>height: 10lvh</code><div class="dm-area "><div style="block-size:10lvh" class="dm-bar">10lvh</div></div></div>
+<div class="dm-tile"><code>.h-dvh scaled (10dvh)</code><div class="dm-area "><div style="block-size:10dvh" class="dm-bar">10dvh</div></div></div>
+</div><oc-code lang="html">&lt;section class="min-h-dvh flex flex-col"&gt;
+  &lt;main class="flex-1"&gt;…&lt;/main&gt;
+  &lt;footer&gt;Always visible on mobile&lt;/footer&gt;
+&lt;/section&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc"><code>stretch</code> is new; the class also sets the prefixed <code>-webkit-fill-available</code> / <code>-moz-available</code> fallbacks.</p>
+          <oc-compat features="css.properties.height css.properties.height.fit-content css.properties.height.stretch"></oc-compat>
+        </div>
+      </section>

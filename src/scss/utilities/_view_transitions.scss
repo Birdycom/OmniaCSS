@@ -1,0 +1,64 @@
+// SCSS Document
+// File: src/scss/utilities/_view_transitions.scss
+// Description: View Transitions utilities — name and group elements for animated view changes.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .vt-name-*, .vt-class-* classes and the opt-in mixin for cross-document transitions.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+// Note: @view-transition { navigation: auto; } is a global at-rule. It is NOT emitted by default;
+//       include the mixin view-transition-navigation() in your own stylesheet to opt in.
+// Map: view-transition-name -> view-transition-class -> pseudo-element animations -> opt-in mixin
+
+/* View transition name — each name must be unique on the page */
+.vt-name-none { view-transition-name: none; }
+.vt-name-auto { view-transition-name: auto; }
+.vt-name-match-element { view-transition-name: match-element; }
+.vt-name-hero { view-transition-name: hero; }
+.vt-name-header { view-transition-name: header; }
+.vt-name-main { view-transition-name: main; }
+.vt-name-media { view-transition-name: media; }
+
+/* View transition class — share transition styles between named elements */
+.vt-class-card { view-transition-class: card; }
+.vt-class-fade { view-transition-class: fade; }
+.vt-class-slide { view-transition-class: slide; }
+
+/* Preset animations for the classes above */
+::view-transition-group(*.fade) {
+  animation-duration: 200ms;
+}
+::view-transition-old(*.slide) {
+  animation: oc-vt-slide-out 250ms ease-in both;
+}
+::view-transition-new(*.slide) {
+  animation: oc-vt-slide-in 250ms ease-out both;
+}
+
+@keyframes oc-vt-slide-out {
+  to { opacity: 0; transform: translateX(-2rem); }
+}
+@keyframes oc-vt-slide-in {
+  from { opacity: 0; transform: translateX(2rem); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/// Opt in to cross-document (MPA) view transitions.
+/// @group ViewTransitions
+/// @example scss
+///   @use 'utilities/view_transitions' as vt;
+///   @include vt.view-transition-navigation;
+@mixin view-transition-navigation {
+  @view-transition {
+    navigation: auto;
+  }
+}

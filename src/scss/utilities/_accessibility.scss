@@ -1,0 +1,42 @@
+// SCSS Document
+// File: src/scss/utilities/_accessibility.scss
+// Description: Accessibility utility classes
+// Copyright: 2021-2026 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: screen reader, forced colors
+
+/* Accessibility utilities */
+
+/* sr-only — visually hides element but keeps it accessible to screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* not-sr-only — undoes sr-only to make element visible again. */
+.not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* forced-color-adjust — controls whether the browser can override colors
+   in forced-colors mode (Windows High Contrast). */
+.forced-color-auto { forced-color-adjust: auto; }
+.forced-color-none { forced-color-adjust: none; }
+
+/* End Accessibility utilities */

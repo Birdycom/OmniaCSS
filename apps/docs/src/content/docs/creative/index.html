@@ -1,0 +1,233 @@
+<!--oc-page {"title":"OmniaCSS Docs - Creative CSS","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .cr-stage { display: grid; place-items: center; inline-size: 100%; min-block-size: 15rem; padding: 2rem 1rem; box-sizing: border-box; border-radius: 14px; background: var(--color-black-40); overflow: hidden; }\n    .cr-stage--light { background: var(--oc-muted); }\n    @property --cr-angle { syntax: \"<angle>\"; inherits: true; initial-value: 0deg; }\n    .cr-glow { --cr-ring: conic-gradient(from var(--cr-angle), var(--color-vividblue-80), var(--color-magenta-50), var(--color-orange-50), var(--color-teal-50), var(--color-vividblue-80)); position: relative; display: grid; place-items: center; inline-size: 14rem; block-size: 9rem; border: 3px solid transparent; border-radius: 18px; background: var(--cr-ring) border-box; color: var(--color-white-50); font-weight: 700; isolation: isolate; animation: cr-spin 4s linear infinite; }\n    .cr-glow::before { content: \"\"; position: absolute; inset: -3px; z-index: -1; border-radius: inherit; background: var(--cr-ring); filter: blur(1.5rem); opacity: 0.75; }\n    .cr-glow::after { content: \"\"; position: absolute; inset: 0; z-index: -1; border-radius: 15px; background: var(--color-black-30); }\n    @keyframes cr-spin { to { --cr-angle: 360deg; } }\n    .cr-neon { position: relative; padding: 0.9rem 2.2rem; border: 2px solid var(--color-skycyan-50); border-radius: 6px; background: transparent; color: var(--color-skycyan-50); font: inherit; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; overflow: hidden; transition: color 0.4s, box-shadow 0.4s; isolation: isolate; }\n    .cr-neon::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: var(--color-skycyan-50); scale: 0 1; transform-origin: left; transition: scale 0.4s; }\n    .cr-neon:hover, .cr-neon:focus-visible { color: var(--color-black-40); box-shadow: 0 0 0.6rem var(--color-skycyan-50), 0 0 2.5rem var(--color-skycyan-50), 0 0 5rem oklch(from var(--color-skycyan-50) l c h / 0.5); outline: none; }\n    .cr-neon:hover::before, .cr-neon:focus-visible::before { scale: 1 1; }\n    .cr-flip { inline-size: 12rem; block-size: 15rem; perspective: 60rem; }\n    .cr-flip-inner { position: relative; block-size: 100%; transform-style: preserve-3d; transition: rotate 0.8s cubic-bezier(0.3, 1.4, 0.5, 1); }\n    .cr-flip:hover .cr-flip-inner, .cr-flip:focus-within .cr-flip-inner { rotate: y 180deg; }\n    .cr-face { position: absolute; inset: 0; display: grid; place-items: center; padding: 1rem; border-radius: 16px; backface-visibility: hidden; color: var(--color-white-50); font-weight: 700; text-align: center; }\n    .cr-front { background: linear-gradient(160deg, var(--color-vividblue-80), var(--color-indigo-60)); }\n    .cr-back { rotate: y 180deg; background: linear-gradient(160deg, var(--color-magenta-50), var(--color-purple-60)); }\n    .cr-glass-stage { position: relative; display: grid; inline-size: 100%; place-items: center; min-block-size: 16rem; border-radius: 14px; overflow: hidden; background: var(--color-black-40); }\n    .cr-blob { position: absolute; inline-size: 9rem; aspect-ratio: 1; border-radius: 50%; filter: blur(4px); animation: cr-float 6s ease-in-out infinite alternate; }\n    .cr-blob:nth-child(1) { background: var(--color-magenta-50); top: 10%; left: 18%; }\n    .cr-blob:nth-child(2) { background: var(--color-vividblue-80); bottom: 8%; right: 18%; animation-delay: -3s; }\n    .cr-blob:nth-child(3) { background: var(--color-orange-50); top: 45%; left: 48%; inline-size: 5rem; animation-duration: 8s; }\n    @keyframes cr-float { to { translate: 2rem -1.5rem; scale: 1.15; } }\n    .cr-glass { position: relative; display: grid; gap: 0.5rem; inline-size: min(85%, 17rem); padding: 1.5rem; border: 1px solid oklch(from var(--color-white-50) l c h / 0.35); border-radius: 18px; background: oklch(from var(--color-white-50) l c h / 0.12); backdrop-filter: blur(14px) saturate(1.4); color: var(--color-white-50); box-shadow: 0 1rem 2.5rem oklch(from var(--color-black-50) l c h / 0.35); }\n    .cr-glass b { font-size: 1.2rem; }\n    .cr-fill { position: relative; margin: 0; font-size: clamp(2rem, 7vw, 4rem); font-weight: 900; letter-spacing: 0.05em; color: transparent; -webkit-text-stroke: 1px var(--color-white-60); background: linear-gradient(var(--color-skycyan-50), var(--color-skycyan-50)) left / 0% 100% no-repeat; background-clip: text; transition: background-size 0.8s ease; cursor: default; }\n    .cr-fill:hover { background-size: 100% 100%; }\n    .cr-type { inline-size: 23ch; margin: 0; font-family: var(--oc-font-mono, monospace); font-size: 1.25rem; color: var(--color-green-50); white-space: nowrap; overflow: hidden; border-inline-end: 0.6ch solid var(--color-green-50); animation: cr-typing 3.5s steps(23) infinite alternate, cr-caret 0.6s step-end infinite; }\n    @keyframes cr-typing { from { inline-size: 0; } }\n    @keyframes cr-caret { 50% { border-color: transparent; } }\n    .cr-wave { display: flex; gap: 0.05em; margin: 0; font-size: 2.5rem; font-weight: 900; color: var(--color-white-50); }\n    .cr-wave span { animation: cr-jump 1.4s ease-in-out infinite; text-shadow: 0 0.15em 0.3em oklch(from var(--color-magenta-50) l c h / 0.6); }\n    @keyframes cr-jump { 0%, 40%, 100% { translate: 0 0; color: var(--color-white-50); } 20% { translate: 0 -0.35em; color: var(--color-magenta-50); } }\n    .cr-reveal { position: relative; display: grid; place-items: center; inline-size: min(100%, 22rem); block-size: 12rem; border-radius: 16px; overflow: hidden; background: var(--color-black-30); color: var(--color-white-60); font-weight: 700; cursor: crosshair; }\n    .cr-reveal-top { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(135deg, var(--color-orange-50), var(--color-magenta-50)); color: var(--color-white-50); font-size: 1.4rem; clip-path: circle(0% at 50% 50%); transition: clip-path 0.7s cubic-bezier(0.65, 0, 0.35, 1); }\n    .cr-reveal:hover .cr-reveal-top { clip-path: circle(75% at 50% 50%); }\n    .cr-read { position: relative; block-size: 13rem; inline-size: min(100%, 28rem); overflow-y: auto; border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .cr-read-bar { position: sticky; top: 0; block-size: 5px; background: linear-gradient(90deg, var(--color-vividblue-80), var(--color-magenta-50)); transform-origin: left; scale: 0 1; animation: cr-grow linear both; animation-timeline: scroll(nearest block); }\n    @keyframes cr-grow { to { scale: 1 1; } }\n    .cr-read p { margin: 0; padding: 0.75rem 1rem; line-height: 1.6; }\n    .cr-switch-stage { display: grid; place-items: center; gap: 1rem; inline-size: min(100%, 20rem); padding: 1.5rem; border-radius: 14px; background: var(--color-white-2); color: var(--color-black-40); transition: background 0.4s, color 0.4s; }\n    .cr-switch-stage:has(.cr-switch:checked) { background: var(--color-black-40); color: var(--color-white-60); }\n    .cr-switch { appearance: none; position: relative; inline-size: 4rem; block-size: 2.1rem; margin: 0; border-radius: 999px; background: var(--color-mistblue-30); cursor: pointer; transition: background 0.4s; }\n    .cr-switch::before { content: \"☀\"; position: absolute; inset-block: 0.2rem; inset-inline-start: 0.2rem; display: grid; place-items: center; inline-size: 1.7rem; border-radius: 50%; background: var(--color-white-50); color: var(--color-orange-50); font-size: 0.95rem; box-shadow: 0 2px 6px oklch(from var(--color-black-50) l c h / 0.3); transition: translate 0.4s cubic-bezier(0.3, 1.5, 0.5, 1), background 0.4s; }\n    .cr-switch:checked { background: var(--color-indigo-60); }\n    .cr-switch:checked::before { content: \"☾\"; translate: 1.9rem 0; background: var(--color-black-20); color: var(--color-yellow-50); }\n    .cr-switch:focus-visible { outline: 2px solid var(--color-vividblue-80); outline-offset: 3px; }\n    .cr-retro { margin: 0; font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 900; color: var(--color-yellow-50); text-shadow: 1px 1px 0 var(--color-orange-50), 2px 2px 0 var(--color-orange-50), 3px 3px 0 var(--color-orange-60), 4px 4px 0 var(--color-red-60), 5px 5px 0 var(--color-red-60), 6px 6px 0 var(--color-magenta-60), 7px 7px 0 var(--color-purple-60), 8px 8px 1rem oklch(from var(--color-black-50) l c h / 0.6); transition: text-shadow 0.3s, translate 0.3s; }\n    .cr-retro:hover { translate: -4px -4px; }\n    .cr-loader { inline-size: 4.5rem; aspect-ratio: 1; border-radius: 50%; background: conic-gradient(from 0deg, transparent 10%, var(--color-skycyan-50)); mask: radial-gradient(farthest-side, transparent calc(100% - 0.5rem), var(--color-black-50) calc(100% - 0.45rem)); animation: cr-rot 1s linear infinite; }\n    .cr-dots { display: flex; gap: 0.5rem; }\n    .cr-dots i { inline-size: 0.9rem; aspect-ratio: 1; border-radius: 50%; background: var(--color-magenta-50); animation: cr-pulse 1s ease-in-out infinite; animation-delay: calc((sibling-index() - 1) * 150ms); }\n    @keyframes cr-rot { to { rotate: 1turn; } }\n    @keyframes cr-pulse { 0%, 100% { scale: 0.5; opacity: 0.4; } 50% { scale: 1.1; opacity: 1; } }\n    @media (prefers-reduced-motion: reduce) { .cr-glow, .cr-blob, .cr-type, .cr-wave span, .cr-loader, .cr-dots i { animation: none; } .cr-type { inline-size: auto; } }\n  </style>"]}-->
+<section class="oc-docs-section" id="creative">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Creative CSS</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">Showcase</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_css_functions.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">creative/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.8.2</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Effects people usually reach for JavaScript or images to build, made with CSS and the Omnia tokens only: animated gradient borders (<code>@property</code>), neon buttons, 3D flip cards, glassmorphism, text fills, typing and wave text, clip-path reveals, a scroll-driven reading bar, a theme switch with <code>:has()</code>, retro 3D type and loaders. Every effect respects <code>prefers-reduced-motion</code>. Copy the CSS next to your utilities; all colors are <code>var(--color-*)</code> tokens.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="glow-border">Animated glowing border</h3>
+          <p class="oc-section-content__desc">A registered <code>--cr-angle</code> rotates a conic gradient in the border box; a blurred copy in <code>::before</code> is the glow, and <code>::after</code> paints the card face over it, so only a ring and its glow remain.</p>
+          <oc-demo title="@property + conic-gradient + blur">
+            <div class="cr-stage"><div class="cr-glow">Glowing border</div></div>
+          <oc-code lang="css">@property --cr-angle { syntax: "&lt;angle&gt;"; inherits: true; initial-value: 0deg; }
+.cr-glow {
+  --cr-ring: conic-gradient(from var(--cr-angle), var(--color-vividblue-80), var(--color-magenta-50),
+             var(--color-orange-50), var(--color-teal-50), var(--color-vividblue-80));
+  position: relative; isolation: isolate;
+  border: 3px solid transparent; border-radius: 18px;
+  background: var(--cr-ring) border-box;                    /* the ring */
+  animation: cr-spin 4s linear infinite;
+}
+.cr-glow::before {                                          /* the glow, painted first */
+  content: ""; position: absolute; inset: -3px; z-index: -1; border-radius: inherit;
+  background: var(--cr-ring); filter: blur(1.5rem); opacity: 0.75;
+}
+.cr-glow::after {                                           /* the card face, painted over the glow */
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 15px;
+  background: var(--color-black-30);
+}
+@keyframes cr-spin { to { --cr-angle: 360deg; } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="neon">Neon button</h3>
+          <p class="oc-section-content__desc">A <code>::before</code> layer scales in from the left; layered <code>box-shadow</code>s with a relative-alpha token make the glow. Works for hover and keyboard focus.</p>
+          <oc-demo title="scale on ::before + layered box-shadow">
+            <div class="cr-stage"><button type="button" class="cr-neon">Neon</button></div>
+          <oc-code lang="css">.cr-neon { position: relative; isolation: isolate; overflow: hidden;
+           border: 2px solid var(--color-skycyan-50); color: var(--color-skycyan-50);
+           transition: color 0.4s, box-shadow 0.4s; }
+.cr-neon::before { content: ""; position: absolute; inset: 0; z-index: -1;
+                   background: var(--color-skycyan-50); scale: 0 1; transform-origin: left; transition: scale 0.4s; }
+.cr-neon:is(:hover, :focus-visible) { color: var(--color-black-40);
+  box-shadow: 0 0 0.6rem var(--color-skycyan-50), 0 0 2.5rem var(--color-skycyan-50),
+              0 0 5rem oklch(from var(--color-skycyan-50) l c h / 0.5); }
+.cr-neon:is(:hover, :focus-visible)::before { scale: 1 1; }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="flip">3D flip card</h3>
+          <p class="oc-section-content__desc"><code>perspective</code> on the card, <code>transform-style: preserve-3d</code> on the inner layer and <code>backface-visibility: hidden</code> on both faces. Hover, or Tab to the link on the front.</p>
+          <oc-demo title="rotate: y 180deg + backface-visibility">
+            <div class="cr-stage cr-stage--light">
+              <div class="cr-flip"><div class="cr-flip-inner">
+                <div class="cr-face cr-front"><span>Front<br><a href="#flip" class="text-white-50">focus me</a></span></div>
+                <div class="cr-face cr-back">Back side</div>
+              </div></div>
+            </div>
+          <oc-code lang="css">.cr-flip { perspective: 60rem; }
+.cr-flip-inner { transform-style: preserve-3d; transition: rotate 0.8s cubic-bezier(0.3, 1.4, 0.5, 1); }
+.cr-flip:is(:hover, :focus-within) .cr-flip-inner { rotate: y 180deg; }
+.cr-face { position: absolute; inset: 0; backface-visibility: hidden; }
+.cr-back { rotate: y 180deg; }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="glass">Glassmorphism</h3>
+          <p class="oc-section-content__desc">A translucent white token plus <code>backdrop-filter: blur() saturate()</code> over moving blobs.</p>
+          <oc-demo title="backdrop-filter over animated blobs">
+            <div class="cr-glass-stage">
+              <span class="cr-blob"></span><span class="cr-blob"></span><span class="cr-blob"></span>
+              <div class="cr-glass"><b>Glass card</b><span>backdrop-filter: blur(14px) saturate(1.4)</span></div>
+            </div>
+          <oc-code lang="css">.cr-glass {
+  background: oklch(from var(--color-white-50) l c h / 0.12);
+  border: 1px solid oklch(from var(--color-white-50) l c h / 0.35);
+  backdrop-filter: blur(14px) saturate(1.4);
+  box-shadow: 0 1rem 2.5rem oklch(from var(--color-black-50) l c h / 0.35);
+}
+.cr-blob { border-radius: 50%; animation: cr-float 6s ease-in-out infinite alternate; }
+@keyframes cr-float { to { translate: 2rem -1.5rem; scale: 1.15; } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="text-fill">Text fill on hover</h3>
+          <p class="oc-section-content__desc">Outline text with <code>-webkit-text-stroke</code>; a gradient clipped to the text grows from 0% to 100% wide.</p>
+          <oc-demo title="background-clip: text + background-size transition">
+            <div class="cr-stage"><p class="cr-fill">OMNIA</p></div>
+          <oc-code lang="css">.cr-fill {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-white-60);
+  background: linear-gradient(var(--color-skycyan-50), var(--color-skycyan-50)) left / 0% 100% no-repeat;
+  background-clip: text;
+  transition: background-size 0.8s ease;
+}
+.cr-fill:hover { background-size: 100% 100%; }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="typing">Typing animation</h3>
+          <p class="oc-section-content__desc">The width animates in <code>ch</code> with <code>steps()</code>, one step per character; a blinking border is the caret.</p>
+          <oc-demo title="steps(23) + ch units">
+            <div class="cr-stage"><p class="cr-type">npx omniacss build --watch</p></div>
+          <oc-code lang="css">.cr-type {
+  inline-size: 23ch;                           /* number of characters */
+  white-space: nowrap; overflow: hidden;
+  font-family: var(--oc-font-mono, monospace);
+  border-inline-end: 0.6ch solid var(--color-green-50);
+  animation: cr-typing 3.5s steps(23) infinite alternate, cr-caret 0.6s step-end infinite;
+}
+@keyframes cr-typing { from { inline-size: 0; } }
+@keyframes cr-caret { 50% { border-color: transparent; } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="wave">Wave text with sibling-index()</h3>
+          <p class="oc-section-content__desc">One animation, and the OmniaCSS <code>.animate-delay-stagger</code> utility gives every letter its own delay from its position. No <code>nth-child</code> list, no inline styles.</p>
+          <oc-demo title=".animate-delay-stagger .stagger-100 on each letter">
+            <div class="cr-stage"><p class="cr-wave" aria-label="OMNIACSS"><span class="animate-delay-stagger stagger-100" aria-hidden="true">O</span><span class="animate-delay-stagger stagger-100" aria-hidden="true">M</span><span class="animate-delay-stagger stagger-100" aria-hidden="true">N</span><span class="animate-delay-stagger stagger-100" aria-hidden="true">I</span><span class="animate-delay-stagger stagger-100" aria-hidden="true">A</span><span class="animate-delay-stagger stagger-100" aria-hidden="true">C</span><span class="animate-delay-stagger stagger-100" aria-hidden="true">S</span><span class="animate-delay-stagger stagger-100" aria-hidden="true">S</span></p></div>
+          <oc-code lang="html">&lt;p class="cr-wave" aria-label="OMNIACSS"&gt;
+  &lt;span class="animate-delay-stagger stagger-100" aria-hidden="true"&gt;O&lt;/span&gt;
+  &lt;span class="animate-delay-stagger stagger-100" aria-hidden="true"&gt;M&lt;/span&gt;
+  …
+&lt;/p&gt;
+&lt;style&gt;
+  .cr-wave span { animation: cr-jump 1.4s ease-in-out infinite; }
+  @keyframes cr-jump { 0%, 40%, 100% { translate: 0 0; } 20% { translate: 0 -0.35em; color: var(--color-magenta-50); } }
+&lt;/style&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="reveal">Clip-path reveal</h3>
+          <p class="oc-section-content__desc">A circle grows from 0% to 75% with <code>clip-path</code>, an eased transition makes it feel like ink.</p>
+          <oc-demo title="clip-path: circle() transition">
+            <div class="cr-stage cr-stage--light"><div class="cr-reveal">Hover me<div class="cr-reveal-top">Revealed!</div></div></div>
+          <oc-code lang="css">.cr-reveal-top {
+  position: absolute; inset: 0;
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.cr-reveal:hover .cr-reveal-top { clip-path: circle(75% at 50% 50%); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="reading-bar">Scroll-driven reading progress</h3>
+          <p class="oc-section-content__desc">The bar is driven by <code>animation-timeline: scroll()</code>, not by time. Scroll the text box. More on <a href="../scroll-animations/">Scroll animations</a>.</p>
+          <oc-demo title="animation-timeline: scroll(nearest block)">
+            <div class="cr-read">
+              <div class="cr-read-bar"></div>
+              <p>Scroll this box. The bar at the top grows from 0 to 100% while you read.</p>
+              <p>It is a normal @keyframes animation, but its progress comes from the scroll position of the nearest scroll container instead of a clock.</p>
+              <p>On a real page use scroll(root) on a fixed bar at the top of the viewport.</p>
+              <p>Browsers without scroll-driven animations simply do not show the bar.</p>
+              <p>No scroll listeners, no requestAnimationFrame, and it runs off the main thread.</p>
+              <p>End of the article.</p>
+            </div>
+          <oc-code lang="css">.cr-read-bar {
+  position: sticky; top: 0; block-size: 5px; transform-origin: left; scale: 0 1;
+  background: linear-gradient(90deg, var(--color-vividblue-80), var(--color-magenta-50));
+  animation: cr-grow linear both;
+  animation-timeline: scroll(nearest block);   /* page: scroll(root) */
+}
+@keyframes cr-grow { to { scale: 1 1; } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="switch">Day/night switch with :has()</h3>
+          <p class="oc-section-content__desc">A real checkbox with <code>appearance: none</code>; its <code>::before</code> is the thumb. The panel switches theme through <code>:has(.cr-switch:checked)</code>.</p>
+          <oc-demo title="appearance: none + ::before thumb + :has()">
+            <div class="cr-stage cr-stage--light">
+              <div class="cr-switch-stage"><input type="checkbox" class="cr-switch" aria-label="Night mode"><span>Toggle day and night</span></div>
+            </div>
+          <oc-code lang="css">.cr-switch { appearance: none; position: relative; inline-size: 4rem; block-size: 2.1rem;
+             border-radius: 999px; background: var(--color-mistblue-30); }
+.cr-switch::before { content: "☀"; position: absolute; inset: 0.2rem auto 0.2rem 0.2rem; inline-size: 1.7rem;
+                     border-radius: 50%; background: var(--color-white-50);
+                     transition: translate 0.4s cubic-bezier(0.3, 1.5, 0.5, 1); }
+.cr-switch:checked { background: var(--color-indigo-60); }
+.cr-switch:checked::before { content: "☾"; translate: 1.9rem 0; }
+.cr-switch-stage:has(.cr-switch:checked) { background: var(--color-black-40); color: var(--color-white-60); }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="retro">Retro 3D text</h3>
+          <p class="oc-section-content__desc">Eight stacked <code>text-shadow</code>s, each one pixel further and one Omnia tone darker, build the extrusion.</p>
+          <oc-demo title="Layered text-shadow">
+            <div class="cr-stage"><p class="cr-retro">RETRO</p></div>
+          <oc-code lang="css">.cr-retro {
+  color: var(--color-yellow-50);
+  text-shadow: 1px 1px 0 var(--color-orange-50), 2px 2px 0 var(--color-orange-50),
+               3px 3px 0 var(--color-orange-60), 4px 4px 0 var(--color-red-60),
+               5px 5px 0 var(--color-red-60), 6px 6px 0 var(--color-magenta-60),
+               7px 7px 0 var(--color-purple-60), 8px 8px 1rem oklch(from var(--color-black-50) l c h / 0.6);
+}</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="loaders">Loaders</h3>
+          <p class="oc-section-content__desc">A conic gradient masked into a ring, and pulsing dots whose delay comes from <code>sibling-index()</code>.</p>
+          <oc-demo title="conic-gradient + mask, and sibling-index() delays">
+            <div class="cr-stage"><div class="flex gap-4 align-items-center"><div class="cr-loader" role="img" aria-label="Loading"></div><div class="cr-dots" role="img" aria-label="Loading"><i></i><i></i><i></i><i></i></div></div></div>
+          <oc-code lang="css">.cr-loader {
+  inline-size: 4.5rem; aspect-ratio: 1; border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 10%, var(--color-skycyan-50));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 0.5rem), var(--color-black-50) calc(100% - 0.45rem));
+  animation: cr-rot 1s linear infinite;
+}
+.cr-dots i { animation: cr-pulse 1s ease-in-out infinite;
+             animation-delay: calc((sibling-index() - 1) * 150ms); }   /* = .animate-delay-stagger .stagger-150 */
+@keyframes cr-rot { to { rotate: 1turn; } }
+@keyframes cr-pulse { 0%, 100% { scale: 0.5; opacity: 0.4; } 50% { scale: 1.1; opacity: 1; } }</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Everything here works in current browsers. Scroll-driven animations are missing in older Firefox and Safari versions (the bar is then hidden); <code>sibling-index()</code> falls back to no delay.</p>
+          <oc-compat features="css.at-rules.property css.properties.backdrop-filter css.properties.backface-visibility css.properties.clip-path css.properties.background-clip.text css.properties.animation-timeline css.types.sibling-index css.properties.mask css.selectors.has"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The examples use the tokens from <code>oc-colors.css</code> and the stagger utilities from <code>_css_functions.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@property" target="_blank" rel="noopener">MDN: @property</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter" target="_blank" rel="noopener">MDN: backdrop-filter</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline/scroll" target="_blank" rel="noopener">MDN: scroll()</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_css_functions.scss</code></td><td>.animate-delay-stagger, .stagger-*</td></tr>
+                  <tr><td><code>src/scss/utilities/_colors_tokens.scss</code></td><td>--color-* tokens used by every example</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">The example CSS lives in this page; copy it into your own stylesheet.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../effects/animations.html">Animations</a>
+               ·
+              <a class="source-link" href="../scroll-animations/">Scroll animations</a>
+               ·
+              <a class="source-link" href="../functions/">CSS Functions</a>
+            </p>
+          </div>
+        </div>
+      </section>

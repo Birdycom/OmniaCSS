@@ -1,0 +1,72 @@
+// SCSS Document
+// File: src/scss/utilities/_shapes.scss
+// Description: clip-path, shape-outside and shape-margin utilities (CSS Shapes / CSS Masking).
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.3.0
+// Framework: OmniaCSS
+// Purpose: Generate .clip-* classes (geometric clip paths) and .shape-* classes (text wrap around floats).
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path
+// Note: shape-outside only has effect on floated elements (e.g. use with .float-left).
+// Map: clip-path basic shapes -> polygons -> shape() -> clip border -> shape-outside -> shape-margin
+
+/* Clip path — basic shapes */
+.clip-none { clip-path: none; }
+.clip-circle { clip-path: circle(50%); }
+.clip-ellipse { clip-path: ellipse(50% 40%); }
+.clip-inset-4 { clip-path: inset(4px); }
+.clip-inset-8 { clip-path: inset(8px round 8px); }
+
+/* Clip path — polygons */
+.clip-polygon-triangle { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+.clip-polygon-diamond { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+.clip-polygon-pentagon { clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); }
+.clip-polygon-hexagon { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
+.clip-polygon-arrow-right { clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%); }
+.clip-polygon-chevron { clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%); }
+
+/* Clip path — shape() function (CSS Shapes Level 2, responsive curves) */
+.clip-shape-wave {
+  clip-path: shape(from 0% 0%, line to 100% 0%, line to 100% 85%, curve to 0% 85% with 50% 115%, close);
+}
+
+/* Clip path — reference box */
+.clip-border-box { clip-path: border-box; }
+.clip-padding-box { clip-path: padding-box; }
+.clip-content-box { clip-path: content-box; }
+
+/* Clip border — a border that follows the clip-path of the child element.
+   A normal border/outline is clipped away by clip-path, so put .clip-border-* on a wrapper.
+   Color = currentcolor of the wrapper (e.g. .text-dodgerblue-20); the clipped child needs an opaque background. */
+.clip-border,
+.clip-border-2,
+.clip-border-4 {
+  --oc-clip-border-color: currentcolor;
+}
+.clip-border {
+  filter: drop-shadow(1px 0 0 var(--oc-clip-border-color)) drop-shadow(-1px 0 0 var(--oc-clip-border-color))
+    drop-shadow(0 1px 0 var(--oc-clip-border-color)) drop-shadow(0 -1px 0 var(--oc-clip-border-color));
+}
+.clip-border-2 {
+  filter: drop-shadow(2px 0 0 var(--oc-clip-border-color)) drop-shadow(-2px 0 0 var(--oc-clip-border-color))
+    drop-shadow(0 2px 0 var(--oc-clip-border-color)) drop-shadow(0 -2px 0 var(--oc-clip-border-color));
+}
+.clip-border-4 {
+  filter: drop-shadow(4px 0 0 var(--oc-clip-border-color)) drop-shadow(-4px 0 0 var(--oc-clip-border-color))
+    drop-shadow(0 4px 0 var(--oc-clip-border-color)) drop-shadow(0 -4px 0 var(--oc-clip-border-color));
+}
+
+/* Shape outside — wrap inline content around a float */
+.shape-none { shape-outside: none; }
+.shape-circle { shape-outside: circle(50%); }
+.shape-ellipse { shape-outside: ellipse(50% 40%); }
+.shape-margin-box { shape-outside: margin-box; }
+.shape-border-box { shape-outside: border-box; }
+.shape-padding-box { shape-outside: padding-box; }
+.shape-content-box { shape-outside: content-box; }
+
+/* Shape margin */
+.shape-m-0 { shape-margin: 0; }
+.shape-m-1 { shape-margin: 0.25rem; }
+.shape-m-2 { shape-margin: 0.5rem; }
+.shape-m-4 { shape-margin: 1rem; }

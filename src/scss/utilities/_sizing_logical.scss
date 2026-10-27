@@ -1,0 +1,99 @@
+// SCSS Document
+// File: src/scss/utilities/_sizing_logical.scss
+// Description: Size keywords (3xs … 7xl, line-height units) and the logical size scale (inline-size, block-size,
+//              min/max in both axes) that complete the width/height families of _sizing.scss and _layout_extras.scss.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.4.0
+// Framework: OmniaCSS
+// Purpose: Generate .w-3xs … .w-7xl, .min-w-3xs …, .max-w-3xs/2xs, .{w,h,size,min-w,min-h,max-w,max-h}-lh/rlh,
+//          .inline-size-{n}, .block-size-{n}, .min-inline-size-*, .max-inline-size-*, .min-block-size-*, .max-block-size-*.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/inline-size
+// Note: Same quarter-rem scale as .size-{n} (size-4 = 1rem), so logical and physical icon/box sizes line up.
+@use "sass:string";
+
+// Map: size keywords -> line-height units -> logical scale -> logical min/max
+
+$_container-sizes: (
+  '3xs': 16rem, '2xs': 18rem, 'xs': 20rem, 'sm': 24rem, 'md': 28rem, 'lg': 32rem, 'xl': 36rem,
+  '2xl': 42rem, '3xl': 48rem, '4xl': 56rem, '5xl': 64rem, '6xl': 72rem, '7xl': 80rem
+);
+
+/* Size keywords — container-like widths (same values as .max-w-xs … .max-w-7xl) */
+@each $key, $value in $_container-sizes {
+  .w-#{$key} { width: $value; }
+  .min-w-#{$key} { min-width: $value; }
+  .inline-size-#{$key} { inline-size: $value; }
+  .min-inline-size-#{$key} { min-inline-size: $value; }
+  .max-inline-size-#{$key} { max-inline-size: $value; }
+}
+.max-w-3xs { max-width: 16rem; }
+.max-w-2xs { max-width: 18rem; }
+
+/* Line-height units — size a box in lines of text (lh) or root lines (rlh) */
+@each $unit in (lh, rlh) {
+  $one: string.unquote("1#{$unit}"); // "1#{$unit}" without quotes would compile to "1 lh"
+  .w-#{$unit} { width: $one; }
+  .h-#{$unit} { height: $one; }
+  .size-#{$unit} { width: $one; height: $one; }
+  .min-w-#{$unit} { min-width: $one; }
+  .min-h-#{$unit} { min-height: $one; }
+  .max-w-#{$unit} { max-width: $one; }
+  .max-h-#{$unit} { max-height: $one; }
+  .inline-size-#{$unit} { inline-size: $one; }
+  .block-size-#{$unit} { block-size: $one; }
+}
+/* Several lines: .h-3lh (exactly three lines), .max-h-5lh (clip after five lines), .min-h-2lh (reserve two lines) */
+@each $n in (2, 3, 4, 5, 6, 8, 10) {
+  .h-#{$n}lh { height: #{$n}lh; }
+  .min-h-#{$n}lh { min-height: #{$n}lh; }
+  .max-h-#{$n}lh { max-height: #{$n}lh; }
+  .block-size-#{$n}lh { block-size: #{$n}lh; }
+}
+
+/* Small / large / dynamic viewport units (svh = toolbars shown, lvh = toolbars hidden, dvh = follows them) */
+.h-svh { height: 100svh; }
+.h-lvh { height: 100lvh; }
+.min-h-svh { min-height: 100svh; }
+.min-h-lvh { min-height: 100lvh; }
+.max-h-svh { max-height: 100svh; }
+.max-h-lvh { max-height: 100lvh; }
+.w-svw { width: 100svw; }
+.w-lvw { width: 100lvw; }
+.min-w-dvw { min-width: 100dvw; }
+.max-w-dvw { max-width: 100dvw; }
+
+/* Logical size scale: inline-size-{n} / block-size-{n} (n * 0.25rem) */
+$_logical-scale: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96);
+@each $n in $_logical-scale {
+  $v: #{$n * 0.25}rem;
+  @if $n == 0 { $v: 0; }
+  .inline-size-#{$n} { inline-size: $v; }
+  .block-size-#{$n} { block-size: $v; }
+  .min-inline-size-#{$n} { min-inline-size: $v; }
+  .min-block-size-#{$n} { min-block-size: $v; }
+  .max-inline-size-#{$n} { max-inline-size: $v; }
+  .max-block-size-#{$n} { max-block-size: $v; }
+}
+@each $axis in (inline, block) {
+  .#{$axis}-size-px { #{$axis}-size: 1px; }
+  .min-#{$axis}-size-px { min-#{$axis}-size: 1px; }
+  .max-#{$axis}-size-px { max-#{$axis}-size: 1px; }
+  .#{$axis}-size-screen { #{$axis}-size: 100v#{string.slice($axis, 1, 1)}; }
+  .#{$axis}-size-stretch { #{$axis}-size: stretch; }
+}
+
+/* Logical min/max keywords with the -size spelling (the shorter .min-inline-* names stay available) */
+@each $k, $v in ('full': 100%, 'fit': fit-content, 'min': min-content, 'max': max-content) {
+  .min-inline-size-#{$k} { min-inline-size: $v; }
+  .min-block-size-#{$k} { min-block-size: $v; }
+  @if $k != 'full' {
+    .max-block-size-#{$k} { max-block-size: $v; }
+  }
+}
+.max-block-size-full { max-block-size: 100%; }
+.max-inline-size-none { max-inline-size: none; }
+.max-block-size-none { max-block-size: none; }
+.max-inline-size-fit { max-inline-size: fit-content; }
+.max-inline-size-min { max-inline-size: min-content; }
+.max-inline-size-max { max-inline-size: max-content; }

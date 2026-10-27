@@ -1,0 +1,48 @@
+// SCSS Document
+// File: src/scss/utilities/_gradient_stops.scss
+// Description: Stop positions for the composable gradients of _gradients.scss, extra gradient angles and anchors,
+//              and gradients in a perceptual color space.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.4.0
+// Framework: OmniaCSS
+// Purpose: Generate .from-pos-{n}, .via-pos-{n}, .to-pos-{n} (percent), .bg-conic-{deg}, .bg-radial-at-{bl|tr|c},
+//          .bg-radial-{closest|farthest}-{side|corner} and .bg-linear-to-{dir}-{oklch|oklab}.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient
+// Note: Position classes set --oc-gradient-{from|via|to}-pos; _gradients.scss reads them inside the stop list,
+//       e.g. class="bg-linear-to-r from-red from-pos-10 via-yellow to-green to-pos-90".
+// Map: stop positions -> conic angles -> radial anchors and sizes -> color-space gradients
+
+$_stop-positions: (0, 5, 10, 15, 20, 25, 30, 33, 35, 40, 45, 50, 55, 60, 65, 66, 70, 75, 80, 85, 90, 95, 100);
+$_gradient-stops: var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos,), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos,));
+
+/* Stop positions (percent) */
+@each $n in $_stop-positions {
+  .from-pos-#{$n} { --oc-gradient-from-pos: #{$n}%; }
+  .via-pos-#{$n} { --oc-gradient-via-pos: #{$n}%; }
+  .to-pos-#{$n} { --oc-gradient-to-pos: #{$n}%; }
+}
+
+/* Conic gradient start angles (0, 90 and 180 live in _gradients.scss) */
+@each $deg in (45, 135, 225, 270, 315) {
+  .bg-conic-#{$deg} { background-image: conic-gradient(from #{$deg}deg, #{$_gradient-stops}); }
+}
+
+/* Radial gradient anchors and sizes */
+.bg-radial-at-c { background-image: radial-gradient(at center, #{$_gradient-stops}); }
+.bg-radial-at-bl { background-image: radial-gradient(at bottom left, #{$_gradient-stops}); }
+.bg-radial-at-tr { background-image: radial-gradient(at top right, #{$_gradient-stops}); }
+.bg-radial-closest-side { background-image: radial-gradient(closest-side, #{$_gradient-stops}); }
+.bg-radial-closest-corner { background-image: radial-gradient(closest-corner, #{$_gradient-stops}); }
+.bg-radial-farthest-side { background-image: radial-gradient(farthest-side, #{$_gradient-stops}); }
+.bg-radial-farthest-corner { background-image: radial-gradient(farthest-corner, #{$_gradient-stops}); }
+
+/* Linear gradients interpolated in a perceptual color space (smoother mid tones than sRGB) */
+$_directions: ('t': to top, 'tr': to top right, 'r': to right, 'br': to bottom right, 'b': to bottom, 'bl': to bottom left, 'l': to left, 'tl': to top left);
+@each $key, $dir in $_directions {
+  @each $space in (oklch, oklab) {
+    @if not ($key == 'r' and $space == oklch) {
+      .bg-linear-to-#{$key}-#{$space} { background-image: linear-gradient(#{$dir} in #{$space}, #{$_gradient-stops}); }
+    }
+  }
+}

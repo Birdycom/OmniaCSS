@@ -1,0 +1,228 @@
+<!--oc-page {"title": "OmniaCSS Docs - Modern Typography", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="modern">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Modern Typography</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_typography_modern.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">modern.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Newer typography features: trim the extra space above and below text with <code>text-box</code>, drop caps with <code>initial-letter</code>, emphasis marks, CJK spacing control and font rendering switches. These complement the <a href="advanced.html">Advanced</a> utilities (line clamp, text-wrap, hyphens). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-box" target="_blank" rel="noopener">MDN: text-box</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="text-box">Text box trim</h3>
+          <p class="oc-section-content__desc">Removes the half-leading above the cap height and below the baseline, so text is optically centered in buttons and badges.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.text-box-normal</code></td><td>text-box: normal</td></tr>
+                <tr><td><code>.text-box-trim</code></td><td>text-box: trim-both cap alphabetic</td></tr>
+                <tr><td><code>.text-box-trim-start</code></td><td>text-box-trim: trim-start; text-box-edge: cap alphabetic</td></tr>
+                <tr><td><code>.text-box-trim-end</code></td><td>text-box-trim: trim-end; text-box-edge: cap alphabetic</td></tr>
+                <tr><td><code>.text-box-trim-ex</code></td><td>text-box: trim-both ex alphabetic</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="text-box-normal vs text-box-trim">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.text-box-normal</span>
+                <span class="text-box-normal inline-block p-0.5 round-2 font-2 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30">Omnia</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.text-box-trim</span>
+                <span class="text-box-trim inline-block p-0.5 round-2 font-2 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30">Omnia</span>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;span class="text-box-normal inline-block p-0.5"&gt;Omnia&lt;/span&gt;
+&lt;span class="text-box-trim inline-block p-0.5"&gt;Omnia&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="text-wrap-style">Text wrap style &amp; white space</h3>
+          <p class="oc-section-content__desc"><code>.text-stable</code> keeps earlier lines stable while the user edits text. The <code>white-space-collapse</code> classes control space collapsing independently of wrapping (<code>.text-balance</code>, <code>.text-pretty</code> live in Advanced).</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.text-stable</code></td><td>text-wrap-style: stable</td></tr>
+                <tr><td><code>.text-wrap-auto</code></td><td>text-wrap-style: auto</td></tr>
+                <tr><td><code>.whitespace-collapse</code></td><td>white-space-collapse: collapse</td></tr>
+                <tr><td><code>.whitespace-preserve</code></td><td>white-space-collapse: preserve</td></tr>
+                <tr><td><code>.whitespace-preserve-breaks</code></td><td>white-space-collapse: preserve-breaks</td></tr>
+                <tr><td><code>.whitespace-preserve-spaces</code></td><td>white-space-collapse: preserve-spaces</td></tr>
+                <tr><td><code>.whitespace-break-spaces</code></td><td>white-space-collapse: break-spaces</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="initial-letter">Initial letter</h3>
+          <p class="oc-section-content__desc">Drop caps on the first letter of a paragraph. <code>.initial-letter-3-2</code> = 3 lines tall, sunk 2 lines.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.initial-letter-normal</code></td><td>::first-letter { initial-letter: normal }</td></tr>
+                <tr><td><code>.initial-letter-2</code></td><td>::first-letter { initial-letter: 2 }</td></tr>
+                <tr><td><code>.initial-letter-3</code></td><td>::first-letter { initial-letter: 3 }</td></tr>
+                <tr><td><code>.initial-letter-3-2</code></td><td>::first-letter { initial-letter: 3 2 }</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="initial-letter-3">
+            
+            <p class="initial-letter-3 round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component. OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
+
+            
+            
+          <oc-code lang="html">&lt;p class="initial-letter-3"&gt;OmniaCSS generates utility classes…&lt;/p&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="text-emphasis">Text emphasis</h3>
+          <p class="oc-section-content__desc">Emphasis marks above or below characters, common in East Asian typography.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.emphasis-none</code></td><td>text-emphasis: none</td></tr>
+                <tr><td><code>.emphasis-dot</code></td><td>text-emphasis: filled dot</td></tr>
+                <tr><td><code>.emphasis-circle</code></td><td>text-emphasis: filled circle</td></tr>
+                <tr><td><code>.emphasis-open-circle</code></td><td>text-emphasis: open circle</td></tr>
+                <tr><td><code>.emphasis-sesame</code></td><td>text-emphasis: filled sesame</td></tr>
+                <tr><td><code>.emphasis-triangle</code></td><td>text-emphasis: filled triangle</td></tr>
+                <tr><td><code>.emphasis-over</code></td><td>text-emphasis-position: over right</td></tr>
+                <tr><td><code>.emphasis-under</code></td><td>text-emphasis-position: under right</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="emphasis-dot, emphasis-sesame, emphasis-under">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.emphasis-dot</span>
+                <span class="emphasis-dot font-2 text-dodgerblue">強調</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.emphasis-sesame</span>
+                <span class="emphasis-sesame font-2 text-forestgreen">強調</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.emphasis-circle .emphasis-under</span>
+                <span class="emphasis-circle emphasis-under font-2 text-darkorange">Omnia</span>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;span class="emphasis-dot"&gt;強調&lt;/span&gt;
+&lt;span class="emphasis-sesame"&gt;強調&lt;/span&gt;
+&lt;span class="emphasis-circle emphasis-under"&gt;Omnia&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="cjk-spacing">CJK spacing &amp; hanging punctuation</h3>
+          <p class="oc-section-content__desc"><code>text-spacing-trim</code> trims full-width punctuation, <code>text-autospace</code> adds space between CJK and Latin text, and <code>hanging-punctuation</code> lets quotes hang outside the text block.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.text-spacing-trim-normal</code></td><td>text-spacing-trim: normal</td></tr>
+                <tr><td><code>.text-spacing-trim-auto</code></td><td>text-spacing-trim: auto</td></tr>
+                <tr><td><code>.text-spacing-trim-space-all</code></td><td>text-spacing-trim: space-all</td></tr>
+                <tr><td><code>.text-spacing-trim-space-first</code></td><td>text-spacing-trim: space-first</td></tr>
+                <tr><td><code>.text-autospace-normal</code></td><td>text-autospace: normal</td></tr>
+                <tr><td><code>.text-autospace-auto</code></td><td>text-autospace: auto</td></tr>
+                <tr><td><code>.text-autospace-none</code></td><td>text-autospace: no-autospace</td></tr>
+                <tr><td><code>.hanging-none</code></td><td>hanging-punctuation: none</td></tr>
+                <tr><td><code>.hanging-first</code></td><td>hanging-punctuation: first</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.hanging-last</code></td><td>hanging-punctuation: last</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.hanging-first-last</code></td><td>hanging-punctuation: first allow-end last</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.break-auto-phrase</code></td><td>word-break: auto-phrase</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="font-rendering">Font rendering &amp; tab size</h3>
+          <p class="oc-section-content__desc">Switches for variable font optical sizing, kerning, synthesized bold/italic, color font palettes and the width of tab characters in <code>&lt;pre&gt;</code>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.font-optical-auto</code></td><td>font-optical-sizing: auto</td></tr>
+                <tr><td><code>.font-optical-none</code></td><td>font-optical-sizing: none</td></tr>
+                <tr><td><code>.font-kerning-auto</code></td><td>font-kerning: auto</td></tr>
+                <tr><td><code>.font-kerning-normal</code></td><td>font-kerning: normal</td></tr>
+                <tr><td><code>.font-kerning-none</code></td><td>font-kerning: none</td></tr>
+                <tr><td><code>.font-synthesis-none</code></td><td>font-synthesis: none</td></tr>
+                <tr><td><code>.font-palette-light</code></td><td>font-palette: light</td></tr>
+                <tr><td><code>.font-palette-dark</code></td><td>font-palette: dark</td></tr>
+                <tr><td><code>.tab-2</code></td><td>tab-size: 2</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.tab-4</code></td><td>tab-size: 4</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.tab-8</code></td><td>tab-size: 8</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Every class is a progressive enhancement: unsupported browsers ignore it and render the default typography.</p>
+          <oc-compat features="css.properties.text-box css.properties.text-wrap-style css.properties.white-space-collapse css.properties.text-spacing-trim css.properties.text-autospace css.properties.hanging-punctuation css.properties.initial-letter css.properties.text-emphasis css.properties.font-optical-sizing css.properties.font-kerning css.properties.font-synthesis css.properties.font-palette css.properties.tab-size css.properties.word-break.auto-phrase"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Modern typography utilities come from <code>_typography_modern.scss</code> in <code>src/scss/utilities/</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/initial-letter" target="_blank" rel="noopener">MDN: initial-letter</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-spacing-trim" target="_blank" rel="noopener">MDN: text-spacing-trim</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_typography_modern.scss</code></td><td>.text-box-*, .text-stable, .whitespace-*, .text-spacing-trim-*, .text-autospace-*, .hanging-*, .initial-letter-*, .emphasis-*, .font-optical-*, .font-kerning-*, .tab-*</td></tr>
+                  <tr><td><code>src/scss/utilities/_typography_advanced.scss</code></td><td>line-clamp, text-wrap, hyphens, text-overflow</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="advanced.html">Advanced</a>
+               · 
+              <a class="source-link" href="line-height.html">Line height</a>
+               · 
+              <a class="source-link" href="../writing-modes/">Writing modes</a>
+            </p>
+          </div>
+        </div>
+      </section>

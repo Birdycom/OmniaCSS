@@ -1,0 +1,34 @@
+// SCSS Document
+// File: src/scss/utilities/_css_functions.scss
+// Description: Utilities built on modern CSS functions: tree counting (sibling-index(), sibling-count()) for
+//              staggered motion and fanned layouts, and color-mix() alpha steps of currentColor.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.8.2
+// Framework: OmniaCSS
+// Purpose: Progressive enhancement — without sibling-index() the delay/rotation is invalid and falls back to 0.
+// Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/sibling-index
+// Map: stagger -> fan -> currentColor alpha
+
+/* Stagger — each child waits (index - 1) × --oc-stagger before its transition or animation starts */
+@each $ms in (30, 60, 100, 150, 250) {
+  .stagger-#{$ms} { --oc-stagger: #{$ms}ms; }
+}
+.delay-stagger { transition-delay: calc((sibling-index() - 1) * var(--oc-stagger, 60ms)); }
+.delay-stagger-reverse { transition-delay: calc((sibling-count() - sibling-index()) * var(--oc-stagger, 60ms)); }
+.animate-delay-stagger { animation-delay: calc((sibling-index() - 1) * var(--oc-stagger, 60ms)); }
+
+/* Fan — rotate siblings around the middle one, like cards in a hand (set on each child) */
+.fan {
+  rotate: calc((sibling-index() - (sibling-count() + 1) / 2) * var(--oc-fan, 6deg));
+  transform-origin: 50% 140%;
+}
+@each $deg in (3, 6, 10, 15) {
+  .fan-#{$deg} { --oc-fan: #{$deg}deg; }
+}
+
+/* currentColor alpha — tint a background or border with the text color (works with every text-* color) */
+@each $n in (5, 10, 15, 20, 30, 40, 50, 60, 70, 80) {
+  .bg-current-#{$n} { background-color: color-mix(in oklch, currentColor $n * 1%, transparent); }
+  .border-current-#{$n} { border-color: color-mix(in oklch, currentColor $n * 1%, transparent); }
+}

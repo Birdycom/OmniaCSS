@@ -1,0 +1,80 @@
+{
+  "$description": "OmniaCSS semantic theme tokens: the single source for dist/oc-theme.css (web) and the desktop export (npx omniacss tokens). Colors are Omnia palette names (--color-<name>-<step> in oc-colors.css), '@token' references, or { color, alpha }. Light first, dark second.",
+  "color": {
+    "brand-1": { "group": "Brand", "value": { "light": "teal-80", "dark": "skycyan-60" } },
+    "brand-2": { "group": "Brand", "value": { "light": "blue-40", "dark": "blue-10" } },
+    "brand-3": { "group": "Brand", "value": { "light": "purple-40", "dark": "purple-10" } },
+
+    "background": { "group": "Core surfaces", "value": { "light": "frostblue-2", "dark": "shallowblue-95" }, "use": "page / window background" },
+    "foreground": { "group": "Core surfaces", "value": { "light": "duskblue-60", "dark": "frostblue-10" }, "use": "body text" },
+    "muted": { "group": "Core surfaces", "value": { "light": "frostblue-60", "dark": "shallowblue-50" }, "use": "table headers, tabs, scrollbars" },
+    "muted-foreground": { "group": "Core surfaces", "value": { "light": "stormblue-40", "dark": "mistblue-70" }, "use": "secondary text, status lines" },
+    "card": { "group": "Core surfaces", "value": { "light": "white-50", "dark": "shallowblue-70" }, "use": "cards, tables, inputs, buttons" },
+    "popover": { "group": "Core surfaces", "value": { "light": "white-50", "dark": "shallowblue-60" }, "use": "menus, popovers, tooltips" },
+    "popover-foreground": { "group": "Core surfaces", "value": "@foreground" },
+    "surface": { "group": "Core surfaces", "value": { "light": { "color": "stormblue-50", "alpha": 0.04 }, "dark": { "color": "white-50", "alpha": 0.04 } }, "use": "subtle tinted area" },
+    "surface-strong": { "group": "Core surfaces", "value": { "light": { "color": "stormblue-50", "alpha": 0.08 }, "dark": { "color": "white-50", "alpha": 0.07 } } },
+
+    "primary": { "group": "Semantic accents", "value": { "light": "vividblue-95", "dark": "vividblue-100" }, "use": "accent button, focus" },
+    "primary-foreground": { "group": "Semantic accents", "value": { "light": "white-50", "dark": "shallowblue-95" }, "use": "text on primary" },
+    "secondary": { "group": "Semantic accents", "value": "@muted" },
+    "secondary-foreground": { "group": "Semantic accents", "value": "@foreground" },
+    "accent": { "group": "Semantic accents", "value": "@muted" },
+    "accent-foreground": { "group": "Semantic accents", "value": "@foreground" },
+    "destructive": { "group": "Semantic accents", "value": { "light": "red-70", "dark": "red-50" } },
+    "destructive-foreground": { "group": "Semantic accents", "value": "white-50" },
+    "success": { "group": "Semantic accents", "value": { "light": "green-60", "dark": "green-2" } },
+    "success-foreground": { "group": "Semantic accents", "value": { "light": "white-50", "dark": "shallowblue-95" } },
+    "warning": { "group": "Semantic accents", "value": { "light": "orange-95", "dark": "orange-50" } },
+    "warning-foreground": { "group": "Semantic accents", "value": { "light": "white-50", "dark": "shallowblue-95" } },
+
+    "border": { "group": "Borders and inputs", "value": { "light": "frostblue-80", "dark": "duskblue-30" } },
+    "border-strong": { "group": "Borders and inputs", "value": { "light": "mistblue-80", "dark": "stormblue-30" } },
+    "input": { "group": "Borders and inputs", "value": "@border" },
+    "ring": { "group": "Borders and inputs", "value": "@primary" },
+
+    "row-alt": { "group": "Interaction states", "value": { "light": "frostblue-2", "dark": "shallowblue-100" }, "use": "zebra rows in tables and lists (other rows: card)" },
+    "hover": { "group": "Interaction states", "value": { "light": "frostblue-100", "dark": "duskblue-50" }, "use": "hovered button, row or menu item" },
+    "pressed": { "group": "Interaction states", "value": { "light": "frostblue-60", "dark": "duskblue-40" }, "use": "pressed button or row" },
+    "selected": { "group": "Interaction states", "value": { "light": "mistblue-2", "dark": "stormblue-60" }, "use": "selected row or item, separate from the primary button color" },
+    "selected-foreground": { "group": "Interaction states", "value": "@foreground", "use": "text on selected" },
+    "disabled-foreground": { "group": "Interaction states", "value": { "light": "duskblue-2", "dark": "duskblue-10" }, "use": "disabled buttons and menu items" }
+  },
+  "gradient": {
+    "brand": { "angle": 100, "stops": [{ "color": "brand-1" }, { "color": "brand-2", "at": 50 }, { "color": "brand-3" }] }
+  },
+  "size": {
+    "radius": { "rem": 0.5 },
+    "focus-width": { "px": 2 }
+  },
+  "text": {
+    "xs": { "px": 12 },
+    "sm": { "px": 13 },
+    "base": { "px": 15 },
+    "lg": { "px": 18 },
+    "xl": { "px": 24 }
+  },
+  "font": {
+    "sans": {
+      "css": "system-ui, -apple-system, \"Segoe UI\", Roboto, Cantarell, \"Helvetica Neue\", sans-serif",
+      "windows": "Segoe UI",
+      "macos": ".AppleSystemUIFont",
+      "linux": "Cantarell"
+    },
+    "mono": {
+      "css": "\"Cascadia Code\", \"JetBrains Mono\", Consolas, ui-monospace, monospace",
+      "windows": "Consolas",
+      "macos": "Menlo",
+      "linux": "DejaVu Sans Mono"
+    }
+  },
+  "transition": {
+    "fast": { "ms": 150, "easing": "cubic-bezier(0.4, 0, 0.2, 1)" },
+    "normal": { "ms": 200, "easing": "cubic-bezier(0.4, 0, 0.2, 1)" }
+  },
+  "shadow": {
+    "sm": { "x": 0, "y": 1, "blur": 2, "spread": 0, "color": { "light": "stormblue-50", "dark": "black-50" }, "alpha": { "light": 0.08, "dark": 0.4 } },
+    "md": { "x": 0, "y": 4, "blur": 12, "spread": -2, "color": { "light": "stormblue-50", "dark": "black-50" }, "alpha": { "light": 0.12, "dark": 0.5 } },
+    "lg": { "x": 0, "y": 12, "blur": 32, "spread": -6, "color": { "light": "stormblue-50", "dark": "black-50" }, "alpha": { "light": 0.16, "dark": 0.6 } }
+  }
+}

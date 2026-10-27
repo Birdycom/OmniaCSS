@@ -1,0 +1,24 @@
+// SCSS Document
+// File: src/scss/utilities/_layering.scss
+// Map: isolation -> visibility -> z-index
+
+/* Isolation utilities */
+
+.isolate { isolation: isolate; }
+.isolation-auto { isolation: auto; }
+
+/* Visibility utilities */
+
+.visible { visibility: visible; }
+.invisible { visibility: hidden; }
+.collapse { visibility: collapse; }
+
+/* Z-index utilities */
+
+.z-auto { z-index: auto; }
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }

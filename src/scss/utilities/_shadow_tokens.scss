@@ -1,0 +1,21 @@
+// File: src/scss/utilities/_shadow_tokens.scss
+// Shared light-dark() aware shadow values (Omnia tokens only). Emits no CSS itself.
+// Used by .shadow-* (_effects_advanced.scss), state variants (_state_variants.scss) and dark: utilities.
+@use "sass:string";
+$oc-shadow-c: string.unquote("var(--oc-shadow-color, var(--color-black-50))");
+@function oc-sh($l, $d) {
+  @return string.unquote("light-dark(oklch(from #{$oc-shadow-c} l c h / #{$l}), oklch(from #{$oc-shadow-c} l c h / #{$d}))");
+}
+$oc-shadow-edge: string.unquote(", 0 0 0 1px light-dark(transparent, oklch(from var(--color-white-50) l c h / 0.2))");
+$oc-shadow-edge-hi: string.unquote(", 0 0 0 1px light-dark(transparent, oklch(from var(--color-white-50) l c h / 0.22)), inset 0 1px 0 0 light-dark(transparent, oklch(from var(--color-white-50) l c h / 0.14))");
+$oc-shadow-sm: 0 1px 2px 0 oc-sh(0.08, 0.6) + $oc-shadow-edge;
+$oc-shadow-md: 0 4px 6px -1px oc-sh(0.15, 0.7), 0 2px 4px -2px oc-sh(0.12, 0.6) + $oc-shadow-edge;
+$oc-shadow-lg: 0 10px 15px -3px oc-sh(0.18, 0.75), 0 4px 6px -4px oc-sh(0.14, 0.65) + $oc-shadow-edge-hi;
+$oc-shadow-xl: 0 20px 25px -5px oc-sh(0.22, 0.8), 0 8px 10px -6px oc-sh(0.16, 0.7) + $oc-shadow-edge-hi;
+// Dark-only variants (for .dark: utilities, where color-scheme is not guaranteed to be dark)
+@function oc-shd($d) { @return string.unquote("oklch(from #{$oc-shadow-c} l c h / #{$d})"); }
+$oc-dark-edge: string.unquote(", 0 0 0 1px oklch(from var(--color-white-50) l c h / 0.2)");
+$oc-dark-edge-hi: string.unquote(", 0 0 0 1px oklch(from var(--color-white-50) l c h / 0.22), inset 0 1px 0 0 oklch(from var(--color-white-50) l c h / 0.14)");
+$oc-dark-shadow-sm: 0 1px 2px 0 oc-shd(0.6) + $oc-dark-edge;
+$oc-dark-shadow-md: 0 4px 6px -1px oc-shd(0.7), 0 2px 4px -2px oc-shd(0.6) + $oc-dark-edge;
+$oc-dark-shadow-lg: 0 10px 15px -3px oc-shd(0.75), 0 4px 6px -4px oc-shd(0.65) + $oc-dark-edge-hi;

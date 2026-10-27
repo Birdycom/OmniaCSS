@@ -1,0 +1,196 @@
+// File: src/scss/utilities/_state_variants.scss
+// Description: Hover, focus, active and focus-visible state variants for
+//              utilities that don't already have them via $pseudoclasses map.
+// Note: Colors and text-decoration already have pseudo-class variants
+//       (generated in _colors_omnia.scss, _colors_html.scss, _text.scss).
+//       This file covers the remaining utilities.
+// Copyright: 2021-2026 Birdycom
+// Autor: Serge Cools
+// Version: 0.1.6
+// Framework: OmniaCSS
+@use "shadow_tokens" as *;
+
+// ---------------------------------------------------------------------------
+// State map: pseudo-class -> CSS selector suffix
+// ---------------------------------------------------------------------------
+$_states: (
+  'hover': ':hover',
+  'focus': ':focus',
+  'active': ':active',
+  'focus-visible': ':focus-visible'
+);
+
+@each $state, $pseudo in $_states {
+
+  // -----------------------------------------------------------------------
+  // Opacity state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:opacity-0#{$pseudo} { opacity: 0; }
+  .#{$state}\:opacity-5#{$pseudo} { opacity: 0.05; }
+  .#{$state}\:opacity-10#{$pseudo} { opacity: 0.1; }
+  .#{$state}\:opacity-20#{$pseudo} { opacity: 0.2; }
+  .#{$state}\:opacity-25#{$pseudo} { opacity: 0.25; }
+  .#{$state}\:opacity-30#{$pseudo} { opacity: 0.3; }
+  .#{$state}\:opacity-40#{$pseudo} { opacity: 0.4; }
+  .#{$state}\:opacity-50#{$pseudo} { opacity: 0.5; }
+  .#{$state}\:opacity-60#{$pseudo} { opacity: 0.6; }
+  .#{$state}\:opacity-70#{$pseudo} { opacity: 0.7; }
+  .#{$state}\:opacity-75#{$pseudo} { opacity: 0.75; }
+  .#{$state}\:opacity-80#{$pseudo} { opacity: 0.8; }
+  .#{$state}\:opacity-90#{$pseudo} { opacity: 0.9; }
+  .#{$state}\:opacity-100#{$pseudo} { opacity: 1; }
+
+  // -----------------------------------------------------------------------
+  // Box-shadow state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:shadow-none#{$pseudo} { box-shadow: none; }
+  .#{$state}\:shadow-sm#{$pseudo} { box-shadow: #{$oc-shadow-sm}; }
+  .#{$state}\:shadow-md#{$pseudo} { box-shadow: #{$oc-shadow-md}; }
+  .#{$state}\:shadow-lg#{$pseudo} { box-shadow: #{$oc-shadow-lg}; }
+  .#{$state}\:shadow-xl#{$pseudo} { box-shadow: #{$oc-shadow-xl}; }
+
+  // -----------------------------------------------------------------------
+  // Scale (transform) state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:scale-95#{$pseudo} { transform: scale(0.95); }
+  .#{$state}\:scale-100#{$pseudo} { transform: scale(1); }
+  .#{$state}\:scale-105#{$pseudo} { transform: scale(1.05); }
+  .#{$state}\:scale-110#{$pseudo} { transform: scale(1.1); }
+  .#{$state}\:scale-125#{$pseudo} { transform: scale(1.25); }
+
+  // Translate
+  .#{$state}\:translate-y-0#{$pseudo} { transform: translateY(0); }
+  .#{$state}\:translate-y-1#{$pseudo} { transform: translateY(-0.25rem); }
+  .#{$state}\:-translate-y-1#{$pseudo} { transform: translateY(-0.25rem); }
+
+  // Rotate
+  .#{$state}\:rotate-0#{$pseudo} { transform: rotate(0deg); }
+  .#{$state}\:rotate-1#{$pseudo} { transform: rotate(1deg); }
+  .#{$state}\:rotate-2#{$pseudo} { transform: rotate(2deg); }
+  .#{$state}\:rotate-3#{$pseudo} { transform: rotate(3deg); }
+  .#{$state}\:rotate-6#{$pseudo} { transform: rotate(6deg); }
+  .#{$state}\:rotate-12#{$pseudo} { transform: rotate(12deg); }
+  .#{$state}\:rotate-45#{$pseudo} { transform: rotate(45deg); }
+  .#{$state}\:rotate-90#{$pseudo} { transform: rotate(90deg); }
+  .#{$state}\:rotate-180#{$pseudo} { transform: rotate(180deg); }
+
+  // -----------------------------------------------------------------------
+  // Border-color state variants (neutral palette)
+  // -----------------------------------------------------------------------
+  .#{$state}\:border-transparent#{$pseudo} { border-color: transparent; }
+  .#{$state}\:border-gray-200#{$pseudo} { border-color: var(--color-silver-2); }
+  .#{$state}\:border-gray-300#{$pseudo} { border-color: var(--color-silver-20); }
+  .#{$state}\:border-gray-400#{$pseudo} { border-color: var(--color-gray-20); }
+  .#{$state}\:border-gray-500#{$pseudo} { border-color: var(--color-black-2); }
+  .#{$state}\:border-gray-600#{$pseudo} { border-color: var(--color-duskblue-20); }
+  .#{$state}\:border-gray-700#{$pseudo} { border-color: var(--color-shallowblue-30); }
+
+  // Accent border colors
+  .#{$state}\:border-blue-500#{$pseudo} { border-color: var(--color-vividblue-70); }
+  .#{$state}\:border-red-500#{$pseudo} { border-color: var(--color-red-50); }
+  .#{$state}\:border-green-500#{$pseudo} { border-color: var(--color-green-10); }
+
+  // -----------------------------------------------------------------------
+  // Background color state variants (neutral palette)
+  // -----------------------------------------------------------------------
+  .#{$state}\:bg-transparent#{$pseudo} { background-color: transparent; }
+  .#{$state}\:bg-white#{$pseudo} { background-color: var(--color-white-2); }
+  .#{$state}\:bg-gray-50#{$pseudo} { background-color: var(--color-snow-50); }
+  .#{$state}\:bg-gray-100#{$pseudo} { background-color: var(--color-linen-30); }
+  .#{$state}\:bg-gray-200#{$pseudo} { background-color: var(--color-silver-2); }
+  .#{$state}\:bg-gray-700#{$pseudo} { background-color: var(--color-shallowblue-30); }
+  .#{$state}\:bg-gray-800#{$pseudo} { background-color: var(--color-shallowblue-40); }
+  .#{$state}\:bg-gray-900#{$pseudo} { background-color: var(--color-shallowblue-50); }
+
+  // -----------------------------------------------------------------------
+  // Text color state variants (neutral palette)
+  // -----------------------------------------------------------------------
+  .#{$state}\:text-white#{$pseudo} { color: var(--color-white-2); }
+  .#{$state}\:text-gray-100#{$pseudo} { color: var(--color-linen-30); }
+  .#{$state}\:text-gray-300#{$pseudo} { color: var(--color-silver-20); }
+  .#{$state}\:text-gray-500#{$pseudo} { color: var(--color-black-2); }
+  .#{$state}\:text-gray-700#{$pseudo} { color: var(--color-shallowblue-30); }
+  .#{$state}\:text-gray-900#{$pseudo} { color: var(--color-shallowblue-50); }
+  .#{$state}\:text-blue-500#{$pseudo} { color: var(--color-vividblue-70); }
+  .#{$state}\:text-red-500#{$pseudo} { color: var(--color-red-50); }
+
+  // -----------------------------------------------------------------------
+  // Ring (outline-based focus ring)
+  // -----------------------------------------------------------------------
+  .#{$state}\:ring-0#{$pseudo} { box-shadow: 0 0 0 0px transparent; }
+  .#{$state}\:ring-1#{$pseudo} { box-shadow: 0 0 0 1px oklch(from var(--color-vividblue-80) l c h / 0.5); }
+  .#{$state}\:ring-2#{$pseudo} { box-shadow: 0 0 0 2px oklch(from var(--color-vividblue-80) l c h / 0.5); }
+  .#{$state}\:ring-4#{$pseudo} { box-shadow: 0 0 0 4px oklch(from var(--color-vividblue-80) l c h / 0.3); }
+
+  // -----------------------------------------------------------------------
+  // Outline state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:outline-none#{$pseudo} { outline: 2px solid transparent; outline-offset: 2px; }
+  .#{$state}\:outline#{$pseudo} { outline-style: solid; }
+
+  // -----------------------------------------------------------------------
+  // Display state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:hidden#{$pseudo} { display: none; }
+  .#{$state}\:block#{$pseudo} { display: block; }
+  .#{$state}\:inline#{$pseudo} { display: inline; }
+
+  // -----------------------------------------------------------------------
+  // Visibility state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:visible#{$pseudo} { visibility: visible; }
+  .#{$state}\:invisible#{$pseudo} { visibility: hidden; }
+
+  // -----------------------------------------------------------------------
+  // Cursor state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:cursor-pointer#{$pseudo} { cursor: pointer; }
+  .#{$state}\:cursor-default#{$pseudo} { cursor: default; }
+  .#{$state}\:cursor-not-allowed#{$pseudo} { cursor: not-allowed; }
+
+  // -----------------------------------------------------------------------
+  // Decoration (text-decoration) state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:underline#{$pseudo} { text-decoration-line: underline; }
+  .#{$state}\:no-underline#{$pseudo} { text-decoration-line: none; }
+  .#{$state}\:line-through#{$pseudo} { text-decoration-line: line-through; }
+
+  // -----------------------------------------------------------------------
+  // Font weight state variants
+  // -----------------------------------------------------------------------
+  .#{$state}\:font-bold#{$pseudo} { font-weight: 700; }
+  .#{$state}\:font-semibold#{$pseudo} { font-weight: 600; }
+  .#{$state}\:font-normal#{$pseudo} { font-weight: 400; }
+
+} // end @each state
+
+// ---------------------------------------------------------------------------
+// Disabled state (uses attribute selector, not pseudo-class prefix)
+// ---------------------------------------------------------------------------
+.disabled\:opacity-50:disabled,
+.disabled\:opacity-50[disabled] { opacity: 0.5; }
+
+.disabled\:cursor-not-allowed:disabled,
+.disabled\:cursor-not-allowed[disabled] { cursor: not-allowed; }
+
+.disabled\:pointer-events-none:disabled,
+.disabled\:pointer-events-none[disabled] { pointer-events: none; }
+
+// ---------------------------------------------------------------------------
+// Group hover (parent .group hover triggers child state change)
+// Pattern: .group:hover .group-hover\:{utility}
+// ---------------------------------------------------------------------------
+.group:hover .group-hover\:opacity-100 { opacity: 1; }
+.group:hover .group-hover\:opacity-75 { opacity: 0.75; }
+.group:hover .group-hover\:opacity-50 { opacity: 0.5; }
+.group:hover .group-hover\:visible { visibility: visible; }
+.group:hover .group-hover\:invisible { visibility: hidden; }
+.group:hover .group-hover\:block { display: block; }
+.group:hover .group-hover\:hidden { display: none; }
+.group:hover .group-hover\:scale-105 { transform: scale(1.05); }
+.group:hover .group-hover\:scale-110 { transform: scale(1.1); }
+.group:hover .group-hover\:text-white { color: var(--color-white-2); }
+.group:hover .group-hover\:underline { text-decoration-line: underline; }
+.group:hover .group-hover\:no-underline { text-decoration-line: none; }
+
+/* End state variant utilities */

@@ -1,0 +1,276 @@
+// SCSS Document 
+// File: src/utilities/_fonts.scss
+// Description: fonts properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: fontsize, fontstyle
+// Values: value in rem,
+
+@use '../utilities/' as *;
+
+/* The font family property */
+
+///
+/// The fontfamily property specifies the font style for a text.
+/// @group FontFamily
+/// @name fontfamily
+/// @link src/scss/utilities/_fonts.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// @require $fontfamily
+/// @example scss - fontfamily class
+///   @each  $fontfamily-prop, $fontfamily-value in $fontfamily {
+///     .#{$fontfamily-prop} {
+///       font-family: $fontfamily-value;
+///     }
+///   }
+/// @example html - use the fontfamily class
+///   <div class="container">
+///     <p class="font-normal font-1">fontfamily: "Roboto Flex", sans-serif</p>
+///     <p class="font-roboto font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontfamily: "Source Sans Pro", sans-serif</p>
+///     <p class="font-source font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontfamily: Times, "Times New Roman", Georgia, serif</p>
+///     <p class="font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontfamily: Verdana, Arial, Helvetica, sans-serif</p>
+///     <p class="font-sansserif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontfamily: "Lucida Console", Courier, monospace</p>
+///     <p class="font-monospace font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontfamily: cursive</p>
+///     <p class="font-cursive font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontfamily: fantasy</p>
+///     <p class="font-fantasy font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontfamily: Noto emoji</p>
+///     <p class="font-emoji font-1.5">🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸😬👀🚨🏡🕊️🏆😻🌟🧿🍀🎨🍜</p>
+///     <p class="font-normal font-1">fontfamily: Noto color emoji</p>
+///     <p class="font-coloremoji font-1.5">🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸😬👀🚨🏡🕊️🏆😻🌟🧿🍀🎨🍜</p>
+///     <p class="font-normal font-1">fontfamily: Noto Sans Math</p>
+///     <p class="font-math font-1.5">𝞉𝞩𝟃𞻰⟥⦀⦁ 𝚢𝚣𝚤𝖿𝗀𝗁𝗂 𝑻𝑼𝑽𝗔𝗕𝗖𝗗 ϑϕϰϱϵℊℎ ⊰⊱⊲⊳⊴⊵⫕ 𞹴𞹵𞹶𞹷𞹹𞹺𞹻±</p>
+///     <p class="font-normal font-1">fontfamily: fangsong</p>
+///     <p class="font-fangsong font-1.5">人類社会のすべての構成員の固有の尊厳と平等で譲ることのできない権利とを承認することは</p>
+///     <p class="font-normal font-1">fontfamily: Noto Sans Egyptian Hieroglyphs</p>
+///     <p class="font-hieroglyphs font-2.5">𓂧𓌅 𓉗𓇯 𓃾𓂝𓏴𓌅𓀠 𓀠𓃻𓏲𓏴𓃾 𓇯𓂋𓃾𓌓 𓂋𓏲𓁶𓁹𓂝𓃾 𓉐𓂝𓇯 𓇯 𓉐𓂝𓏴 𓇯𓂝𓆓𓃾 𓃻𓃾 𓁹𓉐𓇯𓏲𓂝𓏴𓃾 𓌅𓃾 𓃾𓆓𓌓𓂝𓃾 𓇯𓂋𓂝𓌓𓂝 𓏲𓂝𓇯𓃾 𓇯𓁶𓃻𓉐𓌅 𓇯𓏭𓇯𓃻𓃾 𓌓𓁶𓌓𓆓𓂝𓃾</p>
+///   </div>
+@each $fontfamily-prop, $fontfamily-value in $fontfamily {
+
+  // fontfamily
+
+  .#{$fontfamily-prop} {
+
+    font-family: $fontfamily-value;
+
+    }  
+};
+
+.test:before {
+  content: "\13000";
+}
+
+/* The font size property */
+
+///
+/// The fontsize property specifies the height of the fonts.
+/// @group FontSize
+/// @name fontsize
+/// @link src/scss/utilities/_fonts.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// @require $fontsize
+/// @example scss - fontsize class
+///   @each  $fontsize-prop, $fontsize-value in $fontsize {
+///     .#{$fontsize-prop} {
+///       font-size: $fontsize-value;
+///     }
+///   }
+/// @example html - use the fontsize class
+///   <div class="container">
+///     <p class="font-normal font-1">fontsize: 0.625rem - 10px</p>
+///     <p class="font-0.6">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 0.75 - 12px</p>
+///     <p class="font-0.7">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 0.875 - 14px</p>
+///     <p class="font-0.8">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 1rem - 16px</p>
+///     <p class="font-1">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 1.125rem - 18px</p>
+///     <p class="font-1.1">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 1.25rem - 20px</p>
+///     <p class="font-1.2">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 1.5rem - 24px</p>
+///     <p class="font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 1.75rem - 28px</p>
+///     <p class="font-1.7">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 1.875rem - 30px</p>
+///     <p class="font-1.8">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 2rem - 30px</p>
+///     <p class="font-2">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 2.5rem - 40px</p>
+///     <p class="font-2.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 3rem - 48px</p>
+///     <p class="font-3">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 4rem - 64px</p>
+///     <p class="font-4">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 5rem - 80px</p>
+///     <p class="font-5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 6rem - 96px</p>
+///     <p class="font-6">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 7rem - 112px</p>
+///     <p class="font-7">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontsize: 8rem - 128px</p>
+///     <p class="font-8">The quick brown fox jumps over the lazy dog.</p>
+///   </div>
+@each $fontsize-prop, $fontsize-value in $fontsize {
+
+  // fontsize
+
+  .#{$fontsize-prop} {
+
+    font-size: $fontsize-value;
+
+    }  
+};
+/* The font style property */
+
+///
+/// The fontstyle property specifies the font style for a text.
+/// @group FontStyle
+/// @name fontstyle
+/// @link src/scss/utilities/_fonts.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// @require $fontstyle
+/// @example scss - fontstyle class
+///   @each  $fontstyle-prop, $fontstyle-value in $fontstyle {
+///     .#{$fontstyle-prop} {
+///       font-size: $fontstyle-value;
+///     }
+///   }
+/// @example html - use the fontstyle class
+///   <div class="container">
+///     <p class="font-normal font-1">fontstyle: normal</p>
+///     <p class="font-normal font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontstyle: italic</p>
+///     <p class="font-italic font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-normal font-1">fontstyle: oblique</p>
+///     <p class="font-oblique font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///   </div>
+@each $fontstyle-prop, $fontstyle-value in $fontstyle {
+
+  // fontstyle
+
+  .#{$fontstyle-prop} {
+
+    font-style: $fontstyle-value;
+
+    }  
+};
+
+/* The font weight property */
+
+///
+/// The font-weight property sets how thick or thin characters in text should be displayed.
+/// @group FontWeight
+/// @name fontweight
+/// @link src/scss/utilities/_fonts.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// @require $fontweight
+/// @example scss - fontweight class
+///   @each  $fontweight-prop, $fontweight-value in $fontweight {
+///     .#{$fontweight-prop} {
+///       font-weight: $fontweight-value;
+///     }
+///   }
+/// @example html - use the fontweight class
+///   <div class="container">
+///     <p class="font-1">font-thin: 100</p>
+///     <p class="font-thin font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-extralight: 200</p>
+///     <p class="font-extralight font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-light: 300</p>
+///     <p class="font-light font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-normal: 400</p>
+///     <p class="font-normal font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-medium: 500</p>
+///     <p class="font-medium font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-semibold: 600</p>
+///     <p class="font-semibold font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-bold: 700</p>
+///     <p class="font-bold font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-extrabold: 800</p>
+///     <p class="font-extrabold font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-black: 900</p>
+///     <p class="font-black font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///     <p class="font-1">font-extrablack: 1000</p>
+///     <p class="font-extrablack font-serif font-1.5">The quick brown fox jumps over the lazy dog.</p>
+///   </div>
+@each $fontweight-prop, $fontweight-value in $fontweight {
+
+  // fontweight
+
+  .#{$fontweight-prop} {
+
+    font-weight: $fontweight-value;
+
+    }  
+};
+
+/* The font variant numeric property */
+
+///
+/// The font-variant numeric property sets how thick or thin characters in text should be displayed.
+/// @group FontVariantNumeric
+/// @name fontvariantnumeric
+/// @link src/scss/utilities/_fonts.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// @require $fontvariantnumeric
+/// @example scss - fontvariantnumeric class
+///   @each  $fontvariantnumeric-prop, $fontvariantnumeric-value in $fontvariantnumeric {
+///     .#{$fontvariantnumeric-prop} {
+///       font-variant-numeric: $fontvariantnumeric-value;
+///     }
+///   }
+/// @example html - use the fontvariantnumeric class
+///   <div class="container">
+///     <p class="font-1">font-variant-numeric: normal</p>
+///     <p class="font-num-normal font-source font-1.5">123456789</p>
+///     <p class="font-1">font-variant-numeric: ordinal</p>
+///     <p class="font-num-ordinal font-source font-1.5">1st, 2nd, 3rd, 4th, 5th</p>
+///     <p class="font-num-ordinal font-source font-1.5">1st</p>
+///     <p class="font-1">font-variant-numeric: slashed</p>
+///     <p class="font-num-slashed font-source font-1.5">0 100</p>
+///     <p class="font-1">font-variant-numeric: lining</p>
+///     <p class="font-num-lining font-source font-1.5">1234567890</p>
+///     <p class="font-1">font-variant-numeric: oldstyle</p>
+///     <p class="font-num-oldstyle font-source font-1.5">1234567890</p>
+///     <p class="font-1">font-variant-numeric: proportional</p>
+///     <p class="font-num-proportional font-source font-1.5">121212</p>
+///     <p class="font-num-proportional font-source font-1.5">909090</p>
+///     <p class="font-1">font-variant-numeric: tabular</p>
+///     <p class="font-num-tabular font-source font-1.5">121212</p>
+///     <p class="font-num-tabular font-source font-1.5">909090</p>
+///     <p class="font-1">font-variant-numeric: diagonal</p>
+///     <p class="font-num-diagonal font-source font-1.5">3/14 2/71 3/14 2/7</p>
+///     <p class="font-1">font-variant-numeric: stacked</p>
+///     <p class="font-num-stacked font-source font-1.5">3/14 2/71 3/14 2/7</p>
+///     <p class="font-1">font-variant-numeric: oldstacked</p>
+///     <p class="font-num-oldstacked font-source font-1.5">3/14 2/71 3/14 2/7</p>
+///   </div>
+@each $fontvariantnumeric-prop, $fontvariantnumeric-value in $fontvariantnumeric {
+
+  // fontvariantnumeric
+
+  .#{$fontvariantnumeric-prop} {
+
+    font-variant-numeric: $fontvariantnumeric-value;
+
+    }  
+};

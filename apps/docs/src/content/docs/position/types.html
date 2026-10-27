@@ -1,0 +1,72 @@
+<!--oc-page {"title": "OmniaCSS Docs - Position Types", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell oc-docs-shell\u002d\u002dno-right", "bodyClass": "", "head": ["<style>\n    .ps-grid { display: grid; gap: 1.25rem; inline-size: 100%; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }\n    .ps-label { margin: 0 0 0.35rem; font-size: 0.8rem; color: var(\u002d\u002doc-muted-foreground); }\n    .ps-area { position: relative; block-size: 8rem; border: 1px dashed var(\u002d\u002doc-border-strong); border-radius: 10px; background: var(\u002d\u002doc-muted); color: var(\u002d\u002doc-foreground); }\n    .ps-scroll { block-size: 8rem; overflow: auto; border: 1px dashed var(\u002d\u002doc-border-strong); border-radius: 10px; background: var(\u002d\u002doc-muted); color: var(\u002d\u002doc-foreground); }\n    .ps-scroll p { margin: 0; padding: 0.75rem; block-size: 14rem; font-size: 0.85rem; color: var(\u002d\u002doc-muted-foreground); }\n    .ps-box { padding: 0.35rem 0.75rem; border-radius: 6px; background: var(\u002d\u002doc-primary); color: var(\u002d\u002doc-primary-foreground); font-weight: 600; font-size: 0.8rem; text-align: center; white-space: nowrap; }\n    .ps-box\u002d\u002dalt { background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); border: 1px solid var(\u002d\u002doc-border-strong); }\n    .ps-ghost { position: absolute; inset: 1.5rem auto auto 1.5rem; inline-size: 7rem; block-size: 2.2rem; border: 2px dashed var(\u002d\u002doc-border-strong); border-radius: 6px; }\n    .ps-host { contain: layout; }\n    .ps-menu { margin: 0; padding: 0.4rem 0.75rem; list-style: none; border: 1px solid var(\u002d\u002doc-border); border-radius: 8px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); font-size: 0.85rem; }\n    .ps-stack { position: relative; block-size: 7rem; }\n    .ps-stack > .ps-box { position: absolute; inline-size: 8rem; block-size: 4rem; display: grid; place-items: center; border: 2px solid var(\u002d\u002doc-background); }\n    .ps-stack > :nth-child(1) { inset: 0 auto auto 0; }\n    .ps-stack > :nth-child(2) { inset: 1.25rem auto auto 3.5rem; }\n    .ps-stack > :nth-child(3) { inset: 2.5rem auto auto 7rem; }\n    .ps-ctx { isolation: isolate; position: relative; padding: 0.75rem; border: 1px dashed var(\u002d\u002doc-border-strong); border-radius: 10px; background: var(\u002d\u002doc-muted); }\n  </style>"]}-->
+<section class="oc-docs-section" id="position-types">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Position Types</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_position.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Control the positioning method of an element.
+          </p>
+          <p class="oc-section-header__desc">
+            <strong>What:</strong> <code>position</code> decides how an element takes part in layout and what its <code>top / right / bottom / left</code> (<a href="inset.html">inset</a>) values mean. <code>static</code> is the default and ignores insets; <code>relative</code> keeps its place in the flow but can be nudged, and becomes the reference box for absolute children; <code>absolute</code> leaves the flow and is placed against the nearest positioned ancestor; <code>fixed</code> sticks to the viewport; <code>sticky</code> is relative until a scroll threshold is reached, then sticks. <strong>When:</strong> overlays, badges and corner labels (absolute in relative), sticky table headers and navbars, floating buttons (fixed). <strong>Gotchas:</strong> an absolute element needs a positioned ancestor (<code>.relative</code>), otherwise it jumps to the page; <code>sticky</code> needs an inset (<code>.top-0</code>) and stops working inside an ancestor with <code>overflow: hidden</code>; a transformed ancestor becomes the reference of its <code>fixed</code> children. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position" target="_blank" rel="noopener">MDN: position</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td><code>.relative</code></td><td>relative</td></tr>
+                <tr><td><code>.absolute</code></td><td>absolute</td></tr>
+                <tr><td><code>.fixed</code></td><td>fixed</td></tr>
+                <tr><td><code>.sticky</code></td><td>sticky</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.static</code></td><td>static</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="oc-section-content__title">Positioning Demos</h3>
+          <oc-demo title="relative and absolute: corners of a positioned parent">
+            <div class="ps-grid">
+              <div>
+                <p class="ps-label">.relative + .top-2 .left-4: nudged from its original place (dashed)</p>
+                <div class="ps-area"><div class="ps-ghost"></div><div class="relative top-2 left-4 ps-box" style="inline-size: 7rem; margin: 1.5rem 0 0 1.5rem; box-sizing: border-box;">relative</div></div>
+              </div>
+              <div>
+                <p class="ps-label">.absolute inside .relative</p>
+                <div class="ps-area">
+                  <div class="absolute top-2 left-2 ps-box">Top left</div>
+                  <div class="absolute bottom-2 right-2 ps-box ps-box--alt">Bottom right</div>
+                </div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="relative"&gt;
+  &lt;div class="absolute top-2 left-2"&gt;Top left&lt;/div&gt;
+  &lt;div class="absolute bottom-2 right-2"&gt;Bottom right&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="relative top-2 left-4"&gt;nudged, but its old space stays reserved&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="sticky: the bar stays at the top while the box scrolls">
+            <div class="ps-grid">
+              <div>
+                <p class="ps-label">.sticky .top-0</p>
+                <div class="ps-scroll" tabindex="0" aria-label="Scrollable sticky demo">
+                  <div class="sticky top-0 ps-box z-10" style="border-radius: 0;">I stay at the top</div>
+                  <p>Scroll this box: the sticky element follows until its container ends. It never leaves the scroll container it lives in.</p>
+                </div>
+              </div>
+              <div>
+                <p class="ps-label">.fixed inside a box (the host has contain: layout)</p>
+                <div class="ps-area ps-host"><div class="fixed bottom-2 right-2 ps-box">Fixed</div><span class="ps-label" style="padding: 0.5rem; display: block;">Without the containment, .fixed would stick to the viewport corner instead.</span></div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;div class="overflow-auto" style="height: 8rem"&gt;
+  &lt;div class="sticky top-0 z-10"&gt;I stay at the top&lt;/div&gt;
+  &lt;p&gt;Long content…&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="fixed bottom-2 right-2"&gt;Fixed to the viewport&lt;/div&gt;</oc-code></oc-demo>
+
+          
+        </div>
+      </section>

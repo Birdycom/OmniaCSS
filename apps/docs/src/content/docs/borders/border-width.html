@@ -1,0 +1,291 @@
+<!--oc-page {"title": "OmniaCSS Docs - Border-width", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="borders-width">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Border-width </h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span> 
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_borders_outlines.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">border-width.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            <strong>Border width</strong> controls how thick the border is. Use <code>.border-none</code> to remove it, or <code>.border</code> (1px) up to <code>.border-12</code> (32px) for all sides. The same scale applies to one side (<code>.border-t</code>, <code>.border-b</code>, etc.), to horizontal or vertical pairs (<code>.border-h</code>, <code>.border-v</code>), or to combined sides (<code>.border-trl</code>, <code>.border-brl</code>, …). This section also includes <strong>divider</strong> classes: put <code>.divider-h</code> or <code>.divider-v</code> on a flex/grid parent to add lines between direct children. Always combine width with a style (e.g. <code>.border-solid</code>) and optionally a color. Values from <code>$bordersizes</code> and <code>$dividersizes</code> in <code>_variables_layout.scss</code>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>border-width</code> sets how thick the border is. The size classes (<code>.border</code>, <code>.border-1</code> … <code>.border-12</code>) use rem so they scale with the font size; the side variants (<code>.border-t1</code>, <code>.border-h1</code>, …) set individual sides. <strong>When to use:</strong> 1px lines for cards and inputs, thicker borders for emphasis, one-sided borders for dividers and accents. <strong>Gotchas:</strong> borders add to the element size unless <code>box-sizing: border-box</code> applies (it does by default in OmniaCSS); a border only shows with a style (<code>.border-solid</code>); to avoid layout shift on hover keep the same width and just change the color (or use an outline). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-width" target="_blank" rel="noopener">MDN: border-width</a>.</p>
+
+          <h3 class="oc-section-content__title">CSS classes</h3>
+          <p class="oc-section-content__desc">All classes set <code>border-width</code>. Use <code>.border-none</code> or <code>.border</code> … <code>.border-12</code> for all sides; <code>.border-t*</code>, <code>.border-r*</code>, <code>.border-b*</code>, <code>.border-l*</code> for one side; <code>.border-h*</code>, <code>.border-v*</code> for horizontal or vertical; or combinations like <code>.border-tl*</code>, <code>.border-trl*</code>. Divider classes <code>.divider-h*</code> and <code>.divider-v*</code> apply a border between direct children (use on the parent only).</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.border-none</code></td><td>border-width: 0</td></tr>
+                <tr><td><code>.border</code></td><td>border-width: 0.0625rem (1px)</td></tr>
+                <tr><td><code>.border-1</code></td><td>border-width: 0.125rem (2px)</td></tr>
+                <tr><td><code>.border-2</code></td><td>border-width: 0.25rem (4px)</td></tr>
+                <tr><td><code>.border-3</code></td><td>border-width: 0.375rem (6px)</td></tr>
+                <tr><td><code>.border-4</code></td><td>border-width: 0.5rem (8px)</td></tr>
+                <tr><td><code>.border-5</code></td><td>border-width: 0.625rem (10px)</td></tr>
+                <tr><td><code>.border-6</code></td><td>border-width: 0.75rem (12px)</td></tr>
+                <tr><td><code>.border-7</code></td><td>border-width: 0.875rem (14px)</td></tr>
+                <tr><td><code>.border-8</code></td><td>border-width: 1rem (16px)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.border-9</code></td><td>border-width: 1.25rem (20px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-10</code></td><td>border-width: 1.5rem (24px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-11</code></td><td>border-width: 1.75rem (28px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-12</code></td><td>border-width: 2rem (32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-t</code> … <code>.border-t12</code></td><td>top border only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-r</code> … <code>.border-r12</code></td><td>right border only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-b</code> … <code>.border-b12</code></td><td>bottom border only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-l</code> … <code>.border-l12</code></td><td>left border only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-tl</code> … <code>.border-tl12</code></td><td>top-left border only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-tr</code> … <code>.border-tr12</code></td><td>top-right border only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-bl</code> … <code>.border-bl12</code></td><td>bottom-left border only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-br</code> … <code>.border-br12</code></td><td>bottom-right border only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-h</code> … <code>.border-h12</code></td><td>horizontal borders only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-v</code> … <code>.border-v12</code></td><td>vertical borders only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-trl</code> … <code>.border-trl12</code></td><td>top-right-left borders only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-rbl</code> … <code>.border-rbl12</code></td><td>bottom-right-left borders only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-tbl</code> … <code>.border-tbl12</code></td><td>top-bottom-left borders only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.border-trb</code> … <code>.border-trb12</code></td><td>top-bottom-right borders only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.divider-h</code>, <code>.divider-h-none</code>, <code>.divider-h-1</code> … <code>.divider-h-12</code></td><td>horizontal divider between direct children (border-top-width on <code>&gt; * + *</code>)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.divider-v</code>, <code>.divider-v-none</code>, <code>.divider-v-1</code> … <code>.divider-v-12</code></td><td>vertical divider between direct children (border-left-width on <code>&gt; * + *</code>)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+  
+          <h3 class="oc-section-content__title">Preview — width: basic</h3>
+          <p class="oc-section-content__desc">Basic width: <code>.border-none</code> (0), <code>.border</code> (1px), <code>.border-6</code> (12px) en <code>.border-10</code> (24px). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-darkorange-50</code>) om de rand te tonen.</p>
+        
+          <oc-demo title="border-none, border, border-6, border-10">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-none</span>
+                <div class="border-none border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">none</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border</span>
+                <div class="border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">Border <br> 1px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-6</span>
+                <div class="border-6 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">Border <br> 12px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-10</span>
+                <div class="border-10 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">Border <br> 24px</div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">
+                &lt;div class="border-none border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;none&lt;/div&gt;
+                &lt;div class="border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Border 1px&lt;/div&gt;
+                &lt;div class="border-6 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Border 12px&lt;/div&gt;
+                &lt;div class="border-10 border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Border 24px&lt;/div&gt;
+              </oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title">Preview — width: one side</h3>
+          <p class="oc-section-content__desc">One side width: <code>.border-t1</code> (top 2px), <code>.border-b1</code> (bottom 2px), <code>.border-l1</code> (left 2px), <code>.border-r1</code> (right 2px). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-forestgreen-50</code>) om de rand te tonen.</p>
+
+          <oc-demo title="border-t1, border-b1, border-l1, border-r1">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-t1</span>
+                <div class="border-t1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1">top <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-b1</span>
+                <div class="border-b1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1">bottom <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-l1</span>
+                <div class="border-l1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1">left <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-r1</span>
+                <div class="border-r1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1">right <br> 2px</div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">
+                &lt;div class="border-t1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;top 2px&lt;/div&gt;
+                &lt;div class="border-b1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;bottom 2px&lt;/div&gt;
+                &lt;div class="border-l1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;left 2px&lt;/div&gt;
+                &lt;div class="border-r1 border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;right 2px&lt;/div&gt;
+              </oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title">Preview — width: two sides combined</h3>
+          <p class="oc-section-content__desc">Two sides combined: <code>.border-tl1</code> (top-left 2px), <code>.border-tr1</code> (top-right 2px), <code>.border-br1</code> (bottom-right 2px), <code>.border-bl1</code> (bottom-left 2px). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-dodgerblue-50</code>) om de rand te tonen.</p>
+
+          <oc-demo title="border-tl1, border-tr1, border-br1, border-bl1">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-tl1</span>
+                <div class="border-tl1 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-left <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-tr1</span>
+                <div class="border-tr1 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-right <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-br1</span>
+                <div class="border-br1 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">Bottom-right <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-bl1</span>
+                <div class="border-bl1 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">Bottom-left <br> 2px</div>
+              </div>
+            </div>
+            
+            
+          <oc-code lang="html">
+                &lt;div class="border-tl1 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-left 2px&lt;/div&gt;
+                &lt;div class="border-tr1 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-right 2px&lt;/div&gt;
+                &lt;div class="border-br1 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Bottom-right 2px&lt;/div&gt;
+                &lt;div class="border-bl1 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Bottom-left 2px&lt;/div&gt;
+              </oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title">Preview — width: three sides combined</h3>
+          <p class="oc-section-content__desc">Three sides combined: <code>.border-trl1</code> (top-right-left 2px), <code>.border-rbl1</code> (bottom-right-left 2px), <code>.border-tbl1</code> (top-bottom-left 2px), <code>.border-trb1</code> (top-bottom-right 2px). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-goldenrod-50</code>) om de rand te tonen.</p>
+
+          <oc-demo title="border-trl1, border-rbl1, border-tbl1, border-trb1">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-trl1</span>
+                <div class="border-trl1 border-solid border-goldenrod-50 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-right-left <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-rbl1</span>
+                <div class="border-brl1 border-solid border-goldenrod-50 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1">Bottom-right-left <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-tbl1</span>
+                <div class="border-tbl1 border-solid border-goldenrod-50 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-bottom-left <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-trb1</span>
+                <div class="border-trb1 border-solid border-goldenrod-50 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-bottom-right <br> 2px</div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">
+                &lt;div class="border-trl1 border-solid border-goldenrod-50 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-right-left 2px&lt;/div&gt;
+                &lt;div class="border-brl1 border-solid border-goldenrod-50 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Bottom-right-left 2px&lt;/div&gt;
+                &lt;div class="border-tbl1 border-solid border-goldenrod-50 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-bottom-left 2px&lt;/div&gt;
+                &lt;div class="border-trb1 border-solid border-goldenrod-50 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-bottom-right 2px&lt;/div&gt;
+              </oc-code></oc-demo>          
+
+          <h3 class="oc-section-content__title">Preview — width: horizontal/vertical</h3>
+          <p class="oc-section-content__desc">Horizontal/vertical width: <code>.border-h1</code> (horizontal 2px), <code>.border-v1</code> (vertical 2px). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-magenta-50</code>) om de rand te tonen.</p>
+
+          <oc-demo title="border-h1, border-v1">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-h1</span>
+                <div class="border-h1 border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1">horizontal <br> 2px</div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">border-v1</span>
+                <div class="border-v1 border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1">vertical <br> 2px</div>
+              </div>
+            </div>
+            
+            
+          <oc-code lang="html">
+                &lt;div class="border-h1 border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;horizontal 2px&lt;/div&gt;
+                &lt;div class="border-v1 border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;vertical 2px&lt;/div&gt;
+              </oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title">Preview — divider</h3>
+          <p class="oc-section-content__desc">Divider: <code>.divider-h-2</code> (horizontal 2px), <code>.divider-v-2</code> (vertical 2px). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-darkorange-50</code>) om de rand te tonen.</p>
+          <p class="oc-section-content__desc mb-1">Put <code>.divider-h</code> or <code>.divider-v</code> on the parent (plus a size, e.g. <code>.divider-h-2</code>). Add <code>.border-solid</code> and a border color so the divider line is visible.</p>
+
+          <oc-demo title="divider-h-2, divider-v-2">
+            
+            <div class="oc-preview oc-preview-row gap-4">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">divider-h (horizontal)</span>
+                <div class="flex flex-col divider-h-2 border-solid border-darkorange-50 w-perc-1/4 min-w-20">
+                  <div class="border-solid border-darkorange-50 pv-0.5 font-0.8">Row 1</div>
+                  <div class="border-solid border-darkorange-50 pv-0.5 font-0.8">Row 2</div>
+                  <div class="border-solid border-darkorange-50 pv-0.5 font-0.8">Row 3</div>
+                </div>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">divider-v (vertical)</span>
+                <div class="flex flex-row divider-v-2 border-solid border-forestgreen-50">
+                  <div class="border-solid border-forestgreen-50 ph-1 pv-0.5 font-0.8">Col 1</div>
+                  <div class="border-solid border-forestgreen-50 ph-1 pv-0.5 font-0.8">Col 2</div>
+                  <div class="border-solid border-forestgreen-50 ph-1 pv-0.5 font-0.8">Col 3</div>
+                </div>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">
+                &lt;!-- horizontal: border between rows --&gt;
+                &lt;div class="flex flex-col divider-h-2 border-solid border-darkorange-50"&gt;
+                  &lt;div class="border-solid border-darkorange-50 pv-0.5 font-0.8"&gt;Row 1&lt;/div&gt;
+                  &lt;div class="border-solid border-darkorange-50 pv-0.5 font-0.8"&gt;Row 2&lt;/div&gt;
+                  &lt;div class="border-solid border-darkorange-50 pv-0.5 font-0.8"&gt;Row 3&lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- vertical: border between columns --&gt;
+                &lt;div class="flex flex-row divider-v-2 border-solid border-forestgreen-50"&gt;
+                  &lt;div class="border-solid border-forestgreen-50 ph-1 pv-0.5 font-0.8"&gt;Col 1&lt;/div&gt;
+                  &lt;div class="border-solid border-forestgreen-50 ph-1 pv-0.5 font-0.8"&gt;Col 2&lt;/div&gt;
+                  &lt;div class="border-solid border-forestgreen-50 ph-1 pv-0.5 font-0.8"&gt;Col 3&lt;/div&gt;
+                &lt;/div&gt;
+              </oc-code></oc-demo>
+        </div>
+        
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Border-width- en The divider utilities come from <code>_borders_outlines.scss</code>; the maps <code>$bordersizes</code> and <code>$dividersizes</code> is defined in <code>_variables_layout.scss</code>. Classes: <code>.border-none</code>, <code>.border</code> … <code>.border-12</code>, per zijde (<code>.border-t*</code>, <code>.border-r*</code>, …), <code>.border-h*</code>, <code>.border-v*</code>, en <code>.divider-h*</code>, <code>.divider-v*</code> voor lijnen tussen children.
+          </p>
+        
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source (border-width)</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_borders_outlines.scss</code></td><td>border-width (<code>$bordersizes</code>), divider (<code>$dividersizes</code>)</td></tr>
+                  <tr><td><code>src/scss/variables/_variables_layout.scss</code></td><td><code>$bordersizes</code>, <code>$dividersizes</code></td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes on this page end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../colors.html">Colors</a>
+               · 
+              <a class="source-link" href="border-width.html">Border-width</a>
+               · 
+              <a class="source-link" href="corner-shape.html">Corner shape</a>
+            </p>
+          </div>
+        </div>
+      </section>

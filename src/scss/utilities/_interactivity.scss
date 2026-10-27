@@ -1,0 +1,198 @@
+// SCSS Document
+// File: src/scss/utilities/_interactivity.scss
+// Map: accent/appearance/caret/scheme/cursor/pointer -> resize/scroll -> touch/select/will-change
+//      -> field-sizing -> base-select -> reading-flow -> scroll-markers -> overflow-anchor -> print
+
+/* Accent color */
+.accent-auto { accent-color: auto; }
+.accent-blue { accent-color: var(--color-vividblue-95); }
+.accent-red { accent-color: var(--color-red-60); }
+.accent-green { accent-color: var(--color-green-40); }
+
+/* Appearance */
+.appearance-none { appearance: none; }
+.appearance-auto { appearance: auto; }
+
+/* Caret color */
+.caret-auto { caret-color: auto; }
+.caret-transparent { caret-color: transparent; }
+.caret-blue { caret-color: var(--color-vividblue-95); }
+.caret-red { caret-color: var(--color-red-60); }
+.caret-green { caret-color: var(--color-green-40); }
+
+/* Color scheme */
+.scheme-normal { color-scheme: normal; }
+.scheme-light { color-scheme: light; }
+.scheme-dark { color-scheme: dark; }
+.scheme-light-dark { color-scheme: light dark; }
+.scheme-only-light { color-scheme: only light; }
+
+/* Cursor */
+.cursor-auto { cursor: auto; }
+.cursor-default { cursor: default; }
+.cursor-pointer { cursor: pointer; }
+.cursor-wait { cursor: wait; }
+.cursor-text { cursor: text; }
+.cursor-move { cursor: move; }
+.cursor-help { cursor: help; }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-grab { cursor: grab; }
+.cursor-grabbing { cursor: grabbing; }
+.cursor-crosshair { cursor: crosshair; }
+
+/* Pointer events */
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+/* Resize */
+.resize-none { resize: none; }
+.resize { resize: both; }
+.resize-x { resize: horizontal; }
+.resize-y { resize: vertical; }
+
+/* Scroll behavior */
+.scroll-auto { scroll-behavior: auto; }
+.scroll-smooth { scroll-behavior: smooth; }
+
+/* Scroll margin */
+.scroll-m-0 { scroll-margin: 0; }
+.scroll-m-1 { scroll-margin: 0.25rem; }
+.scroll-m-2 { scroll-margin: 0.5rem; }
+.scroll-m-4 { scroll-margin: 1rem; }
+.scroll-m-8 { scroll-margin: 2rem; }
+.scroll-mx-4 { scroll-margin-left: 1rem; scroll-margin-right: 1rem; }
+.scroll-my-4 { scroll-margin-top: 1rem; scroll-margin-bottom: 1rem; }
+.scroll-mt-4 { scroll-margin-top: 1rem; }
+.scroll-mr-4 { scroll-margin-right: 1rem; }
+.scroll-mb-4 { scroll-margin-bottom: 1rem; }
+.scroll-ml-4 { scroll-margin-left: 1rem; }
+
+/* Scroll padding */
+.scroll-p-0 { scroll-padding: 0; }
+.scroll-p-1 { scroll-padding: 0.25rem; }
+.scroll-p-2 { scroll-padding: 0.5rem; }
+.scroll-p-4 { scroll-padding: 1rem; }
+.scroll-p-8 { scroll-padding: 2rem; }
+.scroll-px-4 { scroll-padding-left: 1rem; scroll-padding-right: 1rem; }
+.scroll-py-4 { scroll-padding-top: 1rem; scroll-padding-bottom: 1rem; }
+.scroll-pt-4 { scroll-padding-top: 1rem; }
+.scroll-pr-4 { scroll-padding-right: 1rem; }
+.scroll-pb-4 { scroll-padding-bottom: 1rem; }
+.scroll-pl-4 { scroll-padding-left: 1rem; }
+
+/* Scroll snap */
+.snap-start { scroll-snap-align: start; }
+.snap-end { scroll-snap-align: end; }
+.snap-center { scroll-snap-align: center; }
+.snap-align-none { scroll-snap-align: none; }
+.snap-normal { scroll-snap-stop: normal; }
+.snap-always { scroll-snap-stop: always; }
+.snap-none { scroll-snap-type: none; }
+.snap-x { scroll-snap-type: x mandatory; }
+.snap-y { scroll-snap-type: y mandatory; }
+.snap-both { scroll-snap-type: both mandatory; }
+.snap-proximity { scroll-snap-type: both proximity; }
+
+/* Touch action */
+.touch-auto { touch-action: auto; }
+.touch-none { touch-action: none; }
+.touch-pan-x { touch-action: pan-x; }
+.touch-pan-left { touch-action: pan-left; }
+.touch-pan-right { touch-action: pan-right; }
+.touch-pan-y { touch-action: pan-y; }
+.touch-pan-up { touch-action: pan-up; }
+.touch-pan-down { touch-action: pan-down; }
+.touch-pinch-zoom { touch-action: pinch-zoom; }
+.touch-manipulation { touch-action: manipulation; }
+
+/* User select */
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+.select-all { user-select: all; }
+.select-auto { user-select: auto; }
+
+/* Will change */
+.will-change-auto { will-change: auto; }
+.will-change-scroll { will-change: scroll-position; }
+.will-change-contents { will-change: contents; }
+.will-change-transform { will-change: transform; }
+
+/* Color scheme — only dark */
+.scheme-only-dark { color-scheme: only dark; }
+
+/* Field sizing — let form controls grow with their content */
+.field-sizing-content { field-sizing: content; }
+.field-sizing-fixed { field-sizing: fixed; }
+
+/* Customizable select */
+.appearance-base-select { appearance: base-select; }
+.appearance-base-select::picker(select) { appearance: base-select; }
+
+/* Reading flow — keyboard/screen reader order follows the visual layout */
+.reading-flow-normal { reading-flow: normal; }
+.reading-flow-flex-visual { reading-flow: flex-visual; }
+.reading-flow-flex-flow { reading-flow: flex-flow; }
+.reading-flow-grid-rows { reading-flow: grid-rows; }
+.reading-flow-grid-columns { reading-flow: grid-columns; }
+.reading-flow-grid-order { reading-flow: grid-order; }
+.reading-flow-source-order { reading-flow: source-order; }
+
+/* Scroll markers — CSS-only carousel navigation dots */
+.scroll-markers-none { scroll-marker-group: none; }
+.scroll-markers-before { scroll-marker-group: before; }
+.scroll-markers-after { scroll-marker-group: after; }
+/* Default look of the generated dots (Omnia colors); the active one follows the scroll position. */
+:is(.scroll-markers-before, .scroll-markers-after)::scroll-marker-group {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 0.6rem;
+}
+:is(.scroll-markers-before, .scroll-markers-after) > *::scroll-marker {
+  content: "";
+  display: block;
+  inline-size: 0.7rem;
+  block-size: 0.7rem;
+  border-radius: 50%;
+  background: oklch(from var(--color-mistblue-80) l c h / 0.6);
+}
+:is(.scroll-markers-before, .scroll-markers-after) > *::scroll-marker:target-current {
+  background: var(--color-vividblue-80);
+}
+
+/* Scroll buttons — CSS-only previous/next arrows on a scroll container (::scroll-button()) */
+.scroll-buttons {
+  anchor-name: --oc-scroller;
+  anchor-scope: --oc-scroller;
+}
+.scroll-buttons::scroll-button(*) {
+  position: absolute;
+  position-anchor: --oc-scroller;
+  top: anchor(center);
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  inline-size: 2.25rem;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  background: oklch(from var(--color-mistblue-95) l c h / 0.75);
+  color: var(--color-white-50);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.scroll-buttons::scroll-button(*):disabled { opacity: 0.3; cursor: default; }
+.scroll-buttons::scroll-button(*):focus-visible { outline: 2px solid var(--color-vividblue-80); outline-offset: 2px; }
+.scroll-buttons::scroll-button(inline-start) { content: "\2039" / "Previous"; left: calc(anchor(left) + 0.5rem); }
+.scroll-buttons::scroll-button(inline-end) { content: "\203A" / "Next"; right: calc(anchor(right) + 0.5rem); }
+
+/* Overflow anchor — scroll anchoring */
+.overflow-anchor-auto { overflow-anchor: auto; }
+.overflow-anchor-none { overflow-anchor: none; }
+
+/* Print color adjust */
+.print-exact { print-color-adjust: exact; }
+.print-economy { print-color-adjust: economy; }
+
+/* Will change — opacity */
+.will-change-opacity { will-change: opacity; }

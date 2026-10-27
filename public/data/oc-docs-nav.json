@@ -1,0 +1,2376 @@
+{
+  "sidebarTitle": "OmniaCSS Docs",
+  "quickLinks": [
+    {
+      "label": "CSS catalog",
+      "href": "css-catalog.html"
+    },
+    {
+      "label": "Docs home",
+      "href": "index.html"
+    },
+    {
+      "label": "Home",
+      "href": "../../index.html"
+    },
+    {
+      "label": "Playground colors",
+      "href": "../../pages/colors.html"
+    }
+  ],
+  "leftSections": [
+    {
+      "title": "Start",
+      "items": [
+        {
+          "id": "css-catalog",
+          "label": "CSS Catalog",
+          "href": "css-catalog.html"
+        },
+        {
+          "id": "index",
+          "label": "Docs Home",
+          "href": "index.html"
+        }
+      ]
+    },
+    {
+      "title": "Core Foundations",
+      "items": [
+        {
+          "id": "configuration",
+          "label": "Configuration",
+          "href": "configuration.html"
+        },
+        {
+          "id": "fluid",
+          "label": "Fluid values (clamp, min, max)",
+          "href": "fluid.html"
+        },
+        {
+          "id": "functions",
+          "label": "CSS Functions",
+          "href": "functions/"
+        },
+        {
+          "id": "variables",
+          "label": "Variables",
+          "href": "variables/"
+        },
+        {
+          "id": "units",
+          "label": "Units",
+          "href": "units/"
+        },
+        {
+          "id": "at-rules",
+          "label": "At-rules (@supports, @layer …)",
+          "href": "at-rules/"
+        },
+        {
+          "id": "selectors",
+          "label": "Selectors & Pseudo-classes",
+          "href": "selectors/"
+        },
+        {
+          "id": "responsive",
+          "label": "Responsive & Dark Mode",
+          "href": "responsive.html"
+        },
+        {
+          "id": "utilities",
+          "label": "Utilities",
+          "href": "utilities.html"
+        }
+      ]
+    },
+    {
+      "title": "Core Families",
+      "items": [
+        {
+          "id": "alignment",
+          "label": "Alignment",
+          "href": "alignment/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "alignment/"
+            },
+            {
+              "id": "justify-content",
+              "label": "Justify Content",
+              "href": "justify-content.html"
+            },
+            {
+              "label": "Justify Items",
+              "href": "justify-items.html"
+            },
+            {
+              "label": "Justify Self",
+              "href": "justify-self.html"
+            },
+            {
+              "label": "Align Content",
+              "href": "align-content.html"
+            },
+            {
+              "label": "Align Items",
+              "href": "align-items.html"
+            },
+            {
+              "label": "Align Self",
+              "href": "align-self.html"
+            },
+            {
+              "label": "Place Content",
+              "href": "place-content.html"
+            },
+            {
+              "label": "Place Items",
+              "href": "place-items.html"
+            },
+            {
+              "label": "Place Self",
+              "href": "place-self.html"
+            }
+          ]
+        },
+        {
+          "id": "borders",
+          "label": "Borders",
+          "href": "borders/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "borders/"
+            },
+            {
+              "label": "Border-radius",
+              "href": "border-radius.html"
+            },
+            {
+              "label": "Border-width",
+              "href": "border-width.html"
+            },
+            {
+              "label": "Border-style",
+              "href": "border-style.html"
+            },
+            {
+              "label": "Border-color",
+              "href": "border-color.html"
+            },
+            {
+              "label": "Outline-width",
+              "href": "outline-width.html"
+            },
+            {
+              "label": "Outline-style",
+              "href": "outline-style.html"
+            },
+            {
+              "label": "Outline-color",
+              "href": "outline-color.html"
+            },
+            {
+              "label": "Outline-offset",
+              "href": "outline-offset.html"
+            },
+            {
+              "label": "Outline (focus ring)",
+              "href": "outline-focus-ring.html"
+            },
+            {
+              "label": "Corner shape",
+              "href": "corner-shape.html"
+            },
+            {
+              "label": "Sides & Images",
+              "href": "sides-images.html"
+            }
+          ]
+        },
+        {
+          "id": "colors",
+          "label": "Colors",
+          "href": "colors/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "colors/"
+            },
+            {
+              "label": "Color System",
+              "href": "system.html"
+            },
+            {
+              "label": "Color Functions",
+              "href": "functions.html"
+            },
+            {
+              "label": "Palettes",
+              "href": "palettes.html"
+            },
+            {
+              "label": "Examples",
+              "href": "examples.html"
+            }
+          ]
+        },
+        {
+          "id": "effects",
+          "label": "Effects",
+          "href": "effects/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "effects/"
+            },
+            {
+              "label": "Opacity",
+              "href": "opacity.html"
+            },
+            {
+              "label": "Shadows",
+              "href": "shadows.html"
+            },
+            {
+              "label": "Filters & Backdrop",
+              "href": "filters.html"
+            },
+            {
+              "label": "Blend Modes",
+              "href": "blend.html"
+            },
+            {
+              "label": "Transitions",
+              "href": "transitions.html"
+            },
+            {
+              "label": "Transforms",
+              "href": "transforms.html"
+            },
+            {
+              "label": "Animations",
+              "href": "animations.html"
+            },
+            {
+              "label": "Animation Properties",
+              "href": "animation-properties.html"
+            }
+          ]
+        },
+        {
+          "id": "flex-grid",
+          "label": "Flex & Grid",
+          "href": "flex-grid/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "flex-grid/"
+            },
+            {
+              "label": "Display",
+              "href": "display.html"
+            },
+            {
+              "label": "Flex Direction",
+              "href": "direction.html"
+            },
+            {
+              "label": "Flex Wrap",
+              "href": "wrap.html"
+            },
+            {
+              "label": "Grow & Shrink",
+              "href": "grow-shrink.html"
+            },
+            {
+              "label": "Flex Basis",
+              "href": "basis.html"
+            },
+            {
+              "label": "Gap",
+              "href": "gap.html"
+            },
+            {
+              "label": "Grid Columns",
+              "href": "grid-cols.html"
+            },
+            {
+              "label": "Column Span",
+              "href": "grid-col-span.html"
+            },
+            {
+              "label": "Grid Rows",
+              "href": "grid-rows.html"
+            },
+            {
+              "label": "Auto Flow",
+              "href": "grid-flow.html"
+            }
+          ]
+        },
+        {
+          "id": "layout",
+          "label": "Layout",
+          "href": "layout/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "layout/"
+            },
+            {
+              "label": "Display",
+              "href": "display.html"
+            },
+            {
+              "label": "Box Sizing",
+              "href": "box-sizing.html"
+            },
+            {
+              "label": "Overflow",
+              "href": "overflow.html"
+            },
+            {
+              "label": "Layering",
+              "href": "layering.html"
+            },
+            {
+              "label": "Backgrounds",
+              "href": "backgrounds.html"
+            },
+            {
+              "label": "Layout Flow",
+              "href": "flow.html"
+            },
+            {
+              "label": "Layout Extras",
+              "href": "extras.html"
+            }
+          ]
+        },
+        {
+          "id": "position",
+          "label": "Position",
+          "href": "position/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "position/"
+            },
+            {
+              "label": "Position Types",
+              "href": "types.html"
+            },
+            {
+              "label": "Inset",
+              "href": "inset.html"
+            },
+            {
+              "label": "Z-Index",
+              "href": "z-index.html"
+            }
+          ]
+        },
+        {
+          "id": "sizing",
+          "label": "Sizing",
+          "href": "sizing/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "sizing/"
+            },
+            {
+              "label": "Width",
+              "href": "width.html"
+            },
+            {
+              "label": "Height",
+              "href": "height.html"
+            },
+            {
+              "label": "Size Icon",
+              "href": "size-icon.html"
+            },
+            {
+              "label": "Min/Max Width",
+              "href": "min-max-width.html"
+            },
+            {
+              "label": "Min/Max Height",
+              "href": "min-max-height.html"
+            },
+            {
+              "label": "Container",
+              "href": "container.html"
+            },
+            {
+              "label": "Aspect Ratio",
+              "href": "aspect.html"
+            }
+          ]
+        },
+        {
+          "id": "spacing",
+          "label": "Spacing",
+          "href": "spacing/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "spacing/"
+            },
+            {
+              "label": "Padding",
+              "href": "padding.html"
+            },
+            {
+              "label": "Margin",
+              "href": "margin.html"
+            }
+          ]
+        },
+        {
+          "id": "tables",
+          "label": "Tables",
+          "href": "tables/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "tables/"
+            },
+            {
+              "label": "Table Display",
+              "href": "display.html"
+            },
+            {
+              "label": "Border Collapse",
+              "href": "border-collapse.html"
+            },
+            {
+              "label": "Border Spacing",
+              "href": "border-spacing.html"
+            },
+            {
+              "label": "Table Layout",
+              "href": "layout.html"
+            },
+            {
+              "label": "Caption Side",
+              "href": "caption-side.html"
+            }
+          ]
+        },
+        {
+          "id": "typography",
+          "label": "Typography",
+          "href": "typography/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "typography/"
+            },
+            {
+              "label": "Font Family",
+              "href": "font-family.html"
+            },
+            {
+              "label": "Fonts (overview)",
+              "href": "fonts.html"
+            },
+            {
+              "label": "Font Families",
+              "href": "font-families.html"
+            },
+            {
+              "label": "Font Usage",
+              "href": "font-usage.html"
+            },
+            {
+              "label": "Font Size",
+              "href": "font-size.html"
+            },
+            {
+              "label": "Font Weight",
+              "href": "font-weight.html"
+            },
+            {
+              "label": "Font Style",
+              "href": "font-style.html"
+            },
+            {
+              "label": "Text Align",
+              "href": "text-align.html"
+            },
+            {
+              "label": "Text Decoration",
+              "href": "text-decoration.html"
+            },
+            {
+              "label": "Text Transform",
+              "href": "text-transform.html"
+            },
+            {
+              "label": "Letter Spacing",
+              "href": "letter-spacing.html"
+            },
+            {
+              "label": "Line Height",
+              "href": "line-height.html"
+            },
+            {
+              "label": "Advanced",
+              "href": "advanced.html"
+            },
+            {
+              "label": "Modern",
+              "href": "modern.html"
+            },
+            {
+              "label": "Variants & Effects",
+              "href": "variants.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Extended Families",
+      "items": [
+        {
+          "id": "interactivity",
+          "label": "Interactivity",
+          "href": "interactivity/",
+          "children": [
+            {
+              "label": "Overview",
+              "href": "interactivity/"
+            },
+            {
+              "label": "Cursor & selection",
+              "href": "cursor-selection.html"
+            },
+            {
+              "label": "Scrolling & touch",
+              "href": "scrolling.html"
+            },
+            {
+              "label": "Form controls",
+              "href": "forms.html"
+            },
+            {
+              "label": "Performance & a11y",
+              "href": "performance-a11y.html"
+            }
+          ]
+        },
+        {
+          "id": "scroll-snap",
+          "label": "Scroll Snap",
+          "href": "scroll-snap/"
+        },
+        {
+          "id": "pagination",
+          "label": "Pagination",
+          "href": "pagination/"
+        },
+        {
+          "id": "scrollbars",
+          "label": "Scrollbars",
+          "href": "scrollbars/"
+        },
+        {
+          "id": "gradients",
+          "label": "Gradients",
+          "href": "gradients/"
+        },
+        {
+          "id": "svg",
+          "label": "SVG",
+          "href": "svg/"
+        },
+        {
+          "id": "lists",
+          "label": "Lists & Counters",
+          "href": "lists/"
+        },
+        {
+          "id": "images",
+          "label": "Images & Object Fit",
+          "href": "images/"
+        },
+        {
+          "id": "columns",
+          "label": "Columns",
+          "href": "columns/"
+        },
+        {
+          "id": "container-queries",
+          "label": "Container Queries",
+          "href": "container-queries/"
+        },
+        {
+          "id": "writing-modes",
+          "label": "Writing Modes",
+          "href": "writing-modes/"
+        },
+        {
+          "id": "shapes",
+          "label": "Shapes & Clipping",
+          "href": "shapes/"
+        },
+        {
+          "id": "fragmentation",
+          "label": "Fragmentation",
+          "href": "fragmentation/"
+        },
+        {
+          "id": "generated-content",
+          "label": "Generated Content",
+          "href": "generated-content/"
+        }
+      ]
+    },
+    {
+      "title": "Showcase",
+      "items": [
+        {
+          "id": "creative",
+          "label": "Creative CSS",
+          "href": "creative/"
+        }
+      ]
+    },
+    {
+      "title": "Experimental",
+      "items": [
+        {
+          "id": "anchor-positioning",
+          "label": "Anchor Positioning",
+          "href": "anchor-positioning/"
+        },
+        {
+          "id": "view-transitions",
+          "label": "View Transitions",
+          "href": "view-transitions/"
+        },
+        {
+          "id": "scroll-animations",
+          "label": "Scroll Animations",
+          "href": "scroll-animations/"
+        },
+        {
+          "id": "starting-style",
+          "label": "Entry Animations",
+          "href": "starting-style/"
+        },
+        {
+          "id": "experimental-css",
+          "label": "Newest CSS",
+          "href": "experimental-css/"
+        }
+      ]
+    },
+    {
+      "title": "Modules",
+      "items": [
+        {
+          "id": "layout-module",
+          "label": "Layout Module",
+          "href": "layout-module.html"
+        }
+      ]
+    },
+    {
+      "title": "Special",
+      "items": [
+        {
+          "id": "code-syntax-theme",
+          "label": "Theme to CSS",
+          "href": "code-syntax-theme.html"
+        },
+        {
+          "id": "code-syntax",
+          "label": "Code syntax",
+          "href": "code-syntax.html"
+        },
+        {
+          "id": "migrate",
+          "label": "Migreren / Migrate",
+          "href": "migrate.html"
+        }
+      ]
+    }
+  ],
+  "mainMenu": [
+    {
+      "id": "alignment",
+      "label": "Alignment",
+      "href": "alignment/"
+    },
+    {
+      "id": "borders",
+      "label": "Borders",
+      "href": "borders/"
+    },
+    {
+      "id": "colors",
+      "label": "Colors",
+      "href": "colors/"
+    },
+    {
+      "id": "configuration",
+      "label": "Configuration",
+      "href": "configuration.html"
+    },
+    {
+      "id": "code-syntax-theme",
+      "label": "Theme to CSS",
+      "href": "code-syntax-theme.html"
+    },
+    {
+      "id": "code-syntax",
+      "label": "Code syntax",
+      "href": "code-syntax.html"
+    },
+    {
+      "id": "css-catalog",
+      "label": "CSS Catalog",
+      "href": "css-catalog.html"
+    },
+    {
+      "id": "effects",
+      "label": "Effects",
+      "href": "effects/"
+    },
+    {
+      "id": "flex-grid",
+      "label": "Flex & Grid",
+      "href": "flex-grid/"
+    },
+    {
+      "id": "fluid",
+      "label": "Fluid values (clamp, min, max)",
+      "href": "fluid.html"
+    },
+    {
+      "id": "fonts",
+      "label": "Fonts",
+      "href": "typography/fonts.html"
+    },
+    {
+      "id": "layout",
+      "label": "Layout",
+      "href": "layout/",
+      "children": [
+        {
+          "label": "Overview",
+          "href": "layout/"
+        },
+        {
+          "label": "Display",
+          "href": "display.html"
+        },
+        {
+          "label": "Box Sizing",
+          "href": "box-sizing.html"
+        },
+        {
+          "label": "Overflow",
+          "href": "overflow.html"
+        },
+        {
+          "label": "Layering",
+          "href": "layering.html"
+        },
+        {
+          "label": "Backgrounds",
+          "href": "backgrounds.html"
+        },
+        {
+          "label": "Layout Flow",
+          "href": "flow.html"
+        },
+        {
+          "label": "Layout Extras",
+          "href": "extras.html"
+        }
+      ]
+    },
+    {
+      "id": "layout-module",
+      "label": "Layout Module",
+      "href": "layout-module.html"
+    },
+    {
+      "id": "position",
+      "label": "Position",
+      "href": "position/",
+      "children": [
+        {
+          "label": "Overview",
+          "href": "position/"
+        },
+        {
+          "label": "Position Types",
+          "href": "types.html"
+        },
+        {
+          "label": "Inset",
+          "href": "inset.html"
+        },
+        {
+          "label": "Z-Index",
+          "href": "z-index.html"
+        }
+      ]
+    },
+    {
+      "id": "responsive",
+      "label": "Responsive & Dark Mode",
+      "href": "responsive.html"
+    },
+    {
+      "id": "sizing",
+      "label": "Sizing",
+      "href": "sizing/",
+      "children": [
+        {
+          "label": "Overview",
+          "href": "sizing/"
+        },
+        {
+          "label": "Width",
+          "href": "width.html"
+        },
+        {
+          "label": "Height",
+          "href": "height.html"
+        },
+        {
+          "label": "Size (icon)",
+          "href": "size-icon.html"
+        },
+        {
+          "label": "Min/Max Width",
+          "href": "min-max-width.html"
+        },
+        {
+          "label": "Min/Max Height",
+          "href": "min-max-height.html"
+        },
+        {
+          "label": "Container",
+          "href": "container.html"
+        },
+        {
+          "label": "Aspect Ratio",
+          "href": "aspect.html"
+        }
+      ]
+    },
+    {
+      "id": "spacing",
+      "label": "Spacing",
+      "href": "spacing/",
+      "children": [
+        {
+          "label": "Overview",
+          "href": "spacing/"
+        },
+        {
+          "label": "Padding",
+          "href": "padding.html"
+        },
+        {
+          "label": "Margin",
+          "href": "margin.html"
+        }
+      ]
+    },
+    {
+      "id": "tables",
+      "label": "Tables",
+      "href": "tables/",
+      "children": [
+        {
+          "label": "Overview",
+          "href": "tables/"
+        },
+        {
+          "label": "Table Display",
+          "href": "display.html"
+        },
+        {
+          "label": "Border Collapse",
+          "href": "border-collapse.html"
+        },
+        {
+          "label": "Border Spacing",
+          "href": "border-spacing.html"
+        },
+        {
+          "label": "Table Layout",
+          "href": "layout.html"
+        },
+        {
+          "label": "Caption Side",
+          "href": "caption-side.html"
+        }
+      ]
+    },
+    {
+      "id": "typography",
+      "label": "Typography",
+      "href": "typography/",
+      "children": [
+        {
+          "label": "Overview",
+          "href": "typography/"
+        },
+        {
+          "label": "Font Family",
+          "href": "font-family.html"
+        },
+        {
+          "label": "Font Size",
+          "href": "font-size.html"
+        },
+        {
+          "label": "Font Weight",
+          "href": "font-weight.html"
+        },
+        {
+          "label": "Font Style",
+          "href": "font-style.html"
+        },
+        {
+          "label": "Text Align",
+          "href": "text-align.html"
+        },
+        {
+          "label": "Text Decoration",
+          "href": "text-decoration.html"
+        },
+        {
+          "label": "Text Transform",
+          "href": "text-transform.html"
+        },
+        {
+          "label": "Letter Spacing",
+          "href": "letter-spacing.html"
+        },
+        {
+          "label": "Line Height",
+          "href": "line-height.html"
+        },
+        {
+          "label": "Advanced",
+          "href": "advanced.html"
+        },
+        {
+          "label": "Modern",
+          "href": "modern.html"
+        },
+        {
+          "label": "Variants & Effects",
+          "href": "variants.html"
+        }
+      ]
+    },
+    {
+      "id": "utilities",
+      "label": "Utilities",
+      "href": "utilities.html"
+    },
+    {
+      "id": "interactivity",
+      "label": "Interactivity",
+      "href": "interactivity/"
+    },
+    {
+      "id": "scrollbars",
+      "label": "Scrollbars",
+      "href": "scrollbars/"
+    },
+    {
+      "id": "gradients",
+      "label": "Gradients",
+      "href": "gradients/"
+    },
+    {
+      "id": "svg",
+      "label": "SVG",
+      "href": "svg/"
+    },
+    {
+      "id": "lists",
+      "label": "Lists & Counters",
+      "href": "lists/"
+    },
+    {
+      "id": "images",
+      "label": "Images & Object Fit",
+      "href": "images/"
+    },
+    {
+      "id": "columns",
+      "label": "Columns",
+      "href": "columns/"
+    },
+    {
+      "id": "container-queries",
+      "label": "Container Queries",
+      "href": "container-queries/"
+    },
+    {
+      "id": "writing-modes",
+      "label": "Writing Modes",
+      "href": "writing-modes/"
+    },
+    {
+      "id": "shapes",
+      "label": "Shapes & Clipping",
+      "href": "shapes/"
+    },
+    {
+      "id": "fragmentation",
+      "label": "Fragmentation",
+      "href": "fragmentation/"
+    },
+    {
+      "id": "generated-content",
+      "label": "Generated Content",
+      "href": "generated-content/"
+    },
+    {
+      "id": "anchor-positioning",
+      "label": "Anchor Positioning",
+      "href": "anchor-positioning/"
+    },
+    {
+      "id": "view-transitions",
+      "label": "View Transitions",
+      "href": "view-transitions/"
+    },
+    {
+      "id": "scroll-animations",
+      "label": "Scroll Animations",
+      "href": "scroll-animations/"
+    },
+    {
+      "id": "starting-style",
+      "label": "Entry Animations",
+      "href": "starting-style/"
+    },
+    {
+      "id": "experimental-css",
+      "label": "Newest CSS",
+      "href": "experimental-css/"
+    }
+  ],
+  "pages": {
+    "index": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Progress",
+          "href": "#progress"
+        },
+        {
+          "label": "Overview",
+          "href": "#overview"
+        },
+        {
+          "label": "Module Cards",
+          "href": "#module-cards"
+        },
+        {
+          "label": "Next Steps",
+          "href": "#next-steps"
+        }
+      ]
+    },
+    "css-catalog": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "#overview"
+        },
+        {
+          "label": "Configuration",
+          "href": "#catalog-configuration"
+        },
+        {
+          "label": "Utilities",
+          "href": "#catalog-utilities"
+        },
+        {
+          "label": "Typography",
+          "href": "#catalog-typography"
+        },
+        {
+          "label": "Core Families",
+          "href": "#catalog-families"
+        },
+        {
+          "label": "Extended Families",
+          "href": "#catalog-extended"
+        },
+        {
+          "label": "Experimental",
+          "href": "#catalog-experimental"
+        },
+        {
+          "label": "Coverage: MDN & W3Schools",
+          "href": "#catalog-coverage"
+        }
+      ]
+    },
+    "code-syntax-theme": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Situatie",
+          "href": "#situatie"
+        },
+        {
+          "label": "Overzicht per taal",
+          "href": "#overview"
+        },
+        {
+          "label": "Mapping thema → klas",
+          "href": "#mapping"
+        },
+        {
+          "label": "Hoe we aan de CSS komen",
+          "href": "#aanpak"
+        },
+        {
+          "label": "Andere talen (PHP, JS)",
+          "href": "#andere-talen"
+        },
+        {
+          "label": "Volgende: Code syntax",
+          "href": "#next"
+        }
+      ]
+    },
+    "code-syntax": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Source",
+          "href": "#files"
+        },
+        {
+          "label": "Usage",
+          "href": "#usage"
+        },
+        {
+          "label": "Theme generation",
+          "href": "#theme-generation"
+        },
+        {
+          "label": "Token variables",
+          "href": "#token-variables"
+        },
+        {
+          "label": "UI component",
+          "href": "#ui-component"
+        },
+        {
+          "label": "Source & Further Reading",
+          "href": "#source"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "#overview"
+        },
+        {
+          "label": "SCSS Source",
+          "href": "#scss-source"
+        },
+        {
+          "label": "CSS Output",
+          "href": "#css-output"
+        },
+        {
+          "label": "CLI",
+          "href": "#cli"
+        },
+        {
+          "label": "HTML Usage",
+          "href": "#html-usage"
+        },
+        {
+          "label": "Playground",
+          "href": "#playground"
+        }
+      ]
+    },
+    "utilities": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Cursor",
+          "href": "#cursor"
+        },
+        {
+          "label": "User Select",
+          "href": "#user-select"
+        },
+        {
+          "label": "Pointer Events",
+          "href": "#pointer-events"
+        },
+        {
+          "label": "Scroll",
+          "href": "#scroll"
+        },
+        {
+          "label": "Touch Action",
+          "href": "#touch"
+        },
+        {
+          "label": "Resize",
+          "href": "#resize"
+        },
+        {
+          "label": "Appearance",
+          "href": "#appearance"
+        },
+        {
+          "label": "Caret & Scheme",
+          "href": "#caret"
+        },
+        {
+          "label": "Will Change",
+          "href": "#will-change"
+        },
+        {
+          "label": "SVG",
+          "href": "#svg"
+        },
+        {
+          "label": "Pseudo Classes",
+          "href": "#pseudo-classes"
+        },
+        {
+          "label": "Accessibility",
+          "href": "#accessibility"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "justify-content": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "justify-content",
+          "href": "#justify-content"
+        },
+        {
+          "label": "justify-content: start",
+          "href": "#justify-content-start"
+        },
+        {
+          "label": "justify-content: center",
+          "href": "#justify-content-center"
+        },
+        {
+          "label": "justify-content: end",
+          "href": "#justify-content-end"
+        },
+        {
+          "label": "justify-content: left, right",
+          "href": "#justify-content-left-right"
+        },
+        {
+          "label": "justify-content: between, around, evenly",
+          "href": "#justify-content-between-around-evenly"
+        },
+        {
+          "label": "justify-content: stretch",
+          "href": "#justify-content-stretch"
+        },
+        {
+          "label": "justify-content: basic",
+          "href": "#justify-content-basic"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "flex-grid": {
+      "title": "Flex & Grid",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "flex-grid/"
+        },
+        {
+          "label": "Display",
+          "href": "flex-grid/display.html"
+        },
+        {
+          "label": "Flex Direction",
+          "href": "flex-grid/direction.html"
+        },
+        {
+          "label": "Flex Wrap",
+          "href": "flex-grid/wrap.html"
+        },
+        {
+          "label": "Grow & Shrink",
+          "href": "flex-grid/grow-shrink.html"
+        },
+        {
+          "label": "Flex Basis",
+          "href": "flex-grid/basis.html"
+        },
+        {
+          "label": "Gap",
+          "href": "flex-grid/gap.html"
+        },
+        {
+          "label": "Grid Columns",
+          "href": "flex-grid/grid-cols.html"
+        },
+        {
+          "label": "Column Span",
+          "href": "flex-grid/grid-col-span.html"
+        },
+        {
+          "label": "Grid Rows",
+          "href": "flex-grid/grid-rows.html"
+        },
+        {
+          "label": "Auto Flow",
+          "href": "flex-grid/grid-flow.html"
+        }
+      ]
+    },
+    "fluid": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "clamp(), min(), and max()",
+          "href": "#intro"
+        },
+        {
+          "label": "min() and max()",
+          "href": "#min-max"
+        },
+        {
+          "label": "Fluid font-size (clamp)",
+          "href": "#fluid-font-size"
+        },
+        {
+          "label": "Fluid width",
+          "href": "#fluid-width"
+        },
+        {
+          "label": "Custom use",
+          "href": "#custom-use",
+          "children": [
+            {
+              "label": "Override variables",
+              "href": "#custom-override"
+            },
+            {
+              "label": "Mixin",
+              "href": "#custom-mixin"
+            }
+          ]
+        }
+      ]
+    },
+    "typography": {
+      "title": "Typography",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "typography/"
+        },
+        {
+          "label": "Font Family",
+          "href": "typography/font-family.html"
+        },
+        {
+          "label": "Font Size",
+          "href": "typography/font-size.html"
+        },
+        {
+          "label": "Font Weight",
+          "href": "typography/font-weight.html"
+        },
+        {
+          "label": "Font Style",
+          "href": "typography/font-style.html"
+        },
+        {
+          "label": "Text Align",
+          "href": "typography/text-align.html"
+        },
+        {
+          "label": "Text Decoration",
+          "href": "typography/text-decoration.html"
+        },
+        {
+          "label": "Text Transform",
+          "href": "typography/text-transform.html"
+        },
+        {
+          "label": "Letter Spacing",
+          "href": "typography/letter-spacing.html"
+        },
+        {
+          "label": "Line Height",
+          "href": "typography/line-height.html"
+        },
+        {
+          "label": "Advanced",
+          "href": "typography/advanced.html"
+        },
+        {
+          "label": "Modern",
+          "href": "typography/modern.html"
+        },
+        {
+          "label": "Variants & Effects",
+          "href": "typography/variants.html"
+        }
+      ]
+    },
+    "colors": {
+      "title": "Colors",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "colors/"
+        },
+        {
+          "label": "Color System",
+          "href": "colors/system.html"
+        },
+        {
+          "label": "Palettes",
+          "href": "colors/palettes.html"
+        },
+        {
+          "label": "Examples & Customizing",
+          "href": "colors/examples.html"
+        }
+      ]
+    },
+    "fonts": {
+      "title": "Fonts",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "typography/fonts.html"
+        },
+        {
+          "label": "Families reference",
+          "href": "typography/font-families.html"
+        },
+        {
+          "label": "Usage",
+          "href": "typography/font-usage.html"
+        }
+      ]
+    },
+    "spacing": {
+      "title": "Spacing",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "spacing/"
+        },
+        {
+          "label": "Padding",
+          "href": "spacing/padding.html"
+        },
+        {
+          "label": "Margin",
+          "href": "spacing/margin.html"
+        }
+      ]
+    },
+    "position": {
+      "title": "Position",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "position/"
+        },
+        {
+          "label": "Position Types",
+          "href": "position/types.html"
+        },
+        {
+          "label": "Inset",
+          "href": "position/inset.html"
+        },
+        {
+          "label": "Z-Index",
+          "href": "position/z-index.html"
+        }
+      ]
+    },
+    "sizing": {
+      "title": "Sizing",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "sizing/"
+        },
+        {
+          "label": "Width",
+          "href": "sizing/width.html"
+        },
+        {
+          "label": "Height",
+          "href": "sizing/height.html"
+        },
+        {
+          "label": "Size (icon & square)",
+          "href": "sizing/size-icon.html"
+        },
+        {
+          "label": "Min/Max Width",
+          "href": "sizing/min-max-width.html"
+        },
+        {
+          "label": "Min/Max Height",
+          "href": "sizing/min-max-height.html"
+        },
+        {
+          "label": "Container",
+          "href": "sizing/container.html"
+        },
+        {
+          "label": "Aspect Ratio",
+          "href": "sizing/aspect.html"
+        }
+      ]
+    },
+    "layout": {
+      "title": "Layout",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "layout/"
+        },
+        {
+          "label": "Display",
+          "href": "layout/display.html"
+        },
+        {
+          "label": "Box Sizing",
+          "href": "layout/box-sizing.html"
+        },
+        {
+          "label": "Overflow",
+          "href": "layout/overflow.html"
+        },
+        {
+          "label": "Layering",
+          "href": "layout/layering.html"
+        },
+        {
+          "label": "Backgrounds",
+          "href": "layout/backgrounds.html"
+        },
+        {
+          "label": "Layout Flow",
+          "href": "layout/flow.html"
+        }
+      ]
+    },
+    "effects": {
+      "title": "Effects",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "effects/"
+        },
+        {
+          "label": "Opacity",
+          "href": "effects/opacity.html"
+        },
+        {
+          "label": "Shadows",
+          "href": "effects/shadows.html"
+        },
+        {
+          "label": "Filters & Backdrop",
+          "href": "effects/filters.html"
+        },
+        {
+          "label": "Blend Modes",
+          "href": "effects/blend.html"
+        },
+        {
+          "label": "Transitions",
+          "href": "effects/transitions.html"
+        },
+        {
+          "label": "Transforms",
+          "href": "effects/transforms.html"
+        },
+        {
+          "label": "Animations",
+          "href": "effects/animations.html"
+        }
+      ]
+    },
+    "tables": {
+      "title": "Tables",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "tables/"
+        },
+        {
+          "label": "Table Display",
+          "href": "tables/display.html"
+        },
+        {
+          "label": "Border Collapse",
+          "href": "tables/border-collapse.html"
+        },
+        {
+          "label": "Border Spacing",
+          "href": "tables/border-spacing.html"
+        },
+        {
+          "label": "Table Layout",
+          "href": "tables/layout.html"
+        },
+        {
+          "label": "Caption Side",
+          "href": "tables/caption-side.html"
+        }
+      ]
+    },
+    "layout-module": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "#overview"
+        },
+        {
+          "label": "Files",
+          "href": "#files"
+        },
+        {
+          "label": "Required HTML",
+          "href": "#required-html"
+        },
+        {
+          "label": "Body Settings",
+          "href": "#body-settings"
+        },
+        {
+          "label": "CSS Variables",
+          "href": "#css-variables"
+        },
+        {
+          "label": "Notes",
+          "href": "#notes"
+        }
+      ]
+    },
+    "responsive": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Breakpoints",
+          "href": "#breakpoints"
+        },
+        {
+          "label": "Responsive Utilities",
+          "href": "#responsive-utilities"
+        },
+        {
+          "label": "Live Demo",
+          "href": "#responsive-demo"
+        },
+        {
+          "label": "Dark Mode",
+          "href": "#dark-mode"
+        },
+        {
+          "label": "State Variants",
+          "href": "#state-variants"
+        },
+        {
+          "label": "Combining Variants",
+          "href": "#combining"
+        }
+      ]
+    },
+    "borders": {
+      "title": "Borders",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "borders/"
+        },
+        {
+          "label": "Border-radius",
+          "href": "borders/border-radius.html"
+        },
+        {
+          "label": "Border-width",
+          "href": "borders/border-width.html"
+        },
+        {
+          "label": "Border-style",
+          "href": "borders/border-style.html"
+        },
+        {
+          "label": "Border-color",
+          "href": "borders/border-color.html"
+        },
+        {
+          "label": "Outline-width",
+          "href": "borders/outline-width.html"
+        },
+        {
+          "label": "Outline-style",
+          "href": "borders/outline-style.html"
+        },
+        {
+          "label": "Outline-color",
+          "href": "borders/outline-color.html"
+        },
+        {
+          "label": "Outline-offset",
+          "href": "borders/outline-offset.html"
+        },
+        {
+          "label": "Outline (focus ring)",
+          "href": "borders/outline-focus-ring.html"
+        },
+        {
+          "label": "Corner shape",
+          "href": "borders/corner-shape.html"
+        },
+        {
+          "label": "Sides & Images",
+          "href": "borders/sides-images.html"
+        }
+      ]
+    },
+    "blocks": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Hero",
+          "href": "#hero"
+        },
+        {
+          "label": "Footer",
+          "href": "#footer"
+        },
+        {
+          "label": "Stats",
+          "href": "#stats"
+        },
+        {
+          "label": "Pricing",
+          "href": "#pricing"
+        },
+        {
+          "label": "Features",
+          "href": "#features"
+        },
+        {
+          "label": "Call to Action",
+          "href": "#cta"
+        },
+        {
+          "label": "Authentication",
+          "href": "#auth"
+        }
+      ]
+    },
+    "interactivity": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Cursor",
+          "href": "#cursor"
+        },
+        {
+          "label": "User Select",
+          "href": "#user-select"
+        },
+        {
+          "label": "Pointer Events",
+          "href": "#pointer-events"
+        },
+        {
+          "label": "Resize",
+          "href": "#resize"
+        },
+        {
+          "label": "Scroll Behavior",
+          "href": "#scroll"
+        },
+        {
+          "label": "Scroll Snap",
+          "href": "#scroll-snap"
+        },
+        {
+          "label": "Touch Action",
+          "href": "#touch"
+        },
+        {
+          "label": "Accent & Caret",
+          "href": "#accent"
+        },
+        {
+          "label": "Will Change",
+          "href": "#will-change"
+        },
+        {
+          "label": "Field Sizing",
+          "href": "#field-sizing"
+        },
+        {
+          "label": "Customizable Select",
+          "href": "#base-select"
+        },
+        {
+          "label": "Reading Flow",
+          "href": "#reading-flow"
+        },
+        {
+          "label": "Scroll Markers",
+          "href": "#scroll-markers"
+        },
+        {
+          "label": "Anchoring & Print",
+          "href": "#overflow-anchor"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "lists": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "List style type",
+          "href": "#list-style-type"
+        },
+        {
+          "label": "Position & image",
+          "href": "#list-style-position"
+        },
+        {
+          "label": "CSS counters",
+          "href": "#counters"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "images": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Object fit",
+          "href": "#object-fit"
+        },
+        {
+          "label": "Object position",
+          "href": "#object-position"
+        },
+        {
+          "label": "Image rendering",
+          "href": "#image-rendering"
+        },
+        {
+          "label": "Dynamic range limit",
+          "href": "#dynamic-range-limit"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "columns": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Column count",
+          "href": "#column-count"
+        },
+        {
+          "label": "Column width",
+          "href": "#column-width"
+        },
+        {
+          "label": "Column rule",
+          "href": "#column-rule"
+        },
+        {
+          "label": "Column span &amp; fill",
+          "href": "#column-span"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "container-queries": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Container type",
+          "href": "#container-type"
+        },
+        {
+          "label": "Container name",
+          "href": "#container-name"
+        },
+        {
+          "label": "Variants (cq-*)",
+          "href": "#container-variants"
+        },
+        {
+          "label": "Containment",
+          "href": "#containment"
+        },
+        {
+          "label": "Content visibility",
+          "href": "#content-visibility"
+        },
+        {
+          "label": "Usage example",
+          "href": "#usage"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "writing-modes": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Writing mode",
+          "href": "#writing-mode"
+        },
+        {
+          "label": "Direction",
+          "href": "#direction"
+        },
+        {
+          "label": "Text orientation",
+          "href": "#text-orientation"
+        },
+        {
+          "label": "Unicode bidi",
+          "href": "#unicode-bidi"
+        },
+        {
+          "label": "Logical inset",
+          "href": "#logical-inset"
+        },
+        {
+          "label": "Logical sizing",
+          "href": "#logical-sizing"
+        },
+        {
+          "label": "Logical properties",
+          "href": "#logical-properties"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "shapes": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Clip path",
+          "href": "#clip-path"
+        },
+        {
+          "label": "Polygons & shape()",
+          "href": "#clip-polygon"
+        },
+        {
+          "label": "Clip border",
+          "href": "#clip-border"
+        },
+        {
+          "label": "Shape outside",
+          "href": "#shape-outside"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "fragmentation": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Break before",
+          "href": "#break-before"
+        },
+        {
+          "label": "Break after",
+          "href": "#break-after"
+        },
+        {
+          "label": "Break inside",
+          "href": "#break-inside"
+        },
+        {
+          "label": "Orphans &amp; widows",
+          "href": "#orphans-widows"
+        },
+        {
+          "label": "Box decoration break",
+          "href": "#box-decoration"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "generated-content": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Content",
+          "href": "#content"
+        },
+        {
+          "label": "Quotes",
+          "href": "#quotes"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "anchor-positioning": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Anchor name",
+          "href": "#anchor-name"
+        },
+        {
+          "label": "Position area",
+          "href": "#position-area"
+        },
+        {
+          "label": "Fallbacks & visibility",
+          "href": "#position-try"
+        },
+        {
+          "label": "Anchor size",
+          "href": "#anchor-size"
+        },
+        {
+          "label": "Functions &amp; at-rules",
+          "href": "#functions"
+        },
+        {
+          "label": "Usage example",
+          "href": "#usage"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "view-transitions": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Transition name",
+          "href": "#view-transition-name"
+        },
+        {
+          "label": "Transition class",
+          "href": "#view-transition-class"
+        },
+        {
+          "label": "@view-transition",
+          "href": "#at-rule"
+        },
+        {
+          "label": "Pseudo-elements",
+          "href": "#pseudo-elements"
+        },
+        {
+          "label": "Usage example",
+          "href": "#usage"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "scroll-animations": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Presets",
+          "href": "#presets"
+        },
+        {
+          "label": "Animation timeline",
+          "href": "#animation-timeline"
+        },
+        {
+          "label": "Animation range",
+          "href": "#animation-range"
+        },
+        {
+          "label": "Named timelines",
+          "href": "#scroll-timeline"
+        },
+        {
+          "label": "Timeline functions",
+          "href": "#functions"
+        },
+        {
+          "label": "Usage example",
+          "href": "#usage"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "scrollbars": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Scrollbar width",
+          "href": "#scrollbar-width"
+        },
+        {
+          "label": "Scrollbar gutter",
+          "href": "#scrollbar-gutter"
+        },
+        {
+          "label": "Scrollbar color",
+          "href": "#scrollbar-color"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "starting-style": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Starting style",
+          "href": "#starting-style"
+        },
+        {
+          "label": "Transition behavior",
+          "href": "#transition-behavior"
+        },
+        {
+          "label": "Interpolate size",
+          "href": "#interpolate-size"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "gradients": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Linear gradients",
+          "href": "#linear"
+        },
+        {
+          "label": "Radial gradients",
+          "href": "#radial"
+        },
+        {
+          "label": "Conic gradients",
+          "href": "#conic"
+        },
+        {
+          "label": "Repeating gradients",
+          "href": "#repeating"
+        },
+        {
+          "label": "Color stops & text",
+          "href": "#color-stops"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "svg": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Fill &amp; stroke",
+          "href": "#fill-stroke"
+        },
+        {
+          "label": "Dashes, caps &amp; joins",
+          "href": "#dashes"
+        },
+        {
+          "label": "Rendering",
+          "href": "#rendering"
+        },
+        {
+          "label": "Text, markers & stops",
+          "href": "#svg-text"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    },
+    "experimental-css": {
+      "title": "On This Page",
+      "items": [
+        {
+          "label": "Gap decorations",
+          "href": "#gap-decorations"
+        },
+        {
+          "label": "Caret &amp; interactivity",
+          "href": "#caret"
+        },
+        {
+          "label": "Scroll & reading order",
+          "href": "#scroll-reading"
+        },
+        {
+          "label": "Text, images & shapes",
+          "href": "#text-newest"
+        },
+        {
+          "label": "Browser support",
+          "href": "#browser-support"
+        },
+        {
+          "label": "Source",
+          "href": "#source"
+        }
+      ]
+    }
+  }
+}

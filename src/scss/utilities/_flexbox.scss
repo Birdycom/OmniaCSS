@@ -1,0 +1,318 @@
+// SCSS Document 
+// File: src/utilities/_flexbox.scss
+// Description: CSS Flex properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: display
+// Values: flex
+
+@use "sass:string";
+@use "sass:map";
+@use '../utilities/' as *;
+
+/* The Flexbox properties */
+
+///
+/// The flexbox Property
+/// @group Flex
+///
+
+///
+/// The flex property sets the flexible length on flexible items.
+/// @group Flex
+/// @name flex
+/// @link src/scss/utilities/_flexbox.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $displayflex
+/// @example scss - flex class
+///    .flex {
+///       display: flex;
+///     }
+/// @example html - use flex class
+///   <div class="flex">
+///
+///   </div> 
+@each $display-prop in $displayflex {
+  .#{$display-prop}{
+
+    display: $display-prop
+
+  }
+}
+
+// The flex-wrap property
+
+///
+/// The flex-wrap property specifies whether the flexible items should wrap or not.
+/// @group wrap
+/// @name flex-wrap
+/// @link src/scss/utilities/_flexbox.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $flexwrap
+/// @example scss - flex wrap class
+///   @each $flexwrap-prop, $flexwrap-value in $flexwrap {
+///    .#{$flexwrap-prop} {
+///       flex-wrap: $flexwrap-value;
+///     }
+///   }
+/// @example html - use wrap class
+///   <div class="flex nowrap">
+///
+///   </div> 
+@each $flexwrap-prop, $flexwrap-value in $flexwrap {
+  
+  .#{$flexwrap-prop} {
+    flex-wrap: $flexwrap-value;
+  }
+}
+
+// The flex direction property
+
+///
+/// The flex-direction property specifies the direction of the flexible items.
+/// @group direction
+/// @name flex-direction
+/// @link src/scss/utilities/_flexbox.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $flexdirection
+/// @example scss - flex direction class
+///   @each $flexdirection-prop, $flexdirection-value in $flexdirection {
+///    .flex-#{$flexdirection-prop} {
+///       flex-direction: $flexdirection-value;
+///     }
+///   }
+/// @example html - use flex direction class
+///   <div class="flex flex-row">
+///
+///   </div> 
+@each $flexdirection-prop, $flexdirection-value in $flexdirection {
+  
+  .flex-#{$flexdirection-prop} {
+   flex-direction: $flexdirection-value;
+  }
+}
+
+// The flex basis property
+
+///
+/// The flex-basis property specifies the initial length of a flexible item.
+/// Note: If the element is not a flexible item, the flex-basis property has no effect.
+/// @group basis
+/// @name flex-basis
+/// @link src/scss/utilities/_flexbox.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $sizesrem
+/// @example scss - flex basis class
+///   @each $sizesrem-prop, $sizesrem-value in $sizesrem {
+///     $number: string.slice($sizesrem-prop, 6);  
+///    .basis-#{$number} {
+///       flex-basis: $sizesrem-value;
+///     }
+///   }
+/// @example html - use flex basis class
+///   <div class="flex basis-1.5">
+///
+///   </div> 
+//
+$min-group: $DEFAULT-BASE-FIRST-MIN-GROUP;
+$run: 0;
+@while $min-group <= $DEFAULT-BASE-SECOND-MAX-GROUP {
+
+  $result: omnia-generate-sizing($min-group, 'basis', true, $run);
+
+  $min-group: map.get($result,1); 
+  $run: map.get($result,6);
+   
+  .#{map.get($result,5)}-#{map.get($result,2)} {
+
+     #{"flex-"+map.get($result,5)} : map.get($result,3) + #{map.get($result,4)}
+      
+  }
+};
+  // width full
+  .basis-full {
+
+    flex-basis: $DEFAULT-BASE-SIZE-PERCENT;
+
+    }  
+
+// flex-basis with percent
+// divide the width in half (100% / 2)
+@for $i from 1 through 1 {
+  
+  .basis-perc {
+  
+   &-#{$i}\/2 {
+     flex-basis: calc($DEFAULT-BASE-SIZE-PERCENT / 2 * $i);
+   }
+  }
+}
+
+// divide the width in three (100% / 3)
+@for $i from 1 through 2 {
+  
+  .basis-perc {
+  
+   &-#{$i}\/3 {
+     flex-basis: calc($DEFAULT-BASE-SIZE-PERCENT / 3 * $i);
+   }
+  }
+}
+
+// divide the width into four (100% / 4)
+@for $i from 1 through 3 {
+  
+  .basis-perc {
+  
+   &-#{$i}\/4 {
+     flex-basis: calc($DEFAULT-BASE-SIZE-PERCENT / 4 * $i);
+   }
+  }
+}
+
+// divide the width into five (100% / 5)
+@for $i from 1 through 4 {
+  
+  .basis-perc {
+  
+   &-#{$i}\/5 {
+     flex-basis: calc($DEFAULT-BASE-SIZE-PERCENT / 5 * $i);
+   }
+  }
+}
+
+// divide the width into six (100% / 6)
+@for $i from 1 through 5 {
+  
+  .basis-perc {
+  
+   &-#{$i}\/6 {
+     flex-basis: calc($DEFAULT-BASE-SIZE-PERCENT / 6 * $i);
+   }
+  }
+}
+
+// divide the width into twelve (100% / 12)
+@for $i from 1 through 11 {
+  
+  .basis-perc {
+  
+   &-#{$i}\/12 {
+     flex-basis: calc($DEFAULT-BASE-SIZE-PERCENT / 12 * $i);
+   }
+  }
+}
+
+///
+/// The flex-grow property specifies how much the item will grow relative to the rest of the flexible items inside the same container.
+/// Note: If the element is not a flexible item, the flex-grow property has no effect.
+/// @group grow
+/// @name flex-grow
+/// @link src/scss/utilities/_flexbox.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $flexgrow
+/// @example scss - flex grow class
+///   @each $flexgrow-prop, $flexgrow-value in $flexgrow {
+///    .#{$flexgrow-prop} {
+///       flex-grow : $flexgrow-value
+///     }
+///   }
+/// @example html - use flex grow class
+///   <div class="flex grow">
+///
+///   </div> 
+@each $flexgrow-prop, $flexgrow-value in $flexgrow {
+ 
+  .#{$flexgrow-prop} {
+      flex-grow : $flexgrow-value
+  }
+
+}
+
+    ///
+/// The flex-shrink property specifies how much the item will shrink relative to the rest of the flexible items inside the same container.
+/// Note: If the element is not a flexible item, the flex-shrink property has no effect.
+/// @group shrink
+/// @name flex-shrink
+/// @link src/scss/utilities/_flexbox.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require $flexshrink
+/// @example scss - flex shrink class
+///   @each $flexshrink-prop, $flexshrink-value in $flexshrink {
+///    .#{$flexshrink-prop} {
+///       flex-shrink : $flexshrink-value
+///     }
+///   }
+/// @example html - use flex shrink class
+///   <div class="flex shrink">
+///
+///   </div> 
+@each $flexshrink-prop, $flexshrink-value in $flexshrink {
+ 
+  .#{$flexshrink-prop} {
+      flex-shrink : $flexshrink-value
+  }
+
+}
+/* Flex shorthand — combined grow/shrink/basis for common patterns. */
+
+// flex-1: allows item to grow and shrink, ignoring initial size
+.flex-1 { flex: 1 1 0%; }
+
+// flex-auto: allows item to grow and shrink, starting from auto size
+.flex-auto { flex: 1 1 auto; }
+
+// flex-initial: allows item to shrink but not grow (default browser behavior)
+.flex-initial { flex: 0 1 auto; }
+
+// flex-none: prevents item from growing or shrinking
+.flex-none { flex: none; }
+
+/* ===================================================================
+   Short aliases
+   Short, commonly used names next to the long OmniaCSS class names
+   while keeping the original OmniaCSS class names intact.
+   =================================================================== */
+
+/* Direction alias: .flex-col = .flex-column */
+.flex-col { flex-direction: column; }
+.flex-col-reverse { flex-direction: column-reverse; }
+
+/* Wrap aliases: .flex-wrap, .flex-nowrap, .flex-wrap-reverse */
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+/* Grow/shrink aliases with numeric suffix */
+.flex-grow { flex-grow: 1; }
+.flex-grow-0 { flex-grow: 0; }
+.flex-shrink { flex-shrink: 1; }
+.flex-shrink-0 { flex-shrink: 0; }
+
+/* End Flexbox property */

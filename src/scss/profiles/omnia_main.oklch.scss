@@ -1,0 +1,12 @@
+/* SCSS Document
+* file: src/scss/profiles/omnia_main.oklch.scss
+* map:
+* - override color model to oklch
+* - load default framework entrypoint
+*/
+
+@use "../config/omniacss.config.scss" with (
+  $DEFAULT-COLOR-TYPE-VALUE: oklch
+);
+
+@use "../omnia_main.scss";

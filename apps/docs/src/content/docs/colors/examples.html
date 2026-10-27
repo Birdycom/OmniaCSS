@@ -1,0 +1,72 @@
+<!--oc-page {"title": "OmniaCSS Docs - Colors Examples & Customizing", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="examples">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Practical Examples</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Common utility combinations and real-world scenarios.
+          </p>
+        </div>
+        
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">Basic Combinations</h3>
+          <oc-demo title="Omnia scale, HTML color and RAL base color">
+            <div class="flex gap-2 flex-wrap items-center">
+              <div class="bg-red-40 text-white p-2 round-1">.bg-red-40 .text-white</div>
+              <div class="bg-cornflowerblue hover:bg-cornflowerblue-90 text-white p-2 round-1">.bg-cornflowerblue (hover me)</div>
+              <div class="bg-ral1003 text-ral9005 p-2 round-1">.bg-ral1003 .text-ral9005</div>
+            </div>
+          <oc-code>&lt;!-- Omnia scale --&gt;
+&lt;div class="bg-red-40 text-white p-2"&gt;...&lt;/div&gt;
+
+&lt;!-- HTML color with pseudo class --&gt;
+&lt;div class="bg-cornflowerblue hover:bg-cornflowerblue-90"&gt;...&lt;/div&gt;
+
+&lt;!-- RAL base color --&gt;
+&lt;div class="bg-ral1003 text-ral9005"&gt;...&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title">Hover States</h3>
+          <oc-demo title="Hover the button">
+            <div class="flex gap-2 flex-wrap">
+              <button type="button" class="bg-blue-40 hover:bg-blue-60 text-white p-2 round-1 border-none cursor-pointer transition-colors duration-200">Save changes</button>
+              <button type="button" class="bg-green-50 hover:bg-green-70 text-white p-2 round-1 border-none cursor-pointer transition-colors duration-200">Publish</button>
+              <button type="button" class="bg-red-40 hover:bg-red-70 text-white p-2 round-1 border-none cursor-pointer transition-colors duration-200">Delete</button>
+            </div>
+          <oc-code>&lt;button class="bg-blue-40 hover:bg-blue-60 text-white p-2"&gt;Save changes&lt;/button&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title">Responsive Overrides</h3>
+          <p class="oc-section-content__desc">Color utilities have no responsive prefix of their own; combine the color classes with the responsive display utilities (<code>md:hidden</code>, <code>hidden md:block</code>) to switch colors per breakpoint.</p>
+          <oc-demo title="Resize the window: blue below 50rem, green from 50rem up">
+            <div class="bg-blue-40 text-white p-2 round-1 md:hidden">Small screen: blue</div>
+            <div class="bg-green-50 text-white p-2 round-1 hidden md:block">md and up: green</div>
+          <oc-code>&lt;div class="bg-blue-40 p-2 md:hidden"&gt;Small screen&lt;/div&gt;
+&lt;div class="bg-green-50 p-2 hidden md:block"&gt;md and up&lt;/div&gt;</oc-code></oc-demo>
+
+          <div class="mt-4">
+            <a class="oc-docs-cta" href="/pages/colors.html">Open Live Colors Playground</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="customizing-theme">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Customizing Theme</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Extending and overriding the default palette.</p>
+        </div>
+        <div class="oc-section-content">
+          <p>Modify color sources in <code>src/scss/json/</code> and rebuild the framework.</p>
+          <oc-demo title="Live: re-theme a component by overriding tokens on a wrapper">
+            <div class="flex gap-2 flex-wrap items-center">
+              <div class="oc-card" style="padding: 1rem; max-inline-size: 16rem;"><strong>Default theme</strong><p class="m-0">Uses the Omnia theme tokens.</p></div>
+              <div class="oc-card" style="padding: 1rem; max-inline-size: 16rem; --oc-card: light-dark(var(--color-orange-2), var(--color-orange-95)); --oc-border: light-dark(var(--color-orange-60), var(--color-orange-50));"><strong>Scoped override</strong><p class="m-0">Only <code>--oc-card</code> and <code>--oc-border</code> changed on this wrapper.</p></div>
+            </div>
+          <oc-code>// Workflow
+1. Update src/scss/json/omnia-colors.json
+2. Run npm run build
+3. New utilities are ready for use
+
+/* or override theme tokens in CSS, scoped to any element */
+.promo { --oc-card: light-dark(var(--color-orange-2), var(--color-orange-95)); }</oc-code></oc-demo>
+        </div>
+      </section>

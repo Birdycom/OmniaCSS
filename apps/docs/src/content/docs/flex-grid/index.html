@@ -1,0 +1,72 @@
+<!--oc-page {"title": "OmniaCSS Docs - Flex & Grid", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="overview">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Flexbox &amp; Grid</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Complete utility-class reference for CSS Flexbox and Grid layout.
+          </p>
+        </div>
+        
+        <div class="oc-section-content">
+          <p>
+            Build responsive, one-dimensional (flex) or two-dimensional (grid) layouts
+            without writing custom CSS. Every class is generated from SCSS variables and 
+            compiled into <code>omnia_main.css</code>.
+          </p>
+          <div class="oc-expandable-table mt-4">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Source File</th><th>Utilities Provided</th></tr></thead>
+              <tbody>
+                <tr><td><code>_flexbox.scss</code></td><td>display flex, direction, wrap, basis, grow, shrink</td></tr>
+                <tr><td><code>_grid.scss</code></td><td>display grid, template cols/rows, col/row span</td></tr>
+                <tr><td><code>_gap.scss</code></td><td>gap, row-gap, column-gap, gap-x/gap-y aliases</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="pages">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">All pages in this section</h2>
+          <p class="oc-section-header__desc">Every page of the Flex &amp; Grid module.</p>
+        </div>
+        <div class="oc-section-content">
+          <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">Page</th><th>Covers</th></tr></thead>
+            <tbody>
+                <tr><td><a href="display.html">Display</a></td><td>Block-level or inline-level flex and grid containers.</td></tr>
+                <tr><td><a href="direction.html">Flex Direction</a></td><td>Main axis with <code>.flex-row</code> / <code>.flex-col</code> and reverse variants.</td></tr>
+                <tr><td><a href="wrap.html">Flex Wrap</a></td><td>Single line or wrapping flex items.</td></tr>
+                <tr><td><a href="grow-shrink.html">Grow &amp; Shrink</a></td><td>How flex items share or give up space.</td></tr>
+                <tr><td><a href="basis.html">Flex Basis</a></td><td>Initial main size of a flex item.</td></tr>
+                <tr><td><a href="gap.html">Gap</a></td><td>Space between rows and columns of flex and grid containers.</td></tr>
+                <tr><td><a href="grid-cols.html">Grid Columns</a></td><td>Column tracks with <code>.grid-cols-{n}</code>.</td></tr>
+                <tr><td><a href="grid-col-span.html">Column Span</a></td><td>Items covering more than one column with <code>.col-span-{n}</code>.</td></tr>
+                <tr><td><a href="grid-rows.html">Grid Rows</a></td><td>Row tracks with <code>.grid-rows-{n}</code> and <code>.row-span-{n}</code>.</td></tr>
+                <tr><td><a href="grid-flow.html">Grid Auto Flow</a></td><td>Auto-placement algorithm with <code>.grid-flow-{type}</code>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+      <section class="oc-docs-section" id="related">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Further Reading</h2>
+          <p class="oc-section-header__desc">Connect with other layout systems.</p>
+        </div>
+        <div class="oc-section-content">
+          <p class="oc-docs-typo-meta">
+            <a class="source-link" href="../alignment/">Alignment</a> (justify-content, align-items, place-items)
+             · 
+            <a class="source-link" href="../spacing/">Spacing</a> (margin &amp; padding)
+             · 
+            <a class="source-link" href="../sizing/">Sizing</a> (width, height, min/max)
+          </p>
+        </div>
+      </section>

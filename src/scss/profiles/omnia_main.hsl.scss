@@ -1,0 +1,12 @@
+/* SCSS Document
+* file: src/scss/profiles/omnia_main.hsl.scss
+* map:
+* - override color model to hsl
+* - load default framework entrypoint
+*/
+
+@use "../config/omniacss.config.scss" with (
+  $DEFAULT-COLOR-TYPE-VALUE: hsl
+);
+
+@use "../omnia_main.scss";

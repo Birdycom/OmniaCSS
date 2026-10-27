@@ -1,0 +1,129 @@
+<!--oc-page {"title": "OmniaCSS Docs - Border-color", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n</style>"]}-->
+<section class="oc-docs-section" id="borders-color">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title font-clamp-1.5">Border-color</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span> 
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_borders_outlines.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">borders-color.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            <strong>Border color</strong> sets the colour of the border. Use <code>.border-transparent</code> for an invisible border that still reserves space, or <code>.border-current</code> to match the element’s text color. The full Omnia and HTML palette is available as <code>.border-{name}-{step}</code> (e.g. <code>.border-dodgerblue-50</code>); RAL colors as <code>.border-{name}</code>. See <a href="../colors.html">Colors</a> for the full palette. Neutrals from <code>$bordercolors</code>; palette classes are generated in <code>_borders_outlines.scss</code>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>border-color</code> sets the color of the border; the border only shows when it has a style and a width (use <code>.border-solid</code> plus a width class). Per side variants exist in the Sides &amp; Images page. <strong>When to use:</strong> cards, inputs, dividers, state colors (error, success). <strong>Gotchas:</strong> without a style the border is invisible even with a color; the default color is <code>currentcolor</code>, so a border inherits the text color; and transparent borders still take space (handy to avoid layout shift between states). The <code>-mix-*</code> classes blend the palette color with transparency. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-color" target="_blank" rel="noopener">MDN: border-color</a>.</p>
+
+          <h3 class="oc-section-content__title">CSS classes</h3>
+          <p class="oc-section-content__desc">All classes set <code>border-color</code>. Neutrals: <code>.border-transparent</code>, <code>.border-current</code>. Palette: <code>.border-{name}-{step}</code> (Omnia/HTML) and <code>.border-{name}</code> (RAL). Same naming as on the <a href="../colors.html">Colors</a> page.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.border-transparent</code></td><td>border-color: transparent</td></tr>
+                <tr><td><code>.border-current</code></td><td>border-color: currentColor</td></tr>
+                <tr><td colspan="2">Palette: <code>.border-red-50</code>, <code>.border-blue-500</code>, <code>.border-ral9023</code>, etc.</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title">Preview — border-color: basic</h3>
+          <p class="oc-section-content__desc">Border color: <code>.border-transparent</code> (transparent), <code>.border-current</code> (current color), <code>.border-dodgerblue-50</code> (dodgerblue 50%), <code>.border-forestgreen-50</code> (forestgreen 50%). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-forestgreen-50</code>) om de rand te tonen.</p>
+
+          <oc-demo title="border-transparent, border-current, border-dodgerblue-50, border-forestgreen-50">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-transparent</span><div class="border-1 border-solid border-transparent round-4 flex flex-wrap align-items-center justify-center size-24 font-1 text-blue-80"></div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-current</span><div class="border-1 border-solid border-current round-4 text-blue-50 flex flex-wrap align-items-center justify-center size-24 font-1"></div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-dodgerblue-50</span><div class="border-1 border-solid border-dodgerblue-50 text-dodgerblue round-4 flex flex-wrap align-items-center justify-center size-24 font-1"></div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-forestgreen-50</span><div class="border-1 border-solid border-forestgreen-50 text-forestgreen-50 round-4 flex flex-wrap align-items-center justify-center size-24 font-1"></div></div>
+            </div>
+
+            
+            
+          <oc-code lang="html">
+                &lt;div class="border-1 border-solid border-transparent round-4 bg-blue-20 flex flex-wrap align-items-center justify-center size-24 font-1 text-blue-80"&gt;&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-current round-4 text-blue-500 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-dodgerblue-50 text-dodgerblue round-4 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-forestgreen-50 text-forestgreen-50 round-4 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;&lt;/div&gt;
+              </oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title">Preview — border-color: opacity</h3>
+          <p class="oc-section-content__desc">Border color: opacity: <code>.border-magenta-mix-0</code> (0% magenta), <code>.border-magenta-mix-5</code> (5% magenta), <code>.border-magenta-mix-20</code> (20% magenta), <code>.border-magenta-mix-40</code> (40% magenta), <code>.border-magenta-mix-60</code> (60% magenta), <code>.border-magenta-mix-80</code> (80% magenta), <code>.border-magenta-mix-100</code> (100% magenta). Combineer met <code>.border-solid</code> en een kleur-class (bijv. <code>.border-magenta-mix-0</code>) om de rand te tonen.</p>
+
+          <oc-demo title="border-magenta-mix-0, border-magenta-mix-5, border-magenta-mix-20, border-magenta-mix-40, border-magenta-mix-60, border-magenta-mix-80, border-magenta-mix-100">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-magenta-mix-0</span><div class="border-1 border-solid border-magenta-mix-0 round-4 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1">0% <br> magenta</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-magenta-mix-5</span><div class="border-1 border-solid border-magenta-mix-5 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1">5% <br> magenta</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-magenta-mix-20</span><div class="border-1 border-solid border-magenta-mix-20 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1">20% <br> magenta</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-magenta-mix-40</span><div class="border-1 border-solid border-magenta-mix-40 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1">40% <br> magenta</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-magenta-mix-60</span><div class="border-1 border-solid border-magenta-mix-60 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1">60% <br> magenta</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-magenta-mix-80</span><div class="border-1 border-solid border-magenta-mix-80 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1">80% <br> magenta</div></div>
+              <div class="oc-preview__item"><span class="oc-preview__label">.border-magenta-mix-100</span><div class="border-1 border-solid border-magenta-mix-100 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1">100% <br> magenta</div></div>
+            </div>
+
+            
+            
+          <oc-code lang="html">
+                &lt;div class="border-1 border-solid border-magenta-mix-0 round-4 text-magenta-50 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;0% magenta&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-magenta-mix-5 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;5% magenta&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-magenta-mix-20 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;20% magenta&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-magenta-mix-40 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;40% magenta&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-magenta-mix-60 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;60% magenta&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-magenta-mix-80 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;80% magenta&lt;/div&gt;
+                &lt;div class="border-1 border-solid border-magenta-mix-100 text-magenta-95 dark:text-magenta-30 round-4 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;100% magenta&lt;/div&gt;
+              </oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Modern color: light-dark() and color-mix()</h3>
+          <p class="oc-section-content__desc">Border colors take any CSS color, including the newer functions. <code>light-dark(a, b)</code> picks a value per color scheme, so one declaration serves both themes; <code>color-mix(in oklch, a, b)</code> blends two colors (here a palette color with the theme background). Toggle the system theme to see the first card switch. Prefer these over hard-coded colors so a border stays visible in both modes.</p>
+
+          <oc-demo title="light-dark() and color-mix() borders">
+            <div class="bd-grid" style="grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr))">
+              <div class="bd-cell"><div class="bd-box round-3 border-4 border-solid" style="border-color: light-dark(var(--color-dodgerblue-30), var(--color-dodgerblue-90))">light-dark()</div><code>light-dark(30, 90)</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 border-4 border-solid" style="border-color: color-mix(in oklch, var(--color-darkorange-90) 40%, var(--oc-background))">40% mix</div><code>color-mix(… 40%)</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 border-4 border-solid" style="border-color: oklch(from var(--color-forestgreen-90) l c h / 0.4)">relative alpha</div><code>oklch(from … / 0.4)</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 border-4 border-solid border-current text-magenta">currentcolor</div><code>.border-current</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="border-4 border-solid" style="border-color: light-dark(var(--color-dodgerblue-30), var(--color-dodgerblue-90))"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+
+        </div>
+        
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            The border-color utilities come from <code>_borders_outlines.scss</code>; the <code>$bordercolors</code> map and the palette (Omnia, HTML, RAL) are generated there. Classes: <code>.border-transparent</code>, <code>.border-current</code>, and <code>.border-{name}-{step}</code> / <code>.border-{name}-mix-{step}</code>. See <a href="../colors.html">Colors</a> for the full palette.
+          </p>
+        
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source (border-color)</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_borders_outlines.scss</code></td><td>border-color (<code>$bordercolors</code> + generated Omnia, HTML and RAL palette)</td></tr>
+                  <tr><td><code>src/scss/variables/_variables_layout.scss</code></td><td><code>$bordercolors</code></td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes on this page end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../colors.html">Colors</a>
+               · 
+              <a class="source-link" href="border-width.html">Border-width</a>
+               · 
+              <a class="source-link" href="border-style.html">Border-style</a>
+            </p>
+          </div>
+        </div>
+      </section>

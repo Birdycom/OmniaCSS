@@ -1,0 +1,1331 @@
+// SCSS Document 
+// File: src/utilities/_text.scss
+// Description: CSS Text properties
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Properties: text
+// Values: Decoration
+
+@use "sass:string";
+@use "sass:color";
+@use "sass:math";
+@use "../utilities/" as *;
+
+/* The text decoration line properties */
+
+///
+/// The Text Decoration Property
+/// @group TextdecorationLine
+///
+
+///
+/// The text-decoration-line property sets the Text decoration.
+/// @group TextdecorationLine
+/// @name textdecorationline
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $textdecorationline
+/// @require {variable} $colorsomnia
+/// @require {variable} $pseudoclasses 
+/// @example scss - text decoration line class
+///   @each $textdecorationline-prop, $textdecorationline-value in $textdecorationline {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "#{$textdecorationline-prop}"+ "#{$pseudoclasses-prop}"}{
+///         text-decoration-line: $textdecorationline-value ;
+///       }
+///     }
+///   }
+/// @example html - use text decoration line class
+///   <div class="underline">
+///     <p>this line have text decoration line </p>
+///   </div> 
+///   <div class="hover:underline">
+///     <p>this line have text decoration line </p>
+///   </div> 
+@each $textdecorationline-prop, $textdecorationline-value in $textdecorationline {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$textdecorationline-prop}"+ "#{$pseudoclasses-prop}"}{
+
+      text-decoration-line: $textdecorationline-value ;
+
+    }
+  }
+}
+
+
+/* The Omnia text decoration Colors properties */
+
+///
+/// The text-decoration-line property sets the Text decoration with the omnia colors.
+/// @group TextdecorationOmniaColor
+/// @name textdecorationomniacolor
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $colorsomnia
+/// @require {variable} $opacitycolor
+/// @require {variable} $pseudoclasses
+/// @require str-replace 
+/// @example scss - text decoration color class
+///   @each $colorsomnia-prop, $colorsomnia-value in $omnia-colors { // first list 'omniacolors'
+///   @each $maincolorsomnia-prop, $maincolorsomnia-value in $colorsomnia-value { // first list 'omniacolors'
+///     @each $colorname-prop, $colorname-value in $maincolorsomnia-value { // second list 'colors name'
+///       @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+///         @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor { // set the opacity off the colors 
+///           #{".#{$pseudoclasses-value}" + "decoration-" + to-lower-case("#{$colorname-prop}") + if($opacitycolor-value <= 90, "#{$opacitycolor-prop}#{$pseudoclasses-prop}","#{$pseudoclasses-prop}")}{
+///             @each $coloromnia-prop, $coloromnia-value in $colorname-value {
+///               @if $coloromnia-prop == 'hsl' { 
+///                 $h:(); $s:(); $l:();
+///                 @each $color-prop, $color-value in $coloromnia-value {
+///                     @if $color-prop == 'h' { $h: #{$color-value}; }
+///                     @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+///                     @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+///                 }
+///                 @if $opacitycolor-value <= 90 {
+///                   text-decoration-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  };                    
+///                 } @else {
+///                   text-decoration-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  };                    
+///                 }
+///               }
+///             }
+///           }    
+///         }
+///       }
+///     }
+///   }
+///   };
+/// @example html - use text decoration line class
+///   <div class="underline decoration-orange-50">
+///     <p>this line have text decoration line </p>
+///   </div> 
+///   <div class="hover:decoration-red-90 hover:underline">
+///     <p>this line have text decoration line </p>
+///   </div> 
+@each $colorsomnia-prop, $colorsomnia-value in $omnia-colors { // first list 'omniacolors'
+
+  @each $maincolorsomnia-prop, $maincolorsomnia-value in $colorsomnia-value { // first list 'omniacolors'
+
+    @each $colorname-prop, $colorname-value in $maincolorsomnia-value { // second list 'colors name'
+  
+      @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+
+        @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor { // set the opacity off the colors        
+
+          $opacity-suffix: "#{$pseudoclasses-prop}";
+          @if $opacitycolor-value <= 95 {
+            $opacity-suffix: "#{$opacitycolor-prop}#{$pseudoclasses-prop}";
+          }
+
+          #{".#{$pseudoclasses-value}" + "decoration-" + string.to-lower-case("#{$colorname-prop}") + $opacity-suffix}{
+      
+            @each $coloromnia-prop, $coloromnia-value in $colorname-value {
+      
+              @if $coloromnia-prop == $DEFAULT-COLOR-TYPE-VALUE or (($DEFAULT-COLOR-TYPE-VALUE == 'oklch' or $DEFAULT-COLOR-TYPE-VALUE == 'oklab') and $coloromnia-prop == 'hex') {
+              
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {   
+  
+                  @if $opacitycolor-value <= 95 {
+
+                    text-decoration-color: $coloromnia-value+#{$opacitycolor-value}; 
+
+                  } @else {
+
+                    text-decoration-color: $coloromnia-value;  
+                  }                  
+                }
+      
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+                  
+                  $h:(); $s:(); $l:();
+                  
+                  @each $color-prop, $color-value in $coloromnia-value {
+                  
+                      @if $color-prop == 'h' { $h: #{$color-value}; }
+                      @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+                      @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+      
+                  }
+
+                  @if $opacitycolor-value <= 95 {
+
+                    text-decoration-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  }; 
+
+                  } @else {
+
+                    text-decoration-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+                  }      
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+                  
+                  $r:(); $g:(); $b:();
+                  
+                  @each $color-prop, $color-value in $coloromnia-value {
+                  
+                      @if $color-prop == 'r' { $r: #{$color-value}; }
+                      @if $color-prop == 'g' { $g: #{$color-value}; }
+                      @if $color-prop == 'b' { $b: #{$color-value}; }
+      
+                  }
+
+                  @if $opacitycolor-value <= 95 {
+
+                    text-decoration-color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  }; 
+
+                  } @else {
+
+                    text-decoration-color: #{'rgb('+ $r  $g  $b + ' )'  }; 
+                  }       
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklch' {
+                  $oklch-color: color.to-space($coloromnia-value, oklch);
+
+                  @if $opacitycolor-value <= 95 {
+                    text-decoration-color: color.change($oklch-color, $alpha: math.div($opacitycolor-value, 100));
+                  } @else {
+                    text-decoration-color: $oklch-color;
+                  }
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklab' {
+                  $oklab-color: color.to-space($coloromnia-value, oklab);
+
+                  @if $opacitycolor-value <= 95 {
+                    text-decoration-color: color.change($oklab-color, $alpha: math.div($opacitycolor-value, 100));
+                  } @else {
+                    text-decoration-color: $oklab-color;
+                  }
+                }
+              }    
+            }
+          }
+        }
+      }
+    }
+  }
+};
+/* End Omnia text decoration Colors properties */
+
+/* The Html text decoration Colors properties */
+
+///
+/// The text-decoration-line property sets the Text decoration with the html colors.
+/// @group TextdecorationHtmlColor
+/// @name textdecorationhtmlcolor
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $colorshtml
+/// @require {variable} $opacitycolor
+/// @require {variable} $pseudoclasses
+/// @require str-replace 
+/// @example scss - text decoration color class
+///   @each $colorshtml-prop, $colorshtml-value in $html-colors { // first list 'htmlcolors'
+///   @each $maincolorshtml-prop, $maincolorshtml-value in $colorshtml-value { // first list 'htmlcolors'
+///     @each $colorname-prop, $colorname-value in $maincolorshtml-value { // second list 'colors name'
+///       @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+///         @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor { // set the opacity off the colors 
+///           #{".#{$pseudoclasses-value}" + "decoration-" + to-lower-case("#{$colorname-prop}") + if($opacitycolor-value <= 90, "#{$opacitycolor-prop}#{$pseudoclasses-prop}","#{$pseudoclasses-prop}")}{
+///             @each $colorhtml-prop, $colorhtml-value in $colorname-value {
+///               @if $colorhtml-prop == 'hsl' { 
+///                 $h:(); $s:(); $l:();
+///                 @each $color-prop, $color-value in $colorhtml-value {
+///                     @if $color-prop == 'h' { $h: #{$color-value}; }
+///                     @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+///                     @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+///                 }
+///                 @if $opacitycolor-value <= 90 {
+///                   text-decoration-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  }; 
+///                 } @else {
+///                   text-decoration-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  }; 
+///                 }
+///               }
+///             }
+///           }    
+///         }
+///       }
+///     }
+///   }
+///   };
+/// @example html - use text decoration line class
+///   <div class="underline decoration-orange">
+///     <p>this line have text decoration line </p>
+///   </div> 
+///   <div class="hover:decoration-red hover:underline">
+///     <p>this line have text decoration line </p>
+///   </div> 
+@each $colorshtml-prop, $colorshtml-value in $html-colors { // first list 'htmlcolors'
+
+  @each $maincolorshtml-prop, $maincolorshtml-value in $colorshtml-value { // first list 'htmlcolors'
+
+    @each $colorname-prop, $colorname-value in $maincolorshtml-value { // second list 'colors name'
+
+      @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+
+        @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor { // set the opacity off the colors  
+
+          $opacity-suffix: "#{$pseudoclasses-prop}";
+          @if $opacitycolor-value <= 95 {
+            $opacity-suffix: "#{$opacitycolor-prop}#{$pseudoclasses-prop}";
+          }
+
+          #{".#{$pseudoclasses-value}" + "decoration-" + string.to-lower-case("#{$colorname-prop}") + $opacity-suffix}{
+
+            @each $colorhtml-prop, $colorhtml-value in $colorname-value {
+
+              @if $colorhtml-prop == $DEFAULT-COLOR-TYPE-VALUE or (($DEFAULT-COLOR-TYPE-VALUE == 'oklch' or $DEFAULT-COLOR-TYPE-VALUE == 'oklab') and $colorhtml-prop == 'hex') {
+              
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hex' or $DEFAULT-COLOR-TYPE-VALUE == 'websafe' {  
+
+                  @if $opacitycolor-value <= 95 {
+
+                    text-decoration-color: $colorhtml-value+#{$opacitycolor-value}; 
+
+                  } @else {
+
+                    text-decoration-color: $colorhtml-value;
+                  }
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'hsl' { 
+                  
+                  $h:(); $s:(); $l:();
+                  
+                  @each $color-prop, $color-value in $colorhtml-value {
+                  
+                      @if $color-prop == 'h' { $h: #{$color-value}; }
+                      @if $color-prop == 's' { $s: #{$color-value}+'%'; }
+                      @if $color-prop == 'l' { $l: #{$color-value}+'%'; }
+
+                  }
+
+                  @if $opacitycolor-value <= 95 {
+
+                    text-decoration-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ', #{$opacitycolor-value}% )'  };                    
+
+                  } @else {
+
+                    text-decoration-color: #{'hsl('+ $h + ', ' + $s + ', ' +  $l + ' )'  };                  
+                  }
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'rgb' { 
+                  
+                  $r:(); $g:(); $b:();
+                  
+                  @each $color-prop, $color-value in $colorhtml-value {
+                  
+                      @if $color-prop == 'r' { $r: #{$color-value}; }
+                      @if $color-prop == 'g' { $g: #{$color-value}; }
+                      @if $color-prop == 'b' { $b: #{$color-value}; }
+
+                  }
+
+                  @if $opacitycolor-value <= 95 {
+
+                    text-decoration-color: #{'rgb('+ $r  $g  $b + ' / #{$opacitycolor-value}% )'  }; 
+
+                  } @else {
+
+                    text-decoration-color: #{'rgb('+ $r  $g  $b + ' )'  }; 
+                  } 
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklch' {
+                  $oklch-color: color.to-space($colorhtml-value, oklch);
+
+                  @if $opacitycolor-value <= 95 {
+                    text-decoration-color: color.change($oklch-color, $alpha: math.div($opacitycolor-value, 100));
+                  } @else {
+                    text-decoration-color: $oklch-color;
+                  }
+                }
+
+                @if $DEFAULT-COLOR-TYPE-VALUE == 'oklab' {
+                  $oklab-color: color.to-space($colorhtml-value, oklab);
+
+                  @if $opacitycolor-value <= 95 {
+                    text-decoration-color: color.change($oklab-color, $alpha: math.div($opacitycolor-value, 100));
+                  } @else {
+                    text-decoration-color: $oklab-color;
+                  }
+                }
+              }    
+            }
+          }
+        }
+      }
+    }
+  }
+};
+/* End html text decoration Colors properties */
+
+/* The Letter Spacing properties */
+///
+/// The letterspacing property sets.
+/// @group letterspacing
+/// @name letterspacing
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $letterspacing
+/// @example scss - letterspacing class
+///   @each $letterspacing-prop, $letterspacing-value in $letterspacing {
+///     #{".#{$letterspacing-prop}"}{
+///       letter-spacing: $letterspacing-value ;
+///     }
+///   }
+/// @example html - use Letter Spacing class
+///   <div>
+///     <p class="letterspacing-2">this line have text decoration line </p>
+///   </div> 
+///   <div>
+///     <p class="letterspacing-normal">this line have text decoration line </p>
+///   </div> 
+///   <div>
+///     <p class="letterspacing-9">this line have text decoration line </p>
+///   </div> /// 
+@each $letterspacing-prop, $letterspacing-value in $letterspacing {
+
+    #{".#{$letterspacing-prop}"}{
+
+      letter-spacing: $letterspacing-value ;
+
+    }
+}
+/* End Letter Spacing properties */
+
+/* The Line Height properties */
+///
+/// The lineheight property sets.
+/// @group lineheight
+/// @name lineheight
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $lineheight
+/// @example scss - lineheight class
+///   @each $lineheight-prop, $lineheight-value in $lineheight {
+///     #{".#{$lineheight-prop}"}{
+///       line-height: $lineheight-value ;
+///     }
+///   }
+/// @example html - use Line height class
+///   <p>sample of the line-height with 2rem between the lines = lineheight-2 </p>
+///   <div class="lineheight-2">
+///     <p>this line have text decoration line </p>
+///     <p>this line have text decoration line </p>
+///     <p>this line have text decoration line </p>
+///   </div> 
+///   <p>sample of the line-height with 0.875rem between the lines = lineheight-0.8</p>
+///   <div class="lineheight-0.8">
+///     <p>this line have text decoration line </p>
+///     <p>this line have text decoration line </p>
+///     <p>this line have text decoration line </p>
+///   </div> 
+@each $lineheight-prop, $lineheight-value in $lineheight {
+
+  #{".#{$lineheight-prop}"}{
+
+    line-height: $lineheight-value ;
+
+  }
+}
+/* End Line Height properties */
+
+/* The Line Break properties */
+///
+/// The linebreak property sets.
+/// @group linebreak
+/// @name linebreak
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $linebreak
+/// @example scss - linebreak class
+///   @each $linebreak-prop, $linebreak-value in $linebreak {
+///     #{".#{$linebreak-prop}"}{
+///       line-break: $linebreak-value ;
+///     }
+///   }
+/// @example html - use Line Break class
+/// <div lang="ja">
+///   <p class="wrapbox-1 linebreak-auto">
+///     auto:<br />そこは湖のほとりで木々が輝いていた。<br />その景色に、美しいなぁと思わずつぶやいた。
+///   </p>
+///   <p class="wrapbox-1 linebreak-loose">
+///     loose:<br />そこは湖のほとりで木々が輝いていた。<br />その景色に、美しいなぁと思わずつぶやいた。
+///   </p>
+///   <p class="wrapbox-1 linebreak-normal">
+///     normal:<br />そこは湖のほとりで木々が輝いていた。<br />その景色に、美しいなぁと思わずつぶやいた。
+///   </p>
+///   <p class="wrapbox-1 linebreak-strict">
+///     strict:<br />そこは湖のほとりで木々が輝いていた。<br />その景色に、美しいなぁと思わずつぶやいた。
+///   </p>
+///   <p class="wrapbox-1 linebreak-anywhere">
+///     anywhere:<br />そこは湖のほとりで木々が輝いていた。<br />その景色に、美しいなぁと思わずつぶやいた。
+///   </p>
+/// </div>
+@each $linebreak-prop, $linebreak-value in $linebreak {
+
+  #{".#{$linebreak-prop}"}{
+
+    line-break: $linebreak-value ;
+
+  }
+}
+/* End Line Break properties */
+
+/* The Line Style Type properties */
+///
+/// The liststyletype property sets.
+/// @group liststyletype
+/// @name liststyletype
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $liststyletype
+/// @example scss - liststyletype class
+///   @each $liststyletype-prop, $liststyletype-value in $liststyletype {
+///     #{".#{$liststyletype-prop}"}{
+///       list-style-type: $liststyletype-value ;
+///     }
+///   }
+/// @example html - use List Style Typeine class
+///  <div>
+/// <ul class="wrapbox-2 list-none">
+///   List 1 - list Style: none
+///   <li>List Item 1-1</li>
+///   <li>List Item 1-2</li>
+///   <li>List Item 1-3</li>
+///   <li>List Item 1-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-circle">
+///   List 2 - list Style: circle
+///   <li>List Item 2-1</li>
+///   <li>List Item 2-2</li>
+///   <li>List Item 2-3</li>
+///   <li>List Item 2-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-disc">
+///   List 3 - list Style: disc
+///   <li>List Item 3-1</li>
+///   <li>List Item 3-2</li>
+///   <li>List Item 3-3</li>
+///   <li>List Item 3-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-square">
+///   List 4 - list Style: square
+///   <li>List Item 4-1</li>
+///   <li>List Item 4-2</li>
+///   <li>List Item 4-3</li>
+///   <li>List Item 4-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-decimal">
+///   List 5 - list Style: decimal
+///   <li>List Item 5-1</li>
+///   <li>List Item 5-2</li>
+///   <li>List Item 5-3</li>
+///   <li>List Item 5-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-decimal-zero">
+///   List 6 - list Style: decimal-leading-zero
+///   <li>List Item 6-1</li>
+///   <li>List Item 6-2</li>
+///   <li>List Item 6-3</li>
+///   <li>List Item 7-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-l-alpha">
+///   List 7 - list Style: lower-alpha
+///   <li>List Item 7-1</li>
+///   <li>List Item 7-2</li>
+///   <li>List Item 7-3</li>
+///   <li>List Item 7-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-l-greek">
+///   List 8 - list Style: lower-greek
+///   <li>List Item 8-1</li>
+///   <li>List Item 8-2</li>
+///   <li>List Item 8-3</li>
+///   <li>List Item 8-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-l-latin">
+///   List 9 - list Style: lower-latin
+///   <li>List Item 9-1</li>
+///   <li>List Item 9-2</li>
+///   <li>List Item 9-3</li>
+///   <li>List Item 9-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-l-roman">
+///   List 10 - list Style: lower-roman
+///   <li>List Item 10-1</li>
+///   <li>List Item 10-2</li>
+///   <li>List Item 10-3</li>
+///   <li>List Item 10-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-u-alpha">
+///   List 7 - list Style: upper-alpha
+///   <li>List Item 7-1</li>
+///   <li>List Item 7-2</li>
+///   <li>List Item 7-3</li>
+///   <li>List Item 7-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-u-greek">
+///   List 8 - list Style: upper-greek
+///   <li>List Item 8-1</li>
+///   <li>List Item 8-2</li>
+///   <li>List Item 8-3</li>
+///   <li>List Item 8-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-u-latin">
+///   List 9 - list Style: upper-latin
+///   <li>List Item 9-1</li>
+///   <li>List Item 9-2</li>
+///   <li>List Item 9-3</li>
+///   <li>List Item 9-4</li>
+/// </ul>
+/// <ul class="wrapbox-2 list-u-roman">
+///   List 10 - list Style: upper-roman
+///   <li>List Item 10-1</li>
+///   <li>List Item 10-2</li>
+///   <li>List Item 10-3</li>
+///   <li>List Item 10-4</li>
+/// </ul> 
+///  </div>
+@each $liststyletype-prop, $liststyletype-value in $liststyletype {
+
+  #{".#{$liststyletype-prop}"}{
+
+    list-style-type: $liststyletype-value ;
+
+  }
+}
+/* End Line Style Type properties */
+
+/* The Line Style Position properties */
+///
+/// The liststyleposition property sets.
+/// @group liststyleposition
+/// @name liststyleposition
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $liststyleposition
+/// @example scss - liststyleposition class
+///   @each $liststyleposition-prop, $liststyleposition-value in $liststyleposition {
+///     #{".#{$liststyleposition-prop}"}{
+///       list-style-position: $liststyleposition-value ;
+///     }
+///   }
+/// @example html - use List Style Position class
+/// <ul class="list-inside list-decimal">
+///   List 1
+///   <li>List Item 1-1</li>
+///   <li>List Item 1-2</li>
+///   <li>List Item 1-3</li>
+///   <li>List Item 1-4</li>
+/// </ul>
+/// <ul class="list-outside list-l-roman">
+///   List 2
+///   <li>List Item 2-1</li>
+///   <li>List Item 2-2</li>
+///   <li>List Item 2-3</li>
+///   <li>List Item 2-4</li>
+/// </ul>
+@each $liststyleposition-prop, $liststyleposition-value in $liststyleposition {
+
+  #{".#{$liststyleposition-prop}"}{
+
+    list-style-position: $liststyleposition-value ;
+
+  }
+}
+/* End Line Style Position properties */
+
+/* The text align and text align last properties */
+
+///
+/// The text-align-last property sets the Text align.
+/// @group Textalign
+/// @name textalign
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $textalign
+/// @require {variable} $pseudoclasses 
+/// @example scss - text align class
+///   @each $textalign-prop, $textalign-value in $textalign {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "text-#{$textalign-prop}"+ "#{$pseudoclasses-prop}"}{
+///         text-align: $textalign-value ;
+///       }
+///       @if $textalign-prop != 'justify-all' {
+///         #{".#{$pseudoclasses-value}" + "textlast-#{$textalign-prop}"+ "#{$pseudoclasses-prop}"}{
+///          text-align: $textalign-value ;
+///         } 
+///       }
+///     }
+///   }
+/// @example html - use text align line class
+///   <div>
+///     <p class="pb-0.5">Text align left and when hover text align right</p>
+///     <p class="text-left hover:text-right pb-2">So I started to walk into the water. I won't lie to you boys, I was terrified. But I pressed on, and as I made my way past the breakers a strange calm came over me. I don't know if it was divine intervention or the kinship of all living things but I tell you Jerry at that moment, I was a marine biologist.</p>
+///   </div> 
+///   <div>
+///     <p class="pb-0.5">Text align center</p>
+///     <p class="text-center pb-2">So I started to walk into the water. I won't lie to you boys, I was terrified. But I pressed on, and as I made my way past the breakers a strange calm came over me. I don't know if it was divine intervention or the kinship of all living things but I tell you Jerry at that moment, I was a marine biologist.</p>
+///   </div> 
+///   <div>
+///     <p class="pb-0.5">Text align justify</p>
+///     <p class="text-justify pb-2">So I started to walk into the water. I won't lie to you boys, I was terrified. But I pressed on, and as I made my way past the breakers a strange calm came over me. I don't know if it was divine intervention or the kinship of all living things but I tell you Jerry at that moment, I was a marine biologist.</p>
+///   </div>
+///   <div>
+///     <p class="pb-0.5">Text align justify and Textlast align-start</p>
+///     <p class="text-justify textlast-right pb-2">So I started to walk into the water. I won't lie to you boys, I was terrified. But I pressed on, and as I made my way past the breakers a strange calm came over me. I don't know if it was divine intervention or the kinship of all living things but I tell you Jerry at that moment, I was a marine biologist.</p>
+///   </div> 
+@each $textalign-prop, $textalign-value in $textalign {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "text-#{$textalign-prop}"+ "#{$pseudoclasses-prop}"}{
+
+      text-align: $textalign-value ;
+
+    }
+
+    @if $textalign-prop != 'justify-all' {
+      #{".#{$pseudoclasses-value}" + "textlast-#{$textalign-prop}"+ "#{$pseudoclasses-prop}"}{
+
+        text-align-last: $textalign-value ;
+
+      }
+    }   
+  }
+}
+/* End The text align and text align last properties */
+
+/* The text decoration style properties */
+
+///
+/// The text decoration style property.
+/// @group textdecorationstyle
+/// @name textdecorationstyle
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $textdecorationstyle
+/// @require {variable} $pseudoclasses 
+/// @example scss - text decoration style class
+///   @each $textdecorationstyle-prop, $textdecorationstyle-value in $textdecorationstyle {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "text-#{$textdecorationstyle-prop}"+ "#{$pseudoclasses-prop}"}{
+///         text-decoration-style: $textdecorationstyle-value;
+///       }
+///     }
+///   }
+/// @example html - use text decoration style class
+///   <div class="underline underline-offset-5 font-1.7 decoration-red-90 decoration-solid decoration-font">
+///     <p>this line have text decoration line </p>
+///   </div> 
+///   <div class="underline decoration-5 hover:decoration-wavy hover:decoration-2 decoration-double ">
+///     <p>this line have text decoration style </p>
+///   </div> 
+@each $textdecorationstyle-prop, $textdecorationstyle-value in $textdecorationstyle {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$textdecorationstyle-prop}"+ "#{$pseudoclasses-prop}"}{
+
+      text-decoration-style: $textdecorationstyle-value;
+    }
+  }
+}
+/* End The text decoration style properties */
+
+/* The text decoration thickness properties */
+
+///
+/// The text decoration thickness property.
+/// @group textdecorationthickness
+/// @name textdecorationthickness
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $textdecorationthickness
+/// @require {variable} $pseudoclasses 
+/// @example scss - text decoration style class
+///   @each $textdecorationthickness-prop, $textdecorationthickness-value in $textdecorationthickness {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "text-#{$textdecorationthickness-prop}"+ "#{$pseudoclasses-prop}"}{
+///         text-decoration-style: $textdecorationthickness-value;
+///       }
+///     }
+///   }
+/// @example html - use text decoration thickness class
+///   <div class="underline underline-offset-9 font-1.7 decoration-red-90 decoration-solid">
+///     <p>this line have text decoration line </p>
+///   </div> 
+///   <div class="underline decoration-5 hover:decoration-2 ">
+///     <p>this line have text decoration thickness </p>
+///   </div> 
+@each $textdecorationthickness-prop, $textdecorationthickness-value in $textdecorationthickness {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$textdecorationthickness-prop}"+ "#{$pseudoclasses-prop}"}{
+
+      text-decoration-thickness: $textdecorationthickness-value;
+    }
+  }
+}
+/* End The text decoration thickness properties */
+
+/* The text transform properties */
+
+///
+/// The text tranform property.
+/// @group texttransform
+/// @name texttransform
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $texttransform
+/// @require {variable} $pseudoclasses 
+/// @example scss - text decoration style class
+///   @each $texttransform-prop, $texttransform-value in $texttransform {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "text-#{$texttransform-prop}"+ "#{$pseudoclasses-prop}"}{
+///         text-transform: $texttransform-value;
+///       }
+///     }
+///   }
+/// @example html - use text transform class
+///   <div class="pb-1.5">Example using "none" 
+///     <p class="flex flex-row justify-between">
+///       Initial String
+///       <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit…</strong>
+///     </p>
+///     <p class="flex flex-row justify-between">
+///       text-transform: none
+///       <strong><span class="normalcase">Lorem ipsum dolor sit amet, consectetur adipisicing elit…</span></strong>
+///     </p>
+///   </div> 
+///   <div class="pb-1.5">Example using "capitalize" (general)
+///     <p class="flex flex-row justify-between">
+///       Initial String
+///       <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit…</strong>
+///     </p>
+///     <p class="flex flex-row justify-between">
+///       text-transform: capitalize
+///       <strong><span class="capitalize">Lorem ipsum dolor sit amet, consectetur adipisicing elit…</span></strong>
+///     </p>
+///   </div> 
+///   <div class="pb-1.5">Example using "capitalize" (punctuation) 
+///     <p class="flex flex-row justify-between">
+///       Initial String
+///       <strong>(this) "is" [a] –short– -test- «for» *the* _css_ ¿capitalize??¡transform!</strong>
+///     </p>
+///     <p class="flex flex-row justify-between">
+///       text-transform: capitalize
+///       <strong><span class="capitalize">(this) "is" [a] –short– -test- «for» *the* _css_ ¿capitalize??¡transform!</span></strong>
+///     </p>
+///   </div> 
+///   <div class="pb-1.5">Example using "capitalize" (Symbols) 
+///     <p class="flex flex-row justify-between">
+///       Initial String
+///       <strong>ⓐⓑⓒ (ⓓⓔⓕ) —ⓖⓗⓘ— ⓙkl</strong>
+///     </p>
+///     <p class="flex flex-row justify-between">
+///       text-transform: capitalize
+///       <strong><span class="capitalize">ⓐⓑⓒ (ⓓⓔⓕ) —ⓖⓗⓘ— ⓙkl</span></strong>
+///     </p>
+///   </div>  
+///   <div class="pb-1.5">Example using "capitalize" (Dutch ij digraph) 
+///     <p class="flex flex-row justify-between">
+///       Initial String
+///       <strong>The Dutch word: "ijsland" starts with a digraph.</strong>
+///     </p> 
+///     <p class="flex flex-row justify-between">
+///       text-transform: capitalize
+///       <strong><span class="capitalize">The Dutch word: "ijsland" starts with a digraph.</span></strong>
+///     </p>  
+///   </div>
+///   <div class="pb-1.5">Example using "uppercase" (general) 
+///     <p class="flex flex-row justify-between">
+///       Initial String
+///       <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit…</strong>
+///     </p>
+///     <p class="flex flex-row justify-between">
+///       text-transform: uppercase
+///       <strong><span class="uppercase">Lorem ipsum dolor sit amet, consectetur adipisicing elit…</span></strong>
+///     </p>
+///   </div>  
+///   <div class="pb-1.5">Example using "full-width" (general) 
+///     <p class="flex flex-row justify-between">
+///       Initial String
+///       <strong>0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&()*+,-./:;<=>?@{|}~</strong>
+///     </p> 
+///     <p class="flex flex-row justify-between">
+///       text-transform: full-width
+///       <strong><span class="fullwidth">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&()*+,-./:;<=>?@{|}~</span></strong>
+///     </p>  
+///   </div>
+///   <div class="pb-1.5">Example using "full-size-kana"
+///     <p class="flex flex-row justify-between">
+///       Initial String
+///       <strong>ァィゥェ ォヵㇰヶ ㇱㇲッㇳ ㇴㇵㇶㇷ ㇸㇹㇺャ ュョㇻㇼ ㇽㇾㇿヮ</strong>
+///     </p> 
+///     <p class="flex flex-row justify-between">
+///       text-transform: full-size-kana
+///       <strong><span class="kana">ァィゥェ ォヵㇰヶ ㇱㇲッㇳ ㇴㇵㇶㇷ ㇸㇹㇺャ ュョㇻㇼ ㇽㇾㇿヮ</span></strong>
+///     </p>  
+///   </div>
+@each $texttransform-prop, $texttransform-value in $texttransform {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$texttransform-prop}"+ "#{$pseudoclasses-prop}"}{
+
+      text-transform: $texttransform-value;
+    }
+  }
+}
+/* End The text transform properties */
+
+/* The underline offset properties */
+
+///
+/// The underline offset property sets the Text align.
+/// @group textUnderlineOffset
+/// @name textunderlineoffset
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $underlineoffset
+/// @require {variable} $pseudoclasses 
+/// @example scss - text align class
+///   @each $underlineoffset-prop, $underlineoffset-value in $underlineoffset {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "text-#{$underlineoffset-prop}"+ "#{$pseudoclasses-prop}"}{
+///         text-underline-offset: $underlineoffset-value ;
+///       }
+///     }
+///   }
+/// @example html - use underline offset class
+///   <div class="underline underline-offset-9 font-1.7 decoration-red-90">
+///     <p>this line have text decoration line </p>
+///   </div> 
+///   <div class="hover:underline font-1.7">
+///     <p>this line have text decoration line </p>
+///   </div> 
+@each $underlineoffset-prop, $underlineoffset-value in $underlineoffset {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$underlineoffset-prop}"+ "#{$pseudoclasses-prop}"}{
+
+      text-underline-offset: $underlineoffset-value ;
+
+    }
+  }
+}
+/* End The underline offset properties */
+
+/* The underline position properties */
+
+///
+/// The underline position property sets the Text align.
+/// @group textunderlineoposition
+/// @name textunderlineoposition
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $textunderlineoposition
+/// @require {variable} $pseudoclasses 
+/// @example scss - text align class
+///   @each $textunderlineoposition-prop, $textunderlineoposition-value in $textunderlineoposition {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "text-#{$textunderlineoposition-prop}"+ "#{$pseudoclasses-prop}"}{
+///         text-underline-position: $textunderlineoposition-value ;
+///       }
+///     }
+///   }
+/// @example html - use underline position class
+///   <div class="pb-1.5">In this example we set both the paragraphs to have a thick underline. In the horizontal text we use text-underline-position: under; to put the underline below all the descenders.
+///     <p class="font-1.5 capitalize underline decoration-1">
+///       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur ac
+///       turpis vel laoreet. Nullam volutpat pharetra lorem, sit amet feugiat tortor
+///       volutpat quis. Nam eget sodales quam. Aliquam accumsan tellus ac erat posuere.
+///     </p> 
+///   </div>
+///   <div class="pb-1.5">In the text with a vertical writing-mode set, we can then use values of left or right to make the underline appear on the left or right of the text as required.
+///     <p class="font-1.5 capitalize underline decoration-1 underline-left" style="writing-mode: vertical-rl;">
+///       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur ac
+///       turpis vel laoreet. Nullam volutpat pharetra lorem, sit amet feugiat tortor
+///       volutpat quis. Nam eget sodales quam. Aliquam accumsan tellus ac erat posuere.
+///     </p> 
+///   </div>
+@each $textunderlineoposition-prop, $textunderlineoposition-value in $textunderlineoposition {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$textunderlineoposition-prop}"+ "#{$pseudoclasses-prop}"}{
+
+      text-underline-position: $textunderlineoposition-value ;
+
+    }
+  }
+}
+/* End The underline position properties */
+
+/* The vertical align properties */
+
+///
+/// The vertical align property sets the Text align.
+/// @group textverticalalign
+/// @name textverticalalign
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $textverticalalign
+/// @require {variable} $percent
+/// @require {variable} $pseudoclasses 
+/// @example scss - text vertical align class
+///   @each $textverticalalign-prop, $textverticalalign-value in $textverticalalign {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "text-#{$textverticalalign-prop}"+ "#{$pseudoclasses-prop}"}{
+///         vertical-align: $textverticalalign-value ;
+///       }
+///     }
+///   }
+/// @example html - use vertical align class
+///   <div class="pb-1.5">Vertical alignment in a line box
+///     <p class="pr-0.5 pl-0.5 underoverline ml-auto mr-auto font-1.5 "> 
+///       top:         <img class="vertical-top  mr-1" src="../image/star.png" alt="star"/>
+///       middle:      <img class="vertical-middle  mr-1" src="../image/star.png" alt="star"/>
+///       bottom:      <img class="vertical-bottom  mr-1" src="../image/star.png" alt="star"/>
+///       super:       <img class="vertical-super  mr-1" src="../image/star.png" alt="star"/>
+///       sub:         <img class="vertical-sub  mr-1" src="../image/star.png" alt="star"/>
+///     </p> 
+///     <p class="pr-0.5 pl-0.5 underoverline ml-auto mr-auto font-1.5 ">
+///       text-top:    <img class="vertical-texttop  mr-1" src="../image/star.png" alt="star"/>
+///       text-bottom: <img class="vertical-textbottom  mr-1" src="../image/star.png" alt="star"/>
+///       20%:         <img class="vertical-20  mr-1" src="../image/star.png" alt="star"/>
+///       -100%:       <img class="vertical-n100  mr-1" src="../image/star.png" alt="star"/>
+///     </p> 
+///   </div>
+@each $textverticalalign-prop, $textverticalalign-value in $textverticalalign {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$textverticalalign-prop}"+ "#{$pseudoclasses-prop}"}{
+
+        vertical-align: $textverticalalign-value ;
+
+    }
+  }
+}
+@each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+  @each $percent-prop, $percent-value in $percent { // set the opacity off the colors  
+
+    #{".#{$pseudoclasses-value}" + "vertical" + "#{$percent-prop}" + "#{$pseudoclasses-prop}"}{
+
+        vertical-align: $percent-value ;
+
+      }
+  }  
+}
+/* End The vertical align properties */
+
+/* The white-space properties */
+
+///
+/// The  white-space property sets the Text align.
+/// @group textwhitespace
+/// @name textwhitespace
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $textwhitespace
+/// @require {variable} $pseudoclasses 
+/// @example scss - white-space class
+///   @each $textwhitespace-prop, $textwhitespace-value in $textwhitespace {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "#{$textwhitespace-prop}"+ "#{$pseudoclasses-prop}"}{
+///        white-space: $textwhitespace-value ;
+///       }
+///     }
+///   }
+/// @example html - use white-space class
+///   <div class="pb-1.5 w-15 h-20">white-space: nowrap
+///    <p class="whitespace-nowrap">
+///      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+///      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+///      nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+///      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+///      eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+///      in culpa qui officia deserunt mollit anim id est laborum.
+///    </p> 
+///   </div>
+///   <div class="pb-1.5 w-15 h-20">white-space: pre-wrap
+///    <p class="whitespace-prewrap">
+///      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+///      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+///      nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+///      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+///      eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+///      in culpa qui officia deserunt mollit anim id est laborum.
+///    </p> 
+///   </div>/// 
+@each $textwhitespace-prop, $textwhitespace-value in $textwhitespace {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$textwhitespace-prop}"+ "#{$pseudoclasses-prop}"}{
+
+        white-space: $textwhitespace-value ;
+
+    }
+  }
+}
+/* End The white-space properties */
+
+/* The Word-break properties */
+
+///
+/// The  Word-break property sets the Text align.
+/// @group wordbreak
+/// @name wordbreak
+/// @link src/scss/utilities/_variables_typography.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $wordbreak
+/// @require {variable} $pseudoclasses 
+/// @example scss - word break class
+///   @each $wordbreak-prop, $wordbreak-value in $wordbreak {
+///     @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses {
+///       #{".#{$pseudoclasses-value}" + "#{$wordbreak-prop}"+ "#{$pseudoclasses-prop}"}{
+///        word-break: $wordbreak-value ;
+///       }
+///     }
+///   }
+/// @example html - use Word-break class
+///   <div class="pb-1.5 w-perc-3/5">
+///    <p>1. <code>word-break: normal</code></p>
+///     <p class="break-normal narrow">
+///      This is a long and Honorificabilitudinitatibus califragilisticexpialidocious
+///      Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
+///      グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉
+///    </p> 
+///    <p>2. <code>word-break: break-all</code></p>
+///     <p class="break-break narrow">
+///      This is a long and Honorificabilitudinitatibus califragilisticexpialidocious
+///      Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
+///      グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉
+///    </p> 
+///    <p>3. <code>word-break: keep-all</code></p>
+///     <p class="break-keep narrow">
+///      This is a long and Honorificabilitudinitatibus califragilisticexpialidocious
+///      Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
+///      グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉
+///    </p> 
+///    <p>4. <code>word-break: break-word</code></p>
+///     <p class="break-word narrow">
+///      This is a long and Honorificabilitudinitatibus califragilisticexpialidocious
+///      Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
+///      グレートブリテンおよび北アイルランド連合王国という言葉は本当に長い言葉
+///    </p> 
+///   </div>
+@each $wordbreak-prop, $wordbreak-value in $wordbreak {
+
+  @each $pseudoclasses-prop, $pseudoclasses-value in $pseudoclasses { // make the pseudo classes
+  
+    #{".#{$pseudoclasses-value}" + "#{$wordbreak-prop}"+ "#{$pseudoclasses-prop}"}{
+
+        word-break: $wordbreak-value ;
+
+    }
+  }
+}
+/* End The Word-break properties */
+
+/* The word Spacing properties */
+///
+/// The wordspacing property sets.
+/// @group wordspacing
+/// @name wordspacing
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $wordspacing
+/// @example scss - wordspacing class
+///   @each $wordspacing-prop, $wordspacing-value in $wordspacing {
+///     #{".#{$wordspacing-prop}"}{
+///       word-spacing: $wordspacing-value ;
+///     }
+///   }
+/// @example html - use word Spacing class
+///   <div class="pb-1.5 w-perc-3/5 ">
+///    <p>1. <code>word-spacing: wordspacing-normal / 0em (0px)</code></p>
+///     <p class="wordspacing-normal narrow mb-1">this line have text decoration line </p>
+/// 
+///    <p>2. <code>word-spacing: wordspacing-2 / 0.2em (3.2px)</code></p>
+///     <p class="wordspacing-2 narrow mb-1">this line have text decoration line </p>
+/// 
+///    <p>3. <code>word-spacing: wordspacing-5 / 2em (32px)</code></p>
+///     <p class="wordspacing-5 narrow">this line have text decoration line </p>
+///   </div>
+@each $wordspacing-prop, $wordspacing-value in $wordspacing {
+
+  #{".#{$wordspacing-prop}"}{
+
+    word-spacing: $wordspacing-value ;
+
+  }
+}
+/* End word Spacing properties */
+
+/* The Writing mode properties */
+///
+/// The writingmode property sets.
+/// @group writingmode
+/// @name writingmode
+/// @link src/scss/utilities/_variables_text.scss
+/// @since 1.0.0 
+/// @author Serge Cools
+///
+/// Applies to:	all elements
+///
+/// @require {variable} $writingmode
+/// @example scss - Writing mode class
+///   @each $writingmode-prop, $writingmode-value in $writingmode {
+///     #{".#{$writingmode-prop}"}{
+///       writing-mode: $writingmode-value ;
+///     }
+///   }
+/// @example html - use Writing modeg class
+/// <h4 id="result">Result</h4>
+/// <p>This image shows what the output should look like, in case your browser's support for <code>writing-mode</code> is incomplete:</p>
+/// <p>
+///  <img src="../image/screenshot_2020-02-05_21-04-30.png" alt="A 6 rows by 5 columns table showing the various directional flow of text and number adjusted using the vertical-lr or rl, horizontal-lr or rl, sideways-lr or rl horizontal-tb CSS properties. The flow is applied to different languages" width="493" height="508" loading="lazy">
+///  </p>
+/// <table>
+///     <tr>
+///     <th>Value</th>
+///     <th>Vertical script</th>
+///     <th>Horizontal (LTR) script</th>
+///     <th>Horizontal (RTL) script</th>
+///     <th>Mixed script</th>
+///   </tr>
+///   <tr>
+///     <td>horizontal-tb</td>
+///     <td class="writingmode-tb"><span>我家没有电脑。</span></td>
+///     <td class="writingmode-tb"><span>Example text</span></td>
+///     <td class="writingmode-tb"><span>מלל ארוך לדוגמא</span></td>
+///     <td class="writingmode-tb"><span>1994年に至っては</span></td>
+///   </tr>
+///   <tr>
+///     <td>vertical-lr</td>
+///     <td class="writingmode-lr"><span>我家没有电脑。</span></td>
+///     <td class="writingmode-lr"><span>Example text</span></td>
+///     <td class="writingmode-lr"><span>מלל ארוך לדוגמא</span></td>
+///     <td class="writingmode-lr"><span>1994年に至っては</span></td>
+///   </tr>
+///   <tr>
+///     <td>vertical-rl</td>
+///     <td class="writingmode-rl"><span>我家没有电脑。</span></td>
+///     <td class="writingmode-rl"><span>Example text</span></td>
+///     <td class="writingmode-rl"><span>מלל ארוך לדוגמא</span></td>
+///     <td class="writingmode-rl"><span>1994年に至っては</span></td>
+///   </tr>
+///   <tr>
+///     <td>sideways-lr</td>
+///     <td class="writingmode-sidelr"><span>我家没有电脑。</span></td>
+///     <td class="writingmode-sidelr"><span>Example text</span></td>
+///     <td class="writingmode-sidelr"><span>מלל ארוך לדוגמא</span></td>
+///     <td class="writingmode-sidelr"><span>1994年に至っては</span></td>
+///   </tr>
+///   <tr>
+///     <td>sideways-rl</td>
+///     <td class="example Text5"><span>我家没有电脑。</span></td>
+///     <td class="example Text5"><span>Example text</span></td>
+///     <td class="example Text5"><span>מלל ארוך לדוגמא</span></td>
+///     <td class="example Text5"><span>1994年に至っては</span></td>
+///   </tr>
+///   </table>
+@each $writingmode-prop, $writingmode-value in $writingmode {
+
+  #{".#{$writingmode-prop}"}{
+
+    writing-mode: $writingmode-value ;
+
+  }
+}
+/* End Writing mode properties */
+
+/* Modern Text Wrap */
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+.text-wrap { text-wrap: wrap; }
+.text-nowrap { text-wrap: nowrap; }

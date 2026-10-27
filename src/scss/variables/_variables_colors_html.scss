@@ -1,0 +1,2019 @@
+// SCSS Document 
+// File: src/scss/variables/__variables_colors_html,scss
+// Description: default colors settings for the HTML Colors
+// Copyright: 2021-2022 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+// Special: HTML COLORS use rgb.to site for the colors 
+///
+///
+///
+/// The list off the HTML colors
+/// @group variablescolors
+///
+/// @name colorshtml
+///
+/// @since 1.0.0
+/// @author Serge Cools
+///
+/// 
+///
+$html-colors: (
+  htmlcolors: (
+    Red_Colors_Names: (
+      IndianRed: (
+        hex: #CD5C5C,
+        websafe: #cc6666,
+        rgb: (
+          r: 205,
+          g: 92,
+          b: 92
+        ),
+        hsl: (
+          h: 0,
+          s: 53,
+          l: 58
+        )
+      ),
+      LightCoral: (
+        hex: #F08080,
+        websafe: #ff9999,
+        rgb: (
+          r: 240,
+          g: 128,
+          b: 128
+        ),
+        hsl: (
+          h: 0,
+          s: 79,
+          l: 72
+        )
+      ),
+      Salmon: (
+        hex: #FA8072,
+        websafe: #ff9966,
+        rgb: (
+          r: 250,
+          g: 128,
+          b: 114
+        ),
+        hsl: (
+          h: 6,
+          s: 93,
+          l: 71
+        )
+      ),
+      DarkSalmon: (
+        hex: #E9967A,
+        websafe: #ff9966,
+        rgb: (
+          r: 233,
+          g: 150,
+          b: 122
+        ),
+        hsl: (
+          h: 15,
+          s: 72,
+          l: 70
+        )
+      ),
+      Crimson: (
+        hex: #DC143C,
+        websafe: #cc0033,
+        rgb: (
+          r: 220,
+          g: 20,
+          b: 60
+        ),
+        hsl: (
+          h: 348,
+          s: 83,
+          l: 47
+        )
+      ),
+      Red: (
+        hex: #FF0000,
+        websafe: #ff0000,
+        rgb: (
+          r: 255,
+          g: 0,
+          b: 0
+        ),
+        hsl: (
+          h: 0,
+          s: 100,
+          l: 50
+        )
+      ),
+      FireBrick: (
+        hex: #B22222,
+        websafe: #993333,
+        rgb: (
+          r: 178,
+          g: 34,
+          b: 34
+        ),
+        hsl: (
+          h: 0,
+          s: 68,
+          l: 42
+        )
+      ),
+      DarkRed: (
+        hex: #8B0000,
+        websafe: #990000,
+        rgb: (
+          r: 139,
+          g: 0,
+          b: 0
+        ),
+        hsl: (
+          h: 0,
+          s: 100,
+          l: 27
+        )
+      )
+    ),
+    Pink_Colors_Names: (
+      Pink: (
+        hex: #FFC0CB,
+        websafe: #ffcccc,
+        rgb: (
+          r: 255,
+          g: 192,
+          b: 203
+        ),
+        hsl: (
+          h: 350,
+          s: 100,
+          l: 88
+        )
+      ),
+      LightPink: (
+        hex: #FFB6C1,
+        websafe: #ffcccc,
+        rgb: (
+          r: 255,
+          g: 182,
+          b: 193
+        ),
+        hsl: (
+          h: 351,
+          s: 100,
+          l: 86
+        )
+      ),
+      HotPink: (
+        hex: #FF69B4,
+        websafe: #ff66cc,
+        rgb: (
+          r: 255,
+          g: 105,
+          b: 180
+        ),
+        hsl: (
+          h: 330,
+          s: 100,
+          l: 71
+        )
+      ),
+      DeepPink: (
+        hex: #FF1493,
+        websafe: #ff0099,
+        rgb: (
+          r: 255,
+          g: 20,
+          b: 147
+        ),
+        hsl: (
+          h: 328,
+          s: 100,
+          l: 54
+        )
+      ),
+      MediumVioletRed: (
+        hex: #C71585,
+        websafe: #cc0099,
+        rgb: (
+          r: 199,
+          g: 21,
+          b: 133
+        ),
+        hsl: (
+          h: 322,
+          s: 81,
+          l: 43
+        )
+      ),
+      PaleVioletRed: (
+        hex: #DB7093,
+        websafe: #cc6699,
+        rgb: (
+          r: 219,
+          g: 112,
+          b: 147
+        ),
+        hsl: (
+          h: 340,
+          s: 60,
+          l: 65
+        )
+      )
+    ),
+    Orange_Colors_Names: (
+      LightSalmon: (
+        hex: #FFA07A,
+        websafe: #ff9966,
+        rgb: (
+          r: 255,
+          g: 160,
+          b: 122
+        ),
+        hsl: (
+          h: 17,
+          s: 100,
+          l: 74
+        )
+      ),
+      Coral: (
+        hex: #FF7F50,
+        websafe: #ff6666,
+        rgb: (
+          r: 255,
+          g: 127,
+          b: 80
+        ),
+        hsl: (
+          h: 16,
+          s: 100,
+          l: 66
+        )
+      ),
+      Tomato: (
+        hex: #FF6347,
+        websafe: #ff6633,
+        rgb: (
+          r: 255,
+          g: 99,
+          b: 71
+        ),
+        hsl: (
+          h: 9,
+          s: 100,
+          l: 64
+        )
+      ),
+      OrangeRed: (
+        hex: #FF4500,
+        websafe: #ff3300,
+        rgb: (
+          r: 255,
+          g: 69,
+          b: 0
+        ),
+        hsl: (
+          h: 16,
+          s: 100,
+          l: 50
+        )
+      ),
+      DarkOrange: (
+        hex: #FF8C00,
+        websafe: #ff9900,
+        rgb: (
+          r: 255,
+          g: 140,
+          b: 0
+        ),
+        hsl: (
+          h: 33,
+          s: 100,
+          l: 50
+        )
+      ),
+      Orange: (
+        hex: #FFA500,
+        websafe: #ff9900,
+        rgb: (
+          r: 255,
+          g: 165,
+          b: 0
+        ),
+        hsl: (
+          h: 39,
+          s: 100,
+          l: 50
+        )
+      )
+    ),
+    Yellow_Colors_Names: (
+      Gold: (
+        hex: #FFD700,
+        websafe: #ffcc00,
+        rgb: (
+          r: 255,
+          g: 215,
+          b: 0
+        ),
+        hsl: (
+          h: 51,
+          s: 100,
+          l: 50
+        )
+      ),
+      Yellow: (
+        hex: #FFFF00,
+        websafe: #ffff00,
+        rgb: (
+          r: 255,
+          g: 255,
+          b: 0
+        ),
+        hsl: (
+          h: 60,
+          s: 100,
+          l: 50
+        )
+      ),
+      LightYellow: (
+        hex: #FFFFE0,
+        websafe: #ffffcc,
+        rgb: (
+          r: 255,
+          g: 255,
+          b: 224
+        ),
+        hsl: (
+          h: 60,
+          s: 100,
+          l: 94
+        )
+      ),
+      LemonChiffon: (
+        hex: #FFFACD,
+        websafe: #ffffcc,
+        rgb: (
+          r: 255,
+          g: 250,
+          b: 205
+        ),
+        hsl: (
+          h: 54,
+          s: 100,
+          l: 90
+        )
+      ),
+      LightGoldenrodYellow: (
+        hex: #FAFAD2,
+        websafe: #ffffcc,
+        rgb: (
+          r: 250,
+          g: 250,
+          b: 210
+        ),
+        hsl: (
+          h: 60,
+          s: 80,
+          l: 90
+        )
+      ),
+      PapayaWhip: (
+        hex: #FFEFD5,
+        websafe: #ffffcc,
+        rgb: (
+          r: 255,
+          g: 239,
+          b: 213
+        ),
+        hsl: (
+          h: 37,
+          s: 100,
+          l: 92
+        )
+      ),
+      Moccasin: (
+        hex: #FFE4B5,
+        websafe: #ffcccc,
+        rgb: (
+          r: 255,
+          g: 228,
+          b: 181
+        ),
+        hsl: (
+          h: 38,
+          s: 100,
+          l: 85
+        )
+      ),
+      PeachPuff: (
+        hex: #FFDAB9,
+        websafe: #ffcccc,
+        rgb: (
+          r: 255,
+          g: 218,
+          b: 185
+        ),
+        hsl: (
+          h: 28,
+          s: 100,
+          l: 86
+        )
+      ),
+      PaleGoldenrod: (
+        hex: #EEE8AA,
+        websafe: #ffff99,
+        rgb: (
+          r: 238,
+          g: 232,
+          b: 170
+        ),
+        hsl: (
+          h: 55,
+          s: 67,
+          l: 80
+        )
+      ),
+      Khaki: (
+        hex: #F0E68C,
+        websafe: #ffff99,
+        rgb: (
+          r: 240,
+          g: 230,
+          b: 140
+        ),
+        hsl: (
+          h: 54,
+          s: 77,
+          l: 75
+        )
+      ),
+      DarkKhaki: (
+        hex: #BDB76B,
+        websafe: #cccc66,
+        rgb: (
+          r: 189,
+          g: 183,
+          b: 107
+        ),
+        hsl: (
+          h: 56,
+          s: 38,
+          l: 58
+        )
+      )
+    ),
+    Purple_Colors_Names: (
+      Lavender: (
+        hex: #E6E6FA,
+        websafe: #ffffff,
+        rgb: (
+          r: 230,
+          g: 230,
+          b: 250
+        ),
+        hsl: (
+          h: 240,
+          s: 67,
+          l: 94
+        )
+      ),
+      Thistle: (
+        hex: #D8BFD8,
+        websafe: #cccccc,
+        rgb: (
+          r: 216,
+          g: 191,
+          b: 216
+        ),
+        hsl: (
+          h: 300,
+          s: 24,
+          l: 80
+        )
+      ),
+      Plum: (
+        hex: #DDA0DD,
+        websafe: #cc99cc,
+        rgb: (
+          r: 221,
+          g: 160,
+          b: 221
+        ),
+        hsl: (
+          h: 300,
+          s: 47,
+          l: 75
+        )
+      ),
+      Violet: (
+        hex: #EE82EE,
+        websafe: #ff99ff,
+        rgb: (
+          r: 238,
+          g: 130,
+          b: 238
+        ),
+        hsl: (
+          h: 300,
+          s: 76,
+          l: 72
+        )
+      ),
+      Orchid: (
+        hex: #DA70D6,
+        websafe: #cc66cc,
+        rgb: (
+          r: 218,
+          g: 112,
+          b: 214
+        ),
+        hsl: (
+          h: 302,
+          s: 59,
+          l: 65
+        )
+      ),
+      "Fuchsia": (
+        hex: #FF00FF,
+        websafe: #ff00ff,
+        rgb: (
+          r: 255,
+          g: 0,
+          b: 255
+        ),
+        hsl: (
+          h: 300,
+          s: 100,
+          l: 50
+        )
+      ),
+      "Magenta": (
+        hex: #FF00FF,
+        websafe: #ff00ff,
+        rgb: (
+          r: 255,
+          g: 0,
+          b: 255
+        ),
+        hsl: (
+          h: 300,
+          s: 100,
+          l: 50
+        )
+      ),
+      MediumOrchid: (
+        hex: #BA55D3,
+        websafe: #cc66cc,
+        rgb: (
+          r: 186,
+          g: 85,
+          b: 211
+        ),
+        hsl: (
+          h: 288,
+          s: 59,
+          l: 58
+        )
+      ),
+      MediumPurple: (
+        hex: #9370DB,
+        websafe: #9966cc,
+        rgb: (
+          r: 147,
+          g: 112,
+          b: 219
+        ),
+        hsl: (
+          h: 260,
+          s: 60,
+          l: 65
+        )
+      ),
+      RebeccaPurple: (
+        hex: #663399,
+        websafe: #663399,
+        rgb: (
+          r: 102,
+          g: 51,
+          b: 153
+        ),
+        hsl: (
+          h: 270,
+          s: 50,
+          l: 40
+        )
+      ),
+      BlueViolet: (
+        hex: #8A2BE2,
+        websafe: #9933cc,
+        rgb: (
+          r: 138,
+          g: 43,
+          b: 226
+        ),
+        hsl: (
+          h: 271,
+          s: 76,
+          l: 53
+        )
+      ),
+      DarkViolet: (
+        hex: #9400D3,
+        websafe: #9900cc,
+        rgb: (
+          r: 148,
+          g: 0,
+          b: 211
+        ),
+        hsl: (
+          h: 282,
+          s: 100,
+          l: 41
+        )
+      ),
+      DarkOrchid: (
+        hex: #9932CC,
+        websafe: #9933cc,
+        rgb: (
+          r: 153,
+          g: 50,
+          b: 204
+        ),
+        hsl: (
+          h: 280,
+          s: 61,
+          l: 50
+        )
+      ),
+      DarkMagenta: (
+        hex: #8B008B,
+        websafe: #990099,
+        rgb: (
+          r: 139,
+          g: 0,
+          b: 139
+        ),
+        hsl: (
+          h: 300,
+          s: 100,
+          l: 27
+        )
+      ),
+      Purple: (
+        hex: #800080,
+        websafe: #990099,
+        rgb: (
+          r: 128,
+          g: 0,
+          b: 128
+        ),
+        hsl: (
+          h: 300,
+          s: 100,
+          l: 25
+        )
+      ),
+      Indigo: (
+        hex: #4B0082,
+        websafe: #330099,
+        rgb: (
+          r: 75,
+          g: 0,
+          b: 130
+        ),
+        hsl: (
+          h: 275,
+          s: 100,
+          l: 25
+        )
+      ),
+      SlateBlue: (
+        hex: #6A5ACD,
+        websafe: #6666cc,
+        rgb: (
+          r: 106,
+          g: 90,
+          b: 205
+        ),
+        hsl: (
+          h: 248,
+          s: 53,
+          l: 58
+        )
+      ),
+      DarkSlateBlue: (
+        hex: #483D8B,
+        websafe: #333399,
+        rgb: (
+          r: 72,
+          g: 61,
+          b: 139
+        ),
+        hsl: (
+          h: 248,
+          s: 39,
+          l: 39
+        )
+      ),
+      MediumSlateBlue: (
+        hex: #7B68EE,
+        websafe: #6666ff,
+        rgb: (
+          r: 123,
+          g: 104,
+          b: 238
+        ),
+        hsl: (
+          h: 249,
+          s: 80,
+          l: 67
+        )
+      )
+    ),
+    Green_Colors_Names: (
+      GreenYellow: (
+        hex: #ADFF2F,
+        websafe: #99ff33,
+        rgb: (
+          r: 173,
+          g: 255,
+          b: 47
+        ),
+        hsl: (
+          h: 84,
+          s: 100,
+          l: 59
+        )
+      ),
+      ChartReuse: (
+        hex: #7FFF00,
+        websafe: #66ff00,
+        rgb: (
+          r: 127,
+          g: 255,
+          b: 0
+        ),
+        hsl: (
+          h: 90,
+          s: 100,
+          l: 50
+        )
+      ),
+      LawnGreen: (
+        hex: #7CFC00,
+        websafe: #66ff00,
+        rgb: (
+          r: 124,
+          g: 252,
+          b: 0
+        ),
+        hsl: (
+          h: 90,
+          s: 100,
+          l: 49
+        )
+      ),
+      Lime: (
+        hex: #00FF00,
+        websafe: #00ff00,
+        rgb: (
+          r: 0,
+          g: 255,
+          b: 0
+        ),
+        hsl: (
+          h: 120,
+          s: 100,
+          l: 50
+        )
+      ),
+      LimeGreen: (
+        hex: #32CD32,
+        websafe: #33cc33,
+        rgb: (
+          r: 50,
+          g: 205,
+          b: 50
+        ),
+        hsl: (
+          h: 120,
+          s: 61,
+          l: 50
+        )
+      ),
+      PaleGreen: (
+        hex: #98FB98,
+        websafe: #99ff99,
+        rgb: (
+          r: 152,
+          g: 251,
+          b: 152
+        ),
+        hsl: (
+          h: 120,
+          s: 93,
+          l: 79
+        )
+      ),
+      LightGreen: (
+        hex: #90EE90,
+        websafe: #99ff99,
+        rgb: (
+          r: 144,
+          g: 238,
+          b: 144
+        ),
+        hsl: (
+          h: 120,
+          s: 73,
+          l: 75
+        )
+      ),
+      MediumSpringGreen: (
+        hex: #00FA9A,
+        websafe: #00ff99,
+        rgb: (
+          r: 0,
+          g: 250,
+          b: 154
+        ),
+        hsl: (
+          h: 157,
+          s: 100,
+          l: 49
+        )
+      ),
+      SpringGreen: (
+        hex: #00FF7F,
+        websafe: #00ff66,
+        rgb: (
+          r: 0,
+          g: 255,
+          b: 127
+        ),
+        hsl: (
+          h: 150,
+          s: 100,
+          l: 50
+        )
+      ),
+      MediumSeaGreen: (
+        hex: #3CB371,
+        websafe: #33cc66,
+        rgb: (
+          r: 60,
+          g: 179,
+          b: 113
+        ),
+        hsl: (
+          h: 147,
+          s: 50,
+          l: 47
+        )
+      ),
+      SeaGreen: (
+        hex: #2E8B57,
+        websafe: #339966,
+        rgb: (
+          r: 46,
+          g: 139,
+          b: 87
+        ),
+        hsl: (
+          h: 146,
+          s: 50,
+          l: 36
+        )
+      ),
+      ForestGreen: (
+        hex: #228B22,
+        websafe: #339933,
+        rgb: (
+          r: 34,
+          g: 139,
+          b: 34
+        ),
+        hsl: (
+          h: 120,
+          s: 61,
+          l: 34
+        )
+      ),
+      Green: (
+        hex: #008000,
+        websafe: #009900,
+        rgb: (
+          r: 0,
+          g: 128,
+          b: 0
+        ),
+        hsl: (
+          h: 120,
+          s: 100,
+          l: 25
+        )
+      ),
+      DarkGreen: (
+        hex: #006400,
+        websafe: #006600,
+        rgb: (
+          r: 0,
+          g: 100,
+          b: 0
+        ),
+        hsl: (
+          h: 120,
+          s: 100,
+          l: 20
+        )
+      ),
+      YellowGreen: (
+        hex: #9ACD32,
+        websafe: #99cc33,
+        rgb: (
+          r: 154,
+          g: 205,
+          b: 50
+        ),
+        hsl: (
+          h: 80,
+          s: 61,
+          l: 50
+        )
+      ),
+      OliveDrab: (
+        hex: #6B8E23,
+        websafe: #669933,
+        rgb: (
+          r: 107,
+          g: 142,
+          b: 35
+        ),
+        hsl: (
+          h: 80,
+          s: 60,
+          l: 35
+        )
+      ),
+      Olive: (
+        hex: #808000,
+        websafe: #999900,
+        rgb: (
+          r: 128,
+          g: 128,
+          b: 0
+        ),
+        hsl: (
+          h: 60,
+          s: 100,
+          l: 25
+        )
+      ),
+      DarkOliveGreen: (
+        hex: #556B2F,
+        websafe: #666633,
+        rgb: (
+          r: 85,
+          g: 107,
+          b: 47
+        ),
+        hsl: (
+          h: 82,
+          s: 39,
+          l: 30
+        )
+      ),
+      MediumAquaMarine: (
+        hex: #66CDAA,
+        websafe: #66cc99,
+        rgb: (
+          r: 102,
+          g: 205,
+          b: 170
+        ),
+        hsl: (
+          h: 160,
+          s: 51,
+          l: 60
+        )
+      ),
+      DarkSeaGreen: (
+        hex: #8FBC8B,
+        websafe: #99cc99,
+        rgb: (
+          r: 143,
+          g: 188,
+          b: 139
+        ),
+        hsl: (
+          h: 115,
+          s: 27,
+          l: 64
+        )
+      ),
+      LightSeaGreen: (
+        hex: #20B2AA,
+        websafe: #339999,
+        rgb: (
+          r: 32,
+          g: 178,
+          b: 170
+        ),
+        hsl: (
+          h: 177,
+          s: 70,
+          l: 41
+        )
+      ),
+      DarkCyan: (
+        hex: #008B8B,
+        websafe: #009999,
+        rgb: (
+          r: 0,
+          g: 139,
+          b: 139
+        ),
+        hsl: (
+          h: 180,
+          s: 100,
+          l: 27
+        )
+      ),
+      Teal: (
+        hex: #008080,
+        websafe: #009999,
+        rgb: (
+          r: 0,
+          g: 128,
+          b: 128
+        ),
+        hsl: (
+          h: 180,
+          s: 100,
+          l: 25
+        )
+      )
+    ),
+    Blue_Colors_Names: (
+      "Aqua": (
+        hex: #00FFFF,
+        websafe: #00ffff,
+        rgb: (
+          r: 0,
+          g: 255,
+          b: 255
+        ),
+        hsl: (
+          h: 180,
+          s: 100,
+          l: 50
+        )
+      ),
+      "Cyan": (
+        hex: #00FFFF,
+        websafe: #00ffff,
+        rgb: (
+          r: 0,
+          g: 255,
+          b: 255
+        ),
+        hsl: (
+          h: 180,
+          s: 100,
+          l: 50
+        )
+      ),
+      LightCyan: (
+        hex: #E0FFFF,
+        websafe: #ccffff,
+        rgb: (
+          r: 224,
+          g: 255,
+          b: 255
+        ),
+        hsl: (
+          h: 180,
+          s: 100,
+          l: 94
+        )
+      ),
+      PaleTurquoise: (
+        hex: #AFEEEE,
+        websafe: #99ffff,
+        rgb: (
+          r: 175,
+          g: 238,
+          b: 238
+        ),
+        hsl: (
+          h: 180,
+          s: 65,
+          l: 81
+        )
+      ),
+      Aquamarine: (
+        hex: #7FFFD4,
+        websafe: #66ffcc,
+        rgb: (
+          r: 127,
+          g: 255,
+          b: 212
+        ),
+        hsl: (
+          h: 160,
+          s: 100,
+          l: 75
+        )
+      ),
+      Turquoise: (
+        hex: #40E0D0,
+        websafe: #33cccc,
+        rgb: (
+          r: 64,
+          g: 224,
+          b: 208
+        ),
+        hsl: (
+          h: 174,
+          s: 72,
+          l: 56
+        )
+      ),
+      MediumTurquoise: (
+        hex: #48D1CC,
+        websafe: #33cccc,
+        rgb: (
+          r: 72,
+          g: 209,
+          b: 204
+        ),
+        hsl: (
+          h: 178,
+          s: 60,
+          l: 55
+        )
+      ),
+      DarkTurquoise: (
+        hex: #00CED1,
+        websafe: #00cccc,
+        rgb: (
+          r: 0,
+          g: 206,
+          b: 209
+        ),
+        hsl: (
+          h: 181,
+          s: 100,
+          l: 41
+        )
+      ),
+      CadetBlue: (
+        hex: #5F9EA0,
+        websafe: #669999,
+        rgb: (
+          r: 95,
+          g: 158,
+          b: 160
+        ),
+        hsl: (
+          h: 182,
+          s: 25,
+          l: 50
+        )
+      ),
+      SteelBlue: (
+        hex: #4682B4,
+        websafe: #3399cc,
+        rgb: (
+          r: 70,
+          g: 130,
+          b: 180
+        ),
+        hsl: (
+          h: 207,
+          s: 44,
+          l: 49
+        )
+      ),
+      LightSteelBlue: (
+        hex: #B0C4DE,
+        websafe: #99cccc,
+        rgb: (
+          r: 176,
+          g: 196,
+          b: 222
+        ),
+        hsl: (
+          h: 214,
+          s: 41,
+          l: 78
+        )
+      ),
+      PowderBlue: (
+        hex: #B0E0E6,
+        websafe: #99ccff,
+        rgb: (
+          r: 176,
+          g: 224,
+          b: 230
+        ),
+        hsl: (
+          h: 187,
+          s: 52,
+          l: 80
+        )
+      ),
+      LightBlue: (
+        hex: #ADD8E6,
+        websafe: #99ccff,
+        rgb: (
+          r: 173,
+          g: 216,
+          b: 230
+        ),
+        hsl: (
+          h: 195,
+          s: 53,
+          l: 79
+        )
+      ),
+      SkyBlue: (
+        hex: #87CEEB,
+        websafe: #99ccff,
+        rgb: (
+          r: 135,
+          g: 206,
+          b: 235
+        ),
+        hsl: (
+          h: 197,
+          s: 71,
+          l: 73
+        )
+      ),
+      LightSkyBlue: (
+        hex: #87CEFA,
+        websafe: #99ccff,
+        rgb: (
+          r: 135,
+          g: 206,
+          b: 250
+        ),
+        hsl: (
+          h: 203,
+          s: 92,
+          l: 75
+        )
+      ),
+      DeepSkyBlue: (
+        hex: #00BFFF,
+        websafe: #00ccff,
+        rgb: (
+          r: 0,
+          g: 191,
+          b: 255
+        ),
+        hsl: (
+          h: 195,
+          s: 100,
+          l: 50
+        )
+      ),
+      DodgerBlue: (
+        hex: #1E90FF,
+        websafe: #3399ff,
+        rgb: (
+          r: 30,
+          g: 144,
+          b: 255
+        ),
+        hsl: (
+          h: 210,
+          s: 100,
+          l: 56
+        )
+      ),
+      CornflowerBlue: (
+        hex: #6495ED,
+        websafe: #6699ff,
+        rgb: (
+          r: 100,
+          g: 149,
+          b: 237
+        ),
+        hsl: (
+          h: 219,
+          s: 79,
+          l: 66
+        )
+      ),
+      RoyalBlue: (
+        hex: #4169E1,
+        websafe: #3366cc,
+        rgb: (
+          r: 65,
+          g: 105,
+          b: 225
+        ),
+        hsl: (
+          h: 225,
+          s: 73,
+          l: 57
+        )
+      ),
+      Blue: (
+        hex: #0000FF,
+        websafe: #0000ff,
+        rgb: (
+          r: 0,
+          g: 0,
+          b: 255
+        ),
+        hsl: (
+          h: 240,
+          s: 100,
+          l: 50
+        )
+      ),
+      MediumBlue: (
+        hex: #0000CD,
+        websafe: #0000cc,
+        rgb: (
+          r: 0,
+          g: 0,
+          b: 205
+        ),
+        hsl: (
+          h: 240,
+          s: 100,
+          l: 40
+        )
+      ),
+      DarkBlue: (
+        hex: #00008B,
+        websafe: #000099,
+        rgb: (
+          r: 0,
+          g: 0,
+          b: 139
+        ),
+        hsl: (
+          h: 240,
+          s: 100,
+          l: 27
+        )
+      ),
+      Navy: (
+        hex: #000080,
+        websafe: #000099,
+        rgb: (
+          r: 0,
+          g: 0,
+          b: 128
+        ),
+        hsl: (
+          h: 240,
+          s: 100,
+          l: 25
+        )
+      ),
+      MidnightBlue: (
+        hex: #191970,
+        websafe: #000066,
+        rgb: (
+          r: 25,
+          g: 25,
+          b: 112
+        ),
+        hsl: (
+          h: 240,
+          s: 64,
+          l: 27
+        )
+      )
+    ),
+    Brown_Colors_Names: (
+      Cornsilk: (
+        hex: #FFF8DC,
+        websafe: #ffffcc,
+        rgb: (
+          r: 255,
+          g: 248,
+          b: 220
+        ),
+        hsl: (
+          h: 48,
+          s: 100,
+          l: 93
+        )
+      ),
+      BlanchedAlmond: (
+        hex: #FFEBCD,
+        websafe: #ffffcc,
+        rgb: (
+          r: 255,
+          g: 235,
+          b: 205
+        ),
+        hsl: (
+          h: 36,
+          s: 100,
+          l: 90
+        )
+      ),
+      Bisque: (
+        hex: #FFE4C4,
+        websafe: #ffcccc,
+        rgb: (
+          r: 255,
+          g: 228,
+          b: 196
+        ),
+        hsl: (
+          h: 33,
+          s: 100,
+          l: 88
+        )
+      ),
+      NavajoWhite: (
+        hex: #FFDEAD,
+        websafe: #ffcc99,
+        rgb: (
+          r: 255,
+          g: 222,
+          b: 173
+        ),
+        hsl: (
+          h: 36,
+          s: 100,
+          l: 84
+        )
+      ),
+      Wheat: (
+        hex: #F5DEB3,
+        websafe: #ffcccc,
+        rgb: (
+          r: 245,
+          g: 222,
+          b: 179
+        ),
+        hsl: (
+          h: 39,
+          s: 77,
+          l: 83
+        )
+      ),
+      BurlyWood: (
+        hex: #DEB887,
+        websafe: #cccc99,
+        rgb: (
+          r: 222,
+          g: 184,
+          b: 135
+        ),
+        hsl: (
+          h: 34,
+          s: 57,
+          l: 70
+        )
+      ),
+      Tan: (
+        hex: #D2B48C,
+        websafe: #cccc99,
+        rgb: (
+          r: 210,
+          g: 180,
+          b: 140
+        ),
+        hsl: (
+          h: 34,
+          s: 44,
+          l: 69
+        )
+      ),
+      RosyBrown: (
+        hex: #BC8F8F,
+        websafe: #cc9999,
+        rgb: (
+          r: 188,
+          g: 143,
+          b: 143
+        ),
+        hsl: (
+          h: 0,
+          s: 25,
+          l: 65
+        )
+      ),
+      SandyBrown: (
+        hex: #F4A460,
+        websafe: #cc9999,
+        rgb: (
+          r: 244,
+          g: 164,
+          b: 96
+        ),
+        hsl: (
+          h: 28,
+          s: 87,
+          l: 67
+        )
+      ),
+      Goldenrod: (
+        hex: #DAA520,
+        websafe: #cc9933,
+        rgb: (
+          r: 218,
+          g: 165,
+          b: 32
+        ),
+        hsl: (
+          h: 43,
+          s: 74,
+          l: 49
+        )
+      ),
+      DarkGoldenrod: (
+        hex: #B8860B,
+        websafe: #cc9900,
+        rgb: (
+          r: 184,
+          g: 134,
+          b: 11
+        ),
+        hsl: (
+          h: 43,
+          s: 89,
+          l: 38
+        )
+      ),
+      Peru: (
+        hex: #CD853F,
+        websafe: #cc9933,
+        rgb: (
+          r: 205,
+          g: 133,
+          b: 63
+        ),
+        hsl: (
+          h: 30,
+          s: 59,
+          l: 53
+        )
+      ),
+      Chocolate: (
+        hex: #D2691E,
+        websafe: #cc6633,
+        rgb: (
+          r: 210,
+          g: 105,
+          b: 30
+        ),
+        hsl: (
+          h: 25,
+          s: 75,
+          l: 47
+        )
+      ),
+      SaddleBrown: (
+        hex: #8B4513,
+        websafe: #993300,
+        rgb: (
+          r: 139,
+          g: 69,
+          b: 19
+        ),
+        hsl: (
+          h: 25,
+          s: 76,
+          l: 31
+        )
+      ),
+      Sienna: (
+        hex: #A0522D,
+        websafe: #996633,
+        rgb: (
+          r: 160,
+          g: 82,
+          b: 45
+        ),
+        hsl: (
+          h: 19,
+          s: 56,
+          l: 40
+        )
+      ),
+      Brown: (
+        hex: #A52A2A,
+        websafe: #993333,
+        rgb: (
+          r: 165,
+          g: 42,
+          b: 42
+        ),
+        hsl: (
+          h: 0,
+          s: 59,
+          l: 41
+        )
+      ),
+      Maroon: (
+        hex: #800000,
+        websafe: #990000,
+        rgb: (
+          r: 128,
+          g: 0,
+          b: 0
+        ),
+        hsl: (
+          h: 0,
+          s: 100,
+          l: 25
+        )
+      )
+    ),
+    White_Colors_Names: (
+      White: (
+        hex: #FFFFFF,
+        websafe: #ffffff,
+        rgb: (
+          r: 255,
+          g: 255,
+          b: 255
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 100
+        )
+      ),
+      Snow: (
+        hex: #FFFAFA,
+        websafe: #ffffff,
+        rgb: (
+          r: 255,
+          g: 250,
+          b: 250
+        ),
+        hsl: (
+          h: 0,
+          s: 100,
+          l: 99
+        )
+      ),
+      HoneyDew: (
+        hex: #F0FFF0,
+        websafe: #ffffff,
+        rgb: (
+          r: 240,
+          g: 255,
+          b: 240
+        ),
+        hsl: (
+          h: 120,
+          s: 100,
+          l: 97
+        )
+      ),
+      MintCream: (
+        hex: #F5FFFA,
+        websafe: #ffffff,
+        rgb: (
+          r: 245,
+          g: 255,
+          b: 250
+        ),
+        hsl: (
+          h: 150,
+          s: 100,
+          l: 98
+        )
+      ),
+      Azure: (
+        hex: #F0FFFF,
+        websafe: #ffffff,
+        rgb: (
+          r: 240,
+          g: 255,
+          b: 255
+        ),
+        hsl: (
+          h: 180,
+          s: 100,
+          l: 97
+        )
+      ),
+      AliceBlue: (
+        hex: #F0F8FF,
+        websafe: #ffffff,
+        rgb: (
+          r: 240,
+          g: 248,
+          b: 255
+        ),
+        hsl: (
+          h: 208,
+          s: 100,
+          l: 97
+        )
+      ),
+      GhostWhite: (
+        hex: #F8F8FF,
+        websafe: #ffffff,
+        rgb: (
+          r: 248,
+          g: 248,
+          b: 255
+        ),
+        hsl: (
+          h: 240,
+          s: 100,
+          l: 99
+        )
+      ),
+      WhiteSmoke: (
+        hex: #F5F5F5,
+        websafe: #ffffff,
+        rgb: (
+          r: 245,
+          g: 245,
+          b: 245
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 96
+        )
+      ),
+      SeaShell: (
+        hex: #FFF5EE,
+        websafe: #ffffff,
+        rgb: (
+          r: 255,
+          g: 245,
+          b: 238
+        ),
+        hsl: (
+          h: 25,
+          s: 100,
+          l: 97
+        )
+      ),
+      Beige: (
+        hex: #F5F5DC,
+        websafe: #ffffcc,
+        rgb: (
+          r: 245,
+          g: 245,
+          b: 220
+        ),
+        hsl: (
+          h: 60,
+          s: 56,
+          l: 91
+        )
+      ),
+      OldLace: (
+        hex: #FDF5E6,
+        websafe: #ffffff,
+        rgb: (
+          r: 253,
+          g: 245,
+          b: 230
+        ),
+        hsl: (
+          h: 39,
+          s: 85,
+          l: 95
+        )
+      ),
+      FloralWhite: (
+        hex: #FFFAF0,
+        websafe: #ffffff,
+        rgb: (
+          r: 255,
+          g: 250,
+          b: 240
+        ),
+        hsl: (
+          h: 40,
+          s: 100,
+          l: 97
+        )
+      ),
+      Ivory: (
+        hex: #FFFFF0,
+        websafe: #ffffff,
+        rgb: (
+          r: 255,
+          g: 255,
+          b: 240
+        ),
+        hsl: (
+          h: 60,
+          s: 100,
+          l: 97
+        )
+      ),
+      AntiqueWhite: (
+        hex: #FAEBD7,
+        websafe: #ffffcc,
+        rgb: (
+          r: 250,
+          g: 235,
+          b: 215
+        ),
+        hsl: (
+          h: 34,
+          s: 78,
+          l: 91
+        )
+      ),
+      Linen: (
+        hex: #FAF0E6,
+        websafe: #ffffff,
+        rgb: (
+          r: 250,
+          g: 240,
+          b: 230
+        ),
+        hsl: (
+          h: 30,
+          s: 67,
+          l: 94
+        )
+      ),
+      LavenderBlush: (
+        hex: #FFF0F5,
+        websafe: #ffffff,
+        rgb: (
+          r: 255,
+          g: 240,
+          b: 245
+        ),
+        hsl: (
+          h: 340,
+          s: 100,
+          l: 97
+        )
+      ),
+      MistyRose: (
+        hex: #FFE4E1,
+        websafe: #ffcccc,
+        rgb: (
+          r: 255,
+          g: 228,
+          b: 225
+        ),
+        hsl: (
+          h: 6,
+          s: 100,
+          l: 94
+        )
+      )
+    ),
+    Gray_Colors_Names: (
+      Gainsboro: (
+        hex: #DCDCDC,
+        websafe: #cccccc,
+        rgb: (
+          r: 220,
+          g: 220,
+          b: 220
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 86
+        )
+      ),
+      LightGray: (
+        hex: #D3D3D3,
+        websafe: #cccccc,
+        rgb: (
+          r: 211,
+          g: 211,
+          b: 211
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 83
+        )
+      ),
+      Silver: (
+        hex: #C0C0C0,
+        websafe: #cccccc,
+        rgb: (
+          r: 192,
+          g: 192,
+          b: 192
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 75
+        )
+      ),
+      DarkGray: (
+        hex: #A9A9A9,
+        websafe: #999999,
+        rgb: (
+          r: 169,
+          g: 169,
+          b: 169
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 66
+        )
+      ),
+      Gray: (
+        hex: #808080,
+        websafe: #999999,
+        rgb: (
+          r: 128,
+          g: 128,
+          b: 128
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 50
+        )
+      ),
+      DimGray: (
+        hex: #696969,
+        websafe: #666666,
+        rgb: (
+          r: 105,
+          g: 105,
+          b: 105
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 41
+        )
+      ),
+      LightSlateGray: (
+        hex: #778899,
+        websafe: #669999,
+        rgb: (
+          r: 119,
+          g: 136,
+          b: 153
+        ),
+        hsl: (
+          h: 210,
+          s: 14,
+          l: 53
+        )
+      ),
+      SlateGray: (
+        hex: #708090,
+        websafe: #669999,
+        rgb: (
+          r: 112,
+          g: 128,
+          b: 144
+        ),
+        hsl: (
+          h: 210,
+          s: 13,
+          l: 50
+        )
+      ),
+      DarkSlateGray: (
+        hex: #2F4F4F,
+        websafe: #336666,
+        rgb: (
+          r: 47,
+          g: 79,
+          b: 79
+        ),
+        hsl: (
+          h: 180,
+          s: 25,
+          l: 25
+        )
+      ),
+      Black: (
+        hex: #000000,
+        websafe: #000000,
+        rgb: (
+          r: 0,
+          g: 0,
+          b: 0
+        ),
+        hsl: (
+          h: 0,
+          s: 0,
+          l: 0
+        )
+      )
+    )
+  )
+);

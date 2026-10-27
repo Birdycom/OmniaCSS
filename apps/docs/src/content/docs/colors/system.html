@@ -1,0 +1,142 @@
+<!--oc-page {"title": "OmniaCSS Docs - Color System", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="settings">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Color Settings</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Global configuration for the color engine.
+          </p>
+        </div>
+        <div class="oc-section-content">
+          <p>Main setting: <code>$DEFAULT-COLOR-TYPE-VALUE</code>. Supported types: <code>hex</code>, <code>hsl</code>, <code>rgb</code>, <code>oklch</code>, <code>oklab</code>.</p>
+          <oc-code>// src/scss/config/omniacss.config.scss
+$DEFAULT-COLOR-TYPE-VALUE: oklch !default;</oc-code>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="variables">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Color Variables &amp; Sources</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Where our colors come from.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-block-grid">
+            <article class="oc-card">
+              <h3 class="oc-card-title">Omnia Colors</h3>
+              <p class="oc-card-text">Internal brand/system palette.</p>
+              <span class="oc-docs-chip">src/scss/json/omnia-colors.json</span>
+            </article>
+            <article class="oc-card">
+              <h3 class="oc-card-title">HTML Colors</h3>
+              <p class="oc-card-text">Named web colors list.</p>
+              <span class="oc-docs-chip">src/scss/json/html-colors.json</span>
+            </article>
+            <article class="oc-card">
+              <h3 class="oc-card-title">RAL Colors</h3>
+              <p class="oc-card-text">Classic RAL numeric families.</p>
+              <span class="oc-docs-chip">src/scss/json/ral-colors.json</span>
+            </article>
+            <article class="oc-card">
+              <h3 class="oc-card-title">Property Export</h3>
+              <p class="oc-card-text">Exported data for tooltips.</p>
+              <span class="oc-docs-chip">public/data/color-properties.json</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="omnia-reference">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Omnia Colors Reference</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Live interactive cards for the Omnia base colors (<code>var(--color-{name}-100)</code>).</p>
+        </div>
+        <div class="oc-section-content">
+          <div id="oc-docs-omnia-cards-container"></div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="html-reference">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">HTML Colors Reference</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Live interactive cards for the named HTML colors (<code>var(--color-{name}-100)</code>).</p>
+        </div>
+        <div class="oc-section-content">
+          <div id="oc-docs-html-cards-container"></div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="ral-reference">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">RAL Classic Reference</h2>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">Live interactive cards for the RAL color family, grouped by numeric family.</p>
+        </div>
+        <div class="oc-section-content">
+          <div id="oc-docs-ral-cards-container"></div>
+        </div>
+      </section>
+<script>
+    (function () {
+      function swatchCard(token, label, color) {
+        return ''
+          + '<article class="oc-swatch ocd-swatch">'
+          + '<div class="oc-swatch-color ocd-swatch-color" style="background: var(--color-' + token + ')"></div>'
+          + '<div class="oc-swatch-meta ocd-swatch-meta">'
+          + '<strong>' + label + '</strong>'
+          + (color.name_en ? '<div>' + String(color.name_en).replace(/_/g, " ") + '</div>' : '')
+          + '<div>HEX: ' + (color.hex || "") + '</div>'
+          + '<div>OKLCH: ' + (color.oklch || "n/a") + '</div>'
+          + '</div>'
+          + '</article>';
+      }
+
+      function renderFlat(targetId, data) {
+        var target = document.getElementById(targetId);
+        if (!target || !data) return;
+        var keys = Object.keys(data);
+        target.innerHTML = '<div class="oc-block-grid">'
+          + keys.map(function (key) { return swatchCard(key.toLowerCase() + "-100", key.replace(/_/g, " "), data[key]); }).join("")
+          + '</div>';
+      }
+
+      function renderRalGrouped(targetId, ralData) {
+        var target = document.getElementById(targetId);
+        if (!target || !ralData) return;
+        var groups = [
+          { key: "1", label: "RAL 1xxx - Yellow tones" }, { key: "2", label: "RAL 2xxx - Orange tones" },
+          { key: "3", label: "RAL 3xxx - Red tones" }, { key: "4", label: "RAL 4xxx - Violet tones" },
+          { key: "5", label: "RAL 5xxx - Blue tones" }, { key: "6", label: "RAL 6xxx - Green tones" },
+          { key: "7", label: "RAL 7xxx - Grey tones" }, { key: "8", label: "RAL 8xxx - Brown tones" },
+          { key: "9", label: "RAL 9xxx - White/Black tones" }
+        ];
+        var html = groups.map(function (group) {
+          var keys = Object.keys(ralData).filter(function (name) {
+            return /^ral\d{4}$/i.test(name) && name.charAt(3) === group.key;
+          }).sort();
+          if (keys.length === 0) return "";
+          var cards = keys.map(function (key) {
+            var color = ralData[key];
+            return swatchCard(key.toLowerCase(), key.toUpperCase(), color.name_en ? color : Object.assign({}, color, { name_en: "RAL color" }));
+          }).join("");
+
+          return '<section class="oc-swatch-group ocd-swatch-group mt-6"><h3 class="oc-swatch-group-title ocd-swatch-group-title">' + group.label + ' (' + keys.length + ' colors)</h3>'
+            + '<div class="oc-block-grid">'
+            + '<article class="oc-swatch ocd-swatch ocd-ral-group-card"><div class="oc-swatch-meta"><strong>' + group.label + '</strong><div>Group members: ' + keys.length + '</div></div></article>'
+            + cards 
+            + '</div></section>';
+        }).join("");
+        target.innerHTML = html;
+      }
+
+      fetch("../../data/color-properties.json")
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          renderFlat("oc-docs-omnia-cards-container", data.omniacolors);
+          renderFlat("oc-docs-html-cards-container", data.htmlcolors);
+          renderRalGrouped("oc-docs-ral-cards-container", data.ralcolors);
+        });
+    })();
+  </script>

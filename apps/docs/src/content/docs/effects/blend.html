@@ -1,0 +1,111 @@
+<!--oc-page {"title": "OmniaCSS Docs - Blend Modes", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .bld-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 16px; inline-size: 100%; }\n    .bld-card { display: grid; gap: 6px; justify-items: start; font-size: 0.75rem; }\n    .bld-back { position: relative; inline-size: 100%; block-size: 6rem; border-radius: 10px; overflow: hidden; background: linear-gradient(90deg, var(--color-darkorange-90) 0 33%, var(--color-dodgerblue-90) 33% 66%, var(--color-forestgreen-90) 66%); }\n    .bld-top { position: absolute; inset: 14% 14%; border-radius: 50%; background: linear-gradient(135deg, var(--color-yellow-80), var(--color-magenta-90)); }\n    .bld-bg { inline-size: 100%; block-size: 6rem; border-radius: 10px; background-color: var(--color-dodgerblue-90); background-image: linear-gradient(90deg, var(--color-darkorange-90), var(--color-yellow-80) 50%, var(--color-magenta-90)), radial-gradient(circle at 70% 30%, var(--color-white-50) 0 25%, transparent 26%); }\n    .bld-photo { position: relative; isolation: isolate; inline-size: 100%; min-block-size: 11rem; border-radius: 12px; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg, var(--color-dodgerblue-90), var(--color-magenta-90) 55%, var(--color-darkorange-90)); }\n    .bld-photo h4 { margin: 0; font-size: clamp(2rem, 8vw, 4.5rem); font-weight: 900; letter-spacing: -0.02em; color: var(--color-white-50); }\n  </style>"]}-->
+<section class="oc-docs-section" id="blend">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Blend Modes</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">_effects_advanced.scss</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Control how an element's content blends with its background using <code>.mix-blend-{mode}</code>, and how an element's own background layers blend with <code>.bg-blend-{mode}</code>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">Class reference</h3>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Blending Effect</th></tr></thead>
+              <tbody>
+                <tr><td><code>.mix-blend-normal</code></td><td>No blending (default)</td></tr>
+                <tr><td><code>.mix-blend-multiply</code></td><td>Multiply: darkens</td></tr>
+                <tr><td><code>.mix-blend-screen</code></td><td>Screen: lightens</td></tr>
+                <tr><td><code>.mix-blend-overlay</code></td><td>Multiply or screen by backdrop</td></tr>
+                <tr><td><code>.mix-blend-darken</code></td><td>Keeps the darkest channel</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.mix-blend-lighten</code></td><td>Keeps the lightest channel</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-color-dodge</code></td><td>Brightens the backdrop</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-color-burn</code></td><td>Darkens the backdrop</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-hard-light</code></td><td>Overlay with roles swapped</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-soft-light</code></td><td>Gentle contrast</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-difference</code></td><td>Absolute difference (inverts)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-exclusion</code></td><td>Softer difference</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-hue</code></td><td>Hue of top, rest of backdrop</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-saturation</code></td><td>Saturation of top</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-color</code></td><td>Hue + saturation of top</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mix-blend-luminosity</code></td><td>Luminosity of top</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-normal</code></td><td>background-blend-mode: normal</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-multiply</code></td><td>background-blend-mode: multiply</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-screen</code></td><td>background-blend-mode: screen</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-overlay</code></td><td>background-blend-mode: overlay</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-darken</code></td><td>background-blend-mode: darken</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-lighten</code></td><td>background-blend-mode: lighten</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-color-dodge</code></td><td>background-blend-mode: color-dodge</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-color-burn</code></td><td>background-blend-mode: color-burn</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-hard-light</code></td><td>background-blend-mode: hard-light</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-soft-light</code></td><td>background-blend-mode: soft-light</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-difference</code></td><td>background-blend-mode: difference</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.bg-blend-exclusion</code></td><td>background-blend-mode: exclusion</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-8" id="mix-blend">mix-blend-mode: all 16 modes</h3>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>mix-blend-mode</code> blends an element with whatever is painted <em>behind</em> it (siblings and the parent's background), like layer modes in an image editor. <strong>When to use:</strong> duotone images, text knocked out of a photo, glows (<code>screen</code>), shadows (<code>multiply</code>), highlight effects (<code>difference</code>). <strong>Gotchas:</strong> blending reaches every ancestor layer up to the nearest stacking context, so wrap the group in <code>.isolate</code> to keep it contained; the result depends on both layers, so always check light and dark themes; and blending can hurt text contrast. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode" target="_blank" rel="noopener">MDN: mix-blend-mode</a>. In every card the gradient circle is blended over three colored stripes.</p>
+          <oc-demo title="All mix-blend modes side by side">
+            <div class="bld-grid">
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-normal"></div></div><code>.mix-blend-normal</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-multiply"></div></div><code>.mix-blend-multiply</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-screen"></div></div><code>.mix-blend-screen</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-overlay"></div></div><code>.mix-blend-overlay</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-darken"></div></div><code>.mix-blend-darken</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-lighten"></div></div><code>.mix-blend-lighten</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-color-dodge"></div></div><code>.mix-blend-color-dodge</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-color-burn"></div></div><code>.mix-blend-color-burn</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-hard-light"></div></div><code>.mix-blend-hard-light</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-soft-light"></div></div><code>.mix-blend-soft-light</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-difference"></div></div><code>.mix-blend-difference</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-exclusion"></div></div><code>.mix-blend-exclusion</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-hue"></div></div><code>.mix-blend-hue</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-saturation"></div></div><code>.mix-blend-saturation</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-color"></div></div><code>.mix-blend-color</code></div>
+              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-luminosity"></div></div><code>.mix-blend-luminosity</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="relative isolate"&gt;
+  &lt;div class="backdrop"&gt;…&lt;/div&gt;
+  &lt;div class="mix-blend-multiply absolute"&gt;…&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="bg-blend">background-blend-mode: layers of one element</h3>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>background-blend-mode</code> blends the background layers of a <em>single</em> element with each other and with its <code>background-color</code>, no extra markup needed. <strong>When to use:</strong> tinting an image with a brand color (<code>multiply</code>, <code>overlay</code>), duotone hero backgrounds, textured gradients. <strong>Gotchas:</strong> it never looks at the content behind the element, that is what <code>mix-blend-mode</code> is for; and it needs at least two layers (color + image/gradient). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode" target="_blank" rel="noopener">MDN: background-blend-mode</a>. Each card has a blue background color with a gradient and a white spot on top.</p>
+          <oc-demo title="All bg-blend modes side by side">
+            <div class="bld-grid">
+              <div class="bld-card"><div class="bld-bg bg-blend-normal"></div><code>.bg-blend-normal</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-multiply"></div><code>.bg-blend-multiply</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-screen"></div><code>.bg-blend-screen</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-overlay"></div><code>.bg-blend-overlay</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-darken"></div><code>.bg-blend-darken</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-lighten"></div><code>.bg-blend-lighten</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-color-dodge"></div><code>.bg-blend-color-dodge</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-color-burn"></div><code>.bg-blend-color-burn</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-hard-light"></div><code>.bg-blend-hard-light</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-soft-light"></div><code>.bg-blend-soft-light</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-difference"></div><code>.bg-blend-difference</code></div>
+              <div class="bld-card"><div class="bld-bg bg-blend-exclusion"></div><code>.bg-blend-exclusion</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="bg-blend-multiply"
+     style="background-color: var(--color-dodgerblue-90); background-image: linear-gradient(…)"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="blend-text">Practical: text that blends into a backdrop</h3>
+          <p class="oc-section-content__desc">The same heading with different modes over a gradient photo substitute. <code>.mix-blend-difference</code> keeps the text readable on any backdrop; <code>.mix-blend-overlay</code> makes it look printed into the surface.</p>
+          <oc-demo title="Headline with mix-blend-difference / overlay / multiply">
+            <div class="bld-grid" style="grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))">
+              <div class="bld-card"><div class="bld-photo"><h4 class="mix-blend-difference">Blend</h4></div><code>.mix-blend-difference</code></div>
+              <div class="bld-card"><div class="bld-photo"><h4 class="mix-blend-overlay">Blend</h4></div><code>.mix-blend-overlay</code></div>
+              <div class="bld-card"><div class="bld-photo"><h4 class="mix-blend-multiply">Blend</h4></div><code>.mix-blend-multiply</code></div>
+            </div>
+          <oc-code lang="html">&lt;div class="isolate"&gt;
+  &lt;h4 class="mix-blend-difference"&gt;Blend&lt;/h4&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+      </section>

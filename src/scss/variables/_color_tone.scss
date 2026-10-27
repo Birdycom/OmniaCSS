@@ -1,0 +1,39 @@
+// File: src/scss/variables/_color_tone.scss
+// Description: Shared tone scale and oc-tone-color() for Omnia color steps.
+// Used by _colors_omnia.scss and _colors_tokens.scss so tone logic lives in one place.
+// Copyright: 2021-2026 Birdycom
+// Framework: OmniaCSS
+
+@use "sass:map";
+@use "sass:color";
+
+/// Tone scale for color steps 2..95 (light steps = lighter tint, high steps = darker shade).
+/// Step 100 = base color (no scaling). Keys must match $opacitycolor values.
+$oc-tone-scale: (
+  2: (lightness: 56%, chroma: -18%),
+  10: (lightness: 38%, chroma: -12%),
+  20: (lightness: 30%, chroma: -10%),
+  30: (lightness: 22%, chroma: -8%),
+  40: (lightness: 14%, chroma: -6%),
+  50: (lightness: 6%, chroma: -4%),
+  60: (lightness: -6%, chroma: 2%),
+  70: (lightness: -12%, chroma: 4%),
+  80: (lightness: -18%, chroma: 6%),
+  90: (lightness: -24%, chroma: 8%),
+  95: (lightness: -32%, chroma: 10%)
+);
+
+/// Returns a scaled (tone) version of the source color for the given step.
+/// @param {color} $source-color - oklch/oklab color
+/// @param {number} $step - 2, 10, 20, ... 95; 100 returns $source-color unchanged
+@function oc-tone-color($source-color, $step) {
+  $tone: map.get($oc-tone-scale, $step);
+  @if $tone == null {
+    @return $source-color;
+  }
+  @return color.scale(
+    $source-color,
+    $lightness: map.get($tone, lightness),
+    $chroma: map.get($tone, chroma)
+  );
+}

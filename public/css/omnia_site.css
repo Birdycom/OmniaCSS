@@ -1,0 +1,301 @@
+/* File: public/css/omnia_site.css */
+/* Shared website style for OmniaCSS demo pages. */
+
+:root {
+  /* Aliases of the Omnia theme tokens (components.css) — never redefine --oc-border/--oc-surface here. */
+  --oc-bg: var(--oc-background);
+  --oc-surface-soft: var(--oc-muted);
+  --oc-text: var(--oc-foreground);
+  --oc-text-soft: var(--oc-muted-foreground);
+  --oc-header-table: var(--oc-muted);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body.oc-page {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--oc-text);
+  background: radial-gradient(circle at top right, light-dark(var(--color-frostblue-30), var(--color-stormblue-80)), var(--oc-bg) 45%);
+  padding-bottom: 72px;
+}
+
+.oc-wrap {
+  width: 100%;
+  margin: 0;
+  padding: 24px clamp(14px, 2vw, 28px) 40px;
+}
+
+.oc-topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 56px;
+  margin-bottom: 22px;
+}
+
+.oc-brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.oc-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.oc-menu a {
+  text-decoration: none;
+  color: var(--oc-text-soft);
+  border: 1px solid var(--oc-border);
+  background: light-dark(oklch(from var(--color-shallowblue-90) l c h / 0.02), oklch(from var(--color-white-2) l c h / 0.02));
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.oc-menu a:hover {
+  color: var(--oc-text);
+  border-color: var(--oc-primary);
+}
+
+.oc-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  padding: 10px clamp(14px, 2vw, 28px);
+  border-top: 1px solid var(--oc-border);
+  background: oklch(from var(--oc-background) l c h / 0.94);
+  color: var(--oc-text-soft);
+  font-size: 0.82rem;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+/* .oc-hero, .oc-card, .oc-tabs and .oc-tab live in @birdycom/omniaui (components.css) — one definition per component. */
+
+.oc-panel {
+  border: 1px solid var(--oc-border);
+  border-radius: 14px;
+  background: var(--oc-card);
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.oc-panel h2,
+.oc-panel h3 {
+  margin: 0 0 10px;
+}
+
+.oc-panel p,
+.oc-panel li {
+  color: var(--oc-text-soft);
+}
+
+.oc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+/* Improve readability for generated color blocks. */
+#omniacolors .container,
+#htmlcolors .container,
+#ralcolors .container {
+  margin-top: 14px;
+}
+
+#omniacolors .container > h2,
+#htmlcolors .container > h2,
+#ralcolors .container > h2 {
+  color: var(--oc-text);
+  margin-bottom: 10px;
+}
+
+.oc-color-group {
+  margin-top: 12px;
+}
+
+.oc-color-group > h2 {
+  margin: 0 0 10px;
+  color: var(--oc-text);
+  font-size: 1.5rem;
+}
+
+.oc-color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.oc-color-card {
+  border: 1px solid light-dark(oklch(from var(--color-shallowblue-90) l c h / 0.2), oklch(from var(--color-white-2) l c h / 0.2));
+  border-radius: 10px;
+  min-height: 92px;
+  padding: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px oklch(from var(--color-white-2) l c h / 0.04);
+  cursor: help;
+}
+
+.oc-text-on-light {
+  color: var(--color-shallowblue-90);
+}
+
+.oc-text-on-dark {
+  color: var(--color-white-50);
+}
+
+.oc-color-card h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.oc-color-card p {
+  margin: 0 0 4px;
+  font-size: 0.88rem;
+  line-height: 1.3;
+}
+
+.ocd-swatch {
+  border: 1px solid light-dark(oklch(from var(--color-shallowblue-90) l c h / 0.2), oklch(from var(--color-white-2) l c h / 0.2));
+  background: var(--oc-surface-soft);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ocd-swatch-color {
+  height: 54px;
+  border-bottom: 1px solid light-dark(oklch(from var(--color-shallowblue-90) l c h / 0.2), oklch(from var(--color-white-2) l c h / 0.2));
+}
+
+.ocd-swatch-meta {
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  color: var(--oc-text-soft);
+  line-height: 1.45;
+}
+
+.ocd-swatch-meta strong {
+  color: var(--oc-text);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.ocd-swatch-group {
+  margin-top: 12px;
+}
+
+.ocd-swatch-group-title {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--oc-text);
+}
+
+.ocd-ral-group-card {
+  min-height: 150px;
+  background: light-dark(oklch(from var(--color-vividblue-95) l c h / 0.06), oklch(from var(--color-vividblue-70) l c h / 0.12));
+  border: 1px solid light-dark(var(--color-vividblue-95), var(--color-vividblue-70));
+  color: var(--oc-foreground);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ocd-ral-group-card .ocd-swatch-meta {
+  background: transparent;
+}
+
+.ocd-ral-group-card p,
+.ocd-ral-group-card div {
+  margin: 0;
+}
+
+.oc-hidden {
+  display: none;
+}
+
+.oc-palette-block {
+  margin-bottom: 18px;
+  /* The swatch grid has fixed columns: scroll it sideways on phones instead of the page */
+  overflow-x: auto;
+}
+
+.oc-palette-block h4 {
+  margin: 0 0 8px;
+  color: var(--oc-text);
+}
+
+/* Sticky header: step labels (0, 5, 10, …) stay visible when scrolling down the palette. */
+.oc-palette-scale {
+  display: grid;
+  grid-template-columns: 180px repeat(var(--oc-palette-count, 10), minmax(44px, 1fr));
+  gap: 6px;
+  margin-bottom: 8px;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--oc-header-table);
+  padding: 6px 0 8px;
+  box-shadow: 0 1px 0 var(--oc-border);
+}
+
+.oc-palette-scale .oc-step {
+  color: var(--oc-text-soft);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.oc-palette-row {
+  display: grid;
+  grid-template-columns: 180px repeat(var(--oc-palette-count, 10), minmax(44px, 1fr));
+  gap: 6px;
+  margin-bottom: 6px;
+  align-items: center;
+}
+
+.oc-palette-scale--base {
+  grid-template-columns: 180px minmax(80px, 120px);
+}
+
+.oc-palette-row--base {
+  grid-template-columns: 180px minmax(80px, 120px);
+}
+
+/* Sticky first column: color name stays visible when scrolling horizontally. */
+.oc-palette-name {
+  font-size: 0.88rem;
+  color: var(--oc-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+ /*  background: var(--oc-bg); */
+  padding-right: 6px;
+}
+
+.oc-palette-swatch {
+  border-radius: 8px;
+  min-height: 34px;
+  border: 1px solid light-dark(oklch(from var(--color-shallowblue-90) l c h / 0.15), oklch(from var(--color-white-2) l c h / 0.15));
+  box-shadow: inset 0 0 0 1px oklch(from var(--color-white-2) l c h / 0.04);
+}
+
+.oc-palette-swatch--has-tooltip {
+  cursor: help;
+  border-color: light-dark(oklch(from var(--color-vividblue-95) l c h / 0.7), oklch(from var(--color-vividblue-50) l c h / 0.7));
+}

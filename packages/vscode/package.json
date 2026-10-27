@@ -1,0 +1,179 @@
+{
+  "name": "omniacss-intellisense",
+  "displayName": "OmniaCSS IntelliSense",
+  "description": "Autocomplete, hover CSS, color swatches and linting for OmniaCSS utility classes, variants and color tokens.",
+  "version": "0.11.0",
+  "private": true,
+  "publisher": "Birdycom",
+  "license": "MIT",
+  "author": "Serge Cools (Birdycom)",
+  "homepage": "https://github.com/Birdycom/OmniaCSS/tree/main/packages/vscode#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Birdycom/OmniaCSS.git",
+    "directory": "packages/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/Birdycom/OmniaCSS/issues"
+  },
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#551a8c",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "omniacss",
+    "css",
+    "utility-first",
+    "intellisense",
+    "autocomplete",
+    "oklch"
+  ],
+  "main": "./src/extension.cjs",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "omniacss.showOutput",
+        "title": "Show Output",
+        "category": "OmniaCSS"
+      }
+    ],
+    "configuration": {
+      "title": "OmniaCSS IntelliSense",
+      "properties": {
+        "omniacss.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Turn OmniaCSS IntelliSense on or off (per workspace or folder)."
+        },
+        "omniacss.classAttributes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "class",
+            "className",
+            "class:list",
+            ":class",
+            "v-bind:class",
+            "x-bind:class",
+            "ngClass",
+            "[ngClass]",
+            "[class]"
+          ],
+          "description": "Attributes that hold classes. Names starting with ':', 'v-bind:', 'x-bind:' or '[' (and values written as {…}) are read as expressions: their string literals hold the classes."
+        },
+        "omniacss.classFunctions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "clsx",
+            "cn",
+            "cx",
+            "cva",
+            "classNames",
+            "classnames",
+            "@class"
+          ],
+          "description": "Function calls whose string arguments hold classes, e.g. clsx(\"p-2\", active && \"bg-blue-50\") or Blade @class([...])."
+        },
+        "omniacss.includeLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra language ids to enable (reload the window after changing)."
+        },
+        "omniacss.colorDecorators": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show color swatches next to color utilities and var(--color-…) tokens. The color picker swaps to the nearest Omnia color."
+        },
+        "omniacss.showPixelEquivalents": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show px equivalents of rem values in hovers and completions."
+        },
+        "omniacss.rootFontSize": {
+          "type": "number",
+          "default": 16,
+          "description": "Root font size in px used for the px equivalents."
+        },
+        "omniacss.lint.unknownVariant": {
+          "type": "string",
+          "enum": [
+            "ignore",
+            "hint",
+            "info",
+            "warning",
+            "error"
+          ],
+          "default": "warning",
+          "description": "Variant prefixes that OmniaCSS does not know (hovr:bg-red-50)."
+        },
+        "omniacss.lint.unknownUtility": {
+          "type": "string",
+          "enum": [
+            "ignore",
+            "hint",
+            "info",
+            "warning",
+            "error"
+          ],
+          "default": "warning",
+          "description": "Classes with a variant whose base is not an OmniaCSS utility (hover:bg-rde-50): they generate no CSS."
+        },
+        "omniacss.lint.unknownClass": {
+          "type": "string",
+          "enum": [
+            "ignore",
+            "hint",
+            "info",
+            "warning",
+            "error"
+          ],
+          "default": "ignore",
+          "description": "Plain classes that are not OmniaCSS utilities. Off by default because projects have their own classes."
+        },
+        "omniacss.lint.duplicateClass": {
+          "type": "string",
+          "enum": [
+            "ignore",
+            "hint",
+            "info",
+            "warning",
+            "error"
+          ],
+          "default": "warning",
+          "description": "The same class twice in one class list."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build-index.mjs",
+    "test": "node --test test/*.test.mjs",
+    "package": "node scripts/build-index.mjs && npx --yes @vscode/vsce@3 package --no-dependencies",
+    "media": "node scripts/build-media.mjs && node scripts/record-demo.mjs"
+  },
+  "devDependencies": {
+    "gifenc": "1.0.3",
+    "playwright-core": "1.48.2",
+    "pngjs": "7.0.0"
+  }
+}

@@ -1,0 +1,172 @@
+<!--oc-page {"title": "OmniaCSS Docs - Entry & Exit Animations", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell oc-docs-shell\u002d\u002dno-right", "bodyClass": "", "head": ["<style>\n    .ss-dialog { inline-size: min(26rem, calc(100vw - 2rem)); padding: 1.25rem; border: 1px solid var(\u002d\u002doc-border); border-radius: 14px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); opacity: 0; translate: 0 1.5rem; scale: 0.96; transition: opacity 0.3s, translate 0.3s, scale 0.3s, overlay 0.3s allow-discrete, display 0.3s allow-discrete; }\n    .ss-dialog[open] { opacity: 1; translate: 0 0; scale: 1; }\n    @starting-style { .ss-dialog[open] { opacity: 0; translate: 0 1.5rem; scale: 0.96; } }\n    .ss-dialog::backdrop { background: oklch(from var(\u002d\u002dcolor-shallowblue-90) l c h / 0.55); opacity: 0; transition: opacity 0.3s, overlay 0.3s allow-discrete, display 0.3s allow-discrete; }\n    .ss-dialog[open]::backdrop { opacity: 1; }\n    @starting-style { .ss-dialog[open]::backdrop { opacity: 0; } }\n    .ss-dialog h4 { margin: 0 0 0.5rem; }\n    .ss-dialog p { margin: 0 0 1rem; color: var(\u002d\u002doc-muted-foreground); }\n    .ss-list { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; inline-size: 100%; max-inline-size: 22rem; }\n    .ss-item { padding: 0.6rem 0.9rem; border: 1px solid var(\u002d\u002doc-border); border-radius: 10px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); }\n    .ss-grow { box-sizing: border-box; inline-size: 100%; max-inline-size: 22rem; block-size: 3.5rem; overflow: hidden; padding: 0.9rem; border: 1px solid var(\u002d\u002doc-border); border-radius: 12px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); cursor: pointer; transition: block-size 0.4s ease; }\n    .ss-grow:is(:hover, :focus) { block-size: auto; }\n    .ss-grow p { margin: 0.5rem 0 0; color: var(\u002d\u002doc-muted-foreground); }\n    @supports (block-size: calc-size(auto, size)) { .ss-grow\u002d\u002dcalc:is(:hover, :focus-visible) { block-size: calc-size(auto, size); } }\n    @media (prefers-reduced-motion: reduce) { .ss-dialog, .ss-dialog::backdrop, .ss-grow { transition: none; } }\n  </style>"]}-->
+<section class="oc-docs-section" id="starting-style">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Entry &amp; Exit Animations</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_starting_style.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">starting-style/index.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            Animate elements when they appear — popovers, dialogs, newly inserted items — and animate to <code>height: auto</code>, all without JavaScript. <code>.starting-*</code> classes set the state <em>before</em> the first render via <code>@starting-style</code>; combine them with a transition utility such as <code>.transition-all .duration-300</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" target="_blank" rel="noopener">MDN: @starting-style</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="starting-style">Starting style</h3>
+          <p class="oc-section-content__desc">Initial values the element transitions <em>from</em> when it is first rendered or goes from <code>display: none</code> to visible. <strong>What:</strong> a normal CSS transition needs a "before" style, but a freshly inserted element has none. <code>@starting-style</code> supplies it, so the element animates to its real style on first render. <strong>When:</strong> popovers, dialogs, toasts, list items added from JavaScript, anything that appears. <strong>Gotchas:</strong> you still need a <code>transition</code> on the element (for example <code>.transition-all .duration-300</code>); these utilities animate the <em>entry</em> only, for the exit you also need <code>.transition-discrete</code> and a closed-state style (see the dialog demo). More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" target="_blank" rel="noopener">MDN: @starting-style</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.starting-opacity-0</code></td><td>@starting-style { opacity: 0 }</td></tr>
+                <tr><td><code>.starting-scale-95</code></td><td>@starting-style { scale: 0.95 }</td></tr>
+                <tr><td><code>.starting-translate-y-2</code></td><td>@starting-style { translate: 0 0.5rem }</td></tr>
+                <tr><td><code>.starting-translate-y-n2</code></td><td>@starting-style { translate: 0 -0.5rem }</td></tr>
+                <tr><td><code>.starting-translate-x-full</code></td><td>@starting-style { translate: 100% 0 }</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="popover + starting-opacity-0 + starting-scale-95">
+            
+            <div class="flex justify-center p-2 round-3 border-1 border-dashed border-stormblue-100">
+              <button type="button" class="oc-btn" popovertarget="oc-demo-popover">Open popover</button>
+              <div id="oc-demo-popover" popover="" class="starting-opacity-0 starting-scale-95 transition-all transition-discrete duration-300 p-2 round-3 shadow-md font-1">Fades and scales in with CSS only.</div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;button popovertarget="info"&gt;Open popover&lt;/button&gt;
+&lt;div id="info" popover
+     class="starting-opacity-0 starting-scale-95 transition-all transition-discrete duration-300"&gt;
+  Fades and scales in with CSS only.
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <oc-demo title="Modal dialog: entry and exit animation (@starting-style + transition-behavior: allow-discrete)">
+            <button type="button" class="oc-btn" onclick="document.getElementById('oc-ss-dialog').showModal()">Open dialog</button>
+            <dialog id="oc-ss-dialog" class="ss-dialog">
+              <form method="dialog">
+                <h4>Animated dialog</h4>
+                <p>It fades and slides in, and out again when closed. The backdrop fades with it. No JavaScript besides opening it.</p>
+                <button class="oc-btn">Close</button>
+              </form>
+            </dialog>
+          <oc-code lang="html">&lt;dialog class="dlg"&gt;…&lt;/dialog&gt;
+
+.dlg { opacity: 0; translate: 0 1.5rem;
+  transition: opacity .3s, translate .3s, overlay .3s allow-discrete, display .3s allow-discrete; }
+.dlg[open] { opacity: 1; translate: 0 0; }
+@starting-style { .dlg[open] { opacity: 0; translate: 0 1.5rem; } }
+.dlg::backdrop { opacity: 0; transition: opacity .3s, overlay .3s allow-discrete, display .3s allow-discrete; }
+.dlg[open]::backdrop { opacity: 1; }
+@starting-style { .dlg[open]::backdrop { opacity: 0; } }</oc-code></oc-demo>
+
+          <oc-demo title="starting-opacity-0 + starting-translate-y-2: items that are added to the DOM">
+            <div class="grid gap-1 w-full">
+              <button type="button" class="oc-btn oc-btn--outline" style="justify-self: start;" onclick="const l=document.getElementById('oc-ss-list');l.append(l.firstElementChild.cloneNode(true))">Add item</button>
+              <ul id="oc-ss-list" class="ss-list">
+                <li class="ss-item starting-opacity-0 starting-translate-y-2 transition-all duration-300">Click "Add item": every new row eases in</li>
+              </ul>
+            </div>
+          <oc-code lang="html">&lt;li class="starting-opacity-0 starting-translate-y-2 transition-all duration-300"&gt;New item&lt;/li&gt;
+&lt;script&gt;list.append(template.content.cloneNode(true));&lt;/script&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="transition-behavior">Transition behavior</h3>
+          <p class="oc-section-content__desc"><code>.transition-discrete</code> allows transitions on discrete properties like <code>display</code> and <code>overlay</code>, so exit animations can finish before the element is hidden. <strong>What:</strong> normally <code>display: none</code> flips instantly, which cuts every exit animation. With <code>allow-discrete</code> the flip is delayed until the other transitions have finished (and for the top layer, <code>overlay</code> keeps the element there until then). <strong>Gotcha:</strong> list <code>display</code> and (for popover, dialog) <code>overlay</code> in the <code>transition</code> property, because the shorthand <code>transition: all</code> does not animate them unless behavior is set. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior" target="_blank" rel="noopener">MDN: transition-behavior</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.transition-normal</code></td><td>transition-behavior: normal</td></tr>
+                <tr><td><code>.transition-discrete</code></td><td>transition-behavior: allow-discrete</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="interpolate-size">Interpolate size &amp; details</h3>
+          <p class="oc-section-content__desc"><code>.interpolate-size-keywords</code> lets <code>height: auto</code> (and other size keywords) be animated; it is inherited, so set it on a parent or on <code>:root</code>. <code>.details-animate</code> animates the open/close of a <code>&lt;details&gt;</code> element via <code>::details-content</code>. <strong>When:</strong> accordions, expanding cards, collapsible sidebars: anything that grows to its content size. <strong>Gotchas:</strong> without the opt-in a transition to or from <code>auto</code> jumps. <code>calc-size(auto, size)</code> is the per-value alternative: it makes a single declaration animatable without the inherited property, and allows maths on the intrinsic size such as <code>calc-size(auto, size + 2rem)</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size" target="_blank" rel="noopener">MDN: interpolate-size</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc-size" target="_blank" rel="noopener">MDN: calc-size()</a>.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.interpolate-size-numeric</code></td><td>interpolate-size: numeric-only</td></tr>
+                <tr><td><code>.interpolate-size-keywords</code></td><td>interpolate-size: allow-keywords</td></tr>
+                <tr><td><code>.details-animate</code></td><td>::details-content { block-size: 0 → auto } (300ms)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="interpolate-size-keywords vs calc-size(): animate height to auto (hover or focus the cards)">
+            <div class="grid gap-1 w-full">
+              <div class="ss-grow interpolate-size-keywords" tabindex="0"><strong>interpolate-size: allow-keywords</strong><p>The box grows from a fixed height to <code>height: auto</code>. The property is inherited, so one class on a parent opts in the whole subtree.</p></div>
+              <div class="ss-grow ss-grow--calc" tabindex="0"><strong>calc-size(auto, size)</strong><p>Same effect with no opt-in at all: the keyword is wrapped in <code>calc-size()</code> in the hover rule only.</p></div>
+            </div>
+          <oc-code lang="html">.box { height: 3.5rem; overflow: hidden; transition: height .4s; interpolate-size: allow-keywords; }
+.box:hover { height: auto; }
+
+/* or per value */
+.box2:hover { height: calc-size(auto, size); }</oc-code></oc-demo>
+
+          <oc-demo title="details-animate + interpolate-size-keywords">
+            
+            <details class="details-animate interpolate-size-keywords round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
+              <summary class="cursor-pointer font-bold">What is OmniaCSS?</summary>
+              <p class="mt-1">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
+            </details>
+
+            
+            
+          <oc-code lang="html">&lt;details class="details-animate interpolate-size-keywords"&gt;
+  &lt;summary&gt;What is OmniaCSS?&lt;/summary&gt;
+  &lt;p&gt;…&lt;/p&gt;
+&lt;/details&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Without support elements appear instantly (no entry animation) and <code>&lt;details&gt;</code> opens without animating — the content always stays usable.</p>
+          <oc-compat features="css.at-rules.starting-style css.properties.transition-behavior css.properties.interpolate-size css.selectors.details-content css.selectors.popover-open"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            Entry/exit animation utilities come from <code>_starting_style.scss</code> in <code>src/scss/utilities/</code>; transition duration and easing from <code>_motion_transforms.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior" target="_blank" rel="noopener">MDN: transition-behavior</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size" target="_blank" rel="noopener">MDN: interpolate-size</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_starting_style.scss</code></td><td>.starting-*, .transition-discrete, .interpolate-size-*, .details-animate</td></tr>
+                  <tr><td><code>src/scss/utilities/_motion_transforms.scss</code></td><td>.transition-*, .duration-*, .ease-*</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="../effects/transitions.html">Transitions</a>
+               · 
+              <a class="source-link" href="../anchor-positioning/">Anchor positioning</a>
+               · 
+              <a class="source-link" href="../view-transitions/">View transitions</a>
+            </p>
+          </div>
+        </div>
+      </section>

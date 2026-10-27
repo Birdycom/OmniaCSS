@@ -1,0 +1,247 @@
+<!--oc-page {"title": "OmniaCSS Docs - Font Variants & Text Effects", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="variants">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Font Variants &amp; Text Effects</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_font_variants.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">variants.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
+          <p class="oc-section-header__desc font-clamp-0.8">
+            OpenType features (small caps, ligatures, sub/superscript glyphs, emoji presentation), variable font axes, fallback-font tuning with <code>font-size-adjust</code>, hyphenation details, text stroke/fill effects, ruby annotations and MathML styles. Numeric variants are <code>.font-num-*</code> on the <a href="font-style.html">Font Style</a> page. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant" target="_blank" rel="noopener">MDN: font-variant</a>.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title" id="caps">Caps, ligatures &amp; position</h3>
+          <p class="oc-section-content__desc">Font features need a font that contains them; otherwise the browser synthesizes or ignores them.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.font-caps-{normal|small|all-small|petite|all-petite|unicase|titling}</code></td><td>font-variant-caps</td></tr>
+                <tr><td><code>.font-lig-{normal|none|common|no-common|discretionary|historical|contextual}</code></td><td>font-variant-ligatures</td></tr>
+                <tr><td><code>.font-pos-{normal|sub|super}</code></td><td>font-variant-position</td></tr>
+                <tr><td><code>.font-east-{normal|jis04|simplified|traditional|full-width|proportional|ruby}</code></td><td>font-variant-east-asian</td></tr>
+                <tr><td><code>.font-emoji-{normal|text|emoji|unicode}</code></td><td>font-variant-emoji</td></tr>
+                <tr><td><code>.font-alt-{normal|historical}</code></td><td>font-variant-alternates</td></tr>
+                <tr><td><code>.font-variant-{normal|none}</code></td><td>font-variant</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="font-caps-small, font-caps-all-small, font-lig-none, font-emoji-text">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.font-caps-small</span>
+                <span class="font-caps-small font-2">Small Caps</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.font-caps-all-small</span>
+                <span class="font-caps-all-small font-2">All Small</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.font-lig-none</span>
+                <span class="font-lig-none font-2">office fl</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.font-emoji-text</span>
+                <span class="font-emoji-text font-2">☎ ✂ ♥</span>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;span class="font-caps-small font-2"&gt;Small Caps&lt;/span&gt;
+&lt;span class="font-caps-all-small font-2"&gt;All Small&lt;/span&gt;
+&lt;span class="font-lig-none font-2"&gt;office fl&lt;/span&gt;
+&lt;span class="font-emoji-text font-2"&gt;☎ ✂ ♥&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="variable">Variable fonts &amp; size adjust</h3>
+          <p class="oc-section-content__desc"><code>font-variation-settings</code> sets variable font axes directly — it only has effect with a <strong>variable font</strong> (the demo uses Inter Variable). <code>font-size-adjust</code> keeps the x-height equal when a fallback font is used.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.font-wght-{100…900}</code></td><td>font-variation-settings: "wght" {n}</td></tr>
+                <tr><td><code>.font-wdth-{75|125}</code></td><td>font-variation-settings: "wdth" {n}</td></tr>
+                <tr><td><code>.font-slnt-n10</code></td><td>font-variation-settings: "slnt" -10</td></tr>
+                <tr><td><code>.font-variation-normal</code></td><td>font-variation-settings: normal</td></tr>
+                <tr><td><code>.font-size-adjust-{none|from-font|0.5|ex|cap}</code></td><td>font-size-adjust</td></tr>
+                <tr><td><code>.font-synthesis-{weight|style|small-caps}-none</code></td><td>font-synthesis-{part}: none</td></tr>
+                <tr><td><code>.font-lang-normal</code></td><td>font-language-override: normal</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="font-wght-300 vs font-wght-800">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.font-wght-300</span>
+                <span class="font-wght-300 oc-font-variable-demo font-2">Omnia</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.font-wght-800</span>
+                <span class="font-wght-800 oc-font-variable-demo font-2">Omnia</span>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;span class="font-wght-300 oc-font-variable-demo font-2"&gt;Omnia&lt;/span&gt;
+&lt;span class="font-wght-800 oc-font-variable-demo font-2"&gt;Omnia&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="hyphenation">Hyphenation, justify &amp; wrap mode</h3>
+          <p class="oc-section-content__desc">Fine-tune hyphenation (use with <code>.hyphens-auto</code> and a <code>lang</code> attribute), justification and line wrapping.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.hyphenate-char-{auto|dash|equals}</code></td><td>hyphenate-character</td></tr>
+                <tr><td><code>.hyphenate-limit-{auto|6|10}</code></td><td>hyphenate-limit-chars: auto | 6 3 2 | 10 4 4</td></tr>
+                <tr><td><code>.text-justify-{auto|none|inter-word|inter-character}</code></td><td>text-justify</td></tr>
+                <tr><td><code>.text-wrap-mode-{wrap|nowrap}</code></td><td>text-wrap-mode</td></tr>
+                <tr><td><code>.text-combine-{none|all}</code></td><td>text-combine-upright (vertical text)</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <h3 class="oc-section-content__title mt-10" id="text-effects">Text effects &amp; emphasis</h3>
+          <p class="oc-section-content__desc">Outline text with a stroke, make the fill transparent, and set emphasis-mark style and color separately.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.text-stroke-{0|1|2}</code></td><td>-webkit-text-stroke-width</td></tr>
+                <tr><td><code>.text-stroke-{current|white|black}</code></td><td>-webkit-text-stroke-color</td></tr>
+                <tr><td><code>.text-fill-{transparent|current}</code></td><td>-webkit-text-fill-color</td></tr>
+                <tr><td><code>.text-outline</code></td><td>-webkit-text-stroke: 1px currentcolor; fill: transparent</td></tr>
+                <tr><td><code>.emphasis-style-{filled|open|double-circle}</code></td><td>text-emphasis-style</td></tr>
+                <tr><td><code>.emphasis-color-{current|red|blue}</code></td><td>text-emphasis-color</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="text-outline, text-stroke-1 + text-stroke-black">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.text-outline</span>
+                <span class="text-outline font-3 font-bold text-dodgerblue">Outline</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.text-stroke-1 .text-stroke-black</span>
+                <span class="text-stroke-1 text-stroke-black font-3 font-bold text-orange">Stroke</span>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.emphasis-style-open .emphasis-color-red</span>
+                <span class="emphasis-style-open emphasis-color-red font-2">強調</span>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;span class="text-outline font-3 font-bold text-dodgerblue"&gt;Outline&lt;/span&gt;
+&lt;span class="text-stroke-1 text-stroke-black font-3 font-bold text-orange"&gt;Stroke&lt;/span&gt;
+&lt;span class="emphasis-style-open emphasis-color-red font-2"&gt;強調&lt;/span&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="ruby">Ruby &amp; MathML</h3>
+          <p class="oc-section-content__desc">Position and align ruby annotations (<code>&lt;ruby&gt;</code>/<code>&lt;rt&gt;</code>) and switch MathML between display and inline style.</p>
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.ruby-{over|under|inter-character}</code></td><td>ruby-position</td></tr>
+                <tr><td><code>.ruby-align-{start|center|space-between|space-around}</code></td><td>ruby-align</td></tr>
+                <tr><td><code>.ruby-overhang-{auto|none}</code></td><td>ruby-overhang</td></tr>
+                <tr><td><code>.math-{normal|compact}</code></td><td>math-style</td></tr>
+                <tr><td><code>.math-depth-{auto|0}</code></td><td>math-depth: auto-add | 0</td></tr>
+                <tr><td><code>.math-shift-{normal|compact}</code></td><td>math-shift</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+
+          <oc-demo title="ruby-over, ruby-under, math-compact">
+            
+            <div class="oc-preview oc-preview-row gap-3.5">
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.ruby-over</span>
+                <ruby class="ruby-over font-2">漢<rt>kan</rt>字<rt>ji</rt></ruby>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.ruby-under</span>
+                <ruby class="ruby-under font-2">漢<rt>kan</rt>字<rt>ji</rt></ruby>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.math-normal</span>
+                <math class="math-normal font-2"><mfrac><mn>1</mn><mn>2</mn></mfrac></math>
+              </div>
+              <div class="oc-preview__item">
+                <span class="oc-preview__label">.math-compact</span>
+                <math class="math-compact font-2"><mfrac><mn>1</mn><mn>2</mn></mfrac></math>
+              </div>
+            </div>
+
+            
+            
+          <oc-code lang="html">&lt;ruby class="ruby-over font-2"&gt;漢&lt;rt&gt;kan&lt;/rt&gt;字&lt;rt&gt;ji&lt;/rt&gt;&lt;/ruby&gt;
+&lt;ruby class="ruby-under font-2"&gt;漢&lt;rt&gt;kan&lt;/rt&gt;字&lt;rt&gt;ji&lt;/rt&gt;&lt;/ruby&gt;
+&lt;math class="math-normal font-2"&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;/math&gt;
+&lt;math class="math-compact font-2"&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;/math&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
+          <p class="oc-section-content__desc">Unsupported font features are ignored and the default glyphs are shown.</p>
+          <oc-compat features="css.properties.font-variant-caps css.properties.font-variant-ligatures css.properties.font-variant-position css.properties.font-variant-emoji css.properties.font-variation-settings css.properties.font-size-adjust css.properties.hyphenate-character css.properties.hyphenate-limit-chars css.properties.text-justify css.properties.-webkit-text-stroke css.properties.ruby-position css.properties.ruby-align css.properties.math-style"></oc-compat>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">
+            These utilities come from <code>_font_variants.scss</code>; numeric variants from <code>_fonts.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings" target="_blank" rel="noopener">MDN: font-variation-settings</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-text-stroke" target="_blank" rel="noopener">MDN: -webkit-text-stroke</a>.
+          </p>
+
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>src/scss/utilities/_font_variants.scss</code></td><td>font variants, variable axes, size-adjust, synthesis, hyphenation, text stroke/fill, emphasis, ruby, math</td></tr>
+                  <tr><td><code>src/scss/utilities/_fonts.scss</code></td><td>.font-num-* (font-variant-numeric)</td></tr>
+                </tbody>
+              </table>
+              <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+                <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+              </div>
+            </div>
+
+            <h3 class="oc-section-content__title">Compiled output</h3>
+            <p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p>
+
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc">
+              <a class="source-link" href="modern.html">Modern typography</a>
+               · 
+              <a class="source-link" href="advanced.html">Advanced</a>
+               · 
+              <a class="source-link" href="fonts.html">Fonts</a>
+            </p>
+          </div>
+        </div>
+      </section>

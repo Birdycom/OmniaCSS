@@ -1,0 +1,47 @@
+<!--oc-page {"title": "OmniaCSS Docs - Advanced Typography", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-docs-section" id="advanced">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Advanced Typography</h2>
+          <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
+          <span class="oc-section-header__badge-scss oc-badge-source-scss">_typography_advanced.scss</span>
+          <span class="oc-section-header__badge-file oc-badge-source-file">advanced.html</span>
+          <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
+          <p class="oc-section-header__desc">
+            Utilities for complex text behavior including line clamping, truncation, and orphans control.
+          </p>
+        </div>
+
+        <div class="oc-section-content">
+          <h3 class="oc-section-content__title">Line Clamp</h3>
+          <p class="oc-section-content__desc">Truncate multi-line text after a specific number of lines.</p>
+          <oc-demo title="Line Clamp"><div class="oc-preview oc-preview-col gap-4">
+            <div class="p-3 round-2 border border-solid max-w-xs line-clamp-2">
+              <strong>Line Clamp 2:</strong> This text is quite long and will eventually be truncated at the end of the second line of text using an ellipsis.
+            </div>
+            <div class="p-3 round-2 border border-solid max-w-xs line-clamp-3">
+              <strong>Line Clamp 3:</strong> This is a slightly longer block of text designed to demonstrate how the three-line clamping utility works. Once the third line is reached, any additional content is hidden and replaced by an ellipsis character to maintain layout consistency.
+            </div>
+          </div></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10">Truncation</h3>
+          <p class="oc-section-content__desc">Truncate single-line text with an ellipsis.</p>
+          <oc-demo title="Truncation"><div class="oc-preview oc-preview-col gap-4">
+            <div class="p-3 round-2 border border-solid max-w-xs truncate">
+              This long string of text will be truncated.
+            </div>
+          </div></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10">Hyphens &amp; Wrapping</h3>
+          <table class="oc-table-ref mb-6">
+            <thead><tr><th class="w-perc-1/3">Class</th><th>Behavior</th></tr></thead>
+            <tbody>
+              <tr><td><code>.hyphens-auto</code></td><td>Automatic syllable breaking</td></tr>
+              <tr><td><code>.text-balance</code></td><td>Balanced line lengths for headings</td></tr>
+              <tr><td><code>.text-nowrap</code></td><td>Prevent text wrapping</td></tr>
+            </tbody>
+          </table>
+
+          <oc-code>&lt;h2 class="text-balance font-2"&gt;A Headline That Balances Lines&lt;/h2&gt;
+&lt;p class="line-clamp-3"&gt;Long article summary...&lt;/p&gt;</oc-code>
+        </div>
+      </section>

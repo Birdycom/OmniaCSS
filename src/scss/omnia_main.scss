@@ -1,0 +1,143 @@
+/* CSS Document 
+* file: public/css/omnia_main.css
+* Custom style file for custom Projecs
+* Copyright 2021-2023 birdycom.be
+* Autor: Serge Cools
+*/
+// SCSS Document 
+// File: src/scss/omnia_main.scss
+// Description: Loading file for all the scss files in this Framework
+// Copyright: 2021-2023 Birdycom
+// Autor: Serge Cools
+// Version: 0.2.0
+// Framework: OmniaCSS
+
+// master settings to use for the creation of the CSS file
+
+@use 'config/omniacss.config.scss';
+
+
+@use 'config/omniacss.fonts.scss' as omniacss2;
+
+
+// Reset the default browser settings
+@use 'base/_reset.scss';
+
+// Load the omnia colors classes
+@use 'utilities/_colors_omnia.scss';
+
+// Load the ral colors classes
+@use 'utilities/_colors_ral.scss';
+
+// Load the html colors classes
+@use 'utilities/_colors_html.scss';
+
+// Load the color-mix (transparent) utilities for Omnia and HTML colors
+@use 'utilities/_colors_mix.scss';
+
+// Load the fontsize classes
+@use 'utilities/_fonts.scss';
+
+// Load the text classes
+@use 'utilities/_text.scss';
+@use 'utilities/_typography_advanced.scss';
+
+// Load the spacing classes
+@use 'utilities/_spacing_margin.scss';
+
+@use 'utilities/_spacing_padding.scss';
+
+// Load the sizing classes
+@use 'utilities/_sizing.scss';
+
+// Load the position classes
+@use 'utilities/_position.scss';
+@use 'utilities/_layout_flow.scss';
+
+// Load the display classes
+@use 'utilities/_display.scss';
+@use 'utilities/_backgrounds.scss';
+@use 'utilities/_borders_outlines.scss';
+@use 'utilities/_corner_shape.scss';
+
+// Load overflow and overscroll classes
+@use 'utilities/_overflow.scss';
+
+// Load layering classes (isolation, visibility, z-index)
+@use 'utilities/_layering.scss';
+
+// Load the flex classes
+@use 'utilities/_flexbox.scss';
+
+// Load the grid classes
+@use 'utilities/_grid.scss';
+
+// Load the alignment classes
+@use 'utilities/_alignment.scss';
+
+// Load the gap classes
+@use 'utilities/_gap.scss';
+
+// Load the table classes
+@use 'utilities/_table.scss';
+
+// Load the effects classes
+@use 'utilities/_effects.scss';
+@use 'utilities/_effects_advanced.scss';
+@use 'utilities/_filters.scss';
+@use 'utilities/_motion_transforms.scss';
+@use 'utilities/_interactivity.scss';
+@use 'utilities/_svg.scss';
+
+/* Load the layout classes */
+@use 'utilities/_aspect.scss';
+
+// Load the container classes
+@use 'utilities/_container.scss';
+@use 'utilities/_table_advanced.scss';
+
+// Load modern CSS (2024-2026) utilities
+@use 'utilities/_typography_modern.scss';
+@use 'utilities/_writing_modes.scss';
+@use 'utilities/_containment.scss';
+@use 'utilities/_shapes.scss';
+@use 'utilities/_scrollbar.scss';
+@use 'utilities/_starting_style.scss';
+@use 'utilities/_anchor_positioning.scss';
+@use 'utilities/_view_transitions.scss';
+@use 'utilities/_scroll_animations.scss';
+@use 'utilities/_gradients.scss';
+@use 'utilities/_borders_extended.scss';
+@use 'utilities/_font_variants.scss';
+@use 'utilities/_animation_properties.scss';
+@use 'utilities/_layout_extras.scss';
+@use 'utilities/_sizing_logical.scss';
+@use 'utilities/_space_divide.scss';
+@use 'utilities/_gradient_stops.scss';
+@use 'utilities/_mask_extras.scss';
+@use 'utilities/_transforms_3d.scss';
+@use 'utilities/_scroll_spacing.scss';
+@use 'utilities/_drop_shadow_colors.scss';
+@use 'utilities/_experimental_css.scss';
+@use 'utilities/_css_functions.scss';
+
+// Load accessibility utilities (sr-only, forced-color-adjust)
+@use 'utilities/_accessibility.scss';
+
+// Load responsive variant utilities (sm:, md:, lg: prefixes)
+@use 'utilities/_responsive.scss';
+
+// Load fluid/clamp utilities (.text-fluid, .w-fluid, mixin)
+@use 'utilities/_clamp.scss';
+
+// Load hover/focus/active/focus-visible state variant utilities
+@use 'utilities/_state_variants.scss';
+
+// Load dark mode variant utilities (dark: prefix)
+@use 'utilities/_dark_mode.scss';
+
+/* Load the media querys */
+@use 'layout/_media_query.scss';
+
+// Load the hulp classes
+@use 'variables/_hulp.scss';
