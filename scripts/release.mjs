@@ -2,7 +2,7 @@
 // Version bump for the whole OmniaCSS workspace (root + every @birdycom/omniacss* package, kept in lockstep).
 // Flags: --dry-run (write nothing, only show + verify), --no-verify (skip build + pack dry-run).
 // Usage: npm run release -- <patch|minor|major|x.y.z> "Short summary of the change" [--dry-run]
-// Map: parse args -> next version -> package.json files -> README (Versie + Recente wijzigingen) -> docs/release-history.json
+// Map: parse args -> next version -> package.json files -> README (Version + Recent changes) -> docs/release-history.json
 //
 // Rules (same workflow as OmniaDesk, but npm needs 3-part semver):
 //   patch  +0.0.1  bugfix, polish, typo, small UI tweak
@@ -61,11 +61,11 @@ for (const file of PACKAGES) {
   await write(file, JSON.stringify(pkg, null, 2) + "\n");
 }
 
-// 2. README: version line + newest row on top of "Recente wijzigingen"
+// 2. README: version line + newest row on top of "Recent changes" (\r? : the working copy may use CRLF)
 const readmePath = "README.md";
 let readme = await fs.readFile(path.join(root, readmePath), "utf8");
-readme = readme.replace(/(\*\*Versie:\*\* `)[^`]+(`)/, `$1${version}$2`);
-readme = readme.replace(/(\| Versie \| Datum \| Wat \|\n\|[-| ]+\|\n)/, `$1| \`${version}\` | ${date} | ${summary.replace(/\|/g, "\\|")} |\n`);
+readme = readme.replace(/(\*\*Version:\*\* `)[^`]+(`)/, `$1${version}$2`);
+readme = readme.replace(/(\| Version \| Date \| Changes \|\r?\n\|[-| ]+\|\r?\n)/, `$1| \`${version}\` | ${date} | ${summary.replace(/\|/g, "\\|")} |\n`);
 await write(readmePath, readme);
 
 // 3. docs/release-history.json (read by the docs site)
