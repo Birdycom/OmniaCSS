@@ -2,7 +2,7 @@
 
 Modern CSS als utility classes en kleurtokens — gegenereerd op maat van je project.
 
-> **Componenten en blocks zitten sinds oktober 2026 in [OmniaUI](https://github.com/Birdycom/omniaui)** (`@birdycom/omniaui`, `@birdycom/omniaui-blocks`, React/Vue/Blade-wrappers, site: https://omniaui.test). Deze repo bevat alleen het CSS-deel: utilities, tokens, SCSS, de on-demand engine, de CLI (`init` / `build` / `migrate`), `@birdycom/omniacss-migrate` en de CSS-docs (https://omniacss.test). Beide repos houden **dezelfde versie** aan.
+> **Componenten en blocks zitten sinds oktober 2026 in [OmniaUI](https://github.com/Birdycom/OmniaUI)** (`@birdycom/omniaui`, `@birdycom/omniaui-blocks`, React/Vue/Blade-wrappers, site: https://omniaui.eu). Deze repo bevat alleen het CSS-deel: utilities, tokens, SCSS, de on-demand engine, de CLI (`init` / `build` / `migrate`), `@birdycom/omniacss-migrate` en de CSS-docs (https://omniacss.eu). Beide repos houden **dezelfde versie** aan.
 
 **Versie:** `0.11.0` — zelfde waarde in `package.json` en alle `@birdycom/omniacss*` packages (en in de OmniaUI-repo) (`MAJOR.MINOR.PATCH`).
 
