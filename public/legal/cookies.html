@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="scrollbar-omnia" data-section="home" data-sister-site="https://omniaui.test">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="omniacss.eu sets no cookies: only your light/dark choice is stored in your own browser.">
+  <meta name="generator" content="OmniaCSS 0.11.0">
+  <title>Cookie policy - OmniaCSS</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=28c30a4cfd"><link rel="stylesheet" href="/css/oc-components.css?v=244d590e24"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=9204573677"><link rel="stylesheet" href="/css/oc-layout-module.css?v=fbe27040e6"><link rel="stylesheet" href="/css/omnia_site.css?v=20d889b20a"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=ed94de3c8b"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=0532ca6a08">
+  <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
+  <script>
+    // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
+    try { const u = new URL(location.href), q = u.searchParams.get("oc-theme"); if (q) { localStorage.setItem("oc-theme", q); u.searchParams.delete("oc-theme"); history.replaceState(history.state, "", u); } const t = q || localStorage.getItem("oc-theme"); if (t && t !== "system") document.documentElement.dataset.theme = t; } catch {}
+    const carryTheme = (e) => { const a = e.target.closest && e.target.closest("a[href]"); const sister = document.documentElement.dataset.sisterSite; if (!a || !sister || a.origin !== new URL(sister).origin) return; try { const t = localStorage.getItem("oc-theme"); if (!t) return; const u = new URL(a.href); u.searchParams.set("oc-theme", t); a.href = u.href; } catch {} };
+    addEventListener("click", carryTheme); addEventListener("auxclick", carryTheme);
+    addEventListener("change", (e) => { if (e.target.name !== "oc-theme" || !e.target.closest(".ocm-theme")) return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; });
+    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; });
+  </script><script src="/js/oc-docs-v2.js?v=50b3bbdcc6" defer></script>
+</head>
+<body>
+  <header class="oc-topbar">
+    
+    
+    <a class="oc-topbar-brand" href="/index.html">OmniaCSS<span class="oc-badge-version ml-1">v0.11.0</span></a>
+    <nav class="oc-topbar-nav" aria-label="Main">
+      <ul class="oc-navmenu oc-navmenu--site">
+        <li><a class="oc-navmenu-link" href="/index.html" aria-current="page">Home</a></li><li><a class="oc-navmenu-link" href="/docs/index.html">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components.html">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks.html">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons.html">Webicons</a></li>
+        <li><a class="oc-navmenu-link" href="https://github.com/Birdycom/OmniaCSS" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="oc-navmenu-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path></svg></a></li>
+      </ul>
+    </nav>
+    <div class="ocd-topbar-actions">
+      <a class="oc-btn oc-btn--sm" href="https://omniaui.test/ui/pro.html#pricing">Pro</a>
+      <button type="button" class="ocd-search-trigger" data-ocd-search aria-label="Search the docs (Ctrl K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>Search docs…</span><kbd>Ctrl K</kbd></button>
+      <fieldset class="oc-theme-switch ocm-theme" aria-label="Color theme">
+        <label><input type="radio" name="oc-theme" value="system" checked> System</label>
+        <label><input type="radio" name="oc-theme" value="light"> Light</label>
+        <label><input type="radio" name="oc-theme" value="dark"> Dark</label>
+      </fieldset>
+    </div>
+  </header>
+
+  <dialog class="ocd-search-dialog" id="ocd-search" aria-label="Search">
+    <div class="ocd-search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="search" placeholder="Search pages, utilities and components" aria-label="Search" role="combobox" aria-controls="ocd-search-results" aria-expanded="true" autocomplete="off" spellcheck="false"><kbd>Esc</kbd></div>
+    <ul class="ocd-search-results" id="ocd-search-results" role="listbox" aria-label="Results"></ul>
+    <p class="ocd-search-empty" hidden>No results. Try a CSS property such as <code>clamp</code>, a class such as <code>snap-x</code> or a component name.</p>
+    <p class="ocd-search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </dialog>
+
+  <!-- File: apps/docs/src/content/legal/cookies.html | Map: summary -> what the site stores -> removing it -> contact -->
+<main class="oc-prose m-inline-auto p-inline-1 p-block-start-3 p-block-end-6">
+  <h1>Cookie policy</h1>
+  <p class="oc-prose-lead">omniacss.eu sets no cookies and uses no analytics, advertising or tracking. That is why you do not see a cookie banner. Last updated: 27 October 2026.</p>
+
+  <h2 id="our-site">1. What omniacss.eu stores</h2>
+  <table>
+    <thead><tr><th>Name</th><th>Type</th><th>Purpose</th><th>Kept</th></tr></thead>
+    <tbody>
+      <tr><td><code>oc-theme</code></td><td>Local storage in your browser (not a cookie)</td><td>Remembers whether you chose system, light or dark mode. Never sent to our server.</td><td>Until you clear your browser data</td></tr>
+    </tbody>
+  </table>
+  <p>This is strictly functional: it only does what you asked for (keep your theme). Under EU rules (the ePrivacy Directive, in Belgium article 10/2 of the law of 30 July 2018) such storage needs no consent.</p>
+  <p>All fonts and scripts come from our own server, so no other company sets cookies or sees your visit through this site.</p>
+
+  <h2 id="manage">2. Removing what is stored</h2>
+  <p>You can remove the theme setting at any time by clearing the site data for omniacss.eu in your browser settings. The site then follows your system theme again.</p>
+
+  <h2 id="contact">3. Questions</h2>
+  <p>Mail <a href="mailto:support@omniacss.eu">support@omniacss.eu</a>. If we ever add cookies that need your consent, we will update this page and ask for your consent first.</p>
+
+  <p><a href="/legal/terms.html">Terms of use</a> · <a href="/legal/privacy.html">Privacy policy</a></p>
+</main>
+
+
+  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.11.0 — modern CSS utilities and tokens · <a href="/docs/index.html">Docs</a> · <a href="https://omniaui.test/index.html">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a> · <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a> · <a href="/legal/cookies.html">Cookies</a></footer>
+</body>
+</html>

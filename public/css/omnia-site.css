@@ -2121,6 +2121,10 @@ select {
   margin-top: 10rem;  /* 160px */;
 }
 
+.m-inline-auto {
+  margin-inline: auto;  /* auto */;
+}
+
 /* Margin with var(--spacing): .m-var-0 … .m-var-10 (value = calc(var(--spacing) * n)). Uses same --spacing as padding. */
 
 /* End Margin property */
@@ -2207,12 +2211,26 @@ select {
   padding-left: 4rem;  /* 64px */;
 }
 
+.p-inline-1 {
+  padding-inline: 1rem;  /* 16px */;
+}
+
 .p-block-1 {
   padding-block: 1rem;  /* 16px */;
 }
 
 .p-inline-3 {
   padding-inline: 3rem;  /* 48px */;
+}
+
+.p-block-start-3 {
+  -webkit-padding-before: 3rem;
+          padding-block-start: 3rem;  /* 48px */;
+}
+
+.p-block-end-6 {
+  -webkit-padding-after: 6rem;
+          padding-block-end: 6rem;  /* 96px */;
 }
 
 /* Padding with var(--spacing): .p-var-0 … .p-var-10 (value = calc(var(--spacing) * n)). Set --spacing on :root or component (e.g. 1rem). */
