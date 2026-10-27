@@ -51,8 +51,8 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
     try { const u = new URL(location.href), q = u.searchParams.get("oc-theme"); if (q) { localStorage.setItem("oc-theme", q); u.searchParams.delete("oc-theme"); history.replaceState(history.state, "", u); } const t = q || localStorage.getItem("oc-theme"); if (t && t !== "system") document.documentElement.dataset.theme = t; } catch {}
     const carryTheme = (e) => { const a = e.target.closest && e.target.closest("a[href]"); const sister = document.documentElement.dataset.sisterSite; if (!a || !sister || a.origin !== new URL(sister).origin) return; try { const t = localStorage.getItem("oc-theme"); if (!t) return; const u = new URL(a.href); u.searchParams.set("oc-theme", t); a.href = u.href; } catch {} };
     addEventListener("click", carryTheme); addEventListener("auxclick", carryTheme);
-    addEventListener("change", (e) => { if (e.target.name !== "oc-theme") return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; });
-    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.oc-theme-switch input[value="${t}"]`); if (r) r.checked = true; });
+    addEventListener("change", (e) => { if (e.target.name !== "oc-theme" || !e.target.closest(".ocm-theme")) return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; });
+    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; });
   </script>
   <script is:inline src="/js/oc-docs-v2.js" defer></script>
   <Fragment set:html={(meta.head || []).join("\n")} />
@@ -100,6 +100,6 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
     <Fragment set:html={html} />
   )}
 
-  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v{VERSION} — modern CSS utilities and tokens{" · "}<a href="/docs/index.html">Docs</a>{" · "}<a href={`${OMNIAUI_URL}/index.html`}>OmniaUI components</a>{" · "}<a href={GITHUB}>GitHub</a>{" · "}<a href={`${OMNIAUI_URL}/legal/terms.html`}>Terms</a>{" · "}<a href={`${OMNIAUI_URL}/legal/privacy.html`}>Privacy</a>{" · "}<a href={`${OMNIAUI_URL}/legal/cookies.html`}>Cookies</a></footer>
+  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v{VERSION} — modern CSS utilities and tokens{" · "}<a href="/docs/index.html">Docs</a>{" · "}<a href={`${OMNIAUI_URL}/index.html`}>OmniaUI components</a>{" · "}<a href={GITHUB}>GitHub</a>{" · "}<a href="/legal/terms.html">Terms</a>{" · "}<a href="/legal/privacy.html">Privacy</a>{" · "}<a href="/legal/cookies.html">Cookies</a></footer>
 </body>
 </html>

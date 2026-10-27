@@ -233,14 +233,18 @@
    1. Default: follows the operating system (color-scheme: light dark on :root).
    2. Fixed:   <html data-theme="light"> or <html data-theme="dark"> (or the legacy .dark / .oc-theme-docs).
    3. Switch:  .oc-theme-switch radio group anywhere on the page, picked up with :has().
+   4. Scope:   a switch inside .oc-theme-scope themes only that element (previews, embedded widgets),
+               not the page. Give every switch its own radio name.
    =================================================================== */
 [data-theme="light"] { color-scheme: light; }
 [data-theme="dark"],
 .dark,
 .oc-theme-docs { color-scheme: dark; }
 
-:root:has(.oc-theme-switch input[value="light"]:checked) { color-scheme: light; }
-:root:has(.oc-theme-switch input[value="dark"]:checked) { color-scheme: dark; }
+:root:has(.oc-theme-switch input[value="light"]:checked:not(.oc-theme-scope *)) { color-scheme: light; }
+:root:has(.oc-theme-switch input[value="dark"]:checked:not(.oc-theme-scope *)) { color-scheme: dark; }
+.oc-theme-scope:has(.oc-theme-switch input[value="light"]:checked) { color-scheme: light; }
+.oc-theme-scope:has(.oc-theme-switch input[value="dark"]:checked) { color-scheme: dark; }
 
 /* Base surface; :where() keeps specificity at zero so any project body style wins. */
 :where(body) {
@@ -9497,10 +9501,25 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 
 .oc-price-card__cta { inline-size: 100%; }
 
-/* Featured plan: accent border + soft glow. */
-.oc-price-card--featured {
+/* Featured plan: accent border + soft glow. The glow follows the pointer: the card you hover or tab into gets it,
+   and the featured card gives it up while another card in the same row is hovered. */
+.oc-price-card {
+  transition: border-color 0.25s var(--oc-ease-out), box-shadow 0.25s var(--oc-ease-out), translate 0.25s var(--oc-ease-out);
+}
+.oc-price-card--featured,
+.oc-price-card:hover,
+.oc-price-card:focus-within {
   border-color: color-mix(in oklch, var(--oc-accent-from) 60%, transparent);
   box-shadow: 0 24px 60px -30px var(--oc-accent-from);
+}
+.oc-price-card:hover { translate: 0 -2px; }
+:has(> .oc-price-card:hover) > .oc-price-card--featured:not(:hover, :focus-within) {
+  border-color: var(--oc-border);
+  box-shadow: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-price-card { transition: none; }
+  .oc-price-card:hover { translate: none; }
 }
 
 /* parts/site-product-mark.css */

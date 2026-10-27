@@ -274,7 +274,12 @@ export function transform(content, route = "") {
     const widths = [width("full", "Full width", WIDTH_ICONS.desktop, true), width("tablet", "Tablet (48rem)", WIDTH_ICONS.tablet), width("phone", "Phone (24rem)", WIDTH_ICONS.phone)].join("");
     const panels = pro ? `<div class="oc-demo__code oc-demo__pro-lock" data-code="1">${PRO_LOCK}</div>`
       : codes.map((c, i) => `<div class="oc-demo__code" data-code="${i + 1}">${codeBlock(c.code, c.lang)}</div>`).join("");
-    replaceWithHtml(document, demo, `<div class="oc-demo oc-demo--v2${pro ? " oc-demo--pro" : ""}"><div class="oc-demo__bar"><h4 class="oc-demo__title">${title}${pro ? ' <span class="oc-demo__pro-badge">Pro</span>' : ""}</h4><div class="oc-demo__tablist" role="radiogroup" aria-label="Show">${tabs}</div><div class="oc-demo__widths" role="radiogroup" aria-label="Preview width">${widths}</div></div><div class="oc-demo__preview${size}">${preview}</div>${panels}</div>`);
+    // A theme switch inside a demo (app header, app shell, the theme-switch component) themes only that preview:
+    // .oc-theme-scope on the preview, and its own radio name so it is not grouped with the site header switch.
+    // The code panels keep the original names (they were taken from `preview` above).
+    for (const radio of demo.querySelectorAll(".oc-theme-switch input[name]")) radio.setAttribute("name", `${radio.getAttribute("name")}-demo-${n}`);
+    const scoped = demo.innerHTML;
+    replaceWithHtml(document, demo, `<div class="oc-demo oc-demo--v2${pro ? " oc-demo--pro" : ""}"><div class="oc-demo__bar"><h4 class="oc-demo__title">${title}${pro ? ' <span class="oc-demo__pro-badge">Pro</span>' : ""}</h4><div class="oc-demo__tablist" role="radiogroup" aria-label="Show">${tabs}</div><div class="oc-demo__widths" role="radiogroup" aria-label="Preview width">${widths}</div></div><div class="oc-demo__preview oc-theme-scope${size}">${scoped}</div>${panels}</div>`);
   }
 
   // 2. Stand-alone code blocks

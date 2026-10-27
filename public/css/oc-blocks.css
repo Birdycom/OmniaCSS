@@ -1,7 +1,11 @@
 /* File: public/css/oc-blocks.css */
+
 /* Map: block tokens -> hero blocks -> auth blocks -> pricing blocks -> feature blocks -> footer blocks */
+
 /* Description: Pre-composed page blocks built from OmniaCSS utilities and components. Copy-paste ready. */
+
 /* Version: 0.1.6 */
+
 /* Depends on: oc-components.css (for primitives like oc-btn, oc-input) */
 
 /* ===================================================================
@@ -26,6 +30,7 @@
    =================================================================== */
 
 /* Hero — centered with CTA */
+
 .oc-block-hero {
   text-align: center;
   padding: 64px var(--oc-block-gap) 48px;
@@ -69,6 +74,7 @@
 }
 
 /* Hero — split (text left, image/visual right) */
+
 .oc-block-hero-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -501,6 +507,7 @@
 /* ===================================================================
    Swatch Grid Block — auto-fit grid for color swatch cards
    =================================================================== */
+
 .oc-block-swatch-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -509,6 +516,7 @@
 }
 
 /* RAL group card — accent highlight for color group headers */
+
 .oc-block-swatch-grid .oc-swatch--ral-group {
   border-color: var(--color-vividblue-70);
   background: oklch(from var(--color-vividblue-70) l c h / 0.12);
@@ -522,6 +530,7 @@
    =================================================================== */
 
 /* ---- App shell: sidebar + main column (appbar, breadcrumb strip, scrolling content) ---- */
+
 .oc-block-shell {
   --oc-block-shell-height: 100dvh;
   display: grid;
@@ -531,29 +540,37 @@
   color: var(--oc-foreground);
   overflow: hidden;
 }
+
 .oc-block-shell-toggle {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
+
 /* CSS-only collapse: <label for="toggle"> flips the checkbox, :has() collapses the sidebar */
+
 .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar {
   inline-size: var(--oc-sidebar-width-icon);
 }
+
 .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-label,
 .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-badge,
 .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-sub,
 .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-group-label,
 .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar .oc-user-text,
 .oc-block-shell:has(.oc-block-shell-toggle:checked) details.oc-sidebar-collapsible > summary::after { display: none; }
+
 .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-button { justify-content: center; padding-inline: 0; }
+
 .oc-block-shell-main { display: flex; flex-direction: column; min-inline-size: 0; min-block-size: 0; }
+
 .oc-block-shell-breadcrumbs {
   flex-shrink: 0;
   padding: 0.5rem 1rem;
   background: var(--oc-background);
   border-block-end: 1px solid var(--oc-border);
 }
+
 .oc-block-shell-content {
   flex: 1;
   min-block-size: 0;
@@ -562,7 +579,9 @@
   overflow: auto;
   overscroll-behavior-y: contain;
 }
+
 .oc-block-shell-menu-button { display: none; }
+
 @media (max-width: 47.99rem) {
   .oc-block-shell { grid-template-columns: minmax(0, 1fr); }
   .oc-block-shell > .oc-sidebar { display: none; }
@@ -570,6 +589,7 @@
 }
 
 /* ---- App header bar ---- */
+
 .oc-block-appbar {
   display: flex;
   align-items: center;
@@ -580,12 +600,17 @@
   background: var(--oc-background);
   border-block-end: 1px solid var(--oc-border);
 }
+
 .oc-block-appbar-nav { flex: 1; min-inline-size: 0; overflow-x: auto; }
+
 .oc-block-appbar-actions { display: flex; align-items: center; gap: 0.5rem; margin-inline-start: auto; }
+
 .oc-block-appbar-title { font-size: 1rem; font-weight: 600; white-space: nowrap; }
 
 /* ---- Module header: icon + title + intro + actions ---- */
+
 .oc-block-modulehead { padding: 1.5rem 0 0.5rem; }
+
 .oc-block-modulehead-band {
   display: flex;
   align-items: flex-start;
@@ -595,6 +620,7 @@
   border: 1px solid oklch(from var(--oc-primary) l c h / 0.25);
   border-radius: calc(var(--oc-radius) + 4px);
 }
+
 .oc-block-modulehead-icon {
   display: grid;
   place-items: center;
@@ -606,39 +632,27 @@
   background: oklch(from var(--oc-primary) l c h / 0.12);
   border-radius: calc(var(--oc-radius) + 2px);
 }
-.oc-block-modulehead-icon svg,
-.oc-block-kpi-icon svg { inline-size: 1.25em; block-size: 1.25em; }
+
+.oc-block-modulehead-icon svg { inline-size: 1.25em; block-size: 1.25em; }
+
 .oc-block-authsplit-logo svg { inline-size: 1.5rem; block-size: 1.5rem; }
+
 .oc-block-modulehead-body { max-inline-size: 42rem; min-inline-size: 0; }
+
 .oc-block-modulehead-title { margin: 0; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; color: var(--oc-foreground); }
+
 .oc-block-modulehead-intro { margin: 0.25rem 0 0; font-size: 0.875rem; line-height: 1.55; color: var(--oc-muted-foreground); }
+
 .oc-block-modulehead-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-block-start: 0.5rem; }
+
 .oc-block-modulehead-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding-block: 1rem 0; }
 
 /* ---- KPI / dashboard stats ---- */
-.oc-block-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; }
-.oc-block-kpi {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 1rem 1.25rem;
-  background: var(--oc-card);
-  border: 1px solid var(--oc-border);
-  border-radius: calc(var(--oc-radius) + 4px);
-}
-.oc-block-kpi-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
-.oc-block-kpi-label { font-size: 0.8125rem; font-weight: 500; color: var(--oc-muted-foreground); }
-.oc-block-kpi-icon { font-size: 1.1rem; color: var(--oc-muted-foreground); }
-.oc-block-kpi-value { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--oc-foreground); }
-.oc-block-kpi-delta { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; font-weight: 600; color: var(--oc-muted-foreground); }
-.oc-block-kpi-delta--up { color: var(--oc-success); }
-.oc-block-kpi-delta--up::before { content: "\2191"; }
-.oc-block-kpi-delta--down { color: var(--oc-destructive); }
-.oc-block-kpi-delta--down::before { content: "\2193"; }
-.oc-block-kpi-note { font-size: 0.75rem; font-weight: 400; color: var(--oc-muted-foreground); }
 
 /* ---- Data table card: header · toolbar · table · footer ---- */
+
 .oc-block-datatable { padding: 0; }
+
 .oc-block-datatable-head {
   display: flex;
   flex-wrap: wrap;
@@ -647,15 +661,24 @@
   gap: 0.75rem;
   padding: 1.25rem 1.5rem 0;
 }
+
 .oc-block-datatable-title { margin: 0; font-size: 1.1rem; font-weight: 600; color: var(--oc-foreground); }
+
 .oc-block-datatable-description { margin: 0.125rem 0 0; font-size: 0.875rem; color: var(--oc-muted-foreground); }
+
 .oc-block-datatable-body { padding: 1rem 1.5rem 1.25rem; }
+
 .oc-block-datatable .oc-table-wrap { border: 1px solid var(--oc-border); }
+
 .oc-block-datatable .oc-table { table-layout: auto; }
+
 .oc-block-datatable .oc-table th,
 .oc-block-datatable .oc-table td { border-inline: 0; }
+
 .oc-block-datatable .oc-table tbody tr:last-child td { border-block-end: 0; }
+
 .oc-block-datatable .oc-table-wrap > .oc-table { min-inline-size: 40rem; }
+
 .oc-block-datatable-bulk {
   display: flex;
   align-items: center;
@@ -669,13 +692,16 @@
 }
 
 /* ---- Split auth layout: brand panel + form panel ---- */
+
 .oc-block-authsplit {
   display: grid;
   min-block-size: 32rem;
   background: var(--oc-background);
   color: var(--oc-foreground);
 }
+
 @media (min-width: 62rem) { .oc-block-authsplit { grid-template-columns: 1fr 1fr; } }
+
 .oc-block-authsplit-brand {
   position: relative;
   display: none;
@@ -689,22 +715,37 @@
     var(--oc-primary);
   border-inline-end: 1px solid var(--oc-border);
 }
+
 @media (min-width: 62rem) { .oc-block-authsplit-brand { display: flex; } }
+
 .oc-block-authsplit-logo { display: inline-flex; align-items: center; gap: 0.75rem; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; color: inherit; text-decoration: none; }
+
 .oc-block-authsplit-quote { margin: 0; max-inline-size: 28rem; padding-inline-start: 1.25rem; border-inline-start: 2px solid oklch(from var(--oc-primary-foreground) l c h / 0.55); }
+
 .oc-block-authsplit-quote p { margin: 0 0 0.5rem; font-size: 1.1rem; line-height: 1.55; font-weight: 500; }
+
 .oc-block-authsplit-quote footer { font-size: 0.875rem; opacity: 0.75; }
+
 .oc-block-authsplit-form { display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
+
 .oc-block-authsplit-card { inline-size: 100%; max-inline-size: 26rem; }
+
 .oc-block-authsplit-title { margin: 0 0 0.25rem; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; text-align: center; }
+
 .oc-block-authsplit-subtitle { margin: 0 0 1.5rem; font-size: 0.875rem; text-align: center; color: var(--oc-muted-foreground); }
+
 .oc-block-authsplit-fields { display: flex; flex-direction: column; gap: 1rem; }
+
 .oc-block-authsplit-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.8125rem; }
 
 /* ---- Two-factor: OTP code + recovery codes ---- */
+
 .oc-block-twofactor { display: grid; gap: 1.5rem; max-inline-size: 28rem; margin-inline: auto; }
+
 .oc-block-twofactor-step { display: grid; gap: 0.75rem; }
+
 .oc-block-twofactor-center { display: grid; justify-items: center; gap: 0.75rem; text-align: center; }
+
 .oc-block-twofactor-qr {
   display: grid;
   place-items: center;
@@ -718,48 +759,47 @@
 }
 
 /* ---- Settings page: section navigation + content sections ---- */
-.oc-block-settings { display: grid; gap: 1.5rem; }
-@media (min-width: 48rem) { .oc-block-settings { grid-template-columns: 14rem minmax(0, 1fr); } }
-.oc-block-settings-nav { display: flex; flex-direction: column; gap: 2px; }
-.oc-block-settings-body { display: flex; flex-direction: column; gap: 2rem; min-inline-size: 0; max-inline-size: 42rem; }
-.oc-block-settings-section { display: flex; flex-direction: column; gap: 1rem; }
-.oc-block-settings-section + .oc-block-settings-section { padding-block-start: 2rem; border-block-start: 1px solid var(--oc-border); }
-.oc-block-settings-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem 1rem; border: 1px solid var(--oc-border); border-radius: calc(var(--oc-radius) + 2px); background: var(--oc-surface); }
-.oc-block-settings-row-text { min-inline-size: 0; }
-.oc-block-settings-row-title { display: block; font-size: 0.875rem; font-weight: 500; color: var(--oc-foreground); }
-.oc-block-settings-row-hint { display: block; font-size: 0.8125rem; color: var(--oc-muted-foreground); }
-.oc-block-settings-actions { display: flex; gap: 0.5rem; }
-.oc-block-settings-danger { border-color: oklch(from var(--oc-destructive) l c h / 0.5); background: oklch(from var(--oc-destructive) l c h / 0.05); }
 
 /* ---- Hub: grid of launcher cards ---- */
-.oc-block-hub { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; }
 
 /* ---- Onboarding checklist card ---- */
-.oc-block-onboarding { display: flex; flex-direction: column; gap: 1rem; padding: 1.25rem 1.5rem; }
-.oc-block-onboarding-head { display: flex; align-items: flex-start; gap: 0.75rem; }
-.oc-block-onboarding-progress { display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem; color: var(--oc-muted-foreground); }
-.oc-block-onboarding-progress .oc-progress { flex: 1; }
 
 /* ---- Wizard dialog: stepper rail + step content ---- */
+
 .oc-block-wizard { display: flex; flex-direction: column; min-block-size: 0; }
+
 @media (min-width: 48rem) { .oc-block-wizard { flex-direction: row; } }
+
 .oc-block-wizard-rail { flex-shrink: 0; padding: 0.75rem; border-block-end: 1px solid var(--oc-border); overflow-x: auto; }
+
 @media (min-width: 48rem) { .oc-block-wizard-rail { inline-size: 15rem; padding: 1rem; border-block-end: 0; border-inline-end: 1px solid var(--oc-border); overflow-y: auto; } }
+
 .oc-block-wizard-main { display: flex; flex: 1; flex-direction: column; min-inline-size: 0; }
+
 .oc-block-wizard-step { flex: 1; padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+
 .oc-block-wizard-step[hidden] { display: none; }
 
 /* ---- Team list: members with role and actions ---- */
+
 .oc-block-team { display: flex; flex-direction: column; border: 1px solid var(--oc-border); border-radius: calc(var(--oc-radius) + 4px); background: var(--oc-card); overflow: hidden; }
+
 .oc-block-team-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; }
+
 .oc-block-team-row + .oc-block-team-row { border-block-start: 1px solid var(--oc-border); }
+
 .oc-block-team-row .oc-user { flex: 1; }
+
 .oc-block-team-meta { display: flex; align-items: center; gap: 0.5rem; }
 
 /* ---- Form page: collapsible sections + sticky action bar ---- */
+
 .oc-block-formpage { display: flex; flex-direction: column; gap: 1rem; max-inline-size: 56rem; }
+
 .oc-block-formpage-grid { display: grid; gap: 1rem; }
+
 @media (min-width: 40rem) { .oc-block-formpage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
 .oc-block-formpage-actions {
   position: sticky;
   inset-block-end: 0;
@@ -774,10 +814,12 @@
 }
 
 /* C-BLOCKS:begin */
+
 /* ===================================================================
    AUTH FAMILY (login-01..05, signup-01..03, otp-01..03, forgot-password, reset-password)
    Index: authpage · authcard · authsocial · authduo (container-query split) · authmin
    =================================================================== */
+
 .oc-block-authpage {
   display: grid;
   place-items: center;
@@ -787,7 +829,9 @@
   background: var(--oc-muted);
   border-radius: calc(var(--oc-radius) + 4px);
 }
+
 .oc-block-authpage--plain { background: var(--oc-background); border: 1px solid var(--oc-border); }
+
 .oc-block-authcard {
   display: flex;
   flex-direction: column;
@@ -801,8 +845,11 @@
   border-radius: calc(var(--oc-radius) + 4px);
   box-shadow: 0 1px 2px oklch(from var(--color-black-60) l c h / 0.06);
 }
+
 .oc-block-authcard--flat { padding: 0; background: transparent; border: 0; box-shadow: none; }
+
 .oc-block-authcard--wide { max-inline-size: 28rem; }
+
 .oc-block-authcard-logo {
   display: grid;
   place-items: center;
@@ -813,23 +860,39 @@
   background: var(--oc-primary);
   border-radius: var(--oc-radius);
 }
+
 .oc-block-authcard-logo svg { inline-size: 1.35rem; block-size: 1.35rem; }
+
 .oc-block-authcard-head { display: flex; flex-direction: column; gap: 0.25rem; text-align: center; }
+
 .oc-block-authcard-title { margin: 0; font-size: 1.375rem; font-weight: 600; letter-spacing: -0.01em; }
+
 .oc-block-authcard-text { margin: 0; font-size: 0.875rem; color: var(--oc-muted-foreground); }
+
 .oc-block-authcard-fields { display: flex; flex-direction: column; gap: 1rem; }
+
 .oc-block-authcard-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.8125rem; }
+
 .oc-block-authcard-foot { margin: 0; font-size: 0.875rem; text-align: center; color: var(--oc-muted-foreground); }
+
 .oc-block-authcard-foot a { color: var(--oc-foreground); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
 .oc-block-authcard-legal { margin: 0; font-size: 0.75rem; text-align: center; color: var(--oc-muted-foreground); }
+
 .oc-block-authcard-legal a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
 .oc-block-authcard-submit { inline-size: 100%; }
+
 .oc-block-authcard-hint { margin: 0; font-size: 0.75rem; color: var(--oc-muted-foreground); }
+
 .oc-block-authcard-center { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+
 .oc-block-authsocial { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: 0.5rem; }
+
 .oc-block-authsocial .oc-btn { inline-size: 100%; }
 
 /* Split: panel + form, switches to two columns by container width */
+
 .oc-block-authduo {
   container: oc-authduo / inline-size;
   color: var(--oc-foreground);
@@ -838,12 +901,15 @@
   border-radius: calc(var(--oc-radius) + 4px);
   overflow: hidden;
 }
+
 .oc-block-authduo-grid { display: grid; min-block-size: 34rem; }
+
 @container oc-authduo (min-width: 42rem) {
   .oc-block-authduo-grid { grid-template-columns: 1fr 1fr; }
   .oc-block-authduo-panel { display: flex; }
   .oc-block-authduo--reverse .oc-block-authduo-panel { order: 2; }
 }
+
 .oc-block-authduo-panel {
   position: relative;
   display: none;
@@ -857,6 +923,7 @@
     radial-gradient(ellipse 60% 50% at 10% 0%, oklch(from var(--oc-brand-3) l c h / 0.35), transparent 60%),
     var(--oc-primary);
 }
+
 .oc-block-authduo-panel--image::before {
   content: "";
   position: absolute;
@@ -866,22 +933,32 @@
     linear-gradient(to top, oklch(from var(--oc-primary) l c h / 0.7), transparent 60%);
   pointer-events: none;
 }
+
 .oc-block-authduo-panel--muted { color: var(--oc-foreground); background: var(--oc-muted); }
+
 .oc-block-authduo-panel > * { position: relative; }
+
 .oc-block-authduo-logo { display: inline-flex; align-items: center; gap: 0.6rem; font-weight: 600; color: inherit; text-decoration: none; }
+
 .oc-block-authduo-logo svg { inline-size: 1.4rem; block-size: 1.4rem; }
+
 .oc-block-authduo-quote { margin: 0; max-inline-size: 26rem; }
+
 .oc-block-authduo-quote p { margin: 0 0 0.5rem; font-size: 1.05rem; line-height: 1.55; font-weight: 500; }
+
 .oc-block-authduo-quote footer { font-size: 0.8125rem; opacity: 0.8; }
+
 .oc-block-authduo-form { display: grid; place-items: center; padding: 2rem 1.25rem; }
 
 /* Minimal: no card, one centered column */
+
 .oc-block-authmin { display: grid; place-items: center; min-block-size: 26rem; padding: 2rem 1rem; color: var(--oc-foreground); background: var(--oc-background); border: 1px solid var(--oc-border); border-radius: calc(var(--oc-radius) + 4px); }
 
 /* ===================================================================
    SIDEBAR FAMILY (sidebar-01..16) — a demo frame around .oc-sidebar plus a page-shaped main area
    Index: sb · sb-main · sb-bar · sb-body · sb-ph · sb-group (collapsible group) · sb-rail · sb-toggle (icon collapse)
    =================================================================== */
+
 .oc-block-sb {
   --oc-block-sb-height: 26rem;
   display: grid;
@@ -893,21 +970,11 @@
   border-radius: calc(var(--oc-radius) + 4px);
   overflow: hidden;
 }
-.oc-block-sb--right { grid-template-columns: minmax(0, 1fr) auto; }
-.oc-block-sb--right > .oc-sidebar { order: 2; }
-.oc-block-sb--both { grid-template-columns: auto minmax(0, 1fr) auto; }
-.oc-block-sb--double { grid-template-columns: auto auto minmax(0, 1fr); }
-.oc-block-sb--floating,
-.oc-block-sb--inset { background: var(--oc-muted); }
-.oc-block-sb--inset > .oc-sidebar { background: transparent; border: 0; }
-.oc-block-sb--inset > .oc-block-sb-main {
-  margin: 0.5rem 0.5rem 0.5rem 0;
-  background: var(--oc-background);
-  border: 1px solid var(--oc-border);
-  border-radius: calc(var(--oc-radius) + 4px);
-  overflow: hidden;
-}
+
+.oc-block-sb--floating { background: var(--oc-muted); }
+
 .oc-block-sb-main { display: flex; flex-direction: column; min-inline-size: 0; min-block-size: 0; }
+
 .oc-block-sb-bar {
   display: flex;
   align-items: center;
@@ -918,9 +985,9 @@
   background: var(--oc-background);
   border-block-end: 1px solid var(--oc-border);
 }
-.oc-block-sb-bar--sticky { position: sticky; inset-block-start: 0; z-index: 1; }
+
 .oc-block-sb-sep { inline-size: 1px; block-size: 1rem; background: var(--oc-border-strong); }
-.oc-block-sb-spacer { flex: 1; }
+
 .oc-block-sb-body {
   flex: 1;
   display: grid;
@@ -931,21 +998,28 @@
   padding: 0.75rem;
   overflow: auto;
 }
-.oc-block-sb-body--scroll { grid-auto-rows: 7rem; }
+
 .oc-block-sb-ph { background: var(--oc-muted); border-radius: var(--oc-radius); }
+
 .oc-block-sb-ph--wide { grid-column: 1 / -1; grid-row: span 3; }
+
 .oc-block-sb-toggle { position: absolute; opacity: 0; pointer-events: none; }
+
 .oc-block-sb:has(.oc-block-sb-toggle:checked) .oc-sidebar { inline-size: var(--oc-sidebar-width-icon); }
+
 .oc-block-sb:has(.oc-block-sb-toggle:checked) .oc-sidebar-menu-label,
 .oc-block-sb:has(.oc-block-sb-toggle:checked) .oc-sidebar-menu-badge,
 .oc-block-sb:has(.oc-block-sb-toggle:checked) .oc-sidebar-menu-sub,
 .oc-block-sb:has(.oc-block-sb-toggle:checked) .oc-sidebar-group-label,
 .oc-block-sb:has(.oc-block-sb-toggle:checked) .oc-sidebar .oc-user-text,
 .oc-block-sb:has(.oc-block-sb-toggle:checked) details.oc-sidebar-collapsible > summary::after { display: none; }
+
 .oc-block-sb:has(.oc-block-sb-toggle:checked) .oc-sidebar-menu-button { justify-content: center; padding-inline: 0; }
+
 .oc-block-sb-hint { margin: 0; padding: 0 0.75rem; font-size: 0.75rem; color: var(--oc-muted-foreground); }
 
 /* Collapsible group: <details class="oc-block-sb-group"><summary>Label</summary><ul class="oc-sidebar-menu">… */
+
 .oc-block-sb-group > summary {
   display: flex;
   align-items: center;
@@ -960,7 +1034,9 @@
   cursor: pointer;
   border-radius: var(--oc-radius);
 }
+
 .oc-block-sb-group > summary::-webkit-details-marker { display: none; }
+
 .oc-block-sb-group > summary::after {
   content: "";
   inline-size: 0.4rem;
@@ -970,10 +1046,13 @@
   rotate: -45deg;
   transition: rotate var(--oc-transition-fast);
 }
+
 .oc-block-sb-group[open] > summary::after { rotate: 45deg; }
+
 .oc-block-sb-group > summary:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
 
 /* Icon rail for the double sidebar */
+
 .oc-block-sb-rail {
   display: flex;
   flex-direction: column;
@@ -984,632 +1063,27 @@
   background: var(--oc-muted);
   border-inline-end: 1px solid var(--oc-border);
 }
+
 .oc-block-sb-rail .oc-sidebar-menu-button { justify-content: center; padding: 0.5rem; }
-.oc-block-sb-rail-spacer { flex: 1; }
 
 /* Team switcher + user menu buttons */
+
 .oc-block-sb-switch { inline-size: 100%; border: 0; background: transparent; font: inherit; color: inherit; cursor: pointer; text-align: start; }
+
 .oc-block-sb-tile { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; flex: none; color: var(--oc-primary-foreground); background: var(--oc-primary); border-radius: var(--oc-radius); }
+
 .oc-block-sb-tile svg { inline-size: 1rem; block-size: 1rem; }
+
 .oc-block-sb-sub { display: block; font-size: 0.75rem; font-weight: 400; color: var(--oc-muted-foreground); }
-.oc-block-sb-check { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.25rem 0.625rem; font-size: 0.875rem; }
-.oc-block-sb-check label { display: flex; align-items: center; gap: 0.5rem; }
-.oc-block-sb-calendars { display: flex; flex-direction: column; gap: 0.375rem; padding: 0.25rem 0.625rem; font-size: 0.875rem; }
-.oc-block-sb-calendars label { display: flex; align-items: center; gap: 0.5rem; }
-.oc-block-sb-calendar { padding: 0.25rem 0; }
-.oc-block-sb-calendar .oc-calendar { --oc-calendar-cell: 1.8rem; display: block; padding: 0.25rem; background: transparent; border: 0; }
-.oc-block-sb-calendar .oc-calendar-day { font-size: 0.75rem; }
-.oc-block-sb-dialog-frame { position: relative; display: grid; place-items: center; min-block-size: 26rem; padding: 1rem; background: var(--oc-muted); border-radius: calc(var(--oc-radius) + 4px); }
-.oc-block-sb-dialog { inline-size: min(100%, 44rem); block-size: 22rem; box-shadow: 0 12px 32px oklch(from var(--color-black-60) l c h / 0.2); }
-.oc-block-sb-dialog > .oc-sidebar { --oc-sidebar-width: 12rem; }
 
 /* ===================================================================
    DASHBOARD-01 + CHARTS — charts are plain SVG/CSS on the --oc-chart-1..5 tokens
    Index: chart (card) · chart-svg · chart-line/-area/-grid · chart-months · donut · radial · hbars · spark
    =================================================================== */
-.oc-block-dash { display: flex; flex-direction: column; gap: 1rem; }
+
 .oc-block-dash-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
-.oc-block-chart {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  min-inline-size: 0;
-  padding: 1rem;
-  color: var(--oc-foreground);
-  background: var(--oc-card);
-  border: 1px solid var(--oc-border);
-  border-radius: calc(var(--oc-radius) + 2px);
-}
-.oc-block-chart-head { display: flex; flex-direction: column; gap: 0.125rem; }
-.oc-block-chart-title { margin: 0; font-size: 0.9375rem; font-weight: 600; }
-.oc-block-chart-desc { margin: 0; font-size: 0.8125rem; color: var(--oc-muted-foreground); }
-.oc-block-chart-foot { margin: 0; font-size: 0.75rem; color: var(--oc-muted-foreground); }
-.oc-block-chart-svg { display: block; inline-size: 100%; block-size: 9rem; overflow: visible; }
-.oc-block-chart-grid { stroke: var(--oc-chart-grid); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.oc-block-chart-line { fill: none; stroke: var(--oc-chart-color, var(--oc-chart-1)); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.oc-block-chart-area { fill: color-mix(in oklab, var(--oc-chart-color, var(--oc-chart-1)) 28%, transparent); stroke: none; }
-.oc-block-chart-s1 { --oc-chart-color: var(--oc-chart-1); }
-.oc-block-chart-s2 { --oc-chart-color: var(--oc-chart-2); }
-.oc-block-chart-s3 { --oc-chart-color: var(--oc-chart-3); }
-.oc-block-chart-months { display: flex; justify-content: space-between; margin: 0; padding: 0; list-style: none; font-size: 0.6875rem; color: var(--oc-chart-axis); }
-.oc-block-chart .oc-chart-bars { block-size: 9rem; }
-.oc-block-chart .oc-chart-bars > * { --oc-bar: 50%; }
-.oc-block-chart-donut {
-  --oc-donut-size: 9rem;
-  position: relative;
-  display: grid;
-  place-items: center;
-  inline-size: var(--oc-donut-size);
-  aspect-ratio: 1;
-  margin-inline: auto;
-  border-radius: 50%;
-  background: conic-gradient(var(--oc-chart-1) 0 40%, var(--oc-chart-2) 0 65%, var(--oc-chart-3) 0 82%, var(--oc-chart-4) 0 100%);
-}
-.oc-block-chart-donut::before { content: ""; position: absolute; inset: 22%; border-radius: 50%; background: var(--oc-card); }
-.oc-block-chart-donut-label { position: relative; display: flex; flex-direction: column; align-items: center; font-size: 1.5rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.oc-block-chart-donut-label small { font-size: 0.6875rem; font-weight: 400; color: var(--oc-muted-foreground); }
-.oc-block-chart-radial {
-  --oc-radial: 72;
-  position: relative;
-  display: grid;
-  place-items: center;
-  inline-size: 9rem;
-  aspect-ratio: 1;
-  margin-inline: auto;
-  border-radius: 50%;
-  background: conic-gradient(var(--oc-chart-1) calc(var(--oc-radial) * 1%), var(--oc-muted) 0);
-}
-.oc-block-chart-radial::before { content: ""; position: absolute; inset: 0.9rem; border-radius: 50%; background: var(--oc-card); }
-.oc-block-chart-radial > span { position: relative; font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-.oc-block-chart-hbars { display: flex; flex-direction: column; gap: 0.625rem; margin: 0; padding: 0; list-style: none; }
-.oc-block-chart-hbars li { display: grid; grid-template-columns: 5rem minmax(0, 1fr) 2.5rem; align-items: center; gap: 0.5rem; font-size: 0.8125rem; }
-.oc-block-chart-hbars li > i { display: block; block-size: 0.75rem; border-radius: 999px; background: linear-gradient(to right, var(--oc-chart-color, var(--oc-chart-1)) var(--oc-bar, 50%), var(--oc-muted) 0); }
-.oc-block-chart-hbars li > b { font-weight: 600; text-align: end; font-variant-numeric: tabular-nums; }
-.oc-block-chart-hbars li:nth-child(1) { --oc-chart-color: var(--oc-chart-1); }
-.oc-block-chart-hbars li:nth-child(2) { --oc-chart-color: var(--oc-chart-2); }
-.oc-block-chart-hbars li:nth-child(3) { --oc-chart-color: var(--oc-chart-3); }
-.oc-block-chart-hbars li:nth-child(4) { --oc-chart-color: var(--oc-chart-4); }
-.oc-block-chart-hbars li:nth-child(5) { --oc-chart-color: var(--oc-chart-5); }
-.oc-block-chart-spark { display: block; inline-size: 100%; block-size: 2.5rem; }
-.oc-block-chart-value { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.oc-block-chart-grid-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 1rem; }
+
 .oc-block-dash-table { inline-size: 100%; }
-
-/* ===================================================================
-   CALENDAR BLOCKS (calendar-01..05) — compose .oc-calendar
-   =================================================================== */
-.oc-block-cal {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-inline-size: 100%;
-  padding: 1rem;
-  color: var(--oc-foreground);
-  background: var(--oc-card);
-  border: 1px solid var(--oc-border);
-  border-radius: calc(var(--oc-radius) + 4px);
-}
-.oc-block-cal .oc-calendar { display: block; padding: 0; background: transparent; border: 0; }
-.oc-block-cal-months { display: flex; flex-wrap: wrap; gap: 1.5rem; }
-.oc-block-cal-layout { display: flex; flex-wrap: wrap; gap: 1.25rem; }
-.oc-block-cal-side { display: flex; flex-direction: column; gap: 0.75rem; min-inline-size: 11rem; padding-inline-start: 1.25rem; border-inline-start: 1px solid var(--oc-border); }
-.oc-block-cal-slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; max-block-size: 15rem; overflow: auto; }
-.oc-block-cal-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.oc-block-cal-foot { margin: 0; padding-block-start: 0.75rem; font-size: 0.8125rem; color: var(--oc-muted-foreground); border-block-start: 1px solid var(--oc-border); }
-.oc-block-cal-title { margin: 0; font-size: 0.9375rem; font-weight: 600; }
-.oc-block-cal-form { display: flex; flex-direction: column; gap: 1rem; inline-size: min(100%, 22rem); }
-@media (max-width: 36rem) { .oc-block-cal-side { padding-inline-start: 0; border-inline-start: 0; } }
-/* C-BLOCKS:end */
-
-/* parts/app-chat-inbox.css */
-/* File: packages/blocks/src/parts/app-chat-inbox.css | Map: block (container) -> layout (list | view) -> list head (title, search)
-   -> conversation rows (radio, avatar, name, time, subject, preview, unread dot) -> unread counter -> view (threads by :has,
-   empty state, back link) -> narrow container: one column -> reduced motion
-   Chat inbox block: conversations on the left, the selected thread on the right. Each row holds a hidden radio; :has() shows the
-   thread with the same position, so switching needs no JavaScript. In a narrow container it becomes list or thread, with a
-   back link. Based on the split inbox of the Korrekt app. */
-
-.oc-block-chat-inbox {
-  --oc-block-chat-inbox-height: 36rem;
-  container-type: inline-size;
-  inline-size: 100%;
-}
-/* The counter starts here, inside the size container: style containment keeps counters of the container itself out */
-.oc-block-chat-inbox-layout {
-  counter-reset: oc-chat-unread;
-  display: grid;
-  grid-template-columns: minmax(13rem, 19rem) minmax(0, 1fr);
-  block-size: var(--oc-block-chat-inbox-height);
-  overflow: hidden;
-  border: 1px solid var(--oc-border);
-  border-radius: calc(var(--oc-radius) + 4px);
-  background: var(--oc-card);
-  color: var(--oc-foreground);
-}
-
-/* ---- Conversation list ---- */
-.oc-block-chat-inbox-list {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  min-block-size: 0;
-  border-inline-end: 1px solid var(--oc-border);
-}
-.oc-block-chat-inbox-head { display: grid; gap: 0.6rem; padding: 0.85rem 0.85rem 0.75rem; border-block-end: 1px solid var(--oc-border); }
-.oc-block-chat-inbox-title { margin: 0; font-size: 1.05rem; font-weight: 700; }
-.oc-block-chat-inbox-search { inline-size: 100%; }
-.oc-block-chat-inbox-items {
-  min-block-size: 0;
-  margin: 0;
-  padding: 0.35rem;
-  overflow-y: auto;
-  list-style: none;
-  scrollbar-width: thin;
-}
-.oc-block-chat-inbox-item {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: start;
-  gap: 0.7rem;
-  padding: 0.65rem 0.6rem;
-  border-radius: var(--oc-radius);
-  cursor: pointer;
-  transition: background var(--oc-transition-normal);
-}
-.oc-block-chat-inbox-item:hover { background: var(--oc-surface-strong); }
-.oc-block-chat-inbox-item:has(input:checked) { background: color-mix(in oklch, var(--oc-primary) 12%, var(--oc-card)); }
-.oc-block-chat-inbox-item:has(input:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
-.oc-block-chat-inbox-item > input { position: absolute; opacity: 0; pointer-events: none; }
-.oc-block-chat-inbox-item > .oc-avatar { inline-size: 2.4rem; block-size: 2.4rem; font-size: 0.78rem; }
-.oc-block-chat-inbox-body { display: grid; gap: 0.05rem; min-inline-size: 0; }
-.oc-block-chat-inbox-top { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; min-inline-size: 0; }
-.oc-block-chat-inbox-name { overflow: hidden; font-size: 0.875rem; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
-.oc-block-chat-inbox-time { flex: none; color: var(--oc-muted-foreground); font-size: 0.7rem; font-variant-numeric: tabular-nums; }
-.oc-block-chat-inbox-subject,
-.oc-block-chat-inbox-preview { overflow: hidden; font-size: 0.8rem; white-space: nowrap; text-overflow: ellipsis; }
-.oc-block-chat-inbox-subject { color: var(--oc-foreground); }
-.oc-block-chat-inbox-preview { color: var(--oc-muted-foreground); }
-.oc-block-chat-inbox-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-block-start: 0.25rem; }
-.oc-block-chat-inbox-tags .oc-badge { padding-block: 0; font-size: 0.65rem; }
-
-/* Unread: bold text and a dot; opening the conversation (checking its radio) clears both */
-.oc-block-chat-inbox-dot { display: none; inline-size: 0.6rem; block-size: 0.6rem; margin-block-start: 0.35rem; border-radius: 50%; background: var(--oc-primary); }
-.oc-block-chat-inbox-item--unread:not(:has(input:checked)) { counter-increment: oc-chat-unread; }
-.oc-block-chat-inbox-item--unread:not(:has(input:checked)) .oc-block-chat-inbox-dot { display: block; }
-.oc-block-chat-inbox-item--unread:not(:has(input:checked)) :is(.oc-block-chat-inbox-name, .oc-block-chat-inbox-subject) { font-weight: 700; }
-.oc-block-chat-inbox-item--unread:not(:has(input:checked)) .oc-block-chat-inbox-time { color: var(--oc-primary); font-weight: 600; }
-.oc-block-chat-inbox-unread { margin: 0; padding: 0.55rem 0.85rem; border-block-start: 1px solid var(--oc-border); color: var(--oc-muted-foreground); font-size: 0.75rem; }
-.oc-block-chat-inbox-unread::before { content: counter(oc-chat-unread) " unread · "; color: var(--oc-foreground); font-weight: 600; }
-.oc-block-chat-inbox-none { position: absolute; opacity: 0; pointer-events: none; }
-
-/* ---- Thread view: the thread at the same position as the checked row is shown ---- */
-.oc-block-chat-inbox-view { position: relative; display: grid; min-block-size: 0; min-inline-size: 0; }
-.oc-block-chat-inbox-view > .oc-message-thread {
-  --oc-message-thread-height: 100%;
-  display: none;
-  border: 0;
-  border-radius: 0;
-}
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-items > li:nth-child(1) input:checked) .oc-block-chat-inbox-view > .oc-message-thread:nth-of-type(1),
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-items > li:nth-child(2) input:checked) .oc-block-chat-inbox-view > .oc-message-thread:nth-of-type(2),
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-items > li:nth-child(3) input:checked) .oc-block-chat-inbox-view > .oc-message-thread:nth-of-type(3),
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-items > li:nth-child(4) input:checked) .oc-block-chat-inbox-view > .oc-message-thread:nth-of-type(4),
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-items > li:nth-child(5) input:checked) .oc-block-chat-inbox-view > .oc-message-thread:nth-of-type(5),
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-items > li:nth-child(6) input:checked) .oc-block-chat-inbox-view > .oc-message-thread:nth-of-type(6),
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-items > li:nth-child(7) input:checked) .oc-block-chat-inbox-view > .oc-message-thread:nth-of-type(7),
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-items > li:nth-child(8) input:checked) .oc-block-chat-inbox-view > .oc-message-thread:nth-of-type(8) { display: grid; }
-
-/* Empty state while no conversation is selected */
-.oc-block-chat-inbox-empty {
-  display: none;
-  place-content: center;
-  justify-items: center;
-  gap: 0.35rem;
-  padding: 2rem;
-  background: color-mix(in oklch, var(--oc-muted) 40%, var(--oc-background));
-  color: var(--oc-muted-foreground);
-  font-size: 0.85rem;
-  text-align: center;
-}
-.oc-block-chat-inbox-empty strong { color: var(--oc-foreground); font-size: 0.95rem; }
-.oc-block-chat-inbox:has(.oc-block-chat-inbox-none:checked) .oc-block-chat-inbox-empty { display: grid; }
-
-/* Back link in the thread header: only in the narrow layout */
-.oc-block-chat-inbox-back {
-  display: none;
-  flex: none;
-  place-items: center;
-  inline-size: 2rem;
-  block-size: 2rem;
-  margin-inline-start: -0.4rem;
-  border-radius: 50%;
-  color: var(--oc-muted-foreground);
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-.oc-block-chat-inbox-back:hover { background: var(--oc-surface-strong); color: var(--oc-foreground); }
-.oc-block-chat-inbox-back:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
-
-/* ---- Narrow container: list or thread, one at a time ---- */
-@container (width < 36rem) {
-  .oc-block-chat-inbox-layout { grid-template-columns: minmax(0, 1fr); }
-  .oc-block-chat-inbox-list { border-inline-end: 0; }
-  .oc-block-chat-inbox-back { display: grid; }
-  .oc-block-chat-inbox:not(:has(.oc-block-chat-inbox-none:checked)) .oc-block-chat-inbox-list { display: none; }
-  .oc-block-chat-inbox:has(.oc-block-chat-inbox-none:checked) .oc-block-chat-inbox-view { display: none; }
-  .oc-block-chat-inbox-view .oc-message-thread__people { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .oc-block-chat-inbox-item { transition: none; }
-}
-
-/* parts/app-cms-dashboard.css */
-/* File: packages/blocks/src/parts/app-cms-dashboard.css
-   Map: frame (sidebar + main) -> top bar (title, user, logout) -> body -> flash alert -> content tiles -> recent changes -> narrow container
-   CMS dashboard block: the admin home of a small website CMS. A dark sidebar with section titles, a top bar with the page
-   title and the signed-in user, a flash message, one tile per content type (count + manage / add) and the latest changes.
-   Built on the sidebar frame (.oc-block-sb). Based on the Verdavita admin. */
-
-.oc-block-cms { --oc-block-sb-height: 44rem; }
-.oc-block-cms .oc-block-sb-main { container-type: inline-size; background: var(--oc-background); }
-
-/* ---- Top bar ---- */
-.oc-block-cms-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-block-size: 3.75rem;
-  padding: 0.5rem 1.5rem;
-  border-block-end: 1px solid var(--oc-border);
-  background: var(--oc-card);
-}
-.oc-block-cms-title { margin: 0; font-size: 1.25rem; font-weight: 700; }
-.oc-block-cms-user { display: flex; align-items: center; gap: 0.75rem; }
-.oc-block-cms-user .oc-user { color: inherit; text-decoration: none; }
-
-/* ---- Body ---- */
-.oc-block-cms-body { display: grid; align-content: start; gap: 1.5rem; padding: 1.5rem; overflow: auto; }
-.oc-block-cms-section-title { margin: 0 0 0.75rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--oc-muted-foreground); }
-
-/* ---- Content tiles ---- */
-.oc-block-cms-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
-.oc-block-cms-tile {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 0.25rem 0.9rem;
-  padding: 1rem;
-  border: 1px solid var(--oc-border);
-  border-radius: 12px;
-  background: var(--oc-card);
-}
-.oc-block-cms-tile-icon {
-  grid-row: span 2;
-  display: grid;
-  place-items: center;
-  inline-size: 2.75rem;
-  aspect-ratio: 1;
-  border-radius: 10px;
-  background: color-mix(in oklch, var(--oc-tile, var(--oc-primary)) 14%, transparent);
-  color: var(--oc-tile, var(--oc-primary));
-}
-.oc-block-cms-tile-icon svg { inline-size: 1.35rem; block-size: 1.35rem; }
-.oc-block-cms-tile-count { font-size: 1.6rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
-.oc-block-cms-tile-label { color: var(--oc-muted-foreground); font-size: 0.85rem; }
-.oc-block-cms-tile-links { grid-column: 1 / -1; display: flex; gap: 0.5rem; margin-block-start: 0.6rem; padding-block-start: 0.6rem; border-block-start: 1px solid var(--oc-border); font-size: 0.825rem; }
-.oc-block-cms-tile-links a { color: var(--oc-link-color, var(--oc-primary)); text-decoration: none; }
-.oc-block-cms-tile-links a:hover { text-decoration: underline; }
-.oc-block-cms-tile-links a + a::before { content: "·"; margin-inline-end: 0.5rem; color: var(--oc-muted-foreground); }
-.oc-block-cms-tile--green { --oc-tile: var(--color-green-50); }
-.oc-block-cms-tile--orange { --oc-tile: var(--color-orange-50); }
-.oc-block-cms-tile--magenta { --oc-tile: var(--color-magenta-50); }
-
-@container (width < 36rem) {
-  .oc-block-cms-bar { padding-inline: 1rem; }
-  .oc-block-cms-body { padding: 1rem; }
-  .oc-block-cms-user .oc-user-text { display: none; }
-}
-
-/* parts/app-form-builder.css */
-/* File: packages/blocks/src/parts/app-form-builder.css
-   Map: block -> top bar -> layout (canvas left, palette right) -> field card (grip, main, chips, actions, states)
-   -> empty state -> palette buttons -> field dialog (options row only for choice types) -> narrow container
-   Form builder block (admin): the fields of a form as cards you can reorder, a palette of field types, and a dialog
-   to edit one field. Based on the Verdavita contact form builder. */
-
-.oc-block-form-builder { container-type: inline-size; display: grid; gap: 1.25rem; inline-size: 100%; }
-.oc-block-form-builder-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; }
-.oc-block-form-builder-title { margin: 0; font-size: 1.15rem; font-weight: 700; }
-.oc-block-form-builder-subtitle { margin: 0.2rem 0 0; color: var(--oc-muted-foreground); font-size: 0.875rem; }
-.oc-block-form-builder-actions { display: flex; gap: 0.5rem; }
-.oc-block-form-builder-layout { display: grid; grid-template-columns: minmax(0, 1fr) 16rem; align-items: start; gap: 1.5rem; }
-
-/* ---- Canvas: the fields in order ---- */
-.oc-block-form-builder-canvas {
-  display: grid;
-  gap: 0.5rem;
-  min-block-size: 10rem;
-  margin: 0;
-  padding: 0.75rem;
-  list-style: none;
-  border: 2px dashed var(--oc-border);
-  border-radius: 12px;
-  background: color-mix(in oklch, var(--oc-muted) 45%, transparent);
-  transition: border-color 0.2s, background 0.2s;
-}
-.oc-block-form-builder-canvas.is-dragover { border-color: var(--oc-primary); background: color-mix(in oklch, var(--oc-primary) 6%, transparent); }
-.oc-block-form-builder-field {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 0.75rem;
-  border: 1px solid var(--oc-border);
-  border-radius: 10px;
-  background: var(--oc-card);
-  transition: box-shadow 0.2s, opacity 0.2s;
-}
-.oc-block-form-builder-field:hover { box-shadow: 0 2px 10px oklch(from var(--color-black-50) l c h / 0.08); }
-.oc-block-form-builder-field.is-dragging { opacity: 0.45; }
-.oc-block-form-builder-field.is-drop-before { box-shadow: 0 -3px 0 var(--oc-primary); }
-.oc-block-form-builder-field.is-drop-after { box-shadow: 0 3px 0 var(--oc-primary); }
-.oc-block-form-builder-field--off { background: var(--oc-muted); }
-.oc-block-form-builder-field--off .oc-block-form-builder-label { color: var(--oc-muted-foreground); text-decoration: line-through; }
-.oc-block-form-builder-main { display: grid; gap: 0.35rem; min-inline-size: 0; }
-.oc-block-form-builder-label { overflow: hidden; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
-.oc-block-form-builder-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-.oc-block-form-builder-chips code { padding: 0.05rem 0.4rem; border-radius: 4px; background: var(--oc-muted); font-size: 0.75rem; }
-.oc-block-form-builder-field-actions { display: flex; gap: 0.25rem; }
-.oc-block-form-builder-empty { display: none; place-items: center; gap: 0.25rem; padding: 2rem 1rem; color: var(--oc-muted-foreground); text-align: center; }
-.oc-block-form-builder-empty:only-child { display: grid; }
-
-/* ---- Palette ---- */
-.oc-block-form-builder-palette { position: sticky; top: 1rem; display: grid; gap: 0.75rem; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); }
-.oc-block-form-builder-palette-title { margin: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--oc-muted-foreground); }
-.oc-block-form-builder-types { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; }
-.oc-block-form-builder-type {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 0.6rem;
-  border: 1px solid var(--oc-border);
-  border-radius: 8px;
-  background: var(--oc-background);
-  color: var(--oc-foreground);
-  font: inherit;
-  font-size: 0.825rem;
-  text-align: start;
-  cursor: grab;
-  transition: border-color 0.15s, background 0.15s;
-}
-.oc-block-form-builder-type:hover { border-color: var(--oc-primary); background: color-mix(in oklch, var(--oc-primary) 6%, var(--oc-background)); }
-.oc-block-form-builder-type:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
-.oc-block-form-builder-type > span:first-child { inline-size: 1.25rem; color: var(--oc-primary); text-align: center; }
-
-/* ---- Field dialog: the options row only shows for select / checkboxes / radio ---- */
-.oc-block-form-builder-dialog .oc-modal-content { inline-size: min(100vw - 2rem, 32rem); }
-.oc-block-form-builder-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem 1rem; }
-.oc-block-form-builder-grid > .oc-field--full { grid-column: 1 / -1; }
-.oc-block-form-builder-options { display: none; }
-.oc-block-form-builder-dialog:has(select[name="type"] :is(option[value="select"], option[value="checkbox_group"], option[value="radio"]):checked) .oc-block-form-builder-options { display: grid; }
-.oc-block-form-builder-toggles { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-.oc-block-form-builder-toggles label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; }
-
-@container (width < 44rem) {
-  .oc-block-form-builder-layout { grid-template-columns: minmax(0, 1fr); }
-  .oc-block-form-builder-palette { position: static; order: -1; }
-  .oc-block-form-builder-types { grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); }
-}
-@container (width < 30rem) {
-  .oc-block-form-builder-grid { grid-template-columns: minmax(0, 1fr); }
-}
-
-/* parts/app-media-manager.css */
-/* File: packages/blocks/src/parts/app-media-manager.css
-   Map: block -> head -> tabs (count badge) -> panel (dropzone, list) -> file row (grip, thumb, name, meta, actions)
-   -> photo grid (select checkbox, CSS counter) -> bulk bar -> narrow container
-   Media manager block (admin): the documents, videos and photos of one item (a service, a project), each with an
-   upload zone, a reorderable list and delete actions. Based on the Verdavita service editor. */
-
-.oc-block-media-manager { container-type: inline-size; display: grid; gap: 1rem; inline-size: 100%; }
-.oc-block-media-manager-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem; }
-.oc-block-media-manager-title { margin: 0; font-size: 1.15rem; font-weight: 700; }
-.oc-block-media-manager-hint { margin: 0; color: var(--oc-muted-foreground); font-size: 0.85rem; }
-.oc-block-media-manager .oc-tab-trigger { display: inline-flex; align-items: center; gap: 0.4rem; }
-.oc-block-media-manager-count {
-  min-inline-size: 1.4rem;
-  padding: 0 0.4rem;
-  border-radius: 999px;
-  background: var(--oc-muted);
-  color: var(--oc-muted-foreground);
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 1.4rem;
-  text-align: center;
-}
-.oc-block-media-manager-panel { display: grid; gap: 1rem; }
-
-/* ---- File rows (documents, videos) ---- */
-.oc-block-media-manager-list { display: grid; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
-.oc-block-media-manager-row {
-  display: grid;
-  grid-template-columns: auto 3rem minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
-  border: 1px solid var(--oc-border);
-  border-radius: 10px;
-  background: var(--oc-card);
-}
-.oc-block-media-manager-row.is-dragging { opacity: 0.45; }
-.oc-block-media-manager-thumb {
-  display: grid;
-  place-items: center;
-  inline-size: 3rem;
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 8px;
-  background: var(--oc-muted);
-  color: var(--oc-muted-foreground);
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-.oc-block-media-manager-thumb--pdf { background: color-mix(in oklch, var(--color-red-60) 14%, var(--oc-card)); color: var(--color-red-60); }
-.oc-block-media-manager-thumb--video { background: color-mix(in oklch, var(--color-indigo-50) 14%, var(--oc-card)); color: var(--color-indigo-50); }
-.oc-block-media-manager-thumb > :is(img, .oc-media-art) { inline-size: 100%; block-size: 100%; object-fit: cover; }
-.oc-block-media-manager-name { display: grid; min-inline-size: 0; }
-.oc-block-media-manager-name strong { overflow: hidden; font-size: 0.9rem; white-space: nowrap; text-overflow: ellipsis; }
-.oc-block-media-manager-name span { color: var(--oc-muted-foreground); font-size: 0.78rem; }
-.oc-block-media-manager-actions { display: flex; gap: 0.25rem; }
-
-/* ---- Photo grid with selection ---- */
-.oc-block-media-manager-photos { counter-reset: oc-mm-selected; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.6rem; }
-.oc-block-media-manager-photo {
-  position: relative;
-  display: block;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border: 2px solid transparent;
-  border-radius: 10px;
-  background: var(--oc-muted);
-  cursor: pointer;
-}
-.oc-block-media-manager-photo > :is(img, .oc-media-art) { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
-.oc-block-media-manager-photo > input {
-  position: absolute;
-  inset: 0.4rem 0.4rem auto auto;
-  inline-size: 1.15rem;
-  block-size: 1.15rem;
-  margin: 0;
-  accent-color: var(--oc-primary);
-}
-.oc-block-media-manager-photo:has(input:checked) { counter-increment: oc-mm-selected; border-color: var(--oc-primary); }
-.oc-block-media-manager-photo:has(input:checked) > :is(img, .oc-media-art) { opacity: 0.75; }
-.oc-block-media-manager-photo:has(input:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
-.oc-block-media-manager-photo-size { position: absolute; inset: auto auto 0.35rem 0.4rem; padding: 0.05rem 0.35rem; border-radius: 4px; background: oklch(from var(--color-black-50) l c h / 0.6); color: var(--color-white-50); font-size: 0.7rem; }
-
-/* Bulk bar: only while photos are selected; the counter shows how many */
-.oc-block-media-manager-bulk {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 0.5rem 0.5rem 1rem;
-  border-radius: 10px;
-  background: color-mix(in oklch, var(--oc-primary) 10%, var(--oc-card));
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-.oc-block-media-manager-panel:has(.oc-block-media-manager-photo input:checked) .oc-block-media-manager-bulk { display: flex; }
-.oc-block-media-manager-bulk-count::before { content: counter(oc-mm-selected) " selected"; }
-/* The counter is read after the grid: show the bar after it in the DOM, place it on top with order */
-.oc-block-media-manager-panel--photos { display: flex; flex-direction: column; gap: 1rem; }
-.oc-block-media-manager-panel--photos > .oc-block-media-manager-bulk { order: -1; }
-
-@container (width < 34rem) {
-  .oc-block-media-manager-row { grid-template-columns: auto 2.5rem minmax(0, 1fr); }
-  .oc-block-media-manager-thumb { inline-size: 2.5rem; }
-  .oc-block-media-manager-actions { grid-column: 2 / -1; }
-}
-
-/* parts/app-status-page.css */
-/* File: packages/blocks/src/parts/app-status-page.css | Map: split grid -> visual panel (big code, rings, quote) -> content column + card -> code badge, title, text, detail -> actions + help -> status modifiers (403, 500, maintenance) -> full height */
-/* Status page block: 404 / 403 / 500 page in a split layout (visual panel + content card).
-   The status modifier sets the tone: default (404) = primary, --403 = warning, --500 = destructive.
-   The visual panel shows from 62rem; on small screens only the card is visible. */
-
-.oc-block-statuspage {
-  --oc-block-status-color: var(--oc-primary);
-  display: grid;
-  min-block-size: var(--oc-block-statuspage-height, 32rem);
-  color: var(--oc-foreground);
-  background: var(--oc-background);
-}
-@media (min-width: 62rem) { .oc-block-statuspage { grid-template-columns: 1fr 1fr; } }
-
-/* ---- Visual panel: tinted gradient, concentric rings and the big status code ---- */
-.oc-block-statuspage-visual {
-  position: relative;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  padding: 2.5rem;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 45%, oklch(from var(--oc-block-status-color) l c h / 0.18), transparent 60%),
-    repeating-radial-gradient(circle at 50% 45%, transparent 0 3.5rem, oklch(from var(--oc-block-status-color) l c h / 0.08) 3.5rem calc(3.5rem + 1px)),
-    var(--oc-muted);
-  border-inline-end: 1px solid var(--oc-border);
-}
-@media (min-width: 62rem) { .oc-block-statuspage-visual { display: flex; } }
-
-/* Big code ("404"): gradient text in the status color. */
-.oc-block-statuspage-number {
-  margin: 0;
-  font-size: clamp(5rem, 3rem + 6vw, 9rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  font-variant-numeric: tabular-nums;
-  color: transparent;
-  background: linear-gradient(160deg, var(--oc-block-status-color), oklch(from var(--oc-block-status-color) l c h / 0.35));
-  background-clip: text;
-}
-.oc-block-statuspage-quote { margin: 0; max-inline-size: 24rem; font-size: 1rem; line-height: 1.55; text-align: center; color: var(--oc-muted-foreground); }
-
-/* ---- Content column ---- */
-.oc-block-statuspage-content { display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
-.oc-block-statuspage-card { inline-size: 100%; max-inline-size: 28rem; }
-.oc-block-statuspage-logo { display: inline-flex; align-items: center; gap: 0.5rem; margin-block-end: 2rem; font-weight: 600; color: inherit; text-decoration: none; }
-.oc-block-statuspage-logo svg { inline-size: 1.5rem; block-size: 1.5rem; color: var(--oc-primary); }
-
-/* Small code badge ("Error 404"). */
-.oc-block-statuspage-code {
-  display: inline-block;
-  margin-block-end: 0.75rem;
-  padding: 0.2rem 0.625rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--oc-block-status-color);
-  background: oklch(from var(--oc-block-status-color) l c h / 0.12);
-  border: 1px solid oklch(from var(--oc-block-status-color) l c h / 0.35);
-  border-radius: 999px;
-}
-.oc-block-statuspage-title { margin: 0 0 0.5rem; font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; text-wrap: balance; }
-.oc-block-statuspage-text { margin: 0; font-size: 0.9375rem; line-height: 1.6; color: var(--oc-muted-foreground); }
-
-/* Technical detail (path, request id): monospace box. */
-.oc-block-statuspage-detail {
-  display: block;
-  margin-block-start: 1rem;
-  padding: 0.5rem 0.75rem;
-  overflow-x: auto;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.8125rem;
-  color: var(--oc-foreground);
-  white-space: nowrap;
-  background: var(--oc-surface);
-  border: 1px solid var(--oc-border);
-  border-radius: var(--oc-radius);
-}
-
-.oc-block-statuspage-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 1.5rem; }
-.oc-block-statuspage-help { margin: 1.5rem 0 0; font-size: 0.8125rem; color: var(--oc-muted-foreground); }
-.oc-block-statuspage-help a { color: var(--oc-primary); }
-
-/* ---- Status modifiers ---- */
-.oc-block-statuspage--403 { --oc-block-status-color: var(--oc-warning); }
-.oc-block-statuspage--500 { --oc-block-status-color: var(--oc-destructive); }
-.oc-block-statuspage--maintenance { --oc-block-status-color: var(--oc-brand-1); }
-
-/* Full window height (stand-alone error page). */
-.oc-block-statuspage--full { min-block-size: 100dvh; }
 
 /* parts/site-about-timeline.css */
 /* File: packages/blocks/src/parts/site-about-timeline.css
@@ -1852,91 +1326,6 @@ a.oc-block-contact-line:hover { color: var(--oc-brand-1); }
   .oc-block-orbit-mark > * { animation: none; }
 }
 
-/* parts/site-masonry-gallery.css */
-/* File: packages/blocks/src/parts/site-masonry-gallery.css
-   Map: section -> head + filter -> grid (columns, grid-lanes when supported) -> item (image, caption on hover/focus)
-   -> CSS-only filter (up to 6 categories) -> motion
-   Masonry gallery block: photos of different heights packed without gaps, a caption on hover or focus, and each photo
-   opens the lightbox component. No layout script: CSS columns, or display: grid-lanes where the browser has it.
-   Based on the Verdavita projects page. */
-
-.oc-block-masonry {
-  container-type: inline-size;
-  max-inline-size: var(--oc-block-max-width, 1200px);
-  margin-inline: auto;
-  padding: clamp(3rem, 7vw, 5rem) var(--oc-block-gap, 24px);
-}
-.oc-block-masonry-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; margin-block-end: 1.75rem; }
-.oc-block-masonry-title { margin: 0; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; }
-.oc-block-masonry-lead { margin: 0.5rem 0 0; color: var(--oc-block-text-soft, var(--oc-muted-foreground)); }
-
-/* ---- Masonry: CSS columns everywhere, real masonry rows where supported ---- */
-.oc-block-masonry-grid { --oc-masonry-gap: 1rem; columns: 15rem; column-gap: var(--oc-masonry-gap); }
-.oc-block-masonry-item { margin-block-end: var(--oc-masonry-gap); break-inside: avoid; }
-@supports (display: grid-lanes) {
-  .oc-block-masonry-grid { display: grid-lanes; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: var(--oc-masonry-gap); }
-  .oc-block-masonry-item { margin: 0; }
-}
-
-/* ---- Item: a button that opens the lightbox ---- */
-.oc-block-masonry-item {
-  position: relative;
-  display: block;
-  inline-size: 100%;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  border-radius: var(--oc-radius, 10px);
-  background: var(--oc-muted);
-  color: var(--color-white-50);
-  text-align: start;
-  cursor: zoom-in;
-}
-.oc-block-masonry-item > :is(img, .oc-media-art) {
-  display: block;
-  inline-size: 100%;
-  block-size: auto;
-  aspect-ratio: var(--oc-masonry-ratio, auto);
-  object-fit: cover;
-  transition: scale 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.oc-block-masonry-item > .oc-media-art { --oc-masonry-ratio: 4 / 3; }
-.oc-block-masonry-item--tall > .oc-media-art { --oc-masonry-ratio: 3 / 4; }
-.oc-block-masonry-item--square > .oc-media-art { --oc-masonry-ratio: 1; }
-.oc-block-masonry-item--wide > .oc-media-art { --oc-masonry-ratio: 16 / 9; }
-.oc-block-masonry-caption {
-  position: absolute;
-  inset: auto 0 0;
-  display: grid;
-  gap: 0.15rem;
-  padding: 2.5rem 1rem 0.9rem;
-  background: linear-gradient(transparent, oklch(from var(--color-black-50) l c h / 0.75));
-  opacity: 0;
-  translate: 0 0.5rem;
-  transition: opacity 0.3s, translate 0.3s;
-}
-.oc-block-masonry-caption strong { font-size: 0.95rem; }
-.oc-block-masonry-caption span { font-size: 0.8rem; opacity: 0.85; }
-.oc-block-masonry-item:is(:hover, :focus-visible) > :is(img, .oc-media-art) { scale: 1.05; }
-.oc-block-masonry-item:is(:hover, :focus-visible) > .oc-block-masonry-caption { opacity: 1; translate: 0 0; }
-.oc-block-masonry-item:focus-visible { outline: 3px solid var(--oc-ring); outline-offset: 2px; }
-/* Touch screens have no hover: always show the caption */
-@media (hover: none) { .oc-block-masonry-caption { opacity: 1; translate: 0 0; } }
-
-/* ---- CSS-only filter: chip n (after "All") shows the items with data-cat containing n ---- */
-.oc-block-masonry:has(.oc-block-masonry-filter > :nth-child(2) input:checked) .oc-block-masonry-item:not([data-cat~="1"]),
-.oc-block-masonry:has(.oc-block-masonry-filter > :nth-child(3) input:checked) .oc-block-masonry-item:not([data-cat~="2"]),
-.oc-block-masonry:has(.oc-block-masonry-filter > :nth-child(4) input:checked) .oc-block-masonry-item:not([data-cat~="3"]),
-.oc-block-masonry:has(.oc-block-masonry-filter > :nth-child(5) input:checked) .oc-block-masonry-item:not([data-cat~="4"]),
-.oc-block-masonry:has(.oc-block-masonry-filter > :nth-child(6) input:checked) .oc-block-masonry-item:not([data-cat~="5"]),
-.oc-block-masonry:has(.oc-block-masonry-filter > :nth-child(7) input:checked) .oc-block-masonry-item:not([data-cat~="6"]) {
-  display: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .oc-block-masonry-item > :is(img, .oc-media-art), .oc-block-masonry-caption { transition: none; }
-}
-
 /* parts/site-portfolio-grid.css */
 /* File: packages/blocks/src/parts/site-portfolio-grid.css
    Map: section -> head (title left, "all projects" link right) -> card grid -> two-column variant
@@ -2040,172 +1429,3 @@ a.oc-block-contact-line:hover { color: var(--oc-brand-1); }
 @container (max-width: 34rem) {
   .oc-block-profile-actions { flex-basis: 100%; }
 }
-
-/* parts/site-services-tabs.css */
-/* File: packages/blocks/src/parts/site-services-tabs.css
-   Map: section -> head -> tabset (vertical list left, panel right) -> panel (media, body, points, documents) -> narrow container
-   Services tabs block: one tab per service with a hero image or video, text, key points and documents (doc-viewer).
-   Uses the radio tabset (no JavaScript, up to 6 services). Based on the Verdavita services page. */
-
-.oc-block-services {
-  container-type: inline-size;
-  max-inline-size: var(--oc-block-max-width, 1200px);
-  margin-inline: auto;
-  padding: clamp(3rem, 7vw, 5rem) var(--oc-block-gap, 24px);
-}
-.oc-block-services-head { max-inline-size: 42rem; margin: 0 auto 2.5rem; text-align: center; }
-.oc-block-services-title { margin: 0 0 0.75rem; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
-.oc-block-services-lead { margin: 0; color: var(--oc-block-text-soft, var(--oc-muted-foreground)); font-size: 1.05rem; text-wrap: pretty; }
-
-/* ---- Tabs left, panel right ---- */
-.oc-block-services-tabs { display: grid; grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr); align-items: start; gap: 2rem; }
-.oc-block-services-tabs > .oc-tab-list { grid-column: 1; grid-row: 1; position: sticky; top: 1rem; }
-.oc-block-services-tabs > .oc-tab-panel { grid-column: 2; grid-row: 1; padding: 0; }
-.oc-block-services-tabs .oc-tab-trigger { display: flex; align-items: center; justify-content: flex-start; gap: 0.6rem; text-align: start; }
-.oc-block-services-tabs > .oc-tab-list--vertical { align-items: stretch; }
-.oc-block-services-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  inline-size: 2rem;
-  aspect-ratio: 1;
-  border-radius: 8px;
-  background: color-mix(in oklch, var(--oc-primary) 12%, transparent);
-  color: var(--oc-primary);
-  font-size: 1rem;
-}
-
-/* ---- One service ---- */
-.oc-block-services-panel { display: grid; gap: 1.5rem; }
-.oc-block-services-media {
-  overflow: hidden;
-  aspect-ratio: 16 / 7;
-  border-radius: var(--oc-radius-lg, 14px);
-  background: var(--oc-muted);
-}
-.oc-block-services-media > :is(img, video, .oc-media-art) { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
-.oc-block-services-body { display: grid; gap: 0.75rem; }
-.oc-block-services-name { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
-.oc-block-services-text { margin: 0; color: var(--oc-muted-foreground); line-height: 1.65; text-wrap: pretty; }
-.oc-block-services-points { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: 0.4rem 1.5rem; margin: 0; padding: 0; list-style: none; }
-.oc-block-services-points li { display: flex; gap: 0.5rem; font-size: 0.925rem; }
-.oc-block-services-points li::before { content: "✓"; flex: none; color: var(--oc-primary); font-weight: 700; }
-.oc-block-services-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-block-start: 0.25rem; }
-.oc-block-services-docs { display: grid; gap: 0.75rem; padding-block-start: 1.25rem; border-block-start: 1px solid var(--oc-border); }
-.oc-block-services-docs-title { margin: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--oc-muted-foreground); }
-
-/* ---- Narrow: tabs become a scrolling row above the panel ---- */
-@container (width < 48rem) {
-  .oc-block-services-tabs { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
-  .oc-block-services-tabs > .oc-tab-list {
-    position: static;
-    flex-direction: row;
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-  }
-  .oc-block-services-tabs > .oc-tab-list .oc-tab-trigger { flex: none; scroll-snap-align: start; white-space: nowrap; }
-  .oc-block-services-tabs > .oc-tab-panel { grid-column: 1; grid-row: 2; }
-  .oc-block-services-media { aspect-ratio: 16 / 9; }
-}
-
-/* parts/site-watch-layout.css */
-/* File: packages/blocks/src/parts/site-watch-layout.css
-   Map: section (container) -> grid (player column + side list) -> player placeholder -> title/meta/description
-        -> related list (thumb + duration + text) -> stacked variant
-   Watch layout block: video page with the player on the left and an "Up next" list on the right. */
-
-.oc-block-watch {
-  container-type: inline-size;
-  max-inline-size: var(--oc-block-max-width, 1200px);
-  margin-inline: auto;
-  padding: var(--oc-block-gap, 24px);
-}
-
-/* Two columns from 60rem container width, stacked below. */
-.oc-block-watch-grid { display: grid; gap: 1.5rem; }
-@container (min-width: 60rem) {
-  .oc-block-watch:not(.oc-block-watch--stacked) .oc-block-watch-grid { grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem); }
-}
-
-/* 16:9 player area. Put a <video> or <iframe> inside, or leave the play-icon placeholder. */
-.oc-block-watch-player {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--oc-block-radius, 16px);
-  background:
-    radial-gradient(circle at 30% 30%, color-mix(in oklch, var(--oc-brand-2) 45%, transparent), transparent 55%),
-    var(--color-shallowblue-95);
-  overflow: hidden;
-}
-.oc-block-watch-player > :is(video, iframe, img) { inline-size: 100%; block-size: 100%; border: 0; object-fit: cover; }
-.oc-block-watch-play {
-  display: grid;
-  place-items: center;
-  inline-size: 4.5rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: color-mix(in oklch, var(--color-white-50) 18%, transparent);
-  color: var(--color-white-50);
-  font-size: 1.6rem;
-}
-
-.oc-block-watch-title { margin: 1rem 0 0.75rem; font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; }
-.oc-block-watch-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; }
-.oc-block-watch-meta .oc-user { flex: 0 1 auto; }
-.oc-block-watch-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.oc-block-watch-description {
-  margin-block-start: 1rem;
-  padding: 0.9rem 1rem;
-  border-radius: var(--oc-radius, 0.5rem);
-  background: var(--oc-surface-strong);
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
-.oc-block-watch-description > p { margin: 0; }
-.oc-block-watch-description > p + p { margin-block-start: 0.5rem; }
-.oc-block-watch-stats { font-weight: 600; }
-
-/* Side list */
-.oc-block-watch-side-title { margin: 0 0 0.75rem; font-size: 1rem; font-weight: 700; }
-.oc-block-watch-list { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
-@container (min-width: 40rem) and (max-width: 59.99rem) {
-  .oc-block-watch-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-.oc-block-watch--stacked .oc-block-watch-list { grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
-
-.oc-block-watch-item {
-  display: grid;
-  grid-template-columns: 10rem minmax(0, 1fr);
-  gap: 0.75rem;
-  padding: 0.35rem;
-  border-radius: var(--oc-radius-md, 0.75rem);
-  color: var(--oc-foreground);
-  text-decoration: none;
-}
-.oc-block-watch-item:hover { background: var(--oc-surface-strong); }
-.oc-block-watch-item:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
-
-/* Thumbnail placeholder in the accent gradient (or an <img> inside) + duration badge. */
-.oc-block-watch-thumb {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--oc-radius, 0.5rem);
-  background: linear-gradient(135deg, var(--oc-accent-from), var(--oc-accent-to));
-  overflow: hidden;
-}
-.oc-block-watch-thumb > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
-.oc-block-watch-duration {
-  position: absolute;
-  inset: auto 0.3rem 0.3rem auto;
-  padding: 0.05rem 0.35rem;
-  border-radius: 4px;
-  background: color-mix(in oklch, var(--color-black-50) 75%, transparent);
-  color: var(--color-white-50);
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-.oc-block-watch-item-text { display: grid; align-content: start; gap: 0.2rem; min-inline-size: 0; }
-.oc-block-watch-item-title { font-size: 0.9rem; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
-.oc-block-watch-item-meta { color: var(--oc-muted-foreground); font-size: 0.78rem; }
