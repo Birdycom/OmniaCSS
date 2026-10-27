@@ -416,7 +416,8 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .ocd-search-foot { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; padding: 0.55rem 1rem; border-block-start: 1px solid var(--ocd-rule); font-size: 0.75rem; color: var(--oc-muted-foreground); }
 
 /* ---- Small screens -------------------------------------------------------------------------------- */
-@media (max-width: 1100px) {
+/* Compact search (icon only) while the header has the Pro button and both site links. */
+@media (max-width: 1340px) {
   .ocd-search-trigger span, .ocd-search-trigger kbd { display: none; }
   .ocd-search-trigger { inline-size: auto; padding: 0.45rem; }
 }
@@ -435,6 +436,10 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 @media (max-width: 1200px) {
   :is(.oc-docs-shell, .ocd-shell) { grid-template-columns: 250px minmax(0, 1fr); }
   :is(.oc-docs-sidebar-right, .ocd-sidebar-right) { display: none; }
+}
+/* Small laptops: the version badge next to the brand gives way to the links. */
+@media (max-width: 1100px) {
+  .oc-topbar-brand .oc-badge-version { display: none; }
 }
 @media (max-width: 900px) {
   :is(.oc-docs-shell, .ocd-shell) { grid-template-columns: minmax(0, 1fr); }

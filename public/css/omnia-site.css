@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Noto+Emoji:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@100;300;400;500;700;900&family=Noto+Sans+Math&family=Noto+Serif+JP:wght@200;300;400;500;600;700;900&family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
+@import url("oc-google-fonts.css");
 /* ===================================================================
    COLOR TOKENS (@supports oklch)
    Omnia/HTML: --color-{name}-{step} (tone), --color-{name}-mix-{step} (color-mix).

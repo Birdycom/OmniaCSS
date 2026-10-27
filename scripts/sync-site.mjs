@@ -46,5 +46,8 @@ const { css, stats } = await buildCss({
   layer: false,
   referencedBy,
 });
-await fs.writeFile(path.join(out, "css/omnia-site.css"), css);
+// Fonts come from our own server (scripts/self-host-fonts.mjs), never from Google: no visitor IP goes to a third party.
+const siteCss = css.replace(/@import url\(["']https:\/\/fonts\.googleapis\.com\/[^)]*\);?/g, '@import url("oc-google-fonts.css");');
+if (/fonts\.googleapis\.com/.test(siteCss)) throw new Error("[site] css/omnia-site.css still loads Google Fonts");
+await fs.writeFile(path.join(out, "css/omnia-site.css"), siteCss);
 console.log(`[site] css/omnia-site.css ${(stats.outputBytes / 1024).toFixed(0)} KB (full build ${(stats.inputBytes / 1024 / 1024).toFixed(1)} MB)`);

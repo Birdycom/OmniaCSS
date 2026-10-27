@@ -8,7 +8,7 @@
   <meta name="generator" content="OmniaCSS 0.11.0">
   <title>OmniaCSS Docs - Transitions</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/css/omnia-site.css?v=0d820e9e9e"><link rel="stylesheet" href="/css/oc-components.css?v=2818dd2af7"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=0bdacc0cbc"><link rel="stylesheet" href="/css/oc-layout-module.css?v=fbe27040e6"><link rel="stylesheet" href="/css/omnia_site.css?v=20d889b20a"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=ed94de3c8b"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=f70eb570c9">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=ff62efa697"><link rel="stylesheet" href="/css/oc-components.css?v=2818dd2af7"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=0bdacc0cbc"><link rel="stylesheet" href="/css/oc-layout-module.css?v=fbe27040e6"><link rel="stylesheet" href="/css/omnia_site.css?v=20d889b20a"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=ed94de3c8b"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=0532ca6a08">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -40,6 +40,7 @@
       </ul>
     </nav>
     <div class="ocd-topbar-actions">
+      <a class="oc-btn oc-btn--sm" href="https://omniaui.test/ui/pro.html#pricing">Pro</a>
       <button type="button" class="ocd-search-trigger" data-ocd-search aria-label="Search the docs (Ctrl K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>Search docs…</span><kbd>Ctrl K</kbd></button>
       <fieldset class="oc-theme-switch ocm-theme" aria-label="Color theme">
         <label><input type="radio" name="oc-theme" value="system" checked> System</label>
@@ -257,6 +258,6 @@
       <script>(() => { if (CSS.supports("selector(:target-current)")) return; const links = [...document.querySelectorAll(".oc-toc a[href^='#']")]; const root = document.querySelector(".oc-docs-content, .ocd-content"); if (!links.length || !root) return; const heads = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))); let raf = 0; const update = () => { raf = 0; const top = root.getBoundingClientRect().top + 80; let cur = 0; heads.forEach((h, i) => { if (h && h.getBoundingClientRect().top <= top) cur = i; }); if (root.scrollTop + root.clientHeight >= root.scrollHeight - 4) cur = links.length - 1; links.forEach((a, i) => a.classList.toggle("is-active", i === cur)); }; root.addEventListener("scroll", () => { raf ||= requestAnimationFrame(update); }, { passive: true }); update(); })();</script>
     </div>
 
-  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.11.0 — modern CSS utilities and tokens · <a href="/docs/index.html">Docs</a> · <a href="https://omniaui.test/index.html">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a></footer>
+  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.11.0 — modern CSS utilities and tokens · <a href="/docs/index.html">Docs</a> · <a href="https://omniaui.test/index.html">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a> · <a href="https://omniaui.test/legal/terms.html">Terms</a> · <a href="https://omniaui.test/legal/privacy.html">Privacy</a> · <a href="https://omniaui.test/legal/cookies.html">Cookies</a></footer>
 </body>
 </html>
