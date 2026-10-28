@@ -110,6 +110,44 @@ function detectFeatures(body, page = "", markup = "", limit = 10, folder = "") {
   return [...keys];
 }
 
+// Modern CSS a component's own rules rely on (regex on selector + declarations → MDN key).
+const CSS_RULE_FEATURES = [
+  [/:has\(/, "css.selectors.has"], [/:popover-open/, "css.selectors.popover-open"], [/anchor-name|position-anchor|anchor\(/, "css.properties.anchor-name"],
+  [/light-dark\(/, "css.types.color.light-dark"], [/color-mix\(/, "css.types.color.color-mix"], [/oklch\(/, "css.types.color.oklch"],
+  [/field-sizing/, "css.properties.field-sizing"], [/interpolate-size/, "css.properties.interpolate-size"], [/::details-content/, "css.selectors.details-content"],
+  [/allow-discrete|transition-behavior/, "css.properties.transition-behavior"], [/::backdrop/, "css.selectors.backdrop"], [/:focus-visible/, "css.selectors.focus-visible"],
+  [/container-type|@container/, "css.at-rules.container"], [/scroll-snap-type/, "css.properties.scroll-snap-type"], [/backdrop-filter/, "css.properties.backdrop-filter"],
+  [/\bmask(-image)?:/, "css.properties.mask-image"], [/aspect-ratio/, "css.properties.aspect-ratio"], [/accent-color/, "css.properties.accent-color"],
+  [/\banimation(-name)?:/, "css.properties.animation"], [/\binset:/, "css.properties.inset"], [/grid-template/, "css.properties.grid-template-columns"],
+  // Plain layout last, so a component that uses nothing newer still lists what it builds on.
+  [/display:\s*(inline-)?flex/, "css.properties.display.flex"], [/display:\s*(inline-)?grid/, "css.properties.display.grid"], [/\bgap:/, "css.properties.gap"],
+];
+const COMPONENT_CSS = () => [
+  ...["packages/ui/src", "packages/ui/src/parts"].flatMap((d) => { try { return fs.readdirSync(path.join(REPO, d)).filter((f) => f.endsWith(".css")).map((f) => path.join(REPO, d, f)); } catch { return []; } }),
+  path.join(REPO, "packages/blocks/src/blocks.css"),
+  path.join(REPO, "vendor/omniaui-pro/pro.css"),
+];
+/** Fallback for OmniaUI pages whose tables only list class names: features used by the CSS rules of the demo's classes. */
+function cssFeatures(markup, limit = 8) {
+  const classes = new Set([...markup.matchAll(/class="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/)).filter((c) => /^oc-[a-z0-9-]+$/.test(c) && !/^oc-(theme-scope|demo)/.test(c)));
+  if (!classes.size) return [];
+  const mine = (sel) => [...sel.matchAll(/\.(oc-[a-z0-9_-]+)/g)].some((m) => classes.has(m[1]));
+  const keys = new Set();
+  const scan = (text) => { for (const [re, key] of CSS_RULE_FEATURES) if (re.test(text) && hasCompat(key)) keys.add(key); };
+  for (const file of COMPONENT_CSS()) {
+    const css = rd(file).replace(/\/\*[\s\S]*?\*\//g, "");
+    // Only the page's own selectors count (a shared selector list may name other components' features).
+    for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const own = m[1].split(",").filter(mine);
+      if (own.length) scan(own.join(",") + "{" + m[2]);
+    }
+    for (const m of css.matchAll(/@starting-style\s*\{([\s\S]*?\})\s*\}/g)) if (mine(m[1]) && hasCompat("css.at-rules.starting-style")) keys.add("css.at-rules.starting-style");
+  }
+  // Newest first (list order), plain layout last; starting-style sits with the modern ones.
+  const rank = (k) => (k === "css.at-rules.starting-style" ? 1.5 : CSS_RULE_FEATURES.findIndex(([, key]) => key === k));
+  return [...keys].sort((a, b) => rank(a) - rank(b)).slice(0, limit);
+}
+
 // ---------------------------------------------------------------------------------------------------------
 // Browser support + "Source & Further Reading" (end of every docs page about CSS)
 // ---------------------------------------------------------------------------------------------------------
@@ -242,6 +280,70 @@ function sourceFooter(body, route, keys, title, folder, page) {
   return `<div class="oc-section-footer"><h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2><p class="oc-section-footer__desc">${desc}</p><div class="oc-section-content"><h3 class="oc-section-content__title">SCSS source</h3><div class="oc-expandable-table"><table class="oc-table-ref"><thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead><tbody>${rows}</tbody></table></div><h3 class="oc-section-content__title">Compiled output</h3><p class="oc-section-content__desc">Run <code>npm run build</code> to compile the SCSS; all classes end up in <code>public/css/omnia_main.css</code>.</p><h3 class="oc-section-content__title">Related pages</h3><p class="oc-section-content__desc">${related}</p></div></div>`;
 }
 
+/** Files behind an OmniaUI component or block page, relative to the repository (only those that exist). */
+function uiSourceFiles(kind, slug) {
+  const pascal = slug.replace(/(^|-)(\w)/g, (_, __, c) => c.toUpperCase());
+  const has = (rel) => fs.existsSync(path.join(REPO, rel));
+  const partOf = (dir) => { try { return fs.readdirSync(path.join(REPO, dir)).find((f) => f.endsWith(`-${slug}.css`)); } catch { return null; } };
+  if (kind === "components") {
+    const part = partOf("packages/ui/src/parts");
+    return {
+      css: part ? `packages/ui/src/parts/${part}` : "packages/ui/src/components.css",
+      snippets: has(`packages/ui/snippets/${slug}.html`) ? [`packages/ui/snippets/${slug}.html`] : [],
+      react: has(`packages/react/src/components/${pascal}.tsx`) && { file: `packages/react/src/components/${pascal}.tsx`, name: pascal, pkg: "@birdycom/omniaui-react" },
+      vue: has(`packages/vue/src/components/Oc${pascal}.vue`) && { file: `packages/vue/src/components/Oc${pascal}.vue`, name: `Oc${pascal}`, pkg: "@birdycom/omniaui-vue" },
+      blade: has(`php-packages/omniaui-laravel/resources/views/components/${slug}.blade.php`) && { file: `resources/views/components/${slug}.blade.php`, tag: `x-oc::${slug}` },
+    };
+  }
+  const part = partOf("packages/blocks/src/parts");
+  let snippets = [];
+  try { snippets = fs.readdirSync(path.join(REPO, "packages/blocks/blocks")).filter((f) => f === `${slug}.html` || f.startsWith(`${slug}-`)).map((f) => `packages/blocks/blocks/${f}`); } catch {}
+  return {
+    css: part ? `packages/blocks/src/parts/${part}` : "packages/blocks/src/blocks.css",
+    snippets,
+    react: has(`packages/react/src/blocks/Block${pascal}.tsx`) && { file: `packages/react/src/blocks/Block${pascal}.tsx`, name: `Block${pascal}`, pkg: "@birdycom/omniaui-react" },
+    vue: has(`packages/vue/src/blocks/OcBlock${pascal}.vue`) && { file: `packages/vue/src/blocks/OcBlock${pascal}.vue`, name: `OcBlock${pascal}`, pkg: "@birdycom/omniaui-vue" },
+    blade: has(`php-packages/omniaui-laravel/resources/views/components/block/${slug}.blade.php`) && { file: `resources/views/components/block/${slug}.blade.php`, tag: `x-oc::block.${slug}` },
+  };
+}
+
+function uiPageExtras(body, route, document) {
+  const m = route.match(/^ui\/(components|blocks)\/([a-z0-9-]+)\.html$/);
+  if (!m || !fs.existsSync(path.join(REPO, "packages/ui"))) return;
+  const demos = body.querySelectorAll(".oc-demo");
+  if (demos.length && [...demos].every((d) => d.classList.contains("oc-demo--pro"))) return;
+  const [, kind, slug] = m;
+  const f = uiSourceFiles(kind, slug);
+  const sections = () => [...body.children].filter((el) => el.localName === "section");
+  const add = (html) => {
+    const tpl = document.createElement("template");
+    tpl.innerHTML = html;
+    const last = sections().at(-1);
+    if (last) last.after(tpl.content); else body.append(tpl.content);
+  };
+  if (!body.querySelector("#frameworks") && (f.react || f.vue || f.blade)) {
+    const lines = [];
+    if (f.react) lines.push(`&lt;!-- React --&gt;`, `import { ${f.react.name} } from "${f.react.pkg}";`, `&lt;${f.react.name} /&gt;`);
+    if (f.vue) lines.push(`&lt;!-- Vue --&gt;`, `import { ${f.vue.name} } from "${f.vue.pkg}";`, `&lt;${f.vue.name} /&gt;`);
+    if (f.blade) lines.push(`&lt;!-- Laravel Blade --&gt;`, `&lt;${f.blade.tag} /&gt;`);
+    add(`<section class="oc-docs-section" id="frameworks"><div class="oc-section-header"><h2 class="oc-section-header__title">Framework wrappers</h2><p class="oc-section-header__desc">The same markup and classes as ${[f.react && "React", f.vue && "Vue", f.blade && "Blade"].filter(Boolean).join(", ").replace(/, ([^,]*)$/, " and $1")} components. Their props follow the class modifiers on this page; see the source files below.</p></div><div class="oc-section-content">${codeBlock(lines.join("\n").replace(/&lt;/g, "<").replace(/&gt;/g, ">"), "html")}</div></section>`);
+  }
+  // Framework wrappers always follow the reference directly (auto-added or written in the page).
+  const ref = sections().find((el) => el.id === "reference");
+  const fw = sections().find((el) => el.id === "frameworks");
+  if (ref && fw && ref.nextElementSibling !== fw) ref.after(fw);
+  if (!pageFooter(body)) {
+    const rows = [[f.css, "Styles"], ...f.snippets.map((s) => [s, "Copy-paste markup"])];
+    if (f.react || f.vue) rows.push([[f.react?.file, f.vue?.file].filter(Boolean).join("</code> / <code>"), "Wrappers"]);
+    if (f.blade) rows.push([f.blade.file, `Laravel: <code>&lt;${f.blade.tag}&gt;</code>`]);
+    const footer = `<div class="oc-section-footer"><h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2><div class="oc-section-content"><h3 class="oc-section-content__title">Source files</h3><table class="oc-table-ref"><thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead><tbody>${rows.map(([file, what]) => `<tr><td><code>${file}</code></td><td>${what}</td></tr>`).join("")}</tbody></table></div></div>`;
+    const last = sections().at(-1);
+    if (last) { const tpl = document.createElement("template"); tpl.innerHTML = footer; last.append(tpl.content); }
+  }
+}
+
+// The page's own source footer; a footer inside a demo (Section block) is part of the example.
+const pageFooter = (body) => [...body.querySelectorAll(".oc-section-footer")].find((f) => !f.closest(".oc-demo"));
 const isBrowserSupportHeading = (el) => !!el && /^h[23]$/.test(el.localName) && /^browser support$/i.test(el.textContent.trim());
 
 export function transform(content, route = "") {
@@ -278,6 +380,13 @@ export function transform(content, route = "") {
     // .oc-theme-scope on the preview, and its own radio name so it is not grouped with the site header switch.
     // The code panels keep the original names (they were taken from `preview` above).
     for (const radio of demo.querySelectorAll(".oc-theme-switch input[name]")) radio.setAttribute("name", `${radio.getAttribute("name")}-demo-${n}`);
+    // In-page links of the demo ("#overview" in a table of contents or a sidebar) must not scroll the docs page to
+    // its own section with the same id: a link that does not point inside this demo gets a fragment of its own.
+    const inner = new Set([...demo.querySelectorAll("[id]")].map((el) => el.id));
+    for (const a of demo.querySelectorAll('a[href^="#"]')) {
+      const id = a.getAttribute("href").slice(1);
+      if (id && !inner.has(id)) a.setAttribute("href", `#demo-${n}-${id}`);
+    }
     const scoped = demo.innerHTML;
     replaceWithHtml(document, demo, `<div class="oc-demo oc-demo--v2${pro ? " oc-demo--pro" : ""}"><div class="oc-demo__bar"><h4 class="oc-demo__title">${title}${pro ? ' <span class="oc-demo__pro-badge">Pro</span>' : ""}</h4><div class="oc-demo__tablist" role="radiogroup" aria-label="Show">${tabs}</div><div class="oc-demo__widths" role="radiogroup" aria-label="Preview width">${widths}</div></div><div class="oc-demo__preview oc-theme-scope${size}">${scoped}</div>${panels}</div>`);
   }
@@ -289,13 +398,13 @@ export function transform(content, route = "") {
 
   // 2b. Older pages end with a separate "Source & ..." section: turn it into the standard source footer
   //     (title, intro, content), appended to the previous section.
-  if (route.startsWith("docs/") && body.querySelector(".oc-section-footer")) {
+  if (route.startsWith("docs/") && pageFooter(body)) {
     // A page with a proper footer must not also carry an older duplicate "Source" section.
     for (const sec of body.querySelectorAll("section.oc-docs-section")) {
       if (/^source/i.test(sec.querySelector(".oc-section-header__title")?.textContent.trim() || "") && !sec.querySelector(".oc-section-footer")) sec.remove();
     }
   }
-  if (route.startsWith("docs/") && !body.querySelector(".oc-section-footer")) {
+  if (route.startsWith("docs/") && !pageFooter(body)) {
     const legacy = [...body.querySelectorAll("section.oc-docs-section")].find((sec) => /^source\b/i.test(sec.querySelector(".oc-section-header__title")?.textContent.trim() || ""));
     if (legacy) {
       const header = legacy.querySelector(".oc-section-header");
@@ -314,6 +423,10 @@ export function transform(content, route = "") {
       if (prev) { prev.append(footer); legacy.remove(); } else legacy.replaceWith(footer);
     }
   }
+
+  // 2b. OmniaUI component and block pages: add "Framework wrappers" and the source footer when the page has none,
+  //     from the files that exist (React, Vue, Blade, snippet, CSS part). Pro block pages are skipped (closed code).
+  uiPageExtras(body, route, document);
 
   // 3. Browser support + source footer.
   const parts = route.replace(/\.html$/, "").split("/");
@@ -345,14 +458,14 @@ export function transform(content, route = "") {
     for (const k of EXTRA_FEATURES[`${folder}/${page}`] || EXTRA_FEATURES[folder] || []) if (hasCompat(k) && !all.includes(k)) all.push(k);
     const title = body.querySelector(".oc-section-header__title, h1")?.textContent.replace(/\s+/g, " ").trim() || "this";
     // 3c. Footer: keep the page's own, else generate one; browser support goes right above it.
-    let footer = body.querySelector(".oc-section-footer");
+    let footer = pageFooter(body);
     if (!footer) {
       const sections = body.querySelectorAll("section.oc-docs-section");
       const host = sections[sections.length - 1] || body;
       const tpl = document.createElement("template");
       tpl.innerHTML = sourceFooter(body, route, all, title, folder, page);
       host.append(tpl.content);
-      footer = body.querySelector(".oc-section-footer");
+      footer = pageFooter(body);
     }
     if (all.length) {
       const block = document.createElement("div");
@@ -361,19 +474,87 @@ export function transform(content, route = "") {
       footer.before(block);
     }
   } else if (!body.querySelector("oc-compat, [data-oc-no-compat]")) {
-    // Other pages: derived list placed right after the overview (opt out with data-oc-no-compat, e.g. overview galleries).
-    const keys = detectFeatures(body, parts.at(-1) === "index" ? parts.at(-2) : parts.at(-1), demoMarkup);
+    // Other pages: a derived list as its own "Browser support" section at the end, like the pages that write one
+    // (demo first, browser support last, the source footer under it). Opt out with data-oc-no-compat (overview galleries).
+    let keys = detectFeatures(body, parts.at(-1) === "index" ? parts.at(-2) : parts.at(-1), demoMarkup);
+    if (!keys.length && /^ui\/(components|blocks)\//.test(route)) keys = cssFeatures(demoMarkup);
     const hero = body.querySelector(".oc-hero");
     const header = body.querySelector(".oc-section-header");
     if (keys.length && (hero || header)) {
-      const el = document.createElement("div");
-      el.className = "oc-compat-auto";
-      el.innerHTML = `<h3 class="oc-section-content__title" id="browser-support">Browser support</h3><oc-compat features="${keys.join(" ")}"></oc-compat>`;
-      const content = header?.parentElement?.querySelector(":scope > .oc-section-content");
-      if (hero) hero.after(el);
-      else if (content) content.prepend(el);
-      else header.after(el);
+      const section = document.createElement("section");
+      section.className = "oc-docs-section";
+      section.id = "support";
+      section.innerHTML = `<div class="oc-section-header"><h2 class="oc-section-header__title">Browser support</h2></div><div class="oc-section-content"><oc-compat features="${keys.join(" ")}"></oc-compat></div>`;
+      const footer = pageFooter(body);
+      if (footer) {
+        footer.closest("section")?.after(section);
+        section.append(footer);
+      } else {
+        // Last section next to the hero (pages that wrap everything in a container included).
+        const host = hero ?? header;
+        [...host.parentElement.children].filter((el) => el.localName === "section").at(-1).after(section);
+      }
     }
+  }
+  // 3c'. "Source & Further Reading" is its own last section with the same header as Reference (title, intro, content),
+  //      wherever the footer was written or generated. A page that already has a #source section gets the footer merged in.
+  for (const footer of [...body.querySelectorAll(".oc-section-footer")].filter((f) => !f.closest(".oc-demo"))) {
+    const title = footer.querySelector(".oc-section-footer__title");
+    const desc = footer.querySelector(".oc-section-footer__desc");
+    let section = [...body.children].find((el) => el.localName === "section" && el.id === "source");
+    if (!section) {
+      section = document.createElement("section");
+      section.className = "oc-docs-section";
+      section.id = "source";
+      section.innerHTML = `<div class="oc-section-header"><h2 class="oc-section-header__title">${title?.innerHTML ?? "Source &amp; Further Reading"}</h2>${desc ? `<p class="oc-section-header__desc">${desc.innerHTML}</p>` : ""}</div>`;
+      body.append(section);
+    }
+    title?.remove();
+    desc?.remove();
+    section.append(...footer.childNodes);
+    footer.remove();
+  }
+  const sourceSection = [...body.children].find((el) => el.localName === "section" && el.id === "source");
+  if (sourceSection) {
+    const last = [...body.children].filter((el) => el.localName === "section" && el !== sourceSection).at(-1);
+    if (last) last.after(sourceSection); else body.append(sourceSection);
+  }
+  // 3c''. "Browser support" is its own section (h2 + table) right above the source section, wherever the author or
+  //       step 3c put it: .oc-browser-support blocks and "Browser support" sub-headings with their intro and table move in.
+  const topSections = () => [...body.children].filter((el) => el.localName === "section");
+  let support = topSections().find((el) => el.id === "support" || isBrowserSupportHeading(el.querySelector(":scope > .oc-section-header > h2")));
+  const moved = [];
+  for (const block of [...body.querySelectorAll(".oc-browser-support")]) {
+    if (support?.contains(block) || block.closest(".oc-demo")) continue;
+    block.querySelector(":scope > h2, :scope > h3")?.remove();
+    moved.push(...block.childNodes);
+    block.remove();
+  }
+  for (const h of [...body.querySelectorAll("h2, h3")].filter(isBrowserSupportHeading)) {
+    if (support?.contains(h) || h.classList.contains("oc-section-header__title") || h.closest(".oc-demo")) continue;
+    const parts = [];
+    for (let el = h.nextElementSibling; el && !/^h[23]$/.test(el.localName); el = el.nextElementSibling) {
+      parts.push(el);
+      if (el.localName === "oc-compat") break;
+    }
+    if (!parts.some((el) => el.localName === "oc-compat")) continue;
+    h.remove();
+    moved.push(...parts);
+  }
+  if (moved.length) {
+    if (!support) {
+      support = document.createElement("section");
+      support.className = "oc-docs-section";
+      support.id = "support";
+      support.innerHTML = `<div class="oc-section-header"><h2 class="oc-section-header__title">Browser support</h2></div><div class="oc-section-content"></div>`;
+      body.append(support);
+    }
+    (support.querySelector(":scope > .oc-section-content") ?? support).append(...moved);
+  }
+  if (support) {
+    const source = topSections().find((el) => el.id === "source");
+    if (source) source.before(support);
+    else topSections().filter((el) => el !== support).at(-1)?.after(support);
   }
   // 3d. Automatic badges next to the page's own: "0 KB JavaScript" when no demo needs a script, and the support
   //     level of everything in the browser support tables ("Baseline" = Chrome, Firefox and Safari, desktop and mobile).
@@ -410,7 +591,7 @@ export function transform(content, route = "") {
   const used = new Set([...body.querySelectorAll("[id]")].map((e) => e.id));
   for (const h of body.querySelectorAll("h2, h3")) {
     const text = h.textContent.replace(/\s+/g, " ").trim();
-    if (!text || h.closest(".oc-demo, .oc-compat, .oc-preview, header, nav") || (h.localName === "h3" && h.closest(".oc-section-footer"))) continue;
+    if (!text || h.closest(".oc-demo, .oc-compat, .oc-preview, header, nav") || (h.localName === "h3" && h.closest(".oc-section-footer, section#source"))) continue;
     if (!h.id) {
       let id = slug(text);
       for (let i = 2; used.has(id); i++) id = `${slug(text)}-${i}`;

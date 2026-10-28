@@ -82,7 +82,7 @@
   "devDependencies": {
     "@mdn/browser-compat-data": "^8.1.5",
     "autoprefixer": "^10.4.21",
-    "basic-ftp": "^5.3.1",
+    "basic-ftp": "^6.2.3",
     "cssnano": "^7.1.1",
     "json-to-scss": "^1.6.2",
     "postcss": "^8.5.3",
