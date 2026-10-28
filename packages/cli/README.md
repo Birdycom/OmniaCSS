@@ -10,6 +10,14 @@ npx omniacss migrate scan            # Tailwind CSS -> OmniaCSS (needs @birdycom
 
 Options: `-c/--content <glob>`, `-o/--output <file>`, `--no-components`, `--no-layer`. Node.js 22+. MIT
 
+The build scans your files for literal class names. A class you put together in code, such as
+`'oc-icon-tile--'.$size` in PHP or `` `text-${color}` `` in JavaScript, is not found and gets left out. Write the
+full names somewhere, or list them under `keep` in `omnia.config.json`:
+
+```json
+{ "keep": ["oc-icon-tile--sm", "oc-icon-tile--lg", "oc-icon-tile--xl"] }
+```
+
 ## Theme tokens for desktop apps
 
 Native toolkits have no CSS engine. `omniacss tokens` writes the theme tokens resolved per mode (light/dark),

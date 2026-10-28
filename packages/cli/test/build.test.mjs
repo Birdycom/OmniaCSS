@@ -39,6 +39,15 @@ test("build writes only the utilities the project uses", async () => {
   assert.doesNotMatch(css, /\.grid-cols-7\b/);
 });
 
+test("build --minify keeps animation-timeline out of the animation shorthand", async () => {
+  // Chrome drops "animation: … view()" entirely, so scroll-driven animations would stop working.
+  const dir = await project({ "index.html": '<div class="animate-view-fade-in"></div>' });
+  run(dir, "build", "--minify", "-o", "out.css");
+  const css = await fs.readFile(path.join(dir, "out.css"), "utf8");
+  assert.match(css, /animation-timeline:view\(\)/);
+  assert.doesNotMatch(css, /animation:[^;}]*view\(\)/);
+});
+
 test("build keeps color tokens that the content uses in inline styles", async () => {
   const dir = await project({ "index.html": '<div class="flex" style="background: var(--color-red-50)"></div>' });
   run(dir, "build", "-o", "out.css");

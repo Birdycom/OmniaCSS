@@ -122,6 +122,12 @@ async function omniauiCss(config) {
   return css;
 }
 
+// Browsers for --minify. Without targets lightningcss folds animation-timeline into the animation shorthand,
+// which Chrome rejects (the whole declaration drops, so scroll-driven animations stop). These versions are
+// new enough that nothing (light-dark(), nesting, oklch) gets lowered.
+const v = (major, minor = 0) => (major << 16) | (minor << 8);
+const MINIFY_TARGETS = { chrome: v(123), edge: v(123), firefox: v(120), safari: v(17, 5), ios_saf: v(17, 5) };
+
 async function cmdBuild(flags) {
   const config = await loadConfig(flags);
   const engine = await import(pathToFileURL(resolvePkg("@birdycom/omniacss/engine")).href);
@@ -134,7 +140,7 @@ async function cmdBuild(flags) {
     let css = engine.generate(full, candidates, { layer: config.layer, keep: config.keep });
     if (config.minify) {
       const { transform } = await import("lightningcss");
-      css = transform({ filename: config.output, code: Buffer.from(css), minify: true }).code.toString();
+      css = transform({ filename: config.output, code: Buffer.from(css), minify: true, targets: MINIFY_TARGETS }).code.toString();
     }
     const out = path.resolve(cwd, config.output);
     await fs.mkdir(path.dirname(out), { recursive: true });

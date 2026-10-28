@@ -19,13 +19,18 @@ async function copy(from, to) {
   console.log("[packages]", path.relative(root, from), "->", path.relative(root, to));
 }
 
+// Browsers for minifying. Without targets lightningcss folds animation-timeline into the animation shorthand,
+// which Chrome rejects, so scroll-driven animations stop. Same list as the omniacss CLI (--minify).
+const v = (major, minor = 0) => (major << 16) | (minor << 8);
+const MINIFY_TARGETS = { chrome: v(123), edge: v(123), firefox: v(120), safari: v(17, 5), ios_saf: v(17, 5) };
+
 // Lightweight CDN bundle: the curated class list (packages/core/src/starter-classes.mjs) run through the on-demand engine.
 async function buildStarter() {
   const dist = r("packages/core/dist");
   const css = generate(await loadFullCss({ dist }), new Set(starterClasses), { layer: "omnia" });
   const raw = r("packages/core/dist/omnia.starter.css");
   await fs.writeFile(raw, css);
-  const { code } = transform({ filename: raw, code: Buffer.from(css), minify: true });
+  const { code } = transform({ filename: raw, code: Buffer.from(css), minify: true, targets: MINIFY_TARGETS });
   await fs.writeFile(raw.replace(/\.css$/, ".min.css"), code);
   const gz = zlib.gzipSync(code, { level: 9 }).length;
   console.log("[packages] starter bundle: omnia.starter.css", css.length, "bytes, omnia.starter.min.css", code.length, "bytes,", gz, "bytes gzip");
