@@ -3,6 +3,9 @@ name: Release
 on:
   push:
     tags: ["v*"]
+  # Manual run from main (Actions tab or `gh workflow run release.yml`): publishes the version in package.json,
+  # for when a tag run failed before npm had the version (no need to move the tag).
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,9 +26,25 @@ jobs:
       - run: npm ci
 
       - name: Check tag matches package version
+        if: github.ref_type == 'tag'
         run: |
           V=$(node -p "require('./packages/core/package.json').version")
           if [ "v$V" != "${GITHUB_REF_NAME}" ]; then echo "Tag ${GITHUB_REF_NAME} != package version v$V"; exit 1; fi
+
+      # Diagnostics only (never fails the job, never prints a token): asks npm per package whether this workflow
+      # is an accepted Trusted Publisher. HTTP 201 = accepted; otherwise npm's message says what does not match.
+      - name: Check npm Trusted Publishing
+        continue-on-error: true
+        run: |
+          npm --version
+          ID_TOKEN=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm:registry.npmjs.org" | jq -r .value)
+          echo "$ID_TOKEN" | cut -d. -f2 | tr '_-' '/+' | base64 -d 2>/dev/null | jq -c '{repository, workflow_ref, ref}' || true
+          for pkg in @birdycom/omniacss @birdycom/omniacss-cli @birdycom/omniacss-migrate; do
+            code=$(curl -sS -o resp.json -w '%{http_code}' -X POST -H "Authorization: Bearer $ID_TOKEN" \
+              "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/$(jq -rn --arg p "$pkg" '$p|@uri')")
+            echo "$pkg -> HTTP $code $(jq -c 'del(.token)' resp.json 2>/dev/null || head -c 300 resp.json)"
+          done
+          rm -f resp.json
 
       # build:packages copies the committed compiled CSS (public/css/omnia_main*.css) into packages/core/dist.
       - run: npm run build:packages
@@ -33,8 +52,13 @@ jobs:
       - run: npm test -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate
 
       # Order matters: omniacss (utilities) first, then cli and migrate (they depend on it).
+      # Each package is published from its own folder, so npm matches it to its Trusted Publisher.
       # apps/docs is private and not published. Components/blocks are released from the OmniaUI repo.
       - name: Publish
-        run: >
-          npm publish --access public
-          -w @birdycom/omniacss -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate
+        run: |
+          for dir in packages/core packages/cli packages/migrate; do
+            NAME=$(node -p "require('./$dir/package.json').name"); V=$(node -p "require('./$dir/package.json').version")
+            # A retry after a partial publish skips what npm already has.
+            if npm view "$NAME@$V" version >/dev/null 2>&1; then echo "$NAME@$V is already on npm, skipped"; continue; fi
+            (cd "$dir" && npm publish --access public)
+          done
