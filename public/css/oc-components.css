@@ -1,4 +1,4 @@
-/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.11.1. Do not edit. */
+/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.11.2. Do not edit. */
 /* Semantic theme tokens: every color is light-dark() of an Omnia palette token (oc-colors.css). */
 /* Same source as the desktop export: npx omniacss tokens --format json|dtcg|python */
 :root {
@@ -3502,7 +3502,8 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
         fact/tag/check lists -> site header -> site footer -> reveal on scroll */
 /* Showcase components — modern site/marketing building blocks, pure CSS (no JavaScript).
    Colors: Omnia palette tokens only (OKLCH), via the theme tokens of components.css.
-   Accent per element: --oc-accent-from / --oc-accent-to (or an .oc-accent--* preset). */
+   Accent per element: --oc-accent-from / --oc-accent-to (or an .oc-accent--* preset).
+   Accent as text color: in dark mode lifted to at least OKLCH L 0.72, so a dark custom accent stays readable. */
 
 :root {
   --oc-accent-from: var(--oc-brand-1);
@@ -3671,7 +3672,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   background:
     linear-gradient(135deg, oklch(from var(--oc-accent-from) l c h / 0.3), oklch(from var(--oc-accent-to) l c h / 0.18)),
     var(--oc-card);
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   font-size: calc(var(--oc-tile-size) * 0.45);
   line-height: 1;
 }
@@ -3711,7 +3712,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 }
 .oc-product-card__top { display: flex; justify-content: space-between; align-items: flex-start; margin-block-end: 0.75rem; }
 .oc-product-card__name { margin: 0; font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; }
-.oc-product-card__tagline { margin: 0; color: var(--oc-accent-from); font-weight: 600; font-size: 0.95rem; }
+.oc-product-card__tagline { margin: 0; color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h)); font-weight: 600; font-size: 0.95rem; }
 .oc-product-card__summary { margin: 0; color: var(--oc-muted-foreground); font-size: 0.95rem; flex-grow: 1; }
 .oc-product-card__more { display: inline-flex; align-items: center; gap: 0.4rem; margin-block-start: 0.75rem; font-weight: 600; font-size: 0.92rem; }
 .oc-product-card__more::after { content: "→"; transition: translate 0.25s var(--oc-ease-out); }
@@ -3733,7 +3734,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-pill--accent {
   border-color: oklch(from var(--oc-accent-from) l c h / 0.45);
   background: oklch(from var(--oc-accent-from) l c h / 0.14);
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
 }
 .oc-status-dot {
   inline-size: 0.5rem;
@@ -3775,7 +3776,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
     var(--oc-card);
 }
 .oc-spotlight__title { display: flex; align-items: center; gap: 1rem; margin: 1.25rem 0 0.5rem; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; }
-.oc-spotlight__tagline { color: var(--oc-accent-from); font-size: 1.2rem; font-weight: 600; }
+.oc-spotlight__tagline { color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h)); font-size: 1.2rem; font-weight: 600; }
 .oc-spotlight__modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
 .oc-spotlight__modules > li { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem; border: 1px solid var(--oc-border); border-radius: var(--oc-radius-md); background: var(--oc-surface); font-size: 0.95rem; }
 
@@ -3850,9 +3851,14 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 }
 @media (max-width: 860px) {
   .oc-site-header__toggle { display: block; }
+  /* The author rule display:flex above beats the UA rule that hides a closed popover. */
+  .oc-site-header__nav[popover]:not(:popover-open) { display: none; }
   .oc-site-header__nav[popover]:popover-open {
     position: fixed;
     inset: 4.5rem 0 auto;
+    /* The UA popover style sizes to fit-content; let inset span the full width. */
+    inline-size: auto;
+    block-size: auto;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -9346,7 +9352,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-fact-list--stacked dd { text-align: start; }
 
 /* Values in the accent color. */
-.oc-fact-list--accent dd { color: var(--oc-accent-from); }
+.oc-fact-list--accent dd { color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h)); }
 
 /* Very narrow containers: wrap instead of squeezing label and value together. */
 .oc-fact-list > div { flex-wrap: wrap; }
@@ -9374,7 +9380,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-link-arrow--external:is(:hover, :focus-visible)::after { translate: 3px -3px; }
 
 /* Colors: accent of the element, or muted text that turns to the foreground color on hover. */
-.oc-link-arrow--accent { color: var(--oc-accent-from); }
+.oc-link-arrow--accent { color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h)); }
 .oc-link-arrow--muted { color: var(--oc-muted-foreground); font-weight: 500; transition: color 0.2s; }
 .oc-link-arrow--muted:hover { color: var(--oc-foreground); }
 
@@ -9473,7 +9479,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 }
 .oc-next-teaser__tagline::after {
   content: "→";
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   transition: translate 0.25s var(--oc-ease-out);
 }
 
@@ -9481,7 +9487,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-next-teaser--prev .oc-next-teaser__tagline::after { content: none; }
 .oc-next-teaser--prev .oc-next-teaser__tagline::before {
   content: "←";
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   transition: translate 0.25s var(--oc-ease-out);
 }
 
@@ -9654,7 +9660,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-product-mark--soft {
   border: 1px solid color-mix(in oklch, var(--oc-accent-from) 40%, transparent);
   background: color-mix(in oklch, var(--oc-accent-from) 16%, var(--oc-card));
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   box-shadow: none;
 }
 
@@ -9730,7 +9736,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   background: color-mix(in oklch, var(--oc-accent-from) 14%, transparent);
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   font-size: 0.75rem;
   font-weight: 600;
 }
@@ -9751,7 +9757,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   gap: 0.4rem;
   margin-block-start: auto;
   padding-block-start: 0.6rem;
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -9935,7 +9941,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   display: inline-grid;
   place-items: center;
   inline-size: 1.1em;
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
 }
 .oc-stack-list__icon > :is(img, svg) { inline-size: 100%; block-size: auto; }
 
@@ -9977,7 +9983,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 /* Date or year label (use a <time> element when it is a real date).
    Scoped under .oc-timeline so it wins over the showcase rules ".oc-timeline span / strong". */
 .oc-timeline .oc-timeline__date {
-  color: var(--oc-accent-from);
+  color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   font-family: var(--oc-font-mono);
   font-size: 0.85rem;
 }
