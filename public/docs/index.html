@@ -8,15 +8,19 @@
   <meta name="generator" content="OmniaCSS 0.11.0">
   <title>OmniaCSS Docs</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/css/omnia-site.css?v=28c30a4cfd"><link rel="stylesheet" href="/css/oc-components.css?v=244d590e24"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=9204573677"><link rel="stylesheet" href="/css/oc-layout-module.css?v=fbe27040e6"><link rel="stylesheet" href="/css/omnia_site.css?v=20d889b20a"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=ed94de3c8b"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=0532ca6a08">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=a30aa34d13"><link rel="stylesheet" href="/css/oc-components.css?v=0be3ba767b"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=b3d2ec7352"><link rel="stylesheet" href="/css/oc-blocks.css?v=2808a9669b"><link rel="stylesheet" href="/css/oc-layout-module.css?v=fbe27040e6"><link rel="stylesheet" href="/css/omnia_site.css?v=20d889b20a"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=00d07cc506"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=bf6bcaa522">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
     try { const u = new URL(location.href), q = u.searchParams.get("oc-theme"); if (q) { localStorage.setItem("oc-theme", q); u.searchParams.delete("oc-theme"); history.replaceState(history.state, "", u); } const t = q || localStorage.getItem("oc-theme"); if (t && t !== "system") document.documentElement.dataset.theme = t; } catch {}
     const carryTheme = (e) => { const a = e.target.closest && e.target.closest("a[href]"); const sister = document.documentElement.dataset.sisterSite; if (!a || !sister || a.origin !== new URL(sister).origin) return; try { const t = localStorage.getItem("oc-theme"); if (!t) return; const u = new URL(a.href); u.searchParams.set("oc-theme", t); a.href = u.href; } catch {} };
     addEventListener("click", carryTheme); addEventListener("auxclick", carryTheme);
-    addEventListener("change", (e) => { if (e.target.name !== "oc-theme" || !e.target.closest(".ocm-theme")) return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; });
-    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; });
+    addEventListener("change", (e) => { if (e.target.name !== "oc-theme" || !e.target.closest(".ocm-theme")) return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; syncDemos(); });
+    // Theme switches inside demos (app shell, app header …) show the theme the page has now and follow the header switch;
+    // a click in a demo still themes only that demo (.oc-theme-scope).
+    const syncDemos = () => { const t = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); for (const sw of document.querySelectorAll(".oc-theme-scope .oc-theme-switch")) { const r = sw.querySelector('input[value="system"]') || sw.querySelector(`input[value="${t}"]`); if (r) r.checked = true; } };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (!document.documentElement.dataset.theme) syncDemos(); });
+    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; syncDemos(); });
   </script><script src="/js/oc-docs-v2.js?v=50b3bbdcc6" defer></script><style>
     .dx-start { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 0.75rem; margin-block: 1.5rem 0.5rem; }
     .dx-start a { display: grid; gap: 0.25rem; padding: 1rem 1.1rem; border-radius: 14px; color: var(--color-white-50); text-decoration: none; transition: translate 0.2s; }

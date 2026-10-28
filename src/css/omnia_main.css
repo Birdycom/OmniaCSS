@@ -443960,7 +443960,8 @@ select {
   scrollbar-color: var(--oc-scrollbar-thumb) var(--oc-scrollbar-track);
 }
 
-.scrollbar-omnia:hover {
+/* :has(:hover) keeps it while the pointer is over a popover or dialog (top layer), where <html> itself is not :hover. */
+.scrollbar-omnia:is(:hover, :has(:hover)) {
   --oc-scrollbar-thumb: light-dark(var(--color-vividblue-95), var(--color-vividblue-60));
 }
 

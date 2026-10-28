@@ -151,17 +151,17 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 
 /* ---- Content: sections without frames, separated by space and a hairline ------------------------- */
 :is(.oc-docs-content, .ocd-content) { padding: clamp(1.5rem, 3vw, 3rem) clamp(1.25rem, 3.2vw, 3.5rem) 5rem; }
-:is(.oc-docs-content, .ocd-content) .oc-docs-section {
+:is(.oc-docs-content, .ocd-content) .oc-docs-section:not(.oc-demo__preview *) {
   margin: 0;
   border: 0;
   border-radius: 0;
   background: none;
 }
-:is(.oc-docs-content, .ocd-content) .oc-docs-section + .oc-docs-section { margin-block-start: 3.5rem; padding-block-start: 3rem; border-block-start: 1px solid var(--ocd-rule); }
-:is(.oc-docs-content, .ocd-content) .oc-section-content { padding: 0; background: none; border-radius: 0; }
+:is(.oc-docs-content, .ocd-content) .oc-docs-section + .oc-docs-section:not(.oc-demo__preview *) { margin-block-start: 3.5rem; padding-block-start: 3rem; border-block-start: 1px solid var(--ocd-rule); }
+:is(.oc-docs-content, .ocd-content) .oc-section-content:not(.oc-demo__preview *) { padding: 0; background: none; border-radius: 0; }
 
 /* Section header: title on its own line, then the badge row, then the intro */
-:is(.oc-docs-content, .ocd-content) .oc-section-header {
+:is(.oc-docs-content, .ocd-content) .oc-section-header:not(.oc-demo__preview *) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -171,7 +171,7 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   border: 0;
   background: none;
 }
-:is(.oc-docs-content, .ocd-content) .oc-section-header__title {
+:is(.oc-docs-content, .ocd-content) .oc-section-header__title:not(.oc-demo__preview *) {
   flex: 1 0 100%;
   margin: 0 0 0.6rem;
   font-size: clamp(1.6rem, 2.6vw, 2.1rem);
@@ -180,15 +180,17 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   color: var(--oc-foreground);
 }
 :is(.oc-docs-content, .ocd-content) > .oc-docs-section:first-child .oc-section-header__title { font-size: clamp(2rem, 3.6vw, 2.9rem); font-weight: 800; letter-spacing: -0.025em; }
-:is(.oc-docs-content, .ocd-content) .oc-section-header__desc {
+:is(.oc-docs-content, .ocd-content) .oc-section-header__desc:not(.oc-demo__preview *) {
   flex: 1 0 100%;
-  max-inline-size: var(--ocd-measure);
+  /* Always its own line under the badges: full width, the reading measure comes from the end padding
+     (a max-inline-size would let it fit beside the badges on wide screens). */
+  padding-inline-end: max(0px, 100% - var(--ocd-measure));
   margin: 0.9rem 0 0;
   font-size: 1.04rem;
   line-height: 1.7;
   color: var(--oc-muted-foreground);
 }
-:is(.oc-docs-content, .ocd-content) .oc-section-content__title {
+:is(.oc-docs-content, .ocd-content) .oc-section-content__title:not(.oc-demo__preview *) {
   margin: 2.75rem 0 0.6rem;
   font-size: 1.32rem;
   font-weight: 700;
@@ -196,9 +198,9 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   color: var(--oc-foreground);
   scroll-margin-top: 1.5rem;
 }
-:is(.oc-docs-content, .ocd-content) .oc-section-content > .oc-section-content__title:first-child { margin-block-start: 0; }
-:is(.oc-docs-content, .ocd-content) .oc-section-content__desc,
-:is(.oc-docs-content, .ocd-content) .oc-section-content > p { max-inline-size: var(--ocd-measure); margin-inline: 0; padding-inline: 0; font-size: 0.98rem; line-height: 1.7; color: var(--oc-muted-foreground); }
+:is(.oc-docs-content, .ocd-content) .oc-section-content > .oc-section-content__title:first-child:not(.oc-demo__preview *) { margin-block-start: 0; }
+:is(.oc-docs-content, .ocd-content) .oc-section-content__desc:not(.oc-demo__preview *),
+:is(.oc-docs-content, .ocd-content) .oc-section-content > p:not(.oc-demo__preview *) { max-inline-size: var(--ocd-measure); margin-inline: 0; padding-inline: 0; font-size: 0.98rem; line-height: 1.7; color: var(--oc-muted-foreground); }
 :is(.oc-docs-content, .ocd-content) :not(pre) > code:not([class]) {
   padding: 0.1em 0.38em;
   border: 0;
@@ -258,7 +260,8 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 }
 :is(.oc-docs-content, .ocd-content) > .oc-hero .oc-hero-title { margin: 0; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.04; }
 :is(.oc-docs-content, .ocd-content) > .oc-hero .oc-hero-text { max-inline-size: var(--ocd-measure); margin: 0; font-size: 1.1rem; line-height: 1.7; color: var(--oc-muted-foreground); }
-:is(.oc-docs-content, .ocd-content) > .oc-hero + .oc-docs-section { margin-block-start: 0; padding-block-start: 0; border: 0; }
+/* The first section after the hero gets the same divider as the sections between (one look on every page). */
+:is(.oc-docs-content, .ocd-content) > .oc-hero + .oc-docs-section { margin-block-start: 2.5rem; padding-block-start: 2.5rem; border-block-start: 1px solid var(--ocd-rule); }
 
 /* ---- Reference tables ---------------------------------------------------------------------------- */
 :is(.oc-docs-content, .ocd-content) .oc-table-ref { font-size: 0.86rem; }
@@ -319,6 +322,11 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .oc-demo__width:has(input:checked) { color: var(--ocd-accent); background: var(--oc-background); box-shadow: 0 1px 2px oklch(from var(--oc-foreground) l c h / 0.15); }
 .oc-demo__width:has(input:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
 
+/* Items side by side (a button and a key group, badges, avatars) share one center line, not the top edge.
+   size="tall" previews keep the top edge: menus and popovers open downwards from there. */
+.oc-demo--v2 > .oc-demo__preview:not(.oc-demo__preview--tall) { align-items: center; }
+/* Demos marked size="tall" (menus, popovers) keep room for what opens below the trigger. */
+.oc-demo--v2 > .oc-demo__preview.oc-demo__preview--tall { min-block-size: 20rem; }
 .oc-demo--v2 > .oc-demo__preview {
   min-block-size: 7.5rem;
   margin: 0;

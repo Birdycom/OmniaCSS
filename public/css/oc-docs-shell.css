@@ -689,9 +689,10 @@ p, li { color: var(--text-soft); line-height: 1.55; }
    DEMO PANEL (.oc-demo, a component: packages/components/src/docs-ui.css) — rendered by the docs build for every <oc-demo>:
    "Demo — title" -> live preview -> "Code — title" -> Code-block. Same look on every page.
    =================================================================== */
-/* Blocks and wide components take the full preview width (they are page sections, not inline items). */
+/* Blocks and wide components take the full preview width (they are page sections, not inline items).
+   Compact widget blocks (the calendars) keep their own width. */
 .oc-demo__preview > :is([class^="oc-block"], [class*=" oc-block"], .oc-block-stage, .oc-code-window, .oc-browser-frame, .oc-fx-grid, .oc-race, .oc-boxmodel-grid, .oc-stage, .oc-carousel, .oc-site-footer, .oc-site-header, .oc-stat-strip,
-  .oc-spotlight, .oc-card-grid, .oc-steps, .oc-marquee, .oc-split, .oc-tabset, .oc-accordion, .oc-table, table, .oc-section-header) {
+  .oc-spotlight, .oc-card-grid, .oc-steps, .oc-marquee, .oc-split, .oc-tabset, .oc-accordion, .oc-table, table, .oc-section-header):not(.oc-block-cal, .oc-block-cal-form) {
   flex: 1 1 100%;
 }
 
