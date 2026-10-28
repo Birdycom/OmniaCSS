@@ -12,7 +12,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 > part: utilities, tokens, SCSS, the on-demand engine, the CLI (`init` / `build` / `migrate` / `tokens`),
 > `@birdycom/omniacss-migrate` and the CSS docs. Both repositories share the **same version number**.
 
-**Version:** `0.11.0` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
+**Version:** `0.11.1` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
 
 ## Why OmniaCSS
 
@@ -209,6 +209,7 @@ Newest first.
 
 | Version | Date | Changes |
 |--------|-------|-----|
+| `0.11.1` | 2026-10-28 | docs layout, browser support and demo fixes |
 | `0.11.0` | 2026-10-24 | Search the docs with Ctrl K |
 | `0.10.0` | 2026-10-23 | Convert Bootstrap sites to OmniaCSS |
 | `0.9.0` | 2026-10-23 | CSS functions, units and selectors |
