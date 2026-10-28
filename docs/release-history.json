@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.12.0",
+      "date": "2026-10-28",
+      "summary": "Tooltip met anchor positioning, titel en plaatsing; Pro-blocks infinite carousel en pricing plans; carousel-lus; schone URL's; favicons en SEO; lightbox- en kleurfixes"
+    },
+    {
       "version": "0.11.2",
       "date": "2026-10-28",
       "summary": "mobiel site-header-menu, leesbare accenttekst in dark mode, minify behoudt scroll-animaties"

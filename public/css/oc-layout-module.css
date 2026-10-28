@@ -1,4 +1,6 @@
 /* File: public/css/oc-layout-module.css */
+/* Source: this file in the OmniaUI repo (public/css). OmniaCSS copies it with "npm run sync:omniaui" (also at the
+   start of its docs:build), so edit it in OmniaUI only. */
 /* Map: tokens (light-dark) -> shared header/footer -> theme switch slot -> page transitions */
 
 :root {

@@ -220,11 +220,12 @@ function renderPalette(container, title, entries, paletteType, isLimited = false
             const suffix = step === 'base' ? '' : `-${step}`;
             const shadeClass = `bg-${colorToken}${suffix}`;
             const hasTooltip = step === 'base';
-            const baseTooltip = hasTooltip
-              ? ` title="${escapeAttr(toCardTooltip(paletteType, entry.name, { rgb: entry.rgb }))}" tabindex="0"`
-              : '';
+            // OmniaUI tooltip with a title (the color name) and the values of the rendered color, built on first
+            // hover or focus (oc-swatch-tooltip.js). Only the base swatch is focusable: 408 tab stops would be too many.
+            const label = hasTooltip ? entry.name : `${entry.name} ${step}`;
+            const tip = ` data-shade="${escapeAttr(label)}"${hasTooltip ? ' tabindex="0"' : ''}`;
             const tooltipClass = hasTooltip ? ' oc-palette-swatch--has-tooltip' : '';
-            return `<div class="oc-palette-swatch${tooltipClass} ${shadeClass}"${baseTooltip}></div>`;
+            return `<div class="oc-palette-swatch oc-tooltip${tooltipClass} ${shadeClass}"${tip}></div>`;
           })
           .join('');
 
@@ -246,6 +247,8 @@ function renderPalette(container, title, entries, paletteType, isLimited = false
       ${rows}
     </div>
   `;
+  // Swatches get their tooltip on first hover or focus (public/js/oc-swatch-tooltip.js).
+  if (!isBaseOnlyPalette) window.ocSwatchTooltip?.attach(container);
 }
 
 function formatGroupTitle(label) {

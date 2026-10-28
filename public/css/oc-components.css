@@ -1363,37 +1363,120 @@ textarea.oc-input {
 
 /* ===================================================================
    TOOLTIP
-   Pure CSS via data-tooltip attribute
+   Pure CSS. Text: the data-tooltip attribute (drawn by ::after). Richer content, such as a title above lines
+   of values: a child .oc-tooltip__content. With anchor positioning the bubble is anchored to its element and
+   moves to the side that has room; otherwise it sits on the preferred side (top by default).
    =================================================================== */
 
 .oc-tooltip {
+  --oc-tooltip-bg: oklch(from var(--oc-popover) l c h / 0.94);
+  --oc-tooltip-gap: 8px;
   position: relative;
   cursor: help;
 }
 
-.oc-tooltip::after {
-  content: attr(data-tooltip);
+.oc-tooltip::after,
+.oc-tooltip > .oc-tooltip__content {
   position: absolute;
-  bottom: calc(100% + 6px);
+  bottom: calc(100% + var(--oc-tooltip-gap));
   left: 50%;
-  transform: translateX(-50%);
+  translate: -50% 0;
   padding: 6px 10px;
   font-size: 0.75rem;
-  line-height: 1.4;
-  color: var(--oc-primary-foreground);
-  background: var(--oc-primary);
-  border-radius: calc(var(--oc-radius) - 2px);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--oc-popover-foreground);
+  background: var(--oc-tooltip-bg);
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+  box-shadow: 0 10px 28px -8px oklch(from var(--color-black-60) l c h / 0.3), 0 2px 6px -2px oklch(from var(--color-black-60) l c h / 0.15);
+  backdrop-filter: blur(12px) saturate(1.4);
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--oc-transition-fast);
+  scale: 0.96;
+  transition: opacity var(--oc-transition-fast), scale 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 50;
 }
 
+.oc-tooltip::after { content: attr(data-tooltip); }
+/* Rich content only: no empty ::after bubble. */
+.oc-tooltip:not([data-tooltip])::after { content: none; }
+
 /* Also on keyboard focus of the element inside (Tab), not only on mouse hover. */
 .oc-tooltip:hover::after,
-.oc-tooltip:focus-within::after {
+.oc-tooltip:focus-within::after,
+.oc-tooltip:hover > .oc-tooltip__content,
+.oc-tooltip:focus-within > .oc-tooltip__content {
   opacity: 1;
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-tooltip::after,
+  .oc-tooltip > .oc-tooltip__content { transition: opacity var(--oc-transition-fast); scale: 1; }
+}
+
+/* Several lines: line breaks in data-tooltip (or in .oc-tooltip__content) start a new line. */
+.oc-tooltip--multiline::after,
+.oc-tooltip > .oc-tooltip__content {
+  white-space: pre-line;
+  inline-size: max-content;
+  max-inline-size: 20rem;
+  padding: 8px 12px;
+  text-align: start;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Title line of the rich content: a bit larger, always starting with a capital. */
+.oc-tooltip__title {
+  display: block;
+  margin-block-end: 2px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.oc-tooltip__title::first-letter { text-transform: uppercase; }
+
+/* Preferred side (default: top). Without anchor positioning these are fixed places next to the element. */
+.oc-tooltip--bottom::after,
+.oc-tooltip--bottom > .oc-tooltip__content { bottom: auto; top: calc(100% + var(--oc-tooltip-gap)); }
+.oc-tooltip--left::after,
+.oc-tooltip--left > .oc-tooltip__content { bottom: auto; left: auto; top: 50%; right: calc(100% + var(--oc-tooltip-gap)); translate: 0 -50%; }
+.oc-tooltip--right::after,
+.oc-tooltip--right > .oc-tooltip__content { bottom: auto; top: 50%; left: calc(100% + var(--oc-tooltip-gap)); translate: 0 -50%; }
+
+/* Anchor positioning: fixed, so a scroll container (a wide table, a sidebar) does not clip it, and flipped to the
+   opposite side (then the other axis) when the preferred side has no room. ::after uses its element as implicit
+   anchor; .oc-tooltip__content needs a named anchor, scoped to its own .oc-tooltip (anchor-scope). */
+@supports (position-area: top) {
+  .oc-tooltip::after {
+    position: fixed;
+    inset: auto;
+    translate: none;
+    margin: var(--oc-tooltip-gap);
+    position-area: top;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  }
+  .oc-tooltip--bottom::after { position-area: bottom; }
+  .oc-tooltip--left::after { position-area: left; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; }
+  .oc-tooltip--right::after { position-area: right; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; }
+}
+
+@supports (position-area: top) and (anchor-scope: all) {
+  .oc-tooltip { anchor-name: --oc-tooltip; anchor-scope: --oc-tooltip; }
+  .oc-tooltip > .oc-tooltip__content {
+    position: fixed;
+    inset: auto;
+    translate: none;
+    margin: var(--oc-tooltip-gap);
+    position-anchor: --oc-tooltip;
+    position-area: top;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  }
+  .oc-tooltip--bottom > .oc-tooltip__content { position-area: bottom; }
+  .oc-tooltip--left > .oc-tooltip__content { position-area: left; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; }
+  .oc-tooltip--right > .oc-tooltip__content { position-area: right; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; }
 }
 
 /* ===================================================================
@@ -3546,7 +3629,9 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-btn--pill { border-radius: 999px; }
 .oc-btn--gradient {
   border-radius: 999px;
-  background: linear-gradient(100deg, var(--oc-accent-from), var(--oc-accent-to));
+  /* border-box: the gradient also runs under the transparent 1px border of .oc-btn; from the padding box it would
+     repeat in that border and show a thin stripe of the other end's color on both sides. */
+  background: linear-gradient(100deg, var(--oc-accent-from), var(--oc-accent-to)) border-box;
   color: var(--color-white-50);
   box-shadow: 0 10px 30px -10px var(--oc-accent-to);
   transition: transform 0.2s var(--oc-ease-out), box-shadow 0.2s;
@@ -3736,16 +3821,21 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   background: oklch(from var(--oc-accent-from) l c h / 0.14);
   color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
 }
+/* Pulse: the ring starts at --oc-status-dot-pulse-alpha of the accent and grows to --oc-status-dot-pulse-size.
+   --strong starts at the full accent with a wider ring. */
 .oc-status-dot {
+  --oc-status-dot-pulse-alpha: 0.6;
+  --oc-status-dot-pulse-size: 8px;
   inline-size: 0.5rem;
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--oc-accent-from);
   animation: oc-pulse 2s infinite;
 }
+.oc-status-dot--strong { --oc-status-dot-pulse-alpha: 1; --oc-status-dot-pulse-size: 10px; }
 @keyframes oc-pulse {
-  0% { box-shadow: 0 0 0 0 oklch(from var(--oc-accent-from) l c h / 0.6); }
-  70%, 100% { box-shadow: 0 0 0 8px transparent; }
+  0% { box-shadow: 0 0 0 0 oklch(from var(--oc-accent-from) l c h / var(--oc-status-dot-pulse-alpha)); }
+  70%, 100% { box-shadow: 0 0 0 var(--oc-status-dot-pulse-size) transparent; }
 }
 
 /* Stat strip: big numbers in a bordered row (pairs with .oc-counter for counting up) */
@@ -4678,6 +4768,45 @@ a.oc-item:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px
   .oc-carousel-viewport::scroll-button(inline-end):focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
   .oc-carousel-viewport::scroll-button(inline-start):disabled,
   .oc-carousel-viewport::scroll-button(inline-end):disabled { opacity: 0.35; cursor: default; }
+}
+
+/* Loop (.oc-carousel--loop): after the last slide comes the first again. CSS scroll buttons stop at the ends, so this
+   variant has two real buttons (.oc-carousel-prev / .oc-carousel-next) driven by carousel.js; swipe, snap, dots and
+   keyboard stay CSS. Until the script has run (data-oc-loop), the buttons stay hidden and the CSS arrows remain. */
+.oc-carousel-prev,
+.oc-carousel-next {
+  position: absolute;
+  inset-block-start: 50%;
+  translate: 0 -50%;
+  z-index: 1;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 1rem;
+  color: var(--oc-foreground);
+  background: var(--oc-background);
+  border: 1px solid var(--oc-border);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px oklch(from var(--color-black-60) l c h / 0.18);
+  cursor: pointer;
+}
+.oc-carousel-prev { inset-inline-start: 0.5rem; }
+.oc-carousel-next { inset-inline-end: 0.5rem; }
+.oc-carousel-prev:hover,
+.oc-carousel-next:hover { background: var(--oc-accent); }
+.oc-carousel-prev:focus-visible,
+.oc-carousel-next:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+.oc-carousel--loop:not([data-oc-loop]) :is(.oc-carousel-prev, .oc-carousel-next) { display: none; }
+/* Centered on the viewport, not on the carousel with its dots underneath. */
+@supports (anchor-name: --a) {
+  .oc-carousel-prev,
+  .oc-carousel-next { position-anchor: --oc-carousel; inset-block-start: anchor(center); }
+}
+@supports selector(::scroll-button(inline-start)) {
+  .oc-carousel--loop[data-oc-loop] .oc-carousel-viewport::scroll-button(inline-start),
+  .oc-carousel--loop[data-oc-loop] .oc-carousel-viewport::scroll-button(inline-end) { content: none; }
 }
 
 /* ===================================================================
@@ -9720,6 +9849,8 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   background:
     radial-gradient(circle at 80% 20%, color-mix(in oklch, var(--color-white-50) 30%, transparent), transparent 45%),
     linear-gradient(135deg, var(--oc-accent-from), var(--oc-accent-to));
+  /* The hover zoom grows down and sideways (clipped by the frame), never up over the title bar. */
+  transform-origin: 50% 0;
   transition: scale 0.5s var(--oc-ease-out);
 }
 

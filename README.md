@@ -2,8 +2,11 @@
 
 Modern CSS as utility classes and color tokens, generated for exactly what your project uses.
 
-[![npm](https://img.shields.io/npm/v/@birdycom/omniacss?label=%40birdycom%2Fomniacss)](https://www.npmjs.com/package/@birdycom/omniacss)
-[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@birdycom/omniacss.svg?label=npm&color=blue)](https://www.npmjs.com/package/@birdycom/omniacss)
+[![(CSS) Build and Test](https://img.shields.io/github/actions/workflow/status/Birdycom/OmniaCSS/ci.yml?branch=main&label=%28CSS%29%20Build%20and%20Test&logo=github)](https://github.com/Birdycom/OmniaCSS/actions/workflows/ci.yml)
+[![(npm) Release](https://img.shields.io/github/actions/workflow/status/Birdycom/OmniaCSS/release.yml?label=%28npm%29%20Release&logo=github)](https://github.com/Birdycom/OmniaCSS/actions/workflows/release.yml)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Birdycom/OmniaCSS/pulls)
 
 **Docs:** https://omniacss.eu · **Components and blocks:** [OmniaUI](https://github.com/Birdycom/OmniaUI) (https://omniaui.eu)
 
@@ -12,7 +15,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 > part: utilities, tokens, SCSS, the on-demand engine, the CLI (`init` / `build` / `migrate` / `tokens`),
 > `@birdycom/omniacss-migrate` and the CSS docs. Both repositories share the **same version number**.
 
-**Version:** `0.11.2` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
+**Version:** `0.12.0` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
 
 ## Why OmniaCSS
 
@@ -29,7 +32,19 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 
 ## Showcase
 
-![OmniaCSS homepage](public/docs/images/omniacss-homepage.png)
+A short tour: the homepage, the docs overview, a docs page (classes, live demo, code, browser support), the color
+palettes with their values on hover, and the search dialog (<kbd>Ctrl</kbd> <kbd>K</kbd>).
+
+![Tour of omniacss.eu: homepage, docs, color palettes and search](docs/readme/omniacss-tour.gif)
+
+| | |
+|---|---|
+| ![OmniaCSS homepage](docs/readme/omniacss-home.png) | ![Docs overview](docs/readme/omniacss-docs.png) |
+| Homepage | Docs overview: every CSS family with its pages |
+| ![Anchor positioning docs in dark mode](docs/readme/omniacss-docs-dark.png) | ![Color palettes with a tooltip](docs/readme/omniacss-palettes.png) |
+| A docs page in dark mode | Color palettes: hover a swatch for HEX, RGB, HSL, OKLCH and OKLAB |
+
+Components and blocks are shown in the [OmniaUI README](https://github.com/Birdycom/OmniaUI#showcase).
 
 ## Install in a project
 
@@ -209,6 +224,7 @@ Newest first.
 
 | Version | Date | Changes |
 |--------|-------|-----|
+| `0.12.0` | 2026-10-28 | Tooltip met anchor positioning, titel en plaatsing; Pro-blocks infinite carousel en pricing plans; carousel-lus; schone URL's; favicons en SEO; lightbox- en kleurfixes |
 | `0.11.2` | 2026-10-28 | mobiel site-header-menu, leesbare accenttekst in dark mode, minify behoudt scroll-animaties |
 | `0.11.1` | 2026-10-28 | docs layout, browser support and demo fixes |
 | `0.11.0` | 2026-10-24 | Search the docs with Ctrl K |

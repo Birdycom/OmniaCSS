@@ -83,7 +83,7 @@
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Default Palette Reference</h2>
           <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
-          <p class="oc-section-header__desc">Live interactive preview from <code>color-properties.json</code>. Note: hover/focus swatches to see color model values.</p>
+          <p class="oc-section-header__desc">Live interactive preview from <code>color-properties.json</code>. Hover a swatch to see its color model values (keyboard: focus the base swatch).</p>
         </div>
         <div class="oc-section-content">
           <div class="oc-tabs" id="oc-docs-palette-tabs" role="tablist">
@@ -102,14 +102,12 @@
           </div>
         </div>
       </section>
+<script src="/js/oc-swatch-tooltip.js"></script>
 <script>
     (function () {
       /** Helpers from original colors.html */
       function escapeAttr(str) {
         return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      }
-      function tooltipLine(color) {
-        return "HEX: " + (color.hex || "") + "\nRGB: " + (color.rgb || "") + "\nHSL: " + (color.hsl || "") + "\nOKLCH: " + (color.oklch || "") + "\nOKLAB: " + (color.oklab || "");
       }
 
       function renderRalGrouped(targetId, ralData) {
@@ -151,6 +149,12 @@
         target.innerHTML = html;
       }
 
+      // OmniaUI tooltip on every swatch: a title (the color and step) with the values of the rendered color, built on
+      // first hover or focus (public/js/oc-swatch-tooltip.js). Only the base (or 100%) swatch is focusable.
+      function tipAttr(isBase, label) {
+        return " data-shade=\"" + escapeAttr(label) + "\"" + (isBase ? " tabindex=\"0\"" : "");
+      }
+
       var PALETTE_STEPS = [2, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, "base"];
       var MIX_STEPS = [0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
       function toClassToken(str) { return String(str).toLowerCase().replace(/[^a-z0-9]+/g, "-"); }
@@ -162,14 +166,12 @@
         var headerSteps = PALETTE_STEPS.map(function (s) { return "<div class=\"oc-step\">" + s + "</div>"; }).join("");
         var rows = keys.map(function (colorName) {
           var token = toClassToken(colorName);
-          var color = familyData[colorName];
-          var baseTooltip = color ? escapeAttr(tooltipLine(color)) : "";
+          var label = colorName.replace(/_/g, " ");
           var cells = PALETTE_STEPS.map(function (step) {
             var suffix = step === "base" ? "-100" : "-" + step;
-            var cls = "oc-palette-swatch";
+            var cls = "oc-palette-swatch oc-tooltip";
             if (step === "base") cls += " oc-palette-swatch--has-tooltip";
-            var titleAttr = step === "base" && baseTooltip ? " title=\"" + baseTooltip + "\" tabindex=\"0\"" : "";
-            return "<div class=\"" + cls + "\" style=\"background: var(--color-" + token + suffix + ")\"" + titleAttr + "></div>";
+            return "<div class=\"" + cls + "\" style=\"background: var(--color-" + token + suffix + ")\"" + tipAttr(step === "base", step === "base" ? label : label + " " + step) + "></div>";
           }).join("");
           return "<div class=\"oc-palette-row\"><div class=\"oc-palette-name\">" + colorName.replace(/_/g, " ") + "</div>" + cells + "</div>";
         }).join("");
@@ -183,13 +185,11 @@
         var headerSteps = MIX_STEPS.map(function (s) { return "<div class=\"oc-step\">" + s + "</div>"; }).join("");
         var rows = keys.map(function (colorName) {
           var token = toClassToken(colorName);
-          var color = familyData[colorName];
-          var baseTooltip = color ? escapeAttr(tooltipLine(color)) : "";
+          var label = colorName.replace(/_/g, " ");
           var cells = MIX_STEPS.map(function (step) {
-            var cls = "oc-palette-swatch";
+            var cls = "oc-palette-swatch oc-tooltip";
             if (step === 100) cls += " oc-palette-swatch--has-tooltip";
-            var titleAttr = step === 100 && baseTooltip ? " title=\"" + baseTooltip + "\" tabindex=\"0\"" : "";
-            return "<div class=\"" + cls + "\" style=\"background: " + (isRal ? "color-mix(in oklch, var(--color-" + token + ") " + step + "%, transparent)" : "var(--color-" + token + "-mix-" + step + ")") + "\"" + titleAttr + "></div>";
+            return "<div class=\"" + cls + "\" style=\"background: " + (isRal ? "color-mix(in oklch, var(--color-" + token + ") " + step + "%, transparent)" : "var(--color-" + token + "-mix-" + step + ")") + "\"" + tipAttr(step === 100, label + " mix " + step + "%") + "></div>";
           }).join("");
           return "<div class=\"oc-palette-row\"><div class=\"oc-palette-name\">" + colorName.replace(/_/g, " ") + "</div>" + cells + "</div>";
         }).join("");
@@ -220,6 +220,8 @@
           renderMixGrid("oc-docs-mix-omnia-swatches", "Omnia color-mix (0–100)", data.omniacolors);
           renderMixGrid("oc-docs-mix-html-swatches", "HTML color-mix (0–100)", data.htmlcolors);
           renderMixGrid("oc-docs-mix-ral-swatches", "RAL color-mix (0–100)", data.ralcolors, true);
+          ["oc-docs-omnia-swatches", "oc-docs-html-swatches", "oc-docs-mix-omnia-swatches", "oc-docs-mix-html-swatches", "oc-docs-mix-ral-swatches"]
+            .forEach(function (id) { if (window.ocSwatchTooltip) window.ocSwatchTooltip.attach(document.getElementById(id)); });
           setupTabs("oc-docs-palette-tabs", "oc-docs-tab");
           setupTabs("oc-docs-mix-tabs", "oc-docs-mix-tab");
         });

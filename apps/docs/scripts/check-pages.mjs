@@ -1,8 +1,8 @@
 // File: apps/docs/scripts/check-pages.mjs
 // Checks the built docs (apps/docs/dist/docs/**/*.html) against the standard page layout.
 //
-// Every docs page about CSS must end with:
-//   content -> divider -> "Browser support" (exactly one) -> "Source & Further Reading" footer.
+// Every docs page about CSS must end with two sections (src/lib/transform.mjs, step 3c' and 3c''):
+//   content -> <section> "Browser support" (exactly one, one compat table) -> <section id="source"> "Source & Further Reading".
 // It also flags footers that still contain Dutch text (the site is in English),
 // and pages that miss a CSS feature they are expected to show in their browser support table.
 //
@@ -60,17 +60,20 @@ function checkPage(rel, html) {
   // Non-CSS pages (overview, configuration, migrate, catalog) have no footer and no support block.
   if (NON_CSS_PAGES.has(rel)) return problems;
 
-  const footers = document.querySelectorAll(".oc-section-footer");
-  if (footers.length !== 1) problems.push(`${footers.length} source footers (expected 1)`);
+  // The page's own sections (demo sections inside .oc-demo are not counted).
+  const sections = [...document.querySelectorAll("section.oc-docs-section")].filter((s) => !s.closest(".oc-demo"));
+  const footers = sections.filter((s) => s.id === "source");
+  if (footers.length !== 1) problems.push(`${footers.length} source sections (expected 1)`);
 
-  // Exactly one browser support block, placed directly before the footer.
-  const blocks = document.querySelectorAll(".oc-browser-support");
-  if (blocks.length !== 1) problems.push(`${blocks.length} browser support blocks (expected 1)`);
+  // Exactly one browser support section, directly before the source section.
+  const isSupport = (s) => /^browser support$/i.test(s.querySelector(":scope > .oc-section-header > h2")?.textContent.trim() || "");
+  const blocks = sections.filter(isSupport);
+  if (blocks.length !== 1) problems.push(`${blocks.length} browser support sections (expected 1)`);
   const tables = document.querySelectorAll(".oc-compat");
   if (tables.length !== 1) problems.push(`${tables.length} compat tables (expected 1)`);
   const block = blocks[0];
   if (block && footers[0] && block.nextElementSibling !== footers[0]) {
-    problems.push("browser support is not directly above the source footer");
+    problems.push("browser support is not directly above the source section");
   }
 
   // Footer text in English.

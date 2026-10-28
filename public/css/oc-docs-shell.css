@@ -1,4 +1,6 @@
 /* File: public/css/oc-docs-shell.css */
+/* Source: this file in the OmniaUI repo (public/css). OmniaCSS copies it with "npm run sync:omniaui" (also at the
+   start of its docs:build), so edit it in OmniaUI only. */
 /* Map: shell layout -> left nav -> content -> right contextual nav */
 /* ALL docs-new shared styles live here. Pages should NOT override these inline. */
 /* omnia_main.css is the MASTER CSS — always loaded first. This file adds only docs-specific chrome. */
@@ -296,14 +298,14 @@ p, li { color: var(--text-soft); line-height: 1.55; }
   margin-top: var(--ocm-header-height);
   height: calc(100vh - var(--ocm-header-height) - var(--ocm-footer-height));
   display: grid;
-  grid-template-columns: 260px 1fr 280px;
+  grid-template-columns: 280px 1fr 280px;
   overflow: hidden;
 }
 
 /* Icons / Borders pages: only left sidebar, no right column */
 .ocd-shell.ocd-shell--no-right,
 .oc-docs-shell.oc-docs-shell--no-right {
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 280px 1fr;
 }
 .oc-docs-shell.oc-docs-shell--no-right .oc-docs-sidebar-right {
   display: none;
@@ -414,7 +416,7 @@ p, li { color: var(--text-soft); line-height: 1.55; }
 
 @media (max-width: 1200px) {
   .ocd-shell {
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 280px 1fr;
   }
 
   .ocd-sidebar-right {
