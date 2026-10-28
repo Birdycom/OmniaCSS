@@ -1515,53 +1515,44 @@ select {
 
 /* The text decoration line properties */
 .underline {
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
+  text-decoration-line: underline;
 }
 
 .hover\:underline:hover {
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
+  text-decoration-line: underline;
 }
 
 .overline {
-  -webkit-text-decoration-line: overline;
-          text-decoration-line: overline;
+  text-decoration-line: overline;
 }
 
 .line-through {
-  -webkit-text-decoration-line: line-through;
-          text-decoration-line: line-through;
+  text-decoration-line: line-through;
 }
 
 .active\:line-through:active {
-  -webkit-text-decoration-line: line-through;
-          text-decoration-line: line-through;
+  text-decoration-line: line-through;
 }
 
 .no-underline {
-  -webkit-text-decoration-line: none;
-          text-decoration-line: none;
+  text-decoration-line: none;
 }
 
 .hover\:no-underline:hover {
-  -webkit-text-decoration-line: none;
-          text-decoration-line: none;
+  text-decoration-line: none;
 }
 
 /* The Omnia text decoration Colors properties */
 
 .decoration-red-50 {
-  -webkit-text-decoration-color: oklch(62.7955363921% 0.2576833038 29.2338802796deg / 0.5);
-          text-decoration-color: oklch(62.7955363921% 0.2576833038 29.2338802796deg / 0.5);
+  text-decoration-color: oklch(62.7955363921% 0.2576833038 29.2338802796deg / 0.5);
 }
 
 /* End Omnia text decoration Colors properties */
 /* The Html text decoration Colors properties */
 
 .decoration-red-50 {
-  -webkit-text-decoration-color: oklch(62.7955363921% 0.2576833038 29.2338802796deg / 0.5);
-          text-decoration-color: oklch(62.7955363921% 0.2576833038 29.2338802796deg / 0.5);
+  text-decoration-color: oklch(62.7955363921% 0.2576833038 29.2338802796deg / 0.5);
 }
 
 /* End html text decoration Colors properties */
@@ -1708,28 +1699,23 @@ select {
 /* End The text align and text align last properties */
 /* The text decoration style properties */
 .decoration-solid {
-  -webkit-text-decoration-style: solid;
-          text-decoration-style: solid;
+  text-decoration-style: solid;
 }
 
 .decoration-double {
-  -webkit-text-decoration-style: double;
-          text-decoration-style: double;
+  text-decoration-style: double;
 }
 
 .decoration-dotted {
-  -webkit-text-decoration-style: dotted;
-          text-decoration-style: dotted;
+  text-decoration-style: dotted;
 }
 
 .decoration-dashed {
-  -webkit-text-decoration-style: dashed;
-          text-decoration-style: dashed;
+  text-decoration-style: dashed;
 }
 
 .decoration-wavy {
-  -webkit-text-decoration-style: wavy;
-          text-decoration-style: wavy;
+  text-decoration-style: wavy;
 }
 
 /* End The text decoration style properties */
@@ -2224,13 +2210,11 @@ select {
 }
 
 .p-block-start-3 {
-  -webkit-padding-before: 3rem;
-          padding-block-start: 3rem;  /* 48px */;
+  padding-block-start: 3rem;  /* 48px */;
 }
 
 .p-block-end-6 {
-  -webkit-padding-after: 6rem;
-          padding-block-end: 6rem;  /* 96px */;
+  padding-block-end: 6rem;  /* 96px */;
 }
 
 /* Padding with var(--spacing): .p-var-0 … .p-var-10 (value = calc(var(--spacing) * n)). Set --spacing on :root or component (e.g. 1rem). */
@@ -2322,19 +2306,16 @@ select {
 }
 
 .w-min {
-  width: -webkit-min-content;
   width: -moz-min-content;
   width: min-content;
 }
 
 .w-max {
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
 
 .w-fit {
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -2356,19 +2337,16 @@ select {
 }
 
 .min-w-min {
-  min-width: -webkit-min-content;
   min-width: -moz-min-content;
   min-width: min-content;
 }
 
 .min-w-max {
-  min-width: -webkit-max-content;
   min-width: -moz-max-content;
   min-width: max-content;
 }
 
 .min-w-fit {
-  min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
 }
@@ -2465,19 +2443,16 @@ select {
 }
 
 .h-min {
-  height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
 }
 
 .h-max {
-  height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
 }
 
 .h-fit {
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
 }
@@ -2604,7 +2579,6 @@ select {
 }
 
 .sticky {
-  position: -webkit-sticky;
   position: sticky;
 }
 
@@ -4452,12 +4426,10 @@ select {
 }
 
 .grid-cols-min {
-  grid-auto-columns: -webkit-min-content;
   grid-auto-columns: min-content;
 }
 
 .grid-cols-max {
-  grid-auto-columns: -webkit-max-content;
   grid-auto-columns: max-content;
 }
 
@@ -5880,9 +5852,7 @@ select {
 }
 
 .transition-colors {
-  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
 }
 
 .transition-opacity {
@@ -6211,13 +6181,11 @@ select {
 
 /* Backface visibility */
 .backface-visible {
-  -webkit-backface-visibility: visible;
-          backface-visibility: visible;
+  backface-visibility: visible;
 }
 
 .backface-hidden {
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Perspective */
@@ -7271,20 +7239,17 @@ select {
 
 .font-kerning-auto {
   font-feature-settings: auto;
-  -webkit-font-kerning: auto;
-          font-kerning: auto;
+  font-kerning: auto;
 }
 
 .font-kerning-normal {
   font-feature-settings: "kern";
-  -webkit-font-kerning: normal;
-          font-kerning: normal;
+  font-kerning: normal;
 }
 
 .font-kerning-none {
   font-feature-settings: "kern" off;
-  -webkit-font-kerning: none;
-          font-kerning: none;
+  font-kerning: none;
 }
 
 .font-synthesis-none {
@@ -7419,19 +7384,16 @@ select {
 }
 
 .inline-size-fit {
-  inline-size: -webkit-fit-content;
   inline-size: -moz-fit-content;
   inline-size: fit-content;
 }
 
 .inline-size-min {
-  inline-size: -webkit-min-content;
   inline-size: -moz-min-content;
   inline-size: min-content;
 }
 
 .inline-size-max {
-  inline-size: -webkit-max-content;
   inline-size: -moz-max-content;
   inline-size: max-content;
 }
@@ -7445,19 +7407,16 @@ select {
 }
 
 .block-size-fit {
-  block-size: -webkit-fit-content;
   block-size: -moz-fit-content;
   block-size: fit-content;
 }
 
 .block-size-min {
-  block-size: -webkit-min-content;
   block-size: -moz-min-content;
   block-size: min-content;
 }
 
 .block-size-max {
-  block-size: -webkit-max-content;
   block-size: -moz-max-content;
   block-size: max-content;
 }
@@ -7614,81 +7573,66 @@ select {
 }
 /* Clip path — basic shapes */
 .clip-none {
-  -webkit-clip-path: none;
-          clip-path: none;
+  clip-path: none;
 }
 
 .clip-circle {
-  -webkit-clip-path: circle(50%);
-          clip-path: circle(50%);
+  clip-path: circle(50%);
 }
 
 .clip-ellipse {
-  -webkit-clip-path: ellipse(50% 40%);
-          clip-path: ellipse(50% 40%);
+  clip-path: ellipse(50% 40%);
 }
 
 .clip-inset-4 {
-  -webkit-clip-path: inset(4px);
-          clip-path: inset(4px);
+  clip-path: inset(4px);
 }
 
 .clip-inset-8 {
-  -webkit-clip-path: inset(8px round 8px);
-          clip-path: inset(8px round 8px);
+  clip-path: inset(8px round 8px);
 }
 
 /* Clip path — polygons */
 .clip-polygon-triangle {
-  -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
 .clip-polygon-diamond {
-  -webkit-clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-          clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 
 .clip-polygon-pentagon {
-  -webkit-clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-          clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
 }
 
 .clip-polygon-hexagon {
-  -webkit-clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-          clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
 }
 
 .clip-polygon-arrow-right {
-  -webkit-clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
-          clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+  clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
 }
 
 .clip-polygon-chevron {
-  -webkit-clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-          clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+  clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
 }
 
 /* Clip path — shape() function (CSS Shapes Level 2, responsive curves) */
 .clip-shape-wave {
-  -webkit-clip-path: shape(from 0% 0%, line to 100% 0%, line to 100% 85%, curve to 0% 85% with 50% 115%, close);
-          clip-path: shape(from 0% 0%, line to 100% 0%, line to 100% 85%, curve to 0% 85% with 50% 115%, close);
+  clip-path: shape(from 0% 0%, line to 100% 0%, line to 100% 85%, curve to 0% 85% with 50% 115%, close);
 }
 
 /* Clip path — reference box */
 .clip-border-box {
-  -webkit-clip-path: border-box;
-          clip-path: border-box;
+  clip-path: border-box;
 }
 
 .clip-padding-box {
-  -webkit-clip-path: padding-box;
-          clip-path: padding-box;
+  clip-path: padding-box;
 }
 
 .clip-content-box {
-  -webkit-clip-path: content-box;
-          clip-path: content-box;
+  clip-path: content-box;
 }
 
 /* Clip border — a border that follows the clip-path of the child element.
@@ -8594,8 +8538,7 @@ select {
 
 /* Logical side shorthands, styles and colors */
 .border-s-line {
-  -webkit-border-start: 1px solid currentcolor;
-          border-inline-start: 1px solid currentcolor;
+  border-inline-start: 1px solid currentcolor;
 }
 
 .border-inline-line {
@@ -9433,7 +9376,6 @@ select {
     text-align: left;
   }
   .md\:sticky {
-    position: -webkit-sticky;
     position: sticky;
   }
   .md\:visible {
@@ -9663,13 +9605,11 @@ select {
 }
 
 .hover\:underline:hover {
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
+  text-decoration-line: underline;
 }
 
 .hover\:no-underline:hover {
-  -webkit-text-decoration-line: none;
-          text-decoration-line: none;
+  text-decoration-line: none;
 }
 
 .focus\:opacity-100:focus {
@@ -9706,8 +9646,7 @@ select {
 }
 
 .active\:line-through:active {
-  -webkit-text-decoration-line: line-through;
-          text-decoration-line: line-through;
+  text-decoration-line: line-through;
 }
 
 .disabled\:opacity-50:disabled,

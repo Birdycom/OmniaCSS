@@ -1,6 +1,6 @@
 {
   "name": "omniacss-workspace",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "private": true,
   "description": "OmniaCSS monorepo: utilities and tokens (@birdycom/omniacss), CLI (@birdycom/omniacss-cli), Tailwind migration (@birdycom/omniacss-migrate) and the CSS documentation site. Components and blocks live in the OmniaUI repo.",
   "workspaces": [
@@ -48,7 +48,7 @@
     "build:packages": "node scripts/build-packages.mjs",
     "release": "node scripts/release.mjs",
     "docs:dev": "npm run dev --workspace apps/docs",
-    "docs:build": "npm run build --workspace apps/docs && node scripts/sync-site.mjs && npm run assets:bust",
+    "docs:build": "node scripts/sync-omniaui.mjs && npm run build --workspace apps/docs && node scripts/sync-site.mjs && npm run assets:bust && node scripts/clean-urls.mjs",
     "docs:check": "node apps/docs/scripts/check-pages.mjs",
     "sync:omniaui": "node scripts/sync-omniaui.mjs",
     "vscode:build": "npm run build --prefix packages/vscode",

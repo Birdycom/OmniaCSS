@@ -1,4 +1,6 @@
 /* File: public/css/oc-docs-v2.css
+   Source: this file in the OmniaUI repo (public/css). OmniaCSS copies it with "npm run sync:omniaui" (also at the
+   start of its docs:build), so edit it in OmniaUI only.
    Docs look v2, shared by the OmniaCSS and OmniaUI sites (identical copy in both repos; load it after oc-docs-shell.css).
    Map: tokens -> type -> top bar (brand, links, search, theme) -> shell + sidebars + toc -> sections without frames
         -> badges (the OmniaCSS signature row) -> hero -> tables -> demo panel (tabs, widths, code) -> code copy
@@ -42,16 +44,14 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   font-weight: 800;
   letter-spacing: -0.02em;
 }
+/* Brand mark = the site's own favicon (OmniaCSS palette, OmniaUI puzzle piece); the Pro page shows the Pro star. */
 .oc-topbar-brand::before {
   content: "";
   inline-size: 1.65rem;
   aspect-ratio: 1;
-  border-radius: 7px;
-  background:
-    radial-gradient(circle at 30% 30%, oklch(from var(--color-white-50) l c h / 0.55), transparent 45%),
-    conic-gradient(from 210deg, var(--color-vividblue-80), var(--color-magenta-50), var(--color-orange-50), var(--color-teal-50), var(--color-vividblue-80));
-  box-shadow: inset 0 0 0 1px oklch(from var(--color-white-50) l c h / 0.25);
+  background: url("/favicon.svg") center / contain no-repeat;
 }
+.oc-topbar-brand--pro::before { background-image: url("/favicon-pro.svg"); }
 .oc-topbar-brand .oc-badge-version { margin-inline-start: 0.1rem; font-family: var(--ocd-mono); font-weight: 600; letter-spacing: 0; }
 .oc-topbar-nav { margin-inline-start: 0.75rem; }
 .oc-navmenu--site { gap: 0.15rem; }
@@ -442,7 +442,7 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .ocd-nav-button svg { inline-size: 1.15rem; block-size: 1.15rem; }
 .ocd-nav-toggle:focus-visible + .ocd-nav-button { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
 @media (max-width: 1200px) {
-  :is(.oc-docs-shell, .ocd-shell) { grid-template-columns: 250px minmax(0, 1fr); }
+  :is(.oc-docs-shell, .ocd-shell) { grid-template-columns: 280px minmax(0, 1fr); }
   :is(.oc-docs-sidebar-right, .ocd-sidebar-right) { display: none; }
 }
 /* Small laptops: the version badge next to the brand gives way to the links. */
