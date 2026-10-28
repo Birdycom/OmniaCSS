@@ -2,7 +2,7 @@
   "name": "omniacss-intellisense",
   "displayName": "OmniaCSS IntelliSense",
   "description": "Autocomplete, hover CSS, color swatches and linting for OmniaCSS utility classes, variants and color tokens.",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "private": true,
   "publisher": "Birdycom",
   "license": "MIT",
