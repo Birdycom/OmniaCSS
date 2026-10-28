@@ -1,4 +1,4 @@
-/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.11.0. Do not edit. */
+/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.11.1. Do not edit. */
 /* Semantic theme tokens: every color is light-dark() of an Omnia palette token (oc-colors.css). */
 /* Same source as the desktop export: npx omniacss tokens --format json|dtcg|python */
 :root {
@@ -1390,7 +1390,9 @@ textarea.oc-input {
   z-index: 50;
 }
 
-.oc-tooltip:hover::after {
+/* Also on keyboard focus of the element inside (Tab), not only on mouse hover. */
+.oc-tooltip:hover::after,
+.oc-tooltip:focus-within::after {
   opacity: 1;
 }
 
@@ -1850,16 +1852,21 @@ textarea.oc-input {
   color: var(--oc-muted-foreground);
 }
 
-.oc-breadcrumb-item a {
+/* Two markups: <a class="oc-breadcrumb-item"> (snippet, React, Vue, Blade) and
+   <li class="oc-breadcrumb-item"><a> (older markup). The current page: aria-current="page" or the last item. */
+.oc-breadcrumb-item a,
+a.oc-breadcrumb-item {
   color: var(--oc-muted-foreground);
   text-decoration: none;
 }
 
-.oc-breadcrumb-item a:hover {
+.oc-breadcrumb-item a:hover,
+a.oc-breadcrumb-item:hover {
   color: var(--oc-foreground);
 }
 
-.oc-breadcrumb-item:last-child {
+.oc-breadcrumb-item:last-child,
+.oc-breadcrumb-item[aria-current="page"] {
   color: var(--oc-foreground);
   font-weight: 500;
 }
@@ -1920,8 +1927,13 @@ textarea.oc-input {
   padding: 0;
 }
 
+/* Two markups: <a class="oc-pagination-item" aria-current="page"> (snippet, React, Vue, Blade) and
+   <li class="oc-pagination-item is-active"><a|button> (older markup). A <span class="oc-pagination-item"> is the "…" gap. */
 .oc-pagination-item a,
-.oc-pagination-item button {
+.oc-pagination-item button,
+a.oc-pagination-item,
+button.oc-pagination-item,
+span.oc-pagination-item {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1940,19 +1952,32 @@ textarea.oc-input {
   outline: none;
 }
 
+span.oc-pagination-item {
+  color: var(--oc-muted-foreground);
+  border-color: transparent;
+  cursor: default;
+}
+
 .oc-pagination-item a:hover,
-.oc-pagination-item button:hover {
+.oc-pagination-item button:hover,
+a.oc-pagination-item:hover,
+button.oc-pagination-item:hover {
   background: var(--oc-accent);
 }
 
 .oc-pagination-item a:focus-visible,
-.oc-pagination-item button:focus-visible {
+.oc-pagination-item button:focus-visible,
+a.oc-pagination-item:focus-visible,
+button.oc-pagination-item:focus-visible {
   outline: 2px solid var(--oc-ring);
   outline-offset: 2px;
 }
 
 .oc-pagination-item.is-active a,
-.oc-pagination-item.is-active button {
+.oc-pagination-item.is-active button,
+.oc-pagination-item[aria-current="page"],
+.oc-pagination-item[aria-current="page"]:hover,
+.oc-pagination-item > [aria-current="page"] {
   background: var(--oc-primary);
   color: var(--oc-primary-foreground);
   border-color: var(--oc-primary);
@@ -2197,6 +2222,20 @@ details.oc-accordion-item[open]::details-content {
 .oc-tabset:has(.oc-tab-trigger:nth-child(5) input:checked) > .oc-tab-list ~ .oc-tab-panel:nth-child(6),
 .oc-tabset:has(.oc-tab-trigger:nth-child(6) input:checked) > .oc-tab-list ~ .oc-tab-panel:nth-child(7) {
   display: block;
+}
+/* Vertical: the tab list beside the panels; the checked tab gets the line on the right. */
+.oc-tabset:has(> .oc-tab-list--vertical) {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1.5rem;
+  align-items: start;
+}
+.oc-tabset > .oc-tab-list--vertical { grid-row: 1 / span 6; }
+.oc-tabset .oc-tab-list--vertical .oc-tab-trigger { justify-content: flex-start; }
+.oc-tabset:has(> .oc-tab-list--vertical) > .oc-tab-panel { grid-column: 2; grid-row: 1; padding-block: 0.25rem; }
+.oc-tabset .oc-tab-list--vertical .oc-tab-trigger:has(input:checked) {
+  border-bottom-color: transparent;
+  border-right-color: var(--oc-foreground);
 }
 
 /* Theme switch — segmented radio group: system / light / dark (works with THEME SWITCHING rules above) */
@@ -2733,6 +2772,7 @@ dialog.oc-sheet--bottom[open] .oc-sheet-content { @starting-style { translate: 0
   color: var(--oc-popover-foreground);
   border-radius: calc(var(--oc-radius) - 2px);
   cursor: pointer;
+  transition: background var(--oc-transition-fast), color var(--oc-transition-fast);
 }
 .oc-command-item:hover,
 .oc-command-item[aria-selected="true"] { background: var(--oc-accent); color: var(--oc-accent-foreground); }
@@ -3171,8 +3211,10 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   border: 0;
   border-radius: calc(var(--oc-radius) - 2px);
   cursor: pointer;
+  transition: background var(--oc-transition-fast), color var(--oc-transition-fast);
 }
-.oc-input-reveal-button:hover { color: var(--oc-foreground); }
+/* Hover: a soft background (not only a color change) so it clearly reads as a button. */
+.oc-input-reveal-button:hover { color: var(--oc-foreground); background: var(--oc-surface-strong); }
 .oc-input-reveal-button:focus-visible { outline: 2px solid var(--oc-ring); }
 .oc-input-reveal-button[aria-pressed="true"] { color: var(--oc-primary); }
 
@@ -4123,7 +4165,9 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 /* Wide docs components take the full width of a demo preview */
 .oc-demo__preview > :is(.oc-topbar, .oc-footerbar, .oc-demo, .oc-code-window, .oc-expandable-table, .oc-showmore) { flex: 1 1 100%; }
 /* Marketing pieces that should span the preview stage (timeline, facts, project and price cards). */
-.oc-demo__preview > :is(.oc-timeline, .oc-fact-list, .oc-project-card, .oc-price-card) { inline-size: 100%; }
+.oc-demo__preview > :is(.oc-timeline, .oc-fact-list, .oc-project-card) { inline-size: 100%; }
+/* A single price card keeps a card width; in a grid it fills its column. */
+.oc-demo__preview > .oc-price-card { inline-size: min(100%, 24rem); }
 
 /* File: packages/ui/src/components-extra.css */
 /* Map: spinner · kbd · slider · toggle + toggle-group · item · aspect-ratio · hover-card · menu extras (sub-menu, check/radio items, shortcut) ·
@@ -4794,8 +4838,10 @@ dialog.oc-drawer[open] .oc-drawer-content {
 @supports (appearance: base-select) {
   .oc-select--custom,
   .oc-select--custom::picker(select) { appearance: base-select; }
-  .oc-select--custom { background-image: none; padding-inline-end: 0.75rem; align-items: center; }
-  .oc-select--custom::picker-icon { color: var(--oc-muted-foreground); transition: rotate var(--oc-transition-fast); }
+  /* One row like the closed .oc-select: text left, icon right, full width of the field
+     (display: block put the icon on a second line and base-select shrank to the text). */
+  .oc-select--custom { display: flex; align-items: center; gap: 0.5rem; inline-size: 100%; field-sizing: fixed; background-image: none; padding-inline-end: 0.75rem; }
+  .oc-select--custom::picker-icon { margin-inline-start: auto; color: var(--oc-muted-foreground); transition: rotate var(--oc-transition-fast); }
   .oc-select--custom:open::picker-icon { rotate: 180deg; }
   .oc-select--custom::picker(select) {
     padding: 4px;
@@ -6977,9 +7023,17 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   outline-offset: 4px;
 }
 
+/* Disabled (e.g. a color already in use): faded, a diagonal line through the swatch, no hover zoom.
+   Give the label a title ("Purple, in use") so the reason shows on hover. */
 .oc-color-select-option:has(input:disabled) {
-  opacity: 0.4;
+  opacity: 0.55;
   cursor: not-allowed;
+}
+.oc-color-select-option:has(input:disabled) .oc-color-select-swatch {
+  background:
+    linear-gradient(135deg, transparent calc(50% - 1.5px), var(--oc-background) calc(50% - 1.5px) calc(50% + 1.5px), transparent calc(50% + 1.5px)),
+    var(--oc-swatch);
+  transform: none;
 }
 
 /* Name next to the swatch (visible in --list; screen-reader text in the grid). */
@@ -7234,6 +7288,19 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 /* Currency: the symbol in the icon slot gets the primary color. */
 .oc-language-select--currency .oc-language-select-icon { color: var(--oc-primary); }
 
+/* Menu: the same pill as a <button> that opens an OmniaUI dropdown (popovertarget + .oc-dropdown-menu),
+   for a list of links per language. Room on the right for the chevron. */
+button.oc-language-select {
+  padding-block: 0.375rem;
+  padding-inline-end: 1.6rem;
+  background: transparent;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+}
+button.oc-language-select:hover { background: var(--oc-surface); }
+
 /* parts/forms-number-input.css */
 /* File: packages/ui/src/parts/forms-number-input.css
    Map: wrapper -> step buttons (- / +) -> number field (native spinners hidden) -> states -> sizes / block
@@ -7323,8 +7390,11 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   cursor: not-allowed;
 }
 
+/* Inside a grid the control keeps its own width (no empty strip next to the +); --block fills the cell. */
+.oc-number-input { justify-self: start; }
+
 /* Full width: the field grows, buttons keep their size. */
-.oc-number-input--block { display: flex; }
+.oc-number-input--block { display: flex; inline-size: 100%; justify-self: stretch; }
 .oc-number-input--block .oc-number-input-field { flex: 1; inline-size: auto; }
 
 /* Small size. */
@@ -9489,6 +9559,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   display: grid;
   gap: 0.55rem;
   flex-grow: 1;
+  align-content: start; /* the list grows to push the button down, its rows stay together */
   margin: 0;
   padding: 0;
   list-style: none;
