@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.11.2",
+      "date": "2026-10-28",
+      "summary": "mobiel site-header-menu, leesbare accenttekst in dark mode, minify behoudt scroll-animaties"
+    },
+    {
       "version": "0.11.1",
       "date": "2026-10-28",
       "summary": "docs layout, browser support and demo fixes"
