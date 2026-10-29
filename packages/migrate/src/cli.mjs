@@ -26,6 +26,7 @@ Bootstrap 3/4/5 -> OmniaCSS + OmniaUI
 
 Options
   --write               apply changes (setup, codemod)
+  --include-tests       (codemod) also rewrite tests/, scripts/, *.test.* and *.spec.* files (skipped by default)
   --top <n>             rows in the unsupported list (scan, codemod; default 40)
   --json                machine readable output (scan)
   --breakpoints <omnia|tailwind>   sm/md/lg values (default omnia)
@@ -44,7 +45,7 @@ function parse(args) {
   options: {
     write: { type: "boolean" }, top: { type: "string" }, json: { type: "boolean" }, help: { type: "boolean", short: "h" },
     breakpoints: { type: "string" }, dark: { type: "string" }, tailwind: { type: "string" }, "keep-brand-colors": { type: "boolean" },
-    content: { type: "string", short: "c", multiple: true }, output: { type: "string", short: "o" }, backup: { type: "boolean" },
+    content: { type: "string", short: "c", multiple: true }, output: { type: "string", short: "o" }, backup: { type: "boolean" }, "include-tests": { type: "boolean" },
     bs: { type: "string" }, compat: { type: "string" }, "omnia-href": { type: "string" }, "omniaui-href": { type: "string" }, "compat-href": { type: "string" },
   },
   });
@@ -102,7 +103,7 @@ export async function run(args = process.argv.slice(2)) {
 
   if (command === "codemod") {
     const { ctx } = await loadProject(dir, { ...ctxOptions(), breakpoints: values.breakpoints || "omnia" });
-    const report = await runCodemod(dir, { ctx, write: !!values.write, cwd: dir });
+    const report = await runCodemod(dir, { ctx, write: !!values.write, cwd: dir, includeTests: !!values["include-tests"] });
     console.log(formatCodemod(report, { top }));
     return;
   }

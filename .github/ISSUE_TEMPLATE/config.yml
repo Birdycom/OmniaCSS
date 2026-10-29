@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: OmniaCSS docs
+    url: https://omniacss.eu/docs/
+    about: How the utilities, variants and tools work.
+  - name: OmniaUI components and blocks
+    url: https://github.com/Birdycom/OmniaUI/issues/new/choose
+    about: Problems with oc-* components, blocks or the React, Vue and Blade packages.
+  - name: OmniaUI Pro support (customers)
+    url: https://polar.sh/birdycom/portal
+    about: Your licence and invoices are in the customer portal; questions about Pro go to support@omniaui.eu.

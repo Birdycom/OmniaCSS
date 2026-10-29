@@ -12,14 +12,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import postcss from "postcss";
-import { createContext, resolveToken, serialize } from "./resolve.mjs";
+import { createContext, resolveToken, serialize, propRank } from "./resolve.mjs";
 import { KEYFRAMES } from "./utilities.mjs";
 import { extractTokens } from "./extract.mjs";
 import { loadProject, parseThemeBlocks } from "./project.mjs";
 import { preflight } from "./preflight.mjs";
 import { buildCoreCss } from "./core.mjs";
 import { COLOR_MAP } from "./values.mjs";
-import { applyVariant } from "./variants.mjs";
+import { applyVariant, splitTop } from "./variants.mjs";
 
 // `@import "tailwindcss"`, or the same entry under our own name, so a project can drop every Tailwind mention.
 const TW_IMPORT = /^["'](?:tailwindcss|@birdycom\/omniacss-migrate)(?:\/(theme|preflight|utilities|base|components)(?:\.css)?)?["']/;
@@ -107,7 +107,8 @@ function withTheme(ctx, extra, patch = {}) {
  * @param {string} [options.cwd]
  * @param {true|"tokens"|false} [options.core=true]  true: Omnia core on demand; "tokens": only color tokens + base; false: you load Omnia yourself
  * @param {boolean} [options.preflight=true]   include the base reset
- * @param {boolean} [options.layers=true]      wrap output in cascade layers (omnia, theme, base, components, utilities)
+ * @param {boolean} [options.layers=true]      wrap output in cascade layers (omnia, theme, base, components, utilities):
+ *   Omnia's reset and tokens lowest; the Omnia classes and the Tailwind-style names together in utilities, sorted the Tailwind way
  * @param {3|4} [options.tailwind]             naming flavor (default: detected from package.json / CSS)
  * @param {"class"|"media"} [options.darkMode]
  * @param {"omnia"|"tailwind"} [options.breakpoints="omnia"]
@@ -157,7 +158,7 @@ export default function omniaMigrate(options = {}) {
       const ctx = withTheme(baseCtx, themeDecls.map(([k]) => k), { ...patch, customVariants, ...(options.important ? { important: true } : {}) });
 
       // --- content ---------------------------------------------------------------------------------------------
-      let compatCss = "", exclude = new Set(), candidates = new Set(), files = [];
+      let compatCss = "", exclude = new Set(), candidates = new Set(), files = [], resolved = [];
       if (hasEntry) {
         const globs = [];
         for (const at of sources) {
@@ -176,7 +177,6 @@ export default function omniaMigrate(options = {}) {
         for (const t of collected.tokens) candidates.add(t);
         for (const t of options.safelist || []) candidates.add(t);
 
-        const resolved = [];
         const manifest = options.manifest === false ? {} : JSON.parse(await fs.readFile(path.join(cwd, "omniacss-migrate.manifest.json"), "utf8").catch(() => "{}"));
         const native = new Set(manifest.native || []);
         for (const t of candidates) {
@@ -191,12 +191,16 @@ export default function omniaMigrate(options = {}) {
       const layers = options.layers !== false;
       const wrap = (name, css) => (layers && css.trim() ? `@layer ${name} {\n${css}\n}` : css);
       const pieces = {};
+      // omnia (Omnia's reset + tokens) < theme < base (compat preflight) < components < utilities. The Omnia classes
+      // (e.g. what the codemod wrote) share `utilities` with the Tailwind-style names, sorted together the Tailwind way,
+      // so an Omnia class beats every reset and wins or loses against a compat class exactly as before the codemod.
       pieces.order = layers ? "@layer omnia, theme, base, components, utilities;" : "";
       const themeBody = themeDecls.map(([k, v]) => `  ${k}: ${v};`).join("\n");
       pieces.theme = wrap("theme", (themeBody ? `:root, :host {\n${themeBody}\n}\n` : "") + keyframes.join("\n"));
       pieces.preflight = options.preflight === false ? "" : wrap("base", preflight({ borderColor: ctx.v4 ? "currentColor" : `var(${COLOR_MAP["gray-200"]})` }));
-      pieces.core = options.core === false ? "" : await buildCoreCss({ candidates, compatCss, exclude, cwd, layer: layers ? "omnia" : false, mode: options.core === "tokens" ? "tokens" : true });
-      pieces.utilities = wrap("utilities", compatCss);
+      const core = options.core === false ? { base: "", classes: "", used: new Set() } : await buildCoreCss({ candidates, compatCss, exclude, cwd, mode: options.core === "tokens" ? "tokens" : true });
+      pieces.core = wrap("omnia", core.base);
+      pieces.utilities = wrap("utilities", core.classes ? serialize([...resolved, ...nativeRules(core.classes, core.used, ctx)]) : compatCss);
       const all = [pieces.order, pieces.theme, pieces.preflight, pieces.core, pieces.utilities];
       // `from`: the stylesheet being built, so Vite resolves url() in the generated CSS against it (no "did not pass from" warning).
       const mk = (css) => postcss.parse(css, { from: result.opts.from }).nodes;
@@ -246,10 +250,47 @@ export default function omniaMigrate(options = {}) {
       root.walkDecls((decl) => { const v = replaceThemeFunctions(decl.value, ctx); if (v !== decl.value) decl.value = v; });
 
       for (const file of files) result.messages.push({ type: "dependency", plugin: "omniacss-migrate", file: path.resolve(file), parent: result.opts.from });
+
+      // Anything still here was not understood: the page would silently miss its tokens and classes.
+      root.walkAtRules((at) => {
+        if ((at.name === "import" && TW_IMPORT.test(at.params.trim())) || at.name === "theme" || at.name === "tailwind") {
+          at.warn(result, `omniacss-migrate left "@${at.name} ${at.params}" unprocessed. If you just updated @birdycom/omniacss-migrate, restart the dev server.`);
+        }
+      });
     },
   };
 }
 omniaMigrate.postcss = true;
+
+/**
+ * The Omnia class rules as resolved tokens, so serialize() sorts them in with the compat classes: the variant rank
+ * comes from the class's own prefixes (`hover:`, `md:` …), the property rank from its first declaration.
+ * @param {string} css   the class part of the Omnia core output
+ * @param {Set<string>} used  Omnia class names in it (to find a rule's own class among the ones in its selector)
+ */
+function nativeRules(css, used, ctx) {
+  const out = [];
+  postcss.parse(css).walkRules((rule) => {
+    const decls = [];
+    rule.each((n) => { if (n.type === "decl") decls.push([n.prop, n.important ? `${n.value} !important` : n.value]); });
+    if (!decls.length) return;
+    const media = [];
+    for (let p = rule.parent; p && p.type === "atrule"; p = p.parent) media.unshift(`@${p.name} ${p.params}`.trim());
+    const classes = [...rule.selector.matchAll(/\.((?:\\.|[A-Za-z0-9_-])+)/g)].map((m) => m[1].replace(/\\(.)/g, "$1"));
+    const token = classes.find((c) => used.has(c)) || classes.at(-1) || rule.selector;
+    out.push({ token, rules: [{ selectors: rule.selectors, media, decls, rank: variantRank(token, ctx), urank: propRank(decls[0][0]) }], keyframes: [] });
+  });
+  return out;
+}
+
+/** Cascade rank of a class's variant prefixes, as the compat layer ranks them (unknown Omnia-only prefixes go late). */
+function variantRank(token, ctx) {
+  const parts = splitTop(token, ":");
+  parts.pop();
+  const st = { sels: ["&"], media: [], prelude: [], rank: 0 };
+  for (let i = parts.length - 1; i >= 0; i--) if (!applyVariant(parts[i], st, ctx)) st.rank += 15000;
+  return st.rank;
+}
 
 function expandUtility(at) {
   if (/--value|--modifier/.test(at.toString())) { at.remove(); return; }

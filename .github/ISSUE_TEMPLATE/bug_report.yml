@@ -1,0 +1,48 @@
+name: Bug report
+description: Something in OmniaCSS does not work as documented.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. A small example that shows the problem helps most: the classes, the HTML, and what you see.
+        Components and blocks (`oc-btn`, `oc-card` …) live in [OmniaUI](https://github.com/Birdycom/OmniaUI/issues/new/choose).
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - "@birdycom/omniacss (utilities, tokens, engine, PostCSS plugin)"
+        - "@birdycom/omniacss-cli"
+        - "@birdycom/omniacss-migrate (Tailwind / Bootstrap migration)"
+        - "@birdycom/omniacss-mcp (MCP server for AI assistants)"
+        - OmniaCSS IntelliSense (VS Code / Cursor extension)
+        - Docs (omniacss.eu)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "`npm ls @birdycom/omniacss`, or the extension version in the Extensions view."
+      placeholder: "0.12.1"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens, and what did you expect?
+      placeholder: "`md:grid-cols-2` gives one column at 900px wide; I expected two."
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: The classes or HTML, your config (omnia.config.json, postcss/vite config) and the commands you ran.
+      render: html
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "Chrome 152, Node 22, Vite 8, Laravel 12, Windows 11"
