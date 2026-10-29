@@ -43,8 +43,11 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  /* The same width on both sites ("OmniaCSS" is wider than "OmniaUI"), so the menu starts at the same place. */
-  min-inline-size: 13.25rem;
+  /* A fixed width on every page of both sites, whatever the title says ("OmniaCSS" is wider than "OmniaUI"): the menu
+     always starts at the same place. A longer title is cut off; it never pushes the menu. */
+  flex: none;
+  inline-size: 13.25rem;
+  overflow: hidden;
 }
 /* Brand mark = the site's own favicon (OmniaCSS palette, OmniaUI puzzle piece); the Pro page shows the Pro star. */
 .oc-topbar-brand::before {
@@ -440,7 +443,7 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 
 /* ---- Responsive shell (both sites): toc hides below 1200px, the left sidebar becomes a drawer below 900px ---- */
 .ocd-nav-toggle { position: absolute; opacity: 0; pointer-events: none; }
-.ocd-nav-button { display: none; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; margin-inline-end: -0.25rem; border: 1px solid var(--ocd-rule); border-radius: 10px; color: var(--oc-foreground); cursor: pointer; }
+.ocd-nav-button { display: none; flex: none; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; margin-inline-end: -0.25rem; border: 1px solid var(--ocd-rule); border-radius: 10px; color: var(--oc-foreground); cursor: pointer; }
 .ocd-nav-button svg { inline-size: 1.15rem; block-size: 1.15rem; }
 .ocd-nav-toggle:focus-visible + .ocd-nav-button { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
 @media (max-width: 1200px) {
@@ -450,11 +453,14 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 /* Small laptops: the version badge next to the brand gives way to the links. */
 @media (max-width: 1100px) {
   .oc-topbar-brand .oc-badge-version { display: none; }
-  .oc-topbar-brand { min-inline-size: 8.5rem; }
+  .oc-topbar-brand { inline-size: 8.5rem; }
 }
 @media (max-width: 900px) {
   :is(.oc-docs-shell, .ocd-shell) { grid-template-columns: minmax(0, 1fr); }
   .ocd-nav-button { display: grid; }
+  /* Pages without a sidebar (the home pages) have no menu button: keep its place free, so the brand and the menu
+     stay where they are on the docs pages (button 2.4rem - 0.25rem overlap + the top bar gap). */
+  .oc-topbar:not(:has(.ocd-nav-button)) .oc-topbar-brand { margin-inline-start: calc(2.15rem + 20px); }
   :is(.oc-docs-sidebar-left, .ocd-sidebar-left) {
     display: none;
     position: fixed;
@@ -471,6 +477,8 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 }
 @media (max-width: 760px) {
   .oc-topbar { flex-wrap: nowrap; gap: 0.6rem; }
+  /* The free place for the menu button follows the smaller gap. */
+  .oc-topbar:not(:has(.ocd-nav-button)) .oc-topbar-brand { margin-inline-start: calc(2.15rem + 0.6rem); }
   .oc-topbar-nav { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
   .oc-navmenu--site { flex-wrap: nowrap; }
   .oc-navmenu--site .oc-navmenu-link { white-space: nowrap; padding-inline: 0.5rem; }
