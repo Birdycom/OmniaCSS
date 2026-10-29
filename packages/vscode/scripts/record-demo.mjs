@@ -328,7 +328,8 @@ await render(`<div style="position:relative;width:${bw}px;height:${bh}px;overflo
   <div style="position:absolute;inset:0;background:radial-gradient(70% 80% at 0% 100%,${BRAND.from}55,transparent 70%),radial-gradient(50% 60% at 100% 0%,${BRAND.accent}33,transparent 70%)"></div>
   <img src="${dataUrl(stills.components)}" style="position:absolute;left:300px;top:34px;width:430px;border-radius:8px;border:1px solid #ffffff1f;box-shadow:0 24px 60px -20px #000;transform:perspective(900px) rotateY(-14deg);transform-origin:left center">
   <div style="position:absolute;left:36px;top:58px;display:grid;gap:14px;width:250px">
-    <div style="width:46px;height:46px;border-radius:11px;background:linear-gradient(135deg,${BRAND.from},${BRAND.to});display:flex;align-items:center;justify-content:center;font:800 19px/1 'Cascadia Code',Consolas,monospace;letter-spacing:-2px">oc<span style="color:${BRAND.accent}">:</span></div>
+    <img src="${dataUrl(fs.readFileSync(path.join(root, "media", "icon.png")))}" style="width:46px;height:46px">
+
     <div style="font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.05">OmniaCSS<br>IntelliSense</div>
     <div style="font-size:12.5px;line-height:1.55;opacity:.8">Utilities, variants, OKLCH and RAL colors<br>and OmniaUI classes, in VS Code and Cursor.</div>
   </div>
