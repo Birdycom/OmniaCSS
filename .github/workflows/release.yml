@@ -39,7 +39,7 @@ jobs:
           npm --version
           ID_TOKEN=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm:registry.npmjs.org" | jq -r .value)
           echo "$ID_TOKEN" | cut -d. -f2 | tr '_-' '/+' | base64 -d 2>/dev/null | jq -c '{repository, workflow_ref, ref}' || true
-          for pkg in @birdycom/omniacss @birdycom/omniacss-cli @birdycom/omniacss-migrate; do
+          for pkg in @birdycom/omniacss @birdycom/omniacss-cli @birdycom/omniacss-migrate @birdycom/omniacss-mcp; do
             code=$(curl -sS -o resp.json -w '%{http_code}' -X POST -H "Authorization: Bearer $ID_TOKEN" \
               "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/$(jq -rn --arg p "$pkg" '$p|@uri')")
             echo "$pkg -> HTTP $code $(jq -c 'del(.token)' resp.json 2>/dev/null || head -c 300 resp.json)"
@@ -49,14 +49,17 @@ jobs:
       # build:packages copies the committed compiled CSS (public/css/omnia_main*.css) into packages/core/dist.
       - run: npm run build:packages
 
-      - run: npm test -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate
+      # The MCP server ships the editor extension's class index (packages/vscode/dist) and the docs search index.
+      - run: npm run vscode:build && npm run build -w @birdycom/omniacss-mcp
 
-      # Order matters: omniacss (utilities) first, then cli and migrate (they depend on it).
+      - run: npm test -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate -w @birdycom/omniacss-mcp
+
+      # Order matters: omniacss (utilities) first, then cli, migrate and mcp (they depend on it).
       # Each package is published from its own folder, so npm matches it to its Trusted Publisher.
       # apps/docs is private and not published. Components/blocks are released from the OmniaUI repo.
       - name: Publish
         run: |
-          for dir in packages/core packages/cli packages/migrate; do
+          for dir in packages/core packages/cli packages/migrate packages/mcp; do
             NAME=$(node -p "require('./$dir/package.json').name"); V=$(node -p "require('./$dir/package.json').version")
             # A retry after a partial publish skips what npm already has.
             if npm view "$NAME@$V" version >/dev/null 2>&1; then echo "$NAME@$V is already on npm, skipped"; continue; fi

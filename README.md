@@ -10,6 +10,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 
 **Docs:** https://omniacss.eu · **Components and blocks:** [OmniaUI](https://github.com/Birdycom/OmniaUI) (https://omniaui.eu)
 · **Editor:** [OmniaCSS IntelliSense](packages/vscode) for VS Code and Cursor ([docs](https://omniacss.eu/docs/editor))
+· **AI assistants:** [OmniaCSS MCP server](packages/mcp) for Claude, Cursor, Copilot and others
 
 > Since October 2026 the components and blocks live in [OmniaUI](https://github.com/Birdycom/OmniaUI)
 > (`@birdycom/omniaui`, `@birdycom/omniaui-blocks`, React, Vue and Blade wrappers). This repository holds the CSS
@@ -157,6 +158,7 @@ Utilities with the `dark:` prefix keep working (`.dark` or `data-theme="dark"`).
 | `@birdycom/omniacss` | Utilities (`dist/omnia.css`), color tokens, SCSS sources, on-demand engine (`/engine`), PostCSS plugin (`/postcss`) |
 | `@birdycom/omniacss-cli` | `omniacss init / build / migrate / tokens` (bin `omniacss`) |
 | `@birdycom/omniacss-migrate` | Tailwind CSS → OmniaCSS: PostCSS/Vite plugin, scan, setup, codemod |
+| `@birdycom/omniacss-mcp` | [MCP server](packages/mcp) for AI assistants: check and look up classes, variants, tokens and docs, convert Tailwind classes |
 
 Components, blocks and framework wrappers: see [OmniaUI](https://github.com/Birdycom/OmniaUI).
 

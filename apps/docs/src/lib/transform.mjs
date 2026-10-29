@@ -153,7 +153,7 @@ function cssFeatures(markup, limit = 8) {
 // ---------------------------------------------------------------------------------------------------------
 
 // Docs pages that are not about one CSS feature set: no browser support block.
-const NON_CSS_PAGES = new Set(["docs/index.html", "docs/configuration.html", "docs/migrate.html", "docs/editor.html", "docs/css-catalog.html"]);
+const NON_CSS_PAGES = new Set(["docs/index.html", "docs/configuration.html", "docs/migrate.html", "docs/editor.html", "docs/ai.html", "docs/css-catalog.html"]);
 // Folder (or folder/page) → MDN keys, when the page text alone does not reveal what it documents.
 Object.assign(PAGE_FEATURES, {
   "borders/corner-shape": ["corner-shape", "border-radius"], borders: ["border-radius", "border-style", "outline", "corner-shape"],

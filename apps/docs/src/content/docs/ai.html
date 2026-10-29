@@ -1,0 +1,106 @@
+<!--oc-page {"title": "OmniaCSS Docs - AI assistants (MCP)", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-hero" id="overview" data-oc-no-compat>
+        <h1 class="oc-hero-title">AI assistants (MCP)</h1>
+        <p class="oc-hero-text">The OmniaCSS MCP server lets Claude, Cursor, VS Code Copilot, Windsurf and other AI assistants check OmniaCSS classes before they write them. Without it they guess from Tailwind, and many names and values differ.</p>
+        <p class="flex flex-wrap gap-2"><a class="oc-btn" href="https://www.npmjs.com/package/@birdycom/omniacss-mcp" rel="noopener">@birdycom/omniacss-mcp on npm</a> <a class="oc-btn oc-btn--outline" href="https://github.com/Birdycom/OmniaCSS/tree/main/packages/mcp" rel="noopener">Source</a></p>
+      </section>
+
+      <section class="oc-docs-section" id="why">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Why an MCP server</h2>
+          <p class="oc-section-header__desc">The <a href="https://modelcontextprotocol.io" rel="noopener">Model Context Protocol</a> lets an assistant call tools while it works. This server gives it the real OmniaCSS class index.</p>
+        </div>
+        <div class="oc-section-content">
+          <ul>
+            <li><strong>No guessed classes.</strong> The assistant looks up each class it is unsure of and gets the exact CSS, or the closest correct name for a typo (<code>felx</code> → <code>flex</code>, <code>hovr:</code> → <code>hover:</code>).</li>
+            <li><strong>The OmniaCSS scale, not Tailwind's.</strong> In OmniaCSS <code>p-1</code> is <code>1rem</code> and <code>p-4</code> is <code>4rem</code>. The server shows the value of every class.</li>
+            <li><strong>Read-only and local.</strong> The server runs on your computer and never changes a file. Only <code>read_docs</code> goes on the network, and only to omniacss.eu.</li>
+            <li><strong>The same index as the editor.</strong> The class index is the one the <a href="editor.html">editor extension</a> uses, with the OmniaUI component classes. When your project has <code>@birdycom/omniaui-pro</code> installed, the Pro classes are included.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="install">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Install <span class="oc-section-header__badge-version oc-badge-version">@birdycom/omniacss-mcp</span></h2>
+          <p class="oc-section-header__desc">Free, MIT licensed, same version number as <code>@birdycom/omniacss</code>. Needs Node.js 22 or newer; <code>npx</code> downloads it, so there is nothing to install first.</p>
+        </div>
+        <div class="oc-section-content">
+          <h3 id="install-claude-code">Claude Code</h3>
+          <oc-code lang="shell">claude mcp add omniacss -- npx -y @birdycom/omniacss-mcp</oc-code>
+
+          <h3 id="install-cursor">Cursor, Claude Desktop, Windsurf</h3>
+          <p>Add the server to <code>.cursor/mcp.json</code> (Cursor), <code>claude_desktop_config.json</code> (Claude Desktop) or <code>~/.codeium/windsurf/mcp_config.json</code> (Windsurf):</p>
+          <oc-code lang="json">{
+  "mcpServers": {
+    "omniacss": { "command": "npx", "args": ["-y", "@birdycom/omniacss-mcp"] }
+  }
+}</oc-code>
+
+          <h3 id="install-vscode">VS Code (Copilot)</h3>
+          <oc-code lang="json">// .vscode/mcp.json
+{
+  "servers": {
+    "omniacss": { "type": "stdio", "command": "npx", "args": ["-y", "@birdycom/omniacss-mcp"] }
+  }
+}</oc-code>
+          <p>Start the server in your project folder (most clients do that by default), so the OmniaUI packages installed there are found. To keep it on your OmniaCSS version, add the version to the name: <code>@birdycom/omniacss-mcp@0.12</code>.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="tools">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Tools</h2>
+          <p class="oc-section-header__desc">The assistant picks these itself. The server also sends a short guide on connecting, so the assistant knows the OmniaCSS rules before its first call.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Tool</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr><td><code>getting_started</code></td><td>Install (CDN, npm with PostCSS or Vite, CLI), dark mode and the rules for writing OmniaCSS markup</td></tr>
+                <tr><td><code>lookup_classes</code></td><td>Checks classes, variants included (<code>md:hover:…</code>), and OmniaUI <code>oc-*</code> classes. Returns the exact CSS, or the closest correct name</td></tr>
+                <tr><td><code>search_utilities</code></td><td>Finds classes by name or by CSS: <code>anchor</code>, <code>grid cols</code>, <code>position-area</code></td></tr>
+                <tr><td><code>list_variants</code></td><td>Lists every variant prefix, or shows the selector or at-rule that one variant produces</td></tr>
+                <tr><td><code>color_tokens</code></td><td>Lists the theme tokens (<code>--oc-primary</code> …) with their light and dark colors, and the palette colors with their hex value</td></tr>
+                <tr><td><code>convert_tailwind</code></td><td>Gives the native OmniaCSS class for a Tailwind class (<code>bg-blue-500</code> → <code>bg-vividblue-80</code>), or the CSS that <a href="migrate.html">the migrate plugin</a> generates for it</td></tr>
+                <tr><td><code>search_docs</code>, <code>read_docs</code></td><td>Find pages and sections of these docs, and read one as text with its code examples</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="example">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">In practice</h2>
+        </div>
+        <div class="oc-section-content">
+          <p>Ask for a component and tell the assistant to use the tools:</p>
+          <oc-code lang="text">Build a pricing card with OmniaCSS, two columns from cq-md up.
+Check every class with the omniacss tools before you use it.</oc-code>
+          <p>This is what <code>lookup_classes</code> returns for one class:</p>
+          <oc-code lang="json">{
+  "token": "cq-md:grid-cols-2",
+  "known": true,
+  "kind": "utility",
+  "css": "@container (min-width: 28rem) {\n  .cq-md\\:grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n}"
+}</oc-code>
+          <p>Moving a Tailwind project? Let the assistant run <code>convert_tailwind</code> on the classes, or use <a href="migrate.html">@birdycom/omniacss-migrate</a> for the whole project.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="code">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">In your own code</h2>
+          <p class="oc-section-header__desc">The same lookups without MCP, for scripts and build checks.</p>
+        </div>
+        <div class="oc-section-content">
+          <oc-code lang="js">import { load } from "@birdycom/omniacss-mcp/knowledge";
+
+const kb = await load();
+kb.lookup(["p-1", "md:flx"]);
+// [{ token: "p-1", known: true, css: ".p-1 { padding: 1rem; … }" },
+//  { token: "md:flx", known: false, hint: 'Unknown utility "flx", did you mean "md:flex"?' }]</oc-code>
+        </div>
+      </section>

@@ -7,10 +7,11 @@
     "packages/core",
     "packages/cli",
     "packages/migrate",
+    "packages/mcp",
     "apps/docs"
   ],
   "scripts": {
-    "test": "npm run build && npm test -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate",
+    "test": "npm run build && npm test -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate && npm run vscode:build && npm run build -w @birdycom/omniacss-mcp && npm test -w @birdycom/omniacss-mcp",
     "sass": "sass --watch src/scss/:src/css/ --source-map",
     "sass:build:colors": "sass src/scss/omnia_colors.scss src/css/oc-colors.css --source-map --embed-sources",
     "sass:build": "npm run sass:build:colors && sass src/scss/omnia_main.scss src/css/omnia_main.css --source-map --embed-sources",

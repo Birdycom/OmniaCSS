@@ -48,6 +48,11 @@
           "href": "editor.html"
         },
         {
+          "id": "ai",
+          "label": "AI assistants (MCP)",
+          "href": "ai.html"
+        },
+        {
           "id": "fluid",
           "label": "Fluid values (clamp, min, max)",
           "href": "fluid.html"

@@ -17,7 +17,7 @@ import { readLock, restoreOptional, snapshotOptional, writeLock } from "./preser
 
 const root = process.cwd();
 // OmniaCSS packages only. The OmniaUI repo has its own copy of this script and keeps the same version number.
-const PACKAGES = ["package.json", "packages/core/package.json", "packages/cli/package.json", "packages/migrate/package.json", "apps/docs/package.json", "packages/vscode/package.json"];
+const PACKAGES = ["package.json", "packages/core/package.json", "packages/cli/package.json", "packages/migrate/package.json", "packages/mcp/package.json", "apps/docs/package.json", "packages/vscode/package.json"];
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
@@ -87,7 +87,8 @@ if (!skipVerify) {
     console.log(`[release] restored ${restored} optional platform package(s) in the lockfile`);
   }
   run("npm run build:packages");
-  run("npm pack --dry-run --workspace packages/core --workspace packages/migrate --workspace packages/cli");
+  run("npm run vscode:build && npm run build -w @birdycom/omniacss-mcp");
+  run("npm pack --dry-run --workspace packages/core --workspace packages/migrate --workspace packages/cli --workspace packages/mcp");
 }
 
 console.log(`${dryRun ? "[dry-run] " : ""}OmniaCSS ${current} → ${version}`);
