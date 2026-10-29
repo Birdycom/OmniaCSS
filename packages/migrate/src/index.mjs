@@ -8,5 +8,6 @@ export { runCodemod, formatCodemod } from "./codemod.mjs";
 export { planSetup, applySetup, formatPlan } from "./setup.mjs";
 export { loadProject, themeFromConfig } from "./project.mjs";
 export { COLOR_MAP } from "./values.mjs";
+export { loadOmniaIndex, nativeFor } from "./native.mjs";
 export { default as postcss } from "./postcss.mjs";
 export { default as vite } from "./vite.mjs";

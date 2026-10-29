@@ -220,6 +220,7 @@ export function Invite() {
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Laravel</label>
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Components</label>
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Editor</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> AI</label>
       </div>
       <div class="oc-tab-panel"><oc-code lang="shell">npm install -D @birdycom/omniacss-cli
 npx omniacss init
@@ -247,6 +248,9 @@ npx omniaui add cms-dashboard --to resources/views/admin</oc-code></div>
 code --install-extension Birdycom.omniacss-intellisense     # VS Code
 cursor --install-extension Birdycom.omniacss-intellisense   # Cursor (Open VSX)</oc-code>
         <p><a href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense" rel="noopener">VS Code Marketplace</a> · <a href="https://open-vsx.org/extension/Birdycom/omniacss-intellisense" rel="noopener">Open VSX</a> · <a href="/docs/editor.html">Editor extension docs</a></p></div>
+      <div class="oc-tab-panel"><oc-code lang="shell"># OmniaCSS MCP server: Claude, Cursor and Copilot check classes instead of guessing
+claude mcp add omniacss -- npx -y @birdycom/omniacss-mcp</oc-code>
+        <p>Cursor, VS Code and Claude Desktop: <a href="/docs/ai.html">AI assistants (MCP) docs</a></p></div>
     </div>
   </section>
 
