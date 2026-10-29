@@ -1,0 +1,21 @@
+name: Feature request
+description: A utility, variant, CSS feature or tool you would like in OmniaCSS.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like?
+      placeholder: "Variants for media elements: `paused:`, `playing:` (CSS :paused / :playing)."
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What would you use it for?
+      description: A short example of the markup you would write helps us choose the right class names.
+  - type: input
+    id: links
+    attributes:
+      label: Links
+      description: MDN, caniuse or the spec, when it is about a CSS feature.

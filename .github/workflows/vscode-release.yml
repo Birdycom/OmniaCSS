@@ -57,7 +57,8 @@ jobs:
       - name: Publish to the VS Code Marketplace
         if: env.HAS_VSCE == 'true'
         working-directory: packages/vscode
-        run: npx --yes @vscode/vsce@3 publish --packagePath omniacss-intellisense.vsix
+        # --skip-duplicate: a version that is already in the store (a rerun, or a tag run before a manual one) is not an error.
+        run: npx --yes @vscode/vsce@3 publish --packagePath omniacss-intellisense.vsix --skip-duplicate
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
@@ -68,6 +69,6 @@ jobs:
         # create-namespace fails and that is ignored.
         run: |
           npx --yes ovsx@0.10 create-namespace "$(node -p "require('./package.json').publisher")" || true
-          npx --yes ovsx@0.10 publish omniacss-intellisense.vsix
+          npx --yes ovsx@0.10 publish omniacss-intellisense.vsix --skip-duplicate
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}

@@ -80,6 +80,83 @@ test("postcss plugin handles @import \"tailwindcss\" with @theme and @custom-var
   assert.match(out.css, /--color-primary: hsl\(var\(--primary\)\);/);
 });
 
+test("no warnings for CSS the plugin handles", async () => {
+  const input = '@import "@birdycom/omniacss-migrate";\n@theme { --color-x: red; }\n';
+  const out = await postcss([omniaMigrate({ cwd: dir, core: "tokens", content: ["resources/views/**/*.php"] })]).process(input, { from: path.join(dir, "resources/css/w.css") });
+  assert.deepEqual(out.warnings().map((w) => w.text), []);
+});
+
+test("vite plugin warns once when the package on disk is newer than the running one", async (t) => {
+  const manifest = new URL("../package.json", import.meta.url);
+  const original = await fs.readFile(manifest, "utf8");
+  const { default: vitePlugin } = await import(`../src/vite.mjs?stale=${Date.now()}`);
+  t.after(() => fs.writeFile(manifest, original));
+  const pkg = JSON.parse(original);
+  await fs.writeFile(manifest, JSON.stringify({ ...pkg, version: "99.0.0" }, null, 2) + "\n");
+  const later = new Date(Date.now() + 5000);
+  await fs.utimes(manifest, later, later);
+  const warnings = [];
+  const plugin = vitePlugin({ cwd: dir, core: "tokens", content: ["resources/views/**/*.php"] });
+  plugin.configResolved({ root: dir });
+  const ctx = { warn: (m) => warnings.push(m), addWatchFile() {} };
+  await plugin.transform.call(ctx, '@import "tailwindcss";\n', path.join(dir, "resources/css/a.css"));
+  await plugin.transform.call(ctx, '@import "tailwindcss";\n', path.join(dir, "resources/css/a.css"));
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0], new RegExp(`updated from ${pkg.version.replace(/\./g, "\\.")} to 99\\.0\\.0[\\s\\S]*Restart the dev server`));
+});
+
+test("codemod leaves tests and scripts alone unless includeTests is set", async (t) => {
+  const proj = await fs.mkdtemp(path.join(os.tmpdir(), "omnia-codemod-tests-"));
+  t.after(() => fs.rm(proj, { recursive: true, force: true }));
+  const line = '<div class="items-center flex">x</div>\n';
+  for (const f of ["src/App.vue", "tests/Feature/page.test.js", "scripts/build.js", "src/Button.spec.ts"]) {
+    await fs.mkdir(path.dirname(path.join(proj, f)), { recursive: true });
+    await fs.writeFile(path.join(proj, f), f.endsWith(".vue") ? `<template>${line}</template>` : `const html = '${line.trim()}';\n`);
+  }
+  await fs.writeFile(path.join(proj, "package.json"), JSON.stringify({ name: "p" }));
+  const { ctx } = await loadProject(proj, { breakpoints: "omnia" });
+  const plain = await runCodemod(proj, { ctx, write: false, cwd: proj });
+  assert.deepEqual(plain.files.map((f) => path.relative(proj, f.file).replace(/\\/g, "/")), ["src/App.vue"]);
+  assert.equal(plain.skipped.length, 3);
+  const all = await runCodemod(proj, { ctx, write: false, cwd: proj, includeTests: true });
+  assert.equal(all.files.length, 4);
+  assert.equal(all.skipped.length, 0);
+});
+
+test("Omnia classes (what the codemod writes) beat the compat preflight; Omnia's reset stays lowest", async (t) => {
+  const proj = await fs.mkdtemp(path.join(os.tmpdir(), "omnia-layers-"));
+  t.after(() => fs.rm(proj, { recursive: true, force: true }));
+  await fs.writeFile(path.join(proj, "package.json"), JSON.stringify({ name: "layers" }));
+  await fs.writeFile(path.join(proj, "index.html"), '<button class="p-1 align-items-center">x</button><h2>t</h2>');
+  // As after `codemod --write`: the manifest lists the classes that are now native OmniaCSS names.
+  await fs.writeFile(path.join(proj, "omniacss-migrate.manifest.json"), JSON.stringify({ native: ["p-1", "align-items-center"] }));
+  const out = await postcss([omniaMigrate({ cwd: proj, content: ["index.html"] })]).process('@import "tailwindcss";\n', { from: path.join(proj, "app.css") });
+  const layer = (name) => { let found = ""; postcss.parse(out.css).walkAtRules("layer", (at) => { if (at.params === name && at.nodes) found += at.toString(); }); return found; };
+  assert.match(out.css, /^@layer omnia, theme, base, components, utilities;/);
+  // the Omnia class sits above `base` (where the preflight's `* { padding: 0 }` lives) ...
+  assert.match(layer("utilities"), /\.p-1 \{\s*padding: 1rem/);
+  assert.doesNotMatch(layer("omnia"), /\.p-1\b/);
+  assert.match(layer("base"), /padding: 0/);
+  // ... while Omnia's element reset stays in the lowest layer, below your own components.
+  assert.match(layer("omnia"), /h1,[\s\S]*margin: 0/);
+  assert.doesNotMatch(layer("utilities"), /^\s*h1,/m);
+});
+
+test("Omnia and Tailwind-style classes in one class list sort the Tailwind way (the later rule wins)", async (t) => {
+  const proj = await fs.mkdtemp(path.join(os.tmpdir(), "omnia-order-"));
+  t.after(() => fs.rm(proj, { recursive: true, force: true }));
+  await fs.writeFile(path.join(proj, "package.json"), JSON.stringify({ name: "order" }));
+  // The OmniaDesk cases after the codemod: native lineheight-relaxed / pl-1 / ml-1 / hover:bg-violet-20 next to compat classes.
+  await fs.writeFile(path.join(proj, "index.html"), '<p class="text-sm lineheight-relaxed px-0 pl-1 mx-0 ml-1 bg-purple-200/90 hover:bg-violet-20">x</p>');
+  await fs.writeFile(path.join(proj, "omniacss-migrate.manifest.json"), JSON.stringify({ native: ["lineheight-relaxed", "pl-1", "ml-1", "hover:bg-violet-20"] }));
+  const out = await postcss([omniaMigrate({ cwd: proj, content: ["index.html"] })]).process('@import "tailwindcss";\n', { from: path.join(proj, "app.css") });
+  const at = (sel) => { const i = out.css.indexOf(sel); assert.ok(i > 0, `${sel} is in the output`); return i; };
+  assert.ok(at(".text-sm {") < at(".lineheight-relaxed {"), "lineheight-* after text-sm (it sets fewer properties)");
+  assert.ok(at(".px-0 {") < at(".pl-1 {"), "a side after the axis");
+  assert.ok(at(".mx-0 {") < at(".ml-1 {"));
+  assert.ok(at(".bg-purple-200\\/90 {") < at(".hover\\:bg-violet-20:hover"), "a variant after the base class");
+});
+
 test('postcss plugin takes @import "@birdycom/omniacss-migrate" as the same entry', async () => {
   const input = '@import "@birdycom/omniacss-migrate";\n@theme { --color-primary: hsl(var(--primary)); }\n.x { @apply scroll-mt-24; }\n';
   const out = await postcss([omniaMigrate({ cwd: dir, core: "tokens", content: ["resources/views/**/*.php"] })]).process(input, { from: path.join(dir, "resources/css/own.css") });

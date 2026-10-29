@@ -49,9 +49,24 @@ async function loadExistingPlugins(root) {
   return out;
 }
 
+// The version this process loaded. A running dev server keeps it after `npm install` brings a newer one.
+const OWN_MANIFEST = new URL("../package.json", import.meta.url);
+const LOADED_VERSION = JSON.parse(fs.readFileSync(OWN_MANIFEST, "utf8")).version;
+
+/** The version now on disk when it differs from the loaded one (read again only when package.json changed). */
+let seen = { mtime: 0, version: LOADED_VERSION };
+function updatedVersion() {
+  try {
+    const mtime = fs.statSync(OWN_MANIFEST).mtimeMs;
+    if (mtime !== seen.mtime) seen = { mtime, version: JSON.parse(fs.readFileSync(OWN_MANIFEST, "utf8")).version };
+  } catch { return null; }
+  return seen.version !== LOADED_VERSION ? seen.version : null;
+}
+
 /** @param {Parameters<typeof omniaMigratePostcss>[0]} [options] */
 export default function omniaMigrate(options = {}) {
   let root = process.cwd();
+  let warnedStale = false;
   return {
     name: "omniacss-migrate",
     enforce: "pre",
@@ -61,8 +76,15 @@ export default function omniaMigrate(options = {}) {
       const file = id.split("?")[0];
       if (!/\.(css|pcss|postcss)$/.test(file)) return null;
       if (!/@import\s+["'](?:tailwindcss|@birdycom\/omniacss-migrate)|@tailwind\s+\w+|@apply\s|@theme\b/.test(code)) return null;
+      // Vite does not reload a plugin whose package changed underneath it; the old one may not understand the CSS.
+      const newer = !warnedStale && updatedVersion();
+      if (newer) {
+        warnedStale = true;
+        this.warn(`@birdycom/omniacss-migrate was updated from ${LOADED_VERSION} to ${newer} while this dev server runs. Restart the dev server: it still uses ${LOADED_VERSION}.`);
+      }
       const result = await postcss([omniaMigratePostcss({ cwd: root, ...options })]).process(code, { from: file, map: false });
       for (const m of result.messages) if (m.type === "dependency" && m.file) this.addWatchFile(m.file);
+      for (const w of result.warnings()) this.warn(w.text);
       return { code: result.css, map: null };
     },
     configResolved(config) {

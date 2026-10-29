@@ -123,7 +123,7 @@ function containerRule(ctx) {
 
 // property rank so shorthands sort before longhands (`p-4` before `px-2` before `pl-1`)
 const SHORTHANDS = new Set(["margin", "padding", "inset", "gap", "border-width", "border-color", "border-radius", "border", "overflow", "scroll-margin", "scroll-padding", "transition-property", "flex", "background", "font", "outline", "translate", "rotate", "scale", "size"]);
-function propRank(prop) {
+export function propRank(prop) {
   if (SHORTHANDS.has(prop)) return 0;
   if (/-(top|right|bottom|left|start|end)\b|^(top|right|bottom|left)$|-(x|y)$/.test(prop)) return 2;
   return 1;
@@ -178,7 +178,9 @@ export function serialize(resolved) {
     r.keyframes.forEach((k) => frames.add(k));
     for (const rule of r.rules) rules.push({ ...rule, token: r.token });
   }
-  rules.sort((a, b) => a.rank - b.rank || a.urank - b.urank || (a.token < b.token ? -1 : a.token > b.token ? 1 : 0));
+  // Like Tailwind: variants after the base class, shorthands before longhands, then the class that sets more
+  // properties first (so `leading-*` overrides the line-height of `text-sm`), then by name.
+  rules.sort((a, b) => a.rank - b.rank || a.urank - b.urank || propCount(b) - propCount(a) || (a.token < b.token ? -1 : a.token > b.token ? 1 : 0));
   const renderRule = (r, ind = "") => `${r.selectors.map((x) => ind + x).join(",\n")} {\n${fmtDecls(r.decls, ind + "  ")}\n${ind}}`;
   const out = [];
   for (const k of frames) if (KEYFRAMES[k]) out.push(KEYFRAMES[k]);
@@ -202,6 +204,9 @@ export function serialize(resolved) {
   flush();
   return out.join("\n");
 }
+
+/** Number of real (not custom) properties a rule sets. */
+const propCount = (rule) => new Set(rule.decls.map(([k]) => k).filter((k) => !k.startsWith("--"))).size;
 
 /** Resolve many tokens and report what could not be resolved. */
 export function compileTokens(tokens, ctx) {

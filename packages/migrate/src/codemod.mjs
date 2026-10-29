@@ -11,6 +11,11 @@ import { loadOmniaIndex, nativeFor } from "./native.mjs";
 
 export const MANIFEST = "omniacss-migrate.manifest.json";
 
+// Tests and scripts often assert or build class names as data: rewriting them breaks the tests. Skipped unless asked.
+const TEST_DIRS = /[\\/](tests?|__tests__|specs?|e2e|cypress|playwright|scripts)[\\/]/i;
+const TEST_FILES = /\.(test|spec|cy)\.[cm]?[jt]sx?$|Test\.php$/;
+const isTestOrScript = (file, dir) => TEST_DIRS.test(path.sep + path.relative(dir, file)) || TEST_FILES.test(file);
+
 /**
  * @param {string} dir
  * @param {{ ctx: object, write?: boolean, extensions?: string[], cwd?: string }} o
@@ -21,8 +26,10 @@ export async function runCodemod(dir, o) {
   const kind = makeKind(ctx);
   const memo = new Map();
   const map = (t) => { if (!memo.has(t)) memo.set(t, nativeFor(t, ctx, index)); return memo.get(t); };
-  const files = await walk(dir, { extensions: o.extensions || DEFAULT_EXTENSIONS });
-  const report = { dir, write, files: [], total: 0, rewritten: 0, unchanged: 0, leftovers: new Map(), collisions: new Map(), mapping: new Map() };
+  const all = await walk(dir, { extensions: o.extensions || DEFAULT_EXTENSIONS });
+  const skipped = o.includeTests ? [] : all.filter((f) => isTestOrScript(f, dir));
+  const files = o.includeTests ? all : all.filter((f) => !isTestOrScript(f, dir));
+  const report = { dir, write, files: [], skipped, total: 0, rewritten: 0, unchanged: 0, leftovers: new Map(), collisions: new Map(), mapping: new Map() };
   for (const file of files) {
     let text;
     try { text = await fs.readFile(file, "utf8"); } catch { continue; }
@@ -71,6 +78,11 @@ export function formatCodemod(r, { top = 25 } = {}) {
   lines.push(`${r.write ? "Rewrote" : "Dry run, would rewrite"} ${r.rewritten} of ${r.total} class occurrences (${pct}%) in ${r.files.length} files under ${r.dir}`);
   for (const f of r.files.slice(0, 15)) lines.push(`  ${f.file}  (${f.changes})  e.g. ${f.sample.slice(0, 3).join(", ")}`);
   if (r.files.length > 15) lines.push(`  ... and ${r.files.length - 15} more files`);
+  if (r.skipped?.length) {
+    lines.push("", `Skipped ${r.skipped.length} test and script files (tests/, scripts/, *.test.*, *.spec.* …); add --include-tests to rewrite them too:`);
+    for (const f of r.skipped.slice(0, 8)) lines.push(`  ${path.relative(r.dir, f)}`);
+    if (r.skipped.length > 8) lines.push(`  ... and ${r.skipped.length - 8} more`);
+  }
   const left = [...r.leftovers.entries()].sort((a, b) => b[1] - a[1]);
   lines.push("", `Left as they are (no 1:1 native class): ${left.reduce((n, [, c]) => n + c, 0)} occurrences, ${left.length} unique`);
   for (const [t, n] of left.slice(0, top)) lines.push(`  ${String(n).padStart(5)}  ${t}${r.collisions.has(t) ? "   (name exists in OmniaCSS with different meaning)" : ""}`);
