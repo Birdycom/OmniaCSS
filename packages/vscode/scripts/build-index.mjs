@@ -1,12 +1,14 @@
 // File: packages/vscode/scripts/build-index.mjs
 // Builds the class index the editor extension ships with, from the full OmniaCSS build in packages/core/dist.
 // Map: parse omnia.css -> base utilities (one class per selector) -> colors -> tokens -> variants -> dist/index.json.gz
+//      + OmniaUI components.css / blocks.css -> dist/components.json.gz
 // Run: "npm run vscode:build" (after "npm run build:packages"). Author: Serge Cools | Framework: OmniaCSS
 
 import fs from "node:fs/promises";
 import path from "node:path";
 import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import postcss from "postcss";
 import { VARIANT_GROUPS, BREAKPOINTS, CONTAINER_SIZES } from "../../core/src/variants.mjs";
 import { colorToHex } from "../src/lib/color.cjs";
@@ -134,3 +136,28 @@ await fs.copyFile(path.join(coreDir, "src/variants.mjs"), path.join(outDir, "var
 console.log(`[vscode] index ${index.version}: ${Object.keys(classes).length} utilities, ${Object.keys(colors).length} colors, ` +
   `${Object.keys(tokens).length} tokens, ${nativeOnly.length} native-only variant classes; ` +
   `${(json.length / 1e6).toFixed(1)} MB json, ${(gz.length / 1e3).toFixed(0)} KB gzip`);
+
+// 4. OmniaUI component and block classes (free packages only; Pro is read from the project at runtime).
+// Source: ../omniaUI next to this repo when present, otherwise the published package on jsDelivr (CI).
+const { PACKAGES, parseSheet } = createRequire(import.meta.url)("../src/lib/components.cjs");
+const omniaUI = path.resolve(pkgDir, "../../../omniaUI/packages");
+const local = { "@birdycom/omniaui": "ui", "@birdycom/omniaui-blocks": "blocks" };
+const sources = [];
+for (const pkg of PACKAGES.filter((p) => local[p.name])) {
+  const file = path.join(omniaUI, local[pkg.name], pkg.file);
+  let css = await fs.readFile(file, "utf8").catch(() => null);
+  let from = path.relative(pkgDir, file);
+  let version = corePkg.version;
+  // OmniaUI is published after OmniaCSS, so on a fresh tag the same version may not be on npm yet: then the latest.
+  for (const tag of [corePkg.version, "latest"]) {
+    if (css !== null) break;
+    from = `https://cdn.jsdelivr.net/npm/${pkg.name}@${tag}/${pkg.file}`;
+    css = await fetch(from).then((r) => (r.ok ? r.text() : null), () => null);
+    if (tag === "latest") version = "";
+  }
+  if (css === null) { console.warn(`[vscode] ${pkg.name} not found (../omniaUI or jsDelivr): its classes are left out.`); continue; }
+  const classes = parseSheet(css);
+  sources.push({ label: pkg.label, version, classes });
+  console.log(`[vscode] ${pkg.label}: ${Object.keys(classes).length} classes from ${from}`);
+}
+await fs.writeFile(path.join(outDir, "components.json.gz"), zlib.gzipSync(JSON.stringify({ sources }), { level: 9 }));

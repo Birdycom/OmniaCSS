@@ -1350,6 +1350,10 @@ select {
   background-color: var(--color-goldenrod-mix-30);
 }
 
+.bg-ral3020-mix-20 {
+  background-color: color-mix(in oklch, var(--color-ral3020) 20%, transparent);
+}
+
 .bg-ral3020-mix-30 {
   background-color: color-mix(in oklch, var(--color-ral3020) 30%, transparent);
 }
@@ -7556,6 +7560,9 @@ select {
   }
   .cq-md\:flex-row {
     flex-direction: row;
+  }
+  .cq-md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @container (min-width: 32rem) {

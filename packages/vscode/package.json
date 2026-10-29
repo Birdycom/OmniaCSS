@@ -1,7 +1,7 @@
 {
   "name": "omniacss-intellisense",
   "displayName": "OmniaCSS IntelliSense",
-  "description": "Autocomplete, hover CSS, color swatches and linting for OmniaCSS utility classes, variants and color tokens.",
+  "description": "Autocomplete, hover CSS, color swatches and linting for OmniaCSS utilities, variants and color tokens, and OmniaUI component classes.",
   "version": "0.12.0",
   "private": true,
   "publisher": "Birdycom",
@@ -31,6 +31,7 @@
   ],
   "keywords": [
     "omniacss",
+    "omniaui",
     "css",
     "utility-first",
     "intellisense",
@@ -148,7 +149,7 @@
             "error"
           ],
           "default": "ignore",
-          "description": "Plain classes that are not OmniaCSS utilities. Off by default because projects have their own classes."
+          "description": "Plain classes that are neither OmniaCSS utilities nor OmniaUI classes. Off by default because projects have their own classes."
         },
         "omniacss.lint.duplicateClass": {
           "type": "string",

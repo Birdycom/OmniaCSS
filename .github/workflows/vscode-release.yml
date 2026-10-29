@@ -64,6 +64,10 @@ jobs:
       - name: Publish to Open VSX
         if: env.HAS_OVSX == 'true'
         working-directory: packages/vscode
-        run: npx --yes ovsx@0.10 publish omniacss-intellisense.vsix
+        # The namespace (the publisher in package.json) must exist before the first publish; once it does,
+        # create-namespace fails and that is ignored.
+        run: |
+          npx --yes ovsx@0.10 create-namespace "$(node -p "require('./package.json').publisher")" || true
+          npx --yes ovsx@0.10 publish omniacss-intellisense.vsix
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}

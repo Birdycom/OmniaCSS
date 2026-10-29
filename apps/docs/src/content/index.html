@@ -204,6 +204,7 @@ export function Invite() {
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Vite / PostCSS</label>
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Laravel</label>
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Components</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Editor</label>
       </div>
       <div class="oc-tab-panel"><oc-code lang="shell">npm install -D @birdycom/omniacss-cli
 npx omniacss init
@@ -227,6 +228,10 @@ export default {
 npx omniaui list
 npx omniaui add modal
 npx omniaui add cms-dashboard --to resources/views/admin</oc-code></div>
+      <div class="oc-tab-panel"><oc-code lang="shell"># OmniaCSS IntelliSense: utilities and OmniaUI classes
+code --install-extension Birdycom.omniacss-intellisense     # VS Code
+cursor --install-extension Birdycom.omniacss-intellisense   # Cursor (Open VSX)</oc-code>
+        <p><a href="/docs/editor.html">Editor extension docs</a></p></div>
     </div>
   </section>
 

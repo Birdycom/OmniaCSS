@@ -9,6 +9,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Birdycom/OmniaCSS/pulls)
 
 **Docs:** https://omniacss.eu · **Components and blocks:** [OmniaUI](https://github.com/Birdycom/OmniaUI) (https://omniaui.eu)
+· **Editor:** [OmniaCSS IntelliSense](packages/vscode) for VS Code and Cursor ([docs](https://omniacss.eu/docs/editor))
 
 > Since October 2026 the components and blocks live in [OmniaUI](https://github.com/Birdycom/OmniaUI)
 > (`@birdycom/omniaui`, `@birdycom/omniaui-blocks`, React, Vue and Blade wrappers). This repository holds the CSS

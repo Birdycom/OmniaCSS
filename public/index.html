@@ -12,7 +12,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/css/omnia-site.css?v=0bc21be116"><link rel="stylesheet" href="/css/oc-components.css?v=fea44e151e"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=21effc144d"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=152176955a"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=377547f0b8">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=b843076295"><link rel="stylesheet" href="/css/oc-components.css?v=3bcb684ced"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=21effc144d"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=152176955a"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=377547f0b8">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -415,6 +415,7 @@ export function Invite() {
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Vite / PostCSS</label>
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Laravel</label>
         <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Components</label>
+        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Editor</label>
       </div>
       <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
@@ -456,6 +457,12 @@ export function Invite() {
 <span class="hl-keyword">npx</span> omniaui <span class="hl-keyword">list</span>
 <span class="hl-keyword">npx</span> omniaui <span class="hl-keyword">add</span> modal
 <span class="hl-keyword">npx</span> omniaui <span class="hl-keyword">add</span> cms<span class="hl-attr">-dashboard</span> <span class="hl-attr">--to</span> resources/views/admin</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
+      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2
+3</pre><pre class="code-preview"><code><span class="hl-comment"># OmniaCSS IntelliSense: utilities and OmniaUI classes</span>
+code <span class="hl-attr">--install-extension</span> Birdycom.omniacss<span class="hl-attr">-intellisense</span>     <span class="hl-comment"># VS Code</span>
+cursor <span class="hl-attr">--install-extension</span> Birdycom.omniacss<span class="hl-attr">-intellisense</span>   <span class="hl-comment"># Cursor (Open VSX)</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+        <p><a href="/docs/editor">Editor extension docs</a></p></div>
     </div>
   </section>
 
