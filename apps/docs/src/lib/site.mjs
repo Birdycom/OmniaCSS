@@ -24,6 +24,8 @@ export const RELEASES = JSON.parse(fs.readFileSync(path.join(REPO, "docs/release
 // This is the ONLY place with its base URL. Change it here for production.
 export const OMNIAUI_URL = "https://omniaui.test";
 
+// The same menu, in the same order, as on omniaui.eu (apps/site/src/lib/site.mjs in the OmniaUI repo): a visitor
+// who moves between the two sites keeps every item in its place. Keep both lists equal.
 export const HEADER_LINKS = [
   { id: "home", label: "Home", href: "/index.html" },
   { id: "docs", label: "Docs", href: "/docs/index.html" },
