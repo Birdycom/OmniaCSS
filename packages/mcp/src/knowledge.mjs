@@ -1,17 +1,21 @@
 // File: packages/mcp/src/knowledge.mjs
 // What the MCP tools know about OmniaCSS: the class index (same as the editor extension), OmniaUI component classes,
-// variants, color tokens, Tailwind conversion (@birdycom/omniacss-migrate) and the docs pages on omniacss.eu.
-// Map: load() -> lookup / search / variants / tokens / tailwind / searchDocs / readDocs
+// OmniaUI components and blocks with their HTML, variants, color tokens, Tailwind conversion
+// (@birdycom/omniacss-migrate) and the docs pages on omniacss.eu and omniaui.eu.
+// Map: load() -> lookup / search / variants / tokens / tailwind / listComponents / getComponent / searchDocs / readDocs
 // Author: Serge Cools | Framework: OmniaCSS
 
 import fs from "node:fs";
 import path from "node:path";
+import zlib from "node:zlib";
 import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const require = createRequire(import.meta.url);
 export const DIST = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../dist");
 export const SITE = "https://omniacss.eu";
+export const UI_SITE = "https://omniaui.eu";
+const PRO_URL = `${UI_SITE}/ui/pro`;
 
 /** Splits "p-4 md:flex, oc-btn" or ["p-4", …] into class tokens. */
 export const tokensOf = (input) => [...new Set([].concat(input).flatMap((s) => String(s).split(/[\s,]+/)).filter(Boolean))];
@@ -24,8 +28,57 @@ export async function load({ dist = DIST, project = process.cwd() } = {}) {
   const { loadComponents } = require(path.join(dist, "lib/components.cjs"));
   const omnia = await loadOmnia(dist);
   const components = loadComponents([project], dist);
-  const docs = JSON.parse(fs.readFileSync(path.join(dist, "search-index.json"), "utf8"));
-  return new Knowledge(omnia, components, docs, await loadTheme(omnia.index.version));
+  const pages = (file, site) => JSON.parse(fs.readFileSync(path.join(dist, file), "utf8")).map((p) => ({ ...p, site }));
+  const docs = [...pages("search-index.json", SITE), ...pages("search-index-ui.json", UI_SITE)];
+  return new Knowledge({ omnia, components, docs, theme: await loadTheme(omnia.index.version), ui: loadUi(dist, project) });
+}
+
+/** OmniaUI packages whose components the project may have installed: these replace the bundled copy. */
+const UI_PACKAGES = [
+  ["@birdycom/omniaui", "component"],
+  ["@birdycom/omniaui-blocks", "block"],
+  ["@birdycom/omniaui-pro", "block"],
+];
+
+/**
+ * Components and blocks with their HTML: bundled at build time, overlaid with the versions installed in the project.
+ * Pro blocks have HTML only when @birdycom/omniaui-pro is installed there; otherwise just their name and description.
+ */
+function loadUi(dist, project) {
+  const bundled = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(dist, "omniaui.json.gz"))).toString("utf8"));
+  const items = new Map(bundled.items.map((i) => [`${i.kind}:${i.name}`, { ...i, source: "bundled" }]));
+  const installed = {};
+  for (const [pkg, kind] of UI_PACKAGES) {
+    const dir = findPackage(project, pkg);
+    if (!dir) continue;
+    let manifest;
+    try { manifest = JSON.parse(fs.readFileSync(path.join(dir, "manifest.json"), "utf8")); } catch { continue; }
+    installed[pkg] = JSON.parse(fs.readFileSync(path.join(dir, "package.json"), "utf8")).version;
+    for (const item of manifest.items || []) {
+      let html;
+      try { html = fs.readFileSync(path.join(dir, item.file), "utf8").replace(/\r\n/g, "\n").trim(); } catch { continue; }
+      const key = `${kind}:${item.name}`;
+      items.set(key, {
+        name: item.name, kind, package: pkg, description: item.description, requires: item.requires, html,
+        frameworks: items.get(key)?.frameworks || {}, ...(pkg.endsWith("-pro") ? { pro: true } : {}), source: `${pkg}@${installed[pkg]} (installed)`,
+      });
+    }
+  }
+  for (const p of bundled.pro) {
+    const key = `block:${p.name}`;
+    if (!items.has(key)) items.set(key, { name: p.name, kind: "block", package: "@birdycom/omniaui-pro", description: p.description, pro: true, locked: true });
+  }
+  return { items: [...items.values()], installed };
+}
+
+/** The folder of a package in the project's node_modules (or a parent's: monorepos keep it higher up). */
+function findPackage(from, pkg) {
+  for (let dir = path.resolve(from), n = 0; n < 6; dir = path.dirname(dir), n++) {
+    const candidate = path.join(dir, "node_modules", pkg);
+    if (fs.existsSync(path.join(candidate, "package.json"))) return candidate;
+    if (path.dirname(dir) === dir) break;
+  }
+  return null;
 }
 
 /** The semantic theme (--oc-primary …) resolved per mode, from the installed @birdycom/omniacss; {} when unavailable. */
@@ -39,12 +92,65 @@ async function loadTheme(version) {
 }
 
 export class Knowledge {
-  constructor(omnia, components, docs, theme = {}) {
+  constructor({ omnia, components, docs, theme = {}, ui = { items: [], installed: {} } }) {
     this.omnia = omnia;
     this.components = components;
     this.docs = docs;
     this.theme = theme;
+    this.ui = ui;
     this.version = omnia.index.version;
+  }
+
+  /** Components and blocks whose name or description matches every word of the query. */
+  listComponents(query = "", { kind = "all", limit = 60 } = {}) {
+    const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+    const hits = this.ui.items
+      .filter((i) => kind === "all" || i.kind === kind)
+      .filter((i) => words.every((w) => `${i.name} ${i.description || ""}`.toLowerCase().includes(w)))
+      .map((i) => ({ score: words.filter((w) => i.name.includes(w)).length, item: i }))
+      .sort((a, b) => b.score - a.score || a.item.kind.localeCompare(b.item.kind) || a.item.name.localeCompare(b.item.name, "en", { numeric: true }));
+    return {
+      total: hits.length,
+      installed: this.ui.installed,
+      results: hits.slice(0, limit).map(({ item: i }) => ({
+        name: i.name, kind: i.kind, description: i.description, package: i.package,
+        ...(i.pro ? { pro: true } : {}), ...(i.locked ? { locked: "OmniaUI Pro licence needed" } : {}),
+      })),
+    };
+  }
+
+  /** One component or block: its HTML, the packages it needs and how to add it (CSS, React, Vue, Blade). */
+  getComponent(name, { kind } = {}) {
+    const n = name.trim().toLowerCase().replace(/^oc-(block-)?/, "");
+    const matches = this.ui.items.filter((i) => i.name === n && (!kind || i.kind === kind));
+    if (matches.length > 1) return { error: `"${n}" is both a component and a block: pass kind "component" or "block".` };
+    const item = matches[0];
+    if (!item) {
+      const near = closest(n, this.ui.items.map((i) => i.name));
+      return { error: `No OmniaUI component or block "${n}".${near ? ` Did you mean "${near}"?` : ""} Use list_components to search.` };
+    }
+    if (item.locked) {
+      return {
+        name: item.name, kind: item.kind, pro: true, description: item.description,
+        locked: `This is an OmniaUI Pro block. Its HTML comes with a Pro licence (${PRO_URL}). With @birdycom/omniaui-pro installed in the project, this tool returns it.`,
+      };
+    }
+    const flag = item.kind === "block" ? " --kind block" : "";
+    const packages = [...new Set(item.requires || [item.package])];
+    const free = packages.filter((p) => !p.endsWith("-pro"));
+    return {
+      name: item.name, kind: item.kind, description: item.description, package: item.package, source: item.source,
+      ...(item.pro ? { pro: true } : {}),
+      install: `npm install -D ${free.join(" ")}${item.pro ? "  # and @birdycom/omniaui-pro from your Pro release" : ""}`,
+      add: {
+        css: `npx omniaui add ${item.name}${flag}`,
+        ...(item.frameworks?.react ? { react: `npx omniaui add ${item.name}${flag} -f react   # <${item.frameworks.react}>` } : {}),
+        ...(item.frameworks?.vue ? { vue: `npx omniaui add ${item.name}${flag} -f vue   # <${item.frameworks.vue}>` } : {}),
+        blade: `npx omniaui add ${item.name}${flag} -f blade`,
+      },
+      note: "The CSS comes from the package (or from the OmniaCSS build when @birdycom/omniaui is installed). The HTML is the reference markup; interactive parts use native HTML (dialog, popover, invoker commands), no JavaScript.",
+      html: item.html,
+    };
   }
 
   /** Per token: known or not, the CSS it produces, or the closest correct name. */
@@ -148,10 +254,12 @@ export class Knowledge {
   /** Tailwind classes -> native OmniaCSS class, or the CSS the migrate plugin generates for them. */
   async tailwind(tokens, { v4 = true } = {}) {
     const migrate = await import("@birdycom/omniacss-migrate");
+    // Releases up to 0.12.0 do not export the native-class lookup yet: load it from the package files.
+    const native = migrate.nativeFor ? migrate : await import(pathToFileURL(path.join(path.dirname(require.resolve("@birdycom/omniacss-migrate/package.json")), "src/native.mjs")).href);
     const ctx = migrate.createContext({ v4 });
-    const index = migrate.loadOmniaIndex();
+    const index = native.loadOmniaIndex();
     return tokens.map((token) => {
-      const hit = migrate.nativeFor(token, ctx, index);
+      const hit = native.nativeFor(token, ctx, index);
       if (hit?.native) return { tailwind: token, omnia: hit.native, how: hit.native === token ? "same name in OmniaCSS" : "native OmniaCSS class" };
       const css = migrate.compileToken(token, ctx);
       if (css) return { tailwind: token, omnia: null, how: "no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin", css };
@@ -170,8 +278,8 @@ export class Knowledge {
       const title = page.t.toLowerCase();
       const score = words.filter((w) => title.includes(w)).length * 10 + words.filter((w) => (page.g || "").toLowerCase().includes(w)).length;
       const sections = heads.filter((h) => words.some((w) => h[1].toLowerCase().includes(w))).slice(0, 6)
-        .map(([id, text]) => ({ title: text, url: `${SITE}${page.u}#${id}` }));
-      hits.push({ score, page: { title: page.t, group: page.g, url: SITE + page.u, sections } });
+        .map(([id, text]) => ({ title: text, url: `${page.site}${page.u}#${id}` }));
+      hits.push({ score, page: { title: page.t, group: page.g, site: page.site, url: page.site + page.u, sections } });
     }
     return hits.sort((a, b) => b.score - a.score).slice(0, limit).map((h) => h.page);
   }
@@ -191,10 +299,10 @@ export class Knowledge {
   }
 }
 
-/** Only pages of omniacss.eu: a path ("/docs/spacing/padding") or a full URL on the site. */
+/** Only pages of omniacss.eu and omniaui.eu: a path (a "/ui/…" path is on omniaui.eu) or a full URL. */
 function docsUrl(input) {
-  const u = new URL(input, SITE);
-  if (u.origin !== SITE) throw new Error(`Only ${SITE} pages can be read.`);
+  const u = new URL(input, /^\/ui(\/|$)/.test(input) ? UI_SITE : SITE);
+  if (u.origin !== SITE && u.origin !== UI_SITE) throw new Error(`Only ${SITE} and ${UI_SITE} pages can be read.`);
   return u.href;
 }
 

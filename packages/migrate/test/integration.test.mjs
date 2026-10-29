@@ -80,6 +80,29 @@ test("postcss plugin handles @import \"tailwindcss\" with @theme and @custom-var
   assert.match(out.css, /--color-primary: hsl\(var\(--primary\)\);/);
 });
 
+test('postcss plugin takes @import "@birdycom/omniacss-migrate" as the same entry', async () => {
+  const input = '@import "@birdycom/omniacss-migrate";\n@theme { --color-primary: hsl(var(--primary)); }\n.x { @apply scroll-mt-24; }\n';
+  const out = await postcss([omniaMigrate({ cwd: dir, core: "tokens", content: ["resources/views/**/*.php"] })]).process(input, { from: path.join(dir, "resources/css/own.css") });
+  assert.doesNotMatch(out.css, /@import|@theme|@apply/);
+  assert.match(out.css, /--color-primary: hsl\(var\(--primary\)\);/);
+  assert.match(out.css, /\.x \{\s*scroll-margin-top: 6rem;?\s*\}/);
+});
+
+test("setup renames @import \"tailwindcss\" to the migrate entry", async (t) => {
+  const v4 = await fs.mkdtemp(path.join(os.tmpdir(), "omnia-setup-v4-"));
+  t.after(() => fs.rm(v4, { recursive: true, force: true }));
+  await fs.mkdir(path.join(v4, "src"), { recursive: true });
+  await fs.writeFile(path.join(v4, "package.json"), JSON.stringify({ name: "v4", devDependencies: { tailwindcss: "^4.1.0", "@tailwindcss/vite": "^4.1.0" } }));
+  await fs.writeFile(path.join(v4, "src/app.css"), '@import "tailwindcss";\n@import "tailwindcss/utilities.css" layer(x);\n.a { color: red; }\n');
+  const plan = await planSetup(v4);
+  const change = plan.changes.find((c) => c.file.endsWith("app.css"));
+  assert.equal(change.after, '@import "@birdycom/omniacss-migrate";\n@import "@birdycom/omniacss-migrate/utilities.css" layer(x);\n.a { color: red; }\n');
+  await applySetup(plan);
+  assert.doesNotMatch(await fs.readFile(path.join(v4, "src/app.css"), "utf8"), /tailwind/);
+  const again = await planSetup(v4);
+  assert.ok(!again.changes.some((c) => c.file.endsWith("app.css")), "a second run changes nothing in the CSS");
+});
+
 test("scan reports coverage and unsupported classes", async () => {
   const { ctx } = await loadProject(dir);
   const stats = await scanDir(dir, { ctx });
@@ -114,7 +137,8 @@ test("setup plan: dry run changes nothing, apply swaps the Tailwind wiring", asy
   await applySetup(plan);
   const pkg = JSON.parse(await fs.readFile(path.join(dir, "package.json"), "utf8"));
   assert.equal(pkg.devDependencies.tailwindcss, undefined);
-  assert.ok(pkg.devDependencies["@birdycom/omniacss-migrate"]);
+  const own = JSON.parse(await fs.readFile(new URL("../package.json", import.meta.url), "utf8")).version;
+  assert.equal(pkg.devDependencies["@birdycom/omniacss-migrate"], `^${own}`);
   const vite = await fs.readFile(path.join(dir, "vite.config.js"), "utf8");
   assert.match(vite, /import omniaMigrate from '@birdycom\/omniacss-migrate\/vite'/);
   assert.doesNotMatch(vite, /tailwindcss/);

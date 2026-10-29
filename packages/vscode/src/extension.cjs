@@ -7,6 +7,7 @@
 "use strict";
 
 const vscode = require("vscode");
+const { tailwindEngine } = require("./lib/project.cjs");
 const { load } = require("./lib/omnia.cjs");
 const { loadComponents } = require("./lib/components.cjs");
 const { createFinder, tokensIn, partialAt } = require("./lib/regions.cjs");
@@ -79,9 +80,13 @@ function settings(doc) {
       unknownUtility: c.get("lint.unknownUtility", "warning"),
       unknownClass: c.get("lint.unknownClass", "ignore"),
       duplicateClass: c.get("lint.duplicateClass", "warning"),
+      tailwindProjects: c.get("lint.tailwindProjects", "skip"),
     },
   };
 }
+
+/** Tailwind engine of the document's project ("" for OmniaCSS projects and unsaved files). */
+const engineOf = (doc) => (doc.uri.scheme === "file" ? tailwindEngine(doc.uri.fsPath, vscode.workspace.getWorkspaceFolder(doc.uri)?.uri.fsPath) : "");
 
 const finders = new Map();
 function finderFor(s) {
@@ -378,6 +383,9 @@ async function lint(doc, collection) {
   const o = await omnia();
   const c = components();
   const { tokens } = scan(doc, s);
+  if (s.lint.tailwindProjects === "skip" && engineOf(doc)) {
+    s.lint = { ...s.lint, unknownVariant: "ignore", unknownUtility: "ignore", unknownClass: "ignore" };
+  }
   const diags = [];
   const add = (start, end, message, level, code) => {
     const sev = severity(level);

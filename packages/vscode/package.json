@@ -2,7 +2,7 @@
   "name": "omniacss-intellisense",
   "displayName": "OmniaCSS IntelliSense",
   "description": "Autocomplete, hover CSS, color swatches and linting for OmniaCSS utilities, variants and color tokens, and OmniaUI component classes.",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "private": true,
   "publisher": "Birdycom",
   "license": "MIT",
@@ -162,6 +162,19 @@
           ],
           "default": "warning",
           "description": "The same class twice in one class list."
+        },
+        "omniacss.lint.tailwindProjects": {
+          "type": "string",
+          "enum": [
+            "skip",
+            "lint"
+          ],
+          "enumDescriptions": [
+            "No unknown-class warnings in projects that run on Tailwind class names (tailwindcss or @birdycom/omniacss-migrate in package.json). Duplicates are still reported.",
+            "Lint as in an OmniaCSS project, for example to find the classes a migration still has to change."
+          ],
+          "default": "skip",
+          "description": "Projects that use Tailwind or the OmniaCSS Tailwind compat layer, where Tailwind class names are valid."
         }
       }
     }

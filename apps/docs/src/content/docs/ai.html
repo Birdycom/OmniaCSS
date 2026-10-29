@@ -14,8 +14,9 @@
           <ul>
             <li><strong>No guessed classes.</strong> The assistant looks up each class it is unsure of and gets the exact CSS, or the closest correct name for a typo (<code>felx</code> → <code>flex</code>, <code>hovr:</code> → <code>hover:</code>).</li>
             <li><strong>The OmniaCSS scale, not Tailwind's.</strong> In OmniaCSS <code>p-1</code> is <code>1rem</code> and <code>p-4</code> is <code>4rem</code>. The server shows the value of every class.</li>
-            <li><strong>Read-only and local.</strong> The server runs on your computer and never changes a file. Only <code>read_docs</code> goes on the network, and only to omniacss.eu.</li>
-            <li><strong>The same index as the editor.</strong> The class index is the one the <a href="editor.html">editor extension</a> uses, with the OmniaUI component classes. When your project has <code>@birdycom/omniaui-pro</code> installed, the Pro classes are included.</li>
+            <li><strong>Real OmniaUI components.</strong> Instead of writing a modal or a pricing section from scratch, the assistant takes the reference markup of the <a href="https://omniaui.eu">OmniaUI</a> component or block, and the command that adds it as HTML, React, Vue or Blade.</li>
+            <li><strong>Read-only and local.</strong> The server runs on your computer and never changes a file. Only <code>read_docs</code> goes on the network, and only to omniacss.eu and omniaui.eu.</li>
+            <li><strong>The same index as the editor.</strong> The class index is the one the <a href="editor.html">editor extension</a> uses. When your project has its own OmniaUI packages installed, those versions are used. OmniaUI Pro blocks are listed by name; their markup appears only when <code>@birdycom/omniaui-pro</code> is installed.</li>
           </ul>
         </div>
       </section>
@@ -64,7 +65,9 @@
                 <tr><td><code>list_variants</code></td><td>Lists every variant prefix, or shows the selector or at-rule that one variant produces</td></tr>
                 <tr><td><code>color_tokens</code></td><td>Lists the theme tokens (<code>--oc-primary</code> …) with their light and dark colors, and the palette colors with their hex value</td></tr>
                 <tr><td><code>convert_tailwind</code></td><td>Gives the native OmniaCSS class for a Tailwind class (<code>bg-blue-500</code> → <code>bg-vividblue-80</code>), or the CSS that <a href="migrate.html">the migrate plugin</a> generates for it</td></tr>
-                <tr><td><code>search_docs</code>, <code>read_docs</code></td><td>Find pages and sections of these docs, and read one as text with its code examples</td></tr>
+                <tr><td><code>list_components</code></td><td>Finds OmniaUI components (modal, tabs …) and blocks (pricing, hero, dashboard …) by name or description</td></tr>
+                <tr><td><code>get_component</code></td><td>The reference HTML of one component or block, the packages it needs, and <code>npx omniaui add</code> for HTML, React, Vue or Blade</td></tr>
+                <tr><td><code>search_docs</code>, <code>read_docs</code></td><td>Find pages and sections of the OmniaCSS and OmniaUI docs, and read one as text with its code examples</td></tr>
               </tbody>
             </table>
           </div>

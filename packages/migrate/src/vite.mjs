@@ -60,7 +60,7 @@ export default function omniaMigrate(options = {}) {
     async transform(code, id) {
       const file = id.split("?")[0];
       if (!/\.(css|pcss|postcss)$/.test(file)) return null;
-      if (!/@import\s+["']tailwindcss|@tailwind\s+\w+|@apply\s|@theme\b/.test(code)) return null;
+      if (!/@import\s+["'](?:tailwindcss|@birdycom\/omniacss-migrate)|@tailwind\s+\w+|@apply\s|@theme\b/.test(code)) return null;
       const result = await postcss([omniaMigratePostcss({ cwd: root, ...options })]).process(code, { from: file, map: false });
       for (const m of result.messages) if (m.type === "dependency" && m.file) this.addWatchFile(m.file);
       return { code: result.css, map: null };

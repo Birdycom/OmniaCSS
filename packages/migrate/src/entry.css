@@ -1,0 +1,8 @@
+/* File: packages/migrate/src/entry.css
+   What `@import "@birdycom/omniacss-migrate";` resolves to when a bundler inlines the import itself (Vite with the
+   PostCSS plugin in postcss.config.js). The plugin replaces these directives with OmniaCSS core + compat CSS.
+   With the Vite plugin the import never gets this far: it is compiled before Vite looks at it.
+   Author: Serge Cools | Framework: OmniaCSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

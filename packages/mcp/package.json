@@ -1,7 +1,7 @@
 {
   "name": "@birdycom/omniacss-mcp",
-  "version": "0.12.0",
-  "description": "MCP server for OmniaCSS: lets AI assistants (Claude, Cursor, Copilot …) check, look up and search OmniaCSS classes, variants, color tokens and docs, and convert Tailwind classes.",
+  "version": "0.12.1",
+  "description": "MCP server for OmniaCSS: lets AI assistants (Claude, Cursor, Copilot …) check, look up and search OmniaCSS classes, variants, color tokens, OmniaUI components and blocks (with their HTML) and docs, and convert Tailwind classes.",
   "type": "module",
   "license": "MIT",
   "author": "Serge Cools (Birdycom)",
@@ -46,8 +46,8 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@birdycom/omniacss": "^0.12.0",
-    "@birdycom/omniacss-migrate": "^0.12.0",
+    "@birdycom/omniacss": "^0.12.1",
+    "@birdycom/omniacss-migrate": "^0.12.1",
     "@modelcontextprotocol/sdk": "^1.32.0",
     "zod": "^3.25.76"
   },

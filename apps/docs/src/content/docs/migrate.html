@@ -13,7 +13,7 @@
           <ul>
             <li>A PostCSS plugin and a Vite plugin scan your Blade, Vue, JSX/TSX and HTML files and emit CSS for the classes they find (variants like <code>hover:</code>, <code>md:</code>, <code>dark:</code>, <code>group-hover:</code>, arbitrary values <code>w-[37px]</code>, opacity modifiers <code>bg-red-500/50</code>, negatives and <code>!</code> included).</li>
             <li>Colors map to the <strong>nearest Omnia palette token</strong> (OKLCH): <code>bg-red-500</code> becomes <code>var(--color-red-50)</code>. No other colors are ever emitted.</li>
-            <li>The directives <code>@import "tailwindcss"</code> and <code>@tailwind base|components|utilities</code> in your CSS are replaced by Omnia core plus the compat output; <code>@apply</code> and <code>@theme</code> keep working.</li>
+            <li>The entry <code>@import "@birdycom/omniacss-migrate"</code> (what <code>setup --write</code> writes, so no Tailwind name is left), or the Tailwind forms <code>@import "tailwindcss"</code> and <code>@tailwind base|components|utilities</code>, in your CSS are replaced by Omnia core plus the compat output; <code>@apply</code> and <code>@theme</code> keep working.</li>
             <li>Breakpoints follow OmniaCSS (<code>sm</code> 36rem, <code>md</code> 50rem, <code>lg</code> 64rem); shadows reuse the Omnia shadow values; spacing keeps the familiar 0.25rem step.</li>
           </ul>
         </div>

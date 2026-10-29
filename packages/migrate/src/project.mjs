@@ -146,7 +146,7 @@ export async function loadProject(dir, overrides = {}) {
   for (const f of info.cssFiles) {
     const css = await fs.readFile(f, "utf8").catch(() => "");
     for (const [k, v] of parseThemeBlocks(css)) info.themeVars.set(k, v);
-    if (/@import\s+["']tailwindcss/.test(css) || /@theme\b/.test(css)) info.tailwindVersion ||= 4;
+    if (/@import\s+["'](?:tailwindcss|@birdycom\/omniacss-migrate)/.test(css) || /@theme\b/.test(css)) info.tailwindVersion ||= 4;
     if (/@tailwind\s+(base|utilities|components)/.test(css)) info.tailwindVersion ||= 3;
     const cv = css.match(/@custom-variant\s+dark\s*\(([^;]*)\)\s*;/);
     if (cv) {

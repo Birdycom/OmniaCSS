@@ -28,7 +28,8 @@ export default function omniacss(options = {}) {
 
       const cwd = options.cwd || process.cwd();
       const { css, files } = await buildCss({ content: options.content, cwd, layer: options.layer ?? "omnia", keep: options.keep });
-      const generated = postcss.parse(css, { from: undefined });
+      // `from`: the stylesheet being built, so Vite resolves url() in the generated CSS against it.
+      const generated = postcss.parse(css, { from: result.opts.from });
 
       directives[0].replaceWith(generated.nodes);
       directives.slice(1).forEach((at) => at.remove());

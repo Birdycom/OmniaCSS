@@ -1,13 +1,13 @@
 // File: packages/mcp/src/server.mjs
 // The OmniaCSS MCP server: lets an AI assistant check, look up and search OmniaCSS classes instead of guessing them.
-// Every tool is read-only; only read_docs goes on the network (omniacss.eu pages, nothing else).
+// Every tool is read-only; only read_docs goes on the network (omniacss.eu and omniaui.eu pages, nothing else).
 // Map: createServer(knowledge) -> tools (getting_started, lookup_classes, search_utilities, list_variants,
-//      color_tokens, convert_tailwind, search_docs, read_docs) + the guide as a resource
+//      color_tokens, convert_tailwind, list_components, get_component, search_docs, read_docs) + the guide as a resource
 // Author: Serge Cools | Framework: OmniaCSS
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { SITE, tokensOf } from "./knowledge.mjs";
+import { SITE, UI_SITE, tokensOf } from "./knowledge.mjs";
 
 const READ_ONLY = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
 
@@ -27,8 +27,9 @@ scroll-driven animations, light-dark(), OKLCH colors, logical properties). Docs:
   bg-<color>, text-<color>, border-<color>. The semantic theme tokens (--oc-background, --oc-foreground,
   --oc-primary, --oc-border …) switch with light and dark mode; use them in your own CSS with var(). color_tokens
   lists both.
-- Components (buttons, cards, modals …) come from OmniaUI and use the oc- prefix (oc-btn, oc-card). They are a
-  separate package: @birdycom/omniaui.
+- Components (buttons, cards, modals …) and page blocks come from OmniaUI (separate packages @birdycom/omniaui and
+  @birdycom/omniaui-blocks) and use the oc- prefix (oc-btn, oc-card). Before writing a component yourself, look it
+  up with list_components and take its reference markup from get_component.
 
 ## Install
 CDN (prototyping, full build):
@@ -146,9 +147,39 @@ export function createServer(kb, { name = "omniacss", version = kb.version } = {
     return text({ omniacss: kb.version, results: await kb.tailwind(list, { v4 }) });
   });
 
+  server.registerTool("list_components", {
+    title: "OmniaUI components and blocks",
+    description: "Find OmniaUI components (button, modal, tabs …) and page blocks (pricing, hero, dashboard …) by name or description. " +
+      "Pro blocks are listed too; their HTML needs @birdycom/omniaui-pro in the project.",
+    inputSchema: {
+      query: z.string().optional().describe('Words to match, e.g. "dialog", "pricing", "sidebar"'),
+      kind: z.enum(["all", "component", "block"]).default("all"),
+      limit: z.number().int().min(1).max(250).default(60),
+    },
+    annotations: READ_ONLY,
+  }, async ({ query, kind, limit }) => text({ omniacss: kb.version, ...kb.listComponents(query, { kind, limit }) }));
+
+  server.registerTool("get_component", {
+    title: "Get a component",
+    description: "The reference HTML of one OmniaUI component or block, the packages it needs and the commands that add it to a " +
+      "project as HTML, React, Vue or Blade. Use this markup instead of writing the component yourself.",
+    inputSchema: {
+      name: z.string().min(1).describe('Name from list_components, e.g. "modal" or "pricing-plans"'),
+      kind: z.enum(["component", "block"]).optional().describe("Only when a name is both"),
+    },
+    annotations: READ_ONLY,
+  }, async ({ name, kind }) => {
+    const c = kb.getComponent(name, { kind });
+    if (c.error) return fail(c.error);
+    if (!c.html) return text(c);
+    const { html, ...meta } = c;
+    return text(`${JSON.stringify(meta, null, 2)}\n\n\`\`\`html\n${html}\n\`\`\``);
+  });
+
   server.registerTool("search_docs", {
     title: "Search the docs",
-    description: `Find OmniaCSS documentation pages and sections on ${SITE} by topic, e.g. "container queries", "anchor", "palettes", "dark mode".`,
+    description: `Find documentation pages and sections on ${SITE} (utilities, CSS features) and ${UI_SITE} (components, blocks) by topic, ` +
+      'e.g. "container queries", "anchor", "palettes", "modal", "pricing".',
     inputSchema: {
       query: z.string().min(1),
       limit: z.number().int().min(1).max(30).default(10),
@@ -161,10 +192,10 @@ export function createServer(kb, { name = "omniacss", version = kb.version } = {
 
   server.registerTool("read_docs", {
     title: "Read a docs page",
-    description: `Read one OmniaCSS documentation page from ${SITE} as text, with its code examples. Pass a URL or path from search_docs; ` +
+    description: `Read one documentation page from ${SITE} or ${UI_SITE} as text, with its code examples. Pass a URL from search_docs; ` +
       "add a section id (or #id in the URL) to read only that part of a long page.",
     inputSchema: {
-      url: z.string().min(1).describe('e.g. "/docs/spacing/padding" or "https://omniacss.eu/docs/colors/palettes#ral"'),
+      url: z.string().min(1).describe('e.g. "/docs/spacing/padding", "https://omniacss.eu/docs/colors/palettes#ral" or "https://omniaui.eu/ui/components/modal"'),
       section: z.string().optional().describe("Section id on the page"),
       max_chars: z.number().int().min(1000).max(60000).default(15000),
     },
