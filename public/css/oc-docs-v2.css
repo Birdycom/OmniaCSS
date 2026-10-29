@@ -67,6 +67,8 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   border-radius: 8px;
   background: none;
   color: var(--oc-muted-foreground);
+  /* The menu font waits for the real file (docs-fonts.css): no narrower fallback first, so no shift on a new page. */
+  font-family: "Instrument Sans Menu", var(--ocd-text);
   font-weight: 500;
   font-size: 0.92rem;
 }
