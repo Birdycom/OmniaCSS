@@ -1,12 +1,14 @@
 // File: packages/vscode/src/extension.cjs
 // OmniaCSS IntelliSense for VS Code and Cursor: completions, hover CSS, color swatches + picker, linting, quick fixes.
-// Map: settings -> lazy index (lib/omnia.cjs) -> class regions (lib/regions.cjs) -> providers -> diagnostics
+// Map: settings -> lazy index (lib/omnia.cjs) + OmniaUI classes (lib/components.cjs) -> class regions (lib/regions.cjs)
+//      -> providers -> diagnostics
 // Author: Serge Cools | Framework: OmniaCSS
 
 "use strict";
 
 const vscode = require("vscode");
 const { load } = require("./lib/omnia.cjs");
+const { loadComponents } = require("./lib/components.cjs");
 const { createFinder, tokensIn, partialAt } = require("./lib/regions.cjs");
 const { hexToRgba, distance } = require("./lib/color.cjs");
 
@@ -36,6 +38,30 @@ function omnia() {
     throw err;
   });
   return omniaPromise;
+}
+
+/**
+ * OmniaUI component and block classes: bundled, overlaid with the packages installed in the workspace (also Pro).
+ * Re-read at most every few seconds, so an `npm install` or upgrade shows up without reloading the window.
+ */
+let comps = { at: 0, value: null, key: "" };
+function components() {
+  const folders = (vscode.workspace.workspaceFolders || []).filter((f) => f.uri.scheme === "file").map((f) => f.uri.fsPath);
+  const key = folders.join("|");
+  if (comps.value && key === comps.key && Date.now() - comps.at < 5000) return comps.value;
+  try {
+    const value = loadComponents(folders);
+    const before = comps.value && comps.value.names.length;
+    comps = { at: Date.now(), value, key };
+    if (before !== value.names.length) {
+      const origins = [...new Set(value.names.map((n) => value.origin(n)))].join(", ");
+      log.appendLine(`OmniaUI: ${value.names.length} component and block classes (${origins || "none"})`);
+    }
+  } catch (err) {
+    log.appendLine("Could not read the OmniaUI classes: " + (err?.stack || err));
+    comps = { at: Date.now(), value: comps.value || loadComponents([]), key };
+  }
+  return comps.value;
 }
 
 function settings(doc) {
@@ -131,6 +157,17 @@ function classCompletions(o, doc, position, s, found) {
   const sortKey = (n) => n.replace(/\d+/g, (d) => d.padStart(5, "0"));
 
   const items = [];
+  // Component classes take no variants (hover:oc-btn generates nothing), so they are offered only without a prefix.
+  if (!parts.length) {
+    const c = components();
+    for (const name of c.names) {
+      const item = new vscode.CompletionItem(name, vscode.CompletionItemKind.Class);
+      item.range = range;
+      item.sortText = "a" + sortKey(name);
+      item.omnia = { component: name };
+      items.push(item);
+    }
+  }
   for (const name of o.names) {
     const color = o.colors[name];
     const item = new vscode.CompletionItem(name, color ? vscode.CompletionItemKind.Color : vscode.CompletionItemKind.Constant);
@@ -202,6 +239,11 @@ const completionProvider = {
         item.detail = o.summary(name);
         item.documentation = cssBlock(css);
       }
+    } else if (item.omnia?.component) {
+      const c = components();
+      const name = item.omnia.component;
+      item.detail = c.summary(name) || c.origin(name);
+      item.documentation = cssBlock(c.cssFor(name) || "").appendMarkdown(c.origin(name));
     } else if (item.omnia?.variant) {
       item.detail = o.describeVariant(item.omnia.variant);
     }
@@ -235,13 +277,16 @@ const hoverProvider = {
     const rel = offset - found.from;
     const tok = tokensIn(found.text, found.region).find((t) => t.start <= rel && rel <= t.end);
     if (!tok) return null;
+    const range = new vscode.Range(doc.positionAt(found.from + tok.start), doc.positionAt(found.from + tok.end));
     const css = o.cssFor(tok.token, s);
-    if (!css) return null;
+    if (!css) {
+      const c = components();
+      return c.has(tok.token) ? new vscode.Hover(cssBlock(c.cssFor(tok.token)).appendMarkdown(c.origin(tok.token)), range) : null;
+    }
     const md = cssBlock(css);
     const base = o.analyze(tok.token)?.base;
     const color = base && o.colors[base];
     if (color?.[1]) md.appendMarkdown(`\`${color[1]}\` · sRGB \`${color[0]}\``);
-    const range = new vscode.Range(doc.positionAt(found.from + tok.start), doc.positionAt(found.from + tok.end));
     return new vscode.Hover(md, range);
   },
 };
@@ -331,6 +376,7 @@ async function lint(doc, collection) {
   const s = settings(doc);
   if (!s.enable || !isClassDoc(doc, s)) { collection.delete(doc.uri); return; }
   const o = await omnia();
+  const c = components();
   const { tokens } = scan(doc, s);
   const diags = [];
   const add = (start, end, message, level, code) => {
@@ -349,9 +395,9 @@ async function lint(doc, collection) {
       seen.add(t.token);
       const hasVariant = t.token.includes(":") || t.token.startsWith("!") || t.token.endsWith("!");
       if (!hasVariant) {
-        if (s.lint.unknownClass !== "ignore" && /^-?[A-Za-z]/.test(t.token) && !o.has(t.token)) {
+        if (s.lint.unknownClass !== "ignore" && /^-?[A-Za-z]/.test(t.token) && !o.has(t.token) && !c.has(t.token)) {
           const tip = o.suggest(t.token);
-          add(t.start, t.end, `'${t.token}' is not an OmniaCSS utility.${tip ? ` Did you mean '${tip}'?` : ""}`, s.lint.unknownClass, "unknown-class");
+          add(t.start, t.end, `'${t.token}' is not an OmniaCSS utility or OmniaUI class.${tip ? ` Did you mean '${tip}'?` : ""}`, s.lint.unknownClass, "unknown-class");
         }
         continue;
       }

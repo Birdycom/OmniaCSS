@@ -2,7 +2,7 @@
 // Records the README demo in the real VS Code with this extension loaded (Extension Development Host),
 // then frames it like a product shot: window bar with the extension name, 2x stills, a banner built from a still.
 // VS Code runs with a throw-away profile; Playwright drives it over the Chromium debug port.
-// Map: temp profile + card.html -> launch Code (1040px viewport, 2x) -> scripted typing/hovers while frames are captured
+// Map: temp profile + pricing.html -> launch Code (1040px viewport, 2x) -> scripted typing/hovers while frames are captured
 //      -> frame (headless Chrome) -> demo.gif + autocomplete/hover/linting.png (2080x1170) + banner.png (1344x672)
 // Author: Serge Cools | Framework: OmniaCSS
 //
@@ -86,18 +86,19 @@ fs.writeFileSync(path.join(userDir, "User", "settings.json"), JSON.stringify({
   "chat.disableAIFeatures": true,
   "html.autoClosingTags": false,
 }));
-const file = path.join(work, "card.html");
+// A pricing card in plain HTML: OmniaUI component classes, RAL colors, Omnia color tokens and a container query.
+const file = path.join(work, "pricing.html");
 fs.writeFileSync(file, [
-  '<section class="cq-inline">',
-  '  <article class="p-2 ">',
-  '    <img class="w-full object-cover rounded-lg" src="/img/omnia.jpg" alt="">',
-  '    <div class="flex justify-between align-items-center">',
-  '      <h2 class="font-semibold hovr:text-white">OmniaCSS</h2>',
-  '      <span class="text-gray-60">v0.8</span>',
-  "    </div>",
-  '    <div class="grid cq-md:grid-cols-2 gap-2">',
-  '      <a class="text-blue-50 hover:text-blue-70" href="/docs">Docs</a>',
-  "    </div>",
+  "<style>",
+  "  .plan-price { color: var(--color-ral5002); }",
+  "  .plan-note { color:  }",
+  "</style>",
+  '<section class="cq-inline grid cq-md:grid-cols-2 gap-2">',
+  '  <article class="">',
+  '    <h2 class="text-balance font-bold">Team</h2>',
+  '    <p class="plan-price">EUR 29 / month</p>',
+  '    <p class="plan-note">Billed yearly</p>',
+  '    <a class="oc-btn focsu-visible:outline" href="/order">Order</a>',
   "  </article>",
   "</section>",
   "",
@@ -163,7 +164,7 @@ const clip = await page.evaluate(() => {
 });
 if (clip.width < VW || clip.height < CONTENT_H) console.warn(`[media] editor is ${clip.width}x${clip.height}px, expected ${VW}x${CONTENT_H}px`);
 Object.assign(clip, { width: Math.min(clip.width, VW), height: Math.min(clip.height, CONTENT_H) });
-let caption = "Autocomplete";
+let caption = "OmniaUI classes";
 const frames = [];
 let recording = true;
 const capture = (async () => {
@@ -222,48 +223,71 @@ const type = (t) => page.keyboard.type(t, { delay: 140 });
 // ---------------------------------------------------------------------------------------------------------------
 // Script
 
-await key("Control+Home", 100);
-await key("ArrowDown", 100);
-await key("End", 100);
-await key("ArrowLeft", 100);
-await key("ArrowLeft", 600);
-await type("bg-blue-");
-await page.waitForSelector(".suggest-widget.visible", { timeout: 5000 });
+/** Cursor to the end of line `n` (0-based), then `back` characters to the left. */
+async function goTo(n, back) {
+  await key("Control+Home", 100);
+  for (let i = 0; i < n; i++) await key("ArrowDown", 50);
+  await key("End", 100);
+  for (let i = 0; i < back; i++) await key("ArrowLeft", 20);
+  await page.waitForTimeout(400);
+}
+const suggest = () => page.waitForSelector(".suggest-widget.visible", { timeout: 5000 });
+
+// 1. OmniaUI component classes inside the empty class="".
+caption = "OmniaUI classes";
+await goTo(5, 2);
+await type("oc-card");
+await suggest();
 await page.waitForTimeout(500);
 // Open the details panel once (it stays open for later lists).
 if (!(await page.$(".suggest-widget.docs-side, .suggest-widget.docs-below"))) await key("Control+Space", 500);
-for (let i = 0; i < 5; i++) await key("ArrowDown", 280);
+await page.waitForTimeout(1200);
+await still("components");
+await key("Escape", 300);
+
+// 2. RAL colors with their mix steps.
+caption = "RAL and Omnia colors";
+await type(" bg-ral30");
+await suggest();
+for (let i = 0; i < 4; i++) await key("ArrowDown", 280);
 await page.waitForTimeout(900);
 await still("autocomplete");
-await key("Enter", 700);
-await type(" hov");
-await page.waitForTimeout(1100);
-if (process.env.OMNIA_DEBUG) await still("debug-variant");
-await key("Enter", 700);
-await type("bg-blue-7");
-await page.waitForTimeout(1000);
-await key("Enter", 900);
-await key("Escape", 200);
+await key("Escape", 300);
+await type("20-mix-20");
+await key("Escape", 600);
 
+// 3. Color tokens in CSS.
+caption = "Color tokens";
+await goTo(2, 2);
+await type("var(--color-ral");
+await suggest().catch(() => {});
+await page.waitForTimeout(1400);
+await still("tokens");
+await key("Escape", 300);
+await type("3020)");
+await key("Escape", 900);
+
+// 4. Hover: the container-query variant and the RAL mix class.
 caption = "Hover preview";
 await hoverText("cq-md:grid-cols-2");
 await page.waitForSelector(".monaco-hover:not(.hidden)", { timeout: 5000 }).catch(() => {});
 await page.waitForTimeout(2600);
-await hoverText("hover:bg-blue-70", 0.6);
-await page.waitForTimeout(2600);
 await still("hover");
+await hoverText("bg-ral3020-mix-20", 0.6);
+await page.waitForTimeout(2400);
 
+// 5. A typo in a variant, fixed with the quick fix.
 caption = "Linting";
-await hoverText("hovr", 0.4);
+await hoverText("focsu", 0.4);
 await page.waitForTimeout(2200);
 await still("linting");
-const r = await textRect("hovr");
+const r = await textRect("focsu");
 await page.mouse.click(r.x + r.w / 2, r.y + r.h / 2);
 await page.waitForTimeout(300);
 await key("Control+.", 1400);
 await key("Enter", 1000);
 await hidePointer();
-await page.waitForTimeout(2200);
+await page.waitForTimeout(2000);
 
 recording = false;
 await capture;
@@ -296,17 +320,19 @@ for (const [name, buf] of Object.entries(stills)) {
   console.log(`[media] media/readme/${name}.png (${clip.width * 2}x${shotH * 2})`);
 }
 
-// Banner (1344x672): the autocomplete shot, dimmed, with glows in Omnia colors and the name.
+// Banner (1344x672): name and features on the left, the OmniaUI completion shot on the right, an Omnia color strip below.
 const bw = 672, bh = 336;
-await render(`<div style="position:relative;width:${bw}px;height:${bh}px;overflow:hidden;background:#0d0d12">
-  <img src="${dataUrl(stills.autocomplete)}" style="position:absolute;left:40px;top:22px;width:${bw - 80}px;opacity:.45;filter:saturate(1.1);border-radius:6px;-webkit-mask-image:linear-gradient(#000 35%,transparent 82%)">
-  <div style="position:absolute;inset:0;background:radial-gradient(60% 55% at 12% 0%,${BRAND.to}55,transparent 70%),radial-gradient(55% 50% at 92% 8%,${BRAND.accent}44,transparent 70%),linear-gradient(transparent 45%,#0d0d12 78%)"></div>
-  <div style="position:absolute;left:0;right:0;bottom:44px;display:flex;justify-content:center;align-items:center;gap:22px;color:#fff;font-family:'Segoe UI',system-ui,sans-serif">
-    <div style="width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,${BRAND.from},${BRAND.to});display:flex;align-items:center;justify-content:center;font:800 21px/1 'Cascadia Code',Consolas,monospace;letter-spacing:-2px;white-space:nowrap">oc<span style="color:${BRAND.accent}">:</span></div>
-    <div><div style="font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1">OmniaCSS</div><div style="font-size:11px;letter-spacing:5px;margin-top:6px;opacity:.8">INTELLISENSE</div></div>
-    <div style="width:1px;height:48px;background:#ffffff33"></div>
-    <div style="font-size:17px;line-height:1.35;opacity:.85">VS Code<br>Cursor</div>
-  </div></div>`, bw, bh, 2, path.join(out, "banner.png"));
+const strip = ["--color-vividblue-80", "--color-indigo-60", "--color-violet-50", "--color-magenta-50", "--color-ral3020", "--color-orange-50", "--color-ral1023", "--color-teal-60", "--color-green-70", "--color-ral5002"]
+  .map((t) => `<i style="flex:1;background:${hex(t)}"></i>`).join("");
+await render(`<div style="position:relative;width:${bw}px;height:${bh}px;overflow:hidden;background:#0d0d12;font-family:'Segoe UI',system-ui,sans-serif;color:#fff">
+  <div style="position:absolute;inset:0;background:radial-gradient(70% 80% at 0% 100%,${BRAND.from}55,transparent 70%),radial-gradient(50% 60% at 100% 0%,${BRAND.accent}33,transparent 70%)"></div>
+  <img src="${dataUrl(stills.components)}" style="position:absolute;left:300px;top:34px;width:430px;border-radius:8px;border:1px solid #ffffff1f;box-shadow:0 24px 60px -20px #000;transform:perspective(900px) rotateY(-14deg);transform-origin:left center">
+  <div style="position:absolute;left:36px;top:58px;display:grid;gap:14px;width:250px">
+    <div style="width:46px;height:46px;border-radius:11px;background:linear-gradient(135deg,${BRAND.from},${BRAND.to});display:flex;align-items:center;justify-content:center;font:800 19px/1 'Cascadia Code',Consolas,monospace;letter-spacing:-2px">oc<span style="color:${BRAND.accent}">:</span></div>
+    <div style="font-size:30px;font-weight:700;letter-spacing:-.5px;line-height:1.05">OmniaCSS<br>IntelliSense</div>
+    <div style="font-size:12.5px;line-height:1.55;opacity:.8">Utilities, variants, OKLCH and RAL colors<br>and OmniaUI classes, in VS Code and Cursor.</div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:8px;display:flex">${strip}</div></div>`, bw, bh, 2, path.join(out, "banner.png"));
 console.log("[media] media/readme/banner.png (1344x672)");
 
 // GIF frames: 2x captures halved, under a window bar that names the feature on screen.

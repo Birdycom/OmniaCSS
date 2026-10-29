@@ -43,6 +43,11 @@
           "href": "configuration.html"
         },
         {
+          "id": "editor",
+          "label": "Editor extension",
+          "href": "editor.html"
+        },
+        {
           "id": "fluid",
           "label": "Fluid values (clamp, min, max)",
           "href": "fluid.html"

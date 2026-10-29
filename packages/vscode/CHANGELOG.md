@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.12.0
+
+First release on the VS Code Marketplace and Open VSX.
+
+- OmniaUI classes: completions and hover CSS for every component and block class (`oc-btn`, `oc-card`,
+  `oc-tooltip__title`, `oc-block-…`). The free OmniaUI classes ship with the extension; when the project has
+  `@birdycom/omniaui`, `-blocks` or `-pro` installed, the classes and CSS of that installed version are used, so
+  OmniaUI Pro classes appear only in projects that have Pro.
+- The `unknownClass` lint (off by default) no longer flags OmniaUI classes.
+- New icon: the OmniaCSS palette with a code badge, in the omniacss.eu colors (256 px).
+
 ## 0.11.0
 
 Version only, in step with `@birdycom/omniacss` 0.11.0. The extension itself is unchanged.

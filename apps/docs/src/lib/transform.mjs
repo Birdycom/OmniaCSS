@@ -153,7 +153,7 @@ function cssFeatures(markup, limit = 8) {
 // ---------------------------------------------------------------------------------------------------------
 
 // Docs pages that are not about one CSS feature set: no browser support block.
-const NON_CSS_PAGES = new Set(["docs/index.html", "docs/configuration.html", "docs/migrate.html", "docs/css-catalog.html"]);
+const NON_CSS_PAGES = new Set(["docs/index.html", "docs/configuration.html", "docs/migrate.html", "docs/editor.html", "docs/css-catalog.html"]);
 // Folder (or folder/page) → MDN keys, when the page text alone does not reveal what it documents.
 Object.assign(PAGE_FEATURES, {
   "borders/corner-shape": ["corner-shape", "border-radius"], borders: ["border-radius", "border-style", "outline", "corner-shape"],
@@ -560,7 +560,8 @@ export function transform(content, route = "") {
   //     level of everything in the browser support tables ("Baseline" = Chrome, Firefox and Safari, desktop and mobile).
   const header = body.querySelector(".oc-section-header");
   const isDocPage = /^(docs|ui\/(components|blocks))\//.test(route);
-  if (header && isDocPage) {
+  // Pages without demos (overview, configuration, editor …) get neither.
+  if (header && isDocPage && !NON_CSS_PAGES.has(route)) {
     const compatKeys = [...body.querySelectorAll("oc-compat")].flatMap((el) => (el.getAttribute("features") || "").split(/\s+/).filter(Boolean));
     const support = supportSummary([...new Set(compatKeys)]);
     const extra = [];

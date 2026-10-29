@@ -19,7 +19,7 @@ import { parseHTML } from "linkedom";
 const DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "dist", "docs");
 
 // Same list as NON_CSS_PAGES in src/lib/transform.mjs: these pages have no browser support block.
-const NON_CSS_PAGES = new Set(["index.html", "configuration.html", "migrate.html", "css-catalog.html"]);
+const NON_CSS_PAGES = new Set(["index.html", "configuration.html", "migrate.html", "editor.html", "css-catalog.html"]);
 
 // Page (relative to dist/docs) -> MDN feature names that must appear in its browser support table.
 // The names are matched against the feature labels in the table (the <code> text of each row).

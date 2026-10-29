@@ -1,0 +1,72 @@
+<!--oc-page {"title": "OmniaCSS Docs - Editor extension", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<section class="oc-hero" id="overview">
+        <h1 class="oc-hero-title">Editor extension</h1>
+        <p class="oc-hero-text">OmniaCSS IntelliSense for VS Code and Cursor: autocomplete for every utility, variant and OmniaUI class, the generated CSS on hover, color swatches and linting with quick fixes.</p>
+      </section>
+
+      <section class="oc-docs-section" id="install">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Install <span class="oc-section-header__badge-version oc-badge-version">Birdycom.omniacss-intellisense</span></h2>
+          <p class="oc-section-header__desc">Free, MIT licensed, same version number as <code>@birdycom/omniacss</code>. Updates arrive automatically.</p>
+        </div>
+        <div class="oc-section-content">
+          <ul>
+            <li><strong>VS Code:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense">VS Code Marketplace</a>, or search for <em>OmniaCSS IntelliSense</em> in the Extensions view (<kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>X</kbd>).</li>
+            <li><strong>Cursor, VSCodium, Windsurf:</strong> <a href="https://open-vsx.org/extension/Birdycom/omniacss-intellisense">Open VSX</a>, the same search in the Extensions view.</li>
+            <li><strong>From a file:</strong> build the <code>.vsix</code> from the <a href="https://github.com/Birdycom/OmniaCSS/tree/main/packages/vscode">source</a> and install it with <strong>Extensions: Install from VSIX…</strong></li>
+          </ul>
+          <oc-code lang="shell">code --install-extension Birdycom.omniacss-intellisense     # VS Code
+cursor --install-extension Birdycom.omniacss-intellisense   # Cursor</oc-code>
+          <p>Nothing is needed in your project: no config file and no install. The extension ships the full OmniaCSS index and works in HTML, Blade, PHP, Vue, Svelte, Astro, JSX/TSX, Markdown, Twig and CSS files.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="autocomplete">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Utilities, colors and hover</h2>
+        </div>
+        <div class="oc-section-content">
+          <p>Suggestions for every utility and variant (<code>hover:</code>, <code>dark:</code>, <code>cq-md:</code>, <code>group-hover/card:</code>, <code>data-[state=open]:</code> …). Color classes show their swatch, also for the RAL colors and their mix steps (<code>bg-ral3020-mix-20</code>), and the details panel shows the CSS the class generates.</p>
+          <img class="w-full rounded-lg" src="/image/editor/autocomplete.webp" alt="bg-ral30 lists the RAL 3000 colors and their mix steps with swatches and the color-mix() CSS" width="1280" height="720" loading="lazy">
+          <p>Inside <code>var(</code> you get every Omnia token with its OKLCH value; the color picker snaps a class or token to the nearest Omnia color.</p>
+          <img class="w-full rounded-lg" src="/image/editor/tokens.webp" alt="var(--color-ral lists the RAL tokens with swatches, the OKLCH value and the hex fallback" width="1280" height="720" loading="lazy">
+          <p>Hover a class to see its CSS exactly as the build writes it, variants included; rem values get a px comment.</p>
+          <img class="w-full rounded-lg" src="/image/editor/hover.webp" alt="Hovering cq-md:grid-cols-2 shows @container (min-width: 28rem) with the grid-template-columns rule" width="1280" height="720" loading="lazy">
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="omniaui">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">OmniaUI components and blocks</h2>
+          <p class="oc-section-header__desc">Component classes from <a href="https://omniaui.eu">OmniaUI</a> are in the same list: <code>oc-btn</code>, <code>oc-card</code>, <code>oc-tooltip__title</code>, <code>oc-block-…</code>.</p>
+        </div>
+        <div class="oc-section-content">
+          <img class="w-full rounded-lg" src="/image/editor/components.webp" alt="Typing oc-card lists the OmniaUI card classes; the details panel shows the .oc-card rule" width="1280" height="720" loading="lazy">
+          <ul>
+            <li>Without anything installed you get the free OmniaUI classes of the version the extension was built with (handy with the CDN links or <code>@omniacss</code> in Laravel).</li>
+            <li>When <code>@birdycom/omniaui</code>, <code>@birdycom/omniaui-blocks</code> or <code>@birdycom/omniaui-pro</code> is in your project's <code>node_modules</code>, the classes and CSS of <strong>that installed version</strong> are used. After <code>npm install</code> or an upgrade the list follows within a few seconds.</li>
+            <li>OmniaUI Pro classes appear only in projects that have Pro installed.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="settings">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Recommended settings</h2>
+        </div>
+        <div class="oc-section-content">
+          <p>Suggestions inside strings (class attributes) need <code>editor.quickSuggestions</code>; otherwise press <kbd>Ctrl</kbd> <kbd>Space</kbd>.</p>
+          <oc-code lang="json">// .vscode/settings.json
+{
+  "editor.quickSuggestions": { "strings": "on" },
+  "omniacss.classFunctions": ["clsx", "cn", "cx", "cva", "classNames", "classnames", "@class", "myClasses"],
+  "omniacss.lint.unknownClass": "ignore"
+}</oc-code>
+          <ul>
+            <li><code>omniacss.classAttributes</code> and <code>omniacss.classFunctions</code>: where classes are read (<code>class</code>, <code>className</code>, <code>:class</code>, <code>@class</code>, <code>clsx()</code>, <code>cn()</code> … by default; add your own helpers to the list).</li>
+            <li><code>omniacss.lint.*</code>: unknown variants and utilities are warnings; plain unknown classes are off by default because projects have their own classes.</li>
+            <li><code>omniacss.rootFontSize</code> and <code>omniacss.showPixelEquivalents</code>: the px comments in hovers.</li>
+            <li>Run <strong>OmniaCSS: Show Output</strong> to see which index and OmniaUI version are loaded.</li>
+          </ul>
+        </div>
+      </section>
