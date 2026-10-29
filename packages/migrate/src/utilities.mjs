@@ -262,6 +262,7 @@ const SIDE = { t: "top", r: "right", b: "bottom", l: "left", s: "inline-start", 
 function boxHandler(prop) {
   // m, mx, my, mt … (margin / padding / scroll-margin / scroll-padding)
   return (u, root) => {
+    // The side after the root: "mt" -> "t", "scroll-mt" -> "t", "scroll-p" -> "".
     const key = root.slice(prefixLen(prop));
     const v = sp(u, u.value, { keywords: { auto: "auto" }, fractions: false });
     if (v == null) return null;
@@ -275,7 +276,7 @@ function boxHandler(prop) {
     return null;
   };
 }
-const prefixLen = (prop) => ({ margin: 1, padding: 1, "scroll-margin": 2, "scroll-padding": 2 })[prop];
+const prefixLen = (prop) => ({ margin: 1, padding: 1, "scroll-margin": 8, "scroll-padding": 8 })[prop];
 
 function insetHandler(prop) {
   return (u) => {

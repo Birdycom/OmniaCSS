@@ -5,12 +5,14 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
+import { createRequire } from "node:module";
 import { loadProject, loadTailwindConfig, themeFromConfig, findFiles } from "./project.mjs";
 import { createContext } from "./resolve.mjs";
 
 const TW_PKGS = ["tailwindcss", "@tailwindcss/vite", "@tailwindcss/postcss"];
 const TW_NAME = "(?:@tailwindcss\\/vite|@tailwindcss\\/postcss|tailwindcss)";
-const VERSION = "^0.4.0";
+// The range written into the project: this package's own version, so it never goes stale.
+const VERSION = `^${createRequire(import.meta.url)("../package.json").version}`;
 
 const read = (f) => fs.readFile(f, "utf8").catch(() => null);
 
@@ -147,10 +149,17 @@ export async function planSetup(dir, { keepBrandColors = false } = {}) {
   let entryDone = false;
   for (const f of cssFiles) {
     const before = await read(f);
-    if (!/@import\s+["']tailwindcss|@tailwind\s+(base|utilities)/.test(before)) continue;
+    if (!/@import\s+["'](?:tailwindcss|@birdycom\/omniacss-migrate)|@tailwind\s+(base|utilities)/.test(before)) continue;
     detected.css.push(path.relative(dir, f));
-    if (entryDone) continue;
+    // `@import "tailwindcss"` -> `@import "@birdycom/omniacss-migrate"` (same entry, no Tailwind name left).
+    // The v3 `@tailwind …` directives stay: they may sit mid-file, where an @import is not allowed.
+    const renamed = before.replace(/(@import\s+)(["'])tailwindcss((?:\/[\w.-]+)?)\2/g, "$1$2@birdycom/omniacss-migrate$3$2");
+    const isEntry = !entryDone;
     entryDone = true;
+    if (!isEntry) {
+      if (renamed !== before) changes.push({ file: f, before, after: renamed, note: 'rename @import "tailwindcss" to @import "@birdycom/omniacss-migrate"' });
+      continue;
+    }
     const add = [];
     if (loaded?.config) {
       const t = themeFromConfig(loaded.config, createContext({}), { keepColors: keepBrandColors });
@@ -165,15 +174,17 @@ export async function planSetup(dir, { keepBrandColors = false } = {}) {
       if ((dm === "class" || dm === "selector") && !/@custom-variant\s+dark/.test(before)) add.push("@custom-variant dark (&:where(.dark, .dark *));");
     }
     if (add.length) {
-      const re = /^(@import\s+["']tailwindcss["'][^;\n]*;|@tailwind\s+utilities;)[ \t]*\r?\n/m;
-      const m = before.match(re);
-      const eol = before.includes("\r\n") ? "\r\n" : "\n";
-      const after = m ? before.replace(re, `${m[0]}${eol}${add.join(eol)}${eol}`) : before + eol + add.join(eol) + eol;
-      changes.push({ file: f, before, after, note: "carry tailwind.config theme into CSS (@theme) and dark mode variant" });
-    } else notes.push(`${path.relative(dir, f)}: the directives (@import "tailwindcss" / @tailwind …) are handled by the plugin; no change needed.`);
+      const re = /^(@import\s+["']@birdycom\/omniacss-migrate["'][^;\n]*;|@tailwind\s+utilities;)[ \t]*\r?\n/m;
+      const m = renamed.match(re);
+      const eol = renamed.includes("\r\n") ? "\r\n" : "\n";
+      const after = m ? renamed.replace(re, `${m[0]}${eol}${add.join(eol)}${eol}`) : renamed + eol + add.join(eol) + eol;
+      changes.push({ file: f, before, after, note: `carry tailwind.config theme into CSS (@theme) and dark mode variant${renamed !== before ? '; rename @import "tailwindcss"' : ""}` });
+    } else if (renamed !== before) {
+      changes.push({ file: f, before, after: renamed, note: 'rename @import "tailwindcss" to @import "@birdycom/omniacss-migrate" (the plugin handles it)' });
+    } else notes.push(`${path.relative(dir, f)}: the directives (@import "@birdycom/omniacss-migrate" / @tailwind …) are handled by the plugin; no change needed.`);
     if (/@plugin\s+['"]@iconify/.test(before)) notes.push("`@plugin '@iconify/...'` is ignored by the plugin (icon-[...] classes are not generated).");
   }
-  if (!detected.css.length) notes.push("No CSS file with Tailwind directives found. The plugin works on `@import \"tailwindcss\"` or `@tailwind base/components/utilities`.");
+  if (!detected.css.length) notes.push("No CSS file with Tailwind directives found. The plugin works on `@import \"@birdycom/omniacss-migrate\"`, `@import \"tailwindcss\"` or `@tailwind base/components/utilities`.");
   commands.push("npm uninstall " + (removed.join(" ") || "tailwindcss @tailwindcss/vite"));
   commands.push("npm install -D @birdycom/omniacss-migrate");
   return { changes, notes, commands, detected };

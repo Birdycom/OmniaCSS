@@ -1,6 +1,6 @@
 {
   "name": "@birdycom/omniacss",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "OmniaCSS utilities: modern CSS (anchor positioning, container queries, view transitions, light-dark()) as utility classes, generated on demand.",
   "type": "module",
   "license": "MIT",

@@ -58,6 +58,11 @@ With a quick fix (<kbd>Ctrl</kbd> <kbd>.</kbd>, <kbd>Cmd</kbd> <kbd>.</kbd> on m
 | The same class twice | `p-2 flex p-2` | `omniacss.lint.duplicateClass` |
 | Any class that is neither OmniaCSS nor OmniaUI (off by default) | `my-own-class` | `omniacss.lint.unknownClass` |
 
+In a project that still runs on Tailwind class names (`tailwindcss`, `@tailwindcss/vite`, `@tailwindcss/postcss` or
+`@birdycom/omniacss-migrate` in the nearest `package.json`), Tailwind names are valid. There the unknown-class
+warnings stay off, so a migration is not buried in noise; duplicates are still reported. To see what a migration
+still has to change, set `omniacss.lint.tailwindProjects` to `lint`.
+
 <img src="media/readme/linting.png" alt="A wavy line under focsu-visible with: Unknown OmniaCSS variant 'focsu-visible'. Did you mean 'focus-visible'?" width="100%">
 
 ## Where it looks for classes
@@ -82,6 +87,7 @@ File types: HTML, PHP and Blade, Vue, Svelte, Astro, JSX/TSX, Markdown/MDX, Twig
 | `omniacss.showPixelEquivalents` | `true` | px comments next to rem values. |
 | `omniacss.rootFontSize` | `16` | The root font size behind those px values. |
 | `omniacss.lint.*` | `warning` (`unknownClass`: `ignore`) | `ignore`, `hint`, `info`, `warning` or `error`. |
+| `omniacss.lint.tailwindProjects` | `skip` | `skip`: no unknown-class warnings in Tailwind projects; `lint`: lint them anyway. |
 
 Two editor settings help:
 

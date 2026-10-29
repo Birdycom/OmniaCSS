@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.12.1
+
+- No more "is not an OmniaCSS utility" warnings in projects that still run on Tailwind class names (`tailwindcss`,
+  `@tailwindcss/vite`, `@tailwindcss/postcss` or `@birdycom/omniacss-migrate` in the nearest `package.json`).
+  Duplicate classes are still reported. `omniacss.lint.tailwindProjects: "lint"` turns the old behaviour back on,
+  for example to see what a migration still has to change.
+
 ## 0.12.0
 
 First release on the VS Code Marketplace and Open VSX.

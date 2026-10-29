@@ -17,7 +17,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 > part: utilities, tokens, SCSS, the on-demand engine, the CLI (`init` / `build` / `migrate` / `tokens`),
 > `@birdycom/omniacss-migrate` and the CSS docs. Both repositories share the **same version number**.
 
-**Version:** `0.12.0` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
+**Version:** `0.12.1` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
 
 ## Why OmniaCSS
 
@@ -158,7 +158,7 @@ Utilities with the `dark:` prefix keep working (`.dark` or `data-theme="dark"`).
 | `@birdycom/omniacss` | Utilities (`dist/omnia.css`), color tokens, SCSS sources, on-demand engine (`/engine`), PostCSS plugin (`/postcss`) |
 | `@birdycom/omniacss-cli` | `omniacss init / build / migrate / tokens` (bin `omniacss`) |
 | `@birdycom/omniacss-migrate` | Tailwind CSS → OmniaCSS: PostCSS/Vite plugin, scan, setup, codemod |
-| `@birdycom/omniacss-mcp` | [MCP server](packages/mcp) for AI assistants: check and look up classes, variants, tokens and docs, convert Tailwind classes |
+| `@birdycom/omniacss-mcp` | [MCP server](packages/mcp) for AI assistants: check classes, OmniaUI components with their HTML, variants, tokens and docs, convert Tailwind classes |
 
 Components, blocks and framework wrappers: see [OmniaUI](https://github.com/Birdycom/OmniaUI).
 
@@ -227,6 +227,7 @@ Newest first.
 
 | Version | Date | Changes |
 |--------|-------|-----|
+| `0.12.1` | 2026-10-29 | MCP met OmniaUI-componenten en -blocks; migrate-fixes (setup-versie, scroll-m/p, Vite-waarschuwing, eigen @import); extensie stil in Tailwind-projecten |
 | `0.12.0` | 2026-10-28 | Tooltip met anchor positioning, titel en plaatsing; Pro-blocks infinite carousel en pricing plans; carousel-lus; schone URL's; favicons en SEO; lightbox- en kleurfixes |
 | `0.11.2` | 2026-10-28 | mobiel site-header-menu, leesbare accenttekst in dark mode, minify behoudt scroll-animaties |
 | `0.11.1` | 2026-10-28 | docs layout, browser support and demo fixes |

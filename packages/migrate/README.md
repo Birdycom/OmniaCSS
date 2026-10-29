@@ -31,9 +31,10 @@ export default defineConfig({ plugins: [laravel({ input: ["resources/css/app.css
 ```
 
 ```css
-/* resources/css/app.css: unchanged. Both forms are understood: */
+/* resources/css/app.css: the entry, under our own name (setup --write renames @import "tailwindcss" to it): */
+@import "@birdycom/omniacss-migrate";
+/* the Tailwind forms keep working too: */
 @import "tailwindcss";
-/* or */
 @tailwind base; @tailwind components; @tailwind utilities;
 ```
 
@@ -47,7 +48,7 @@ export default { plugins: [omniaMigrate({ content: ["resources/views/**/*.blade.
 
 ## What the plugin does
 
-- Replaces `@import "tailwindcss"` / `@tailwind base|components|utilities` with Omnia core (tokens + the Omnia classes you use), a small base reset and the compat CSS for the classes it finds in your content.
+- Replaces `@import "@birdycom/omniacss-migrate"` / `@import "tailwindcss"` / `@tailwind base|components|utilities` with Omnia core (tokens + the Omnia classes you use), a small base reset and the compat CSS for the classes it finds in your content.
 - Expands `@apply` (with variants, `!important`, and your own classes), `theme(colors.red.500)`, `--spacing(4)`, `@theme`, `@custom-variant`, `@variant`, `@source`, `@source inline("…")`; ignores `@plugin` and `@config`.
 - Reads `tailwind.config.{js,cjs,mjs}` (`darkMode`, `theme.colors`/`extend.colors`, `fontFamily`, `borderRadius`, `spacing`, `boxShadow`, `screens`, `container`, `prefix`, `important`) and your `@theme` blocks.
 - Output is wrapped in cascade layers `omnia, theme, base, components, utilities`.

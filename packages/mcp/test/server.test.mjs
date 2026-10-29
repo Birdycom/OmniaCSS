@@ -28,7 +28,8 @@ after(() => client?.close());
 test("lists the tools and the guide, with instructions", async () => {
   const { tools } = await client.listTools();
   assert.deepEqual(tools.map((t) => t.name).sort(), [
-    "color_tokens", "convert_tailwind", "getting_started", "list_variants", "lookup_classes", "read_docs", "search_docs", "search_utilities",
+    "color_tokens", "convert_tailwind", "get_component", "getting_started", "list_components", "list_variants", "lookup_classes",
+    "read_docs", "search_docs", "search_utilities",
   ]);
   assert.ok(tools.every((t) => t.annotations?.readOnlyHint));
   const { resources } = await client.listResources();
@@ -84,10 +85,56 @@ test("convert_tailwind: native class, compat CSS or unsupported", async () => {
   assert.match(by["space-x-4"].css, /margin-inline-start: 1rem/);
 });
 
+test("list_components finds components and blocks, Pro ones marked", async () => {
+  const { json } = await call("list_components", { query: "pricing" });
+  const by = Object.fromEntries(json.results.map((r) => [r.name, r]));
+  assert.equal(by.pricing.kind, "block");
+  assert.equal(by["pricing-plans"].pro, true);
+  assert.ok(by["pricing-plans"].locked);
+  const components = (await call("list_components", { kind: "component", limit: 250 })).json;
+  assert.ok(components.total > 100 && components.results.every((r) => r.kind === "component"));
+});
+
+test("get_component returns the markup and the add commands", async () => {
+  const modal = await call("get_component", { name: "oc-modal" });
+  assert.equal(modal.error, false);
+  assert.match(modal.text, /"css": "npx omniaui add modal"/);
+  assert.match(modal.text, /-f vue {3}# <OcModal>/);
+  assert.match(modal.text, /```html\n[\s\S]*<dialog class="oc-modal"/);
+  const block = await call("get_component", { name: "pricing" });
+  assert.match(block.text, /npx omniaui add pricing --kind block/);
+  assert.match(block.text, /@birdycom\/omniaui-blocks/);
+  const locked = (await call("get_component", { name: "calendar-01" })).json;
+  assert.match(locked.locked, /Pro licence/);
+  assert.equal(locked.html, undefined);
+  assert.match((await call("get_component", { name: "modl" })).text, /Did you mean "modal"/);
+});
+
+test("Pro blocks come with their HTML when the project has @birdycom/omniaui-pro installed", async (t) => {
+  const os = await import("node:os");
+  const fs = await import("node:fs");
+  const path = await import("node:path");
+  const project = fs.mkdtempSync(path.join(os.tmpdir(), "omnia-mcp-"));
+  t.after(() => fs.rmSync(project, { recursive: true, force: true }));
+  const pkg = path.join(project, "node_modules/@birdycom/omniaui-pro");
+  fs.mkdirSync(path.join(pkg, "blocks"), { recursive: true });
+  fs.writeFileSync(path.join(pkg, "package.json"), JSON.stringify({ name: "@birdycom/omniaui-pro", version: "9.9.9" }));
+  fs.writeFileSync(path.join(pkg, "manifest.json"), JSON.stringify({ items: [{ name: "calendar-01", file: "blocks/calendar-01.html", description: "Calendar", requires: ["@birdycom/omniaui-pro", "@birdycom/omniaui"] }] }));
+  fs.writeFileSync(path.join(pkg, "blocks/calendar-01.html"), '<div class="oc-block-calendar">licensed</div>\n');
+  const kb = await load({ project });
+  const c = kb.getComponent("calendar-01");
+  assert.equal(c.html, '<div class="oc-block-calendar">licensed</div>');
+  assert.equal(c.source, "@birdycom/omniaui-pro@9.9.9 (installed)");
+  assert.match(c.install, /npm install -D @birdycom\/omniaui {2}# and @birdycom\/omniaui-pro/);
+  assert.equal(kb.listComponents("", { limit: 1 }).installed["@birdycom/omniaui-pro"], "9.9.9");
+});
+
 test("search_docs finds pages with section links", async () => {
   const pages = (await call("search_docs", { query: "container queries" })).json;
   assert.equal(pages[0].url, "https://omniacss.eu/docs/container-queries/");
   assert.ok(pages[0].sections.every((s) => s.url.startsWith(pages[0].url + "#")));
+  const ui = (await call("search_docs", { query: "modal" })).json;
+  assert.equal(ui[0].url, "https://omniaui.eu/ui/components/modal");
 });
 
 test("read_docs reads only omniacss.eu, and one section when asked", async () => {
@@ -109,6 +156,7 @@ test("read_docs reads only omniacss.eu, and one section when asked", async () =>
     assert.doesNotMatch(one.text, /Beta/);
     assert.equal((await call("read_docs", { url: "/docs/x", section: "nope" })).error, true);
     assert.equal((await call("read_docs", { url: "https://example.com/docs" })).error, true);
+    assert.match((await call("read_docs", { url: "/ui/components/modal" })).text, /^https:\/\/omniaui\.eu\/ui\/components\/modal/);
   } finally {
     globalThis.fetch = real;
   }

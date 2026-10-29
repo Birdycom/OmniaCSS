@@ -1,6 +1,6 @@
 {
   "name": "@birdycom/omniacss-migrate",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Switch a Laravel / Vue / React project from Tailwind CSS to OmniaCSS and keep your class names (PostCSS + Vite plugin, scan, setup, codemod), or convert a Bootstrap 3/4/5 site to OmniaCSS + OmniaUI.",
   "type": "module",
   "license": "MIT",
@@ -32,7 +32,10 @@
     "omniacss-migrate": "./bin/omniacss-migrate.mjs"
   },
   "exports": {
-    ".": "./src/index.mjs",
+    ".": {
+      "style": "./src/entry.css",
+      "default": "./src/index.mjs"
+    },
     "./postcss": "./src/postcss.mjs",
     "./vite": "./src/vite.mjs",
     "./cli": "./src/cli.mjs",
@@ -51,7 +54,7 @@
     "build:colors": "node scripts/build-color-map.mjs"
   },
   "dependencies": {
-    "@birdycom/omniacss": "^0.12.0",
+    "@birdycom/omniacss": "^0.12.1",
     "postcss": "^8.5.3"
   },
   "publishConfig": {

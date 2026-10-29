@@ -1,6 +1,6 @@
 // File: packages/migrate/src/postcss.mjs
 // PostCSS plugin "keep your classes": replaces the framework directives in your CSS
-//   @import "tailwindcss";  /  @tailwind base|components|utilities;
+//   @import "tailwindcss";  /  @import "@birdycom/omniacss-migrate";  /  @tailwind base|components|utilities;
 // with OmniaCSS core + compat CSS for the classes found in your content, and expands @apply, theme() and @theme.
 //
 //   // postcss.config.js
@@ -21,7 +21,8 @@ import { buildCoreCss } from "./core.mjs";
 import { COLOR_MAP } from "./values.mjs";
 import { applyVariant } from "./variants.mjs";
 
-const TW_IMPORT = /^["']tailwindcss(?:\/(theme|preflight|utilities|base|components)(?:\.css)?)?["']/;
+// `@import "tailwindcss"`, or the same entry under our own name, so a project can drop every Tailwind mention.
+const TW_IMPORT = /^["'](?:tailwindcss|@birdycom\/omniacss-migrate)(?:\/(theme|preflight|utilities|base|components)(?:\.css)?)?["']/;
 const fileTokenCache = new Map();
 
 /** Default content globs when none are given. */
@@ -197,7 +198,8 @@ export default function omniaMigrate(options = {}) {
       pieces.core = options.core === false ? "" : await buildCoreCss({ candidates, compatCss, exclude, cwd, layer: layers ? "omnia" : false, mode: options.core === "tokens" ? "tokens" : true });
       pieces.utilities = wrap("utilities", compatCss);
       const all = [pieces.order, pieces.theme, pieces.preflight, pieces.core, pieces.utilities];
-      const mk = (css) => postcss.parse(css, { from: undefined }).nodes;
+      // `from`: the stylesheet being built, so Vite resolves url() in the generated CSS against it (no "did not pass from" warning).
+      const mk = (css) => postcss.parse(css, { from: result.opts.from }).nodes;
       const place = (at, css) => { const nodes = css ? mk(css) : []; if (nodes.length) at.replaceWith(nodes); else at.remove(); };
 
       for (const at of twImports) {
@@ -293,7 +295,8 @@ function expandApply(at, ctx, classIndex, usedKeyframes, result) {
       else extras.push(rule);
     }
   }
-  const nodes = inline.map(([prop, value, imp]) => postcss.decl({ prop, value, important: !!imp }));
+  // `source` of the @apply: Vite resolves url() in these declarations against the file they are written in.
+  const nodes = inline.map(([prop, value, imp]) => postcss.decl({ prop, value, important: !!imp, source: at.source }));
   if (nodes.length) at.replaceWith(nodes); else at.remove();
   if (!extras.length) return;
   const flat = parent.parent && parent.parent.type !== "rule";
@@ -302,7 +305,7 @@ function expandApply(at, ctx, classIndex, usedKeyframes, result) {
     const sels = flat ? x.selectors.flatMap((s) => parent.selectors.map((ps) => s.replace(/&/g, ps))) : x.selectors;
     let css = `${sels.join(",\n")} {\n${x.decls.map(([p, v]) => `  ${p}: ${v};`).join("\n")}\n}`;
     for (let i = x.media.length - 1; i >= 0; i--) css = `${x.media[i]} {\n${css}\n}`;
-    const parsed = postcss.parse(css, { from: undefined }).nodes;
+    const parsed = postcss.parse(css, { from: at.source?.input.file ?? result.opts.from }).nodes;
     if (flat) { for (const n of parsed) { anchor.after(n); anchor = n; } } else parent.append(parsed);
   }
 }
