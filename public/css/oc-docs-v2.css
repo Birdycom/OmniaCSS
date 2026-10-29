@@ -72,6 +72,9 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   font-weight: 500;
   font-size: 0.92rem;
 }
+/* The first item is the other site ("OmniaUI" on omniacss.eu, "OmniaCSS" on omniaui.eu): one fixed text width for
+   both names, so the items after it stay in place when you switch sites. */
+.oc-navmenu--site > li:first-child > .oc-navmenu-link { box-sizing: content-box; inline-size: 5.25em; }
 .oc-navmenu--site .oc-navmenu-link:hover { color: var(--oc-foreground); background: var(--ocd-soft); border: 0; }
 .oc-navmenu--site .oc-navmenu-link[aria-current="page"] { color: var(--oc-foreground); background: none; border: 0; }
 .oc-navmenu--site .oc-navmenu-link[aria-current="page"]::after {
@@ -435,6 +438,18 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 @media (max-width: 1340px) {
   .ocd-search-trigger span, .ocd-search-trigger kbd { display: none; }
   .ocd-search-trigger { inline-size: auto; padding: 0.45rem; }
+}
+/* The top bar stays one line at every width: from 1000px down the links and the theme switch get a little less
+   room; below 900px (drawer button) the menu scrolls sideways instead of pushing the buttons to a second line. */
+@media (max-width: 1000px) {
+  .oc-navmenu--site .oc-navmenu-link { padding-inline: 0.45rem; }
+  .oc-topbar .oc-theme-switch label { padding-inline: 0.4rem; }
+}
+@media (max-width: 900px) {
+  .oc-topbar { flex-wrap: nowrap; }
+  .oc-topbar-nav { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
+  .oc-navmenu--site { flex-wrap: nowrap; }
+  .oc-navmenu--site .oc-navmenu-link { white-space: nowrap; }
 }
 @media (max-width: 760px) {
   .oc-demo__widths { display: none; }
