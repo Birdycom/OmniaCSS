@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.12.2",
+      "date": "2026-10-30",
+      "summary": "Watermark, live frame en link row; Pro-blocks device mockups en ecosystem map; iconify-icon met icon-toolbar; eigen CSS-tokens behouden; extensie-fix"
+    },
+    {
       "version": "0.12.1",
       "date": "2026-10-29",
       "summary": "MCP met OmniaUI-componenten en -blocks; migrate-fixes (setup-versie, scroll-m/p, Vite-waarschuwing, eigen @import); extensie stil in Tailwind-projecten"
