@@ -71,6 +71,25 @@ npx omniacss init</oc-code>
         </div>
       </section>
 
+      <section class="oc-docs-section" id="omniaui-postcss">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">OmniaUI components with PostCSS (<code>@omniaui;</code>)</h2>
+          <span class="oc-badge oc-badge--outline">since 0.12.3</span>
+        </div>
+        <div class="oc-section-content">
+          <p>Next to <code>@omnia;</code> the same plugin replaces <code>@omniaui;</code> with the CSS of the OmniaUI components your markup uses, pruned the same way as the utilities. It reads the installed packages: <code>@birdycom/omniaui</code>, <code>-blocks</code> and <code>-pro</code>.</p>
+          <oc-code lang="css">/* resources/css/app.css */
+@omniaui;     /* every installed OmniaUI package */
+@omnia;</oc-code>
+          <ul>
+            <li><strong>One package only:</strong> <code>@omniaui components;</code>, or <code>@omniaui components blocks;</code>. A named package that is not installed gives a build warning.</li>
+            <li><strong>Layers:</strong> the components land in <code>@layer omniaui</code>, the utilities in <code>@layer omnia</code>, and the plugin declares <code>@layer omniaui, omnia;</code>, so a utility class on a component wins. Other names: <code>omniacss({ content, layer: "utilities", omniauiLayer: "components" })</code>; <code>false</code> leaves the CSS outside a layer.</li>
+            <li><strong>Tokens:</strong> the palette colors that the component tokens use (<code>--oc-primary</code> → <code>--color-…</code>) stay in the utilities build.</li>
+          </ul>
+          <p>The CLI (<code>omniacss build</code>) already includes the installed OmniaUI CSS; <code>--no-components</code> turns that off.</p>
+        </div>
+      </section>
+
       <section class="oc-docs-section" id="cli">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">OmniaUI CLI: add components in your framework</h2>

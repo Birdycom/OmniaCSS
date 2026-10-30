@@ -63,6 +63,21 @@ function requiredClasses(selector) {
 }
 
 /**
+ * Whether a selector stays. Its own classes must all be used. A selector with no classes of its own but a class list
+ * in :is()/:where() (`:is(.scroll-markers-before, .scroll-markers-after)::scroll-marker`) needs one used class in it;
+ * without that rule it always stayed, unused.
+ */
+function selectorUsed(sel, used) {
+  const own = requiredClasses(sel);
+  if (own.length) return own.every(used);
+  const lists = [...sel.matchAll(/:(?:is|where)\(((?:[^()]|\([^()]*\))*)\)/g)].map((m) => m[1]);
+  return lists.every((list) => {
+    const options = postcss.list.comma(list).map(requiredClasses);
+    return options.some((classes) => classes.every(used));
+  });
+}
+
+/**
  * Generate the used subset of OmniaCSS.
  * @param {string} css full OmniaCSS (with tokens inlined)
  * @param {Set<string>} candidates
@@ -80,7 +95,7 @@ export function generate(css, candidates, options = {}) {
   // 1. Rules: keep selectors whose classes are all used; selectors without classes (:root, html, *) stay.
   root.walkRules((rule) => {
     if (rule.parent?.type === "atrule" && /keyframes$/i.test(rule.parent.name)) return;
-    const selectors = rule.selectors.filter((sel) => requiredClasses(sel).every(used));
+    const selectors = rule.selectors.filter((sel) => selectorUsed(sel, used));
     if (!selectors.length) rule.remove();
     else if (selectors.length !== rule.selectors.length) rule.selectors = selectors;
   });

@@ -14,6 +14,8 @@ import omniacss from "@birdycom/omniacss/postcss";
 export default { plugins: [omniacss({ content: ["src/**/*.{html,js,vue,tsx}"] })] };
 ```
 
+With [OmniaUI](https://omniaui.eu) installed, `@omniaui;` (before `@omnia;`) adds the components, blocks and Pro blocks the content uses, pruned the same way, in `@layer omniaui`. `@omniaui components;` takes one package only.
+
 **Engine API**
 
 ```js

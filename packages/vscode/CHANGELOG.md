@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Completions and hover CSS for the new OmniaUI widget parts: status dot (`oc-status-dot`, `--working`, `oc-status`),
+  glass (`oc-glass`, `oc-glass-panel`, `--flat`), title bar (`oc-titlebar`, `__btn--close`, `oc-titlebar-body`), and the
+  new modifiers `oc-progress--glow`, `oc-progress-marker`, `oc-alert--inline`, `oc-btn--inline` and `oc-prose--compact`.
+
+## 0.12.2
+
 - Completions and hover CSS for the new OmniaUI components: watermark (`oc-watermark`, `--tile`, `--corner`,
   `__stack` …), live frame (`oc-live-frame`, `--static`) and link row (`oc-link-row`, `--accent`, `--muted`).
   The Pro blocks spotlight cards, device mockups and ecosystem map appear in projects that have OmniaUI Pro installed.
