@@ -1,6 +1,6 @@
 {
   "name": "omniacss-workspace",
-  "version": "0.12.2",
+  "version": "0.12.3",
   "private": true,
   "description": "OmniaCSS monorepo: utilities and tokens (@birdycom/omniacss), CLI (@birdycom/omniacss-cli), Tailwind migration (@birdycom/omniacss-migrate) and the CSS documentation site. Components and blocks live in the OmniaUI repo.",
   "workspaces": [
