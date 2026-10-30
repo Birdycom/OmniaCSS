@@ -99,6 +99,8 @@ export default {
 .my-own-class { /* your own CSS wins over @layer omnia */ }
 ```
 
+With OmniaUI installed, `@omniaui;` (before `@omnia;`) brings in the components, blocks and Pro blocks the content uses, pruned the same way, in `@layer omniaui`.
+
 Vite rebuilds automatically when a content file changes.
 
 ### 3. Full build (prototypes)

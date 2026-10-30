@@ -252,6 +252,10 @@
   color: var(--oc-foreground);
 }
 
+/* The hidden attribute hides, also on components with their own display (.oc-field is flex, .oc-card is grid …).
+   hidden="until-found" keeps the browser's own behaviour, so find-in-page can still open it. */
+[hidden]:not([hidden="until-found"]) { display: none !important; }
+
 /* ===================================================================
    BLOCK GRID HELPER
    =================================================================== */
@@ -432,6 +436,20 @@ flex-direction: column;
   text-decoration: underline;
   opacity: 1;
 }
+
+/* Inline — a link button inside running text: no button padding or height, the size of the text around it.
+   Two classes, so it also wins over the size modifiers (--sm, --lg) further down. */
+.oc-btn.oc-btn--inline {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
+  white-space: normal;
+}
+.oc-btn.oc-btn--inline:active { transform: none; }
 
 /* Destructive */
 .oc-btn--destructive {
@@ -1113,6 +1131,18 @@ textarea.oc-input {
   border-color: color-mix(in srgb, var(--oc-destructive) 40%, transparent);
   background: color-mix(in srgb, var(--oc-destructive) 5%, var(--oc-background));
 }
+
+/* Inline: a short message right under a field or a form (an error, a hint), tinted, without the box spacing. */
+.oc-alert--inline {
+  padding: 8px 12px;
+  border-radius: var(--oc-radius);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+.oc-alert--inline.oc-alert--danger { color: light-dark(var(--oc-destructive), oklch(from var(--oc-destructive) max(l, 0.75) c h)); }
+.oc-alert--inline .oc-alert-title { margin: 0; font-size: inherit; }
+.oc-alert--inline .oc-alert-title + .oc-alert-description { margin-block-start: 2px; }
+.oc-alert--inline .oc-alert-description { color: inherit; }
 
 /* ===================================================================
    HERO (page intro block — used in docs index)
@@ -1967,15 +1997,44 @@ a.oc-breadcrumb-item:hover {
 }
 
 .oc-progress-bar {
+  --oc-progress-color: var(--oc-primary);
+  display: block;
+  max-width: 100%;
   height: 100%;
-  background: var(--oc-primary);
+  background: var(--oc-progress-color);
   border-radius: 999px;
   transition: width 300ms ease;
 }
 
-.oc-progress-bar--success { background: var(--oc-success); }
-.oc-progress-bar--danger { background: var(--oc-destructive); }
-.oc-progress-bar--warning { background: var(--oc-warning); }
+.oc-progress-bar--success { --oc-progress-color: var(--oc-success); }
+.oc-progress-bar--danger { --oc-progress-color: var(--oc-destructive); }
+.oc-progress-bar--warning { --oc-progress-color: var(--oc-warning); }
+
+/* Sizes */
+.oc-progress--sm { height: 6px; }
+.oc-progress--xs { height: 4px; }
+
+/* Glow: a light top edge and a soft glow in the bar color (meters, usage, quota). */
+.oc-progress--glow { overflow: visible; box-shadow: inset 0 1px 1px light-dark(oklch(0% 0 0deg / 0.06), oklch(0% 0 0deg / 0.35)); }
+.oc-progress--glow .oc-progress-bar {
+  background: linear-gradient(180deg, color-mix(in oklch, var(--oc-progress-color) 78%, white), var(--oc-progress-color));
+  box-shadow: 0 0 10px -2px color-mix(in oklch, var(--oc-progress-color) 60%, transparent);
+}
+
+/* Marker: a short upright line at a target or schedule point, placed with style="left: 20%". Give it an aria-label
+   on the progressbar or a text next to it; the line itself is decoration. */
+.oc-progress:has(> .oc-progress-marker) { position: relative; overflow: visible; }
+.oc-progress-marker {
+  position: absolute;
+  inset-block: -4px;
+  inline-size: 2px;
+  margin-inline-start: -1px;
+  border-radius: 2px;
+  background: var(--oc-foreground);
+  box-shadow: 0 0 0 1.5px var(--oc-background);
+  pointer-events: none;
+}
+.oc-progress-marker--muted { background: var(--oc-muted-foreground); }
 
 /* ===================================================================
    SKELETON LOADER
@@ -6202,6 +6261,58 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   button.oc-stat-card:hover { translate: none; }
 }
 
+/* parts/app-status-dot.css */
+/* File: packages/ui/src/parts/app-status-dot.css
+   Map: dot (tone color + soft ring) -> tones (working pulses, waiting, done, error, idle) -> sizes -> status row (dot + text
+   that cuts off with …) -> reduced motion
+   Status dot: a small live state light for a job, agent, sync, server or person ("Working", "Waiting for input", "Done").
+   Always put a text next to it or an aria-label on it: the color alone does not tell the state. */
+
+.oc-status-dot {
+  --oc-status-dot-color: var(--oc-muted-foreground);
+  display: inline-block;
+  flex: none;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: 50%;
+  background: var(--oc-status-dot-color);
+  box-shadow: 0 0 0 2px oklch(from var(--oc-status-dot-color) l c h / 0.2);
+  vertical-align: middle;
+}
+
+/* Tones. --working pulses a ring outwards. */
+.oc-status-dot--working {
+  --oc-status-dot-color: var(--oc-primary);
+  animation: oc-status-dot-pulse 1.8s ease-in-out infinite;
+}
+.oc-status-dot--waiting { --oc-status-dot-color: var(--oc-warning); }
+.oc-status-dot--done { --oc-status-dot-color: var(--oc-success); }
+.oc-status-dot--error { --oc-status-dot-color: var(--oc-destructive); }
+.oc-status-dot--idle { --oc-status-dot-color: var(--oc-muted-foreground); box-shadow: none; opacity: 0.7; }
+@keyframes oc-status-dot-pulse {
+  50% { box-shadow: 0 0 0 5px oklch(from var(--oc-status-dot-color) l c h / 0.08); }
+}
+
+/* Sizes */
+.oc-status-dot--sm { inline-size: 0.375rem; block-size: 0.375rem; }
+.oc-status-dot--lg { inline-size: 0.625rem; block-size: 0.625rem; }
+
+/* Status row: dot + one line of text that cuts off with … in a narrow card. */
+.oc-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-inline-size: 0;
+  margin: 0;
+  font-size: 0.8125rem;
+}
+.oc-status__text { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oc-status__meta { flex: none; margin-inline-start: auto; color: var(--oc-muted-foreground); font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-status-dot--working { animation: none; }
+}
+
 /* parts/app-table-actions.css */
 /* File: packages/ui/src/parts/app-table-actions.css | Map: icon actions -> tone modifiers -> overflow trigger -> menu tweaks -> reduced motion */
 /* Table actions: row actions as small icon buttons or as one overflow ("more") menu.
@@ -6330,6 +6441,104 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 /* Plain: no stripes, no header background (very dense lists). */
 .oc-table-compact--plain > .oc-table tbody tr:nth-child(even),
 .oc-table-compact--plain > .oc-table thead th { background: none; }
+
+/* parts/app-titlebar.css */
+/* File: packages/ui/src/parts/app-titlebar.css
+   Map: window (column, shares the scroll timeline) -> title bar (drag area) -> title + subtitle -> actions (no drag) ->
+   icon buttons (close turns red) -> body (scrolls) -> hairline when the body scrolls (scroll-driven, no JavaScript) -> sizes
+   Title bar: the top bar of a frameless desktop window (Electron, Tauri) or a widget: you drag the window by it, the
+   buttons stay clickable. Inside .oc-titlebar-window the bar gets a hairline once .oc-titlebar-body scrolls. */
+
+.oc-titlebar-window {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 0;
+  timeline-scope: --oc-titlebar-scroll;
+}
+
+.oc-titlebar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+  min-block-size: 46px;
+  padding: 0 8px 0 14px;
+  border-block-end: 1px solid transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  /* The OS moves the window when you drag here (Electron and Tauri read this). */
+  -webkit-app-region: drag;
+  app-region: drag;
+}
+.oc-titlebar :is(button, a, input, select, textarea, label, [role="button"], [tabindex], .oc-titlebar__actions) {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+.oc-titlebar--bordered { border-block-end-color: var(--oc-glass-hairline, var(--oc-border)); }
+
+/* Title area: grows, cuts the subtitle off with …. */
+.oc-titlebar__main { display: flex; flex: 1; align-items: center; gap: 8px; min-inline-size: 0; }
+.oc-titlebar__icon { flex: none; inline-size: 18px; block-size: 18px; }
+.oc-titlebar__title { flex: none; font-size: 0.8667rem; font-weight: 650; letter-spacing: -0.01em; }
+.oc-titlebar__subtitle {
+  min-inline-size: 0;
+  overflow: hidden;
+  color: var(--oc-muted-foreground);
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.oc-titlebar__subtitle::before { content: "·"; margin-inline-end: 8px; }
+.oc-titlebar__actions { display: flex; flex: none; align-items: center; gap: 2px; }
+
+/* Compact icon buttons: muted, a light surface on hover, the close button red. */
+.oc-titlebar__btn {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 30px;
+  block-size: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--oc-muted-foreground);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color var(--oc-transition-fast), color var(--oc-transition-fast);
+}
+.oc-titlebar__btn :where(svg, iconify-icon) { inline-size: 16px; block-size: 16px; }
+.oc-titlebar__btn:hover { background: var(--oc-glass-panel-strong, var(--oc-accent)); color: var(--oc-foreground); }
+.oc-titlebar__btn:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
+.oc-titlebar__btn--close:hover { background: var(--oc-destructive); color: var(--oc-destructive-foreground); }
+
+/* Body: the part that scrolls under the bar. */
+.oc-titlebar-body {
+  flex: 1;
+  min-block-size: 0;
+  overflow: auto;
+  scroll-timeline: --oc-titlebar-scroll block;
+  scrollbar-width: thin;
+}
+
+/* Hairline + light surface on the bar once the body scrolls (browsers without scroll timelines keep the plain bar). */
+@supports (animation-timeline: scroll()) {
+  .oc-titlebar-window > .oc-titlebar:not(.oc-titlebar--bordered) {
+    animation: oc-titlebar-scrolled linear both;
+    animation-timeline: --oc-titlebar-scroll;
+    animation-range: 0 48px;
+  }
+}
+@keyframes oc-titlebar-scrolled {
+  to { border-block-end-color: var(--oc-glass-hairline, var(--oc-border)); background: var(--oc-glass-panel, var(--oc-muted)); }
+}
+
+/* Sizes */
+.oc-titlebar--sm { min-block-size: 36px; padding-inline-start: 10px; }
+.oc-titlebar--sm .oc-titlebar__btn { inline-size: 26px; block-size: 26px; border-radius: 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-titlebar-window > .oc-titlebar { animation: none; }
+}
 
 /* parts/app-top-progress.css */
 /* File: packages/ui/src/parts/app-top-progress.css | Map: bar (fixed, native progress) -> determinate value -> indeterminate animation -> color + static modifiers -> done state -> reduced motion */
@@ -8641,6 +8850,79 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
   .oc-flip-card--hover:is(:hover, :focus-within) .oc-flip-card__face--back { opacity: 1; visibility: visible; }
 }
 
+/* parts/media-glass.css */
+/* File: packages/ui/src/parts/media-glass.css
+   Map: tokens (light-dark) -> sheet (.oc-glass: see-through, blurred, light top edge, soft shadow) -> panel (.oc-glass-panel:
+   a lighter layer inside) -> cards inside a sheet -> --flat (desktop window, the OS draws the blur) -> --strong -> reduced
+   transparency
+   Glass: see-through surfaces in the "liquid glass" style, over a photo, a gradient or the desktop (an Electron or Tauri
+   window with Windows acrylic or macOS vibrancy behind a transparent page). Re-tint with the --oc-glass-* tokens. */
+
+:root {
+  --oc-glass-sheet: light-dark(oklch(from var(--oc-background) l c h / 0.72), oklch(from var(--oc-background) l c h / 0.62));
+  --oc-glass-panel: light-dark(oklch(100% 0 0deg / 0.5), oklch(100% 0 0deg / 0.055));
+  --oc-glass-panel-strong: light-dark(oklch(100% 0 0deg / 0.72), oklch(100% 0 0deg / 0.09));
+  --oc-glass-edge: light-dark(oklch(100% 0 0deg / 0.85), oklch(100% 0 0deg / 0.11));
+  --oc-glass-edge-hi: light-dark(oklch(100% 0 0deg / 1), oklch(100% 0 0deg / 0.16));
+  --oc-glass-hairline: light-dark(oklch(from var(--oc-foreground) l c h / 0.1), oklch(100% 0 0deg / 0.08));
+  --oc-glass-shadow: 0 24px 60px -20px light-dark(oklch(25% 0.06 255deg / 0.35), oklch(0% 0 0deg / 0.7));
+  --oc-glass-panel-shadow: 0 8px 24px -16px light-dark(oklch(25% 0.06 255deg / 0.25), oklch(0% 0 0deg / 0.6));
+  --oc-glass-blur: 28px;
+  --oc-glass-radius: 18px;
+  --oc-glass-panel-radius: 14px;
+}
+
+/* Sheet: the outer glass surface (a widget, a floating panel, a dialog over a photo). */
+.oc-glass {
+  position: relative;
+  color: var(--oc-foreground);
+  background: var(--oc-glass-sheet);
+  border: 1px solid var(--oc-glass-edge);
+  border-radius: var(--oc-glass-radius);
+  box-shadow: var(--oc-glass-shadow), inset 0 1px 0 var(--oc-glass-edge-hi);
+  backdrop-filter: blur(var(--oc-glass-blur)) saturate(1.5);
+  /* OmniaUI cards inside become glass panels too. */
+  --oc-card-background: var(--oc-glass-panel);
+  --oc-card-border: var(--oc-glass-edge);
+}
+
+/* Panel: a lighter layer inside a sheet (a group of settings, a meter, a list). */
+.oc-glass-panel {
+  position: relative;
+  background: var(--oc-glass-panel);
+  border: 1px solid var(--oc-glass-edge);
+  border-radius: var(--oc-glass-panel-radius);
+  box-shadow: var(--oc-glass-panel-shadow), inset 0 1px 0 var(--oc-glass-edge-hi);
+}
+.oc-glass .oc-card {
+  border-radius: var(--oc-glass-panel-radius);
+  box-shadow: var(--oc-glass-panel-shadow), inset 0 1px 0 var(--oc-glass-edge-hi);
+}
+
+/* Strong: more opaque, for text-heavy panels or a hovered row. */
+.oc-glass--strong,
+.oc-glass-panel--strong { background: var(--oc-glass-panel-strong); }
+
+/* Flat: a frameless desktop window where the OS draws the blur (acrylic, vibrancy): no own blur, no drop shadow. */
+.oc-glass--flat {
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 var(--oc-glass-edge-hi);
+  backdrop-filter: none;
+}
+
+/* Hairline divider in glass (sections, header). */
+.oc-glass-divider { block-size: 1px; margin: 0; border: 0; background: var(--oc-glass-hairline); }
+
+/* People who ask for less transparency get solid surfaces. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --oc-glass-sheet: var(--oc-background);
+    --oc-glass-panel: var(--oc-card);
+    --oc-glass-panel-strong: var(--oc-muted);
+  }
+  .oc-glass { backdrop-filter: none; }
+}
+
 /* parts/media-image-zoom.css */
 /* File: packages/ui/src/parts/media-image-zoom.css | Map: root + zoom variable -> toolbar + level chips
    -> viewport (scroll = pan) -> canvas (grows with the zoom) -> zoom levels (classes + radios via :has()) -> motion
@@ -10226,6 +10508,18 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-prose--sm { font-size: 0.875rem; line-height: 1.65; }
 .oc-prose--lg { font-size: 1.125rem; line-height: 1.75; }
 .oc-prose--full { max-inline-size: none; }
+
+/* Compact: help text and about pages in a widget, side panel or popover. Smaller text, tighter rhythm and headings,
+   full width of the panel. */
+.oc-prose--compact { max-inline-size: none; font-size: 0.8125rem; line-height: 1.5; }
+.oc-prose--compact :where(* + *) { margin-block-start: 0.7em; }
+.oc-prose--compact :where(h1) { font-size: 1.45em; }
+.oc-prose--compact :where(h2) { margin-block-start: 1.4em; font-size: 1.15em; }
+.oc-prose--compact :where(h3) { margin-block-start: 1.2em; font-size: 1.05em; }
+.oc-prose--compact :where(h4) { margin-block-start: 1em; }
+.oc-prose--compact :where(h1, h2, h3, h4) + :where(*) { margin-block-start: 0.35em; }
+.oc-prose--compact :where(.oc-prose-lead) { font-size: 1.08em; }
+.oc-prose--compact > :where(:first-child) { margin-block-start: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .oc-prose :where(a) { transition: none; }

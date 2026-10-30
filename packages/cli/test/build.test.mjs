@@ -48,6 +48,15 @@ test("build --minify keeps animation-timeline out of the animation shorthand", a
   assert.doesNotMatch(css, /animation:[^;}]*view\(\)/);
 });
 
+test("build drops :is() rules when none of their classes is used", async () => {
+  const dir = await project({ "index.html": '<div class="flex"></div>' });
+  run(dir, "build", "-o", "out.css");
+  assert.doesNotMatch(await fs.readFile(path.join(dir, "out.css"), "utf8"), /scroll-marker/);
+  const used = await project({ "index.html": '<div class="scroll-markers-after"></div>' });
+  run(used, "build", "-o", "out.css");
+  assert.match(await fs.readFile(path.join(used, "out.css"), "utf8"), /::scroll-marker-group/);
+});
+
 test("build keeps color tokens that the content uses in inline styles", async () => {
   const dir = await project({ "index.html": '<div class="flex" style="background: var(--color-red-50)"></div>' });
   run(dir, "build", "-o", "out.css");
@@ -74,4 +83,24 @@ test("the PostCSS plugin keeps the color tokens the stylesheet itself uses", asy
   assert.match(css, /--color-teal-60:/, "a token used next to @omnia stays");
   assert.doesNotMatch(css, /--color-magenta-80:/, "unused tokens are still left out");
   assert.match(css, /\.flex\s*\{/);
+});
+
+test("@omniaui brings in the used OmniaUI components, in a layer before the utilities", async () => {
+  const components = ":root { --oc-primary: var(--color-blue-60); }\n.oc-btn { color: var(--oc-primary); }\n.oc-card { display: grid; }\n";
+  const dir = await project({
+    "index.html": '<button class="oc-btn flex">x</button>',
+    "node_modules/@birdycom/omniaui/package.json": { name: "@birdycom/omniaui" },
+    "node_modules/@birdycom/omniaui/dist/components.css": components,
+  });
+  const postcss = (await import("postcss")).default;
+  const omniacss = (await import("../../core/src/postcss.mjs")).default;
+  const { css, messages } = await postcss([omniacss({ cwd: dir, content: ["index.html"] })]).process("@omniaui;\n@omnia;\n", { from: path.join(dir, "app.css") });
+  assert.match(css, /^@layer omniaui, omnia;/);
+  assert.match(css, /@layer omniaui \{[\s\S]*\.oc-btn/);
+  assert.doesNotMatch(css, /\.oc-card/, "unused components are left out");
+  assert.match(css, /--color-blue-60:/, "the palette color a component token uses stays");
+  assert.equal(messages.filter((m) => m.type === "warning").length, 0);
+
+  const blocks = await postcss([omniacss({ cwd: dir, content: ["index.html"] })]).process("@omniaui blocks;\n", { from: path.join(dir, "app.css") });
+  assert.match(blocks.messages.find((m) => m.type === "warning")?.text ?? "", /omniaui-blocks is not installed/);
 });
