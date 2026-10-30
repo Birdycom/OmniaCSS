@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   
-  <meta name="generator" content="OmniaCSS 0.12.3">
+  <meta name="generator" content="OmniaCSS 0.12.4">
   <title>OmniaCSS Docs - Color Palettes</title>
   <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -15,7 +15,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=b843076295"><link rel="stylesheet" href="/css/oc-colors.min.css?v=80dc4cf3b1"><link rel="stylesheet" href="/css/oc-components.css?v=1502d2268a"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=21effc144d"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=152176955a"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=6f864166ae">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=b843076295"><link rel="stylesheet" href="/css/oc-colors.min.css?v=80dc4cf3b1"><link rel="stylesheet" href="/css/oc-components.css?v=23c535f123"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=21effc144d"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=152176955a"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=6f864166ae">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -34,7 +34,7 @@
   <header class="oc-topbar oc-topbar--fixed">
     <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu">
     <label class="ocd-nav-button" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
-    <a class="oc-topbar-brand" href="/">OmniaCSS<span class="oc-badge-version ml-1">v0.12.3</span></a>
+    <a class="oc-topbar-brand" href="/">OmniaCSS<span class="oc-badge-version ml-1">v0.12.4</span></a>
     <nav class="oc-topbar-nav" aria-label="Main">
       <ul class="oc-navmenu oc-navmenu--site">
         <li><a class="oc-navmenu-link" href="https://omniaui.test/">OmniaUI</a></li><li><a class="oc-navmenu-link" href="/docs/" aria-current="page">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons">Webicons</a></li>
@@ -298,6 +298,6 @@
       <script>(() => { if (CSS.supports("selector(:target-current)")) return; const links = [...document.querySelectorAll(".oc-toc a[href^='#']")]; const root = document.querySelector(".oc-docs-content, .ocd-content"); if (!links.length || !root) return; const heads = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))); let raf = 0; const update = () => { raf = 0; const top = root.getBoundingClientRect().top + 80; let cur = 0; heads.forEach((h, i) => { if (h && h.getBoundingClientRect().top <= top) cur = i; }); if (root.scrollTop + root.clientHeight >= root.scrollHeight - 4) cur = links.length - 1; links.forEach((a, i) => a.classList.toggle("is-active", i === cur)); }; root.addEventListener("scroll", () => { raf ||= requestAnimationFrame(update); }, { passive: true }); update(); })();</script>
     </div>
 
-  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.12.3 — modern CSS utilities and tokens · <a href="/docs/">Docs</a> · <a href="https://omniaui.test/">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a> · <a href="/legal/terms">Terms</a> · <a href="/legal/privacy">Privacy</a> · <a href="/legal/cookies">Cookies</a></footer>
+  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.12.4 — modern CSS utilities and tokens · <a href="/docs/">Docs</a> · <a href="https://omniaui.test/">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a> · <a href="/legal/terms">Terms</a> · <a href="/legal/privacy">Privacy</a> · <a href="/legal/cookies">Cookies</a></footer>
 </body>
 </html>

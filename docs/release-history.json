@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.12.4",
+      "date": "2026-10-30",
+      "summary": "Price card lifetime option and security notices"
+    },
+    {
       "version": "0.12.3",
       "date": "2026-10-30",
       "summary": "Status dot, glass en title bar; @omniaui in de PostCSS-plugin; copy-js; kleinere build; hover-rand van de cards"
