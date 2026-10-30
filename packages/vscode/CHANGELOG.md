@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.12.4
 
 - Completions and hover CSS for the new OmniaUI widget parts: status dot (`oc-status-dot`, `--working`, `oc-status`),
   glass (`oc-glass`, `oc-glass-panel`, `--flat`), title bar (`oc-titlebar`, `__btn--close`, `oc-titlebar-body`), and the

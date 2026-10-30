@@ -10113,9 +10113,9 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 
 /* parts/site-price-card.css */
 /* File: packages/ui/src/parts/site-price-card.css
-   Map: card -> head + discount badge -> period toggle -> monthly / yearly price (:has) -> features -> featured
-   Price card: one plan with a monthly / yearly switch (radio inputs + :has(), no JavaScript).
-   The toggle is the segmented component; give every card its own radio name. */
+   Map: card -> head + discount badge -> period toggle -> monthly / yearly / lifetime price (:has) -> features -> featured
+   Price card: one plan with a monthly / yearly switch, optionally a third "lifetime" option (radio inputs + :has(),
+   no JavaScript). The toggle is the segmented component; give every card its own radio name. */
 
 .oc-price-card {
   display: flex;
@@ -10145,9 +10145,12 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 }
 .oc-price-card:has(.oc-price-card__toggle input[value="monthly"]:checked) .oc-price-card__discount { opacity: 0.55; }
 
-.oc-price-card__toggle { align-self: flex-start; }
+.oc-price-card__toggle { align-self: flex-start; max-inline-size: 100%; }
+/* Three options (monthly / yearly / lifetime) take the full card width, in equal parts, so they fit a narrow card. */
+.oc-price-card__toggle:has(> :nth-child(3)) { align-self: stretch; }
+.oc-price-card__toggle:has(> :nth-child(3)) .oc-segmented-item { flex: 1; min-inline-size: 0; padding-inline: 0.25rem; letter-spacing: 0; text-align: center; }
 
-/* Price rows: monthly shows by default, yearly when its radio is checked. */
+/* Price rows: monthly shows by default, yearly or lifetime when its radio is checked. */
 .oc-price-card__price {
   display: flex;
   flex-wrap: wrap;
@@ -10155,9 +10158,12 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   gap: 0.35rem;
   margin: 0;
 }
-.oc-price-card__price--yearly { display: none; }
-.oc-price-card:has(.oc-price-card__toggle input[value="yearly"]:checked) .oc-price-card__price--yearly { display: flex; }
-.oc-price-card:has(.oc-price-card__toggle input[value="yearly"]:checked) .oc-price-card__price--monthly { display: none; }
+.oc-price-card__price--yearly,
+.oc-price-card__price--lifetime { display: none; }
+.oc-price-card:has(.oc-price-card__toggle input[value="yearly"]:checked) .oc-price-card__price--yearly,
+.oc-price-card:has(.oc-price-card__toggle input[value="lifetime"]:checked) .oc-price-card__price--lifetime { display: flex; }
+.oc-price-card:has(.oc-price-card__toggle input:is([value="yearly"], [value="lifetime"]):checked) .oc-price-card__price--monthly,
+.oc-price-card:has(.oc-price-card__toggle input[value="lifetime"]:checked) .oc-price-card__price--yearly { display: none; }
 
 .oc-price-card__amount { font-size: 2.5rem; font-weight: 700; line-height: 1; letter-spacing: -0.03em; }
 .oc-price-card__period { color: var(--oc-muted-foreground); font-size: 0.9rem; }
