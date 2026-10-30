@@ -1718,7 +1718,7 @@ textarea.oc-input {
   display: none;
 }
 
-/* Optional Iconify/MDI chevron: put <span class="iconify oc-accordion-chevron" data-icon="mdi:chevron-down" data-width="16" data-height="16" aria-hidden="true"></span> in the trigger */
+/* Optional Iconify/MDI chevron: put <iconify-icon icon="mdi:chevron-down" class="oc-accordion-chevron size-4" height="unset" aria-hidden="true"></iconify-icon> in the trigger (the older <span class="iconify" data-icon="…"> works the same) */
 .oc-accordion-trigger .oc-accordion-chevron {
   flex-shrink: 0;
   transition: transform var(--oc-transition-fast);
@@ -8844,6 +8844,46 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 }
 @keyframes oc-lightbox-in { from { opacity: 0; scale: 0.98; } }
 
+/* parts/media-live-frame.css */
+/* File: packages/ui/src/parts/media-live-frame.css
+   Map: frame (virtual size -> ratio, container) -> content at the virtual size, scaled to the frame width -> static
+   Live frame: shows a page (an <iframe>, or a <video>/<img>) at a virtual size such as 1280x720 and scales it down to
+   the width of its box, so a live site looks like a screenshot that is still alive. Pure CSS: the scale is
+   tan(atan2(100cqi, <virtual width>)), which is the frame width divided by the virtual width. On .oc-browser-frame__view
+   or on its own. Set the size with --oc-live-w / --oc-live-h (unitless px, default 1280 x 720). */
+
+.oc-live-frame {
+  --oc-live-w: 1280;
+  --oc-live-h: 720;
+  position: relative;
+  display: block;
+  /* Always the full width of its column (also inside flex or grid centring), the height follows the ratio. */
+  inline-size: 100%;
+  overflow: hidden;
+  aspect-ratio: var(--oc-live-w) / var(--oc-live-h);
+  container-type: inline-size;
+  background: var(--oc-background);
+}
+/* .oc-live-frame__content: any element (a whole demo page) at the virtual size. The class inside :is() also makes this
+   rule as strong as the .oc-browser-frame__view rule, which comes earlier, so on the view slot this one wins. */
+.oc-live-frame > :is(iframe, video, img, object, .oc-live-frame__content) {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  display: block;
+  inline-size: calc(var(--oc-live-w) * 1px);
+  max-inline-size: none;
+  block-size: calc(var(--oc-live-h) * 1px);
+  border: 0;
+  transform-origin: 0 0;
+  scale: tan(atan2(100cqi, calc(var(--oc-live-w) * 1px)));
+}
+/* Right-to-left pages: scale from the other corner. */
+.oc-live-frame:dir(rtl) > :is(iframe, video, img, object, .oc-live-frame__content) { transform-origin: 100% 0; }
+
+/* A picture of a page, not a page to use: clicks and scrolling pass the frame by. */
+.oc-live-frame--static > :is(iframe, video, img, object, .oc-live-frame__content) { pointer-events: none; }
+
 /* parts/media-message-thread.css */
 /* File: packages/ui/src/parts/media-message-thread.css | Map: frame (grid: header / messages / composer) -> header (title, meta,
    people, status, actions) -> wallpaper (masked doodles in a token color) -> scroll area (starts at the bottom)
@@ -9459,6 +9499,104 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   .oc-media-thumb:hover > :is(img, video, .oc-media-art) { transform: scale(1.04); }
 }
 
+/* parts/media-watermark.css */
+/* File: packages/ui/src/parts/media-watermark.css
+   Map: overlay (click-through, sized to its box) -> text -> straight -> tiled -> corner stamp -> tones -> print
+   Watermark: a light layer with large slanted text ("CONCEPT", "DRAFT", "SAMPLE") over an image, a card or a live
+   frame. Put .oc-watermark as the last child of a positioned box (the utility .relative, or any position) with the
+   text in a <span>. Clicks go through to what is underneath (pointer-events: none). The text scales with the box
+   (container query units). Tokens: --oc-watermark-color, -opacity, -angle, -size. Omnia tokens only. */
+
+.oc-watermark {
+  --oc-watermark-color: var(--oc-foreground);
+  --oc-watermark-opacity: 0.12;
+  --oc-watermark-angle: -18deg;
+  --oc-watermark-size: clamp(1.75rem, 14cqi, 12rem);
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  container-type: size;
+  border-radius: inherit;
+  pointer-events: none;
+  user-select: none;
+}
+.oc-watermark > span {
+  rotate: var(--oc-watermark-angle);
+  color: oklch(from var(--oc-watermark-color) l c h / var(--oc-watermark-opacity));
+  font-size: var(--oc-watermark-size);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* A logo (<img>, or an inline <svg> logo) or an icon (inline <svg> with currentColor) instead of, or next to, text.
+   An <img> keeps its own colors at the watermark opacity; --mono turns it into a flat gray stamp. An inline <svg>
+   takes the watermark color, like the text. Size: --oc-watermark-mark (default 40% of the box width). */
+.oc-watermark > :is(img, svg) {
+  inline-size: var(--oc-watermark-mark, 40cqi);
+  max-block-size: 70cqb;
+  block-size: auto;
+  rotate: var(--oc-watermark-angle);
+}
+.oc-watermark > img { opacity: calc(var(--oc-watermark-opacity) * 1.5); }
+.oc-watermark > svg { color: oklch(from var(--oc-watermark-color) l c h / var(--oc-watermark-opacity)); }
+.oc-watermark--mono > img { filter: grayscale(1) contrast(0.6); }
+/* Logo or icon above a word: wrap both in one <span class="oc-watermark__stack">. */
+.oc-watermark__stack { display: grid; justify-items: center; gap: 0.3em; }
+.oc-watermark__stack > :is(img, svg) { inline-size: 0.9em; block-size: auto; }
+.oc-watermark__stack > img { opacity: calc(var(--oc-watermark-opacity) * 1.5); }
+
+/* Horizontal text instead of slanted. */
+.oc-watermark--straight { --oc-watermark-angle: 0deg; }
+
+/* Tiled: repeat the text in several spans; they fill the box in a slanted grid (for proofs and previews). */
+.oc-watermark--tile {
+  --oc-watermark-size: clamp(0.9rem, 4.5cqi, 2.25rem);
+  /* Columns in rem: container units here would measure the parent of the box, not the box. */
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  align-content: space-evenly;
+  inset: -25%;
+  rotate: var(--oc-watermark-angle);
+}
+.oc-watermark--tile > :is(span, img, svg) { rotate: none; justify-self: center; }
+.oc-watermark--tile > span { letter-spacing: 0.15em; }
+.oc-watermark--tile > :is(img, svg) { inline-size: 2.5rem; }
+/* Logos and icons are narrower than words: narrower columns, so the whole box fills up. */
+.oc-watermark--tile:has(> :is(img, svg)) { grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr)); }
+
+/* A small stamp in a corner instead of across the middle: --corner (bottom right) or --corner-top (top right).
+   Two classes, so a tone (--primary …) changes its color but not its readable opacity. */
+.oc-watermark:is(.oc-watermark--corner, .oc-watermark--corner-top) {
+  --oc-watermark-angle: 0deg;
+  --oc-watermark-size: 0.75rem;
+  --oc-watermark-opacity: 0.75;
+  place-items: end;
+  padding: 0.75rem;
+}
+.oc-watermark--corner-top { place-items: start end; }
+.oc-watermark:is(.oc-watermark--corner, .oc-watermark--corner-top) > span {
+  padding: 0.25rem 0.6rem;
+  border: 1px solid oklch(from var(--oc-watermark-color) l c h / 0.35);
+  border-radius: var(--oc-radius, 0.375rem);
+  background: oklch(from var(--oc-background) l c h / 0.7);
+  letter-spacing: 0.12em;
+}
+
+/* Tones: light text for dark images, the brand color, or red for "not for use". */
+.oc-watermark--light { --oc-watermark-color: var(--color-white-100); --oc-watermark-opacity: 0.22; }
+.oc-watermark--primary { --oc-watermark-color: var(--oc-primary); --oc-watermark-opacity: 0.16; }
+.oc-watermark--destructive { --oc-watermark-color: var(--oc-destructive); --oc-watermark-opacity: 0.2; }
+
+/* Printed proofs keep the watermark, a little stronger so it survives the printer. */
+@media print {
+  .oc-watermark { --oc-watermark-opacity: 0.2; print-color-adjust: exact; }
+}
+
 /* parts/site-fact-list.css */
 /* File: packages/ui/src/parts/site-fact-list.css
    Map: plain -> compact -> stacked -> accent values -> narrow screens
@@ -9521,6 +9659,62 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   .oc-link-arrow::after,
   .oc-link-arrow::before { transition: none; }
 }
+
+/* parts/site-link-row.css */
+/* File: packages/ui/src/parts/site-link-row.css
+   Map: row (wraps) -> link -> external icon (http links) -> GitHub mark (github.com links) -> tones -> sizes
+   Link row: a row of links under a feature or product card ("Marketplace", "Source", "Docs"). Links to another site get
+   an "opens elsewhere" arrow by themselves, links to github.com the GitHub mark instead; links on your own site get
+   no icon. The icons are CSS masks in the text color, so they follow the tone and light/dark mode. */
+
+.oc-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.oc-link-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 4px;
+  color: var(--oc-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.oc-link-row a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.oc-link-row a:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 3px; }
+
+/* Icons: one mask per kind, filled with the text color. */
+.oc-link-row a:is([href^="http://"], [href^="https://"])::after,
+.oc-link-row a[href*="github.com"]::before {
+  content: "";
+  flex: none;
+  inline-size: 0.9em;
+  aspect-ratio: 1;
+  background: currentColor;
+  mask: var(--oc-link-row-icon) center / contain no-repeat;
+}
+.oc-link-row a:is([href^="http://"], [href^="https://"])::after {
+  --oc-link-row-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M9 7h8v8'/%3E%3C/svg%3E");
+}
+.oc-link-row a[href*="github.com"]::before {
+  --oc-link-row-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z'/%3E%3C/svg%3E");
+}
+/* A GitHub link shows the GitHub mark instead of the arrow. */
+.oc-link-row a[href*="github.com"]::after { content: none; }
+
+/* Tones: the element's accent (with an .oc-accent--* class), or muted text that brightens on hover. */
+.oc-link-row--accent a { color: light-dark(var(--oc-accent-from, var(--oc-primary)), oklch(from var(--oc-accent-from, var(--oc-primary)) max(l, 0.72) c h)); }
+.oc-link-row--muted a { color: var(--oc-muted-foreground); font-weight: 500; }
+.oc-link-row--muted a:hover { color: var(--oc-foreground); }
+
+/* Sizes */
+.oc-link-row--sm { font-size: 0.8rem; gap: 0.3rem 0.8rem; }
+.oc-link-row--lg { font-size: 1rem; }
 
 /* parts/site-marquee.css */
 /* File: packages/ui/src/parts/site-marquee.css

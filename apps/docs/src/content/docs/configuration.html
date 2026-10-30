@@ -44,11 +44,30 @@ $DEFAULT-BASE-SECOND-MAX-GROUP: 400 !default;</oc-code>
           <oc-code lang="shell">npm install -D @birdycom/omniacss-cli
 npx omniacss init</oc-code>
           <oc-code>&lt;!-- jsDelivr (unpkg works the same: https://unpkg.com/@birdycom/...) --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.6.0/dist/omnia.starter.min.css"&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniaui@0.6.0/dist/components.min.css"&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniaui-blocks@0.6.0/dist/blocks.min.css"&gt;</oc-code>
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.12.1/dist/omnia.starter.min.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniaui@0.12.1/dist/components.min.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniaui-blocks@0.12.1/dist/blocks.min.css"&gt;</oc-code>
           <p><strong>Prototyping:</strong> the CDN starter bundle (<code>omnia.starter.min.css</code>, about 96&nbsp;KB, 15&nbsp;KB gzip) covers the most used utilities: reset, layout (display, flex, grid, position, overflow), spacing, sizing, typography, borders, radius, shadows, transitions, container-query variants (<code>cq-xs:</code> to <code>cq-xl:</code>) and the Omnia colors with <code>hover:</code>/<code>focus:</code> states. Components and blocks add about 116&nbsp;KB (20&nbsp;KB gzip).</p>
           <p><strong>Production:</strong> run <code>npx @birdycom/omniacss-cli build</code> to generate only the CSS you use. The full utility build (<code>@birdycom/omniacss/min</code>, about 9&nbsp;MB) is meant for tooling, not for a CDN link.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="own-css">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Color tokens in your own CSS</h2>
+          <p class="oc-section-header__desc">The build keeps only the tokens your project uses. Where it looks for them:</p>
+        </div>
+        <div class="oc-section-content">
+          <ul>
+            <li><strong>Your markup</strong> (the <code>content</code> globs): classes and any <code>var(--color-…)</code> you write there.</li>
+            <li><strong>The stylesheet with <code>@omnia;</code></strong>: tokens you use in the same file are kept automatically (since 0.12.1).</li>
+            <li><strong>Other CSS files</strong> of your own (for example <code>resources/css/scene.css</code>): add them to <code>content</code>, so their <code>var(--color-…)</code> tokens stay in the build.</li>
+          </ul>
+          <oc-code lang="json">// omnia.config.json
+{
+  "content": ["resources/views/**/*.blade.php", "resources/js/**/*.{js,vue}", "resources/css/**/*.css"]
+}</oc-code>
+          <p>With the PostCSS plugin you can also hand over the text of other stylesheets: <code>omniacss({ content, referencedBy: [cssText] })</code>.</p>
         </div>
       </section>
 

@@ -37,6 +37,13 @@ test("template syntax inside class is skipped", () => {
   assert.deepEqual(classes('<div class="p-2 {{ $x }} flex">'), ["p-2", "flex"]);
 });
 
+test("markup built by string concatenation keeps only the literal parts", () => {
+  assert.deepEqual(classes(`html = '<span class="iconify ' + cls + ' size-6">';`), ["iconify", "size-6"]);
+  assert.deepEqual(classes(`'<button class="' + a + '">' + '<span class="' + b + '"></span>'`), []);
+  assert.deepEqual(classes(`echo '<div class="p-2 ' . $extra . '">';`), ["p-2"]);
+  assert.deepEqual(classes(`<div class="content-['x'] p-2">`), ["p-2"]);
+});
+
 test("unterminated region while typing", () => {
   const r = finder.regions('<div class="flex hov');
   assert.equal(r.length, 1);

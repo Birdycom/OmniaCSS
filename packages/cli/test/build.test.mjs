@@ -64,3 +64,14 @@ test("add and list point to the omniaui CLI", async () => {
     assert.match(res.stdout, /npx omniaui add/);
   }
 });
+
+test("the PostCSS plugin keeps the color tokens the stylesheet itself uses", async () => {
+  const dir = await project({ "index.html": '<div class="flex">x</div>' });
+  const postcss = (await import("postcss")).default;
+  const omniacss = (await import("../../core/src/postcss.mjs")).default;
+  const input = "@omnia;\n.brand { color: var(--color-teal-60); }\n";
+  const { css } = await postcss([omniacss({ cwd: dir, content: ["index.html"] })]).process(input, { from: path.join(dir, "app.css") });
+  assert.match(css, /--color-teal-60:/, "a token used next to @omnia stays");
+  assert.doesNotMatch(css, /--color-magenta-80:/, "unused tokens are still left out");
+  assert.match(css, /\.flex\s*\{/);
+});

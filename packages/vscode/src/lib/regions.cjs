@@ -39,8 +39,8 @@ function createFinder({ attributes, functions }) {
         const expression = q === "{" || /^(:|v-bind:|x-bind:|\[)/.test(name) || name === "class:list";
         if (!expression) {
           end = text.indexOf(q, from);
-          out.push(end === -1 ? { start: from, end: text.length, open: true } : { start: from, end });
-          if (end === -1) break;
+          if (end === -1) { out.push({ start: from, end: text.length, open: true }); break; }
+          pushPlain(text, from, end, q, out);
           opener.lastIndex = end + 1;
           continue;
         }
@@ -54,6 +54,25 @@ function createFinder({ attributes, functions }) {
   }
 
   return { regions };
+}
+
+/**
+ * A plain attribute value. Markup built in a JS or PHP string (`'<i class="a ' + cls + ' b">'`) breaks the value
+ * with the host string's quote and a `+` or `.`: only the parts between those breaks are classes, the code in
+ * between is skipped.
+ */
+function pushPlain(text, start, end, q, out) {
+  const value = text.slice(start, end);
+  const other = q === '"' ? "'" : '"';
+  const glue = new RegExp(`${other}\\s*[+.]|[+.]\\s*${other}`);
+  if (!value.includes(other) || !glue.test(value)) { out.push({ start, end }); return; }
+  let from = start, inside = true;
+  for (let i = start; i <= end; i++) {
+    if (i < end && text[i] !== other) continue;
+    if (inside && i > from) out.push({ start: from, end: i });
+    inside = !inside;
+    from = i + 1;
+  }
 }
 
 /**

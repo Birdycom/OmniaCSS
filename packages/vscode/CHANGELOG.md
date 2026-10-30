@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Completions and hover CSS for the new OmniaUI components: watermark (`oc-watermark`, `--tile`, `--corner`,
+  `__stack` …), live frame (`oc-live-frame`, `--static`) and link row (`oc-link-row`, `--accent`, `--muted`).
+  The Pro blocks spotlight cards, device mockups and ecosystem map appear in projects that have OmniaUI Pro installed.
+- No more false "Duplicate class '+'" warnings for markup built in a JavaScript or PHP string
+  (`'<i class="a ' + cls + '">'`): only the literal parts of such a class value are read.
+
 ## 0.12.1
 
 - No more "is not an OmniaCSS utility" warnings in projects that still run on Tailwind class names (`tailwindcss`,
