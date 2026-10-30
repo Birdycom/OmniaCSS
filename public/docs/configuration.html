@@ -15,7 +15,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=b843076295"><link rel="stylesheet" href="/css/oc-components.css?v=44996aec02"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=21effc144d"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=152176955a"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=6f864166ae">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=b843076295"><link rel="stylesheet" href="/css/oc-components.css?v=1ca5b51e07"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=21effc144d"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=152176955a"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=6f864166ae">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -122,11 +122,33 @@
 2
 3
 4</pre><pre class="code-preview"><code><span class="hl-comment">&lt;!-- jsDelivr (unpkg works the same: https://unpkg.com/@birdycom/...) --&gt;</span>
-<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-string">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-string">"https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.6.0/dist/omnia.starter.min.css"</span><span class="hl-tag">&gt;</span>
-<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-string">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-string">"https://cdn.jsdelivr.net/npm/@birdycom/omniaui@0.6.0/dist/components.min.css"</span><span class="hl-tag">&gt;</span>
-<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-string">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-string">"https://cdn.jsdelivr.net/npm/@birdycom/omniaui-blocks@0.6.0/dist/blocks.min.css"</span><span class="hl-tag">&gt;</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-string">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-string">"https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.12.1/dist/omnia.starter.min.css"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-string">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-string">"https://cdn.jsdelivr.net/npm/@birdycom/omniaui@0.12.1/dist/components.min.css"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-string">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-string">"https://cdn.jsdelivr.net/npm/@birdycom/omniaui-blocks@0.12.1/dist/blocks.min.css"</span><span class="hl-tag">&gt;</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
           <p><strong>Prototyping:</strong> the CDN starter bundle (<code>omnia.starter.min.css</code>, about 96&#160;KB, 15&#160;KB gzip) covers the most used utilities: reset, layout (display, flex, grid, position, overflow), spacing, sizing, typography, borders, radius, shadows, transitions, container-query variants (<code>cq-xs:</code> to <code>cq-xl:</code>) and the Omnia colors with <code>hover:</code>/<code>focus:</code> states. Components and blocks add about 116&#160;KB (20&#160;KB gzip).</p>
           <p><strong>Production:</strong> run <code>npx @birdycom/omniacss-cli build</code> to generate only the CSS you use. The full utility build (<code>@birdycom/omniacss/min</code>, about 9&#160;MB) is meant for tooling, not for a CDN link.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="own-css">
+        <div class="oc-section-header">
+          <h2 id="color-tokens-in-your-own-css" class="oc-section-header__title">Color tokens in your own CSS</h2>
+          <p class="oc-section-header__desc">The build keeps only the tokens your project uses. Where it looks for them:</p>
+        </div>
+        <div class="oc-section-content">
+          <ul>
+            <li><strong>Your markup</strong> (the <code>content</code> globs): classes and any <code>var(--color-…)</code> you write there.</li>
+            <li><strong>The stylesheet with <code>@omnia;</code></strong>: tokens you use in the same file are kept automatically (since 0.12.1).</li>
+            <li><strong>Other CSS files</strong> of your own (for example <code>resources/css/scene.css</code>): add them to <code>content</code>, so their <code>var(--color-…)</code> tokens stay in the build.</li>
+          </ul>
+          <div class="oc-code-block" data-lang="json"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2
+3
+4</pre><pre class="code-preview"><code><span class="hl-comment">// omnia.config.json</span>
+{
+  <span class="hl-string">"content"</span>: [<span class="hl-string">"resources/views/**/*.blade.php"</span>, <span class="hl-string">"resources/js/**/*.{js,vue}"</span>, <span class="hl-string">"resources/css/**/*.css"</span>]
+}</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
+          <p>With the PostCSS plugin you can also hand over the text of other stylesheets: <code>omniacss({ content, referencedBy: [cssText] })</code>.</p>
         </div>
       </section>
 
@@ -182,7 +204,7 @@
         <a class="oc-card-link" href="/pages/spacing">spacing</a>.
       </section>
 </main>
-      <aside class="oc-docs-sidebar-right"><nav class="oc-toc" aria-label="On this page"><p class="oc-toc-title">On This Page</p><ul class="oc-toc-list"><li><a class="oc-toc-link" href="#scss-source-basesettings-colorsettings-fontsettings">SCSS source (`_basesettings`, `_colorsettings`, `_fontsettings`)</a></li><li><a class="oc-toc-link" href="#generated-css-effect">Generated CSS effect</a></li><li><a class="oc-toc-link" href="#install-via-npm-or-cdn">Install via npm or CDN</a></li><li><a class="oc-toc-link" href="#omniaui-cli-add-components-in-your-framework">OmniaUI CLI: add components in your framework</a></li><li><a class="oc-toc-link" href="#html-usage-example">HTML usage example</a></li></ul></nav></aside>
+      <aside class="oc-docs-sidebar-right"><nav class="oc-toc" aria-label="On this page"><p class="oc-toc-title">On This Page</p><ul class="oc-toc-list"><li><a class="oc-toc-link" href="#scss-source-basesettings-colorsettings-fontsettings">SCSS source (`_basesettings`, `_colorsettings`, `_fontsettings`)</a></li><li><a class="oc-toc-link" href="#generated-css-effect">Generated CSS effect</a></li><li><a class="oc-toc-link" href="#install-via-npm-or-cdn">Install via npm or CDN</a></li><li><a class="oc-toc-link" href="#color-tokens-in-your-own-css">Color tokens in your own CSS</a></li><li><a class="oc-toc-link" href="#omniaui-cli-add-components-in-your-framework">OmniaUI CLI: add components in your framework</a></li><li><a class="oc-toc-link" href="#html-usage-example">HTML usage example</a></li></ul></nav></aside>
       <script>(() => { if (CSS.supports("selector(:target-current)")) return; const links = [...document.querySelectorAll(".oc-toc a[href^='#']")]; const root = document.querySelector(".oc-docs-content, .ocd-content"); if (!links.length || !root) return; const heads = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))); let raf = 0; const update = () => { raf = 0; const top = root.getBoundingClientRect().top + 80; let cur = 0; heads.forEach((h, i) => { if (h && h.getBoundingClientRect().top <= top) cur = i; }); if (root.scrollTop + root.clientHeight >= root.scrollHeight - 4) cur = links.length - 1; links.forEach((a, i) => a.classList.toggle("is-active", i === cur)); }; root.addEventListener("scroll", () => { raf ||= requestAnimationFrame(update); }, { passive: true }); update(); })();</script>
     </div>
 

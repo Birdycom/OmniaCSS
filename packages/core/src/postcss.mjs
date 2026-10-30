@@ -16,7 +16,8 @@ import postcss from "postcss";
 import { buildCss } from "./engine.mjs";
 
 /**
- * @param {{ content: string[], layer?: string|false, keep?: string[], cwd?: string }} options
+ * @param {{ content: string[], layer?: string|false, keep?: string[], cwd?: string, referencedBy?: string[] }} options
+ *   referencedBy: CSS text of other stylesheets whose var(--…) tokens must stay (this stylesheet always counts).
  */
 export default function omniacss(options = {}) {
   return {
@@ -27,7 +28,10 @@ export default function omniacss(options = {}) {
       if (!directives.length) return;
 
       const cwd = options.cwd || process.cwd();
-      const { css, files } = await buildCss({ content: options.content, cwd, layer: options.layer ?? "omnia", keep: options.keep });
+      // The stylesheet itself uses tokens too (`color: var(--color-teal-60)` next to `@omnia;`): keep those, without
+      // having to list this file under content. Other CSS files: put them in content (or in referencedBy).
+      const own = root.toString();
+      const { css, files } = await buildCss({ content: options.content, cwd, layer: options.layer ?? "omnia", keep: options.keep, referencedBy: [own, ...(options.referencedBy || [])] });
       // `from`: the stylesheet being built, so Vite resolves url() in the generated CSS against it.
       const generated = postcss.parse(css, { from: result.opts.from });
 
