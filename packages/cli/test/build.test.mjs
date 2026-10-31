@@ -101,6 +101,19 @@ test("@omniaui brings in the used OmniaUI components, in a layer before the util
   assert.match(css, /--color-blue-60:/, "the palette color a component token uses stays");
   assert.equal(messages.filter((m) => m.type === "warning").length, 0);
 
+  // Modifiers built in code (Blade/PHP, JS, template literals) keep the whole modifier family, nothing more.
+  const wrapper = await project({
+    "button.blade.php": "<button @class(['oc-btn', 'oc-btn--'.$variant])>",
+    "Badge.tsx": "<span className={`oc-badge oc-badge--${tone}`} />",
+    "node_modules/@birdycom/omniaui/package.json": { name: "@birdycom/omniaui" },
+    "node_modules/@birdycom/omniaui/dist/components.css":
+      ".oc-btn { color: red; }\n.oc-btn--destructive { color: crimson; }\n.oc-badge--success { color: green; }\n.oc-card--flat { border: 0; }\n",
+  });
+  const dynamic = await postcss([omniacss({ cwd: wrapper, content: ["*.php", "*.tsx"] })]).process("@omniaui;\n", { from: path.join(wrapper, "app.css") });
+  assert.match(dynamic.css, /\.oc-btn--destructive/, "'oc-btn--'.$variant keeps the button modifiers");
+  assert.match(dynamic.css, /\.oc-badge--success/, "`oc-badge--${tone}` keeps the badge modifiers");
+  assert.doesNotMatch(dynamic.css, /\.oc-card--flat/, "other modifiers are still left out");
+
   const blocks = await postcss([omniacss({ cwd: dir, content: ["index.html"] })]).process("@omniaui blocks;\n", { from: path.join(dir, "app.css") });
   assert.match(blocks.messages.find((m) => m.type === "warning")?.text ?? "", /omniaui-blocks is not installed/);
 });

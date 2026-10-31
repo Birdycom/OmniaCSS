@@ -53,8 +53,15 @@ export function addCandidates(text, set = new Set()) {
   for (const raw of text.split(/[^A-Za-z0-9_\-:/.%@!]+/)) add(raw);
   // ... and variant tokens with brackets (`has-[img]:flex`, `[&>*]:p-2`, `group-aria-[sort=asc]:x`).
   for (const raw of text.split(/[^A-Za-z0-9_\-:/.%@!\[\]()=&>*~+,#$^|]+/)) if (/[\[\]()=&>*~+,#$^|]/.test(raw)) add(raw);
+  // Component modifiers built in code keep the whole family: 'oc-btn--'.$variant (PHP), 'oc-btn--' + v (JS),
+  // `oc-btn--${v}` (template literal), oc-btn--{{ $v }} (Blade) -> "oc-btn--*". Only BEM modifiers/elements (-- or __):
+  // utilities are never built from pieces, so `text-${color}` keeps nothing extra.
+  for (const m of text.matchAll(/([A-Za-z][A-Za-z0-9-]*(?:--|__))(?:['"`]\s*(?:\.|\+)|\$\{|\{\{)/g)) set.add(`${m[1]}*`);
   return set;
 }
+
+/** The prefixes of the "oc-btn--*" candidates that addCandidates records for modifiers built in code. */
+const prefixesOf = (candidates) => [...candidates].filter((c) => /^[A-Za-z][A-Za-z0-9-]*(?:--|__)\*$/.test(c)).map((c) => c.slice(0, -1));
 
 /** Classes a selector depends on; classes inside :not()/:where()/:is()/:has() are optional. */
 function requiredClasses(selector) {
@@ -86,7 +93,8 @@ function selectorUsed(sel, used) {
  */
 export function generate(css, candidates, options = {}) {
   const keep = new Set([...(options.keep || []), ...ALWAYS_KEEP]);
-  const used = (c) => candidates.has(c) || keep.has(c);
+  const prefixes = prefixesOf(candidates);
+  const used = (c) => candidates.has(c) || keep.has(c) || prefixes.some((p) => c.startsWith(p));
   const root = postcss.parse(css);
 
   // 0. Variants: hover:, md:, group-hover:, has-[..]:, dark: … derived from the base utility's rules (before the filter removes them).
