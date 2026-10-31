@@ -49,10 +49,12 @@ async function omniauiSource(params, cwd) {
 }
 
 /**
- * @param {{ content: string[], layer?: string|false, omniauiLayer?: string|false, keep?: string[], cwd?: string,
- *   referencedBy?: string[] }} options
+ * @param {{ content: string[], layer?: string|false, baseLayer?: string|false, omniauiLayer?: string|false,
+ *   keep?: string[], cwd?: string, referencedBy?: string[] }} options
  *   layer: cascade layer of the utilities ("omnia"); omniauiLayer: of the OmniaUI CSS ("omniaui"). With both, the
  *   utilities layer comes last, so a utility class on a component wins.
+ *   baseLayer: layer of the reset and :root tokens ("omnia-base"), declared first in the stylesheet so the reset
+ *   never overrides a component or one of your own layers.
  *   referencedBy: CSS text of other stylesheets whose var(--…) tokens must stay (this stylesheet always counts).
  */
 export default function omniacss(options = {}) {
@@ -69,6 +71,7 @@ export default function omniacss(options = {}) {
       const keep = options.keep || [];
       const layer = options.layer ?? "omnia";
       const uiLayer = options.omniauiLayer ?? "omniaui";
+      const baseLayer = layer ? (options.baseLayer ?? `${layer}-base`) : false;
       // The stylesheet itself uses tokens too (`color: var(--color-teal-60)` next to `@omnia;`): keep those, without
       // having to list this file under content. Other CSS files: put them in content (or in referencedBy).
       const referencedBy = [root.toString(), ...(options.referencedBy || [])];
@@ -83,8 +86,16 @@ export default function omniacss(options = {}) {
         uiCss = css ? generate(css, candidates, { layer: uiLayer, keep, referencedBy }) : "";
       }
       // The utilities keep the palette colors (--color-*) that the component tokens point to.
-      const utilities = omnia.length ? generate(await loadFullCss(), candidates, { layer, keep, referencedBy: [...referencedBy, uiCss] }) : "";
+      const utilities = omnia.length ? generate(await loadFullCss(), candidates, { layer, baseLayer, keep, referencedBy: [...referencedBy, uiCss] }) : "";
 
+      // A layer is ordered by its first mention: declare the base layer before anything else (after @charset), also
+      // before a `@layer omniaui, app, omnia;` of your own.
+      if (omnia.length && baseLayer) {
+        const statement = postcss.atRule({ name: "layer", params: baseLayer });
+        const charset = root.first?.type === "atrule" && root.first.name === "charset" ? root.first : null;
+        if (charset) charset.after(statement);
+        else root.prepend(statement);
+      }
       const first = [...omnia, ...ui].sort((a, b) => a.source.start.offset - b.source.start.offset)[0];
       if (omnia.length && ui.length && layer && uiLayer && layer !== uiLayer) first.before(postcss.atRule({ name: "layer", params: `${uiLayer}, ${layer}` }));
       if (ui.length) ui[0].replaceWith(parse(uiCss));
