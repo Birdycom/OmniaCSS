@@ -114,6 +114,14 @@ test("@omniaui brings in the used OmniaUI components, in a layer before the util
   assert.match(dynamic.css, /\.oc-badge--success/, "`oc-badge--${tone}` keeps the badge modifiers");
   assert.doesNotMatch(dynamic.css, /\.oc-card--flat/, "other modifiers are still left out");
 
+  // node_modules is skipped by a general glob, but scanned when a pattern points into it (a wrapper's source).
+  await fs.mkdir(path.join(wrapper, "node_modules/@birdycom/omniaui-react/src"), { recursive: true });
+  await fs.writeFile(path.join(wrapper, "node_modules/@birdycom/omniaui-react/src/Card.tsx"), '<div className="oc-card--flat" />');
+  const general = await postcss([omniacss({ cwd: wrapper, content: ["**/*.tsx"] })]).process("@omniaui;\n", { from: path.join(wrapper, "app.css") });
+  assert.doesNotMatch(general.css, /\.oc-card--flat/, "a general glob does not reach into node_modules");
+  const explicit = await postcss([omniacss({ cwd: wrapper, content: ["*.tsx", "node_modules/@birdycom/omniaui-react/src/*.tsx"] })]).process("@omniaui;\n", { from: path.join(wrapper, "app.css") });
+  assert.match(explicit.css, /\.oc-card--flat/, "a pattern into node_modules is scanned");
+
   const blocks = await postcss([omniacss({ cwd: dir, content: ["index.html"] })]).process("@omniaui blocks;\n", { from: path.join(dir, "app.css") });
   assert.match(blocks.messages.find((m) => m.type === "warning")?.text ?? "", /omniaui-blocks is not installed/);
 });

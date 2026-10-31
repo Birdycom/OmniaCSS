@@ -31,7 +31,10 @@ export async function collectCandidates(patterns, cwd = process.cwd()) {
   const candidates = new Set(ALWAYS_KEEP);
   const files = [];
   for (const pattern of [].concat(patterns)) {
-    for await (const rel of fs.glob(pattern, { cwd, exclude: (p) => /node_modules|\.git/.test(p) })) {
+    // node_modules is skipped, unless the pattern itself points into it (the source of a component wrapper package).
+    const intoModules = /node_modules/.test(pattern);
+    const exclude = (p) => /(^|[\\/])\.git([\\/]|$)/.test(p) || (!intoModules && /node_modules/.test(p));
+    for await (const rel of fs.glob(pattern, { cwd, exclude })) {
       const file = path.resolve(cwd, rel);
       const stat = await fs.stat(file).catch(() => null);
       if (!stat || !stat.isFile()) continue;
