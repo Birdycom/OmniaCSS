@@ -61,10 +61,12 @@
                 <tr><td><code>.scrollbar-color</code></td><td>scrollbar-color: var(--oc-scrollbar-thumb) var(--oc-scrollbar-track)</td></tr>
                 <tr><td><code>.scrollbar-color-auto</code></td><td>scrollbar-color: auto</td></tr>
                 <tr><td><code>.scrollbar-thumb-current</code></td><td>--oc-scrollbar-thumb: currentcolor</td></tr>
-                <tr><td><code>.scrollbar-thumb-gray</code></td><td>--oc-scrollbar-thumb: oklch(0.7 0 0)</td></tr>
-                <tr><td><code>.scrollbar-thumb-blue</code></td><td>--oc-scrollbar-thumb: oklch(0.62 0.19 260)</td></tr>
+                <tr><td><code>.scrollbar-thumb-gray</code></td><td>--oc-scrollbar-thumb: var(--color-gray-50)</td></tr>
+                <tr><td><code>.scrollbar-thumb-blue</code></td><td>--oc-scrollbar-thumb: var(--color-vividblue-80)</td></tr>
+                <tr><td><code>.scrollbar-thumb-cyan</code></td><td>--oc-scrollbar-thumb: var(--color-skycyan-80)</td></tr>
+                <tr><td><code>.scrollbar-thumb-purple</code></td><td>--oc-scrollbar-thumb: var(--color-purple-20)</td></tr>
                 <tr><td><code>.scrollbar-track-transparent</code></td><td>--oc-scrollbar-track: transparent</td></tr>
-                <tr><td><code>.scrollbar-track-gray</code></td><td>--oc-scrollbar-track: oklch(0.95 0 0)</td></tr>
+                <tr><td><code>.scrollbar-track-gray</code></td><td>--oc-scrollbar-track: light-dark(var(--color-silver-2), var(--color-black-20))</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -141,7 +143,7 @@
           <h2 class="oc-section-header__title">OmniaCSS scrollbar</h2>
           <span class="oc-section-header__badge-scss oc-badge-source-scss">_scrollbar.scss</span>
           <span class="oc-section-header__badge-version oc-badge-version">v0.4.0</span>
-          <p class="oc-section-header__desc"><code>.scrollbar-omnia</code> gives a thin scrollbar with an Omnia-blue thumb on a transparent track, in light and dark mode. <code>scrollbar-color</code> is inherited, so one class on <code>&lt;html&gt;</code> themes every scroll area — this documentation site does exactly that.</p>
+          <p class="oc-section-header__desc"><code>.scrollbar-omnia</code> gives a thin scrollbar with an Omnia-blue thumb on a transparent track, in light and dark mode. <code>scrollbar-color</code> is inherited, so one class on <code>&lt;html&gt;</code> themes every scroll area — this documentation site does exactly that. Inside it, <code>.scrollbar-none</code>, <code>.scrollbar-auto</code> and the color classes still win.</p>
         </div>
         <div class="oc-section-content">
           <div class="oc-expandable-table">

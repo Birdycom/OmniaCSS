@@ -215,17 +215,18 @@
           <oc-code lang="html">&lt;div class="bg-radial-at-tl from-yellow to-blue"&gt;…&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">All conic variants</h3>
-          <p class="oc-section-content__desc">Conic gradients sweep around a center, ideal for pie charts, color wheels and loading rings. <code>.bg-conic-90</code> and <code>-180</code> rotate the start angle; <code>.bg-conic-wheel</code> is a full hue wheel.</p>
+          <p class="oc-section-content__desc">Conic gradients sweep around a center, ideal for pie charts, color wheels and loading rings. <code>.bg-conic-90</code> and <code>-180</code> rotate the start angle (watch where the blue lands); <code>.bg-conic-at-t</code> moves the center to the top edge; <code>.bg-conic-wheel</code> is a full hue wheel with its own colors. The other classes need color stops: end on the start color (<code>from-yellow via-blue to-yellow</code>) to avoid a hard seam.</p>
 
           <oc-demo title="bg-conic-*">
             <div class="bd-grid">
-              <div class="bd-cell"><div class="bd-box round-3 bg-conic">&nbsp;</div><code>.bg-conic</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 bg-conic-90">&nbsp;</div><code>.bg-conic-90</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 bg-conic-180">&nbsp;</div><code>.bg-conic-180</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 bg-conic-at-t">&nbsp;</div><code>.bg-conic-at-t</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic from-yellow via-blue to-yellow">&nbsp;</div><code>.bg-conic</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic-90 from-yellow via-blue to-yellow">&nbsp;</div><code>.bg-conic-90</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic-180 from-yellow via-blue to-yellow">&nbsp;</div><code>.bg-conic-180</code></div>
+              <div class="bd-cell"><div class="bd-box round-3 bg-conic-at-t from-yellow via-blue to-yellow">&nbsp;</div><code>.bg-conic-at-t</code></div>
               <div class="bd-cell"><div class="bd-box round-3 bg-conic-wheel">&nbsp;</div><code>.bg-conic-wheel</code></div>
             </div>
-          <oc-code lang="html">&lt;div class="bg-conic"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;div class="bg-conic-90 from-yellow via-blue to-yellow"&gt;…&lt;/div&gt;
+&lt;div class="bg-conic-wheel"&gt;…&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Interpolation color space: sRGB vs OKLCH</h3>
           <p class="oc-section-content__desc"><code>linear-gradient(in oklch, …)</code> blends in a perceptual color space, so mid-points stay vivid instead of turning grey. Compare the middle of both bars (same stops).</p>

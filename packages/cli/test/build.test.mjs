@@ -95,8 +95,13 @@ test("@omniaui brings in the used OmniaUI components, in a layer before the util
   const postcss = (await import("postcss")).default;
   const omniacss = (await import("../../core/src/postcss.mjs")).default;
   const { css, messages } = await postcss([omniacss({ cwd: dir, content: ["index.html"] })]).process("@omniaui;\n@omnia;\n", { from: path.join(dir, "app.css") });
-  assert.match(css, /^@layer omniaui, omnia;/);
+  assert.match(css, /^@layer omnia-base;\s*@layer omniaui, omnia;/);
   assert.match(css, /@layer omniaui \{[\s\S]*\.oc-btn/);
+  // The reset sits in the base layer, before the components: `p { margin: 0 }` must not beat `.oc-block-hero p`.
+  assert.match(css, /@layer omnia-base \{[^@]*\bp\b[^{]*\{\s*margin: 0/);
+  assert.doesNotMatch(css, /@layer omnia \{[^@]*\bh1\b[^{]*\{\s*margin/, "the reset is not in the utilities layer");
+  const own = await postcss([omniacss({ cwd: dir, content: ["index.html"] })]).process("@layer omniaui, app, omnia;\n@omniaui;\n@omnia;\n", { from: path.join(dir, "app.css") });
+  assert.match(own.css, /^@layer omnia-base;\s*@layer omniaui, app, omnia;/, "the base layer comes first, also before your own order");
   assert.doesNotMatch(css, /\.oc-card/, "unused components are left out");
   assert.match(css, /--color-blue-60:/, "the palette color a component token uses stays");
   assert.equal(messages.filter((m) => m.type === "warning").length, 0);

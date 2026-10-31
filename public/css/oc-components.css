@@ -3880,19 +3880,20 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   background: oklch(from var(--oc-accent-from) l c h / 0.14);
   color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
 }
-/* Pulse: the ring starts at --oc-status-dot-pulse-alpha of the accent and grows to --oc-status-dot-pulse-size.
+/* Live dot in a pill (.oc-pill > .oc-status-dot): the ring starts at --oc-status-dot-pulse-alpha of the accent and grows
+   to --oc-status-dot-pulse-size. Scoped to the pill: a plain .oc-status-dot is the status light (parts/app-status-dot.css).
    --strong starts at the full accent with a wider ring. */
-.oc-status-dot {
+.oc-pill .oc-status-dot {
   --oc-status-dot-pulse-alpha: 0.6;
   --oc-status-dot-pulse-size: 8px;
   inline-size: 0.5rem;
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--oc-accent-from);
-  animation: oc-pulse 2s infinite;
+  animation: oc-status-dot-ring 2s infinite;
 }
-.oc-status-dot--strong { --oc-status-dot-pulse-alpha: 1; --oc-status-dot-pulse-size: 10px; }
-@keyframes oc-pulse {
+.oc-pill .oc-status-dot--strong { --oc-status-dot-pulse-alpha: 1; --oc-status-dot-pulse-size: 10px; }
+@keyframes oc-status-dot-ring {
   0% { box-shadow: 0 0 0 0 oklch(from var(--oc-accent-from) l c h / var(--oc-status-dot-pulse-alpha)); }
   70%, 100% { box-shadow: 0 0 0 var(--oc-status-dot-pulse-size) transparent; }
 }
@@ -4053,7 +4054,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 
 @media (prefers-reduced-motion: reduce) {
   .oc-backdrop::before, .oc-backdrop::after, .oc-backdrop > .oc-backdrop__blob,
-  .oc-icon-tile--float, .oc-marquee__track, .oc-status-dot, .oc-reveal, .oc-site-header { animation: none; }
+  .oc-icon-tile--float, .oc-marquee__track, .oc-pill .oc-status-dot, .oc-reveal, .oc-site-header { animation: none; }
 }
 
 /* ===================================================================

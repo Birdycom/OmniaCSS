@@ -7758,13 +7758,14 @@ select {
 }
 
 .scrollbar-track-gray {
-  --oc-scrollbar-track: var(--color-silver-2);
+  --oc-scrollbar-track: light-dark(var(--color-silver-2), var(--color-black-20));
 }
 
 /* OmniaCSS scrollbar: thin, Omnia-blue thumb on a transparent track, follows light/dark.
-   scrollbar-color is inherited, so one class on <html> themes every scroll area of the page. */
-.scrollbar-omnia,
-.scrollbar-omnia * {
+   scrollbar-color is inherited, so one class on <html> themes every scroll area of the page.
+   scrollbar-width is not inherited, hence the *; :where() keeps it at zero specificity, so .scrollbar-none and
+   .scrollbar-auto still work inside. */
+:where(.scrollbar-omnia, .scrollbar-omnia *) {
   scrollbar-width: thin;
 }
 
@@ -8386,6 +8387,11 @@ select {
 
 .to-blue {
   --oc-gradient-to: var(--color-blue-100, #0000FF);
+}
+
+.via-blue {
+  --oc-gradient-via: var(--color-blue-100, #0000FF);
+  --oc-gradient-stops: var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos,), var(--oc-gradient-via) var(--oc-gradient-via-pos,), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos,);
 }
 
 .from-vividblue {
