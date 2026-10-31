@@ -442040,7 +442040,6 @@ select {
 /* Rotate, scale and translate use the individual transform properties (rotate / scale / translate),
    so every class works on its own and they combine freely. Skew has no own property: it uses transform. */
 .transform {
-  transform: skewX(0) skewY(0);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
@@ -442133,122 +442132,102 @@ select {
 /* Skew */
 .skew-x-0 {
   --oc-skew-x: 0deg;
-  transform: skewX(0deg) skewY(0);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-x-3 {
   --oc-skew-x: 3deg;
-  transform: skewX(3deg) skewY(0);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-x-6 {
   --oc-skew-x: 6deg;
-  transform: skewX(6deg) skewY(0);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-x-12 {
   --oc-skew-x: 12deg;
-  transform: skewX(12deg) skewY(0);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-y-0 {
   --oc-skew-y: 0deg;
-  transform: skewX(0) skewY(0deg);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-y-3 {
   --oc-skew-y: 3deg;
-  transform: skewX(0) skewY(3deg);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-y-6 {
   --oc-skew-y: 6deg;
-  transform: skewX(0) skewY(6deg);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-y-12 {
   --oc-skew-y: 12deg;
-  transform: skewX(0) skewY(12deg);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 /* Translate */
 .translate-x-0 {
   --oc-translate-x: 0;
-  translate: 0 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-1 {
   --oc-translate-x: 0.25rem;
-  translate: 0.25rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-2 {
   --oc-translate-x: 0.5rem;
-  translate: 0.5rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-4 {
   --oc-translate-x: 1rem;
-  translate: 1rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-8 {
   --oc-translate-x: 2rem;
-  translate: 2rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-full {
   --oc-translate-x: 100%;
-  translate: 100% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-y-0 {
   --oc-translate-y: 0;
-  translate: 0 0 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-1 {
   --oc-translate-y: 0.25rem;
-  translate: 0 0.25rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-2 {
   --oc-translate-y: 0.5rem;
-  translate: 0 0.5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-4 {
   --oc-translate-y: 1rem;
-  translate: 0 1rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-8 {
   --oc-translate-y: 2rem;
-  translate: 0 2rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-full {
   --oc-translate-y: 100%;
-  translate: 0 100% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
@@ -442382,42 +442361,34 @@ select {
 }
 
 .hover\:translate-x-1:hover {
-  translate: 0.25rem 0;
   translate: 0.25rem var(--oc-translate-y, 0);
 }
 
 .hover\:-translate-y-1:hover {
-  translate: 0 calc(0.25rem * -1);
   translate: var(--oc-translate-x, 0) calc(0.25rem * -1);
 }
 
 .hover\:translate-x-2:hover {
-  translate: 0.5rem 0;
   translate: 0.5rem var(--oc-translate-y, 0);
 }
 
 .hover\:-translate-y-2:hover {
-  translate: 0 calc(0.5rem * -1);
   translate: var(--oc-translate-x, 0) calc(0.5rem * -1);
 }
 
 .hover\:translate-x-4:hover {
-  translate: 1rem 0;
   translate: 1rem var(--oc-translate-y, 0);
 }
 
 .hover\:-translate-y-4:hover {
-  translate: 0 calc(1rem * -1);
   translate: var(--oc-translate-x, 0) calc(1rem * -1);
 }
 
 .hover\:translate-x-8:hover {
-  translate: 2rem 0;
   translate: 2rem var(--oc-translate-y, 0);
 }
 
 .hover\:-translate-y-8:hover {
-  translate: 0 calc(2rem * -1);
   translate: var(--oc-translate-x, 0) calc(2rem * -1);
 }
 
@@ -443529,19 +443500,23 @@ select {
 
 /* Initial letter (drop caps) — applied to ::first-letter */
 .initial-letter-normal::first-letter {
-  initial-letter: normal;
+  -webkit-initial-letter: normal;
+          initial-letter: normal;
 }
 
 .initial-letter-2::first-letter {
-  initial-letter: 2;
+  -webkit-initial-letter: 2;
+          initial-letter: 2;
 }
 
 .initial-letter-3::first-letter {
-  initial-letter: 3;
+  -webkit-initial-letter: 3;
+          initial-letter: 3;
 }
 
 .initial-letter-3-2::first-letter {
-  initial-letter: 3 2;
+  -webkit-initial-letter: 3 2;
+          initial-letter: 3 2;
 }
 
 /* Text emphasis */
@@ -444354,7 +444329,6 @@ select {
 }
 
 .scrollbar-color {
-  scrollbar-color: currentcolor transparent;
   scrollbar-color: var(--oc-scrollbar-thumb, currentcolor) var(--oc-scrollbar-track, transparent);
 }
 
@@ -444396,7 +444370,6 @@ select {
 .scrollbar-omnia {
   --oc-scrollbar-thumb: light-dark(oklch(from var(--color-vividblue-95) l c h / 0.45), oklch(from var(--color-vividblue-60) l c h / 0.45));
   --oc-scrollbar-track: transparent;
-  scrollbar-color: var(--oc-scrollbar-thumb) transparent;
   scrollbar-color: var(--oc-scrollbar-thumb) var(--oc-scrollbar-track);
 }
 
@@ -444847,160 +444820,125 @@ select {
 }
 /* Linear gradients — direction */
 .bg-linear-to-t {
-  background-image: linear-gradient(to top, transparent  , transparent  );
   background-image: linear-gradient(to top, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-to-tr {
-  background-image: linear-gradient(to top right, transparent  , transparent  );
   background-image: linear-gradient(to top right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-to-r {
-  background-image: linear-gradient(to right, transparent  , transparent  );
   background-image: linear-gradient(to right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-to-br {
-  background-image: linear-gradient(to bottom right, transparent  , transparent  );
   background-image: linear-gradient(to bottom right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-to-b {
-  background-image: linear-gradient(to bottom, transparent  , transparent  );
   background-image: linear-gradient(to bottom, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-to-bl {
-  background-image: linear-gradient(to bottom left, transparent  , transparent  );
   background-image: linear-gradient(to bottom left, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-to-l {
-  background-image: linear-gradient(to left, transparent  , transparent  );
   background-image: linear-gradient(to left, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-to-tl {
-  background-image: linear-gradient(to top left, transparent  , transparent  );
   background-image: linear-gradient(to top left, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-0 {
-  background-image: linear-gradient(0deg, transparent  , transparent  );
   background-image: linear-gradient(0deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-45 {
-  background-image: linear-gradient(45deg, transparent  , transparent  );
   background-image: linear-gradient(45deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-90 {
-  background-image: linear-gradient(90deg, transparent  , transparent  );
   background-image: linear-gradient(90deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-135 {
-  background-image: linear-gradient(135deg, transparent  , transparent  );
   background-image: linear-gradient(135deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-180 {
-  background-image: linear-gradient(180deg, transparent  , transparent  );
   background-image: linear-gradient(180deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-225 {
-  background-image: linear-gradient(225deg, transparent  , transparent  );
   background-image: linear-gradient(225deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-270 {
-  background-image: linear-gradient(270deg, transparent  , transparent  );
   background-image: linear-gradient(270deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-315 {
-  background-image: linear-gradient(315deg, transparent  , transparent  );
   background-image: linear-gradient(315deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 /* Linear gradient in a perceptual color space (smoother mid tones) */
 .bg-linear-to-r-oklch {
-  background-image: linear-gradient(to right in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
-.bg-linear-to-r-oklch {
   background-image: linear-gradient(to right in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
-}
 }
 
 /* Radial gradients — shape and position */
 .bg-radial {
-  background-image: radial-gradient(transparent  , transparent  );
   background-image: radial-gradient(var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-circle {
-  background-image: radial-gradient(circle, transparent  , transparent  );
   background-image: radial-gradient(circle, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-ellipse {
-  background-image: radial-gradient(ellipse, transparent  , transparent  );
   background-image: radial-gradient(ellipse, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-t {
-  background-image: radial-gradient(at top, transparent  , transparent  );
   background-image: radial-gradient(at top, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-b {
-  background-image: radial-gradient(at bottom, transparent  , transparent  );
   background-image: radial-gradient(at bottom, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-l {
-  background-image: radial-gradient(at left, transparent  , transparent  );
   background-image: radial-gradient(at left, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-r {
-  background-image: radial-gradient(at right, transparent  , transparent  );
   background-image: radial-gradient(at right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-tl {
-  background-image: radial-gradient(at top left, transparent  , transparent  );
   background-image: radial-gradient(at top left, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-br {
-  background-image: radial-gradient(at bottom right, transparent  , transparent  );
   background-image: radial-gradient(at bottom right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 /* Conic gradients */
 .bg-conic {
-  background-image: conic-gradient(transparent  , transparent  );
   background-image: conic-gradient(var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-90 {
-  background-image: conic-gradient(from 90deg, transparent  , transparent  );
   background-image: conic-gradient(from 90deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-180 {
-  background-image: conic-gradient(from 180deg, transparent  , transparent  );
   background-image: conic-gradient(from 180deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-at-t {
-  background-image: conic-gradient(at top, transparent  , transparent  );
   background-image: conic-gradient(at top, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
@@ -445010,33 +444948,15 @@ select {
 
 /* Repeating gradients (stripes and rings) */
 .bg-repeating-stripes {
-  background-image: repeating-linear-gradient(45deg, transparent 0 10px, transparent 10px 20px);
-}
-
-@supports (background: repeating-linear-gradient(red 0%, red 0% 1%, red 2%)){
-.bg-repeating-stripes {
   background-image: repeating-linear-gradient(45deg, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
 }
-}
 
-.bg-repeating-stripes-x {
-  background-image: repeating-linear-gradient(90deg, transparent 0 10px, transparent 10px 20px);
-}
-
-@supports (background: repeating-linear-gradient(red 0%, red 0% 1%, red 2%)){
 .bg-repeating-stripes-x {
   background-image: repeating-linear-gradient(90deg, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
 }
-}
 
-.bg-repeating-rings {
-  background-image: repeating-radial-gradient(circle, transparent 0 10px, transparent 10px 20px);
-}
-
-@supports (background: repeating-radial-gradient(red, red 1px 2px, red 3px)){
 .bg-repeating-rings {
   background-image: repeating-radial-gradient(circle, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
-}
 }
 
 /* Color stops — keywords */
@@ -445909,20 +445829,13 @@ select {
 }
 
 .border-image-gradient {
-  border-image-source: linear-gradient(135deg, currentcolor, transparent);
   border-image-source: linear-gradient(var(--oc-border-image-angle, 135deg), var(--oc-gradient-from, currentcolor), var(--oc-gradient-to, transparent));
   border-image-slice: 1;
 }
 
 .border-image-stripes {
-  border-image-source: repeating-linear-gradient(45deg, currentcolor 0 6px, transparent 6px 12px);
-  border-image-slice: 1;
-}
-
-@supports (background: repeating-linear-gradient(red 0%, red 0% 1%, red 2%)){
-.border-image-stripes {
   border-image-source: repeating-linear-gradient(45deg, var(--oc-gradient-from, currentcolor) 0 6px, var(--oc-gradient-to, transparent) 6px 12px);
-}
+  border-image-slice: 1;
 }
 
 .border-image-slice-1 {
@@ -449179,8 +449092,8 @@ select {
 }
 
 .inline-size-stretch {
-  inline-size: -webkit-fill-available;
   inline-size: -moz-available;
+  inline-size: -webkit-fill-available;
   inline-size: stretch;
 }
 
@@ -449201,8 +449114,8 @@ select {
 }
 
 .block-size-stretch {
-  block-size: -webkit-fill-available;
   block-size: -moz-available;
+  block-size: -webkit-fill-available;
   block-size: stretch;
 }
 
@@ -449289,170 +449202,122 @@ select {
 
 /* Space between children: margin on every child except the first */
 .space-x-0 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(0 * (1 - 0));
   margin-inline-start: calc(0 * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(0 * 0);
   margin-inline-end: calc(0 * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(0 * (1 - 0));
   margin-block-start: calc(0 * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(0 * 0);
   margin-block-end: calc(0 * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(0.25rem * (1 - 0));
   margin-inline-start: calc(0.25rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(0.25rem * 0);
   margin-inline-end: calc(0.25rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(0.25rem * (1 - 0));
   margin-block-start: calc(0.25rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(0.25rem * 0);
   margin-block-end: calc(0.25rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(0.5rem * (1 - 0));
   margin-inline-start: calc(0.5rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(0.5rem * 0);
   margin-inline-end: calc(0.5rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(0.5rem * (1 - 0));
   margin-block-start: calc(0.5rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(0.5rem * 0);
   margin-block-end: calc(0.5rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-3 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(0.75rem * (1 - 0));
   margin-inline-start: calc(0.75rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(0.75rem * 0);
   margin-inline-end: calc(0.75rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(0.75rem * (1 - 0));
   margin-block-start: calc(0.75rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(0.75rem * 0);
   margin-block-end: calc(0.75rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(1rem * (1 - 0));
   margin-inline-start: calc(1rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(1rem * 0);
   margin-inline-end: calc(1rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(1rem * (1 - 0));
   margin-block-start: calc(1rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(1rem * 0);
   margin-block-end: calc(1rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-5 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(1.25rem * (1 - 0));
   margin-inline-start: calc(1.25rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(1.25rem * 0);
   margin-inline-end: calc(1.25rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-5 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(1.25rem * (1 - 0));
   margin-block-start: calc(1.25rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(1.25rem * 0);
   margin-block-end: calc(1.25rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-6 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(1.5rem * (1 - 0));
   margin-inline-start: calc(1.5rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(1.5rem * 0);
   margin-inline-end: calc(1.5rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(1.5rem * (1 - 0));
   margin-block-start: calc(1.5rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(1.5rem * 0);
   margin-block-end: calc(1.5rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(2rem * (1 - 0));
   margin-inline-start: calc(2rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(2rem * 0);
   margin-inline-end: calc(2rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-8 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(2rem * (1 - 0));
   margin-block-start: calc(2rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(2rem * 0);
   margin-block-end: calc(2rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-10 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(2.5rem * (1 - 0));
   margin-inline-start: calc(2.5rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(2.5rem * 0);
   margin-inline-end: calc(2.5rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-10 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(2.5rem * (1 - 0));
   margin-block-start: calc(2.5rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(2.5rem * 0);
   margin-block-end: calc(2.5rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-12 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(3rem * (1 - 0));
   margin-inline-start: calc(3rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(3rem * 0);
   margin-inline-end: calc(3rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-12 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(3rem * (1 - 0));
   margin-block-start: calc(3rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(3rem * 0);
   margin-block-end: calc(3rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-16 > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(4rem * (1 - 0));
   margin-inline-start: calc(4rem * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(4rem * 0);
   margin-inline-end: calc(4rem * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-16 > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(4rem * (1 - 0));
   margin-block-start: calc(4rem * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(4rem * 0);
   margin-block-end: calc(4rem * var(--oc-space-y-reverse, 0));
 }
 
 .space-x-px > :not([hidden]) ~ :not([hidden]) {
-  margin-inline-start: calc(1px * (1 - 0));
   margin-inline-start: calc(1px * (1 - var(--oc-space-x-reverse, 0)));
-  margin-inline-end: calc(1px * 0);
   margin-inline-end: calc(1px * var(--oc-space-x-reverse, 0));
 }
 
 .space-y-px > :not([hidden]) ~ :not([hidden]) {
-  margin-block-start: calc(1px * (1 - 0));
   margin-block-start: calc(1px * (1 - var(--oc-space-y-reverse, 0)));
-  margin-block-end: calc(1px * 0);
   margin-block-end: calc(1px * var(--oc-space-y-reverse, 0));
 }
 
@@ -449467,83 +449332,38 @@ select {
 
 /* Divide: a rule between the children (default width 1px, solid, 20% of the text color) */
 .divide-x > :not([hidden]) ~ :not([hidden]) {
-  border-inline-style: solid;
   border-inline-style: var(--oc-divide-style, solid);
-  border-inline-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-inline-start-width: calc(1px * (1 - 0));
+  border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
   border-inline-start-width: calc(1px * (1 - var(--oc-divide-x-reverse, 0)));
-  border-inline-end-width: calc(1px * 0);
   border-inline-end-width: calc(1px * var(--oc-divide-x-reverse, 0));
 }
 
-@supports (color: color-mix(in lch, red, blue)){
-.divide-x > :not([hidden]) ~ :not([hidden]) {
-  border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
-}
-
 .divide-x-0 > :not([hidden]) ~ :not([hidden]) {
-  border-inline-style: solid;
   border-inline-style: var(--oc-divide-style, solid);
-  border-inline-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-inline-start-width: calc(0px * (1 - 0));
+  border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
   border-inline-start-width: calc(0px * (1 - var(--oc-divide-x-reverse, 0)));
-  border-inline-end-width: calc(0px * 0);
   border-inline-end-width: calc(0px * var(--oc-divide-x-reverse, 0));
 }
 
-@supports (color: color-mix(in lch, red, blue)){
-.divide-x-0 > :not([hidden]) ~ :not([hidden]) {
-  border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
-}
-
 .divide-x-2 > :not([hidden]) ~ :not([hidden]) {
-  border-inline-style: solid;
   border-inline-style: var(--oc-divide-style, solid);
-  border-inline-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-inline-start-width: calc(2px * (1 - 0));
+  border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
   border-inline-start-width: calc(2px * (1 - var(--oc-divide-x-reverse, 0)));
-  border-inline-end-width: calc(2px * 0);
   border-inline-end-width: calc(2px * var(--oc-divide-x-reverse, 0));
 }
 
-@supports (color: color-mix(in lch, red, blue)){
-.divide-x-2 > :not([hidden]) ~ :not([hidden]) {
-  border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
-}
-
 .divide-x-4 > :not([hidden]) ~ :not([hidden]) {
-  border-inline-style: solid;
   border-inline-style: var(--oc-divide-style, solid);
-  border-inline-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-inline-start-width: calc(4px * (1 - 0));
+  border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
   border-inline-start-width: calc(4px * (1 - var(--oc-divide-x-reverse, 0)));
-  border-inline-end-width: calc(4px * 0);
   border-inline-end-width: calc(4px * var(--oc-divide-x-reverse, 0));
 }
 
-@supports (color: color-mix(in lch, red, blue)){
-.divide-x-4 > :not([hidden]) ~ :not([hidden]) {
-  border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
-}
-
 .divide-x-8 > :not([hidden]) ~ :not([hidden]) {
-  border-inline-style: solid;
   border-inline-style: var(--oc-divide-style, solid);
-  border-inline-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-inline-start-width: calc(8px * (1 - 0));
-  border-inline-start-width: calc(8px * (1 - var(--oc-divide-x-reverse, 0)));
-  border-inline-end-width: calc(8px * 0);
-  border-inline-end-width: calc(8px * var(--oc-divide-x-reverse, 0));
-}
-
-@supports (color: color-mix(in lch, red, blue)){
-.divide-x-8 > :not([hidden]) ~ :not([hidden]) {
   border-inline-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
+  border-inline-start-width: calc(8px * (1 - var(--oc-divide-x-reverse, 0)));
+  border-inline-end-width: calc(8px * var(--oc-divide-x-reverse, 0));
 }
 
 .divide-x-reverse > :not([hidden]) ~ :not([hidden]) {
@@ -449551,83 +449371,38 @@ select {
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]) {
-  border-block-style: solid;
   border-block-style: var(--oc-divide-style, solid);
-  border-block-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-block-start-width: calc(1px * (1 - 0));
+  border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
   border-block-start-width: calc(1px * (1 - var(--oc-divide-y-reverse, 0)));
-  border-block-end-width: calc(1px * 0);
   border-block-end-width: calc(1px * var(--oc-divide-y-reverse, 0));
 }
 
-@supports (color: color-mix(in lch, red, blue)){
-.divide-y > :not([hidden]) ~ :not([hidden]) {
-  border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
-}
-
 .divide-y-0 > :not([hidden]) ~ :not([hidden]) {
-  border-block-style: solid;
   border-block-style: var(--oc-divide-style, solid);
-  border-block-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-block-start-width: calc(0px * (1 - 0));
+  border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
   border-block-start-width: calc(0px * (1 - var(--oc-divide-y-reverse, 0)));
-  border-block-end-width: calc(0px * 0);
   border-block-end-width: calc(0px * var(--oc-divide-y-reverse, 0));
 }
 
-@supports (color: color-mix(in lch, red, blue)){
-.divide-y-0 > :not([hidden]) ~ :not([hidden]) {
-  border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
-}
-
 .divide-y-2 > :not([hidden]) ~ :not([hidden]) {
-  border-block-style: solid;
   border-block-style: var(--oc-divide-style, solid);
-  border-block-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-block-start-width: calc(2px * (1 - 0));
+  border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
   border-block-start-width: calc(2px * (1 - var(--oc-divide-y-reverse, 0)));
-  border-block-end-width: calc(2px * 0);
   border-block-end-width: calc(2px * var(--oc-divide-y-reverse, 0));
 }
 
-@supports (color: color-mix(in lch, red, blue)){
-.divide-y-2 > :not([hidden]) ~ :not([hidden]) {
-  border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
-}
-
 .divide-y-4 > :not([hidden]) ~ :not([hidden]) {
-  border-block-style: solid;
   border-block-style: var(--oc-divide-style, solid);
-  border-block-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-block-start-width: calc(4px * (1 - 0));
+  border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
   border-block-start-width: calc(4px * (1 - var(--oc-divide-y-reverse, 0)));
-  border-block-end-width: calc(4px * 0);
   border-block-end-width: calc(4px * var(--oc-divide-y-reverse, 0));
 }
 
-@supports (color: color-mix(in lch, red, blue)){
-.divide-y-4 > :not([hidden]) ~ :not([hidden]) {
-  border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
-}
-
 .divide-y-8 > :not([hidden]) ~ :not([hidden]) {
-  border-block-style: solid;
   border-block-style: var(--oc-divide-style, solid);
-  border-block-color: color-mix(in oklab, currentcolor 20%, transparent);
-  border-block-start-width: calc(8px * (1 - 0));
-  border-block-start-width: calc(8px * (1 - var(--oc-divide-y-reverse, 0)));
-  border-block-end-width: calc(8px * 0);
-  border-block-end-width: calc(8px * var(--oc-divide-y-reverse, 0));
-}
-
-@supports (color: color-mix(in lch, red, blue)){
-.divide-y-8 > :not([hidden]) ~ :not([hidden]) {
   border-block-color: var(--oc-divide-color, color-mix(in oklab, currentcolor 20%, transparent));
-}
+  border-block-start-width: calc(8px * (1 - var(--oc-divide-y-reverse, 0)));
+  border-block-end-width: calc(8px * var(--oc-divide-y-reverse, 0));
 }
 
 .divide-y-reverse > :not([hidden]) ~ :not([hidden]) {
@@ -450078,215 +449853,113 @@ select {
 
 /* Conic gradient start angles (0, 90 and 180 live in _gradients.scss) */
 .bg-conic-45 {
-  background-image: conic-gradient(from 45deg, transparent  , transparent  );
   background-image: conic-gradient(from 45deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-135 {
-  background-image: conic-gradient(from 135deg, transparent  , transparent  );
   background-image: conic-gradient(from 135deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-225 {
-  background-image: conic-gradient(from 225deg, transparent  , transparent  );
   background-image: conic-gradient(from 225deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-270 {
-  background-image: conic-gradient(from 270deg, transparent  , transparent  );
   background-image: conic-gradient(from 270deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-315 {
-  background-image: conic-gradient(from 315deg, transparent  , transparent  );
   background-image: conic-gradient(from 315deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 /* Radial gradient anchors and sizes */
 .bg-radial-at-c {
-  background-image: radial-gradient(at center, transparent  , transparent  );
   background-image: radial-gradient(at center, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-bl {
-  background-image: radial-gradient(at bottom left, transparent  , transparent  );
   background-image: radial-gradient(at bottom left, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-tr {
-  background-image: radial-gradient(at top right, transparent  , transparent  );
   background-image: radial-gradient(at top right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-closest-side {
-  background-image: radial-gradient(closest-side, transparent  , transparent  );
   background-image: radial-gradient(closest-side, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-closest-corner {
-  background-image: radial-gradient(closest-corner, transparent  , transparent  );
   background-image: radial-gradient(closest-corner, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-farthest-side {
-  background-image: radial-gradient(farthest-side, transparent  , transparent  );
   background-image: radial-gradient(farthest-side, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-farthest-corner {
-  background-image: radial-gradient(farthest-corner, transparent  , transparent  );
   background-image: radial-gradient(farthest-corner, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 /* Linear gradients interpolated in a perceptual color space (smoother mid tones than sRGB) */
 .bg-linear-to-t-oklch {
-  background-image: linear-gradient(to top in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
-.bg-linear-to-t-oklch {
   background-image: linear-gradient(to top in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-t-oklab {
-  background-image: linear-gradient(to top in oklab, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-t-oklab {
   background-image: linear-gradient(to top in oklab, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-tr-oklch {
-  background-image: linear-gradient(to top right in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-tr-oklch {
   background-image: linear-gradient(to top right in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-tr-oklab {
-  background-image: linear-gradient(to top right in oklab, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-tr-oklab {
   background-image: linear-gradient(to top right in oklab, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-r-oklab {
-  background-image: linear-gradient(to right in oklab, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-r-oklab {
   background-image: linear-gradient(to right in oklab, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-br-oklch {
-  background-image: linear-gradient(to bottom right in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-br-oklch {
   background-image: linear-gradient(to bottom right in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-br-oklab {
-  background-image: linear-gradient(to bottom right in oklab, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-br-oklab {
   background-image: linear-gradient(to bottom right in oklab, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-b-oklch {
-  background-image: linear-gradient(to bottom in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-b-oklch {
   background-image: linear-gradient(to bottom in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-b-oklab {
-  background-image: linear-gradient(to bottom in oklab, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-b-oklab {
   background-image: linear-gradient(to bottom in oklab, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-bl-oklch {
-  background-image: linear-gradient(to bottom left in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-bl-oklch {
   background-image: linear-gradient(to bottom left in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-bl-oklab {
-  background-image: linear-gradient(to bottom left in oklab, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-bl-oklab {
   background-image: linear-gradient(to bottom left in oklab, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-l-oklch {
-  background-image: linear-gradient(to left in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-l-oklch {
   background-image: linear-gradient(to left in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-l-oklab {
-  background-image: linear-gradient(to left in oklab, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-l-oklab {
   background-image: linear-gradient(to left in oklab, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-tl-oklch {
-  background-image: linear-gradient(to top left in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-tl-oklch {
   background-image: linear-gradient(to top left in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
-}
 
-.bg-linear-to-tl-oklab {
-  background-image: linear-gradient(to top left in oklab, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
 .bg-linear-to-tl-oklab {
   background-image: linear-gradient(to top left in oklab, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
-}
 }
 
 /* Edge fades (.mask-fade-b, -r and -x live in _layout_extras.scss) */
@@ -450307,78 +449980,56 @@ select {
 
 /* Composable gradient masks */
 .mask-linear-0 {
-  -webkit-mask-image: linear-gradient(0deg, black 0%, transparent 100%);
-          mask-image: linear-gradient(0deg, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(0deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: linear-gradient(0deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-linear-45 {
-  -webkit-mask-image: linear-gradient(45deg, black 0%, transparent 100%);
-          mask-image: linear-gradient(45deg, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(45deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: linear-gradient(45deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-linear-90 {
-  -webkit-mask-image: linear-gradient(90deg, black 0%, transparent 100%);
-          mask-image: linear-gradient(90deg, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(90deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: linear-gradient(90deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-linear-135 {
-  -webkit-mask-image: linear-gradient(135deg, black 0%, transparent 100%);
-          mask-image: linear-gradient(135deg, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(135deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: linear-gradient(135deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-linear-180 {
-  -webkit-mask-image: linear-gradient(180deg, black 0%, transparent 100%);
-          mask-image: linear-gradient(180deg, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(180deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: linear-gradient(180deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-linear-225 {
-  -webkit-mask-image: linear-gradient(225deg, black 0%, transparent 100%);
-          mask-image: linear-gradient(225deg, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(225deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: linear-gradient(225deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-linear-270 {
-  -webkit-mask-image: linear-gradient(270deg, black 0%, transparent 100%);
-          mask-image: linear-gradient(270deg, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(270deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: linear-gradient(270deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-linear-315 {
-  -webkit-mask-image: linear-gradient(315deg, black 0%, transparent 100%);
-          mask-image: linear-gradient(315deg, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(315deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: linear-gradient(315deg, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-radial-circle {
-  -webkit-mask-image: radial-gradient(circle, black 0%, transparent 100%);
-          mask-image: radial-gradient(circle, black 0%, transparent 100%);
   -webkit-mask-image: radial-gradient(circle, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: radial-gradient(circle, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-radial-ellipse {
-  -webkit-mask-image: radial-gradient(ellipse, black 0%, transparent 100%);
-          mask-image: radial-gradient(ellipse, black 0%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: radial-gradient(ellipse, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
 
 .mask-conic {
-  -webkit-mask-image: conic-gradient(black 0%, transparent 100%);
-          mask-image: conic-gradient(black 0%, transparent 100%);
   -webkit-mask-image: conic-gradient(black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: conic-gradient(black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
@@ -450583,1106 +450234,922 @@ select {
 /* Rotate around one axis */
 .rotate-x-0 {
   --oc-rotate-x: rotateX(0deg);
-  transform: rotateX(0deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-1 {
   --oc-rotate-x: rotateX(1deg);
-  transform: rotateX(1deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-1 {
   --oc-rotate-x: rotateX(-1deg);
-  transform: rotateX(-1deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-2 {
   --oc-rotate-x: rotateX(2deg);
-  transform: rotateX(2deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-2 {
   --oc-rotate-x: rotateX(-2deg);
-  transform: rotateX(-2deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-3 {
   --oc-rotate-x: rotateX(3deg);
-  transform: rotateX(3deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-3 {
   --oc-rotate-x: rotateX(-3deg);
-  transform: rotateX(-3deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-6 {
   --oc-rotate-x: rotateX(6deg);
-  transform: rotateX(6deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-6 {
   --oc-rotate-x: rotateX(-6deg);
-  transform: rotateX(-6deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-12 {
   --oc-rotate-x: rotateX(12deg);
-  transform: rotateX(12deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-12 {
   --oc-rotate-x: rotateX(-12deg);
-  transform: rotateX(-12deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-15 {
   --oc-rotate-x: rotateX(15deg);
-  transform: rotateX(15deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-15 {
   --oc-rotate-x: rotateX(-15deg);
-  transform: rotateX(-15deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-30 {
   --oc-rotate-x: rotateX(30deg);
-  transform: rotateX(30deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-30 {
   --oc-rotate-x: rotateX(-30deg);
-  transform: rotateX(-30deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-45 {
   --oc-rotate-x: rotateX(45deg);
-  transform: rotateX(45deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-45 {
   --oc-rotate-x: rotateX(-45deg);
-  transform: rotateX(-45deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-60 {
   --oc-rotate-x: rotateX(60deg);
-  transform: rotateX(60deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-60 {
   --oc-rotate-x: rotateX(-60deg);
-  transform: rotateX(-60deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-90 {
   --oc-rotate-x: rotateX(90deg);
-  transform: rotateX(90deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-90 {
   --oc-rotate-x: rotateX(-90deg);
-  transform: rotateX(-90deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-x-180 {
   --oc-rotate-x: rotateX(180deg);
-  transform: rotateX(180deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-x-180 {
   --oc-rotate-x: rotateX(-180deg);
-  transform: rotateX(-180deg)     skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-0 {
   --oc-rotate-y: rotateY(0deg);
-  transform:   rotateY(0deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-1 {
   --oc-rotate-y: rotateY(1deg);
-  transform:   rotateY(1deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-1 {
   --oc-rotate-y: rotateY(-1deg);
-  transform:   rotateY(-1deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-2 {
   --oc-rotate-y: rotateY(2deg);
-  transform:   rotateY(2deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-2 {
   --oc-rotate-y: rotateY(-2deg);
-  transform:   rotateY(-2deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-3 {
   --oc-rotate-y: rotateY(3deg);
-  transform:   rotateY(3deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-3 {
   --oc-rotate-y: rotateY(-3deg);
-  transform:   rotateY(-3deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-6 {
   --oc-rotate-y: rotateY(6deg);
-  transform:   rotateY(6deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-6 {
   --oc-rotate-y: rotateY(-6deg);
-  transform:   rotateY(-6deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-12 {
   --oc-rotate-y: rotateY(12deg);
-  transform:   rotateY(12deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-12 {
   --oc-rotate-y: rotateY(-12deg);
-  transform:   rotateY(-12deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-15 {
   --oc-rotate-y: rotateY(15deg);
-  transform:   rotateY(15deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-15 {
   --oc-rotate-y: rotateY(-15deg);
-  transform:   rotateY(-15deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-30 {
   --oc-rotate-y: rotateY(30deg);
-  transform:   rotateY(30deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-30 {
   --oc-rotate-y: rotateY(-30deg);
-  transform:   rotateY(-30deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-45 {
   --oc-rotate-y: rotateY(45deg);
-  transform:   rotateY(45deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-45 {
   --oc-rotate-y: rotateY(-45deg);
-  transform:   rotateY(-45deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-60 {
   --oc-rotate-y: rotateY(60deg);
-  transform:   rotateY(60deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-60 {
   --oc-rotate-y: rotateY(-60deg);
-  transform:   rotateY(-60deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-90 {
   --oc-rotate-y: rotateY(90deg);
-  transform:   rotateY(90deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-90 {
   --oc-rotate-y: rotateY(-90deg);
-  transform:   rotateY(-90deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-y-180 {
   --oc-rotate-y: rotateY(180deg);
-  transform:   rotateY(180deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-y-180 {
   --oc-rotate-y: rotateY(-180deg);
-  transform:   rotateY(-180deg)   skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-0 {
   --oc-rotate-z: rotateZ(0deg);
-  transform:     rotateZ(0deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-1 {
   --oc-rotate-z: rotateZ(1deg);
-  transform:     rotateZ(1deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-1 {
   --oc-rotate-z: rotateZ(-1deg);
-  transform:     rotateZ(-1deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-2 {
   --oc-rotate-z: rotateZ(2deg);
-  transform:     rotateZ(2deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-2 {
   --oc-rotate-z: rotateZ(-2deg);
-  transform:     rotateZ(-2deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-3 {
   --oc-rotate-z: rotateZ(3deg);
-  transform:     rotateZ(3deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-3 {
   --oc-rotate-z: rotateZ(-3deg);
-  transform:     rotateZ(-3deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-6 {
   --oc-rotate-z: rotateZ(6deg);
-  transform:     rotateZ(6deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-6 {
   --oc-rotate-z: rotateZ(-6deg);
-  transform:     rotateZ(-6deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-12 {
   --oc-rotate-z: rotateZ(12deg);
-  transform:     rotateZ(12deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-12 {
   --oc-rotate-z: rotateZ(-12deg);
-  transform:     rotateZ(-12deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-15 {
   --oc-rotate-z: rotateZ(15deg);
-  transform:     rotateZ(15deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-15 {
   --oc-rotate-z: rotateZ(-15deg);
-  transform:     rotateZ(-15deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-30 {
   --oc-rotate-z: rotateZ(30deg);
-  transform:     rotateZ(30deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-30 {
   --oc-rotate-z: rotateZ(-30deg);
-  transform:     rotateZ(-30deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-45 {
   --oc-rotate-z: rotateZ(45deg);
-  transform:     rotateZ(45deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-45 {
   --oc-rotate-z: rotateZ(-45deg);
-  transform:     rotateZ(-45deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-60 {
   --oc-rotate-z: rotateZ(60deg);
-  transform:     rotateZ(60deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-60 {
   --oc-rotate-z: rotateZ(-60deg);
-  transform:     rotateZ(-60deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-90 {
   --oc-rotate-z: rotateZ(90deg);
-  transform:     rotateZ(90deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-90 {
   --oc-rotate-z: rotateZ(-90deg);
-  transform:     rotateZ(-90deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .rotate-z-180 {
   --oc-rotate-z: rotateZ(180deg);
-  transform:     rotateZ(180deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .-rotate-z-180 {
   --oc-rotate-z: rotateZ(-180deg);
-  transform:     rotateZ(-180deg) skewX(0) skewY(0);
   transform: var(--oc-rotate-x, ) var(--oc-rotate-y, ) var(--oc-rotate-z, ) skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 /* Scale per axis */
 .scale-x-0 {
   --oc-scale-x: 0;
-  scale: 0 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-0 {
   --oc-scale-y: 0;
-  scale: 1 0  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-0 {
   --oc-scale-z: 0;
-  scale: 1 1 0;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-50 {
   --oc-scale-x: 0.5;
-  scale: 0.5 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-50 {
   --oc-scale-y: 0.5;
-  scale: 1 0.5  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-50 {
   --oc-scale-z: 0.5;
-  scale: 1 1 0.5;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-75 {
   --oc-scale-x: 0.75;
-  scale: 0.75 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-75 {
   --oc-scale-y: 0.75;
-  scale: 1 0.75  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-75 {
   --oc-scale-z: 0.75;
-  scale: 1 1 0.75;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-90 {
   --oc-scale-x: 0.9;
-  scale: 0.9 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-90 {
   --oc-scale-y: 0.9;
-  scale: 1 0.9  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-90 {
   --oc-scale-z: 0.9;
-  scale: 1 1 0.9;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-95 {
   --oc-scale-x: 0.95;
-  scale: 0.95 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-95 {
   --oc-scale-y: 0.95;
-  scale: 1 0.95  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-95 {
   --oc-scale-z: 0.95;
-  scale: 1 1 0.95;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-100 {
   --oc-scale-x: 1;
-  scale: 1 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-100 {
   --oc-scale-y: 1;
-  scale: 1 1  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-100 {
   --oc-scale-z: 1;
-  scale: 1 1 1;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-105 {
   --oc-scale-x: 1.05;
-  scale: 1.05 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-105 {
   --oc-scale-y: 1.05;
-  scale: 1 1.05  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-105 {
   --oc-scale-z: 1.05;
-  scale: 1 1 1.05;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-110 {
   --oc-scale-x: 1.1;
-  scale: 1.1 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-110 {
   --oc-scale-y: 1.1;
-  scale: 1 1.1  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-110 {
   --oc-scale-z: 1.1;
-  scale: 1 1 1.1;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-125 {
   --oc-scale-x: 1.25;
-  scale: 1.25 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-125 {
   --oc-scale-y: 1.25;
-  scale: 1 1.25  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-125 {
   --oc-scale-z: 1.25;
-  scale: 1 1 1.25;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-x-150 {
   --oc-scale-x: 1.5;
-  scale: 1.5 1  ;
   scale: var(--oc-scale-x) var(--oc-scale-y, 1) var(--oc-scale-z, );
 }
 
 .scale-y-150 {
   --oc-scale-y: 1.5;
-  scale: 1 1.5  ;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y) var(--oc-scale-z, );
 }
 
 .scale-z-150 {
   --oc-scale-z: 1.5;
-  scale: 1 1 1.5;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z);
 }
 
 .scale-3d {
-  scale: 1 1 1;
   scale: var(--oc-scale-x, 1) var(--oc-scale-y, 1) var(--oc-scale-z, 1);
 }
 
 /* Translate: more steps than 0/1/2/4/8/full, negative values and fractions of the element itself */
 .-translate-x-1 {
   --oc-translate-x: -0.25rem;
-  translate: -0.25rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-2 {
   --oc-translate-x: -0.5rem;
-  translate: -0.5rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-3 {
   --oc-translate-x: 0.75rem;
-  translate: 0.75rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-3 {
   --oc-translate-x: -0.75rem;
-  translate: -0.75rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-4 {
   --oc-translate-x: -1rem;
-  translate: -1rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-5 {
   --oc-translate-x: 1.25rem;
-  translate: 1.25rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-5 {
   --oc-translate-x: -1.25rem;
-  translate: -1.25rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-6 {
   --oc-translate-x: 1.5rem;
-  translate: 1.5rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-6 {
   --oc-translate-x: -1.5rem;
-  translate: -1.5rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-8 {
   --oc-translate-x: -2rem;
-  translate: -2rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-10 {
   --oc-translate-x: 2.5rem;
-  translate: 2.5rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-10 {
   --oc-translate-x: -2.5rem;
-  translate: -2.5rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-12 {
   --oc-translate-x: 3rem;
-  translate: 3rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-12 {
   --oc-translate-x: -3rem;
-  translate: -3rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-16 {
   --oc-translate-x: 4rem;
-  translate: 4rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-16 {
   --oc-translate-x: -4rem;
-  translate: -4rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-20 {
   --oc-translate-x: 5rem;
-  translate: 5rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-20 {
   --oc-translate-x: -5rem;
-  translate: -5rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-24 {
   --oc-translate-x: 6rem;
-  translate: 6rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-24 {
   --oc-translate-x: -6rem;
-  translate: -6rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-32 {
   --oc-translate-x: 8rem;
-  translate: 8rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-32 {
   --oc-translate-x: -8rem;
-  translate: -8rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-full {
   --oc-translate-x: -100%;
-  translate: -100% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-1\/2 {
   --oc-translate-x: 50%;
-  translate: 50% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-1\/2 {
   --oc-translate-x: -50%;
-  translate: -50% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-1\/3 {
   --oc-translate-x: 33.333333%;
-  translate: 33.333333% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-1\/3 {
   --oc-translate-x: -33.333333%;
-  translate: -33.333333% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-2\/3 {
   --oc-translate-x: 66.666667%;
-  translate: 66.666667% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-2\/3 {
   --oc-translate-x: -66.666667%;
-  translate: -66.666667% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-1\/4 {
   --oc-translate-x: 25%;
-  translate: 25% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-1\/4 {
   --oc-translate-x: -25%;
-  translate: -25% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-3\/4 {
   --oc-translate-x: 75%;
-  translate: 75% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-x-3\/4 {
   --oc-translate-x: -75%;
-  translate: -75% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .-translate-y-1 {
   --oc-translate-y: -0.25rem;
-  translate: 0 -0.25rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-2 {
   --oc-translate-y: -0.5rem;
-  translate: 0 -0.5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-3 {
   --oc-translate-y: 0.75rem;
-  translate: 0 0.75rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-3 {
   --oc-translate-y: -0.75rem;
-  translate: 0 -0.75rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-4 {
   --oc-translate-y: -1rem;
-  translate: 0 -1rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-5 {
   --oc-translate-y: 1.25rem;
-  translate: 0 1.25rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-5 {
   --oc-translate-y: -1.25rem;
-  translate: 0 -1.25rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-6 {
   --oc-translate-y: 1.5rem;
-  translate: 0 1.5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-6 {
   --oc-translate-y: -1.5rem;
-  translate: 0 -1.5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-8 {
   --oc-translate-y: -2rem;
-  translate: 0 -2rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-10 {
   --oc-translate-y: 2.5rem;
-  translate: 0 2.5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-10 {
   --oc-translate-y: -2.5rem;
-  translate: 0 -2.5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-12 {
   --oc-translate-y: 3rem;
-  translate: 0 3rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-12 {
   --oc-translate-y: -3rem;
-  translate: 0 -3rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-16 {
   --oc-translate-y: 4rem;
-  translate: 0 4rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-16 {
   --oc-translate-y: -4rem;
-  translate: 0 -4rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-20 {
   --oc-translate-y: 5rem;
-  translate: 0 5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-20 {
   --oc-translate-y: -5rem;
-  translate: 0 -5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-24 {
   --oc-translate-y: 6rem;
-  translate: 0 6rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-24 {
   --oc-translate-y: -6rem;
-  translate: 0 -6rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-32 {
   --oc-translate-y: 8rem;
-  translate: 0 8rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-32 {
   --oc-translate-y: -8rem;
-  translate: 0 -8rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-full {
   --oc-translate-y: -100%;
-  translate: 0 -100% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-1\/2 {
   --oc-translate-y: 50%;
-  translate: 0 50% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-1\/2 {
   --oc-translate-y: -50%;
-  translate: 0 -50% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-1\/3 {
   --oc-translate-y: 33.333333%;
-  translate: 0 33.333333% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-1\/3 {
   --oc-translate-y: -33.333333%;
-  translate: 0 -33.333333% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-2\/3 {
   --oc-translate-y: 66.666667%;
-  translate: 0 66.666667% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-2\/3 {
   --oc-translate-y: -66.666667%;
-  translate: 0 -66.666667% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-1\/4 {
   --oc-translate-y: 25%;
-  translate: 0 25% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-1\/4 {
   --oc-translate-y: -25%;
-  translate: 0 -25% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-3\/4 {
   --oc-translate-y: 75%;
-  translate: 0 75% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .-translate-y-3\/4 {
   --oc-translate-y: -75%;
-  translate: 0 -75% 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 /* Translate along z (needs perspective on a parent) */
 .translate-z-0 {
   --oc-translate-z: 0rem;
-  translate: 0 0 0rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-z-1 {
   --oc-translate-z: 0.25rem;
-  translate: 0 0 0.25rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .-translate-z-1 {
   --oc-translate-z: -0.25rem;
-  translate: 0 0 -0.25rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-z-2 {
   --oc-translate-z: 0.5rem;
-  translate: 0 0 0.5rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .-translate-z-2 {
   --oc-translate-z: -0.5rem;
-  translate: 0 0 -0.5rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-z-4 {
   --oc-translate-z: 1rem;
-  translate: 0 0 1rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .-translate-z-4 {
   --oc-translate-z: -1rem;
-  translate: 0 0 -1rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-z-8 {
   --oc-translate-z: 2rem;
-  translate: 0 0 2rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .-translate-z-8 {
   --oc-translate-z: -2rem;
-  translate: 0 0 -2rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-z-12 {
   --oc-translate-z: 3rem;
-  translate: 0 0 3rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .-translate-z-12 {
   --oc-translate-z: -3rem;
-  translate: 0 0 -3rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-z-16 {
   --oc-translate-z: 4rem;
-  translate: 0 0 4rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .-translate-z-16 {
   --oc-translate-z: -4rem;
-  translate: 0 0 -4rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-z-24 {
   --oc-translate-z: 6rem;
-  translate: 0 0 6rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .-translate-z-24 {
   --oc-translate-z: -6rem;
-  translate: 0 0 -6rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-z-32 {
   --oc-translate-z: 8rem;
-  translate: 0 0 8rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .-translate-z-32 {
   --oc-translate-z: -8rem;
-  translate: 0 0 -8rem;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z);
 }
 
 .translate-3d {
-  translate: 0 0 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
@@ -452621,23 +452088,19 @@ select {
 }
 
 .delay-stagger {
-  transition-delay: calc((sibling-index() - 1) * 60ms);
   transition-delay: calc((sibling-index() - 1) * var(--oc-stagger, 60ms));
 }
 
 .delay-stagger-reverse {
-  transition-delay: calc((sibling-count() - sibling-index()) * 60ms);
   transition-delay: calc((sibling-count() - sibling-index()) * var(--oc-stagger, 60ms));
 }
 
 .animate-delay-stagger {
-  animation-delay: calc((sibling-index() - 1) * 60ms);
   animation-delay: calc((sibling-index() - 1) * var(--oc-stagger, 60ms));
 }
 
 /* Fan — rotate siblings around the middle one, like cards in a hand (set on each child) */
 .fan {
-  rotate: calc((sibling-index() - (sibling-count() + 1) / 2) * 6deg);
   rotate: calc((sibling-index() - (sibling-count() + 1) / 2) * var(--oc-fan, 6deg));
   transform-origin: 50% 140%;
 }
@@ -454584,12 +454047,10 @@ select {
 }
 
 .w-fluid-cap {
-  width: min(90vw, 65ch);
   width: min(var(--w-cap-a, 90vw), var(--w-cap-b, 65ch));
 }
 
 .w-fluid-floor {
-  width: max(20rem, 50vw);
   width: max(var(--w-floor-a, 20rem), var(--w-floor-b, 50vw));
 }
 

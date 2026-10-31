@@ -66,6 +66,9 @@ export default (cfg = {}) => {
       postcssImport(),
       postcssPresetEnv({
         stage: 3,
+        // No static fallbacks next to var(): every supported browser has custom properties, the fallbacks were
+        // placeholders (transparent, 0) and postcss-custom-properties 15.0.4+ stops on our nested gradient/shadow vars.
+        features: { "custom-properties": false },
       }),
       removeOklabSupports(),
       removeSpacingVarFallback(),

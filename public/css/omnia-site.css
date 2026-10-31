@@ -5994,7 +5994,6 @@ select {
 /* Rotate, scale and translate use the individual transform properties (rotate / scale / translate),
    so every class works on its own and they combine freely. Skew has no own property: it uses transform. */
 .transform {
-  transform: skewX(0) skewY(0);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
@@ -6084,25 +6083,21 @@ select {
 
 .skew-x-6 {
   --oc-skew-x: 6deg;
-  transform: skewX(6deg) skewY(0);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-x-12 {
   --oc-skew-x: 12deg;
-  transform: skewX(12deg) skewY(0);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-y-6 {
   --oc-skew-y: 6deg;
-  transform: skewX(0) skewY(6deg);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
 .skew-y-12 {
   --oc-skew-y: 12deg;
-  transform: skewX(0) skewY(12deg);
   transform: skewX(var(--oc-skew-x, 0)) skewY(var(--oc-skew-y, 0));
 }
 
@@ -6110,31 +6105,26 @@ select {
 
 .translate-x-4 {
   --oc-translate-x: 1rem;
-  translate: 1rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-8 {
   --oc-translate-x: 2rem;
-  translate: 2rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-x-full {
   --oc-translate-x: 100%;
-  translate: 100% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
 .translate-y-2 {
   --oc-translate-y: 0.5rem;
-  translate: 0 0.5rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
 .translate-y-4 {
   --oc-translate-y: 1rem;
-  translate: 0 1rem 0;
   translate: var(--oc-translate-x, 0) var(--oc-translate-y) var(--oc-translate-z, 0);
 }
 
@@ -6240,27 +6230,22 @@ select {
 }
 
 .hover\:-translate-y-1:hover {
-  translate: 0 calc(0.25rem * -1);
   translate: var(--oc-translate-x, 0) calc(0.25rem * -1);
 }
 
 .hover\:-translate-y-2:hover {
-  translate: 0 calc(0.5rem * -1);
   translate: var(--oc-translate-x, 0) calc(0.5rem * -1);
 }
 
 .hover\:translate-x-4:hover {
-  translate: 1rem 0;
   translate: 1rem var(--oc-translate-y, 0);
 }
 
 .hover\:-translate-y-4:hover {
-  translate: 0 calc(1rem * -1);
   translate: var(--oc-translate-x, 0) calc(1rem * -1);
 }
 
 .hover\:translate-x-8:hover {
-  translate: 2rem 0;
   translate: 2rem var(--oc-translate-y, 0);
 }
 
@@ -7176,19 +7161,23 @@ select {
 
 /* Initial letter (drop caps) — applied to ::first-letter */
 .initial-letter-normal::first-letter {
-  initial-letter: normal;
+  -webkit-initial-letter: normal;
+          initial-letter: normal;
 }
 
 .initial-letter-2::first-letter {
-  initial-letter: 2;
+  -webkit-initial-letter: 2;
+          initial-letter: 2;
 }
 
 .initial-letter-3::first-letter {
-  initial-letter: 3;
+  -webkit-initial-letter: 3;
+          initial-letter: 3;
 }
 
 .initial-letter-3-2::first-letter {
-  initial-letter: 3 2;
+  -webkit-initial-letter: 3 2;
+          initial-letter: 3 2;
 }
 
 /* Text emphasis */
@@ -7741,7 +7730,6 @@ select {
 }
 
 .scrollbar-color {
-  scrollbar-color: currentcolor transparent;
   scrollbar-color: var(--oc-scrollbar-thumb, currentcolor) var(--oc-scrollbar-track, transparent);
 }
 
@@ -7783,7 +7771,6 @@ select {
 .scrollbar-omnia {
   --oc-scrollbar-thumb: light-dark(oklch(from var(--color-vividblue-95) l c h / 0.45), oklch(from var(--color-vividblue-60) l c h / 0.45));
   --oc-scrollbar-track: transparent;
-  scrollbar-color: var(--oc-scrollbar-thumb) transparent;
   scrollbar-color: var(--oc-scrollbar-thumb) var(--oc-scrollbar-track);
 }
 
@@ -8235,95 +8222,73 @@ select {
 /* Linear gradients — direction */
 
 .bg-linear-to-r {
-  background-image: linear-gradient(to right, transparent  , transparent  );
   background-image: linear-gradient(to right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-to-br {
-  background-image: linear-gradient(to bottom right, transparent  , transparent  );
   background-image: linear-gradient(to bottom right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-linear-45 {
-  background-image: linear-gradient(45deg, transparent  , transparent  );
   background-image: linear-gradient(45deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 /* Linear gradient in a perceptual color space (smoother mid tones) */
 .bg-linear-to-r-oklch {
-  background-image: linear-gradient(to right in oklch, transparent  , transparent  );
-}
-
-@supports (background: linear-gradient(in oklch, red 0%, red 0% 1%, red 2%)){
-.bg-linear-to-r-oklch {
   background-image: linear-gradient(to right in oklch, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
-}
 }
 
 /* Radial gradients — shape and position */
 .bg-radial {
-  background-image: radial-gradient(transparent  , transparent  );
   background-image: radial-gradient(var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-circle {
-  background-image: radial-gradient(circle, transparent  , transparent  );
   background-image: radial-gradient(circle, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-ellipse {
-  background-image: radial-gradient(ellipse, transparent  , transparent  );
   background-image: radial-gradient(ellipse, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-t {
-  background-image: radial-gradient(at top, transparent  , transparent  );
   background-image: radial-gradient(at top, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-b {
-  background-image: radial-gradient(at bottom, transparent  , transparent  );
   background-image: radial-gradient(at bottom, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-l {
-  background-image: radial-gradient(at left, transparent  , transparent  );
   background-image: radial-gradient(at left, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-r {
-  background-image: radial-gradient(at right, transparent  , transparent  );
   background-image: radial-gradient(at right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-tl {
-  background-image: radial-gradient(at top left, transparent  , transparent  );
   background-image: radial-gradient(at top left, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-radial-at-br {
-  background-image: radial-gradient(at bottom right, transparent  , transparent  );
   background-image: radial-gradient(at bottom right, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 /* Conic gradients */
 .bg-conic {
-  background-image: conic-gradient(transparent  , transparent  );
   background-image: conic-gradient(var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-90 {
-  background-image: conic-gradient(from 90deg, transparent  , transparent  );
   background-image: conic-gradient(from 90deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-180 {
-  background-image: conic-gradient(from 180deg, transparent  , transparent  );
   background-image: conic-gradient(from 180deg, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
 .bg-conic-at-t {
-  background-image: conic-gradient(at top, transparent  , transparent  );
   background-image: conic-gradient(at top, var(--oc-gradient-stops, var(--oc-gradient-from, transparent) var(--oc-gradient-from-pos, ), var(--oc-gradient-to, transparent) var(--oc-gradient-to-pos, )));
 }
 
@@ -8333,33 +8298,15 @@ select {
 
 /* Repeating gradients (stripes and rings) */
 .bg-repeating-stripes {
-  background-image: repeating-linear-gradient(45deg, transparent 0 10px, transparent 10px 20px);
-}
-
-@supports (background: repeating-linear-gradient(red 0%, red 0% 1%, red 2%)){
-.bg-repeating-stripes {
   background-image: repeating-linear-gradient(45deg, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
 }
-}
 
-.bg-repeating-stripes-x {
-  background-image: repeating-linear-gradient(90deg, transparent 0 10px, transparent 10px 20px);
-}
-
-@supports (background: repeating-linear-gradient(red 0%, red 0% 1%, red 2%)){
 .bg-repeating-stripes-x {
   background-image: repeating-linear-gradient(90deg, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
 }
-}
 
-.bg-repeating-rings {
-  background-image: repeating-radial-gradient(circle, transparent 0 10px, transparent 10px 20px);
-}
-
-@supports (background: repeating-radial-gradient(red, red 1px 2px, red 3px)){
 .bg-repeating-rings {
   background-image: repeating-radial-gradient(circle, var(--oc-gradient-from, transparent) 0 10px, var(--oc-gradient-to, transparent) 10px 20px);
-}
 }
 
 /* Color stops — keywords */
@@ -8521,20 +8468,13 @@ select {
 }
 
 .border-image-gradient {
-  border-image-source: linear-gradient(135deg, currentcolor, transparent);
   border-image-source: linear-gradient(var(--oc-border-image-angle, 135deg), var(--oc-gradient-from, currentcolor), var(--oc-gradient-to, transparent));
   border-image-slice: 1;
 }
 
 .border-image-stripes {
-  border-image-source: repeating-linear-gradient(45deg, currentcolor 0 6px, transparent 6px 12px);
-  border-image-slice: 1;
-}
-
-@supports (background: repeating-linear-gradient(red 0%, red 0% 1%, red 2%)){
-.border-image-stripes {
   border-image-source: repeating-linear-gradient(45deg, var(--oc-gradient-from, currentcolor) 0 6px, var(--oc-gradient-to, transparent) 6px 12px);
-}
+  border-image-slice: 1;
 }
 
 /* Side shorthands — a 1px solid line in the current color on one side */
@@ -9234,23 +9174,19 @@ select {
 }
 
 .delay-stagger {
-  transition-delay: calc((sibling-index() - 1) * 60ms);
   transition-delay: calc((sibling-index() - 1) * var(--oc-stagger, 60ms));
 }
 
 .delay-stagger-reverse {
-  transition-delay: calc((sibling-count() - sibling-index()) * 60ms);
   transition-delay: calc((sibling-count() - sibling-index()) * var(--oc-stagger, 60ms));
 }
 
 .animate-delay-stagger {
-  animation-delay: calc((sibling-index() - 1) * 60ms);
   animation-delay: calc((sibling-index() - 1) * var(--oc-stagger, 60ms));
 }
 
 /* Fan — rotate siblings around the middle one, like cards in a hand (set on each child) */
 .fan {
-  rotate: calc((sibling-index() - (sibling-count() + 1) / 2) * 6deg);
   rotate: calc((sibling-index() - (sibling-count() + 1) / 2) * var(--oc-fan, 6deg));
   transform-origin: 50% 140%;
 }
@@ -9495,12 +9431,10 @@ select {
 }
 
 .w-fluid-cap {
-  width: min(90vw, 65ch);
   width: min(var(--w-cap-a, 90vw), var(--w-cap-b, 65ch));
 }
 
 .w-fluid-floor {
-  width: max(20rem, 50vw);
   width: max(var(--w-floor-a, 20rem), var(--w-floor-b, 50vw));
 }
 
@@ -9954,7 +9888,6 @@ responsive breakpoint mixin:
 
 .hover\:translate-x-full:hover {
   --oc-translate-x: 100%;
-  translate: 100% 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 
@@ -9999,7 +9932,6 @@ responsive breakpoint mixin:
 
 .group-hover\:translate-x-4:is(:where(.group):hover *) {
   --oc-translate-x: 1rem;
-  translate: 1rem 0 0;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
 }
 

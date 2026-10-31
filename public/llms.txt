@@ -1,0 +1,279 @@
+# OmniaCSS
+
+> OmniaCSS is a free, MIT-licensed, utility-first CSS framework built on modern CSS: container queries, anchor
+> positioning, view transitions, scroll-driven animations, @starting-style, light-dark(), OKLCH colors and logical
+> properties. It looks like Tailwind but is NOT Tailwind: the spacing scale and many class names differ. Its build
+> (PostCSS, Vite or CLI) keeps only the classes a project uses. Components and page blocks come from the sister
+> project OmniaUI (https://omniaui.eu, oc-* classes, HTML/React/Vue/Blade/Livewire).
+
+Current version: 0.12.4. Node.js 22 or newer for the npm packages.
+
+## Rules for AI assistants
+
+- Do not write Tailwind classes and assume they work. Check unknown classes, or use the MCP server below.
+- Spacing: p-1 is 1rem, p-4 is 4rem (Tailwind: p-4 is 1rem). Read the values in llms-full.txt.
+- Colors use the OmniaCSS palette (bg-vividblue-80, text-coral, bg-ral3020), not Tailwind's (bg-blue-500).
+- Components (buttons, cards, modals, tabs …) are OmniaUI classes with the oc- prefix: use the reference markup.
+- Never build class names from pieces in code; the build only keeps names written out in full.
+
+## Start
+
+- [Installation and first build](https://omniacss.eu/docs/)
+- [AI assistants: the OmniaCSS MCP server](https://omniacss.eu/docs/ai): `claude mcp add omniacss -- npx -y @birdycom/omniacss-mcp`
+- [Editor extension (VS Code, Cursor)](https://omniacss.eu/docs/editor)
+- [Moving from Tailwind or Bootstrap](https://omniacss.eu/docs/migrate)
+- [Full guide for AI assistants, with value tables](https://omniacss.eu/llms-full.txt)
+
+## Docs
+
+- [OmniaCSS documentation](https://omniacss.eu/docs/)
+- [Migreren / Migrate](https://omniacss.eu/docs/migrate)
+- [AI assistants (MCP)](https://omniacss.eu/docs/ai)
+- [Code syntax](https://omniacss.eu/docs/code-syntax)
+- [Configuration](https://omniacss.eu/docs/configuration)
+- [Editor extension](https://omniacss.eu/docs/editor)
+- [Fluid values (clamp, min, max)](https://omniacss.eu/docs/fluid)
+- [From VS Code theme to code-syntax CSS](https://omniacss.eu/docs/code-syntax-theme)
+- [Full CSS Catalog](https://omniacss.eu/docs/css-catalog)
+- [Layout Module: Header + Footer](https://omniacss.eu/docs/layout-module)
+- [Responsive, Dark Mode & State Variants](https://omniacss.eu/docs/responsive)
+- [Utilities](https://omniacss.eu/docs/utilities)
+
+## Colors
+
+- [Color Settings](https://omniacss.eu/docs/colors/system)
+- [Color Functions](https://omniacss.eu/docs/colors/functions)
+- [Color-mix (Transparent)](https://omniacss.eu/docs/colors/palettes)
+- [Colors](https://omniacss.eu/docs/colors/)
+- [Practical Examples](https://omniacss.eu/docs/colors/examples)
+
+## Functions
+
+- [CSS Functions](https://omniacss.eu/docs/functions/)
+
+## Selectors
+
+- [Selectors & Pseudo-classes](https://omniacss.eu/docs/selectors/)
+
+## At rules
+
+- [At-rules](https://omniacss.eu/docs/at-rules/)
+
+## Creative
+
+- [Creative CSS](https://omniacss.eu/docs/creative/)
+
+## Alignment
+
+- [Align Content](https://omniacss.eu/docs/alignment/align-content)
+- [Align Items](https://omniacss.eu/docs/alignment/align-items)
+- [Align Self](https://omniacss.eu/docs/alignment/align-self)
+- [Alignment](https://omniacss.eu/docs/alignment/)
+- [Justify Content](https://omniacss.eu/docs/alignment/justify-content)
+- [Justify Items](https://omniacss.eu/docs/alignment/justify-items)
+- [Justify Self](https://omniacss.eu/docs/alignment/justify-self)
+- [Place Content](https://omniacss.eu/docs/alignment/place-content)
+- [Place Items](https://omniacss.eu/docs/alignment/place-items)
+- [Place Self](https://omniacss.eu/docs/alignment/place-self)
+
+## Anchor positioning
+
+- [Anchor Positioning](https://omniacss.eu/docs/anchor-positioning/)
+
+## Borders
+
+- [Border Sides & Images](https://omniacss.eu/docs/borders/sides-images)
+- [Border-color](https://omniacss.eu/docs/borders/border-color)
+- [Border-radius](https://omniacss.eu/docs/borders/border-radius)
+- [Border-style](https://omniacss.eu/docs/borders/border-style)
+- [Border-width](https://omniacss.eu/docs/borders/border-width)
+- [Borders Utilities](https://omniacss.eu/docs/borders/)
+- [Corner shape](https://omniacss.eu/docs/borders/corner-shape)
+- [Outline & focus ring](https://omniacss.eu/docs/borders/outline-focus-ring)
+- [Outline-color](https://omniacss.eu/docs/borders/outline-color)
+- [Outline-offset](https://omniacss.eu/docs/borders/outline-offset)
+- [Outline-style](https://omniacss.eu/docs/borders/outline-style)
+- [Outline-width](https://omniacss.eu/docs/borders/outline-width)
+
+## Columns
+
+- [Multi-column Layout](https://omniacss.eu/docs/columns/)
+
+## Container queries
+
+- [Container Queries](https://omniacss.eu/docs/container-queries/)
+
+## Effects
+
+- [Animation Properties & Motion Path](https://omniacss.eu/docs/effects/animation-properties)
+- [Blend Modes](https://omniacss.eu/docs/effects/blend)
+- [Blur Filters](https://omniacss.eu/docs/effects/filters)
+- [Box Shadows](https://omniacss.eu/docs/effects/shadows)
+- [Effects & Motion](https://omniacss.eu/docs/effects/)
+- [Keyframe Animations](https://omniacss.eu/docs/effects/animations)
+- [Opacity](https://omniacss.eu/docs/effects/opacity)
+- [Scale & Rotate](https://omniacss.eu/docs/effects/transforms)
+- [Transitions](https://omniacss.eu/docs/effects/transitions)
+
+## Experimental css
+
+- [Newest CSS](https://omniacss.eu/docs/experimental-css/)
+
+## Flex grid
+
+- [Column Span](https://omniacss.eu/docs/flex-grid/grid-col-span)
+- [Display](https://omniacss.eu/docs/flex-grid/display)
+- [Flex Basis](https://omniacss.eu/docs/flex-grid/basis)
+- [Flex Direction](https://omniacss.eu/docs/flex-grid/direction)
+- [Flex Wrap](https://omniacss.eu/docs/flex-grid/wrap)
+- [Flexbox & Grid](https://omniacss.eu/docs/flex-grid/)
+- [Gap](https://omniacss.eu/docs/flex-grid/gap)
+- [Grid Auto Flow](https://omniacss.eu/docs/flex-grid/grid-flow)
+- [Grid Columns](https://omniacss.eu/docs/flex-grid/grid-cols)
+- [Grid Rows](https://omniacss.eu/docs/flex-grid/grid-rows)
+- [Grow & Shrink](https://omniacss.eu/docs/flex-grid/grow-shrink)
+
+## Fragmentation
+
+- [Fragmentation](https://omniacss.eu/docs/fragmentation/)
+
+## Generated content
+
+- [Generated Content](https://omniacss.eu/docs/generated-content/)
+
+## Gradients
+
+- [Gradients](https://omniacss.eu/docs/gradients/)
+
+## Images
+
+- [Images & Object Fit](https://omniacss.eu/docs/images/)
+
+## Interactivity
+
+- [Cursor, selection & pointer](https://omniacss.eu/docs/interactivity/cursor-selection)
+- [Form controls](https://omniacss.eu/docs/interactivity/forms)
+- [Interactivity](https://omniacss.eu/docs/interactivity/)
+- [Performance & accessibility](https://omniacss.eu/docs/interactivity/performance-a11y)
+- [Scrolling & touch](https://omniacss.eu/docs/interactivity/scrolling)
+
+## Layout
+
+- [Backgrounds](https://omniacss.eu/docs/layout/backgrounds)
+- [Box Sizing](https://omniacss.eu/docs/layout/box-sizing)
+- [Display](https://omniacss.eu/docs/layout/display)
+- [Layering](https://omniacss.eu/docs/layout/layering)
+- [Layout](https://omniacss.eu/docs/layout/)
+- [Layout Extras](https://omniacss.eu/docs/layout/extras)
+- [Layout Flow](https://omniacss.eu/docs/layout/flow)
+- [Overflow](https://omniacss.eu/docs/layout/overflow)
+
+## Lists
+
+- [Lists & Counters](https://omniacss.eu/docs/lists/)
+
+## Pagination
+
+- [Pagination](https://omniacss.eu/docs/pagination/)
+
+## Position
+
+- [Inset](https://omniacss.eu/docs/position/inset)
+- [Position](https://omniacss.eu/docs/position/)
+- [Position Types](https://omniacss.eu/docs/position/types)
+- [Stacking / Z-Index](https://omniacss.eu/docs/position/z-index)
+
+## Scroll animations
+
+- [Scroll-driven Animations](https://omniacss.eu/docs/scroll-animations/)
+
+## Scroll snap
+
+- [Scroll Snap](https://omniacss.eu/docs/scroll-snap/)
+
+## Scrollbars
+
+- [Scrollbars](https://omniacss.eu/docs/scrollbars/)
+
+## Shapes
+
+- [Shapes & Clipping](https://omniacss.eu/docs/shapes/)
+
+## Sizing
+
+- [Aspect Ratio](https://omniacss.eu/docs/sizing/aspect)
+- [Container](https://omniacss.eu/docs/sizing/container)
+- [Height](https://omniacss.eu/docs/sizing/height)
+- [Icon & Square Size](https://omniacss.eu/docs/sizing/size-icon)
+- [Min/Max Height](https://omniacss.eu/docs/sizing/min-max-height)
+- [Min/Max Width](https://omniacss.eu/docs/sizing/min-max-width)
+- [Sizing](https://omniacss.eu/docs/sizing/)
+- [Width](https://omniacss.eu/docs/sizing/width)
+
+## Spacing
+
+- [Margin](https://omniacss.eu/docs/spacing/margin)
+- [Padding](https://omniacss.eu/docs/spacing/padding)
+- [Spacing](https://omniacss.eu/docs/spacing/)
+
+## Starting style
+
+- [Entry & Exit Animations](https://omniacss.eu/docs/starting-style/)
+
+## Svg
+
+- [SVG](https://omniacss.eu/docs/svg/)
+
+## Tables
+
+- [Border Collapse](https://omniacss.eu/docs/tables/border-collapse)
+- [Border Spacing](https://omniacss.eu/docs/tables/border-spacing)
+- [Caption Side](https://omniacss.eu/docs/tables/caption-side)
+- [Table Display](https://omniacss.eu/docs/tables/display)
+- [Table Layout](https://omniacss.eu/docs/tables/layout)
+- [Tables](https://omniacss.eu/docs/tables/)
+
+## Typography
+
+- [Advanced Typography](https://omniacss.eu/docs/typography/advanced)
+- [Families Reference](https://omniacss.eu/docs/typography/font-families)
+- [Font Families](https://omniacss.eu/docs/typography/fonts)
+- [Font Family](https://omniacss.eu/docs/typography/font-family)
+- [Font Size](https://omniacss.eu/docs/typography/font-size)
+- [Font Style](https://omniacss.eu/docs/typography/font-style)
+- [Font Variants & Text Effects](https://omniacss.eu/docs/typography/variants)
+- [Font Weight](https://omniacss.eu/docs/typography/font-weight)
+- [Fonts Usage](https://omniacss.eu/docs/typography/font-usage)
+- [Letter Spacing](https://omniacss.eu/docs/typography/letter-spacing)
+- [Line Height](https://omniacss.eu/docs/typography/line-height)
+- [Modern Typography](https://omniacss.eu/docs/typography/modern)
+- [Text Align](https://omniacss.eu/docs/typography/text-align)
+- [Text Decoration](https://omniacss.eu/docs/typography/text-decoration)
+- [Text Transform](https://omniacss.eu/docs/typography/text-transform)
+- [Typography](https://omniacss.eu/docs/typography/)
+
+## Units
+
+- [CSS Units](https://omniacss.eu/docs/units/)
+
+## Variables
+
+- [Variables (Custom Properties)](https://omniacss.eu/docs/variables/)
+
+## View transitions
+
+- [View Transitions](https://omniacss.eu/docs/view-transitions/)
+
+## Writing modes
+
+- [Writing Modes & Logical Properties](https://omniacss.eu/docs/writing-modes/)
+
+## OmniaUI (components and blocks)
+
+- [OmniaUI site](https://omniaui.eu/)
+- [OmniaUI for AI assistants](https://omniaui.eu/llms.txt)
+
+## Optional
+
+- [npm: @birdycom/omniacss](https://www.npmjs.com/package/@birdycom/omniacss)
+- [Source on GitHub](https://github.com/Birdycom/OmniaCSS)
