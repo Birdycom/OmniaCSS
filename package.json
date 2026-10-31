@@ -49,7 +49,7 @@
     "build:packages": "node scripts/build-packages.mjs",
     "release": "node scripts/release.mjs",
     "docs:dev": "npm run dev --workspace apps/docs",
-    "docs:build": "node scripts/sync-omniaui.mjs && npm run build --workspace apps/docs && node scripts/sync-site.mjs && npm run assets:bust && node scripts/clean-urls.mjs",
+    "docs:build": "node scripts/sync-omniaui.mjs && npm run build --workspace apps/docs && node scripts/sync-site.mjs && npm run assets:bust && node scripts/clean-urls.mjs && node scripts/build-llms.mjs",
     "docs:check": "node apps/docs/scripts/check-pages.mjs",
     "sync:omniaui": "node scripts/sync-omniaui.mjs",
     "vscode:build": "npm run build --prefix packages/vscode",
@@ -81,15 +81,15 @@
   },
   "homepage": "https://github.com/Birdycom/OmniaCSS#readme",
   "devDependencies": {
-    "@mdn/browser-compat-data": "^8.1.5",
-    "autoprefixer": "^10.4.21",
-    "basic-ftp": "^6.2.3",
-    "cssnano": "^7.1.1",
+    "@mdn/browser-compat-data": "^8.1.7",
+    "autoprefixer": "^10.6.2",
+    "basic-ftp": "^6.2.4",
+    "cssnano": "^9.9.0",
     "json-to-scss": "^1.6.2",
-    "postcss": "^8.5.3",
-    "postcss-cli": "^11.0.1",
-    "postcss-import": "^16.1.1",
-    "postcss-preset-env": "^11.1.3",
-    "sass": "^1.85.1"
+    "postcss": "^8.5.32",
+    "postcss-cli": "^12.0.0",
+    "postcss-import": "^17.0.1",
+    "postcss-preset-env": "^11.6.2",
+    "sass": "^1.107.1"
   }
 }

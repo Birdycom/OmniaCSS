@@ -1,0 +1,394 @@
+# OmniaCSS — full guide for AI assistants
+
+> OmniaCSS is a free, MIT-licensed, utility-first CSS framework built on modern CSS: container queries, anchor
+> positioning, view transitions, scroll-driven animations, @starting-style, light-dark(), OKLCH colors and logical
+> properties. It looks like Tailwind but is NOT Tailwind: the spacing scale and many class names differ. Its build
+> (PostCSS, Vite or CLI) keeps only the classes a project uses. Components and page blocks come from the sister
+> project OmniaUI (https://omniaui.eu, oc-* classes, HTML/React/Vue/Blade/Livewire).
+
+OmniaCSS is a utility-first CSS framework for modern CSS (anchor positioning, container queries, view transitions,
+scroll-driven animations, light-dark(), OKLCH colors, logical properties). Docs: https://omniacss.eu/docs/
+
+## Rules for writing OmniaCSS markup
+- OmniaCSS is NOT Tailwind. Many names match, many do not. Check every class you are unsure of with lookup_classes
+  before you use it; it also corrects typos. Use convert_tailwind to turn Tailwind classes into OmniaCSS ones.
+- The spacing scale is not Tailwind's: p-1 is 1rem, p-4 is 4rem. lookup_classes shows the exact value of every class.
+- Variants stack with colons: md:hover:bg-vividblue-80. Breakpoints sm 36rem, md 50rem, lg 64rem, xl 80rem,
+  2xl 96rem (min-width). Container queries: cq-md: (needs a container ancestor). list_variants shows them all.
+- Colors: utilities use the palette (Omnia colors like vividblue-80, HTML names like coral, RAL like ral3020):
+  bg-<color>, text-<color>, border-<color>. The semantic theme tokens (--oc-background, --oc-foreground,
+  --oc-primary, --oc-border …) switch with light and dark mode; use them in your own CSS with var(). color_tokens
+  lists both.
+- Components (buttons, cards, modals …) and page blocks come from OmniaUI (separate packages @birdycom/omniaui and
+  @birdycom/omniaui-blocks) and use the oc- prefix (oc-btn, oc-card). Before writing a component yourself, look it
+  up with list_components and take its reference markup from get_component.
+
+## Install
+CDN (prototyping, full build):
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.12.4/dist/omnia.min.css">
+Starter build (common utilities only, small):
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.12.4/dist/omnia.starter.min.css">
+
+npm with PostCSS / Vite / Laravel (only the CSS the project uses):
+  npm install -D @birdycom/omniacss
+  // postcss.config.js
+  import omniacss from "@birdycom/omniacss/postcss";
+  export default { plugins: [omniacss({ content: ["src/**/*.{html,js,vue,tsx}", "resources/views/**/*.blade.php"] })] };
+  /* in the CSS entry */
+  @omnia;
+
+CLI (no PostCSS setup):
+  npm install -D @birdycom/omniacss-cli
+  npx omniacss init
+  npx omniacss build --watch
+
+The build only keeps classes it finds written out in the source. Never build class names from pieces
+(`text-${color}`): write the full names or list them under "keep" in omnia.config.json.
+
+## Dark mode
+Set class="dark" or data-theme="dark" on <html>, or follow the system setting. The dark: variant covers both.
+
+## Moving from Tailwind
+  npm install -D @birdycom/omniacss-migrate
+  npx omniacss-migrate scan .              # how many classes are covered
+  npx omniacss-migrate setup . --write     # switch deps, Vite/PostCSS config and CSS; Tailwind names keep working
+  npx omniacss-migrate codemod . --write   # rewrite classes to native OmniaCSS names where they match 1:1
+Bootstrap 3/4/5: npx omniacss-migrate bootstrap scan . / bootstrap codemod . --write
+
+## Values of common classes
+
+| Class | CSS |
+|---|---|
+| p-0 | `padding: 0rem; /* 0px */` |
+| p-0.5 | `padding: 0.5rem; /* 8px */` |
+| p-1 | `padding: 1rem; /* 16px */` |
+| p-1.5 | `padding: 1.5rem; /* 24px */` |
+| p-2 | `padding: 2rem; /* 32px */` |
+| p-3 | `padding: 3rem; /* 48px */` |
+| p-4 | `padding: 4rem; /* 64px */` |
+| gap-1 | `gap: 1rem; /* 16px */` |
+| gap-2 | `gap: 2rem; /* 32px */` |
+| m-1 | `margin: 1rem; /* 16px */` |
+| w-1 | `width: 1rem; /* 16px */` |
+| w-10 | `width: 10rem; /* 160px */` |
+| font-1 | `font-size: 1rem; /* 16px */` |
+| font-1.5 | `font-size: 1.5rem; /* 24px */` |
+| font-2 | `font-size: 2rem; /* 32px */` |
+| round-2 | `border-radius: 0.25rem; /* 4px */` |
+| rounded-lg | `border-radius: 0.5rem; /* 8px */` |
+| none | `display: none;` |
+| align-items-center | `align-items: center;` |
+
+## Tailwind class → OmniaCSS
+
+Generated with the conversion table of @birdycom/omniacss-migrate. "—" means there is no native class: the migrate
+plugin can keep the Tailwind name working, or write the CSS yourself.
+
+| Tailwind | OmniaCSS | Note |
+|---|---|---|
+| flex | flex | same name in OmniaCSS |
+| inline-flex | inline-flex | same name in OmniaCSS |
+| grid | grid | same name in OmniaCSS |
+| hidden | none | native OmniaCSS class |
+| block | block | same name in OmniaCSS |
+| items-center | align-items-center | native OmniaCSS class |
+| justify-between | justify-between | same name in OmniaCSS |
+| gap-2 | gap-0.5 | native OmniaCSS class |
+| gap-4 | gap-1 | native OmniaCSS class |
+| p-2 | p-0.5 | native OmniaCSS class |
+| p-4 | p-1 | native OmniaCSS class |
+| px-4 | p-inline-1 | native OmniaCSS class |
+| py-2 | p-block-0.5 | native OmniaCSS class |
+| m-4 | m-1 | native OmniaCSS class |
+| mx-auto | m-inline-auto | native OmniaCSS class |
+| mt-4 | mt-1 | native OmniaCSS class |
+| mb-8 | mb-2 | native OmniaCSS class |
+| w-full | w-full | same name in OmniaCSS |
+| h-full | h-full | same name in OmniaCSS |
+| w-1/2 | w-perc-1/2 | native OmniaCSS class |
+| max-w-md | max-w-md | same name in OmniaCSS |
+| max-w-7xl | max-w-7xl | same name in OmniaCSS |
+| min-h-screen | min-h-screen | same name in OmniaCSS |
+| text-sm | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| text-lg | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| text-2xl | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| font-bold | font-bold | same name in OmniaCSS |
+| font-semibold | font-semibold | same name in OmniaCSS |
+| leading-tight | lineheight-tight | native OmniaCSS class |
+| rounded | round-2 | native OmniaCSS class |
+| rounded-lg | rounded-lg | same name in OmniaCSS |
+| rounded-full | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| shadow | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| shadow-lg | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| border | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| border-gray-200 | border-silver-2 | native OmniaCSS class |
+| bg-white | bg-white | same name in OmniaCSS |
+| bg-gray-100 | bg-linen-30 | native OmniaCSS class |
+| bg-blue-500 | bg-vividblue-80 | native OmniaCSS class |
+| text-white | text-white | same name in OmniaCSS |
+| text-gray-500 | text-black-2 | native OmniaCSS class |
+| text-gray-900 | text-shallowblue-50 | native OmniaCSS class |
+| hover:bg-blue-600 | hover:bg-blue-30 | native OmniaCSS class |
+| dark:bg-gray-800 | dark:bg-shallowblue-40 | native OmniaCSS class (needs a build; the CDN file has no dark: colors) |
+| md:flex | md:flex | same name in OmniaCSS |
+| lg:grid-cols-3 | lg:grid-cols-3 | same name in OmniaCSS |
+| grid-cols-2 | grid-cols-2 | same name in OmniaCSS |
+| space-y-4 | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| divide-y | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| opacity-50 | opacity-50 | same name in OmniaCSS |
+| transition | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| duration-200 | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| truncate | truncate | same name in OmniaCSS |
+| sr-only | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| absolute | absolute | same name in OmniaCSS |
+| inset-0 | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| z-10 | z-10 | same name in OmniaCSS |
+| overflow-hidden | overflow-hidden | same name in OmniaCSS |
+| object-cover | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+| aspect-video | — | no native class; keep the name with the @birdycom/omniacss-migrate PostCSS/Vite plugin |
+
+## Docs
+
+### Docs
+
+- [OmniaCSS documentation](https://omniacss.eu/docs/)
+- [Migreren / Migrate](https://omniacss.eu/docs/migrate)
+- [AI assistants (MCP)](https://omniacss.eu/docs/ai)
+- [Code syntax](https://omniacss.eu/docs/code-syntax)
+- [Configuration](https://omniacss.eu/docs/configuration)
+- [Editor extension](https://omniacss.eu/docs/editor)
+- [Fluid values (clamp, min, max)](https://omniacss.eu/docs/fluid)
+- [From VS Code theme to code-syntax CSS](https://omniacss.eu/docs/code-syntax-theme)
+- [Full CSS Catalog](https://omniacss.eu/docs/css-catalog)
+- [Layout Module: Header + Footer](https://omniacss.eu/docs/layout-module)
+- [Responsive, Dark Mode & State Variants](https://omniacss.eu/docs/responsive)
+- [Utilities](https://omniacss.eu/docs/utilities)
+
+### Colors
+
+- [Color Settings](https://omniacss.eu/docs/colors/system)
+- [Color Functions](https://omniacss.eu/docs/colors/functions)
+- [Color-mix (Transparent)](https://omniacss.eu/docs/colors/palettes)
+- [Colors](https://omniacss.eu/docs/colors/)
+- [Practical Examples](https://omniacss.eu/docs/colors/examples)
+
+### Functions
+
+- [CSS Functions](https://omniacss.eu/docs/functions/)
+
+### Selectors
+
+- [Selectors & Pseudo-classes](https://omniacss.eu/docs/selectors/)
+
+### At rules
+
+- [At-rules](https://omniacss.eu/docs/at-rules/)
+
+### Creative
+
+- [Creative CSS](https://omniacss.eu/docs/creative/)
+
+### Alignment
+
+- [Align Content](https://omniacss.eu/docs/alignment/align-content)
+- [Align Items](https://omniacss.eu/docs/alignment/align-items)
+- [Align Self](https://omniacss.eu/docs/alignment/align-self)
+- [Alignment](https://omniacss.eu/docs/alignment/)
+- [Justify Content](https://omniacss.eu/docs/alignment/justify-content)
+- [Justify Items](https://omniacss.eu/docs/alignment/justify-items)
+- [Justify Self](https://omniacss.eu/docs/alignment/justify-self)
+- [Place Content](https://omniacss.eu/docs/alignment/place-content)
+- [Place Items](https://omniacss.eu/docs/alignment/place-items)
+- [Place Self](https://omniacss.eu/docs/alignment/place-self)
+
+### Anchor positioning
+
+- [Anchor Positioning](https://omniacss.eu/docs/anchor-positioning/)
+
+### Borders
+
+- [Border Sides & Images](https://omniacss.eu/docs/borders/sides-images)
+- [Border-color](https://omniacss.eu/docs/borders/border-color)
+- [Border-radius](https://omniacss.eu/docs/borders/border-radius)
+- [Border-style](https://omniacss.eu/docs/borders/border-style)
+- [Border-width](https://omniacss.eu/docs/borders/border-width)
+- [Borders Utilities](https://omniacss.eu/docs/borders/)
+- [Corner shape](https://omniacss.eu/docs/borders/corner-shape)
+- [Outline & focus ring](https://omniacss.eu/docs/borders/outline-focus-ring)
+- [Outline-color](https://omniacss.eu/docs/borders/outline-color)
+- [Outline-offset](https://omniacss.eu/docs/borders/outline-offset)
+- [Outline-style](https://omniacss.eu/docs/borders/outline-style)
+- [Outline-width](https://omniacss.eu/docs/borders/outline-width)
+
+### Columns
+
+- [Multi-column Layout](https://omniacss.eu/docs/columns/)
+
+### Container queries
+
+- [Container Queries](https://omniacss.eu/docs/container-queries/)
+
+### Effects
+
+- [Animation Properties & Motion Path](https://omniacss.eu/docs/effects/animation-properties)
+- [Blend Modes](https://omniacss.eu/docs/effects/blend)
+- [Blur Filters](https://omniacss.eu/docs/effects/filters)
+- [Box Shadows](https://omniacss.eu/docs/effects/shadows)
+- [Effects & Motion](https://omniacss.eu/docs/effects/)
+- [Keyframe Animations](https://omniacss.eu/docs/effects/animations)
+- [Opacity](https://omniacss.eu/docs/effects/opacity)
+- [Scale & Rotate](https://omniacss.eu/docs/effects/transforms)
+- [Transitions](https://omniacss.eu/docs/effects/transitions)
+
+### Experimental css
+
+- [Newest CSS](https://omniacss.eu/docs/experimental-css/)
+
+### Flex grid
+
+- [Column Span](https://omniacss.eu/docs/flex-grid/grid-col-span)
+- [Display](https://omniacss.eu/docs/flex-grid/display)
+- [Flex Basis](https://omniacss.eu/docs/flex-grid/basis)
+- [Flex Direction](https://omniacss.eu/docs/flex-grid/direction)
+- [Flex Wrap](https://omniacss.eu/docs/flex-grid/wrap)
+- [Flexbox & Grid](https://omniacss.eu/docs/flex-grid/)
+- [Gap](https://omniacss.eu/docs/flex-grid/gap)
+- [Grid Auto Flow](https://omniacss.eu/docs/flex-grid/grid-flow)
+- [Grid Columns](https://omniacss.eu/docs/flex-grid/grid-cols)
+- [Grid Rows](https://omniacss.eu/docs/flex-grid/grid-rows)
+- [Grow & Shrink](https://omniacss.eu/docs/flex-grid/grow-shrink)
+
+### Fragmentation
+
+- [Fragmentation](https://omniacss.eu/docs/fragmentation/)
+
+### Generated content
+
+- [Generated Content](https://omniacss.eu/docs/generated-content/)
+
+### Gradients
+
+- [Gradients](https://omniacss.eu/docs/gradients/)
+
+### Images
+
+- [Images & Object Fit](https://omniacss.eu/docs/images/)
+
+### Interactivity
+
+- [Cursor, selection & pointer](https://omniacss.eu/docs/interactivity/cursor-selection)
+- [Form controls](https://omniacss.eu/docs/interactivity/forms)
+- [Interactivity](https://omniacss.eu/docs/interactivity/)
+- [Performance & accessibility](https://omniacss.eu/docs/interactivity/performance-a11y)
+- [Scrolling & touch](https://omniacss.eu/docs/interactivity/scrolling)
+
+### Layout
+
+- [Backgrounds](https://omniacss.eu/docs/layout/backgrounds)
+- [Box Sizing](https://omniacss.eu/docs/layout/box-sizing)
+- [Display](https://omniacss.eu/docs/layout/display)
+- [Layering](https://omniacss.eu/docs/layout/layering)
+- [Layout](https://omniacss.eu/docs/layout/)
+- [Layout Extras](https://omniacss.eu/docs/layout/extras)
+- [Layout Flow](https://omniacss.eu/docs/layout/flow)
+- [Overflow](https://omniacss.eu/docs/layout/overflow)
+
+### Lists
+
+- [Lists & Counters](https://omniacss.eu/docs/lists/)
+
+### Pagination
+
+- [Pagination](https://omniacss.eu/docs/pagination/)
+
+### Position
+
+- [Inset](https://omniacss.eu/docs/position/inset)
+- [Position](https://omniacss.eu/docs/position/)
+- [Position Types](https://omniacss.eu/docs/position/types)
+- [Stacking / Z-Index](https://omniacss.eu/docs/position/z-index)
+
+### Scroll animations
+
+- [Scroll-driven Animations](https://omniacss.eu/docs/scroll-animations/)
+
+### Scroll snap
+
+- [Scroll Snap](https://omniacss.eu/docs/scroll-snap/)
+
+### Scrollbars
+
+- [Scrollbars](https://omniacss.eu/docs/scrollbars/)
+
+### Shapes
+
+- [Shapes & Clipping](https://omniacss.eu/docs/shapes/)
+
+### Sizing
+
+- [Aspect Ratio](https://omniacss.eu/docs/sizing/aspect)
+- [Container](https://omniacss.eu/docs/sizing/container)
+- [Height](https://omniacss.eu/docs/sizing/height)
+- [Icon & Square Size](https://omniacss.eu/docs/sizing/size-icon)
+- [Min/Max Height](https://omniacss.eu/docs/sizing/min-max-height)
+- [Min/Max Width](https://omniacss.eu/docs/sizing/min-max-width)
+- [Sizing](https://omniacss.eu/docs/sizing/)
+- [Width](https://omniacss.eu/docs/sizing/width)
+
+### Spacing
+
+- [Margin](https://omniacss.eu/docs/spacing/margin)
+- [Padding](https://omniacss.eu/docs/spacing/padding)
+- [Spacing](https://omniacss.eu/docs/spacing/)
+
+### Starting style
+
+- [Entry & Exit Animations](https://omniacss.eu/docs/starting-style/)
+
+### Svg
+
+- [SVG](https://omniacss.eu/docs/svg/)
+
+### Tables
+
+- [Border Collapse](https://omniacss.eu/docs/tables/border-collapse)
+- [Border Spacing](https://omniacss.eu/docs/tables/border-spacing)
+- [Caption Side](https://omniacss.eu/docs/tables/caption-side)
+- [Table Display](https://omniacss.eu/docs/tables/display)
+- [Table Layout](https://omniacss.eu/docs/tables/layout)
+- [Tables](https://omniacss.eu/docs/tables/)
+
+### Typography
+
+- [Advanced Typography](https://omniacss.eu/docs/typography/advanced)
+- [Families Reference](https://omniacss.eu/docs/typography/font-families)
+- [Font Families](https://omniacss.eu/docs/typography/fonts)
+- [Font Family](https://omniacss.eu/docs/typography/font-family)
+- [Font Size](https://omniacss.eu/docs/typography/font-size)
+- [Font Style](https://omniacss.eu/docs/typography/font-style)
+- [Font Variants & Text Effects](https://omniacss.eu/docs/typography/variants)
+- [Font Weight](https://omniacss.eu/docs/typography/font-weight)
+- [Fonts Usage](https://omniacss.eu/docs/typography/font-usage)
+- [Letter Spacing](https://omniacss.eu/docs/typography/letter-spacing)
+- [Line Height](https://omniacss.eu/docs/typography/line-height)
+- [Modern Typography](https://omniacss.eu/docs/typography/modern)
+- [Text Align](https://omniacss.eu/docs/typography/text-align)
+- [Text Decoration](https://omniacss.eu/docs/typography/text-decoration)
+- [Text Transform](https://omniacss.eu/docs/typography/text-transform)
+- [Typography](https://omniacss.eu/docs/typography/)
+
+### Units
+
+- [CSS Units](https://omniacss.eu/docs/units/)
+
+### Variables
+
+- [Variables (Custom Properties)](https://omniacss.eu/docs/variables/)
+
+### View transitions
+
+- [View Transitions](https://omniacss.eu/docs/view-transitions/)
+
+### Writing modes
+
+- [Writing Modes & Logical Properties](https://omniacss.eu/docs/writing-modes/)
