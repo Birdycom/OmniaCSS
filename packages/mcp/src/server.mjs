@@ -53,6 +53,15 @@ CLI (no PostCSS setup):
 The build only keeps classes it finds written out in the source. Never build class names from pieces
 (\`text-\${color}\`): write the full names or list them under "keep" in omnia.config.json.
 
+## New Laravel app: starter kits
+Sign-in, two-factor, passkeys and settings, built with OmniaCSS and OmniaUI, no Tailwind (https://omniaui.eu/ui/starter-kits):
+  laravel new my-app --using=birdycom/omniaui-livewire-starter-kit   # or -blade-, -react-, -vue-starter-kit
+
+## Icons
+Use the OmniaCSS webicons (https://omniaui.eu/ui/webicons) through <iconify-icon icon="set:name">, never Lucide or
+another icon set. The webicon sets: mdi: (Material Design Icons, the main set), mdi-light:, material-symbols:,
+svg-spinners:, flag: and vscode-icons:.
+
 ## Dark mode
 Set class="dark" or data-theme="dark" on <html>, or follow the system setting. The dark: variant covers both.
 
@@ -79,7 +88,7 @@ export function createServer(kb, { name = "omniacss", version = kb.version } = {
 
   server.registerTool("getting_started", {
     title: "Getting started",
-    description: "How to install OmniaCSS (CDN, npm + PostCSS/Vite, CLI), dark mode, and the rules for writing OmniaCSS markup. Read this first.",
+    description: "How to install OmniaCSS (CDN, npm + PostCSS/Vite, CLI, Laravel starter kits), icons, dark mode, and the rules for writing OmniaCSS markup. Read this first.",
     annotations: READ_ONLY,
   }, async () => text(guide(kb.version)));
 

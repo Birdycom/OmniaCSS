@@ -60,6 +60,7 @@ ${[...groups].map(([g, links]) => `## ${g}\n\n${links.join("\n")}`).join("\n\n")
 
 - [OmniaUI site](${UI_SITE}/)
 - [OmniaUI for AI assistants](${UI_SITE}/llms.txt)
+- [Laravel starter kits](${UI_SITE}/ui/starter-kits): Livewire, Blade, React and Vue apps on OmniaCSS and OmniaUI, no Tailwind: \`laravel new my-app --using=birdycom/omniaui-livewire-starter-kit\` (or -blade-, -react-, -vue-)
 
 ## Optional
 

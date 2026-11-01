@@ -123,7 +123,7 @@
       <span class="hm-eyebrow">Your stack</span>
       <h2 id="hm-fw-title">Same component. <span class="hm-grad">Every stack.</span></h2>
       <p class="hm-lead">Plain HTML works everywhere. For Vue, React and Laravel the wrappers render exactly the same markup, so the docs, the CSS and the accessibility stay the same.</p>
-      <ul><li>Vue 3 with <code>v-model:open</code></li><li>React with <code>open</code> and <code>onOpenChange</code></li><li>Blade components and Livewire state</li></ul>
+      <ul><li>Vue 3 with <code>v-model:open</code></li><li>React with <code>open</code> and <code>onOpenChange</code></li><li>Blade components and Livewire state</li><li><a href="/ui/starter-kits.html">Laravel starter kits</a> for Livewire, Blade, React and Vue</li></ul>
     </div>
     <div class="oc-tabset">
       <div class="oc-tab-list oc-tab-list--pill" role="tablist">
@@ -239,7 +239,8 @@ export default {
   plugins: [omniacss({ content: ["resources/views/**/*.blade.php", "resources/js/**/*.{js,vue,tsx}"] })],
 };
 /* resources/css/app.css */
-@omnia;</oc-code></div>
+@omnia;</oc-code>
+        <p>New app? Start from a <a href="/ui/starter-kits.html">Laravel starter kit</a> (Livewire, Blade, React or Vue): <code>laravel new my-app --using=birdycom/omniaui-livewire-starter-kit</code></p></div>
       <div class="oc-tab-panel"><oc-code lang="shell">npm install -D @birdycom/omniaui
 npx omniaui list
 npx omniaui add modal
@@ -262,6 +263,7 @@ claude mcp add omniacss -- npx -y @birdycom/omniacss-mcp</oc-code>
       <div class="hm-cta" style="justify-content: center">
         <a class="hm-btn hm-btn--main" href="/docs/index.html">Read the docs</a>
         <a class="hm-btn" href="/ui/blocks.html">See the blocks</a>
+        <a class="hm-btn" href="/ui/starter-kits.html">Starter kits</a>
       </div>
     </div>
   </section>
