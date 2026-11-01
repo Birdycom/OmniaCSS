@@ -6,12 +6,20 @@
 // Author: Serge Cools | Framework: OmniaCSS
 
 import fs from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { guide } from "../packages/mcp/src/server.mjs";
-import { load, SITE, UI_SITE } from "../packages/mcp/src/knowledge.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+// The MCP build needs the docs search index, so on a clean checkout (CI) docs:build runs before packages/mcp/dist
+// exists. Skip then; "npm test" runs this script again after the MCP build.
+if (!existsSync(path.join(root, "packages/mcp/dist/lib/omnia.cjs"))) {
+  console.log("[llms] skipped: packages/mcp/dist not built yet (npm run vscode:build && npm run build -w @birdycom/omniacss-mcp)");
+  process.exit(0);
+}
+const { guide } = await import("../packages/mcp/src/server.mjs");
+const { load, SITE, UI_SITE } = await import("../packages/mcp/src/knowledge.mjs");
+
 const out = path.join(root, "public");
 const { version } = JSON.parse(await fs.readFile(path.join(root, "package.json"), "utf8"));
 const kb = await load({ project: root });
