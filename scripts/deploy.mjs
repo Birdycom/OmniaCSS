@@ -97,7 +97,8 @@ async function contentOf(remote, local) {
   let text = buf.toString("utf8").replaceAll("https://omniaui.test", omniauiUrl).replaceAll("https://omniacss.test", siteUrl);
   // The full builds (omnia_main*.css, used by the color pages) import Google Fonts for package users; the live
   // site serves the same fonts itself (scripts/self-host-fonts.mjs), so no visitor IP goes to Google.
-  if (remote.endsWith(".css")) text = text.replace(/@import url\(["']https:\/\/fonts\.googleapis\.com\/[^)]*\);?/g, '@import url("oc-google-fonts.css");');
+  // Both forms: @import url("https://…") and the minified @import "https://…".
+  if (remote.endsWith(".css")) text = text.replace(/@import (?:url\(["']?https:\/\/fonts\.googleapis\.com\/[^)]*\)|["']https:\/\/fonts\.googleapis\.com\/[^"']*["']);?/g, '@import url("oc-google-fonts.css");');
   if (/\.(css|html)$/.test(remote) && /fonts\.(googleapis|gstatic)\.com/.test(text)) throw new Error(`${remote} still loads Google Fonts`);
   return Buffer.from(withCanonical(remote, text));
 }
