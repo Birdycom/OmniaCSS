@@ -33,6 +33,7 @@ export const HEADER_LINKS = [
   { id: "docs", label: "Docs", href: "/docs/index.html" },
   { id: "components", label: "Components", href: `${OMNIAUI_URL}/ui/components.html` },
   { id: "blocks", label: "Blocks", href: `${OMNIAUI_URL}/ui/blocks.html` },
+  { id: "starter-kits", label: "Starter kits", href: `${OMNIAUI_URL}/ui/starter-kits.html` },
   { id: "webicons", label: "Webicons", href: `${OMNIAUI_URL}/ui/webicons.html` },
 ];
 

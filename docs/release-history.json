@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.12.5",
+      "date": "2026-11-01",
+      "summary": "Webicons in alle componenten, starterkits-pagina, Filament licht-modus"
+    },
+    {
       "version": "0.12.4",
       "date": "2026-10-30",
       "summary": "Price card lifetime option and security notices"
