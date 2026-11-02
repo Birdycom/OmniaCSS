@@ -1494,6 +1494,23 @@ a.oc-block-contact-line:hover { color: var(--oc-brand-1); }
 .oc-block-profile-tab:hover { color: var(--oc-foreground); }
 .oc-block-profile-tab[aria-current="page"] { border-block-end-color: var(--oc-brand-1); color: var(--oc-foreground); }
 .oc-block-profile-tab:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
+/* Tabs on the page itself (no route per tab): label.oc-block-profile-tab with a radio, the matching
+   .oc-block-profile-panel (same order) shows. CSS only. */
+label.oc-block-profile-tab { position: relative; cursor: pointer; }
+.oc-block-profile-tab > input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.oc-block-profile-tab:has(input:checked) { border-block-end-color: var(--oc-brand-1); color: var(--oc-foreground); }
+.oc-block-profile-tab:has(input:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
+.oc-block-profile-panel { display: none; padding: 1.25rem clamp(1rem, 3vw, 1.5rem); }
+.oc-block-profile:has(.oc-block-profile-tab:nth-of-type(1) input:checked) .oc-block-profile-panel:nth-of-type(1),
+.oc-block-profile:has(.oc-block-profile-tab:nth-of-type(2) input:checked) .oc-block-profile-panel:nth-of-type(2),
+.oc-block-profile:has(.oc-block-profile-tab:nth-of-type(3) input:checked) .oc-block-profile-panel:nth-of-type(3),
+.oc-block-profile:has(.oc-block-profile-tab:nth-of-type(4) input:checked) .oc-block-profile-panel:nth-of-type(4),
+.oc-block-profile:has(.oc-block-profile-tab:nth-of-type(5) input:checked) .oc-block-profile-panel:nth-of-type(5),
+.oc-block-profile:has(.oc-block-profile-tab:nth-of-type(6) input:checked) .oc-block-profile-panel:nth-of-type(6) { display: block; }
+.oc-block-profile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.oc-block-profile-grid > li { display: grid; gap: 0.4rem; font-size: 0.875rem; }
+.oc-block-profile-grid small { color: var(--oc-muted-foreground); }
+.oc-block-profile-thumb { aspect-ratio: 16 / 9; border-radius: var(--oc-radius); background: linear-gradient(135deg, var(--oc-accent-from, var(--oc-primary)), var(--oc-accent-to, var(--oc-primary))); opacity: 0.85; }
 
 /* Compact: low banner and a smaller avatar. */
 .oc-block-profile--compact .oc-block-profile-banner { aspect-ratio: 10 / 1; min-block-size: 4.5rem; }

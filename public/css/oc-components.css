@@ -9791,6 +9791,101 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
   .oc-gallery--side > .oc-gallery__thumbs { grid-column: 1; grid-row: 1; flex-direction: column; overflow: visible; }
 }
 
+/* parts/media-glass-liquid.css */
+/* File: packages/ui/src/parts/media-glass-liquid.css
+   Map: liquid sheet (.oc-glass--liquid: clear tint, strong blur + saturation, inner light, specular rim) -> menu bar
+   (.oc-glass-bar: items with icon and label, the current one in a raised bubble) -> icon-only and round button -> fallbacks
+   Liquid glass in the style of recent desktop and phone systems, in CSS only: the backdrop is blurred and brightened,
+   the edge catches light. Put it over a photo or colourful content; on a plain page it looks like a soft card. */
+
+.oc-glass--liquid,
+.oc-glass-bar {
+  --oc-liquid-tint: light-dark(oklch(100% 0 0deg / 0.22), oklch(100% 0 0deg / 0.07));
+  --oc-liquid-edge: light-dark(oklch(100% 0 0deg / 0.6), oklch(100% 0 0deg / 0.2));
+  --oc-liquid-blur: 14px;
+  position: relative;
+  isolation: isolate;
+  background: var(--oc-liquid-tint);
+  border: 1px solid var(--oc-liquid-edge);
+  box-shadow:
+    0 12px 32px -12px oklch(0% 0 0deg / 0.35),
+    inset 0 1px 1px oklch(100% 0 0deg / 0.75),
+    inset 0 -1px 1px oklch(0% 0 0deg / 0.12),
+    inset 0 0 20px oklch(100% 0 0deg / 0.16);
+  backdrop-filter: blur(var(--oc-liquid-blur)) saturate(1.9) brightness(1.08);
+}
+/* Specular rim: light on the top-left and bottom-right edge, only on the border ring. */
+.oc-glass--liquid::before,
+.oc-glass-bar::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, oklch(100% 0 0deg / 0.9), oklch(100% 0 0deg / 0) 30%, oklch(100% 0 0deg / 0) 70%, oklch(100% 0 0deg / 0.5));
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Menu bar: a pill of items, each an icon over a short label. */
+.oc-glass-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+}
+.oc-glass-bar__item {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  min-inline-size: 4.25rem;
+  padding: 0.45rem 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  color: light-dark(oklch(22% 0.02 260deg / 0.78), oklch(100% 0 0deg / 0.82));
+  background: none;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s, color 0.25s, box-shadow 0.25s, scale 0.2s;
+}
+.oc-glass-bar__item > :is(svg, iconify-icon) { inline-size: 1.4rem; block-size: 1.4rem; font-size: 1.4rem; }
+.oc-glass-bar__item:hover { background: light-dark(oklch(100% 0 0deg / 0.28), oklch(100% 0 0deg / 0.08)); }
+.oc-glass-bar__item:active { scale: 0.94; }
+.oc-glass-bar__item:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
+/* The current item sits in a raised, lighter bubble. */
+.oc-glass-bar__item:is([aria-current="page"], [aria-pressed="true"], :has(> input:checked)) {
+  color: light-dark(var(--oc-primary), var(--color-white-50));
+  background: light-dark(oklch(100% 0 0deg / 0.62), oklch(100% 0 0deg / 0.24));
+  box-shadow: inset 0 1px 1px oklch(100% 0 0deg / 0.85), 0 6px 14px -8px oklch(0% 0 0deg / 0.4);
+}
+.oc-glass-bar__item > input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.oc-glass-bar__item:has(> input:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
+
+/* Icons only, and a separate round button next to the bar (search, compose). */
+.oc-glass-bar--icons .oc-glass-bar__item { min-inline-size: 0; padding: 0.6rem; }
+.oc-glass-bar--round { padding: 0.35rem; border-radius: 999px; }
+.oc-glass-bar--round .oc-glass-bar__item { min-inline-size: 0; padding: 0.6rem; }
+.oc-glass-bar__sep { align-self: stretch; inline-size: 1px; margin: 0.4rem 0.15rem; background: var(--oc-liquid-edge); }
+
+/* Less transparency asked for, or no backdrop-filter: a solid bar that still reads as one. */
+@media (prefers-reduced-transparency: reduce) {
+  .oc-glass--liquid, .oc-glass-bar { --oc-liquid-tint: var(--oc-card); backdrop-filter: none; }
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .oc-glass--liquid, .oc-glass-bar { --oc-liquid-tint: light-dark(oklch(100% 0 0deg / 0.85), oklch(25% 0.02 260deg / 0.9)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-glass-bar__item { transition: none; }
+}
+
 /* parts/media-glass.css */
 /* File: packages/ui/src/parts/media-glass.css
    Map: tokens (light-dark) -> sheet (.oc-glass: see-through, blurred, light top edge, soft shadow) -> panel (.oc-glass-panel:
@@ -10820,6 +10915,235 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   .oc-watermark { --oc-watermark-opacity: 0.2; print-color-adjust: exact; }
 }
 
+/* parts/nav-mega-menu.css */
+/* File: packages/ui/src/parts/nav-mega-menu.css
+   (Link rules carry .oc-mega so they win over the header's own nav link styles.)
+   Map: trigger (chevron turns while open) -> panel (popover, under the header) -> link columns (icon, title, text)
+   -> feature card (photo or colour, text, link) -> small screens
+   Mega menu: <button class="oc-mega-trigger" popovertarget="id"> opens <div class="oc-mega" id="id" popover>. The
+   popover closes on Escape and on a click outside, without JavaScript. Anchor positioning puts it under the header
+   (.oc-site-header or .oc-topbar names the anchor); browsers without it show it under the top of the window. */
+
+:is(.oc-site-header, .oc-topbar) { anchor-name: --oc-mega-header; anchor-scope: --oc-mega-header; }
+
+.oc-mega-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.7rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--oc-muted-foreground);
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+.oc-mega-trigger::after {
+  content: "";
+  inline-size: 0.9em;
+  block-size: 0.9em;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: rotate 0.2s;
+}
+.oc-mega-trigger:hover,
+.oc-mega-trigger:has(+ .oc-mega:popover-open) { color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.1); }
+.oc-mega-trigger:has(+ .oc-mega:popover-open)::after { rotate: 180deg; }
+.oc-mega-trigger:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+
+.oc-mega {
+  position-anchor: --oc-mega-header;
+  inset: auto;
+  inset-block-start: anchor(bottom);
+  inset-inline-start: anchor(center);
+  translate: -50% 0.5rem;
+  inline-size: min(58rem, calc(100vw - 1.5rem));
+  max-block-size: calc(100dvh - 6rem);
+  margin: 0;
+  padding: 1.25rem;
+  overflow: auto;
+  color: var(--oc-foreground);
+  background: var(--oc-background);
+  border: 1px solid var(--oc-border);
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -30px oklch(from var(--color-black-60) l c h / 0.45);
+}
+@supports not (anchor-name: --oc-a) {
+  .oc-mega { position: fixed; inset-block-start: 4.75rem; inset-inline-start: 50%; }
+}
+.oc-mega:popover-open { display: grid; grid-template-columns: minmax(0, 1fr) minmax(13rem, 17rem); gap: 1.25rem; }
+
+.oc-mega__cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem 1.5rem; align-content: start; }
+.oc-mega__title { margin: 0 0 0.5rem; color: var(--oc-foreground); padding-inline: 0.6rem; font-size: 0.95rem; font-weight: 700; }
+.oc-mega__links { display: grid; gap: 0.125rem; margin: 0; padding: 0; list-style: none; }
+.oc-mega.oc-mega .oc-mega__links a:not(.oc-btn) {
+  margin: 0;
+  font-size: inherit;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.05rem 0.7rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 10px;
+  color: var(--oc-foreground);
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+.oc-mega.oc-mega .oc-mega__links a:not(.oc-btn):hover { color: var(--oc-foreground); background: var(--oc-muted); }
+.oc-mega__links a:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
+.oc-mega__links b { font-size: 0.9rem; font-weight: 600; }
+.oc-mega__links small { grid-column: 2; font-size: 0.78rem; line-height: 1.4; color: var(--oc-muted-foreground); }
+.oc-mega__icon {
+  display: grid;
+  place-items: center;
+  grid-row: span 2;
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+  border-radius: 9px;
+  color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.1);
+}
+.oc-mega__icon > :is(svg, iconify-icon) { inline-size: 1.15rem; block-size: 1.15rem; font-size: 1.15rem; }
+.oc-mega__links a:not(:has(.oc-mega__icon)) { grid-template-columns: minmax(0, 1fr); }
+.oc-mega__links a:not(:has(.oc-mega__icon)) small { grid-column: 1; }
+
+/* Feature: a photo on top (or only colour) with a short text and a link pill. */
+.oc-mega.oc-mega .oc-mega__feature:not(.oc-btn) {
+  padding: 0;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border-radius: 14px;
+  color: var(--color-white-50);
+  background: linear-gradient(150deg, var(--oc-accent-from, var(--oc-primary)), var(--oc-accent-to, var(--oc-primary)));
+  text-decoration: none;
+}
+.oc-mega__feature img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+.oc-mega__feature-body { display: grid; gap: 0.4rem; align-content: start; padding: 1rem 1.1rem 1.1rem; }
+.oc-mega__feature-body b { font-size: 1.05rem; }
+.oc-mega__feature-body small { font-size: 0.8rem; line-height: 1.45; color: oklch(from var(--color-white-50) l c h / 0.85); }
+.oc-mega__feature-link {
+  justify-self: start;
+  margin-block-start: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid oklch(from var(--color-white-50) l c h / 0.5);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  transition: background-color 0.2s;
+}
+.oc-mega.oc-mega .oc-mega__feature:not(.oc-btn):hover { color: var(--color-white-50); }
+.oc-mega__feature:hover .oc-mega__feature-link { background: oklch(from var(--color-white-50) l c h / 0.18); }
+.oc-mega__feature:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+
+/* Small screens: one column, the feature under the links. */
+@media (max-width: 40rem) {
+  .oc-mega:popover-open { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-mega-trigger, .oc-mega-trigger::after, .oc-mega__links a { transition: none; }
+}
+
+/* parts/nav-topbar-variants.css */
+/* File: packages/ui/src/parts/nav-topbar-variants.css
+   Map: brand (logo tile, room before the menu) -> centred menu -> plain links -> dark / brand colour -> floating pill
+   -> strip above the bar -> footer bar (split, links, dark)
+   Variants of the site header (.oc-topbar in docs-ui.css) and the footer bar (.oc-footerbar). Colours are tokens. */
+
+/* Brand: a logo tile and the name, always with room before the menu. */
+.oc-topbar-brand { display: inline-flex; align-items: center; gap: 0.55rem; margin-inline-end: 1rem; }
+.oc-topbar-logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: 1.85rem;
+  block-size: 1.85rem;
+  border-radius: 9px;
+  color: var(--color-white-50);
+  background: linear-gradient(135deg, var(--oc-accent-from, var(--oc-primary)), var(--oc-accent-to, var(--oc-primary)));
+  font-size: 0.95rem;
+}
+.oc-topbar-logo > :is(svg, iconify-icon) { inline-size: 1.1rem; block-size: 1.1rem; font-size: 1.1rem; }
+.oc-topbar-nav { min-inline-size: 0; }
+.oc-topbar-actions .oc-btn { white-space: nowrap; }
+
+/* Centred menu: brand left, menu in the middle, actions right (from 761px; smaller screens keep the burger). */
+@media (min-width: 761px) {
+  .oc-topbar--center { display: grid; grid-template-columns: 1fr auto 1fr; }
+  .oc-topbar--center .oc-topbar-brand { justify-self: start; }
+  .oc-topbar--center .oc-topbar-actions { justify-self: end; }
+}
+
+/* Plain links: no pill frames, the current page underlined. */
+.oc-topbar--plain .oc-navmenu--site .oc-navmenu-link {
+  border-color: transparent;
+  border-radius: 0;
+  background: none;
+  color: var(--oc-muted-foreground);
+  box-shadow: inset 0 -2px 0 transparent;
+}
+.oc-topbar--plain .oc-navmenu--site .oc-navmenu-link:hover { color: var(--oc-foreground); border-color: transparent; background: none; }
+.oc-topbar--plain .oc-navmenu--site .oc-navmenu-link[aria-current="page"] {
+  color: var(--oc-foreground);
+  border-color: transparent;
+  background: none;
+  box-shadow: inset 0 -2px 0 var(--oc-primary);
+}
+
+/* Dark bar and brand-colour bar: light text, links as soft pills. */
+.oc-topbar:is(.oc-topbar--dark, .oc-topbar--brand) { color: var(--color-white-50); border-block-end-color: transparent; }
+.oc-topbar--dark { background: light-dark(var(--color-duskblue-95), var(--color-black-95)); }
+.oc-topbar--brand { background: linear-gradient(100deg, var(--oc-accent-from, var(--oc-primary)), var(--oc-accent-to, var(--oc-primary))); }
+.oc-topbar:is(.oc-topbar--dark, .oc-topbar--brand) .oc-navmenu--site .oc-navmenu-link {
+  color: oklch(from var(--color-white-50) l c h / 0.8);
+  border-color: transparent;
+  background: none;
+}
+.oc-topbar:is(.oc-topbar--dark, .oc-topbar--brand) .oc-navmenu--site .oc-navmenu-link:is(:hover, [aria-current="page"]) {
+  color: var(--color-white-50);
+  border-color: transparent;
+  background: oklch(from var(--color-white-50) l c h / 0.14);
+}
+.oc-topbar--dark .oc-topbar-logo { background: oklch(from var(--color-white-50) l c h / 0.14); }
+.oc-topbar--brand .oc-topbar-logo { color: var(--oc-primary); background: var(--color-white-50); }
+.oc-topbar:is(.oc-topbar--dark, .oc-topbar--brand) .oc-topbar-burger { color: inherit; border-color: oklch(from var(--color-white-50) l c h / 0.3); }
+
+/* Floating: a rounded bar with room around it and a soft shadow (over a hero or a photo). */
+.oc-topbar--floating {
+  margin: 0.75rem;
+  border: 1px solid var(--oc-border);
+  border-radius: 16px;
+  box-shadow: 0 14px 34px -18px oklch(from var(--color-black-60) l c h / 0.35);
+}
+
+/* Strip: a small row above the bar (contact, language, account). */
+.oc-topbar-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  padding: 0.35rem clamp(14px, 2vw, 28px);
+  font-size: 0.78rem;
+  color: var(--oc-muted-foreground);
+  background: var(--oc-muted);
+}
+.oc-topbar-strip a { color: inherit; text-decoration: none; }
+.oc-topbar-strip a:hover { color: var(--oc-foreground); }
+.oc-topbar-strip > span { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1rem; }
+
+/* Footer bar: text left and links right (--split), a link list, a dark bar. */
+.oc-footerbar--split { justify-content: space-between; gap: 1rem; text-align: start; }
+.oc-footerbar--tall { block-size: auto; min-block-size: var(--ocm-footer-height, 2.25rem); padding-block: 0.85rem; flex-wrap: wrap; }
+.oc-footerbar-links { display: inline-flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0; padding: 0; list-style: none; }
+.oc-footerbar-links a { color: var(--oc-muted-foreground); text-decoration: none; }
+.oc-footerbar-links a:hover { color: var(--oc-foreground); }
+.oc-footerbar--dark { color: oklch(from var(--color-white-50) l c h / 0.7); background: light-dark(var(--color-duskblue-95), var(--color-black-95)); border-block-start-color: transparent; }
+.oc-footerbar--dark :is(a, .oc-footerbar-links a) { color: oklch(from var(--color-white-50) l c h / 0.85); }
+.oc-footerbar--dark .oc-footerbar-links a:hover { color: var(--color-white-50); }
+
 /* parts/site-fact-list.css */
 /* File: packages/ui/src/parts/site-fact-list.css
    Map: plain -> compact -> stacked -> accent values -> narrow screens
@@ -10846,6 +11170,85 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 
 /* Very narrow containers: wrap instead of squeezing label and value together. */
 .oc-fact-list > div { flex-wrap: wrap; }
+
+/* parts/site-header-variants.css */
+/* File: packages/ui/src/parts/site-header-variants.css
+   Map: actions slot -> centred menu -> dark -> floating pill -> glass pill -> footer: centred, dark, newsletter, social
+   Variants of the marketing header (.oc-site-header) and footer (.oc-site-footer) in showcase.css. The sticky header
+   turns to glass while scrolling; the coloured variants keep their own background (no scroll animation). */
+
+.oc-site-header__actions { display: flex; align-items: center; gap: 0.5rem; flex: none; }
+.oc-site-header__brand { white-space: nowrap; flex: none; }
+.oc-site-header__nav > :is(a, button):not(.oc-btn) { white-space: nowrap; }
+
+/* Centred menu: brand left, menu in the middle, actions right. */
+@media (min-width: 861px) {
+  .oc-site-header--center .oc-site-header__inner { display: grid; grid-template-columns: 1fr auto 1fr; }
+  .oc-site-header--center .oc-site-header__brand { justify-self: start; }
+  .oc-site-header--center .oc-site-header__actions { justify-self: end; }
+}
+
+/* Dark: a solid dark bar with light text. */
+.oc-site-header--dark {
+  animation: none;
+  color: var(--color-white-50);
+  background: light-dark(var(--color-duskblue-95), var(--color-black-95));
+}
+.oc-site-header--dark :is(.oc-site-header__brand, .oc-site-header__nav a[aria-current="page"], .oc-site-header__nav a:not(.oc-btn):hover) { color: var(--color-white-50); }
+.oc-site-header--dark .oc-site-header__nav a:not(.oc-btn) { color: oklch(from var(--color-white-50) l c h / 0.72); }
+
+/* Floating: the bar as a rounded card with room around it. */
+.oc-site-header:is(.oc-site-header--floating, .oc-site-header--glass) { animation: none; padding: 0.75rem; }
+.oc-site-header--floating .oc-site-header__inner {
+  block-size: 4rem;
+  padding-inline: 1rem 0.75rem;
+  border: 1px solid var(--oc-border);
+  border-radius: 18px;
+  background: var(--oc-background);
+  box-shadow: 0 16px 36px -22px oklch(from var(--color-black-60) l c h / 0.45);
+}
+
+/* Glass: a see-through pill with blur, a light top edge and a soft shadow (the .oc-glass tokens). */
+.oc-site-header--glass .oc-site-header__inner {
+  block-size: 3.75rem;
+  padding-inline: 1.1rem 0.6rem;
+  border: 1px solid var(--oc-glass-edge, oklch(100% 0 0deg / 0.6));
+  border-radius: 999px;
+  background: var(--oc-glass-sheet, oklch(from var(--oc-background) l c h / 0.6));
+  box-shadow: var(--oc-glass-shadow, 0 20px 40px -24px oklch(0% 0 0deg / 0.4)), inset 0 1px 0 var(--oc-glass-edge-hi, oklch(100% 0 0deg / 0.9));
+  backdrop-filter: blur(var(--oc-glass-blur, 24px)) saturate(1.8);
+}
+
+/* ---- Footer variants ---- */
+/* Centred: brand, one row of links, social icons and the bottom line, all centred. */
+.oc-site-footer--center { text-align: center; }
+.oc-site-footer--center :is(.oc-site-footer__about, .oc-site-footer__bottom) { justify-items: center; justify-content: center; }
+.oc-site-footer--center .oc-site-footer__about { display: grid; gap: 1rem; }
+.oc-site-footer--center .oc-site-footer__about p { margin: 0; max-inline-size: 34rem; }
+.oc-site-footer__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.75rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+.oc-site-footer__social { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.oc-site-footer--center .oc-site-footer__social { justify-content: center; margin-block-start: 1.5rem; }
+.oc-site-footer__social a {
+  display: grid;
+  place-items: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: 1px solid var(--oc-border);
+  border-radius: 999px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.oc-site-footer__social a:hover { border-color: var(--oc-primary); color: var(--oc-primary); }
+.oc-site-footer__social :is(svg, iconify-icon) { inline-size: 1.1rem; block-size: 1.1rem; font-size: 1.1rem; }
+
+/* Dark: light text on a dark band. */
+.oc-site-footer--dark { color: oklch(from var(--color-white-50) l c h / 0.7); background: light-dark(var(--color-duskblue-95), var(--color-black-95)); }
+.oc-site-footer--dark :is(.oc-site-footer__title, .oc-site-header__brand, a:hover) { color: var(--color-white-50); }
+.oc-site-footer--dark :is(.oc-site-footer__bottom, .oc-site-footer__social a) { border-color: oklch(from var(--color-white-50) l c h / 0.16); }
+
+/* Newsletter: a sign-up field in the brand column. */
+.oc-site-footer__signup { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 1.25rem; max-inline-size: 24rem; }
+.oc-site-footer__signup .oc-input { flex: 1 1 12rem; min-inline-size: 0; }
+.oc-site-footer--dark .oc-site-footer__signup .oc-input { color: var(--color-white-50); background: oklch(from var(--color-white-50) l c h / 0.08); border-color: oklch(from var(--color-white-50) l c h / 0.2); }
 
 /* parts/site-link-arrow.css */
 /* File: packages/ui/src/parts/site-link-arrow.css
