@@ -279,6 +279,8 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 :is(.oc-docs-content, .ocd-content) > .oc-hero .oc-hero-text { max-inline-size: var(--ocd-measure); margin: 0; font-size: 1.1rem; line-height: 1.7; color: var(--oc-muted-foreground); }
 /* The first section after the hero gets the same divider as the sections between (one look on every page). */
 :is(.oc-docs-content, .ocd-content) > .oc-hero + .oc-docs-section { margin-block-start: 2.5rem; padding-block-start: 2.5rem; border-block-start: 1px solid var(--ocd-rule); }
+/* A section right after a notice (the framework pages: "Start with a starter kit" above Installation) gets it too. */
+:is(.oc-docs-content, .ocd-content) > .oc-alert + .oc-docs-section { margin-block-start: 2.5rem; padding-block-start: 2.5rem; border-block-start: 1px solid var(--ocd-rule); }
 
 /* ---- Reference tables ---------------------------------------------------------------------------- */
 :is(.oc-docs-content, .ocd-content) .oc-table-ref { font-size: 0.86rem; }
