@@ -1,6 +1,6 @@
 // File: public/js/oc-docs-v2.js
 // Docs v2 behaviour, shared by the OmniaCSS and OmniaUI sites (identical copy in both repos). Loaded with "defer".
-// Map: no hover while scrolling -> copy buttons on code blocks -> search dialog (Ctrl K, "/", the top bar button) over /data/search-index.json
+// Map: no hover while scrolling -> menus in demos follow the click -> copy buttons on code blocks -> search dialog (Ctrl K, "/", the top bar button) over /data/search-index.json
 // Everything else on the docs pages (demo tabs, widths, theme switch, tabs, accordions) works without JavaScript.
 (() => {
   // ---- No hover effects while scrolling ----
@@ -13,6 +13,24 @@
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => { scrollTimer = 0; document.documentElement.classList.remove("ocd-scrolling"); }, 150);
   }, { capture: true, passive: true });
+
+  // ---- Menus in demos follow the click ----
+  // A demo menu (nav, sidebar, tabs as links, a glass bar) marks its current item with aria-current. A click on another
+  // link of the same menu moves the mark there, so you see the active and hover styles without leaving the page.
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest(".oc-demo__preview a[href^='#']");
+    if (!link || link.hasAttribute("aria-current")) return;
+    let group = link.parentElement;
+    for (let i = 0; i < 6 && group && !group.classList.contains("oc-demo__preview"); i++, group = group.parentElement) {
+      const marked = [...group.querySelectorAll("a[aria-current]")].filter((a) => a !== link);
+      if (!marked.length) continue;
+      e.preventDefault();
+      const value = marked[0].getAttribute("aria-current");
+      marked.forEach((a) => a.removeAttribute("aria-current"));
+      link.setAttribute("aria-current", value);
+      return;
+    }
+  });
 
   // ---- Copy buttons on code blocks ----
   document.addEventListener("click", async (e) => {
