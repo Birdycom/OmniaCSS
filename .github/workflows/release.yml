@@ -65,3 +65,21 @@ jobs:
             if npm view "$NAME@$V" version >/dev/null 2>&1; then echo "$NAME@$V is already on npm, skipped"; continue; fi
             (cd "$dir" && npm publish --access public)
           done
+
+  # A GitHub Release for the tag, so the repository page shows "Latest release" with the version. The notes are the
+  # summary from docs/release-history.json plus GitHub's list of changes since the previous tag.
+  github-release:
+    needs: publish
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - name: Create the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then echo "Release $GITHUB_REF_NAME exists"; exit 0; fi
+          SUMMARY=$(node -e 'const r=require("./docs/release-history.json").releases.find((x)=>"v"+x.version===process.env.GITHUB_REF_NAME);process.stdout.write(r?r.summary:"")')
+          gh release create "$GITHUB_REF_NAME" --verify-tag --title "OmniaCSS $GITHUB_REF_NAME" --notes "${SUMMARY:-Release $GITHUB_REF_NAME}" --generate-notes
