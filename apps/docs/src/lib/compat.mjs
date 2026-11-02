@@ -27,10 +27,22 @@ const STATES = {
   no: { icon: "✕", label: "Not supported" },
 };
 
-function logo(id, name) {
+// Browser logos as image files (public/img/browsers/<id>.svg, written from browser-logos.json on first use): the
+// browser rasters each one once and reuses it, where inline SVG with gradients was drawn again for every table and
+// made long pages stutter while scrolling. The name is written next to the logo, so the image is decorative.
+const written = new Set();
+function logo(id) {
   const l = logos[id];
   if (!l) return "";
-  return `<svg class="oc-compat__logo" viewBox="${l.viewBox}" role="img" aria-label="${esc(name)}"><title>${esc(name)}</title>${l.body}</svg>`;
+  if (!written.has(id)) {
+    const file = path.join(REPO, "public/img/browsers", `${id}.svg`);
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${l.viewBox}">${l.body}</svg>
+`;
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== svg) fs.writeFileSync(file, svg);
+    written.add(id);
+  }
+  return `<img class="oc-compat__logo" src="/img/browsers/${id}.svg" alt="" width="20" height="20" decoding="async">`;
 }
 
 function cell(browser, s, first) {
@@ -53,7 +65,7 @@ export function compatTable(keys) {
     `<tr><th scope="col" rowspan="2" class="oc-compat__feature-head">Feature</th>` +
     `<th scope="colgroup" colspan="${desktop.length}" class="oc-compat__group">Desktop</th>` +
     `<th scope="colgroup" colspan="${mobile.length}" class="oc-compat__group oc-compat__group--mobile">Mobile</th></tr><tr>` +
-    ordered.map((b, i) => `<th scope="col" class="oc-compat__browser${i === desktop.length ? " oc-compat__first-mobile" : ""}">${logo(b.logo, b.name)}<span class="oc-compat__browser-name">${esc(b.name)}</span></th>`).join("") +
+    ordered.map((b, i) => `<th scope="col" class="oc-compat__browser${i === desktop.length ? " oc-compat__first-mobile" : ""}">${logo(b.logo)}<span class="oc-compat__browser-name">${esc(b.name)}</span></th>`).join("") +
     "</tr>";
   const rows = keys.map((key) => {
     const f = data.features[key] ?? (data.features[key] = bcdLib.featureEntry(key));
