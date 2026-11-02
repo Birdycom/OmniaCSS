@@ -800,6 +800,8 @@ p, li { color: var(--text-soft); line-height: 1.55; }
 /* Block demos: a page-like stage (own background + backdrop) so full-width blocks look like on a real site */
 .oc-block-stage { position: relative; isolation: isolate; inline-size: 100%; overflow: hidden; border-radius: 12px; background: var(--oc-background); }
 .oc-block-stage .oc-site-header { position: relative; }
+/* A header alone in the stage: room below it, so button shadows and the glass edge are not cut off. */
+.oc-block-stage:has(> .oc-site-header:last-child) { padding-block-end: 1.75rem; }
 .oc-block-stage .oc-section-pad { padding-block: clamp(2rem, 5vw, 3.5rem); }
 .oc-block-stage .oc-site-footer { margin-block-start: 0; }
 

@@ -28,14 +28,14 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 :is(.oc-docs-content, .ocd-content) :is(p, li) { text-wrap: pretty; }
 
 /* ---- Top bar ------------------------------------------------------------------------------------- */
-.oc-topbar {
+.oc-topbar:not(.oc-theme-scope *) {
   gap: 1.25rem;
   justify-content: flex-start;
   background: oklch(from var(--oc-background) l c h / 0.86);
   backdrop-filter: blur(12px) saturate(1.4);
   border-block-end-color: var(--ocd-rule);
 }
-.oc-topbar-brand {
+.oc-topbar-brand:not(.oc-theme-scope *) {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -50,17 +50,17 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   overflow: hidden;
 }
 /* Brand mark = the site's own favicon (OmniaCSS palette, OmniaUI puzzle piece); the Pro page shows the Pro star. */
-.oc-topbar-brand::before {
+.oc-topbar-brand:not(.oc-theme-scope *)::before {
   content: "";
   inline-size: 1.65rem;
   aspect-ratio: 1;
   background: url("/favicon.svg") center / contain no-repeat;
 }
-.oc-topbar-brand--pro::before { background-image: url("/favicon-pro.svg"); }
-.oc-topbar-brand .oc-badge-version { margin-inline-start: 0.1rem; font-family: var(--ocd-mono); font-weight: 600; letter-spacing: 0; }
-.oc-topbar-nav { margin-inline-start: 0.75rem; }
-.oc-navmenu--site { gap: 0.15rem; }
-.oc-navmenu--site .oc-navmenu-link {
+.oc-topbar-brand--pro:not(.oc-theme-scope *)::before { background-image: url("/favicon-pro.svg"); }
+.oc-topbar-brand:not(.oc-theme-scope *) .oc-badge-version { margin-inline-start: 0.1rem; font-family: var(--ocd-mono); font-weight: 600; letter-spacing: 0; }
+.oc-topbar-nav:not(.oc-theme-scope *) { margin-inline-start: 0.75rem; }
+.oc-navmenu--site:not(.oc-theme-scope *) { gap: 0.15rem; }
+.oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link {
   position: relative;
   padding: 0.45rem 0.7rem;
   border: 0;
@@ -74,10 +74,10 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 }
 /* The first item is the other site ("OmniaUI" on omniacss.eu, "OmniaCSS" on omniaui.eu): one fixed text width for
    both names, so the items after it stay in place when you switch sites. */
-.oc-navmenu--site > li:first-child > .oc-navmenu-link { box-sizing: content-box; inline-size: 5.25em; }
-.oc-navmenu--site .oc-navmenu-link:hover { color: var(--oc-foreground); background: var(--ocd-soft); border: 0; }
-.oc-navmenu--site .oc-navmenu-link[aria-current="page"] { color: var(--oc-foreground); background: none; border: 0; }
-.oc-navmenu--site .oc-navmenu-link[aria-current="page"]::after {
+.oc-navmenu--site:not(.oc-theme-scope *) > li:first-child > .oc-navmenu-link { box-sizing: content-box; inline-size: 5.25em; }
+.oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link:hover { color: var(--oc-foreground); background: var(--ocd-soft); border: 0; }
+.oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link[aria-current="page"] { color: var(--oc-foreground); background: none; border: 0; }
+.oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link[aria-current="page"]::after {
   content: "";
   position: absolute;
   inset: auto 0.7rem calc(-1 * (var(--ocm-header-height) - 2.3rem) / 2) 0.7rem;
@@ -114,8 +114,8 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   font: 500 0.7rem var(--ocd-mono);
   color: var(--oc-muted-foreground);
 }
-.oc-topbar .oc-theme-switch { padding: 2px; }
-.oc-topbar .oc-theme-switch label { padding: 0.25rem 0.55rem; font-size: 0.75rem; }
+.oc-topbar:not(.oc-theme-scope *) .oc-theme-switch { padding: 2px; }
+.oc-topbar:not(.oc-theme-scope *) .oc-theme-switch label { padding: 0.25rem 0.55rem; font-size: 0.75rem; }
 
 /* ---- Shell: sidebars blend into the page, hairlines only ---------------------------------------- */
 :is(.oc-docs-sidebar-left, .ocd-sidebar-left, .oc-docs-sidebar-right, .ocd-sidebar-right) { background: var(--oc-background); }
@@ -449,19 +449,19 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 /* The top bar stays one line at every width: from 1100px down the links and the theme switch get a little less
    room and the menu scrolls sideways instead of pushing the buttons to a second line. */
 @media (max-width: 1100px) {
-  .oc-navmenu--site .oc-navmenu-link { padding-inline: 0.45rem; }
-  .oc-topbar .oc-theme-switch label { padding-inline: 0.4rem; }
+  .oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link { padding-inline: 0.45rem; }
+  .oc-topbar:not(.oc-theme-scope *) .oc-theme-switch label { padding-inline: 0.4rem; }
 }
 @media (max-width: 1100px) {
-  .oc-topbar { flex-wrap: nowrap; }
-  .oc-topbar-nav { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
-  .oc-navmenu--site { flex-wrap: nowrap; }
-  .oc-navmenu--site .oc-navmenu-link { white-space: nowrap; }
+  .oc-topbar:not(.oc-theme-scope *) { flex-wrap: nowrap; }
+  .oc-topbar-nav:not(.oc-theme-scope *) { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
+  .oc-navmenu--site:not(.oc-theme-scope *) { flex-wrap: nowrap; }
+  .oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link { white-space: nowrap; }
 }
 @media (max-width: 760px) {
   .oc-demo__widths { display: none; }
-  .oc-topbar-nav { margin-inline-start: 0; }
-  .oc-topbar .oc-theme-switch { display: none; }
+  .oc-topbar-nav:not(.oc-theme-scope *) { margin-inline-start: 0; }
+  .oc-topbar:not(.oc-theme-scope *) .oc-theme-switch { display: none; }
 }
 
 
@@ -476,15 +476,15 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 }
 /* Small laptops: the version badge next to the brand gives way to the links. */
 @media (max-width: 1160px) {
-  .oc-topbar-brand .oc-badge-version { display: none; }
-  .oc-topbar-brand { inline-size: 8.5rem; }
+  .oc-topbar-brand:not(.oc-theme-scope *) .oc-badge-version { display: none; }
+  .oc-topbar-brand:not(.oc-theme-scope *) { inline-size: 8.5rem; }
 }
 @media (max-width: 900px) {
   :is(.oc-docs-shell, .ocd-shell) { grid-template-columns: minmax(0, 1fr); }
   .ocd-nav-button { display: grid; }
   /* Pages without a sidebar (the home pages) have no menu button: keep its place free, so the brand and the menu
      stay where they are on the docs pages (button 2.4rem - 0.25rem overlap + the top bar gap). */
-  .oc-topbar:not(:has(.ocd-nav-button)) .oc-topbar-brand { margin-inline-start: calc(2.15rem + 20px); }
+  .oc-topbar:not(.oc-theme-scope *):not(:has(.ocd-nav-button)) .oc-topbar-brand:not(.oc-theme-scope *) { margin-inline-start: calc(2.15rem + 20px); }
   :is(.oc-docs-sidebar-left, .ocd-sidebar-left) {
     display: none;
     position: fixed;
@@ -500,13 +500,13 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   :is(.oc-docs-content, .ocd-content) { padding: 1.5rem 1rem 4rem; }
 }
 @media (max-width: 760px) {
-  .oc-topbar { flex-wrap: nowrap; gap: 0.6rem; }
+  .oc-topbar:not(.oc-theme-scope *) { flex-wrap: nowrap; gap: 0.6rem; }
   /* The free place for the menu button follows the smaller gap. */
-  .oc-topbar:not(:has(.ocd-nav-button)) .oc-topbar-brand { margin-inline-start: calc(2.15rem + 0.6rem); }
-  .oc-topbar-nav { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
-  .oc-navmenu--site { flex-wrap: nowrap; }
-  .oc-navmenu--site .oc-navmenu-link { white-space: nowrap; padding-inline: 0.5rem; }
-  .oc-topbar-brand .oc-badge-version { display: none; }
+  .oc-topbar:not(.oc-theme-scope *):not(:has(.ocd-nav-button)) .oc-topbar-brand:not(.oc-theme-scope *) { margin-inline-start: calc(2.15rem + 0.6rem); }
+  .oc-topbar-nav:not(.oc-theme-scope *) { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
+  .oc-navmenu--site:not(.oc-theme-scope *) { flex-wrap: nowrap; }
+  .oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link { white-space: nowrap; padding-inline: 0.5rem; }
+  .oc-topbar-brand:not(.oc-theme-scope *) .oc-badge-version { display: none; }
   :root { --ocm-footer-height: 0px; }
   .oc-footerbar--fixed { display: none; }
 }
