@@ -1116,6 +1116,49 @@
 
 .oc-block-dash-table { inline-size: 100%; }
 
+/* parts/app-data-table-look.css */
+/* File: packages/blocks/src/parts/app-data-table-look.css | Map: toolbar controls (2rem, pills) -> header row -> striped rows -> row actions -> footer and pager */
+/* The data table block (server-rendered, also the Livewire DataTable) in the look of the data table component
+   (.oc-data-table in packages/ui): the same control height, header, stripes, sort icons and footer. */
+
+.oc-block-datatable .oc-table-toolbar :is(.oc-input, .oc-select) { block-size: 2rem; padding-block: 0; font-size: 0.8125rem; }
+.oc-block-datatable .oc-table-toolbar .oc-input { flex: 1 1 10rem; min-inline-size: 9rem; }
+.oc-block-datatable .oc-filter-pills { border-inline-start: 0; padding-inline-start: 0; }
+.oc-block-datatable .oc-filter-pill { display: inline-flex; align-items: center; block-size: 2rem; padding-inline: 0.625rem; border-radius: calc(var(--oc-radius) - 2px); }
+.oc-block-datatable .oc-filter-pill { font: inherit; font-size: 0.8125rem; cursor: pointer; }
+.oc-block-datatable .oc-filter-pill[aria-current="true"] { color: var(--oc-primary-foreground); background: var(--oc-primary); border-color: var(--oc-primary); }
+
+.oc-block-datatable .oc-table thead th {
+  block-size: 2.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--oc-foreground);
+  background: var(--oc-card);
+}
+.oc-block-datatable .oc-table :is(th, td) { white-space: nowrap; vertical-align: middle; }
+.oc-block-datatable .oc-table tbody tr:nth-child(even of :not([hidden])) { background: color-mix(in oklch, var(--oc-card), var(--oc-foreground) 3.5%); }
+.oc-block-datatable .oc-table tbody tr:hover { background: color-mix(in oklch, var(--oc-card), var(--oc-primary) 8%); }
+.oc-block-datatable td.oc-table-actions { text-align: end; }
+.oc-block-datatable .oc-block-datatable-bulk[hidden] { display: none; }
+.oc-block-datatable .oc-table tbody tr[hidden] { display: none; }
+.oc-block-datatable td.oc-table-actions > * + * { margin-inline-start: 0.375rem; }
+
+.oc-block-datatable .oc-table-footer { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem; font-size: 0.8125rem; color: var(--oc-muted-foreground); }
+.oc-block-datatable .oc-table-footer label { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--oc-foreground); }
+.oc-block-datatable .oc-table-footer .oc-select { block-size: 2rem; padding-block: 0; inline-size: auto; font-size: 0.8125rem; }
+.oc-block-datatable .oc-table-footer nav { justify-self: end; }
+.oc-block-datatable .oc-pagination-item :is(a, button) { min-inline-size: 2rem; min-block-size: 2rem; font-size: 0.8125rem; }
+.oc-block-datatable .oc-pagination-item:is(.is-active, [aria-current]) :is(a, button),
+.oc-block-datatable .oc-pagination-item [aria-current="page"] {
+  color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.1);
+  border-color: oklch(from var(--oc-primary) l c h / 0.35);
+}
+@media (max-width: 40rem) {
+  .oc-block-datatable .oc-table-footer { grid-template-columns: 1fr; }
+  .oc-block-datatable .oc-table-footer nav { justify-self: start; }
+}
+
 /* parts/site-about-timeline.css */
 /* File: packages/blocks/src/parts/site-about-timeline.css
    Map: section -> split grid -> media placeholder + badge -> copy -> timeline spacing -> reverse variant

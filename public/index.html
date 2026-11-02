@@ -15,7 +15,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=804927b8ed"><link rel="stylesheet" href="/css/oc-components.css?v=47ddc84503"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=36439689b8"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=152176955a"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=6499dd703a">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=804927b8ed"><link rel="stylesheet" href="/css/oc-components.css?v=69454dac44"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=c1108b728d"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=152176955a"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=8c6447b5ba">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -30,7 +30,7 @@
     addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; syncDemos(); });
   </script><script src="/js/oc-docs-v2.js?v=50b3bbdcc6" defer></script><style>
   /* OmniaCSS home. Map: page -> hero (copy + playground) -> native strip -> palette band -> frameworks -> numbers
-     -> modern CSS grid -> start -> closing call. Colors: Omnia tokens only. */
+     -> modern CSS grid -> start -> our story -> closing call. Colors: Omnia tokens only. */
   .oc-home { margin: 0; padding-bottom: var(--ocm-footer-height); background: var(--oc-background); color: var(--oc-foreground); }
   .hm { overflow-x: clip; --hm-pad: max(1.25rem, env(safe-area-inset-left, 0px)); --hm-max: 92rem; display: grid; gap: clamp(4.5rem, 9vw, 8rem); padding-block: calc(var(--ocm-header-height) + clamp(2.5rem, 6vw, 5rem)) 6rem; }
   .hm-wrap { inline-size: min(100% - 2 * var(--hm-pad), var(--hm-max)); margin-inline: auto; }
@@ -152,7 +152,17 @@
   .hm-ed-shot img { display: block; inline-size: 100%; block-size: auto; }
   .hm-ed .hm-trust a { color: var(--oc-primary); }
 
-  @media (max-width: 62rem) { .hm-hero, .hm-fw, .hm-start, .hm-ed { grid-template-columns: minmax(0, 1fr); } .hm-numbers div + div { border-inline-start: 0; } .hm-numbers div:nth-child(n + 2) { border-block-start: 1px solid var(--oc-border); } }
+  /* ---- Our story: timeline (oc-timeline from OmniaUI) and what stood in the way (hm-card) ---- */
+  .hm-story { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .hm-story .oc-timeline__title { font-size: 1.15rem; }
+  .hm-story .oc-timeline__text { max-inline-size: 38rem; line-height: 1.6; }
+  .hm-story .oc-timeline__text code { font-family: var(--ocd-mono); font-size: 0.85em; }
+  .hm-hurdles { display: grid; gap: 0.75rem; }
+  .hm-hurdles h3 { font-size: 1.15rem; margin-block-end: 0.25rem; }
+  .hm-hurdles .hm-card { gap: 0.4rem; padding: 1.1rem 1.25rem; }
+  .hm-hurdles .hm-card b { font: 600 0.7rem var(--ocd-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--oc-primary); }
+
+  @media (max-width: 62rem) { .hm-hero, .hm-fw, .hm-start, .hm-ed, .hm-story { grid-template-columns: minmax(0, 1fr); } .hm-numbers div + div { border-inline-start: 0; } .hm-numbers div:nth-child(n + 2) { border-block-start: 1px solid var(--oc-border); } }
   @media (prefers-reduced-motion: reduce) { .hm-btn, .hm-card, .hm-topic, .hm-stage > div, .hm-palette i { transition: none; } }
 
 </style>
@@ -493,6 +503,57 @@ cursor <span class="hl-attr">--install-extension</span> Birdycom.omniacss<span c
 2</pre><pre class="code-preview"><code><span class="hl-comment"># OmniaCSS MCP server: Claude, Cursor and Copilot check classes instead of guessing</span>
 claude mcp <span class="hl-keyword">add</span> omniacss <span class="hl-attr">--</span> <span class="hl-keyword">npx</span> <span class="hl-attr">-y</span> @birdycom/omniacss<span class="hl-attr">-mcp</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
         <p>Cursor, VS Code and Claude Desktop: <a href="/docs/ai">AI assistants (MCP) docs</a></p></div>
+    </div>
+  </section>
+
+  <!-- Our story: from a folder of HTML documents (April 2022) to today -->
+  <section class="hm-wrap" id="story" aria-labelledby="hm-story-title">
+    <div class="hm-head">
+      <span class="hm-eyebrow">Our story</span>
+      <h2 id="hm-story-title">From a folder of HTML pages <span class="hm-grad">to a framework</span>.</h2>
+      <p class="hm-lead">OmniaCSS started in April 2022 as one developer's set of plain HTML documents with a stylesheet behind them. It stopped, it started again, and it was rebuilt more than once. This is how it got here.</p>
+    </div>
+    <div class="hm-story">
+      <ol class="oc-timeline oc-timeline--lg oc-timeline--accent">
+        <li class="oc-timeline__item">
+          <time class="oc-timeline__date" datetime="2022-04-21">April 2022</time>
+          <h3 id="a-folder-of-html-documents" class="oc-timeline__title">A folder of HTML documents</h3>
+          <p class="oc-timeline__text">The first commit says it plainly: "Starting to build my CSS framework". A reset, a settings file and a few HTML pages (colors, spacing, position, sizing) to test every class, with Sass and PostCSS behind them.</p>
+        </li>
+        <li class="oc-timeline__item">
+          <time class="oc-timeline__date" datetime="2022-05">May 2022</time>
+          <h3 id="the-ral-colors" class="oc-timeline__title">The RAL colors</h3>
+          <p class="oc-timeline__text">Color lists in JSON became Sass and then classes: the RAL colors, the HTML named colors and the first Omnia palette. Still rare in a CSS framework.</p>
+        </li>
+        <li class="oc-timeline__item">
+          <time class="oc-timeline__date" datetime="2023">2023 – 2025</time>
+          <h3 id="the-quiet-years" class="oc-timeline__title">The quiet years</h3>
+          <p class="oc-timeline__text">The documentation generator kept failing on Sass maps, and customer work came first. After April 2023 the project rested for almost three years.</p>
+        </li>
+        <li class="oc-timeline__item">
+          <time class="oc-timeline__date" datetime="2026-02">February 2026</time>
+          <h3 id="the-restart" class="oc-timeline__title">The restart</h3>
+          <p class="oc-timeline__text">Modern Sass modules, OKLCH as the color model, the <code>oc-</code> prefix and automatic tests. Version 0.1.0 followed in March, 0.2.0 in April with the first components and the icon catalog.</p>
+        </li>
+        <li class="oc-timeline__item">
+          <time class="oc-timeline__date" datetime="2026-10-12">October 2026</time>
+          <h3 id="from-12-mb-to-a-few-kb" class="oc-timeline__title">From 12 MB to a few KB</h3>
+          <p class="oc-timeline__text">npm packages, a CLI and a PostCSS plugin that build only the classes you use. Days later the components, blocks and framework wrappers moved to their own project, OmniaUI, so the CSS core stays small. The editor extension, the migration tool and the AI server followed the same month.</p>
+        </li>
+        <li class="oc-timeline__item oc-timeline__item--current">
+          <span class="oc-timeline__date">Today</span>
+          <h3 id="css-first-still" class="oc-timeline__title">CSS first, still</h3>
+          <p class="oc-timeline__text">Modern CSS as utilities, OmniaUI components for HTML, React, Vue and Laravel, starter kits and Pro blocks. The rule has not changed since that first folder: it has to be fast, it has to be CSS, and it has to work.</p>
+        </li>
+      </ol>
+      <div class="hm-hurdles">
+        <h3 id="what-stood-in-the-way">What stood in the way</h3>
+        <div class="hm-card"><b>Tooling</b><p>The Sass compiler of 2022 was deprecated and the documentation theme broke on every Sass update. The restart moved to modern Sass modules and our own docs site, built from the same source as the CSS.</p></div>
+        <div class="hm-card"><b>Size</b><p>Every utility in every color made a 12 MB stylesheet. The answer was an on-demand build: your project gets the classes it uses, a few KB.</p></div>
+        <div class="hm-card"><b>Too much in one place</b><p>Utilities, components, blocks and four frameworks in one package made every change slow. Splitting OmniaCSS and OmniaUI gave each its own pace.</p></div>
+        <div class="hm-card"><b>New CSS, uneven support</b><p>Anchor positioning, scroll-driven animations and <code>:has()</code> do not land in every browser at once. Every docs page shows the support data from MDN, and the demos keep a fallback.</p></div>
+        <div class="hm-card"><b>Time</b><p>Built next to customer projects, by one developer. That is also why it stays small and why everything has a test.</p></div>
+      </div>
     </div>
   </section>
 
