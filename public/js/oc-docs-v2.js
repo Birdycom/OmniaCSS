@@ -1,8 +1,19 @@
 // File: public/js/oc-docs-v2.js
 // Docs v2 behaviour, shared by the OmniaCSS and OmniaUI sites (identical copy in both repos). Loaded with "defer".
-// Map: copy buttons on code blocks -> search dialog (Ctrl K, "/", the top bar button) over /data/search-index.json
+// Map: no hover while scrolling -> copy buttons on code blocks -> search dialog (Ctrl K, "/", the top bar button) over /data/search-index.json
 // Everything else on the docs pages (demo tabs, widths, theme switch, tabs, accordions) works without JavaScript.
 (() => {
+  // ---- No hover effects while scrolling ----
+  // Cards and demos slide under a resting pointer while the page scrolls; their hover transitions (shadows, zoom)
+  // then repaint every frame. html.ocd-scrolling turns pointer events off for the content until 150 ms after the
+  // last scroll (the scroller itself keeps them, so the wheel keeps scrolling).
+  let scrollTimer = 0;
+  document.addEventListener("scroll", () => {
+    if (!scrollTimer) document.documentElement.classList.add("ocd-scrolling");
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => { scrollTimer = 0; document.documentElement.classList.remove("ocd-scrolling"); }, 150);
+  }, { capture: true, passive: true });
+
   // ---- Copy buttons on code blocks ----
   document.addEventListener("click", async (e) => {
     const btn = e.target.closest("[data-oc-copy]");

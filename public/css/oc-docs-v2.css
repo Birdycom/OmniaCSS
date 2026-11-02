@@ -405,9 +405,9 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 @media (hover: none) { .oc-code-block > .oc-code-copy { opacity: 1; } }
 
 /* ---- Footer bar --------------------------------------------------------------------------------- */
-.oc-footerbar { font-size: 0.78rem; background: oklch(from var(--oc-background) l c h / 0.92); }
-.oc-footerbar a { color: var(--oc-muted-foreground); text-decoration: none; }
-.oc-footerbar a:hover { color: var(--oc-foreground); text-decoration: underline; }
+.oc-footerbar:not(.oc-theme-scope *) { font-size: 0.78rem; background: oklch(from var(--oc-background) l c h / 0.92); }
+.oc-footerbar:not(.oc-theme-scope *) a { color: var(--oc-muted-foreground); text-decoration: none; }
+.oc-footerbar:not(.oc-theme-scope *) a:hover { color: var(--oc-foreground); text-decoration: underline; }
 
 /* ---- Search dialog (Ctrl K) --------------------------------------------------------------------- */
 .ocd-search-dialog {
@@ -518,3 +518,7 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 @media (prefers-reduced-motion: reduce) {
   .oc-demo--v2 > .oc-demo__preview, .oc-code-block > .oc-code-copy, .ocd-search-trigger { transition: none; }
 }
+
+/* While the page scrolls (oc-docs-v2.js) the content takes no hover, so no transition starts mid-scroll. */
+.ocd-scrolling .ocd-content > *,
+.ocd-scrolling body:not(:has(.ocd-content)) > main { pointer-events: none; }
