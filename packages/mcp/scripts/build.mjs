@@ -50,11 +50,17 @@ async function read(pkg, file) {
   if (local !== null) return local;
   for (const tag of cdnTag[pkg] ? [cdnTag[pkg]] : [version, "latest"]) {
     const res = await fetch(`https://cdn.jsdelivr.net/npm/${pkg}@${tag}/${file}`).catch(() => null);
-    if (res?.ok) { cdnTag[pkg] = tag; return res.text(); }
+    // jsDelivr can answer 200 with an HTML page (rate limit, error): only a real file counts.
+    if (res?.ok && !(res.headers.get("content-type") || "").includes("text/html")) { cdnTag[pkg] = tag; return res.text(); }
   }
   return null;
 }
-const readJson = async (pkg, file) => JSON.parse((await read(pkg, file)) ?? "null");
+/** JSON from text, or the fallback when it is not JSON (a CDN or host can answer with an HTML error page). */
+function parseJson(text, fallback, what) {
+  if (text == null) return fallback;
+  try { return JSON.parse(text); } catch { console.warn(`[mcp] ${what}: not JSON (an HTML page?), left out`); return fallback; }
+}
+const readJson = async (pkg, file) => parseJson(await read(pkg, file), null, `${pkg}/${file}`);
 
 /** Component name used in code: "src/components/OcAccordion.vue" -> "OcAccordion". */
 const codeName = (file) => path.basename(file).replace(/\.[^.]+$/, "");
@@ -80,8 +86,8 @@ for (const [pkg, kind] of [["@birdycom/omniaui", "component"], ["@birdycom/omnia
 // The Pro blocks by name and description only: their HTML is licensed and comes from the customer's own install.
 const pro = ((await readJson("@birdycom/omniaui-blocks", "pro.json"))?.items || []).map(({ name, description }) => ({ name, description }));
 
-const uiDocs = JSON.parse((await fs.readFile(path.join(omniaUI, "public/data/search-index.json"), "utf8").catch(() => null))
-  ?? (await fetch("https://omniaui.eu/data/search-index.json").then((r) => (r.ok ? r.text() : "[]"), () => "[]")));
+const uiDocs = parseJson((await fs.readFile(path.join(omniaUI, "public/data/search-index.json"), "utf8").catch(() => null))
+  ?? (await fetch("https://omniaui.eu/data/search-index.json").then((r) => (r.ok ? r.text() : "[]"), () => "[]")), [], "omniaui.eu search index");
 
 await fs.writeFile(path.join(out, "omniaui.json.gz"), zlib.gzipSync(JSON.stringify({ items, pro }), { level: 9 }));
 await fs.writeFile(path.join(out, "search-index-ui.json"), JSON.stringify(uiDocs));
