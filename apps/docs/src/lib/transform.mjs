@@ -23,6 +23,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { compatTable, hasCompat, mdnLink, supportSummary } from "./compat.mjs";
 import { REPO, CONTENT } from "./site.mjs";
+import { whatsNewHtml } from "./whats-new.mjs";
 
 const slug = (s) => s.toLowerCase().replace(/&amp;|&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
 
@@ -351,6 +352,9 @@ export function transform(content, route = "") {
   const body = document.body;
 
   const demoMarkup = [...body.querySelectorAll("oc-demo")].map((d) => d.innerHTML).join(" ");
+
+  // 0. <oc-whats-new>: the latest release and the new OmniaUI components and blocks (lib/whats-new.mjs).
+  for (const el of [...body.querySelectorAll("oc-whats-new")]) replaceWithHtml(document, el, whatsNewHtml());
 
   // 1. Demo panels: a bar (title, Preview | code tabs, preview widths) -> preview -> one code panel per tab.
   //    Every <oc-code> child becomes a tab (HTML, CSS, Vue, React, Blade …); without one, code comes from the preview.
