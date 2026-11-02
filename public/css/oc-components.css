@@ -9885,8 +9885,7 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 
 /* parts/media-glass-options.css */
 /* File: packages/ui/src/parts/media-glass-options.css
-   Map: amount (--clear: more see-through, --frost: more frosted) -> lens (the backdrop bends and shifts colour through
-   the glass, Chromium) -> light content on a colourful backdrop -> stage (moving colour blobs to show it off)
+   Map: amount (--clear: more see-through, --frost: more frosted) -> light content on a colourful backdrop -> stage (moving colour blobs to show it off)
    Extras for .oc-glass, .oc-glass--liquid and .oc-glass-bar (media-glass.css, media-glass-liquid.css). The selectors
    carry two classes so they win over the base glass whatever order the parts load in. */
 
@@ -9904,15 +9903,6 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
   --oc-liquid-blur: 18px;
 }
 
-/* Lens: what is behind the glass bends like through water and shifts in colour, as on the newest phone and desktop
-   systems. It needs the filter <svg class="oc-glass-defs"> with #oc-glass-lens once on the page. Chromium (Chrome,
-   Edge, Opera, Electron) draws it; Safari and Firefox keep the plain glass, which looks right on its own. */
-@supports (backdrop-filter: url("#oc-glass-lens")) and (not (font: -apple-system-body)) and (not (-moz-appearance: none)) {
-  :is(.oc-glass, .oc-glass-bar).oc-glass--lens {
-    backdrop-filter: url("#oc-glass-lens") blur(var(--oc-liquid-blur, 3px)) saturate(1.9) brightness(1.08);
-  }
-}
-.oc-glass-defs { position: absolute; inline-size: 0; block-size: 0; overflow: hidden; pointer-events: none; }
 
 /* Light content: white icons and labels for glass over a dark or very colourful backdrop. */
 .oc-glass-bar.oc-glass-bar--light .oc-glass-bar__item {
@@ -10128,6 +10118,13 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
   .oc-lazy { animation: none; }
   .oc-lazy > img { transition: none; }
 }
+
+/* In a table or a list: a small square thumbnail, and placeholder rows (.oc-lazy-row) while the next page loads. */
+.oc-lazy.oc-lazy--thumb { --oc-lazy-ratio: 1; inline-size: 2.5rem; flex: none; border-radius: calc(var(--oc-radius) - 2px); }
+.oc-lazy-row > :is(td, th) { padding-block: 0.6rem; }
+.oc-lazy-row .oc-lazy-bar { display: block; block-size: 0.75rem; inline-size: var(--oc-lazy-bar, 70%); border-radius: 999px; background: var(--oc-muted); animation: oc-lazy-pulse 1.2s ease-in-out infinite alternate; }
+@keyframes oc-lazy-pulse { to { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) { .oc-lazy-row .oc-lazy-bar { animation: none; } }
 
 /* parts/media-lightbox.css */
 /* File: packages/ui/src/parts/media-lightbox.css | Map: thumbnails -> dialog + backdrop -> bar -> track + slides

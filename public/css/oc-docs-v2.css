@@ -140,6 +140,7 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .oc-sidebar--docs .oc-sidebar-menu-badge { flex: none; padding: 0.15rem 0.4rem; font: 700 0.58rem var(--ocd-mono); letter-spacing: 0.06em; text-transform: uppercase; }
 .oc-sidebar--docs .oc-sidebar-menu-badge + .oc-sidebar-menu-badge { margin-inline-start: 0; }
 .oc-sidebar--docs .ocd-nav-new { color: var(--color-white-50); background: linear-gradient(135deg, var(--color-green-70), var(--color-teal-70)); }
+.oc-sidebar--docs .ocd-nav-updated { color: light-dark(var(--color-teal-80), var(--color-teal-20)); background: oklch(from var(--color-teal-60) l c h / 0.16); }
 .oc-sidebar--docs .ocd-nav-pro { color: var(--oc-primary-foreground); background: var(--ocd-accent); }
 .oc-sidebar--docs .oc-sidebar-menu-sub { margin: 2px 0 6px 0.85rem; padding-inline-start: 0.6rem; gap: 1px; border-inline-start: 1px solid var(--ocd-rule); }
 .oc-sidebar--docs .oc-sidebar-menu-sub .oc-sidebar-menu-button { padding: 0.3rem 0.55rem; font-size: 0.85rem; }
