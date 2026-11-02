@@ -486,14 +486,63 @@ flex-direction: column;
   border-radius: calc(var(--oc-radius) + 2px);
 }
 
+/* Square, exactly as tall as a text button of the same size, so both line up in a toolbar. */
 .oc-btn--icon {
-  padding: 0.5rem;
-  aspect-ratio: 1;
+  --oc-btn-square: calc(2.25rem + 2px);
+  padding: 0;
+  inline-size: var(--oc-btn-square);
+  block-size: var(--oc-btn-square);
+  flex-shrink: 0;
 }
 
-.oc-btn--icon.oc-btn--xs { padding: 0.25rem; }
-.oc-btn--icon.oc-btn--sm { padding: 0.375rem; }
-.oc-btn--icon.oc-btn--lg { padding: 0.625rem; }
+.oc-btn--icon.oc-btn--xs { --oc-btn-square: calc(1.75rem + 2px); }
+.oc-btn--icon.oc-btn--sm { --oc-btn-square: calc(2rem + 2px); }
+.oc-btn--icon.oc-btn--lg { --oc-btn-square: calc(2.5rem + 2px); }
+
+/* Webicons in a button: <iconify-icon> before (or after) the label, the same size as an inline SVG. */
+.oc-btn > iconify-icon { font-size: 1.15em; flex-shrink: 0; }
+
+/* Soft — tinted background in a tone, for row actions (edit, view, delete …) and quiet secondary actions.
+   --soft-primary | --soft-success | --soft-warning | --soft-destructive | --soft-info */
+.oc-btn[class*="oc-btn--soft-"] {
+  background: light-dark(oklch(from var(--oc-btn-tone) l c h / 0.12), oklch(from var(--oc-btn-tone) l c h / 0.22));
+  color: var(--oc-btn-tone);
+  border-color: transparent;
+}
+.oc-btn[class*="oc-btn--soft-"]:hover {
+  background: light-dark(oklch(from var(--oc-btn-tone) l c h / 0.2), oklch(from var(--oc-btn-tone) l c h / 0.32));
+  opacity: 1;
+}
+.oc-btn--soft-primary { --oc-btn-tone: var(--oc-primary); }
+.oc-btn--soft-success { --oc-btn-tone: var(--oc-success); }
+.oc-btn--soft-warning { --oc-btn-tone: var(--oc-warning); }
+.oc-btn--soft-destructive { --oc-btn-tone: var(--oc-destructive); }
+.oc-btn--soft-info { --oc-btn-tone: var(--oc-info, light-dark(var(--color-deepskyblue-70), var(--color-skyblue-50))); }
+
+/* Plain — only the icon: no surface, no padding; muted until hovered (menus, toolbars, inline actions). */
+.oc-btn--plain {
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+  color: var(--oc-muted-foreground);
+}
+.oc-btn--plain:hover,
+.oc-btn--plain[aria-expanded="true"] { color: var(--oc-primary); opacity: 1; }
+
+/* Loading — aria-busy="true": a spinner in front of the label (it replaces a leading icon); not clickable. */
+.oc-btn[aria-busy="true"] { pointer-events: none; }
+.oc-btn[aria-busy="true"]::before {
+  content: "";
+  inline-size: 1em;
+  block-size: 1em;
+  flex-shrink: 0;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: oc-btn-spin 0.7s linear infinite;
+}
+.oc-btn[aria-busy="true"] > :is(svg, iconify-icon):first-child { display: none; }
+@keyframes oc-btn-spin { to { rotate: 360deg; } }
 
 /* Button group */
 .oc-btn-group {
@@ -1983,6 +2032,42 @@ a.oc-breadcrumb-item:hover {
   color: var(--oc-foreground);
   font-weight: 500;
 }
+
+/* Icons: a webicon or SVG before the label of any item (the link or the item itself). */
+.oc-breadcrumb-item,
+.oc-breadcrumb-item a { gap: 0.375rem; }
+.oc-breadcrumb-item a { display: inline-flex; align-items: center; }
+.oc-breadcrumb-item :is(svg, iconify-icon) { font-size: 1.1em; inline-size: 1.1em; block-size: 1.1em; flex-shrink: 0; }
+
+/* --chevron: a › chevron between the items instead of "/". */
+.oc-breadcrumb--chevron .oc-breadcrumb-item + .oc-breadcrumb-item::before {
+  content: "";
+  inline-size: 1em;
+  block-size: 1em;
+  margin: 0 0.25rem;
+  background: currentColor;
+  color: var(--oc-muted-foreground);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Collapsed middle of a long trail: a "…" button (opens a menu with the hidden levels). */
+.oc-breadcrumb-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.75rem;
+  block-size: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: transparent;
+  color: var(--oc-muted-foreground);
+  font: inherit;
+  cursor: pointer;
+}
+.oc-breadcrumb-ellipsis:hover { background: var(--oc-accent); color: var(--oc-foreground); }
+.oc-breadcrumb-ellipsis:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
 
 /* ===================================================================
    PROGRESS BAR
@@ -3769,17 +3854,44 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-lead { margin: 0 0 1rem; color: var(--oc-muted-foreground); font-size: 1.15rem; line-height: 1.65; max-inline-size: 42rem; text-wrap: pretty; }
 .oc-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 3rem; align-items: center; }
 
-/* Code window: editor frame with traffic lights and a file name (always dark, like an editor) */
+/* Code window: editor frame with traffic lights and a file name. It follows the page theme: a light frame and light
+   syntax colors in light mode, the Omnia Dark editor colors in dark mode. --dark keeps it dark on a light page (the
+   hero blocks, where it reads as an editor screenshot). */
 .oc-code-window {
   position: relative;
   border: 1px solid var(--oc-border-strong);
   border-radius: var(--oc-radius-lg);
-  background: oklch(from var(--color-shallowblue-60) l c h / 0.9);
+  background: light-dark(var(--oc-card), oklch(from var(--color-shallowblue-60) l c h / 0.9));
   box-shadow: 0 40px 80px -30px oklch(from var(--color-black-50) l c h / 0.6);
   backdrop-filter: blur(12px);
   overflow: hidden;
-  color-scheme: dark;
+  /* Syntax colors (oc-code-syntax.css) for both themes; the code sits on the window surface. */
+  --oc-syntax-bg: transparent;
+  --oc-syntax-bg-preview: transparent;
+  --oc-syntax-fg: light-dark(var(--color-shallowblue-60), var(--color-silver-60));
+  --oc-syntax-comment: light-dark(var(--color-gray-60), var(--color-purple-2));
+  --oc-syntax-string: light-dark(var(--color-green-80), var(--color-green-2));
+  --oc-syntax-keyword: light-dark(var(--color-purple-70), var(--color-purple-2));
+  --oc-syntax-variable: light-dark(var(--color-skycyan-90), var(--color-skycyan-30));
+  --oc-syntax-function: light-dark(var(--color-skycyan-90), var(--color-skycyan-60));
+  --oc-syntax-number: light-dark(var(--color-peru-80), var(--color-peru-40));
+  --oc-syntax-operator: light-dark(var(--color-red-70), var(--color-red-50));
+  --oc-syntax-constant: light-dark(var(--color-skycyan-90), var(--color-skycyan-70));
+  --oc-syntax-storage: light-dark(var(--color-green-80), var(--color-green-2));
+  --oc-syntax-tag: light-dark(var(--color-brown-70), var(--color-brown-10));
+  --oc-syntax-attr: light-dark(var(--color-skycyan-90), var(--color-skycyan-70));
+  --oc-syntax-prop: light-dark(var(--color-green-80), var(--color-green-2));
+  --oc-syntax-value: light-dark(var(--color-teal-80), var(--color-teal-10));
+  --oc-syntax-cls: light-dark(var(--color-darkgoldenrod-80), var(--color-wheat-70));
+  --oc-syntax-id: light-dark(var(--color-skycyan-90), var(--color-skycyan-70));
+  --oc-syntax-unit: light-dark(var(--color-peru-80), var(--color-peru-40));
+  --oc-syntax-key: light-dark(var(--color-brown-70), var(--color-brown-10));
+  --oc-code-block-line-number-color: light-dark(var(--color-gray-40), oklch(from var(--color-white-2) l c h / 0.25));
 }
+.oc-code-window--dark { color-scheme: dark; box-shadow: 0 40px 80px -30px oklch(from var(--color-black-50) l c h / 0.6); }
+.oc-code-window:not(.oc-code-window--dark) { box-shadow: 0 24px 60px -30px oklch(from var(--color-black-50) l c h / 0.25); }
+/* The code block inside follows the window instead of its own always-dark theme. */
+.oc-code-window :is(.oc-code-block, pre.code-preview) { color-scheme: inherit; }
 .oc-code-window__bar { display: flex; align-items: center; gap: 0.45rem; padding: 0.8rem 1rem; border-block-end: 1px solid var(--oc-border); }
 .oc-code-window__bar > i { inline-size: 0.7rem; aspect-ratio: 1; border-radius: 50%; background: var(--color-red-50); }
 .oc-code-window__bar > i:nth-child(2) { background: var(--color-orange-60); }
@@ -4437,7 +4549,21 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-slider:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px oklch(from var(--oc-ring) l c h / 0.28); }
 .oc-slider:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px oklch(from var(--oc-ring) l c h / 0.28); }
 .oc-slider:disabled { opacity: 0.5; cursor: not-allowed; }
-.oc-slider--vertical { writing-mode: vertical-lr; direction: rtl; inline-size: var(--oc-slider-thumb); block-size: 10rem; }
+/* In a vertical writing mode the inline axis is vertical: inline-size is the height of the slider. */
+.oc-slider--vertical { writing-mode: vertical-lr; direction: rtl; inline-size: 10rem; block-size: var(--oc-slider-thumb); }
+/* Scale under a stepped slider: one mark per step (or per labelled value), centered under the thumb positions.
+   The padding keeps the first and last mark under the thumb center at min and max. */
+.oc-slider-scale {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: calc(var(--oc-slider-thumb, 1.125rem) / 2);
+  margin-block-start: 0.25rem;
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--oc-muted-foreground);
+}
+.oc-slider-scale > * { display: flex; flex-direction: column; align-items: center; gap: 0.125rem; inline-size: 0; }
+.oc-slider-scale > *::before { content: ""; inline-size: 1px; block-size: 0.375rem; background: var(--oc-border); }
 .oc-slider--vertical::-webkit-slider-runnable-track {
   background: linear-gradient(to top, var(--oc-primary) var(--oc-slider-progress), var(--oc-muted) var(--oc-slider-progress));
 }
@@ -5664,9 +5790,104 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 }
 @media (prefers-reduced-motion: reduce) { .oc-cookie-consent { transition: none; } }
 
+/* parts/app-data-table-rich.css */
+/* File: packages/ui/src/parts/app-data-table-rich.css | Map: control height -> header (sort, columns) -> type tabs -> filter row -> name, truncate and count cells -> card fields */
+/* The OmniaDesk relations list on top of app-data-table.css: tabs that filter a column, filter selects with an icon,
+   rich cells and the label/value lines of the card view. Behaviour: data-oc-col-filter in src/data-table.js. */
+
+/* Every control is 2rem high: search, filter selects, trash pills, icon buttons, rows per page and the pager. */
+.oc-data-table :is(.oc-data-table-toolbar, .oc-data-table-filters, .oc-data-table-footer) :is(.oc-input, .oc-select) { block-size: 2rem; padding-block: 0; font-size: 0.8125rem; }
+.oc-data-table .oc-data-table-page { min-block-size: 2rem; }
+.oc-data-table :is(.oc-data-table-toolbar, .oc-data-table-filters, thead) .oc-btn--icon { --oc-btn-square: 2rem; }
+.oc-data-table-toolbar .oc-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  block-size: 2rem;
+  padding-inline: 0.625rem;
+  border-radius: calc(var(--oc-radius) - 2px);
+}
+
+/* Header: the sort mark only on the sorted column (and on hover); the actions header holds the column button. */
+.oc-data-table th:not([aria-sort]) .oc-table-sort::after { content: none; }
+.oc-data-table th:not([aria-sort]):hover .oc-table-sort::after { content: "\2195"; }
+.oc-data-table th[data-oc-col="actions"] .oc-data-table-th { justify-content: flex-end; gap: 0.5rem; font-weight: 500; color: var(--oc-muted-foreground); }
+.oc-data-table td[data-oc-col="actions"] { text-align: end; }
+/* Row actions per status: data-oc-when="active" (edit, view) only on live rows, data-oc-when="deleted" (restore,
+   delete permanently) only on rows in the trash. */
+.oc-data-table tr[data-oc-status="deleted"] [data-oc-when="active"],
+.oc-data-table tr:not([data-oc-status="deleted"]) [data-oc-when="deleted"] { display: none; }
+/* The column chooser in the actions header: a large plain icon (1.75rem), no button frame. */
+.oc-data-table-columns-btn { font-size: 1.75rem; }
+.oc-data-table-columns-btn > :is(svg, iconify-icon) { font-size: 1em; inline-size: 1em; block-size: 1em; }
+
+/* Tabs above the toolbar (All / Customers / Companies …): icon, label and a count; they filter one column. */
+.oc-data-table-tabs { display: flex; inline-size: 100%; overflow-x: auto; scrollbar-width: none; }
+.oc-data-table-tabs .oc-tab-trigger { flex-shrink: 0; }
+.oc-data-table-tabs .oc-tab-trigger { display: inline-flex; align-items: center; gap: 0.4rem; }
+.oc-data-table-tabs .oc-tab-trigger :is(svg, iconify-icon) { font-size: 1.1em; inline-size: 1.1em; block-size: 1.1em; }
+.oc-data-table-tabs .oc-tab-trigger[aria-selected="true"] { color: var(--oc-primary); border-bottom-color: var(--oc-primary); }
+.oc-data-table-tab-count {
+  min-inline-size: 1.25rem;
+  padding: 0 0.375rem;
+  font-size: 0.6875rem;
+  line-height: 1.125rem;
+  text-align: center;
+  color: var(--oc-muted-foreground);
+  background: var(--oc-muted);
+  border-radius: 999px;
+}
+.oc-data-table-tabs [aria-selected="true"] .oc-data-table-tab-count { color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.12); }
+/* A count in the color of its type (the same tone as the type badge in the table). */
+.oc-data-table-tab-count:is(.oc-data-table-tab-count--success, .oc-data-table-tab-count--info, .oc-data-table-tab-count--warning) {
+  color: var(--oc-tab-tone);
+  background: oklch(from var(--oc-tab-tone) l c h / 0.12);
+  box-shadow: inset 0 0 0 1px oklch(from var(--oc-tab-tone) l c h / 0.35);
+}
+.oc-data-table-tab-count--success { --oc-tab-tone: var(--oc-success); }
+.oc-data-table-tab-count--info { --oc-tab-tone: var(--oc-info, light-dark(var(--color-deepskyblue-70), var(--color-skyblue-50))); }
+.oc-data-table-tab-count--warning { --oc-tab-tone: var(--oc-warning); }
+
+/* Filter row: selects with a leading icon (status, type …) and the column button on the right. */
+.oc-data-table-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.oc-data-table-filters[hidden] { display: none; }
+.oc-data-table-filters > :last-child:is(.oc-btn) { margin-inline-start: auto; }
+.oc-data-table-filter { position: relative; display: inline-flex; align-items: center; }
+.oc-data-table-filter > :is(svg, iconify-icon) {
+  position: absolute;
+  inset-inline-start: 0.625rem;
+  font-size: 1rem;
+  inline-size: 1rem;
+  block-size: 1rem;
+  color: var(--oc-muted-foreground);
+  pointer-events: none;
+}
+.oc-data-table-filter > .oc-select { inline-size: auto; min-inline-size: 11rem; padding-inline-start: 2.125rem; }
+
+/* Cells. Name: avatar, name with a badge, and a muted second line (VAT number, e-mail …). */
+.oc-data-table-name { display: flex; align-items: center; gap: 0.625rem; min-inline-size: 0; }
+.oc-data-table-name .oc-avatar { inline-size: 2.25rem; block-size: 2.25rem; font-size: 0.75rem; }
+.oc-data-table-name-text { display: grid; min-inline-size: 0; }
+.oc-data-table-name-line { display: flex; align-items: center; gap: 0.375rem; font-weight: 600; }
+.oc-data-table-name-sub { font-size: 0.75rem; color: var(--oc-muted-foreground); }
+/* One line with an ellipsis; put the full text in title="". */
+.oc-data-table-truncate { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-inline-size: var(--oc-data-table-truncate, 18rem); }
+/* A count that opens the related list (projects, invoices …); muted while it is 0. */
+.oc-data-table-count { font-variant-numeric: tabular-nums; }
+.oc-data-table-count[data-count="0"] { color: var(--oc-muted-foreground); opacity: 0.75; }
+.oc-data-table-sort-summary { flex-basis: 100%; margin: 0; font-size: 0.75rem; color: var(--oc-muted-foreground); }
+.oc-data-table-sort-summary:empty { display: none; }
+.oc-data-table-file { display: none; }
+
+/* The other visible columns as label / value lines, and the row actions at the bottom. */
+.oc-data-table-card-fields { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.25rem 0.75rem; margin: 0; font-size: 0.8125rem; }
+.oc-data-table-card-fields dt { color: var(--oc-muted-foreground); }
+.oc-data-table-card-fields dd { margin: 0; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oc-data-table-card-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.375rem; margin-block-start: auto; }
+
 /* parts/app-data-table.css */
 /* File: packages/ui/src/parts/app-data-table.css | Map: shell -> toolbar -> frame and scroll -> header resize -> select and actions columns -> deleted row -> bulk bar -> card view -> footer and pager -> compact density */
-/* List table from Korrekt and OmniaDesk. The frame, toolbar and footer are styling.
+/* List table from Korrekt and OmniaDesk. The frame, toolbar and footer are styling. Tabs, filter row, rich cells and
+   card fields: app-data-table-rich.css.
    Behaviour (search, sort, pages, resize, drag, trash, bulk) lives in src/data-table.js.
    Set --oc-data-table-max on the shell when the body should scroll and the header should stick. */
 
@@ -5679,13 +5900,16 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   background: var(--oc-card);
   border: 1px solid var(--oc-border);
   border-radius: var(--oc-radius);
+  /* Full width, and in a grid or flex parent the table scrolls inside the frame instead of stretching the card. */
+  inline-size: 100%;
+  min-inline-size: 0;
 }
 
-/* Toolbar: title + gear, search, trash pills, table/cards toggle, page actions. */
+/* Toolbar: title + gear/filter button, search (takes the free width), trash pills, table/cards toggle, page actions. */
 .oc-data-table-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 .oc-data-table-heading { display: flex; align-items: center; gap: 0.5rem; min-inline-size: 0; }
 .oc-data-table-title { font-size: 0.875rem; font-weight: 600; }
-.oc-data-table-search { flex: 1 1 12rem; min-inline-size: 10rem; max-inline-size: 22rem; }
+.oc-data-table-search { flex: 1 1 10rem; min-inline-size: 9rem; }
 .oc-data-table-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-inline-start: auto; }
 .oc-data-table-view { display: inline-flex; gap: 0.25rem; }
 .oc-data-table-view [aria-pressed="true"] {
@@ -5693,29 +5917,41 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   background: oklch(from var(--oc-primary) l c h / 0.1);
   border-color: oklch(from var(--oc-primary) l c h / 0.35);
 }
-.oc-data-table-sort-summary { flex-basis: 100%; margin: 0; font-size: 0.75rem; color: var(--oc-muted-foreground); }
-.oc-data-table-sort-summary:empty { display: none; }
-.oc-data-table-file { display: none; }
+/* In the toolbar the trash pills read as one switch: the chosen one is filled. */
+.oc-data-table-toolbar .oc-filter-pills { border-inline-start: 0; padding-inline-start: 0; }
+.oc-data-table-toolbar .oc-filter-pill[aria-current="true"] {
+  color: var(--oc-primary-foreground);
+  background: var(--oc-primary);
+  border-color: var(--oc-primary);
+}
 
 /* The table sits in its own rounded frame. The scroll box keeps the header sticky. */
 .oc-data-table-frame {
+  min-inline-size: 0;
   overflow: hidden;
-  background: var(--oc-background);
+  background: var(--oc-card);
   border: 1px solid var(--oc-border);
   border-radius: calc(var(--oc-radius) - 2px);
 }
 .oc-data-table-scroll { overflow: auto; max-block-size: var(--oc-data-table-max, none); }
 .oc-data-table .oc-table :is(th, td) { border-inline: 0; border-block-start: 0; }
+/* Columns size to their content and cells stay on one line: a narrow screen scrolls the frame sideways instead of
+   squeezing names and phone numbers onto two lines. .oc-data-table-wrap on a cell lets long text wrap again. */
+.oc-data-table .oc-data-table-table { table-layout: auto; }
+.oc-data-table .oc-data-table-table :is(th, td) { white-space: nowrap; vertical-align: middle; padding-inline: 0.625rem; }
+.oc-data-table .oc-data-table-table td.oc-data-table-wrap { white-space: normal; }
 .oc-data-table .oc-table thead th {
   position: sticky;
   inset-block-start: 0;
   z-index: 1;
-  block-size: 2.5rem;
-  font-size: 0.75rem;
-  font-weight: 500;
+  block-size: 2.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--oc-foreground);
   background: var(--oc-card);
 }
-.oc-data-table .oc-table tbody tr:nth-child(even) { background: var(--oc-surface); }
+/* Plain rows with a divider (as in OmniaDesk); the row under the pointer is tinted. */
+.oc-data-table .oc-table tbody tr:hover { background: var(--oc-surface); }
 .oc-data-table .oc-table tbody tr:last-child > td { border-block-end: 0; }
 
 /* Header label and the drag handle that sets the column width. */
@@ -5737,8 +5973,9 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   inset-block: 0.4rem;
   inset-inline-start: 0.25rem;
   inline-size: 1px;
-  background: var(--oc-border);
+  background: transparent;
 }
+.oc-data-table th:hover .oc-data-table-resize::after { background: var(--oc-border); }
 .oc-data-table.is-resizing { cursor: col-resize; user-select: none; }
 /* After a resize the table grows with its columns and the frame scrolls sideways. */
 .oc-data-table-table--sized { inline-size: max-content; min-inline-size: 100%; }
@@ -5757,8 +5994,9 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   background: var(--oc-card);
   box-shadow: -1px 0 0 var(--oc-border);
 }
-.oc-data-table .oc-table thead th[data-oc-col="actions"] { z-index: 3; }
-.oc-data-table .oc-table tbody tr:nth-child(even) > td[data-oc-col="actions"] { background: var(--oc-surface); }
+.oc-data-table .oc-table thead th[data-oc-col="actions"] { z-index: 3; background: var(--oc-card); }
+/* The row tint can be translucent: lay it over the card color so the cells scrolling underneath never show through. */
+.oc-data-table .oc-table tbody tr:hover > td[data-oc-col="actions"] { background: linear-gradient(var(--oc-surface), var(--oc-surface)), var(--oc-card); }
 
 /* Trash and archive rows stay readable but quieter than active rows. */
 .oc-data-table tr[data-oc-status="deleted"],
@@ -5787,13 +6025,16 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   padding: 0.75rem;
 }
 .oc-data-table-card {
-  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.875rem;
   background: var(--oc-card);
   border: 1px solid var(--oc-border);
   border-radius: calc(var(--oc-radius) - 2px);
 }
 .oc-data-table-card-title { margin: 0; font-size: 0.875rem; font-weight: 600; }
-
+.oc-data-table-card-title .oc-data-table-name-sub { font-weight: 400; }
 .oc-data-table-empty { margin: 0; padding: 2rem 1rem; text-align: center; color: var(--oc-muted-foreground); }
 .oc-data-table-empty[hidden] { display: none; }
 
@@ -5970,6 +6211,73 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 
 @media (prefers-reduced-motion: reduce) {
   .oc-list-toolbar-view { transition: none; }
+}
+
+/* parts/app-name-card.css */
+/* File: packages/ui/src/parts/app-name-card.css | Map: card (details) -> head (chevron, name, rename, amount, actions) -> rename input -> body -> nested cards */
+/* Name card from Korrekt (AppNaamKaart, AppTitel, AppOnderdeel): a collapsible card for one part of a quote or plan,
+   with its name, a rename pencil, an optional amount and a delete button. Native <details>: it opens without script;
+   packages/ui/src/name-card.js adds the rename (pencil -> input, Enter saves, Escape cancels). */
+
+.oc-name-card {
+  background: var(--oc-card);
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+}
+.oc-name-card + .oc-name-card { margin-block-start: 0.5rem; }
+.oc-name-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-block-size: 2.75rem;
+  padding: 0.375rem 0.5rem 0.375rem 0.75rem;
+  list-style: none;
+  cursor: pointer;
+}
+.oc-name-card__head::-webkit-details-marker { display: none; }
+.oc-name-card__head::before {
+  content: "";
+  flex-shrink: 0;
+  inline-size: 1rem;
+  block-size: 1rem;
+  background: var(--oc-muted-foreground);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: rotate var(--oc-transition-fast);
+}
+.oc-name-card[open] > .oc-name-card__head::before { rotate: 90deg; }
+.oc-name-card__head:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; border-radius: var(--oc-radius); }
+.oc-name-card__title { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.oc-name-card__meta { font-size: 0.75rem; color: var(--oc-muted-foreground); white-space: nowrap; }
+.oc-name-card__head .oc-btn { flex-shrink: 0; }
+/* Amount and actions sit on the right; the amount is tabular so a column of cards lines up. */
+.oc-name-card__amount { margin-inline-start: auto; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.oc-name-card__actions { display: inline-flex; flex-shrink: 0; gap: 0.25rem; margin-inline-start: auto; }
+.oc-name-card__amount + .oc-name-card__actions { margin-inline-start: 0.5rem; }
+
+/* Rename: the title becomes an input of the same size (hidden toggles between the two). */
+.oc-name-card__input {
+  flex: 1;
+  min-inline-size: 0;
+  block-size: 2rem;
+  padding: 0 0.5rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--oc-foreground);
+  background: var(--oc-background);
+  border: 1px solid var(--oc-ring);
+  border-radius: calc(var(--oc-radius) - 2px);
+}
+.oc-name-card__input[hidden],
+.oc-name-card__title[hidden] { display: none; }
+
+.oc-name-card__body { padding: 0.75rem 0.75rem 0.875rem 2.25rem; border-block-start: 1px solid var(--oc-border); }
+/* Nested cards (the parts of a title) use a quieter surface; --total colors the amount of the main card. */
+.oc-name-card__body > .oc-name-card { background: var(--oc-surface); }
+.oc-name-card--total > .oc-name-card__head .oc-name-card__amount { color: var(--oc-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-name-card__head::before { transition: none; }
 }
 
 /* parts/app-page-header.css */
@@ -7060,6 +7368,48 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   .oc-chart-line__dot, .oc-chart-line__tip { transition: none; }
 }
 
+/* parts/data-meter-row.css */
+/* File: packages/ui/src/parts/data-meter-row.css | Map: row grid -> label and value -> bar and fill -> levels -> reset line -> list */
+/* Usage meter row (TokenTally meterRow): a label, the usage as text, a bar and when it resets. The fill comes from
+   --oc-meter (0–100%); data-level="warn" or "critical" changes the color. */
+
+.oc-meter-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.375rem 0.75rem;
+}
+.oc-meter-row__label { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.875rem; font-weight: 600; }
+.oc-meter-row__value { font-size: 0.8125rem; font-variant-numeric: tabular-nums; color: var(--oc-muted-foreground); white-space: nowrap; }
+.oc-meter-row__value strong { color: var(--oc-foreground); }
+.oc-meter-row__bar {
+  grid-column: 1 / -1;
+  block-size: 0.5rem;
+  overflow: hidden;
+  background: var(--oc-muted);
+  border-radius: 999px;
+}
+.oc-meter-row__bar::before {
+  content: "";
+  display: block;
+  inline-size: clamp(0%, var(--oc-meter, 0%), 100%);
+  block-size: 100%;
+  background: var(--oc-meter-color, var(--oc-success));
+  border-radius: inherit;
+  transition: inline-size 0.4s ease;
+}
+.oc-meter-row[data-level="warn"] { --oc-meter-color: var(--oc-warning); }
+.oc-meter-row[data-level="critical"] { --oc-meter-color: var(--oc-destructive); }
+.oc-meter-row[data-level="critical"] .oc-meter-row__value strong { color: var(--oc-destructive); }
+.oc-meter-row__reset { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--oc-muted-foreground); }
+.oc-meter-list { display: grid; gap: 1rem; }
+.oc-meter-list--compact { gap: 0.625rem; }
+.oc-meter-list--compact .oc-meter-row__bar { block-size: 0.375rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-meter-row__bar::before { transition: none; }
+}
+
 /* parts/forms-affix-input.css */
 /* File: packages/ui/src/parts/forms-affix-input.css
    Map: --affix group (frame on the wrapper) -> inner input -> inline affix (€, %, @) -> states -> --end alignment
@@ -7136,6 +7486,48 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   cursor: not-allowed;
 }
 .oc-input-group--affix:has(.oc-input:disabled) .oc-input { opacity: 1; }
+
+/* parts/forms-avatar-picker.css */
+/* File: packages/ui/src/parts/forms-avatar-picker.css | Map: picker -> preview (initials or image) -> file input -> text and buttons -> drop state -> square and logo */
+/* Logo or avatar picker (OmniaDesk ContactLogoPicker): a preview, "Upload" and "Remove", a hint, and dropping a file
+   on the preview. The file input is a real <input type="file">; packages/ui/src/avatar-picker.js shows the preview. */
+
+.oc-avatar-picker { display: flex; align-items: center; gap: 1rem; }
+.oc-avatar-picker__preview {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: var(--oc-avatar-picker-size, 4.5rem);
+  block-size: var(--oc-avatar-picker-size, 4.5rem);
+  overflow: hidden;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--oc-muted-foreground);
+  background: var(--oc-muted);
+  border: 1px dashed var(--oc-border-strong, var(--oc-border));
+  border-radius: 50%;
+  cursor: pointer;
+}
+.oc-avatar-picker--square .oc-avatar-picker__preview { border-radius: var(--oc-radius); }
+.oc-avatar-picker__preview img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.oc-avatar-picker--logo .oc-avatar-picker__preview img { object-fit: contain; padding: 0.375rem; background: var(--color-white-50); }
+.oc-avatar-picker__preview:has(img) { border-style: solid; }
+.oc-avatar-picker__preview:hover,
+.oc-avatar-picker.is-dragover .oc-avatar-picker__preview {
+  color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.08);
+  border-color: var(--oc-primary);
+}
+.oc-avatar-picker__preview:has(:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+.oc-avatar-picker__file { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.oc-avatar-picker__text { display: grid; gap: 0.375rem; min-inline-size: 0; }
+.oc-avatar-picker__label { font-size: 0.875rem; font-weight: 600; }
+.oc-avatar-picker__hint { font-size: 0.75rem; color: var(--oc-muted-foreground); }
+.oc-avatar-picker__actions { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+/* "Remove" only while there is an image. */
+.oc-avatar-picker:not(:has(.oc-avatar-picker__preview img)) [data-oc-avatar-remove] { display: none; }
 
 /* parts/forms-barcode-input.css */
 /* File: packages/ui/src/parts/forms-barcode-input.css
@@ -7406,6 +7798,61 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 /* Small swatches. */
 .oc-color-select--sm .oc-color-select-swatch { inline-size: 1.25rem; block-size: 1.25rem; }
 
+/* parts/forms-date-field.css */
+/* File: packages/ui/src/parts/forms-date-field.css | Map: field frame -> icon zone -> native date input -> ISO week label -> sizes and states */
+/* Date field from Korrekt (AppDatumSelector): calendar icon | line | date, with the ISO week at the end when wanted.
+   The date is a native <input type="date"> (keyboard, picker and locale from the browser). The week label is filled
+   by packages/ui/src/date-field.js (or by your own code). */
+
+.oc-date-field {
+  display: inline-flex;
+  align-items: stretch;
+  block-size: 2.5rem;
+  background: var(--oc-background);
+  border: 1px solid var(--oc-input, var(--oc-border));
+  border-radius: var(--oc-radius);
+  overflow: hidden;
+}
+.oc-date-field:focus-within { border-color: var(--oc-ring); box-shadow: 0 0 0 3px oklch(from var(--oc-ring) l c h / 0.18); }
+.oc-date-field__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.5rem;
+  font-size: 1.125rem;
+  color: var(--oc-muted-foreground);
+  border-inline-end: 1px solid var(--oc-border);
+}
+.oc-date-field__input {
+  min-inline-size: 0;
+  padding: 0 0.75rem;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--oc-foreground);
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+.oc-date-field__input::-webkit-calendar-picker-indicator { opacity: 0.55; cursor: pointer; }
+/* ISO week: a quiet label at the end ("Week 45"); hidden while there is no date. */
+.oc-date-field__week {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.08);
+  border-inline-start: 1px solid var(--oc-border);
+  white-space: nowrap;
+}
+.oc-date-field__week:empty { display: none; }
+.oc-date-field--sm { block-size: 2rem; }
+.oc-date-field--sm .oc-date-field__icon { inline-size: 2rem; font-size: 1rem; }
+.oc-date-field:has(.oc-date-field__input:disabled) { opacity: 0.55; }
+.oc-date-field:has(.oc-date-field__input[aria-invalid="true"]) { border-color: var(--oc-destructive); }
+
 /* parts/forms-decimal-input.css */
 /* File: packages/ui/src/parts/forms-decimal-input.css
    Map: field (right-aligned tabular digits) -> unit suffix wrapper -> states -> --start alignment
@@ -7458,6 +7905,21 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 
 /* Disabled wrapper. */
 .oc-decimal-field:has(.oc-decimal-input:disabled) { opacity: 0.5; cursor: not-allowed; }
+
+/* parts/forms-density.css */
+/* File: packages/ui/src/parts/forms-density.css | Map: compact scope -> inputs, selects, date fields, textareas -> buttons -> field gaps */
+/* Form density (OmniaDesk form-control-density): .oc-density-compact on a form or any wrapper makes its controls
+   2rem high instead of 2.5rem, for dense editors (invoice templates, inline tables). The default needs no class. */
+
+.oc-density-compact :is(.oc-input, .oc-select, .oc-date-field) { block-size: 2rem; font-size: 0.8125rem; }
+.oc-density-compact :is(.oc-input, .oc-select) { padding-block: 0; }
+.oc-density-compact .oc-textarea { padding-block: 0.375rem; font-size: 0.8125rem; }
+.oc-density-compact .oc-date-field__icon { inline-size: 2rem; font-size: 1rem; }
+.oc-density-compact .oc-date-field__input { font-size: 0.8125rem; }
+.oc-density-compact .oc-btn:not(.oc-btn--icon, .oc-btn--plain, .oc-btn--inline) { padding-block: 0.3125rem; font-size: 0.8125rem; }
+.oc-density-compact .oc-btn--icon { --oc-btn-square: 2rem; }
+.oc-density-compact .oc-field { gap: 0.25rem; }
+.oc-density-compact .oc-field-label { font-size: 0.75rem; }
 
 /* parts/forms-filter-counts.css */
 /* File: packages/ui/src/parts/forms-filter-counts.css
@@ -7554,6 +8016,72 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 .oc-filter-counts--compact .oc-filter-counts-value { font-size: 0.8rem; }
 .oc-filter-counts--compact .oc-filter-counts-label { font-size: 0.8rem; font-weight: 500; }
 .oc-filter-counts--compact .oc-filter-counts-hint { display: none; }
+
+/* parts/forms-form-section.css */
+/* File: packages/ui/src/parts/forms-form-section.css | Map: section (details) -> summary (icon, title, hint, status, chevron) -> body grid -> invalid state */
+/* Collapsible form section (OmniaDesk AppCollapsibleFormSection): a long form in named parts that open and close.
+   Native <details>; sections with the same name="" keep one open at a time. */
+
+.oc-form-section {
+  background: var(--oc-card);
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+}
+.oc-form-section + .oc-form-section { margin-block-start: 0.75rem; }
+.oc-form-section__summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  padding: 0.875rem 1rem;
+  list-style: none;
+  cursor: pointer;
+}
+.oc-form-section__summary::-webkit-details-marker { display: none; }
+.oc-form-section__summary:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; border-radius: var(--oc-radius); }
+.oc-form-section__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  font-size: 1.25rem;
+  color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.1);
+  border-radius: calc(var(--oc-radius) - 2px);
+}
+.oc-form-section__heading { display: grid; gap: 0.125rem; min-inline-size: 0; }
+.oc-form-section__title { margin: 0; font-size: 0.9375rem; font-weight: 600; }
+.oc-form-section__hint { margin: 0; font-size: 0.8125rem; color: var(--oc-muted-foreground); }
+.oc-form-section__status { font-size: 0.75rem; white-space: nowrap; }
+.oc-form-section__summary::after {
+  content: "";
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  background: var(--oc-muted-foreground);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: rotate var(--oc-transition-fast);
+}
+.oc-form-section[open] > .oc-form-section__summary::after { rotate: 180deg; }
+.oc-form-section__body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  border-block-start: 1px solid var(--oc-border);
+}
+.oc-form-section__body > .oc-form-section__wide { grid-column: 1 / -1; }
+/* A section with an invalid field gets a red edge, also while closed, so an error is never hidden. */
+.oc-form-section:has(:user-invalid, [aria-invalid="true"]) { border-color: var(--oc-destructive); }
+.oc-form-section:has(:user-invalid, [aria-invalid="true"]) .oc-form-section__icon {
+  color: var(--oc-destructive);
+  background: oklch(from var(--oc-destructive) l c h / 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-form-section__summary::after { transition: none; }
+}
 
 /* parts/forms-language-select.css */
 /* File: packages/ui/src/parts/forms-language-select.css
@@ -8221,6 +8749,31 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 @media (prefers-reduced-motion: reduce) {
   .oc-attachment, .oc-attachment--uploading::after { transition: none; }
 }
+
+/* parts/media-barcode.css */
+/* File: packages/ui/src/parts/media-barcode.css | Map: barcode figure -> svg bars -> digits -> sizes (hero, compact) -> error */
+/* Barcode display (OmniaDesk AppBarcodeDisplay): EAN-13, EAN-8, UPC-A or Code 128, drawn as SVG by
+   packages/ui/src/barcode.js from data-value. Always black bars on white, in both themes, so scanners read it. */
+
+.oc-barcode {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  color: var(--color-black-50);
+  background: var(--color-white-50);
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+}
+.oc-barcode svg { display: block; inline-size: auto; block-size: var(--oc-barcode-height, 4rem); max-inline-size: 100%; }
+.oc-barcode__digits { font-family: var(--oc-font-mono); font-size: 0.8125rem; letter-spacing: 0.18em; color: inherit; }
+.oc-barcode--hero { padding: 1.25rem 1.5rem; --oc-barcode-height: 6rem; }
+.oc-barcode--hero .oc-barcode__digits { font-size: 1rem; }
+.oc-barcode--compact { padding: 0.375rem 0.5rem; --oc-barcode-height: 2.25rem; }
+.oc-barcode--compact .oc-barcode__digits { font-size: 0.6875rem; letter-spacing: 0.1em; }
+.oc-barcode[data-error] .oc-barcode__digits { color: var(--color-red-70); letter-spacing: 0; }
 
 /* parts/media-browser-frame.css */
 /* File: packages/ui/src/parts/media-browser-frame.css | Map: frame -> chrome bar (dots, address pill, actions)

@@ -601,7 +601,10 @@
   border-block-end: 1px solid var(--oc-border);
 }
 
-.oc-block-appbar-nav { flex: 1; min-inline-size: 0; overflow-x: auto; }
+.oc-block-appbar-nav { flex: 1; min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
+/* One line: in a narrow header the module links scroll sideways instead of wrapping onto a second row. */
+.oc-block-appbar-nav .oc-navmenu { flex-wrap: nowrap; }
+.oc-block-appbar-nav .oc-navmenu-link { white-space: nowrap; }
 
 .oc-block-appbar-actions { display: flex; align-items: center; gap: 0.5rem; margin-inline-start: auto; }
 

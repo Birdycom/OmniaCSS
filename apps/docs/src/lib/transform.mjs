@@ -401,7 +401,7 @@ export function transform(content, route = "") {
   if (route.startsWith("docs/") && pageFooter(body)) {
     // A page with a proper footer must not also carry an older duplicate "Source" section.
     for (const sec of body.querySelectorAll("section.oc-docs-section")) {
-      if (/^source/i.test(sec.querySelector(".oc-section-header__title")?.textContent.trim() || "") && !sec.querySelector(".oc-section-footer")) sec.remove();
+      if (/^source\b/i.test(sec.querySelector(".oc-section-header__title")?.textContent.trim() || "") && !sec.querySelector(".oc-section-footer")) sec.remove();
     }
   }
   if (route.startsWith("docs/") && !pageFooter(body)) {
