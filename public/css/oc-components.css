@@ -9789,12 +9789,13 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
    Liquid glass in the style of recent desktop and phone systems, in CSS only: the backdrop is blurred and brightened,
    the edge catches light. Put it over a photo or colourful content; on a plain page it looks like a soft card. */
 
+.oc-glass.oc-glass--liquid,
 .oc-glass--liquid,
 .oc-glass-bar,
 .oc-site-header--glass .oc-site-header__inner {
-  --oc-liquid-tint: light-dark(oklch(100% 0 0deg / 0.14), oklch(100% 0 0deg / 0.06));
+  --oc-liquid-tint: light-dark(oklch(100% 0 0deg / 0.1), oklch(100% 0 0deg / 0.05));
   --oc-liquid-edge: light-dark(oklch(100% 0 0deg / 0.55), oklch(100% 0 0deg / 0.22));
-  --oc-liquid-blur: 7px;
+  --oc-liquid-blur: 5px;
   position: relative;
   isolation: isolate;
   background: var(--oc-liquid-tint);
@@ -9880,6 +9881,68 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 }
 @media (prefers-reduced-motion: reduce) {
   .oc-glass-bar__item { transition: none; }
+}
+
+/* parts/media-glass-options.css */
+/* File: packages/ui/src/parts/media-glass-options.css
+   Map: amount (--clear: more see-through, --frost: more frosted) -> lens (the backdrop bends and shifts colour through
+   the glass, Chromium) -> light content on a colourful backdrop -> stage (moving colour blobs to show it off)
+   Extras for .oc-glass, .oc-glass--liquid and .oc-glass-bar (media-glass.css, media-glass-liquid.css). The selectors
+   carry two classes so they win over the base glass whatever order the parts load in. */
+
+/* Amount of glass: --clear lets more of the backdrop through, --frost hides more of it. */
+:is(.oc-glass, .oc-glass-bar).oc-glass--clear {
+  --oc-glass-sheet: light-dark(oklch(from var(--oc-background) l c h / 0.32), oklch(from var(--oc-background) l c h / 0.26));
+  --oc-glass-blur: 10px;
+  --oc-liquid-tint: light-dark(oklch(100% 0 0deg / 0.05), oklch(100% 0 0deg / 0.03));
+  --oc-liquid-blur: 2px;
+}
+:is(.oc-glass, .oc-glass-bar).oc-glass--frost {
+  --oc-glass-sheet: light-dark(oklch(from var(--oc-background) l c h / 0.86), oklch(from var(--oc-background) l c h / 0.8));
+  --oc-glass-blur: 40px;
+  --oc-liquid-tint: light-dark(oklch(100% 0 0deg / 0.38), oklch(100% 0 0deg / 0.12));
+  --oc-liquid-blur: 18px;
+}
+
+/* Lens: what is behind the glass bends like through water and shifts in colour, as on the newest phone and desktop
+   systems. It needs the filter <svg class="oc-glass-defs"> with #oc-glass-lens once on the page. Chromium (Chrome,
+   Edge, Opera, Electron) draws it; Safari and Firefox keep the plain glass, which looks right on its own. */
+@supports (backdrop-filter: url("#oc-glass-lens")) and (not (font: -apple-system-body)) and (not (-moz-appearance: none)) {
+  :is(.oc-glass, .oc-glass-bar).oc-glass--lens {
+    backdrop-filter: url("#oc-glass-lens") blur(var(--oc-liquid-blur, 3px)) saturate(1.9) brightness(1.08);
+  }
+}
+.oc-glass-defs { position: absolute; inline-size: 0; block-size: 0; overflow: hidden; pointer-events: none; }
+
+/* Light content: white icons and labels for glass over a dark or very colourful backdrop. */
+.oc-glass-bar.oc-glass-bar--light .oc-glass-bar__item {
+  color: oklch(100% 0 0deg / 0.92);
+  text-shadow: 0 1px 2px oklch(0% 0 0deg / 0.25);
+}
+.oc-glass-bar.oc-glass-bar--light .oc-glass-bar__item:is([aria-current="page"], [aria-pressed="true"], :has(> input:checked)) {
+  color: var(--color-white-50);
+  background: oklch(100% 0 0deg / 0.2);
+}
+.oc-glass-bar.oc-glass-bar--light .oc-glass-bar__item:hover { background: oklch(100% 0 0deg / 0.12); }
+
+/* Stage: round colour shapes that drift slowly, so the change through the glass shows. A background for a hero or a demo. */
+.oc-glass-stage {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 22% 72%, var(--color-magenta-50) 0 16%, transparent 16.5%),
+    radial-gradient(circle at 82% 68%, var(--color-orange-50) 0 18%, transparent 18.5%),
+    radial-gradient(circle at 58% 18%, var(--color-skycyan-50) 0 13%, transparent 13.5%),
+    radial-gradient(60% 70% at 30% 30%, var(--color-magenta-60), transparent 70%),
+    linear-gradient(120deg, var(--color-purple-60), var(--color-violet-80));
+  background-size: 140% 140%;
+  animation: oc-glass-stage 18s ease-in-out infinite alternate;
+}
+@keyframes oc-glass-stage {
+  to { background-position: 100% 60%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-glass-stage { animation: none; }
 }
 
 /* parts/media-glass.css */
@@ -10023,6 +10086,47 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 /* Smooth resize only when motion is welcome. */
 @media (prefers-reduced-motion: no-preference) {
   .oc-image-zoom__canvas { transition: inline-size var(--oc-transition-normal); }
+}
+
+/* parts/media-lazy.css */
+/* File: packages/ui/src/parts/media-lazy.css | Map: box (aspect ratio, shimmer placeholder or a tiny blurred preview) -> image fades in -> error -> lazy sections
+   Lazy loading. .oc-lazy: an image box that keeps its place, shows a shimmer (or --oc-lazy-preview, a tiny blurred
+   copy) until the photo is there and then fades it in (lazy.js adds .is-loaded). .oc-lazy-section: content the browser
+   only lays out and draws when it comes near the screen (content-visibility). */
+
+.oc-lazy {
+  --oc-lazy-ratio: 16 / 10;
+  position: relative;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: var(--oc-lazy-ratio);
+  border-radius: var(--oc-radius);
+  background:
+    linear-gradient(100deg, transparent 30%, oklch(from var(--oc-background) l c h / 0.55) 50%, transparent 70%) -150% 0 / 60% 100% no-repeat,
+    var(--oc-muted);
+  animation: oc-lazy-shimmer 1.4s ease-in-out infinite;
+}
+/* A tiny blurred preview instead of the shimmer: style="--oc-lazy-preview: url(photo-20px.webp)". */
+.oc-lazy[style*="--oc-lazy-preview"] { animation: none; background: var(--oc-muted); }
+.oc-lazy[style*="--oc-lazy-preview"]::before { content: ""; position: absolute; inset: 0; background: var(--oc-lazy-preview) center / cover no-repeat; filter: blur(14px); scale: 1.15; }
+.oc-lazy > img { position: relative; display: block; inline-size: 100%; block-size: 100%; object-fit: cover; opacity: 0; transition: opacity 0.45s ease; }
+.oc-lazy.is-loaded { animation: none; background: none; }
+.oc-lazy.is-loaded::before { display: none; }
+.oc-lazy.is-loaded > img { opacity: 1; }
+.oc-lazy.is-error { animation: none; }
+.oc-lazy.is-error > img { opacity: 0; }
+.oc-lazy > figcaption { position: absolute; inset: auto 0 0; padding: 0.4rem 0.6rem; font-size: 0.75rem; color: var(--color-white-50); background: linear-gradient(transparent, oklch(0% 0 0deg / 0.55)); }
+/* Without the script (or when it is off) the photo shows as soon as it is there. */
+@media (scripting: none) { .oc-lazy > img { opacity: 1; } }
+@keyframes oc-lazy-shimmer { to { background-position: 250% 0, 0 0; } }
+
+/* Sections far down a long page: laid out and drawn only when they come near the screen. */
+.oc-lazy-section { content-visibility: auto; contain-intrinsic-size: auto var(--oc-lazy-size, 600px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-lazy { animation: none; }
+  .oc-lazy > img { transition: none; }
 }
 
 /* parts/media-lightbox.css */
