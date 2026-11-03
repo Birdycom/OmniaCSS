@@ -13,7 +13,9 @@
    =================================================================== */
 
 :root {
-  --oc-block-max-width: 1200px;
+  /* A block is a section with its own gutter: its content lines up with .oc-container (--oc-container, 1152px without it,
+     so 1200px in all). A site that sets --oc-container and --oc-block-gap gets blocks as wide as its containers. */
+  --oc-block-max-width: calc(var(--oc-container, 1152px) + 2 * var(--oc-block-gap));
   --oc-block-gap: 24px;
   --oc-block-radius: 16px;
   --oc-block-surface: var(--oc-card);
@@ -472,6 +474,20 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* --glow: a panel with two soft lights (brand 1 top start, brand 3 bottom end), a larger title and a narrow text. */
+.oc-block-cta--glow {
+  padding: clamp(2.5rem, 6vw, 4.5rem);
+  border-color: var(--oc-border-strong);
+  border-radius: calc(var(--oc-radius-lg, 1.25rem) * 1.6);
+  background:
+    radial-gradient(40rem circle at 0% 0%, oklch(from var(--oc-brand-1) l c h / 0.18), transparent 55%),
+    radial-gradient(40rem circle at 100% 100%, oklch(from var(--oc-brand-3) l c h / 0.2), transparent 55%),
+    var(--oc-card);
+}
+.oc-block-cta--glow h2 { margin-block-end: 1rem; font-size: clamp(1.8rem, 4vw, 2.75rem); line-height: 1.15; }
+.oc-block-cta--glow p { max-width: 36rem; color: var(--oc-muted-foreground); }
+.oc-block-cta--glow .oc-block-hero-actions { justify-content: center; }
 
 /* ===================================================================
    STATS BLOCK
@@ -1222,6 +1238,58 @@
 }
 .oc-block-about-copy .oc-timeline { margin-block-start: 1.75rem; }
 
+/* parts/site-contact-form.css */
+/* File: packages/blocks/src/parts/site-contact-form.css
+   Map: section -> layout (form panel | card column) -> panel title + intro -> cards (tile, title, lines) -> narrow
+   Contact form block: the form in a panel with a glow (.oc-panel--glow + .oc-form--filled) next to a column of contact
+   cards (.oc-block-contact-card from the contact-grid block). Script: contact-form.js (optional). */
+
+.oc-block-contact-form {
+  max-inline-size: var(--oc-block-max-width, 1200px);
+  margin-inline: auto;
+  padding: clamp(2rem, 5vw, 4rem) var(--oc-block-gap, 24px);
+  container-type: inline-size;
+}
+
+/* Form 1.6 : cards 1. --oc-contact-form-cols sets another split. */
+.oc-block-contact-form-layout {
+  display: grid;
+  grid-template-columns: var(--oc-contact-form-cols, 1.6fr 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.oc-block-contact-form-title {
+  margin: 0 0 0.6rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.oc-block-contact-form-intro {
+  margin: 0 0 1.5rem;
+  color: var(--oc-muted-foreground);
+}
+.oc-block-contact-form .oc-alert { margin: 0 0 1.25rem; }
+
+.oc-block-contact-form-cards {
+  display: grid;
+  gap: 1.25rem;
+}
+.oc-block-contact-form-cards .oc-block-contact-card > .oc-icon-tile { margin-block-end: 0.75rem; }
+/* Lines stay muted; a link turns to the foreground color on hover. */
+.oc-block-contact-form-cards a.oc-block-contact-line {
+  color: var(--oc-muted-foreground);
+  font-weight: 400;
+}
+.oc-block-contact-form-cards a.oc-block-contact-line:hover { color: var(--oc-foreground); }
+
+/* When the block is narrower than 52rem (about a 960px screen) the cards move under the form, side by side as far as
+   they fit. A container query, so it also works in a sidebar layout or a narrow column. */
+@container (max-width: 52rem) {
+  .oc-block-contact-form-layout { grid-template-columns: 1fr; }
+  .oc-block-contact-form-cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+}
+
 /* parts/site-contact-grid.css */
 /* File: packages/blocks/src/parts/site-contact-grid.css
    Map: section -> head -> card grid -> card (mark, title, lines) -> plain variant
@@ -1398,6 +1466,36 @@ a.oc-block-contact-line:hover { color: var(--oc-brand-1); }
 @media (prefers-reduced-motion: reduce) {
   .oc-block-orbit-ring,
   .oc-block-orbit-mark > * { animation: none; }
+}
+
+/* --float: the marks float on fixed places around the window instead of turning on a ring (up to 8 marks); the window
+   gets a see-through card background and the marks lie above it. No marks on a phone. */
+.oc-block-orbit-visual--float {
+  aspect-ratio: auto;
+  max-inline-size: none;
+  padding: 3rem 1.5rem;
+}
+.oc-block-orbit-visual--float .oc-block-orbit-ring { inset: 0; z-index: 2; border: 0; animation: none; pointer-events: none; }
+.oc-block-orbit-visual--float .oc-block-orbit-ring::before { content: none; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark { transform: none; translate: none; animation: oc-orbit-float 6s ease-in-out infinite; pointer-events: auto; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark > * { animation: none; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark:nth-child(1) { inset: 0 auto auto 8%; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark:nth-child(2) { inset: 4% 6% auto auto; animation-delay: -1s; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark:nth-child(3) { inset: 42% -1% auto auto; animation-delay: -2s; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark:nth-child(4) { inset: auto 14% 2% auto; animation-delay: -3s; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark:nth-child(5) { inset: auto auto 0 38%; animation-delay: -4s; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark:nth-child(6) { inset: auto auto 10% 0; animation-delay: -5s; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark:nth-child(7) { inset: 38% auto auto -3%; animation-delay: -1.5s; }
+.oc-block-orbit-visual--float .oc-block-orbit-mark:nth-child(8) { inset: -2% auto auto 46%; animation-delay: -2.5s; }
+.oc-block-orbit-visual--float .oc-block-orbit-center { inline-size: 100%; }
+.oc-block-orbit-visual--float .oc-block-orbit-center.oc-code-window { background: oklch(from var(--oc-card) l c h / 0.85); }
+@keyframes oc-orbit-float { 50% { translate: 0 -12px; } }
+@media (max-width: 560px) {
+  .oc-block-orbit-visual--float { padding: 0; }
+  .oc-block-orbit-visual--float .oc-block-orbit-ring { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-block-orbit-visual--float .oc-block-orbit-mark { animation: none; }
 }
 
 /* parts/site-portfolio-grid.css */

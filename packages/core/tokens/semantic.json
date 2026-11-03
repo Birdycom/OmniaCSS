@@ -9,6 +9,7 @@
     "foreground": { "group": "Core surfaces", "value": { "light": "duskblue-60", "dark": "frostblue-10" }, "use": "body text" },
     "muted": { "group": "Core surfaces", "value": { "light": "frostblue-60", "dark": "shallowblue-50" }, "use": "table headers, tabs, scrollbars" },
     "muted-foreground": { "group": "Core surfaces", "value": { "light": "stormblue-40", "dark": "mistblue-70" }, "use": "secondary text, status lines" },
+    "subtle-foreground": { "group": "Core surfaces", "value": { "light": "stormblue-10", "dark": "mistblue-95" }, "use": "third text level: taglines, meta lines, the bottom bar of a footer" },
     "card": { "group": "Core surfaces", "value": { "light": "white-50", "dark": "shallowblue-70" }, "use": "cards, tables, inputs, buttons" },
     "popover": { "group": "Core surfaces", "value": { "light": "white-50", "dark": "shallowblue-60" }, "use": "menus, popovers, tooltips" },
     "popover-foreground": { "group": "Core surfaces", "value": "@foreground" },
@@ -66,6 +67,12 @@
       "windows": "Consolas",
       "macos": "Menlo",
       "linux": "DejaVu Sans Mono"
+    },
+    "display": {
+      "css": "system-ui, -apple-system, \"Segoe UI\", Roboto, Cantarell, \"Helvetica Neue\", sans-serif",
+      "windows": "Segoe UI Variable Display",
+      "macos": ".AppleSystemUIFont",
+      "linux": "Cantarell"
     }
   },
   "transition": {

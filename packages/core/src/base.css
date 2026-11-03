@@ -1,0 +1,74 @@
+/* File: packages/core/src/base.css (@birdycom/omniacss/base.css) */
+/* Map: page (scroll, body type) -> media -> links -> headings -> text + lists -> focus -> selection -> reduced motion */
+/* Opt-in element base for a site built only from tokens: @import "@birdycom/omniacss/base.css"; after OmniaCSS.
+   The rules sit in @layer omnia (after the reset), so they beat the reset, while every class (OmniaUI components,
+   utilities) still beats them. Everything comes from tokens a theme sets:
+   --oc-body-size (1rem), --oc-body-leading (1.6), --oc-font-display (headings), --oc-heading-leading (1.1),
+   --oc-heading-tracking (-0.025em), --oc-heading-weight (700), --oc-scroll-offset (5rem, room under a sticky header),
+   --oc-selection (brand 2 at 45 %). */
+
+@layer omnia {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--oc-scroll-offset, 5rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--oc-background);
+    color: var(--oc-foreground);
+    font-family: var(--oc-font-sans);
+    font-size: var(--oc-body-size, 1rem);
+    line-height: var(--oc-body-leading, 1.6);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    font-family: var(--oc-font-display, var(--oc-font-sans));
+    font-weight: var(--oc-heading-weight, 700);
+    line-height: var(--oc-heading-leading, 1.1);
+    letter-spacing: var(--oc-heading-tracking, -0.025em);
+  }
+
+  p {
+    margin: 0 0 1rem;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--oc-ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: var(--oc-selection, oklch(from var(--oc-brand-2) l c h / 0.45));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

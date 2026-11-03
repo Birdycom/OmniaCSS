@@ -67,6 +67,8 @@ async function loadConfig(flags) {
     // "auto" (default): include the OmniaUI CSS when installed, skip silently when not.
     components: flags["no-components"] ? false : config.components ?? "auto",
     blocks: config.blocks ?? false,
+    // The opt-in element base (@birdycom/omniacss/base.css) inside the output, after the reset.
+    base: config.base ?? false,
     // OmniaUI Pro (licensed): included when installed, like the components.
     pro: config.pro ?? "auto",
     layer: flags["no-layer"] ? false : config.layer ?? "omnia",
@@ -107,6 +109,24 @@ Using Vite / PostCSS instead? Add the plugin and put "@omnia;" in your CSS:
 }
 
 /**
+ * The element base without its own @layer omnia wrapper: the build wraps everything in that layer, and a nested
+ * omnia layer would lose to the reset.
+ */
+async function baseCss() {
+  const css = await fs.readFile(path.join(pkgDir("@birdycom/omniacss"), "src", "base.css"), "utf8");
+  const start = css.indexOf("@layer omnia {");
+  if (start < 0) return css;
+  const open = css.indexOf("{", start);
+  let depth = 0;
+  let end = open;
+  for (let i = open; i < css.length; i++) {
+    if (css[i] === "{") depth++;
+    else if (css[i] === "}" && --depth === 0) { end = i; break; }
+  }
+  return css.slice(open + 1, end) + css.slice(end + 1);
+}
+
+/**
  * Extra CSS from OmniaUI (optional): components and blocks, only when the packages are installed.
  * The utilities they use are kept by the engine like any other CSS in the input.
  */
@@ -137,6 +157,12 @@ async function cmdBuild(flags) {
     const { candidates, files } = await engine.collectCandidates(config.content, cwd);
     let full = await engine.loadFullCss({ dist: path.join(pkgDir("@birdycom/omniacss"), "dist") });
     full += await omniauiCss(config);
+    if (config.base) full += "\n" + (await baseCss());
+    // Block classes in the content while blocks are off: the block CSS would be missing without a word.
+    if (!config.blocks) {
+      const used = [...candidates].filter((c) => c.startsWith("oc-block-"));
+      if (used.length) console.log(`omniacss: ${used.length} block classes found (${used.slice(0, 3).join(", ")}${used.length > 3 ? " …" : ""}) but "blocks" is off — add "blocks": true to ${CONFIG}.`);
+    }
     let css = engine.generate(full, candidates, { layer: config.layer, keep: config.keep });
     if (config.minify) {
       const { transform } = await import("lightningcss");

@@ -27,6 +27,11 @@
       "enum": ["auto", true, false],
       "default": false
     },
+    "base": {
+      "description": "Include the opt-in element base (@birdycom/omniacss/base.css: body, headings, lists, focus, selection from tokens) after the reset.",
+      "type": "boolean",
+      "default": false
+    },
     "pro": {
       "description": "Include the OmniaUI Pro CSS (@birdycom/omniaui-pro, licensed). \"auto\": only when installed.",
       "enum": ["auto", true, false],
