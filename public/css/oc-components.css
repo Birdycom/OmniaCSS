@@ -14,6 +14,7 @@
   --oc-foreground: light-dark(var(--color-duskblue-60), var(--color-frostblue-10));
   --oc-muted: light-dark(var(--color-frostblue-60), var(--color-shallowblue-50));
   --oc-muted-foreground: light-dark(var(--color-stormblue-40), var(--color-mistblue-70));
+  --oc-subtle-foreground: light-dark(var(--color-stormblue-10), var(--color-mistblue-95));
   --oc-card: light-dark(var(--color-white-50), var(--color-shallowblue-70));
   --oc-popover: light-dark(var(--color-white-50), var(--color-shallowblue-60));
   --oc-popover-foreground: var(--oc-foreground);
@@ -58,6 +59,7 @@
   --oc-transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --oc-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Cantarell, "Helvetica Neue", sans-serif;
   --oc-font-mono: "Cascadia Code", "JetBrains Mono", Consolas, ui-monospace, monospace;
+  --oc-font-display: system-ui, -apple-system, "Segoe UI", Roboto, Cantarell, "Helvetica Neue", sans-serif;
 
   /* Shadows (x y blur spread; color + alpha per mode in --oc-shadow-<name>-color) */
   --oc-shadow-sm-color: light-dark(oklch(from var(--color-stormblue-50) l c h / 0.08), oklch(from var(--color-black-50) l c h / 0.4));
@@ -346,7 +348,8 @@ flex-direction: column;
   justify-content: center;
   gap: 8px;
   font-family: inherit;
-  font-weight: 500;
+  /* --oc-btn-weight: a theme can make every button bolder (600). */
+  font-weight: var(--oc-btn-weight, 500);
   font-size: 0.875rem;
   line-height: 1.25rem;
   padding: 0.5rem 1rem;
@@ -481,8 +484,8 @@ flex-direction: column;
 }
 
 .oc-btn--lg {
-  font-size: 1rem;
-  padding: 0.625rem 1.5rem;
+  font-size: var(--oc-btn-lg-size, 1rem);
+  padding: var(--oc-btn-lg-padding, 0.625rem 1.5rem);
   border-radius: calc(var(--oc-radius) + 2px);
 }
 
@@ -710,8 +713,10 @@ flex-direction: column;
 }
 
 .oc-field-error {
+  margin: 0;
   font-size: 0.8rem;
-  color: var(--oc-destructive);
+  /* In dark mode lifted to at least OKLCH L 0.78, so the message stays readable on a dark card. */
+  color: light-dark(var(--oc-destructive), oklch(from var(--oc-destructive) max(l, 0.78) c h));
 }
 
 /* Field group — wraps multiple fields with consistent spacing */
@@ -724,17 +729,23 @@ flex-direction: column;
   grid-template-columns: 1fr 1fr;
 }
 
-/* Text input */
+/* Narrow screens: the fields of a row stack. */
+@media (max-width: 560px) {
+  .oc-field-group--row { grid-template-columns: 1fr; }
+}
+
+/* Text input. A theme or a form variant (.oc-form--filled) can set the field tokens: --oc-input-bg, --oc-input-border,
+   --oc-input-padding, --oc-input-radius, --oc-input-size, --oc-ring-width and --oc-ring-alpha (focus ring). */
 .oc-input {
   display: block;
   width: 100%;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: var(--oc-input-size, 0.875rem);
   line-height: 1.5;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--oc-input);
-  border-radius: var(--oc-radius);
-  background: transparent;
+  padding: var(--oc-input-padding, 0.5rem 0.75rem);
+  border: 1px solid var(--oc-input-border, var(--oc-input));
+  border-radius: var(--oc-input-radius, var(--oc-radius));
+  background: var(--oc-input-bg, transparent);
   color: var(--oc-foreground);
   transition: border-color var(--oc-transition-fast), box-shadow var(--oc-transition-fast);
   outline: none;
@@ -746,7 +757,7 @@ flex-direction: column;
 
 .oc-input:focus {
   border-color: var(--oc-ring);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--oc-ring) 25%, transparent);
+  box-shadow: 0 0 0 var(--oc-ring-width, 2px) color-mix(in srgb, var(--oc-ring) var(--oc-ring-alpha, 25%), transparent);
 }
 
 .oc-input:disabled {
@@ -762,12 +773,13 @@ flex-direction: column;
 
 .oc-input[aria-invalid="true"]:focus,
 .oc-input--error:focus {
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--oc-destructive) 25%, transparent);
+  box-shadow: 0 0 0 var(--oc-ring-width, 2px) color-mix(in srgb, var(--oc-destructive) var(--oc-ring-alpha, 25%), transparent);
 }
 
 /* Textarea — same base as input */
-textarea.oc-input {
-  min-height: 80px;
+textarea.oc-input,
+.oc-textarea {
+  min-height: var(--oc-textarea-min, 80px);
   resize: vertical;
 }
 
@@ -811,12 +823,13 @@ textarea.oc-input {
   display: block;
   width: 100%;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: var(--oc-input-size, 0.875rem);
   line-height: 1.5;
-  padding: 0.5rem 2rem 0.5rem 0.75rem;
-  border: 1px solid var(--oc-input);
-  border-radius: var(--oc-radius);
-  background: transparent;
+  padding: var(--oc-input-padding, 0.5rem 0.75rem);
+  padding-inline-end: 2rem;
+  border: 1px solid var(--oc-input-border, var(--oc-input));
+  border-radius: var(--oc-input-radius, var(--oc-radius));
+  background-color: var(--oc-input-bg, transparent);
   color: var(--oc-foreground);
   appearance: none;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2371717a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
@@ -830,8 +843,9 @@ textarea.oc-input {
 
 .oc-select:focus {
   border-color: var(--oc-ring);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--oc-ring) 25%, transparent);
+  box-shadow: 0 0 0 var(--oc-ring-width, 2px) color-mix(in srgb, var(--oc-ring) var(--oc-ring-alpha, 25%), transparent);
 }
+.oc-select[aria-invalid="true"] { border-color: var(--oc-destructive); }
 
 /* Select option dark theme — prevents white background in dropdowns */
 .oc-select option {
@@ -1599,7 +1613,7 @@ textarea.oc-input {
   border: none;
   height: 1px;
   background: var(--oc-border);
-  margin: 16px 0;
+  margin: var(--oc-separator-space, 16px) 0;
 }
 
 .oc-separator--vertical {
@@ -3789,7 +3803,8 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   /* border-box: the gradient also runs under the transparent 1px border of .oc-btn; from the padding box it would
      repeat in that border and show a thin stripe of the other end's color on both sides. */
   background: linear-gradient(100deg, var(--oc-accent-from), var(--oc-accent-to)) border-box;
-  color: var(--color-white-50);
+  /* --oc-btn-gradient-ink: dark text on a light accent (set it with the accent). */
+  color: var(--oc-btn-gradient-ink, var(--color-white-50));
   box-shadow: 0 10px 30px -10px var(--oc-accent-to);
   transition: transform 0.2s var(--oc-ease-out), box-shadow 0.2s;
 }
@@ -3816,7 +3831,8 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 
 /* Backdrop: slowly drifting color blobs + fine grid behind the page.
    <div class="oc-backdrop" aria-hidden="true"><i class="oc-backdrop__blob"></i><i class="oc-backdrop__grid"></i></div>
-   .oc-backdrop--local keeps it inside a positioned section instead of the viewport. */
+   .oc-backdrop--local keeps it inside a positioned section instead of the viewport.
+   A theme sets the colors: --oc-backdrop-1, -2, -3 (the blobs), --oc-backdrop-3-opacity and --oc-backdrop-grid (the lines). */
 .oc-backdrop {
   position: fixed;
   inset: 0;
@@ -3837,24 +3853,27 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   opacity: var(--oc-backdrop-opacity, 0.35);
   animation: oc-drift 24s ease-in-out infinite alternate;
 }
-.oc-backdrop::before { background: var(--color-blue-40); inset-block-start: -18rem; inset-inline-start: -12rem; }
-.oc-backdrop::after { background: var(--color-purple-30); inset-block-start: 10rem; inset-inline-end: -16rem; animation-delay: -8s; }
-.oc-backdrop > .oc-backdrop__blob { background: var(--color-teal-40); inset-block-end: -20rem; inset-inline-start: 30%; animation-delay: -16s; opacity: calc(var(--oc-backdrop-opacity, 0.35) * 0.6); }
+.oc-backdrop::before { background: var(--oc-backdrop-1, var(--color-blue-40)); inset-block-start: -18rem; inset-inline-start: -12rem; }
+.oc-backdrop::after { background: var(--oc-backdrop-2, var(--color-purple-30)); inset-block-start: 10rem; inset-inline-end: -16rem; animation-delay: -8s; }
+.oc-backdrop > .oc-backdrop__blob { background: var(--oc-backdrop-3, var(--color-teal-40)); inset-block-end: -20rem; inset-inline-start: 30%; animation-delay: -16s; opacity: var(--oc-backdrop-3-opacity, calc(var(--oc-backdrop-opacity, 0.35) * 0.6)); }
 .oc-backdrop > .oc-backdrop__grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(oklch(from var(--oc-foreground) l c h / 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(from var(--oc-foreground) l c h / 0.05) 1px, transparent 1px);
+    linear-gradient(var(--oc-backdrop-grid, oklch(from var(--oc-foreground) l c h / 0.05)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--oc-backdrop-grid, oklch(from var(--oc-foreground) l c h / 0.05)) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 70%);
 }
 @keyframes oc-drift { to { transform: translate(6rem, 4rem) scale(1.15); } }
 
 /* Container, section spacing and display headings */
-.oc-container { inline-size: min(100% - 2.5rem, var(--oc-container, 1200px)); margin-inline: auto; }
+/* --oc-container is the width, --oc-container-gutter the room on each side on a narrower screen (1.25rem). */
+.oc-container { inline-size: min(100% - 2 * var(--oc-container-gutter, 1.25rem), var(--oc-container, 1200px)); margin-inline: auto; }
 .oc-section-pad { padding-block: clamp(4rem, 9vw, 7rem); }
 .oc-section-pad--tight { padding-block: clamp(2rem, 5vw, 3.5rem); }
+/* The hero of a home page: a little less room on top and below than a section. */
+.oc-section-pad--hero { padding-block: clamp(3.5rem, 9vw, 7rem) clamp(3rem, 6vw, 5rem); }
 .oc-display {
   margin: 0 0 1.5rem;
   font-size: clamp(2.6rem, 5.6vw, 4.6rem);
@@ -3864,8 +3883,28 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   text-wrap: balance;
 }
 .oc-display--md { font-size: clamp(1.9rem, 4vw, 3rem); }
+.oc-display--sm { font-size: clamp(1.5rem, 3vw, 2.1rem); }
 .oc-lead { margin: 0 0 1rem; color: var(--oc-muted-foreground); font-size: 1.15rem; line-height: 1.65; max-inline-size: 42rem; text-wrap: pretty; }
-.oc-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 3rem; align-items: center; }
+/* Larger and narrower, for a home hero. */
+.oc-lead--lg { font-size: 1.2rem; max-inline-size: 36rem; }
+.oc-split { display: grid; grid-template-columns: var(--oc-split-cols, repeat(auto-fit, minmax(min(100%, 24rem), 1fr))); gap: var(--oc-split-gap, 3rem); align-items: center; }
+/* Ratio presets (one column up to 960px): --lead makes the text column wider, --media the image column.
+   Your own ratio: set --oc-split-cols in a class (and to 1fr in a media query for small screens). */
+.oc-split--lead { --oc-split-cols: 1.25fr 1fr; }
+.oc-split--media { --oc-split-cols: 1fr 1.15fr; }
+.oc-split__media { display: grid; place-items: center; }
+/* Columns aligned at the top (a fact list next to a long text). */
+.oc-split--top { align-items: start; }
+/* --oc-split-cols-wide: your own ratio that only applies above 960px, so the split still stacks on a phone. */
+@media (min-width: 961px) {
+  .oc-split { grid-template-columns: var(--oc-split-cols-wide, var(--oc-split-cols, repeat(auto-fit, minmax(min(100%, 24rem), 1fr)))); }
+}
+@media (max-width: 960px) {
+  .oc-split--lead, .oc-split--media { --oc-split-cols: 1fr; }
+  /* The image (a product mark, a screenshot) comes first on a small screen, aligned at the start, and an xl tile shrinks. */
+  .oc-split__media { order: -1; justify-items: start; }
+  .oc-split__media .oc-icon-tile--xl { --oc-tile-size: 7rem; }
+}
 
 /* Code window: editor frame with traffic lights and a file name. It follows the page theme: a light frame and light
    syntax colors in light mode, the Omnia Dark editor colors in dark mode. --dark keeps it dark on a light page (the
@@ -3953,7 +3992,12 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 @keyframes oc-float { 50% { translate: 0 -12px; } }
 
 /* Product / feature card with hover lift and accent glow */
-.oc-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--oc-card-min, 17rem)), 1fr)); gap: 1.25rem; }
+.oc-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--oc-card-min, 17rem)), 1fr)); gap: var(--oc-card-gap, 1.25rem); }
+/* Wide cards (projects, case studies): from 32rem, three in a row on a wide screen. */
+.oc-card-grid--wide { --oc-card-min: 32rem; --oc-card-gap: 1.5rem; }
+/* --fit: the cards stretch over the full width when there are fewer than fit in a row (auto-fit instead of auto-fill). */
+.oc-card-grid--fit { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--oc-card-min, 17rem)), 1fr)); }
+@media (min-width: 1280px) { .oc-card-grid--wide { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .oc-product-card {
   position: relative;
   display: flex;
@@ -3967,7 +4011,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
     var(--oc-surface);
   color: var(--oc-foreground);
   text-decoration: none;
-  transition: transform 0.35s var(--oc-ease-out), border-color 0.35s, --oc-glow 0.35s;
+  transition: translate 0.35s var(--oc-ease-out), border-color 0.35s, --oc-glow 0.35s;
 }
 @property --oc-glow {
   syntax: "<number>";
@@ -3976,7 +4020,8 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 }
 .oc-product-card:hover {
   --oc-glow: 0.22;
-  transform: translateY(-6px);
+  /* The lift uses translate; a fly-in (.oc-reveal--fly) animates the transform, so both keep working. */
+  translate: 0 calc(-1 * var(--oc-hover-lift, 6px));
   border-color: oklch(from var(--oc-accent-from) l c h / 0.55);
 }
 .oc-product-card__top { display: flex; justify-content: space-between; align-items: flex-start; margin-block-end: 0.75rem; }
@@ -4032,9 +4077,17 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 }
 .oc-stat-strip__item { padding: 2rem 1.5rem; border-inline-start: 1px solid var(--oc-border); }
 .oc-stat-strip__item:first-child { border-inline-start: 0; }
-.oc-stat-strip__value { font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; }
+.oc-stat-strip__value { font-family: var(--oc-font-display, inherit); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; }
 .oc-stat-strip__suffix { color: var(--oc-brand-1); }
 .oc-stat-strip__label { display: block; color: var(--oc-muted-foreground); font-size: 0.92rem; }
+/* Plain: no lines and no background of its own, for a strip inside an .oc-band (full width) or a card. */
+.oc-stat-strip--plain { border-block: 0; background: none; }
+/* Four figures on a narrower screen: two rows of two instead of three and one. */
+@media (max-width: 960px) {
+  .oc-stat-strip:has(> .oc-stat-strip__item:nth-child(4):last-child) { grid-template-columns: 1fr 1fr; }
+  .oc-stat-strip:has(> .oc-stat-strip__item:nth-child(4):last-child) > .oc-stat-strip__item:nth-child(3) { border-inline-start: 0; }
+  .oc-stat-strip:has(> .oc-stat-strip__item:nth-child(4):last-child) > .oc-stat-strip__item:nth-child(n + 3) { border-block-start: 1px solid var(--oc-border); }
+}
 
 /* Spotlight: large highlighted panel with copy + module list */
 .oc-spotlight {
@@ -4052,8 +4105,12 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 }
 .oc-spotlight__title { display: flex; align-items: center; gap: 1rem; margin: 1.25rem 0 0.5rem; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; }
 .oc-spotlight__tagline { color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h)); font-size: 1.2rem; font-weight: 600; }
+/* --oc-spotlight-cols: your own ratio above 960px (copy | modules); on a smaller screen the spotlight stacks. */
+@media (min-width: 961px) {
+  .oc-spotlight { grid-template-columns: var(--oc-spotlight-cols, repeat(auto-fit, minmax(min(100%, 22rem), 1fr))); }
+}
 .oc-spotlight__modules { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
-.oc-spotlight__modules > li { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem; border: 1px solid var(--oc-border); border-radius: var(--oc-radius-md); background: var(--oc-surface); font-size: 0.95rem; }
+.oc-spotlight__modules > li { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem; border: 1px solid var(--oc-border); border-radius: var(--oc-radius-md); background: var(--oc-spotlight-module-bg, var(--oc-surface)); font-size: 0.95rem; }
 
 /* Steps: numbered process with a gradient tick (numbers come from a CSS counter) */
 .oc-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1.25rem; margin: 0; padding: 0; list-style: none; counter-reset: oc-step; }
@@ -4086,6 +4143,9 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 /* Tag list (tech stack) and check list */
 .oc-tag-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
 .oc-tag-list > li { padding: 0.55rem 1.1rem; border: 1px solid oklch(from var(--oc-accent-from) l c h / 0.35); border-radius: 999px; background: oklch(from var(--oc-accent-from) l c h / 0.1); font-family: var(--oc-font-mono); font-size: 0.88rem; }
+/* Neutral chips (no accent color) and large chips in the display font, e.g. a strip of brand names. */
+.oc-tag-list--neutral > li { border-color: var(--oc-border); background: var(--oc-surface); color: var(--oc-foreground); }
+.oc-tag-list--lg > li { padding: 0.45rem 1rem; font-family: var(--oc-font-display, inherit); font-size: 1rem; font-weight: 700; letter-spacing: 0.02em; }
 .oc-check-list { display: grid; gap: 0.5rem; margin: 1.1rem 0 0; padding: 0; list-style: none; font-size: 0.93rem; }
 .oc-check-list > li { display: flex; gap: 0.5rem; align-items: baseline; }
 .oc-check-list > li::before { content: "✓"; color: var(--oc-brand-1); font-weight: 700; }
@@ -4120,6 +4180,8 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-site-header__nav a:not(.oc-btn):hover,
 .oc-site-header__nav a[aria-current="page"] { color: var(--oc-foreground); }
 .oc-site-header__toggle { display: none; padding: 0.5rem 0.7rem; border: 1px solid var(--oc-border); border-radius: var(--oc-radius-md); background: var(--oc-surface); color: var(--oc-foreground); cursor: pointer; }
+/* The icon in the menu button is a block, so the button is as tall as a line of text (no inline gap under it). */
+.oc-site-header__toggle :is(svg, img, iconify-icon, .oc-icon) { display: block; }
 @media (min-width: 861px) {
   /* Desktop: the popover nav is always visible in the header bar. */
   .oc-site-header__nav[popover] { display: flex; }
@@ -4144,6 +4206,8 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
     backdrop-filter: blur(16px);
   }
   .oc-site-header__nav[popover] a:not(.oc-btn) { padding: 0.75rem 0; font-size: 1.1rem; }
+  /* The call to action (.oc-site-header__cta, a button) gets room above it in the open menu. */
+  .oc-site-header__cta { margin-block-start: 0.75rem; }
 }
 
 /* Site footer: brand column + link columns + bottom bar */
@@ -4151,20 +4215,32 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   margin-block-start: 4rem;
   padding-block-start: 4rem;
   border-block-start: 1px solid var(--oc-border);
-  background: linear-gradient(to bottom, transparent, var(--oc-surface-strong));
+  background: var(--oc-footer-bg, linear-gradient(to bottom, transparent, var(--oc-surface-strong)));
   color: var(--oc-muted-foreground);
   font-size: 0.95rem;
+  container-type: inline-size;
 }
-.oc-site-footer__grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 2.5rem; }
+/* Columns: --oc-footer-cols (about + 3 link columns). Footer narrower than 66rem (about a 1060px screen):
+   --oc-footer-cols-md columns (3) with the about column over the full width; narrower than 54rem: two columns.
+   Container queries on the footer, so a footer in a narrow column or a preview follows its own width. */
+.oc-site-footer__grid { display: grid; grid-template-columns: var(--oc-footer-cols, 1.6fr repeat(3, 1fr)); gap: 2.5rem; }
 .oc-site-footer__about p { margin-block: 1rem 0; max-inline-size: 22rem; }
 .oc-site-footer__title { margin: 0 0 1rem; color: var(--oc-foreground); font-size: 0.95rem; font-weight: 700; }
 .oc-site-footer__list { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 0; list-style: none; font-style: normal; }
 .oc-site-footer a { color: inherit; text-decoration: none; }
 .oc-site-footer a:hover { color: var(--oc-foreground); }
-.oc-site-footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-block-start: 3rem; padding-block: 1.5rem; border-block-start: 1px solid var(--oc-border); font-size: 0.85rem; }
-@media (max-width: 860px) {
-  .oc-site-footer__grid { grid-template-columns: 1fr 1fr; }
+.oc-site-footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-block-start: 3rem; padding-block: 1.5rem; border-block-start: 1px solid var(--oc-border); color: var(--oc-footer-bottom-color, inherit); font-size: 0.85rem; }
+/* A second title further down in a column (e.g. "Tools" under the projects). */
+.oc-site-footer__subtitle { margin-block-start: 1.75rem; }
+/* Legal links in the bottom bar (Terms · Privacy · Cookies) and the build number after them. */
+.oc-site-footer__legal { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin: 0; padding: 0; list-style: none; }
+.oc-site-footer__build { opacity: 0.7; font-variant-numeric: tabular-nums; }
+@container (max-width: 66rem) {
+  .oc-site-footer__grid { grid-template-columns: repeat(var(--oc-footer-cols-md, 3), minmax(0, 1fr)); }
   .oc-site-footer__about { grid-column: 1 / -1; }
+}
+@container (max-width: 54rem) {
+  .oc-site-footer__grid { grid-template-columns: 1fr 1fr; }
 }
 
 /* Reveal on scroll: elements slide in when they enter the viewport (scroll-driven, no JS; visible without support) */
@@ -6320,6 +6396,47 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-page-header--sm { padding-block: 0.5rem 0.75rem; }
 .oc-page-header--sm .oc-page-header-title { font-size: 1.125rem; }
 
+/* parts/app-result.css */
+/* File: packages/ui/src/parts/app-result.css */
+/* Map: result -> icon tile -> title -> text -> actions */
+/* The outcome of an action in the place where the form was: "Thank you, your message was sent" with an icon tile, a
+   short text and a button ("Send another message"). Give it role="status" and tabindex="-1" and move the focus to it.
+   --center centers it; the tile takes its color from an .oc-accent--* preset. */
+
+.oc-result {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+}
+.oc-result:focus { outline: none; }
+.oc-result[hidden] { display: none; }
+.oc-result > .oc-icon-tile { margin-block-end: 0.35rem; }
+.oc-result__title {
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.25;
+}
+.oc-result__text {
+  margin: 0;
+  color: var(--oc-muted-foreground);
+}
+.oc-result__text a {
+  color: var(--oc-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.oc-result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block-start: 0.5rem;
+}
+.oc-result--center {
+  justify-items: center;
+  text-align: center;
+}
+.oc-result--center .oc-result__actions { justify-content: center; }
+
 /* parts/app-severity-card.css */
 /* File: packages/ui/src/parts/app-severity-card.css | Map: card (details) -> head (summary) -> icon + title + tags -> level badge + chevron -> body + actions -> severity modifiers -> resolved state -> reduced motion */
 /* Severity card: risk-colored expandable card (security finding, incident, audit item).
@@ -8257,6 +8374,84 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
 
 @media (prefers-reduced-motion: reduce) {
   .oc-form-section__summary::after { transition: none; }
+}
+
+/* parts/forms-form.css */
+/* File: packages/ui/src/parts/forms-form.css */
+/* Map: form grid -> label hint -> actions + note -> busy -> filled variant */
+/* A form as one grid of fields with one gap, an "(optional)" hint in a label, a row with the submit button and a short
+   note, the busy state while it sends (aria-busy on the form), and .oc-form--filled: fields with a fill and a stronger
+   border, for a form on a card, a photo or a dark band. All through the field tokens of .oc-input. */
+
+.oc-form {
+  display: grid;
+  gap: var(--oc-form-gap, 1.1rem);
+}
+.oc-form .oc-field-group { gap: var(--oc-form-gap, 1.1rem); }
+.oc-form .oc-field {
+  gap: 0.4rem;
+  margin-bottom: 0;
+}
+
+/* <label class="oc-field-label">Phone <span class="oc-field-label__hint">(optional)</span></label> */
+.oc-field-label__hint {
+  color: var(--oc-muted-foreground);
+  font-weight: 400;
+}
+
+/* Submit button with a short note next to it (wraps under it on a narrow form). */
+.oc-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-block-start: 0.4rem;
+}
+.oc-form-note {
+  flex: 1 1 16rem;
+  margin: 0;
+  color: var(--oc-muted-foreground);
+  font-size: 0.85rem;
+}
+.oc-form-note a {
+  color: var(--oc-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.oc-form-note a:hover { color: var(--oc-foreground); }
+
+/* While the form sends (form aria-busy="true"): the submit button dims and shows a progress cursor. */
+.oc-form[aria-busy="true"] :is([type="submit"], button:not([type])) {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+/* Filled fields: a fill (dark in dark mode), the strong border, more room and a wider focus ring. */
+.oc-form--filled {
+  --oc-input-bg: light-dark(oklch(from var(--oc-foreground) l c h / 0.03), oklch(0 0 0 / 0.25));
+  --oc-input-border: var(--oc-border-strong);
+  --oc-input-padding: 0.75rem 0.9rem;
+  --oc-input-radius: var(--oc-radius-md, 0.75rem);
+  --oc-input-size: 1rem;
+  --oc-ring-width: 3px;
+  --oc-textarea-min: 9rem;
+}
+.oc-form--filled .oc-field-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.oc-form--filled .oc-field-error { font-size: 0.85rem; }
+.oc-form--filled .oc-select option { background: var(--oc-card); }
+
+/* Honeypot: a field for bots, off screen for people. Not display:none (some bots skip hidden fields). Give the wrapper
+   aria-hidden="true" and the input tabindex="-1" autocomplete="off"; the server ignores a form where it is filled. */
+.oc-honeypot {
+  position: absolute;
+  inset-inline-start: -10000px;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
 }
 
 /* parts/forms-language-select.css */
@@ -10226,6 +10421,10 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 .oc-lightbox__nav { grid-row: 1; justify-self: center; }
 .oc-lightbox__nav--prev { grid-column: 1; }
 .oc-lightbox__nav--next { grid-column: 3; }
+.oc-lightbox__close :is(svg, iconify-icon, .oc-icon) { inline-size: 1.1rem; block-size: 1.1rem; font-size: 1.1rem; }
+/* A <picture> (animated WebP with a still image for "reduce motion") gets the frame; the image fits in it. */
+.oc-lightbox__media > picture { display: grid; overflow: hidden; }
+.oc-lightbox__media > picture > img { max-inline-size: 100%; max-block-size: calc(100dvh - 9rem); object-fit: contain; }
 
 /* ---- Caption with the "2 / 5" counter ---- */
 .oc-lightbox__caption {
@@ -11110,6 +11309,284 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-footerbar--dark :is(a, .oc-footerbar-links a) { color: oklch(from var(--color-white-50) l c h / 0.85); }
 .oc-footerbar--dark .oc-footerbar-links a:hover { color: var(--color-white-50); }
 
+/* parts/site-base.css */
+/* File: packages/ui/src/parts/site-base.css */
+/* Map: skip link -> icon */
+/* Two small site helpers: a skip link for keyboard users (hidden above the page until it gets the focus) and a basic
+   inline icon (svg or iconify-icon) that is as large as the text around it. */
+
+/* <a class="oc-skip-link" href="#main">Skip to content</a> as the first element in <body>. */
+.oc-skip-link {
+  position: absolute;
+  inset-inline-start: 1rem;
+  inset-block-start: 1rem;
+  /* Fully above the edge, whatever its height; drops in on focus. */
+  translate: 0 calc(-100% - 2rem);
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: var(--oc-radius-md, 0.75rem);
+  background: var(--oc-foreground);
+  color: var(--oc-background);
+  font-weight: 600;
+  text-decoration: none;
+  transition: translate var(--oc-transition-fast);
+}
+.oc-skip-link:focus { translate: none; }
+
+/* Inline icon: 1.25em (1.1em in a button), never squeezed in a flex row. */
+.oc-icon {
+  inline-size: 1.25em;
+  block-size: 1.25em;
+  flex-shrink: 0;
+}
+.oc-btn > .oc-icon {
+  inline-size: 1.1em;
+  block-size: 1.1em;
+}
+
+/* parts/site-brand-mark.css */
+/* File: packages/ui/src/parts/site-brand-mark.css */
+/* Map: brand mark (icon + text) -> word (accent part in the brand gradient) -> tagline -> sizes */
+/* A logo built from an icon and text: the mark (svg or img) with a soft glow in the brand color, the word mark with one
+   part in the brand gradient, and a small tagline under it. Sizes --sm and --lg (a footer, a hero or a map). */
+
+.oc-brand-mark {
+  --oc-brand-mark-icon: 2.25rem;
+  --oc-brand-mark-word: 1.35rem;
+  --oc-brand-mark-tagline: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--oc-foreground);
+  text-decoration: none;
+}
+.oc-brand-mark__icon {
+  flex: none;
+  inline-size: var(--oc-brand-mark-icon);
+  block-size: var(--oc-brand-mark-icon);
+  filter: drop-shadow(0 6px 14px oklch(from var(--oc-brand-1) l c h / 0.35));
+}
+.oc-brand-mark__text {
+  display: grid;
+  line-height: 1;
+}
+.oc-brand-mark__word {
+  font-family: var(--oc-font-display, inherit);
+  font-size: var(--oc-brand-mark-word);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+.oc-brand-mark__accent {
+  background: linear-gradient(90deg, var(--oc-brand-1), var(--oc-brand-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.oc-brand-mark__tagline {
+  margin-block-start: 0.3rem;
+  color: var(--oc-subtle-foreground, var(--oc-muted-foreground));
+  font-family: var(--oc-font-mono);
+  font-size: var(--oc-brand-mark-tagline);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.oc-brand-mark--sm {
+  --oc-brand-mark-icon: 1.75rem;
+  --oc-brand-mark-word: 1.1rem;
+  --oc-brand-mark-tagline: 0.55rem;
+}
+.oc-brand-mark--lg {
+  --oc-brand-mark-icon: 2.6rem;
+  --oc-brand-mark-word: 1.6rem;
+  --oc-brand-mark-tagline: 0.66rem;
+}
+
+/* parts/site-cards.css */
+/* File: packages/ui/src/parts/site-cards.css */
+/* Map: feature card -> link card -> icon list (+ points) -> accent list + note -> badge row + accent tagline
+   -> screenshot grid -> browser frame glow + mark */
+/* Cards and lists for the pages of a company site: services and features (icon tile + title + text), cards that are
+   links, a list of icon rows in frames (or as points with a title), a list with markers in the accent color, a small
+   note, a row of badges, a tagline in the accent color, a grid of screenshots that open in the lightbox, and a browser
+   frame with a glow in the accent color and a product mark on it. */
+
+/* Feature / service card: tile, title, text; a quiet hover. In an .oc-card-grid (--oc-card-min sets the column width). */
+.oc-feature-card {
+  padding: 1.6rem;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius-lg, 1.25rem);
+  background: var(--oc-surface);
+  transition: border-color 0.3s, background 0.3s;
+}
+.oc-feature-card:hover {
+  border-color: var(--oc-border-strong);
+  background: var(--oc-surface-strong);
+}
+.oc-feature-card > .oc-icon-tile { margin-block-end: 1.1rem; }
+.oc-feature-card__title {
+  margin: 0 0 0.6rem;
+  font-family: var(--oc-font-display, inherit);
+  font-size: 1.2rem;
+  line-height: 1.25;
+}
+.oc-feature-card__text {
+  margin: 0;
+  color: var(--oc-muted-foreground);
+  font-size: 0.95rem;
+}
+
+/* Card that is a link (an agent, a tool, a document): tile, title, text and a "more" line; hover in the accent color. */
+.oc-link-card {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  padding: 1.25rem;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius-lg, 1.25rem);
+  background: var(--oc-surface);
+  color: var(--oc-foreground);
+  text-decoration: none;
+  transition: border-color 0.3s, background 0.3s;
+}
+/* --oc-link-card-hover: the hover color alone (without an accent preset, so the tile keeps its own color). */
+.oc-link-card:hover {
+  border-color: oklch(from var(--oc-link-card-hover, var(--oc-accent-from)) l c h / 0.5);
+  background: var(--oc-surface-strong);
+}
+.oc-link-card:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+.oc-link-card > .oc-icon-tile { margin-block-end: 0.4rem; }
+.oc-link-card__title { font-family: var(--oc-font-display, inherit); font-weight: 700; }
+.oc-link-card__text { color: var(--oc-muted-foreground); font-size: 0.93rem; }
+.oc-link-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-block-start: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.oc-link-card__more::after { content: "→"; transition: translate 0.25s var(--oc-ease-out, ease); }
+.oc-link-card:hover .oc-link-card__more::after { translate: 4px 0; }
+
+/* Icon list: rows with an icon in a frame. --points: an icon tile next to a title and a text, without frames. */
+.oc-icon-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.oc-icon-list > li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius-md, 0.75rem);
+  background: var(--oc-surface);
+}
+.oc-icon-list > li > :is(svg, iconify-icon, .oc-icon) {
+  flex: none;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  font-size: 1.25rem;
+  color: var(--oc-primary);
+}
+.oc-icon-list--points { gap: 1rem; }
+.oc-icon-list--points > li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.25rem 0.9rem;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.oc-icon-list--points > li > .oc-icon-tile { grid-row: span 2; }
+.oc-icon-list__title { font-family: var(--oc-font-display, inherit); font-weight: 700; }
+.oc-icon-list__text { color: var(--oc-muted-foreground); font-size: 0.95rem; }
+
+/* List with markers in the accent color, and a small note under a block. */
+.oc-list--accent {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  list-style: disc;
+  color: var(--oc-muted-foreground);
+  font-size: 0.95rem;
+}
+.oc-list--accent > li::marker { color: var(--oc-accent-from, var(--oc-primary)); }
+.oc-note {
+  margin: 1.25rem 0 0;
+  color: var(--oc-muted-foreground);
+  font-size: 0.85rem;
+}
+.oc-note--md {
+  max-inline-size: 60rem;
+  font-size: 1rem;
+}
+
+/* Row of badges or pills above a title, and a tagline in the accent color (lighter, so it reads on a dark page). */
+.oc-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-end: 1.25rem;
+}
+.oc-tagline--accent {
+  margin: 0 0 1rem;
+  color: light-dark(var(--oc-accent-from), color-mix(in oklch, var(--oc-accent-from) 55%, white));
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 600;
+}
+
+/* Screenshot grid: figures with the whole image visible (contain, 16:10 on the card color) and a caption;
+   a link or a button around the image opens the lightbox
+   (<button command="show-modal" commandfor="<lightbox id>">). A <picture> (animated WebP with a still image) works the same. */
+.oc-shot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--oc-shot-min, 18rem)), 1fr));
+  gap: 1.25rem;
+}
+.oc-shot {
+  margin: 0;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius-lg, 1.25rem);
+  overflow: hidden;
+  background: var(--oc-surface);
+}
+.oc-shot > :is(a, button) { display: block; inline-size: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.oc-shot > :is(a, button):focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
+.oc-shot :is(picture) { display: block; }
+.oc-shot img {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: var(--oc-shot-ratio, 16 / 10);
+  object-fit: contain;
+  background: var(--oc-card);
+}
+.oc-shot > figcaption {
+  padding: 0.8rem 1rem;
+  color: var(--oc-muted-foreground);
+  font-size: 0.88rem;
+}
+
+/* Browser frame with a shadow in the accent color and a product mark on the bottom end corner. */
+.oc-browser-frame--glow {
+  position: relative;
+  box-shadow: 0 40px 90px -40px color-mix(in srgb, var(--oc-accent-from) 70%, transparent);
+}
+.oc-browser-frame--glow :is(.oc-browser-frame__view, .oc-browser-frame__body) img { transition: scale 0.6s var(--oc-ease-out, ease); }
+.oc-browser-frame--glow:hover :is(.oc-browser-frame__view, .oc-browser-frame__body) img { scale: 1.02; }
+.oc-browser-frame__mark {
+  position: absolute;
+  inset-block-end: 1rem;
+  inset-inline-end: 1rem;
+  filter: drop-shadow(0 10px 20px oklch(0 0 0 / 0.6));
+}
+
 /* parts/site-fact-list.css */
 /* File: packages/ui/src/parts/site-fact-list.css
    Map: plain -> compact -> stacked -> accent values -> narrow screens
@@ -11136,6 +11613,48 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 
 /* Very narrow containers: wrap instead of squeezing label and value together. */
 .oc-fact-list > div { flex-wrap: wrap; }
+
+/* parts/site-fly.css */
+/* File: packages/ui/src/parts/site-fly.css */
+/* Map: fly in (only with fly.js) -> visible -> reduced motion -> product card badge -> code window tokens */
+/* Cards that fly in when they scroll into view: they start from the middle of their row (--oc-fly-x, set by fly.js),
+   70px lower, smaller and tilted, and land in their place. Without fly.js (html.oc-fly-ready is missing) or with
+   "reduce motion" everything simply stands in its place. Options: --oc-fly-step (offset per column), --oc-fly-stagger
+   (delay per column) and data-oc-fly-repeat (fly out again when leaving the view). The lift on hover uses translate, so it never fights the
+   transform of the fly-in. Also: a "New" badge in a product card name and short syntax classes for a code window. */
+
+.oc-fly-ready .oc-reveal--fly {
+  /* --oc-fly-delay: set per card by fly.js from --oc-fly-stagger (delay per column). */
+  transition:
+    opacity 0.6s var(--oc-ease-out, ease) var(--oc-fly-delay, 0s),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--oc-fly-delay, 0s),
+    border-color 0.35s;
+}
+.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
+  opacity: 0;
+  transform: perspective(900px) translate3d(var(--oc-fly-x, 0), 70px, 0) scale(0.9) rotateX(14deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-fly-ready .oc-reveal--fly:not(.is-visible) { opacity: 1; transform: none; }
+}
+
+/* "New" after the name of a product card: <h3 class="oc-product-card__name">Product 1 <span class="oc-product-card__badge oc-pill">New</span></h3> */
+.oc-product-card__badge {
+  margin-inline-start: 0.4rem;
+  vertical-align: middle;
+  font-family: var(--oc-font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Short syntax classes for hand-written code in an .oc-code-window: keyword, string, constant, function, muted.
+   They take the colors of the window (--oc-syntax-*), so they follow light and dark mode and a theme can change them. */
+.oc-code-window .oc-tok-k { color: var(--oc-syntax-keyword); }
+.oc-code-window .oc-tok-s { color: var(--oc-syntax-string); }
+.oc-code-window .oc-tok-c { color: var(--oc-syntax-constant); }
+.oc-code-window .oc-tok-f { color: var(--oc-syntax-function); }
+.oc-code-window .oc-tok-m { color: var(--oc-syntax-comment); }
 
 /* parts/site-header-variants.css */
 /* File: packages/ui/src/parts/site-header-variants.css
@@ -11208,6 +11727,77 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-site-footer__signup { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 1.25rem; max-inline-size: 24rem; }
 .oc-site-footer__signup .oc-input { flex: 1 1 12rem; min-inline-size: 0; }
 .oc-site-footer--dark .oc-site-footer__signup .oc-input { color: var(--color-white-50); background: oklch(from var(--color-white-50) l c h / 0.08); border-color: oklch(from var(--color-white-50) l c h / 0.2); }
+
+/* parts/site-layout.css */
+/* File: packages/ui/src/parts/site-layout.css */
+/* Map: page hero -> section head / more -> action row -> group title -> band -> meta line */
+/* Page building blocks for a marketing or company site, on top of the showcase classes (.oc-section-pad, .oc-display):
+   the larger header of an inner page, a section head and a "see more" row, a row of buttons, a group title with a count,
+   a full-width band (for a stat strip) and a meta line (version · date). */
+
+/* Inner page header: more room on top, less below, and a larger display title. */
+.oc-section-pad--page { padding-block: clamp(4rem, 10vw, 7rem) clamp(2rem, 5vw, 3rem); }
+.oc-display--page {
+  margin-block-end: 1.25rem;
+  font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+}
+
+/* Head of a section (eyebrow, title, lead) and the row with a "see all" link under the section. */
+.oc-section-head {
+  max-inline-size: 46rem;
+  margin-block-end: 3rem;
+}
+.oc-section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+.oc-section-more { margin-block-start: 2.5rem; }
+
+/* Row of buttons under a text: wraps on a narrow screen. */
+.oc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block-start: 2rem;
+}
+.oc-actions--center { justify-content: center; }
+.oc-actions--end { justify-content: flex-end; }
+.oc-actions--tight { margin-block-start: 1rem; }
+
+/* Title of a group of cards with the number of items in a pill: <h3 class="oc-group-title">Apps <span class="oc-group-title__count">8</span></h3> */
+.oc-group-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+  font-size: 1.4rem;
+}
+.oc-group-title__count {
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: var(--oc-surface-strong);
+  color: var(--oc-muted-foreground);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Band over the full width of the page with a line above and below; the content stays in its .oc-container.
+   Put a .oc-stat-strip--plain in it for a row of key figures. */
+.oc-band {
+  border-block: 1px solid var(--oc-border);
+  background: var(--oc-band-bg, var(--oc-surface));
+}
+
+/* Meta line under a page title: version · date, author. */
+.oc-meta {
+  margin: 0 0 1rem;
+  color: var(--oc-subtle-foreground, var(--oc-muted-foreground));
+  font-size: 0.9rem;
+}
+
+/* Muted and subtle text from the theme tokens, for running text inside a panel, a spotlight or a split. */
+.oc-text-muted { color: var(--oc-muted-foreground); }
+.oc-text-subtle { color: var(--oc-subtle-foreground, var(--oc-muted-foreground)); }
 
 /* parts/site-link-arrow.css */
 /* File: packages/ui/src/parts/site-link-arrow.css
@@ -11412,6 +12002,37 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   .oc-next-teaser,
   .oc-next-teaser__tagline::after,
   .oc-next-teaser__tagline::before { transition: none; }
+}
+
+/* parts/site-panel.css */
+/* File: packages/ui/src/parts/site-panel.css */
+/* Map: panel -> glow (start / end / both) */
+/* A framed panel on the page (a form, a call to action, a feature with a list): card background, strong border, large
+   radius, and room above it when a link jumps to it (#form). --glow adds a soft radial light in a corner:
+   --oc-panel-glow-color (brand 1) and --oc-panel-glow-at (top left); --glow-end puts it top right, --glow-both adds a
+   second light (brand 3) bottom right. */
+
+.oc-panel {
+  --oc-panel-glow-color: var(--oc-brand-1);
+  --oc-panel-glow-at: 0% 0%;
+  position: relative;
+  padding: var(--oc-panel-padding, clamp(1.5rem, 4vw, 2.5rem));
+  border: 1px solid var(--oc-border-strong);
+  border-radius: calc(var(--oc-radius-lg, 1.25rem) * 1.2);
+  background: var(--oc-card);
+  scroll-margin-top: var(--oc-scroll-offset, 6rem);
+}
+.oc-panel--glow {
+  background:
+    radial-gradient(30rem circle at var(--oc-panel-glow-at), oklch(from var(--oc-panel-glow-color) l c h / 0.12), transparent 60%),
+    var(--oc-card);
+}
+.oc-panel--glow-end { --oc-panel-glow-at: 100% 0%; }
+.oc-panel--glow-both {
+  background:
+    radial-gradient(40rem circle at 0% 0%, oklch(from var(--oc-brand-1) l c h / 0.18), transparent 55%),
+    radial-gradient(40rem circle at 100% 100%, oklch(from var(--oc-brand-3) l c h / 0.2), transparent 55%),
+    var(--oc-card);
 }
 
 /* parts/site-price-card.css */
@@ -11834,6 +12455,18 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   .oc-prose :where(a) { transition: none; }
 }
 
+/* ---- Legal text (terms, privacy, cookies): narrower, muted body text in a slightly larger size, headings and strong
+   in the foreground, disc lists with a gap, links in brand 1. A table in an .oc-table-wrap scrolls on a phone. ---- */
+.oc-prose--legal { max-inline-size: 46rem; color: var(--oc-muted-foreground); font-size: 1.0625rem; }
+.oc-prose--legal :where(h2) { margin-block-start: 2.5rem; font-size: 1.35rem; color: var(--oc-foreground); }
+.oc-prose--legal :where(h3) { margin-block-start: 1.5rem; font-size: 1.05rem; color: var(--oc-foreground); }
+.oc-prose--legal :where(strong, b) { color: var(--oc-foreground); }
+.oc-prose--legal :where(ul) { display: grid; gap: 0.4rem; padding-inline-start: 1.25rem; list-style: disc; }
+.oc-prose--legal :where(ul > li) { margin-block-start: 0; }
+.oc-prose--legal :where(a) { color: var(--oc-brand-1); font-weight: inherit; text-decoration-color: currentColor; text-underline-offset: 3px; }
+.oc-prose--legal :where(a:hover) { color: var(--oc-foreground); }
+.oc-prose--legal :where(table) { font-size: 0.93rem; }
+
 /* parts/site-stack-list.css */
 /* File: packages/ui/src/parts/site-stack-list.css
    Map: list -> pill item -> optional icon -> neutral / small modifiers
@@ -11939,3 +12572,49 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 
 /* Line in the accent color instead of the neutral border. */
 .oc-timeline--accent { border-inline-start-color: color-mix(in oklch, var(--oc-accent-from) 55%, transparent); }
+
+/* parts/utility-hover.css */
+/* File: packages/ui/src/parts/utility-hover.css */
+/* Map: smooth timing -> lift / grow / glow / none -> steady hover area -> reduced motion */
+/* Hover effect of a card, chosen with one class on the card (any card: .oc-card, product, feature, link, price, project …):
+     .oc-hover-lift   moves up (--oc-hover-lift, 6px) with a soft shadow; what a product card does by default
+     .oc-hover-grow   grows a little in place (--oc-hover-scale, 1.02)
+     .oc-hover-glow   stays in place, with a glow in the accent color
+     .oc-hover-none   no movement (also turns off the default lift of a product or price card)
+   They share one smooth curve: --oc-hover-duration (0.45s) and --oc-hover-ease. This file loads after the cards, so the class wins. */
+
+:is(.oc-hover-lift, .oc-hover-grow, .oc-hover-glow, .oc-product-card) {
+  transition:
+    translate var(--oc-hover-duration, 0.45s) var(--oc-hover-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    scale var(--oc-hover-duration, 0.45s) var(--oc-hover-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    box-shadow var(--oc-hover-duration, 0.45s) var(--oc-hover-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    border-color 0.35s,
+    background-color 0.35s,
+    --oc-glow 0.35s;
+}
+.oc-product-card:hover { translate: 0 calc(-1 * var(--oc-hover-lift, 6px)); }
+.oc-hover-lift:hover {
+  translate: 0 calc(-1 * var(--oc-hover-lift, 6px));
+  box-shadow: 0 1.25rem 2.5rem -1.25rem oklch(from var(--color-black-60) l c h / 0.35);
+}
+.oc-hover-grow:hover { translate: none; scale: var(--oc-hover-scale, 1.02); }
+.oc-hover-glow:hover {
+  translate: none;
+  box-shadow:
+    0 0 0 1px oklch(from var(--oc-accent-from, var(--oc-primary)) l c h / 0.4),
+    0 0.75rem 2.5rem -0.75rem oklch(from var(--oc-accent-from, var(--oc-primary)) l c h / 0.5);
+}
+.oc-hover-none:hover { translate: none; scale: none; }
+
+/* While a card moves up, the strip it leaves keeps the hover, so a mouse at the bottom edge does not make it bounce. */
+:where(.oc-hover-lift) { position: relative; }
+:is(.oc-hover-lift, .oc-product-card:not([class*="oc-hover-"])):hover::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 calc(-1 * var(--oc-hover-lift, 6px) - 2px);
+  z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.oc-hover-lift, .oc-hover-grow, .oc-product-card):hover { translate: none; scale: none; }
+}

@@ -32,6 +32,7 @@
     "./starter": "./dist/omnia.starter.min.css",
     "./tokens": "./dist/oc-colors.css",
     "./theme": "./dist/oc-theme.css",
+    "./base.css": "./src/base.css",
     "./tokens/semantic.json": "./tokens/semantic.json",
     "./tokens/export": "./src/tokens.mjs",
     "./engine": "./src/engine.mjs",

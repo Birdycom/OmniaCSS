@@ -87,6 +87,13 @@ npx omniacss init</oc-code>
             <li><strong>Tokens:</strong> the palette colors that the component tokens use (<code>--oc-primary</code> → <code>--color-…</code>) stay in the utilities build.</li>
           </ul>
           <p>The CLI (<code>omniacss build</code>) already includes the installed OmniaUI CSS; <code>--no-components</code> turns that off.</p>
+          <p class="mt-2"><strong>Blocks and the element base in the CLI</strong> <span class="oc-badge-version">v0.13.0</span>: <code>"blocks": true</code> in <code>omnia.config.json</code> adds the OmniaUI blocks (the build warns when your markup uses <code>oc-block-*</code> classes while it is off), and <code>"base": true</code> adds the opt-in element base <code>@birdycom/omniacss/base.css</code> (body, headings, lists, focus and selection from tokens such as <code>--oc-body-size</code> and <code>--oc-font-display</code>) after the reset, in the same layer. With PostCSS: <code>@import "@birdycom/omniacss/base.css";</code>.</p>
+          <oc-code lang="json">// omnia.config.json
+{
+  "content": ["src/views/**/*.php"],
+  "blocks": true,
+  "base": true
+}</oc-code>
         </div>
       </section>
 

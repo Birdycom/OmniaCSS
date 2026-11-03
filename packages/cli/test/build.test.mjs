@@ -39,6 +39,25 @@ test("build writes only the utilities the project uses", async () => {
   assert.doesNotMatch(css, /\.grid-cols-7\b/);
 });
 
+test("build says so when the content uses block classes while blocks are off", async () => {
+  const dir = await project({ "index.html": '<section class="oc-block-contact-form"><div class="oc-block-contact-form-layout"></div></section>' });
+  const out = run(dir, "build", "-o", "out.css");
+  assert.match(out, /2 block classes found \(oc-block-contact-form, oc-block-contact-form-layout\) but "blocks" is off/);
+  const quiet = await project({ "index.html": '<div class="flex"></div>' });
+  assert.doesNotMatch(run(quiet, "build", "-o", "out.css"), /block classes found/);
+});
+
+test('"base": true puts the element base in the output, inside the omnia layer', async () => {
+  const dir = await project({ "index.html": '<p class="flex">x</p>', "omnia.config.json": { content: ["index.html"], output: "out.css", base: true } });
+  run(dir, "build");
+  const css = await fs.readFile(path.join(dir, "out.css"), "utf8");
+  assert.match(css, /font-size: var\(--oc-body-size, 1rem\)/);
+  assert.doesNotMatch(css, /@layer omnia \{[^}]*@layer omnia/, "no nested omnia layer");
+  const plain = await project({ "index.html": '<p class="flex">x</p>', "omnia.config.json": { content: ["index.html"], output: "out.css" } });
+  run(plain, "build");
+  assert.doesNotMatch(await fs.readFile(path.join(plain, "out.css"), "utf8"), /--oc-body-size/);
+});
+
 test("build --minify keeps animation-timeline out of the animation shorthand", async () => {
   // Chrome drops "animation: … view()" entirely, so scroll-driven animations would stop working.
   const dir = await project({ "index.html": '<div class="animate-view-fade-in"></div>' });

@@ -15,7 +15,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=804927b8ed"><link rel="stylesheet" href="/css/oc-components.css?v=7542cbf139"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=d8f405d0af"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=1b178f942c"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=c45622127f"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=a79c967493">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=00b3fcd530"><link rel="stylesheet" href="/css/oc-components.css?v=ce6a273da4"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=428a419512"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=ba4a613daf"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=c45622127f"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=a79c967493">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -170,6 +170,18 @@
             <li><strong>Tokens:</strong> the palette colors that the component tokens use (<code>--oc-primary</code> → <code>--color-…</code>) stay in the utilities build.</li>
           </ul>
           <p>The CLI (<code>omniacss build</code>) already includes the installed OmniaUI CSS; <code>--no-components</code> turns that off.</p>
+          <p class="mt-2"><strong>Blocks and the element base in the CLI</strong> <span class="oc-badge-version">v0.13.0</span>: <code>"blocks": true</code> in <code>omnia.config.json</code> adds the OmniaUI blocks (the build warns when your markup uses <code>oc-block-*</code> classes while it is off), and <code>"base": true</code> adds the opt-in element base <code>@birdycom/omniacss/base.css</code> (body, headings, lists, focus and selection from tokens such as <code>--oc-body-size</code> and <code>--oc-font-display</code>) after the reset, in the same layer. With PostCSS: <code>@import "@birdycom/omniacss/base.css";</code>.</p>
+          <div class="oc-code-block" data-lang="json"><pre class="oc-code-block__gutter" aria-hidden="true">1
+2
+3
+4
+5
+6</pre><pre class="code-preview"><code><span class="hl-comment">// omnia.config.json</span>
+{
+  <span class="hl-string">"content"</span>: [<span class="hl-string">"src/views/**/*.php"</span>],
+  <span class="hl-string">"blocks"</span>: <span class="hl-keyword">true</span>,
+  <span class="hl-string">"base"</span>: <span class="hl-keyword">true</span>
+}</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
         </div>
       </section>
 

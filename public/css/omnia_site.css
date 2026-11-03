@@ -87,7 +87,8 @@ body.oc-page {
 
 /* .oc-hero, .oc-card, .oc-tabs and .oc-tab live in @birdycom/omniaui (components.css) — one definition per component. */
 
-.oc-panel {
+/* Docs-only panel (old pages colors/fonts); the OmniaUI component is .oc-panel. */
+.ocd-panel {
   border: 1px solid var(--oc-border);
   border-radius: 14px;
   background: var(--oc-card);
@@ -95,13 +96,13 @@ body.oc-page {
   margin-top: 12px;
 }
 
-.oc-panel h2,
-.oc-panel h3 {
+.ocd-panel h2,
+.ocd-panel h3 {
   margin: 0 0 10px;
 }
 
-.oc-panel p,
-.oc-panel li {
+.ocd-panel p,
+.ocd-panel li {
   color: var(--oc-text-soft);
 }
 

@@ -84,6 +84,11 @@ a:not([class]) {
           text-decoration-skip-ink: auto;
 }
 
+/* A phone number never breaks over two lines */
+a[href^="tel:"] {
+  white-space: nowrap;
+}
+
 /* Make images easier to work with */
 img,
 picture {
@@ -98,6 +103,12 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+/* hidden always hides, also when a class sets display (a form that is swapped for its result, a closed panel).
+   hidden="until-found" keeps working (the browser shows it when a find-in-page match is inside). */
+[hidden]:where(:not([hidden=until-found])) {
+  display: none !important;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
