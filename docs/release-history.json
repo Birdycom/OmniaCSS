@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.13.0",
+      "date": "2026-11-03",
+      "summary": "Site building blocks without own CSS: opt-in base.css, [hidden] always hides, subtle text and display font tokens, phone numbers never wrap"
+    },
+    {
       "version": "0.12.6",
       "date": "2026-11-02",
       "summary": "Winkel- en productblocks, nieuwe componenten (ribbon, lazy loading, rating, gallery …), header/footer-varianten, liquid glass, sneller scrollen"
