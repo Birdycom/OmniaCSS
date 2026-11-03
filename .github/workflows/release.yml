@@ -49,22 +49,81 @@ jobs:
       # build:packages copies the committed compiled CSS (public/css/omnia_main*.css) into packages/core/dist.
       - run: npm run build:packages
 
-      # The MCP server ships the editor extension's class index (packages/vscode/dist) and the docs search index.
-      - run: npm run vscode:build && npm run build -w @birdycom/omniacss-mcp
+      - run: npm test -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate
 
-      - run: npm test -w @birdycom/omniacss-cli -w @birdycom/omniacss-migrate -w @birdycom/omniacss-mcp
-
-      # Order matters: omniacss (utilities) first, then cli, migrate and mcp (they depend on it).
-      # Each package is published from its own folder, so npm matches it to its Trusted Publisher.
-      # apps/docs is private and not published. Components/blocks are released from the OmniaUI repo.
+      # Order matters: omniacss (utilities) first, then cli and migrate (they depend on it). The MCP server follows in
+      # its own job below, once OmniaUI has the same version. Each package is published from its own folder, so npm
+      # matches it to its Trusted Publisher. apps/docs is private and not published.
       - name: Publish
         run: |
-          for dir in packages/core packages/cli packages/migrate packages/mcp; do
+          for dir in packages/core packages/cli packages/migrate; do
             NAME=$(node -p "require('./$dir/package.json').name"); V=$(node -p "require('./$dir/package.json').version")
             # A retry after a partial publish skips what npm already has.
             if npm view "$NAME@$V" version >/dev/null 2>&1; then echo "$NAME@$V is already on npm, skipped"; continue; fi
             (cd "$dir" && npm publish --access public)
           done
+
+  # The MCP server bundles the OmniaUI components, blocks, Pro names and docs search index of the SAME version.
+  # OmniaUI is released after OmniaCSS (it needs it on npm), so this job waits until npm has OmniaUI at this version,
+  # then builds from the OmniaUI repo at that tag. Without the wait, the build fell back to an older OmniaUI (0.13.0).
+  mcp:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Skip when npm already has this MCP version
+        id: done
+        run: |
+          V=$(node -p "require('./packages/mcp/package.json').version")
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          if npm view "@birdycom/omniacss-mcp@$V" version >/dev/null 2>&1; then echo "skip=true" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Wait for OmniaUI at the same version on npm
+        if: steps.done.outputs.skip != 'true'
+        env:
+          V: ${{ steps.done.outputs.version }}
+        run: |
+          for i in $(seq 1 110); do
+            missing=""
+            for pkg in @birdycom/omniaui @birdycom/omniaui-blocks @birdycom/omniaui-react @birdycom/omniaui-vue; do
+              npm view "$pkg@$V" version >/dev/null 2>&1 || missing="$missing $pkg"
+            done
+            if [ -z "$missing" ]; then echo "OmniaUI $V is on npm"; exit 0; fi
+            echo "waiting for$missing@$V ($i/110)"; sleep 60
+          done
+          echo "OmniaUI $V did not reach npm within 110 minutes: release OmniaUI, then rerun this job."; exit 1
+
+      - name: Check out OmniaUI at the same tag
+        if: steps.done.outputs.skip != 'true'
+        uses: actions/checkout@v5
+        with:
+          repository: Birdycom/OmniaUI
+          ref: v${{ steps.done.outputs.version }}
+          path: .omniaui
+
+      - if: steps.done.outputs.skip != 'true'
+        run: npm ci
+
+      # The MCP server ships the editor extension's class index (packages/vscode/dist) and the docs search index.
+      - if: steps.done.outputs.skip != 'true'
+        env:
+          OMNIAUI_DIR: ${{ github.workspace }}/.omniaui
+        run: npm run build:packages && npm run vscode:build && npm run build -w @birdycom/omniacss-mcp
+
+      - if: steps.done.outputs.skip != 'true'
+        run: npm test -w @birdycom/omniacss-mcp
+
+      - name: Publish the MCP server
+        if: steps.done.outputs.skip != 'true'
+        run: cd packages/mcp && npm publish --access public
 
   # A GitHub Release for the tag, so the repository page shows "Latest release" with the version. The notes are the
   # summary from docs/release-history.json plus GitHub's list of changes since the previous tag.

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.13.0
+
+- Completions and hover CSS for the new OmniaUI site parts: forms (`oc-form`, `--filled`, `oc-form-actions`,
+  `oc-form-note`, `oc-honeypot`, `oc-textarea`), panel (`oc-panel`, `--glow`, `--glow-end`, `--glow-both`), result
+  (`oc-result`, `__title`, `__text`, `__actions`, `--center`), brand mark, page sections (`oc-page-header`,
+  `oc-section-head`, `oc-actions`, `oc-band`, `oc-meta`, `oc-text-muted`, `oc-text-subtle`), feature and link cards,
+  icon list, shot grid, fly-in (`oc-reveal--fly`), `oc-skip-link` and `oc-icon`.
+- Hover effects for any card: `oc-hover-lift`, `oc-hover-grow`, `oc-hover-glow`, `oc-hover-none`.
+- The new block `oc-block-contact-form`; the Pro block event scene appears in projects that have OmniaUI Pro.
+
 ## 0.12.4
 
 - Completions and hover CSS for the new OmniaUI widget parts: status dot (`oc-status-dot`, `--working`, `oc-status`),

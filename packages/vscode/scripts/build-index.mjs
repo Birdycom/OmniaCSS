@@ -138,9 +138,9 @@ console.log(`[vscode] index ${index.version}: ${Object.keys(classes).length} uti
   `${(json.length / 1e6).toFixed(1)} MB json, ${(gz.length / 1e3).toFixed(0)} KB gzip`);
 
 // 4. OmniaUI component and block classes (free packages only; Pro is read from the project at runtime).
-// Source: ../omniaUI next to this repo when present, otherwise the published package on jsDelivr (CI).
+// Source: ../omniaUI next to this repo (or $OMNIAUI_DIR) when present, otherwise the published package on jsDelivr (CI).
 const { PACKAGES, parseSheet } = createRequire(import.meta.url)("../src/lib/components.cjs");
-const omniaUI = path.resolve(pkgDir, "../../../omniaUI/packages");
+const omniaUI = path.join(process.env.OMNIAUI_DIR ?? path.resolve(pkgDir, "../../../omniaUI"), "packages");
 const local = { "@birdycom/omniaui": "ui", "@birdycom/omniaui-blocks": "blocks" };
 const sources = [];
 for (const pkg of PACKAGES.filter((p) => local[p.name])) {
