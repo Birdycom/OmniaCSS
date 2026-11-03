@@ -3887,6 +3887,8 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-lead { margin: 0 0 1rem; color: var(--oc-muted-foreground); font-size: 1.15rem; line-height: 1.65; max-inline-size: 42rem; text-wrap: pretty; }
 /* Larger and narrower, for a home hero. */
 .oc-lead--lg { font-size: 1.2rem; max-inline-size: 36rem; }
+/* Plain: the lead size in the text color and the full width (the intro of a product page). */
+.oc-lead--plain { color: var(--oc-foreground); max-inline-size: none; }
 .oc-split { display: grid; grid-template-columns: var(--oc-split-cols, repeat(auto-fit, minmax(min(100%, 24rem), 1fr))); gap: var(--oc-split-gap, 3rem); align-items: center; }
 /* Ratio presets (one column up to 960px): --lead makes the text column wider, --media the image column.
    Your own ratio: set --oc-split-cols in a class (and to 1fr in a media query for small screens). */
@@ -5497,7 +5499,7 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-separator--strong { background: var(--oc-border-strong); }
 
 /* parts/app-accordion-accent.css */
-/* File: packages/ui/src/parts/app-accordion-accent.css | Map: accent accordion (separate cards) -> item card + left accent -> trigger -> open state -> color modifiers (presets) -> flush combination */
+/* File: packages/ui/src/parts/app-accordion-accent.css | Map: accent accordion (separate cards) -> item card + left accent -> trigger -> open state -> color modifiers (presets) -> status (data-status) -> status dot -> flush combination */
 /* Accordion accent: every item becomes its own card with a colored accent on the start edge.
    Add .oc-accordion--accent to an .oc-accordion. The color comes from --oc-accordion-accent:
    primary by default, or an existing .oc-accent--* preset (blue, cyan, green, orange, red, violet, yellow)
@@ -5550,6 +5552,23 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-accordion--accent.oc-accordion--warning .oc-accordion-item { --oc-accordion-accent: var(--oc-warning); }
 .oc-accordion--accent .oc-accordion-item--danger,
 .oc-accordion--accent.oc-accordion--danger .oc-accordion-item { --oc-accordion-accent: var(--oc-destructive); }
+
+/* Info and muted (not checked, skipped). */
+.oc-accordion--accent .oc-accordion-item--info { --oc-accordion-accent: var(--oc-info, light-dark(var(--color-deepskyblue-70), var(--color-skyblue-50))); }
+.oc-accordion--accent .oc-accordion-item--muted { --oc-accordion-accent: var(--oc-muted-foreground); }
+
+/* Status of a check (one row per check): data-status="ok|warn|error|skip|pending" on the item. Pending is primary. */
+.oc-accordion--accent .oc-accordion-item[data-status="ok"] { --oc-accordion-accent: var(--oc-success); }
+.oc-accordion--accent .oc-accordion-item[data-status="warn"] { --oc-accordion-accent: var(--oc-warning); }
+.oc-accordion--accent .oc-accordion-item[data-status="error"] { --oc-accordion-accent: var(--oc-destructive); }
+.oc-accordion--accent .oc-accordion-item[data-status="skip"] { --oc-accordion-accent: var(--oc-muted-foreground); }
+.oc-accordion--accent .oc-accordion-item[data-status="pending"] { --oc-accordion-accent: var(--oc-primary); }
+.oc-accordion--accent .oc-accordion-item[data-status="skip"] > .oc-accordion-trigger { color: var(--oc-muted-foreground); }
+
+/* A dot in the status color at the start of the trigger (hollow while pending). */
+.oc-accordion-accent-dot { flex-shrink: 0; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--oc-accordion-accent); }
+.oc-accordion-trigger:has(> .oc-accordion-accent-dot) { justify-content: flex-start; gap: 0.6rem; }
+.oc-accordion-item[data-status="pending"] .oc-accordion-accent-dot { background: transparent; border: 1.5px solid var(--oc-accordion-accent); }
 
 /* Accent + flush: no frame around each card except the accent edge. */
 .oc-accordion--accent.oc-accordion--flush .oc-accordion-item { border-block: 0; border-inline-end: 0; border-radius: 0; }
@@ -5654,6 +5673,28 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-busy-overlay[open], .oc-busy-overlay[open]::backdrop { animation: oc-busy-in 0.2s 0.3s both; }
 @keyframes oc-busy-in { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .oc-busy-overlay[open], .oc-busy-overlay[open]::backdrop { animation-duration: 0s; } }
+
+/* parts/app-callout.css */
+/* File: packages/ui/src/parts/app-callout.css | Map: card row (text + action) -> text -> action -> narrow: action under the text */
+/* Callout: a small card with a text on the left and one action on the right ("Like the app? Support it" + a button).
+   Centred vertically; when the card is narrower than about 300px the action moves under the text. */
+
+.oc-callout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 11px 13px;
+  color: var(--oc-card-foreground, var(--oc-foreground));
+  background: var(--oc-card-background, var(--oc-card));
+  border: 1px solid var(--oc-card-border, var(--oc-border));
+  border-radius: var(--oc-radius);
+}
+/* 12rem basis: next to a button the text wraps under it at about 300px. */
+.oc-callout__text { flex: 1 1 12rem; min-inline-size: 0; margin: 0; font-size: 0.85rem; line-height: 1.45; }
+.oc-callout__text strong { display: block; color: var(--oc-foreground); }
+.oc-callout__text > :is(p, span):not(:first-child) { color: var(--oc-muted-foreground); }
+.oc-callout__action { flex-shrink: 0; display: flex; gap: 0.5rem; }
 
 /* parts/app-confirm-dialog.css */
 /* File: packages/ui/src/parts/app-confirm-dialog.css | Map: confirm modifier (icon ring) -> close button -> typed confirm field -> confirm lock -> three-button footer -> narrow screens */
@@ -6189,6 +6230,44 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 /* Large: for a hero-like start page. */
 .oc-greeting--lg .oc-greeting-title { font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem); }
 .oc-greeting--lg .oc-greeting-icon { inline-size: 3.5rem; block-size: 3.5rem; }
+
+/* parts/app-group.css */
+/* File: packages/ui/src/parts/app-group.css | Map: group -> head (title + aside) -> meta line -> hairline between groups */
+/* Group: one section inside a panel or widget (a service, an account), with a title, a short status on the right
+   ("2 busy") and a muted line under it. Consecutive groups get a hairline between them.
+   <section class="oc-group"><header class="oc-group__head"><h2 class="oc-group__title">…</h2><span class="oc-group__aside">…</span></header>
+   <p class="oc-group__meta">…</p> … </section>  The aside takes a color from data-tone="busy|ok|warn|error". */
+
+.oc-group { padding: 14px 0 6px; }
+.oc-group + .oc-group { border-block-start: 1px solid var(--oc-group-line, var(--oc-glass-hairline, var(--oc-border))); }
+.oc-group__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-block-end: 0.25rem;
+}
+.oc-group__title {
+  min-inline-size: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.oc-group__aside {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--oc-group-tone, var(--oc-muted-foreground));
+}
+.oc-group__aside[data-tone="busy"] { --oc-group-tone: var(--oc-primary); }
+.oc-group__aside[data-tone="ok"] { --oc-group-tone: var(--oc-success); }
+.oc-group__aside[data-tone="warn"] { --oc-group-tone: var(--oc-warning); }
+.oc-group__aside[data-tone="error"] { --oc-group-tone: var(--oc-destructive); }
+.oc-group__meta { margin: 0 0 0.625rem; font-size: 0.75rem; color: var(--oc-muted-foreground); }
 
 /* parts/app-list-toolbar.css */
 /* File: packages/ui/src/parts/app-list-toolbar.css | Map: toolbar row -> search -> count -> view toggle (radio icons) -> actions -> sticky modifier -> CSS-only view switch (scope) -> narrow screens */
@@ -7477,10 +7556,146 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   .oc-chart-line__dot, .oc-chart-line__tip { transition: none; }
 }
 
+/* parts/data-graph.css */
+/* File: packages/ui/src/parts/data-graph.css
+   Map: frame -> edges (moving dashes) -> nodes (halo, dot, mark, label) -> levels -> center node + pulse -> focus
+   (one node lit, the rest dimmed) -> tooltip -> reduced motion
+   Graph: the look of a small network graph in SVG, a center (a person, an account, a server) with linked nodes
+   around it. Draw it yourself (by hand, d3 or any code) with these classes, or let OmniaUI Pro's network graph
+   lay it out. Node colors follow the severity tokens: data-level="low|medium|high|critical" on .oc-graph__node.
+   <div class="oc-graph"><svg class="oc-graph__svg" viewBox="…">
+     <line class="oc-graph__edge" …/>
+     <g class="oc-graph__node" data-level="high" transform="translate(…)"><circle class="oc-graph__halo" r="21"/>
+       <circle class="oc-graph__dot" r="14"/><text class="oc-graph__mark">▲</text><text class="oc-graph__label" y="27">…</text></g>
+   </svg></div> */
+
+.oc-graph {
+  --oc-graph-accent: var(--oc-accent-from, var(--oc-primary));
+  position: relative;
+  inline-size: 100%;
+  color: var(--oc-foreground);
+}
+.oc-graph__svg { display: block; inline-size: 100%; block-size: auto; overflow: visible; }
+
+/* Edges: thin dashed lines in the accent color that flow from the center outwards. */
+.oc-graph__edge {
+  fill: none;
+  stroke: var(--oc-graph-accent);
+  stroke-opacity: 0.35;
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  animation: oc-graph-flow 1.5s linear infinite;
+  transition: stroke-opacity 0.3s, stroke-width 0.3s;
+}
+@keyframes oc-graph-flow { to { stroke-dashoffset: -20; } }
+
+/* Nodes: a soft halo, a dot in the level color, a mark inside and a label under it. */
+.oc-graph__node {
+  --oc-graph-color: var(--oc-muted-foreground);
+  cursor: default;
+  outline: none;
+  transition: opacity 0.3s;
+}
+.oc-graph__node[role="button"] { cursor: pointer; }
+.oc-graph__halo {
+  fill: none;
+  stroke: var(--oc-graph-color);
+  stroke-opacity: 0.25;
+  stroke-width: 9;
+  filter: blur(3px);
+  transition: stroke-opacity 0.3s, stroke-width 0.3s;
+}
+.oc-graph__dot {
+  fill: var(--oc-graph-color);
+  fill-opacity: 0.88;
+  transition: fill-opacity 0.3s, scale 0.3s;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.oc-graph__mark {
+  fill: var(--color-white-50);
+  font-size: 10px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+.oc-graph__label {
+  fill: var(--oc-muted-foreground);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 8.5px;
+  text-anchor: middle;
+  pointer-events: none;
+}
+.oc-graph__node:focus-visible .oc-graph__dot { stroke: var(--oc-ring); stroke-width: 2.5; }
+
+/* Levels (the same tokens as the severity card); the tooltip takes the level of its node. */
+.oc-graph__node[data-level="low"],
+.oc-graph__tip[data-level="low"] { --oc-graph-color: var(--oc-success); }
+.oc-graph__node[data-level="medium"],
+.oc-graph__tip[data-level="medium"] { --oc-graph-color: var(--oc-warning); }
+.oc-graph__node[data-level="high"],
+.oc-graph__tip[data-level="high"] { --oc-graph-color: var(--oc-destructive); }
+.oc-graph__node[data-level="critical"],
+.oc-graph__tip[data-level="critical"] { --oc-graph-color: light-dark(var(--color-red-95), var(--color-red-30)); }
+
+/* Center: the accent color, a thin white ring and a pulse that grows and fades. */
+.oc-graph__node--center { --oc-graph-color: var(--oc-graph-accent); }
+.oc-graph__node--center .oc-graph__dot { stroke: var(--color-white-50); stroke-opacity: 0.3; stroke-width: 1.5; }
+.oc-graph__node--center .oc-graph__mark { font-size: 13px; }
+.oc-graph__node--center .oc-graph__label { fill: var(--oc-graph-accent); }
+.oc-graph__pulse {
+  fill: none;
+  stroke: var(--oc-graph-accent);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: oc-graph-pulse 2.2s ease-out infinite;
+}
+@keyframes oc-graph-pulse {
+  from { scale: 1; opacity: 0.6; }
+  to { scale: 2; opacity: 0; }
+}
+
+/* Focus: .is-focused on the graph and .is-active on one node light that node and its edge; the rest dims. */
+.oc-graph.is-focused .oc-graph__node:not(.is-active, .oc-graph__node--center) { opacity: 0.15; }
+.oc-graph.is-focused .oc-graph__edge { stroke-opacity: 0.08; stroke-width: 1; }
+.oc-graph.is-focused .oc-graph__edge.is-active { stroke-opacity: 0.8; stroke-width: 3; }
+.oc-graph__node.is-active .oc-graph__dot { fill-opacity: 1; scale: 1.55; }
+.oc-graph__node.is-active .oc-graph__halo { stroke-opacity: 0.6; stroke-width: 14; }
+.oc-graph__node.is-active .oc-graph__label { fill: var(--oc-graph-accent); }
+
+/* Tooltip: level, title and meta lines of the node under the pointer. */
+.oc-graph__tip {
+  position: absolute;
+  z-index: 5;
+  min-inline-size: 10rem;
+  max-inline-size: 14rem;
+  padding: 0.75rem;
+  pointer-events: none;
+  opacity: 0;
+  background: var(--oc-popover);
+  color: var(--oc-popover-foreground);
+  border: 1px solid var(--oc-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 24px oklch(from var(--color-black-60) l c h / 0.15);
+  transition: opacity 0.15s;
+}
+.oc-graph__tip.is-visible { opacity: 1; }
+.oc-graph__tip-level { margin-block-end: 0.25rem; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--oc-graph-color, var(--oc-muted-foreground)); }
+.oc-graph__tip-title { margin-block-end: 0.375rem; font-size: 0.75rem; font-weight: 700; }
+.oc-graph__tip-meta { font-size: 0.6875rem; line-height: 1.6; color: var(--oc-muted-foreground); }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-graph__edge, .oc-graph__pulse { animation: none; }
+  .oc-graph__pulse { opacity: 0; }
+}
+
 /* parts/data-meter-row.css */
-/* File: packages/ui/src/parts/data-meter-row.css | Map: row grid -> label and value -> bar and fill -> levels -> reset line -> list */
+/* File: packages/ui/src/parts/data-meter-row.css | Map: row grid -> label and value -> bar and fill (or a fill element) -> levels -> reset line -> sub-line -> list (compact, dense) */
 /* Usage meter row: a label, the usage as text, a bar and when it resets. The fill comes from
-   --oc-meter (0–100%); data-level="warn" or "critical" changes the color. */
+   --oc-meter (0–100%); data-level="warn" or "critical" changes the color.
+   A live meter can also carry its own fill element (<span class="oc-meter-row__fill" style="inline-size: 42%">):
+   patch its inline width in place; the bar then draws no fill of its own. */
 
 .oc-meter-row {
   display: grid;
@@ -7507,16 +7722,67 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   border-radius: inherit;
   transition: inline-size 0.4s ease;
 }
+.oc-meter-row__bar:has(> .oc-meter-row__fill)::before { content: none; }
+.oc-meter-row__fill {
+  display: block;
+  max-inline-size: 100%;
+  block-size: 100%;
+  background: var(--oc-meter-color, var(--oc-success));
+  border-radius: inherit;
+  transition: inline-size 0.4s ease;
+}
 .oc-meter-row[data-level="warn"] { --oc-meter-color: var(--oc-warning); }
 .oc-meter-row[data-level="critical"] { --oc-meter-color: var(--oc-destructive); }
 .oc-meter-row[data-level="critical"] .oc-meter-row__value strong { color: var(--oc-destructive); }
 .oc-meter-row__reset { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: var(--oc-muted-foreground); }
+/* Sub-line: a muted second reading under the bar ("VRAM 2.7 / 8.0 GB") with an optional thin bar of its own.
+   The thin bar takes --oc-meter on itself (or an .oc-meter-row__fill child) and its own data-level. */
+.oc-meter-row__sub {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--oc-muted-foreground);
+  white-space: nowrap;
+}
+.oc-meter-row__subbar {
+  --oc-meter-color: var(--oc-muted-foreground);
+  flex: 1;
+  min-inline-size: 2rem;
+  block-size: 3px;
+  overflow: hidden;
+  background: var(--oc-muted);
+  border-radius: 999px;
+}
+.oc-meter-row__subbar::before {
+  content: "";
+  display: block;
+  inline-size: clamp(0%, var(--oc-meter, 0%), 100%);
+  block-size: 100%;
+  background: var(--oc-meter-color);
+  border-radius: inherit;
+  transition: inline-size 0.4s ease;
+}
+.oc-meter-row__subbar:has(> .oc-meter-row__fill)::before { content: none; }
+.oc-meter-row__subbar[data-level="warn"] { --oc-meter-color: var(--oc-warning); }
+.oc-meter-row__subbar[data-level="critical"] { --oc-meter-color: var(--oc-destructive); }
+
 .oc-meter-list { display: grid; gap: 1rem; }
 .oc-meter-list--compact { gap: 0.625rem; }
 .oc-meter-list--compact .oc-meter-row__bar { block-size: 0.375rem; }
+/* Dense: for a small widget or tray window (5px bar, smaller label). */
+.oc-meter-list--dense { gap: 0.5rem; }
+.oc-meter-list--dense .oc-meter-row { gap: 0.25rem 0.625rem; }
+.oc-meter-list--dense .oc-meter-row__label { font-size: 0.8rem; }
+.oc-meter-list--dense .oc-meter-row__value { font-size: 0.75rem; }
+.oc-meter-list--dense .oc-meter-row__bar { block-size: 5px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .oc-meter-row__bar::before { transition: none; }
+  .oc-meter-row__bar::before,
+  .oc-meter-row__subbar::before,
+  .oc-meter-row__fill { transition: none; }
 }
 
 /* parts/data-price.css */
@@ -7540,6 +7806,34 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 .oc-price--inline .oc-price__amount { font-size: inherit; font-weight: 600; }
 td[data-numeric] > .oc-price, .oc-price--end { justify-items: end; text-align: end; }
 td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { justify-content: flex-end; }
+
+/* parts/data-reading.css */
+/* File: packages/ui/src/parts/data-reading.css | Map: reading -> levels (cool, warm, hot) -> inside a meter row */
+/* Reading: a small measured value next to another value ("57 °C", "1.2 GHz"), in tabular numbers.
+   Levels: --cool (muted, the default look), --warm (warning) and --hot (destructive). The app picks the level,
+   for example warm from 70 °C and hot from 85 °C. */
+
+.oc-reading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.0625rem 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+  color: var(--oc-reading-color, var(--oc-muted-foreground));
+  white-space: nowrap;
+  background: oklch(from var(--oc-reading-color, var(--oc-muted-foreground)) l c h / 0.1);
+  border: 1px solid oklch(from var(--oc-reading-color, var(--oc-muted-foreground)) l c h / 0.25);
+  border-radius: 999px;
+}
+.oc-reading--cool { --oc-reading-color: var(--oc-muted-foreground); }
+.oc-reading--warm { --oc-reading-color: var(--oc-warning); }
+.oc-reading--hot { --oc-reading-color: var(--oc-destructive); }
+
+/* In the value of a meter row: a little room before it. */
+.oc-meter-row__value .oc-reading { margin-inline-start: 0.375rem; }
 
 /* parts/data-ribbon.css */
 /* File: packages/ui/src/parts/data-ribbon.css | Map: host (positioned, clipped) -> ribbon band -> four corners -> tones -> size -> RTL */
@@ -8544,6 +8838,24 @@ button.oc-language-select {
   outline: none;
 }
 button.oc-language-select:hover { background: var(--oc-surface); }
+
+/* Code: closed it shows only the language code ("NL"), open it shows the native list with the full names.
+   34 × 30px, for the actions of a title bar. The code comes from data-code on the wrapper; form-extras.js (and the
+   React, Vue and Blade components) keep it in step with the chosen option (its data-code, else its value). */
+.oc-language-select--code {
+  justify-content: center;
+  inline-size: 34px;
+  block-size: 30px;
+  padding: 0;
+  border-radius: calc(var(--oc-radius) - 2px);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.oc-language-select--code::before { content: attr(data-code); text-transform: uppercase; pointer-events: none; }
+.oc-language-select--code::after,
+.oc-language-select--code .oc-language-select-icon { display: none; }
+.oc-language-select--code .oc-language-select-control { position: absolute; inset: 0; padding: 0; opacity: 0; }
 
 /* parts/forms-number-input.css */
 /* File: packages/ui/src/parts/forms-number-input.css
@@ -11211,6 +11523,58 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   .oc-watermark { --oc-watermark-opacity: 0.2; print-color-adjust: exact; }
 }
 
+/* parts/nav-menu-static.css */
+/* File: packages/ui/src/parts/nav-menu-static.css | Map: static menu (no popover, fills its box) -> check column -> hint -> group title */
+/* Static menu: the dropdown menu as a whole surface of its own, for a tray menu in its own small window or a menu
+   inside a panel. .oc-dropdown-menu--static drops the popover position and fills its container.
+   Items can carry a check column (.oc-dropdown-check, 20px, shows ✓ when the item has aria-checked="true") and a
+   muted hint on the right (.oc-dropdown-hint). Group titles: .oc-dropdown-label; red item: .oc-dropdown-item--destructive. */
+
+.oc-dropdown-menu.oc-dropdown-menu--static,
+.oc-dropdown-menu.oc-dropdown-menu--static[popover] {
+  position: static;
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  animation: none;
+}
+/* In a transparent desktop window the window is the frame: --flat drops the border and shadow. */
+.oc-dropdown-menu--static.oc-dropdown-menu--flat { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+
+.oc-dropdown-check {
+  display: inline-flex;
+  flex: none;
+  justify-content: center;
+  inline-size: 20px;
+  margin-inline-start: -4px;
+  color: var(--oc-primary);
+}
+.oc-dropdown-check::before {
+  content: "";
+  inline-size: 0.35rem;
+  block-size: 0.65rem;
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  rotate: 45deg;
+  translate: 0 -10%;
+  opacity: 0;
+}
+.oc-dropdown-item[aria-checked="true"] > .oc-dropdown-check::before { opacity: 1; }
+/* With its own check column, the role-based check mark is not drawn a second time. */
+.oc-dropdown-item:has(> .oc-dropdown-check) { padding-inline-start: 10px; }
+.oc-dropdown-item:has(> .oc-dropdown-check)::before { content: none; }
+
+.oc-dropdown-hint {
+  margin-inline-start: auto;
+  padding-inline-start: 1rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--oc-muted-foreground);
+  white-space: nowrap;
+}
+.oc-dropdown-menu--static .oc-dropdown-label { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
 /* parts/nav-topbar-variants.css */
 /* File: packages/ui/src/parts/nav-topbar-variants.css
    Map: brand (logo tile, room before the menu) -> centred menu -> plain links -> dark / brand colour -> floating pill
@@ -11308,6 +11672,76 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-footerbar.oc-footerbar--dark { color: oklch(from var(--color-white-50) l c h / 0.7); background: var(--oc-dark-band, var(--color-duskblue-95)); border-block-start-color: transparent; }
 .oc-footerbar--dark :is(a, .oc-footerbar-links a) { color: oklch(from var(--color-white-50) l c h / 0.85); }
 .oc-footerbar--dark .oc-footerbar-links a:hover { color: var(--color-white-50); }
+
+/* parts/site-backgrounds.css */
+/* File: packages/ui/src/parts/site-backgrounds.css | Map: grid (--fixed, --fade) -> orb (--sm, --drift) -> scan lines -> particle canvas -> reduced motion */
+/* Background pack: decorative layers behind (or over) a page or a section. All are aria-hidden, ignore the pointer and
+   follow the theme tokens; put them in a positioned parent (scan lines and the particle canvas cover the viewport unless --local).
+   <div class="oc-bg-grid" aria-hidden="true"></div>   <div class="oc-orb" aria-hidden="true"></div>
+   <div class="oc-scanlines" aria-hidden="true"></div> <canvas class="oc-particles" aria-hidden="true"></canvas> (+ particles.js) */
+
+/* Grid: thin lines in the primary color. --oc-bg-grid-size (60px) and --oc-bg-grid-line set the size and the color. */
+.oc-bg-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--oc-bg-grid-line, oklch(from var(--oc-primary) l c h / 0.04)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--oc-bg-grid-line, oklch(from var(--oc-primary) l c h / 0.04)) 1px, transparent 1px);
+  background-size: var(--oc-bg-grid-size, 60px) var(--oc-bg-grid-size, 60px);
+}
+.oc-bg-grid--fixed { position: fixed; --oc-bg-grid-size: 40px; }
+/* Fade: the lines disappear towards the edges. */
+.oc-bg-grid--fade { mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%); }
+
+/* Orb: a soft round glow in the accent color (.oc-accent--violet for another color). Place it with inset-* or translate. */
+.oc-orb {
+  position: absolute;
+  z-index: -1;
+  inline-size: var(--oc-orb-size, min(500px, 90vw));
+  aspect-ratio: 1;
+  pointer-events: none;
+  background: radial-gradient(circle, oklch(from var(--oc-accent-from) l c h / var(--oc-orb-strength, 0.15)) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(var(--oc-orb-blur, 50px));
+}
+.oc-orb--sm { --oc-orb-size: 18rem; --oc-orb-blur: 35px; }
+.oc-orb--drift { animation: oc-orb-drift 18s ease-in-out infinite alternate; }
+@keyframes oc-orb-drift { to { translate: 3rem 2rem; scale: 1.1; } }
+
+/* Scan lines: a fine horizontal raster over the page (2% primary). --local keeps it inside a positioned parent. */
+.oc-scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: var(--oc-scanlines-z, 9999);
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 2px,
+    var(--oc-scanlines-color, oklch(from var(--oc-primary) l c h / 0.02)) 2px 4px
+  );
+}
+.oc-scanlines--local { position: absolute; z-index: 1; }
+
+/* Particle canvas: particles.js draws drifting points with thin lines between neighbours. It reads two colors from
+   this element: color (points and lines) and border-color (a second point color). --local fills a positioned parent. */
+.oc-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+  color: var(--oc-accent-from);
+  border: 0 solid var(--oc-accent-to);
+}
+.oc-particles--local { position: absolute; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-orb--drift { animation: none; }
+}
 
 /* parts/site-base.css */
 /* File: packages/ui/src/parts/site-base.css */
@@ -11525,7 +11959,8 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 }
 .oc-note--md {
   max-inline-size: 60rem;
-  font-size: 1rem;
+  /* The size of the running text around it (the body size of the page). */
+  font-size: inherit;
 }
 
 /* Row of badges or pills above a title, and a tagline in the accent color (lighter, so it reads on a dark page). */
@@ -11925,6 +12360,41 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   .oc-marquee { mask-image: none; }
   .oc-marquee__track { flex-wrap: wrap; inline-size: auto; }
   .oc-marquee__item[aria-hidden="true"] { display: none; }
+}
+
+/* parts/site-neon.css */
+/* File: packages/ui/src/parts/site-neon.css | Map: glowing border (animated) -> neon button -> reduced motion */
+/* Neon: a border that slowly glows from one accent color to the other, and a button with a neon gradient.
+   Colors: --oc-accent-from and --oc-accent-to (brand-1 and brand-2, or an .oc-accent--* preset).
+   .oc-glow-border goes on anything with a border: <form class="oc-glass oc-glow-border">, an .oc-card, a panel. */
+
+.oc-glow-border {
+  border-color: var(--oc-accent-from);
+  box-shadow: 0 0 10px oklch(from var(--oc-accent-from) l c h / 0.35), var(--oc-glow-extra, 0 0 transparent);
+  animation: oc-glow-border var(--oc-glow-border-duration, 3s) ease-in-out infinite;
+}
+/* Glass keeps its light top edge and drop shadow under the glow. */
+.oc-glass.oc-glow-border { --oc-glow-extra: var(--oc-glass-shadow), inset 0 1px 0 var(--oc-glass-edge-hi); }
+@keyframes oc-glow-border {
+  0%, 100% { border-color: var(--oc-accent-from); box-shadow: 0 0 10px oklch(from var(--oc-accent-from) l c h / 0.35), var(--oc-glow-extra, 0 0 transparent); }
+  50% { border-color: var(--oc-accent-to); box-shadow: 0 0 20px oklch(from var(--oc-accent-to) l c h / 0.35), var(--oc-glow-extra, 0 0 transparent); }
+}
+
+/* Neon button: gradient from one accent to the other, with a glow. --oc-btn-neon-ink sets the text color. */
+.oc-btn--neon {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--oc-btn-neon-ink, light-dark(var(--color-white-50), var(--color-black-40)));
+  background: linear-gradient(135deg, var(--oc-accent-from), var(--oc-accent-to)) border-box;
+  border-color: transparent;
+  box-shadow: 0 0 24px oklch(from var(--oc-accent-from) l c h / 0.4);
+  transition: filter var(--oc-transition-fast), box-shadow var(--oc-transition-fast);
+}
+.oc-btn--neon:hover:not(:disabled) { filter: brightness(1.08); box-shadow: 0 0 32px oklch(from var(--oc-accent-from) l c h / 0.55); opacity: 1; }
+.oc-btn--neon:disabled { color: var(--oc-muted-foreground); background: var(--oc-muted); box-shadow: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-glow-border { animation: none; }
 }
 
 /* parts/site-next-teaser.css */
