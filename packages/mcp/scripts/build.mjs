@@ -86,8 +86,22 @@ for (const [pkg, kind] of [["@birdycom/omniaui", "component"], ["@birdycom/omnia
 // The Pro blocks by name and description only: their HTML is licensed and comes from the customer's own install.
 const pro = ((await readJson("@birdycom/omniaui-blocks", "pro.json"))?.items || []).map(({ name, description }) => ({ name, description }));
 
-const uiDocs = parseJson((await fs.readFile(path.join(omniaUI, "public/data/search-index.json"), "utf8").catch(() => null))
-  ?? (await fetch("https://omniaui.eu/data/search-index.json").then((r) => (r.ok ? r.text() : "[]"), () => "[]")), [], "omniaui.eu search index");
+// The OmniaUI docs search index: ../omniaUI, else the committed file in the OmniaUI repo (this version's tag, then
+// main), else the live site. The live site alone failed CI while omniaui.eu was being deployed (it served HTML).
+async function uiSearchIndex() {
+  const local = await fs.readFile(path.join(omniaUI, "public/data/search-index.json"), "utf8").catch(() => null);
+  if (local !== null) return local;
+  for (const url of [
+    `https://raw.githubusercontent.com/Birdycom/OmniaUI/v${version}/public/data/search-index.json`,
+    "https://raw.githubusercontent.com/Birdycom/OmniaUI/main/public/data/search-index.json",
+    "https://omniaui.eu/data/search-index.json",
+  ]) {
+    const text = await fetch(url).then((r) => (r.ok ? r.text() : null), () => null);
+    if (text && parseJson(text, null, url)) return text;
+  }
+  return "[]";
+}
+const uiDocs = parseJson(await uiSearchIndex(), [], "omniaui.eu search index");
 
 await fs.writeFile(path.join(out, "omniaui.json.gz"), zlib.gzipSync(JSON.stringify({ items, pro }), { level: 9 }));
 await fs.writeFile(path.join(out, "search-index-ui.json"), JSON.stringify(uiDocs));
