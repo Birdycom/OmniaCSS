@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.14.0
+
+- Completions and hover CSS for the new OmniaUI parts: meter row sub-line (`oc-meter-row__sub`, `__subbar`, `__fill`,
+  `oc-meter-list--dense`), reading (`oc-reading`, `--warm`, `--hot`), callout (`oc-callout`, `__text`, `__action`),
+  static menu (`oc-dropdown-menu--static`, `--flat`, `oc-dropdown-check`, `oc-dropdown-hint`), `oc-language-select--code`,
+  group (`oc-group`, `__head`, `__title`, `__aside`, `__meta`), the accordion status dot (`oc-accordion-accent-dot`,
+  `oc-accordion-item--info`, `--muted`), neon (`oc-glow-border`, `oc-btn--neon`), backgrounds (`oc-bg-grid`, `oc-orb`,
+  `oc-scanlines`, `oc-particles`), graph (`oc-graph`, `__edge`, `__node`, `__tip` …) and `oc-lead--plain`.
+- The Pro network graph (`oc-network-graph`) appears in projects that have OmniaUI Pro.
+
 ## 0.13.0
 
 - Completions and hover CSS for the new OmniaUI site parts: forms (`oc-form`, `--filled`, `oc-form-actions`,
