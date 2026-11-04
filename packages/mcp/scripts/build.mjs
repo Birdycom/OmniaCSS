@@ -83,8 +83,11 @@ for (const [pkg, kind] of [["@birdycom/omniaui", "component"], ["@birdycom/omnia
     items.push({ name: item.name, kind, package: pkg, description: item.description, requires: item.requires, html: html.replace(/\r\n/g, "\n").trim(), frameworks: wrappers[`${pkg}/${item.file}`] || {} });
   }
 }
-// The Pro blocks by name and description only: their HTML is licensed and comes from the customer's own install.
-const pro = ((await readJson("@birdycom/omniaui-blocks", "pro.json"))?.items || []).map(({ name, description }) => ({ name, description }));
+// The Pro blocks and components by name and description only: their HTML is licensed and comes from the customer's own
+// install. "extends": the free component a Pro addition belongs to (tint card, data table): that one is "Free + Pro".
+const proJson = await readJson("@birdycom/omniaui-blocks", "pro.json");
+const pro = (proJson?.items || []).map(({ name, description }) => ({ name, description }));
+const proComponents = (proJson?.components || []).map(({ name, extends: base, description }) => ({ name, ...(base ? { extends: base } : {}), description }));
 
 // The OmniaUI docs search index: ../omniaUI, else the committed file in the OmniaUI repo (this version's tag, then
 // main), else the live site. The live site alone failed CI while omniaui.eu was being deployed (it served HTML).
@@ -103,10 +106,10 @@ async function uiSearchIndex() {
 }
 const uiDocs = parseJson(await uiSearchIndex(), [], "omniaui.eu search index");
 
-await fs.writeFile(path.join(out, "omniaui.json.gz"), zlib.gzipSync(JSON.stringify({ items, pro }), { level: 9 }));
+await fs.writeFile(path.join(out, "omniaui.json.gz"), zlib.gzipSync(JSON.stringify({ items, pro, proComponents }), { level: 9 }));
 await fs.writeFile(path.join(out, "search-index-ui.json"), JSON.stringify(uiDocs));
 
 const pages = JSON.parse(await fs.readFile(path.join(out, "search-index.json"), "utf8")).length;
 const count = (k) => items.filter((i) => i.kind === k).length;
-console.log(`[mcp] dist ready: class index, ${count("component")} components + ${count("block")} blocks (${pro.length} Pro listed), ` +
+console.log(`[mcp] dist ready: class index, ${count("component")} components + ${count("block")} blocks (${pro.length} Pro blocks and ${proComponents.length} Pro components listed), ` +
   `${pages} + ${uiDocs.length} docs pages`);

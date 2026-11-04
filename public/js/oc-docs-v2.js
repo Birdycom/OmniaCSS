@@ -78,12 +78,12 @@
     const words = fold(query).split(/\s+/).filter(Boolean);
     if (!words.length) return [];
     const hits = [];
-    for (const page of index) {
+    for (const page of index || []) {
       const hay = fold(`${page.t} ${page.g} ${page.k || ""}`);
       const title = fold(page.t);
       if (words.every((w) => hay.includes(w))) {
         let score = 10 + words.reduce((n, w) => n + (title.includes(w) ? 5 : 0) + (title.startsWith(w) ? 5 : 0), 0);
-        hits.push({ score, title: page.t, sub: page.g, url: page.u });
+        hits.push({ score, title: page.t, sub: page.g, url: page.u, pro: page.p });
       }
       for (const h of page.h || []) {
         const ht = fold(h[1]);
@@ -99,10 +99,10 @@
   function render() {
     const query = input.value.trim();
     const words = fold(query).split(/\s+/).filter(Boolean);
-    items = query ? search(query) : (index || []).filter((p) => p.f).map((p) => ({ title: p.t, sub: p.g, url: p.u }));
+    items = query ? search(query) : (index || []).filter((p) => p.f).map((p) => ({ title: p.t, sub: p.g, url: p.u, pro: p.p }));
     active = 0;
     list.innerHTML = (query ? "" : '<li class="ocd-search-group" role="presentation">Popular</li>') + items.map((it, i) =>
-      `<li role="presentation"><a href="${esc(it.url)}" role="option" id="ocd-r${i}" aria-selected="${i === 0}"><b>${mark(it.title, words)}</b><span>${esc(it.sub)}</span></a></li>`).join("");
+      `<li role="presentation"><a href="${esc(it.url)}" role="option" id="ocd-r${i}" aria-selected="${i === 0}"><b>${mark(it.title, words)}${it.pro ? ` <em class="ocd-search-pro">${esc(it.pro)}</em>` : ""}</b><span>${esc(it.sub)}</span></a></li>`).join("");
     empty.hidden = !query || items.length > 0;
     input.setAttribute("aria-activedescendant", items.length ? "ocd-r0" : "");
   }

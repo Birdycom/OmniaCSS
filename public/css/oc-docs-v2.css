@@ -142,6 +142,12 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .oc-sidebar--docs .ocd-nav-new { color: var(--color-white-50); background: linear-gradient(135deg, var(--color-green-70), var(--color-teal-70)); }
 .oc-sidebar--docs .ocd-nav-updated { color: light-dark(var(--color-teal-80), var(--color-teal-20)); background: oklch(from var(--color-teal-60) l c h / 0.16); }
 .oc-sidebar--docs .ocd-nav-pro { color: var(--oc-primary-foreground); background: var(--ocd-accent); }
+/* The same Pro label after a page title (apps/site/src/lib/pro.mjs: "Pro" or "Free + Pro") and in the search results. */
+.ocd-pro-label, .ocd-search-pro { display: inline-flex; align-items: center; padding: 0.15rem 0.6rem; border-radius: 999px; font: 700 0.7rem var(--ocd-mono); font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; color: var(--oc-primary-foreground); background: var(--ocd-accent); text-decoration: none; }
+.ocd-pro-label { vertical-align: middle; margin-inline-start: 0.35rem; font-size: 0.8rem; letter-spacing: 0.04em; }
+.ocd-pro-label:hover { filter: brightness(1.08); }
+.ocd-pro-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+.ocd-search-pro { margin-inline-start: 0.4rem; padding: 0.05rem 0.45rem; font-size: 0.62rem; }
 .oc-sidebar--docs .oc-sidebar-menu-sub { margin: 2px 0 6px 0.85rem; padding-inline-start: 0.6rem; gap: 1px; border-inline-start: 1px solid var(--ocd-rule); }
 .oc-sidebar--docs .oc-sidebar-menu-sub .oc-sidebar-menu-button { padding: 0.3rem 0.55rem; font-size: 0.85rem; }
 .oc-sidebar--docs .oc-sidebar-menu-sub .oc-sidebar-menu-button[aria-current="page"]::before {

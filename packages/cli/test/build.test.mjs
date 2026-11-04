@@ -129,13 +129,16 @@ test("@omniaui brings in the used OmniaUI components, in a layer before the util
   const wrapper = await project({
     "button.blade.php": "<button @class(['oc-btn', 'oc-btn--'.$variant])>",
     "Badge.tsx": "<span className={`oc-badge oc-badge--${tone}`} />",
+    "terminal-log.blade.php": "<p class=\"oc-terminal-log__line oc-terminal-log__line--{{ $line['level'] }}\"><span class=\"oc-terminal-log__level\"></span></p>",
     "node_modules/@birdycom/omniaui/package.json": { name: "@birdycom/omniaui" },
     "node_modules/@birdycom/omniaui/dist/components.css":
-      ".oc-btn { color: red; }\n.oc-btn--destructive { color: crimson; }\n.oc-badge--success { color: green; }\n.oc-card--flat { border: 0; }\n",
+      ".oc-btn { color: red; }\n.oc-btn--destructive { color: crimson; }\n.oc-badge--success { color: green; }\n.oc-card--flat { border: 0; }\n" +
+      ".oc-terminal-log__line--warn .oc-terminal-log__level { color: orange; }\n",
   });
   const dynamic = await postcss([omniacss({ cwd: wrapper, content: ["*.php", "*.tsx"] })]).process("@omniaui;\n", { from: path.join(wrapper, "app.css") });
   assert.match(dynamic.css, /\.oc-btn--destructive/, "'oc-btn--'.$variant keeps the button modifiers");
   assert.match(dynamic.css, /\.oc-badge--success/, "`oc-badge--${tone}` keeps the badge modifiers");
+  assert.match(dynamic.css, /\.oc-terminal-log__line--warn \.oc-terminal-log__level/, "an element modifier built in Blade (oc-x__line--{{ $v }}) keeps its family");
   assert.doesNotMatch(dynamic.css, /\.oc-card--flat/, "other modifiers are still left out");
 
   // node_modules is skipped by a general glob, but scanned when a pattern points into it (a wrapper's source).

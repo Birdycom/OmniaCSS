@@ -24,7 +24,7 @@ The class index is the same one the [OmniaCSS IntelliSense](https://marketplace.
 editor extension uses, built from the same OmniaCSS version. The OmniaUI components and blocks ship with the server,
 with their HTML. When the project has its own OmniaUI packages installed, those versions are used.
 
-OmniaUI Pro blocks are listed by name and description. Their HTML and classes appear only when the project has
+OmniaUI Pro blocks and Pro components are listed by name and description, with the label the docs site shows (`Pro`, or `Free + Pro` for a free component with a Pro addition). Their HTML and classes appear only when the project has
 `@birdycom/omniaui-pro` installed, which comes with a [Pro licence](https://omniaui.eu/ui/pro).
 
 ## Setup

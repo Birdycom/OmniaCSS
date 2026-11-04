@@ -1,7 +1,8 @@
 // File: scripts/lib/search-index.mjs
 // Builds public/data/search-index.json for the docs search (Ctrl K) from the generated pages.
 // Shared by the OmniaCSS and OmniaUI sites (identical copy in both repos); called from scripts/sync-site.mjs.
-// Entry: { t: title, u: url, g: group, h: [[id, heading], …], k: keywords (class names from reference tables), f: featured }
+// Entry: { t: title, u: url, g: group, h: [[id, heading], …], k: keywords (class names from reference tables), f: featured,
+//         p: "Pro" / "Free + Pro" (the label after the page title, OmniaUI) }
 // Map: walk dist HTML -> title + group -> h2/h3 ids -> table keywords -> write JSON
 
 import fs from "node:fs/promises";
@@ -23,6 +24,10 @@ export async function buildSearchIndex(dist, outFile, { siteName, featured = [] 
     const main = document.querySelector(".oc-docs-content, .ocd-content");
     if (!main) continue;
     const rawTitle = document.querySelector("title")?.textContent || "";
+    // The Pro label sits inside the title: read it apart, keep it out of the title text.
+    const proLabel = main.querySelector(".oc-hero-title [data-ocd-pro]");
+    const pro = proLabel?.getAttribute("data-ocd-pro") || "";
+    proLabel?.remove();
     const title = (main.querySelector(".oc-hero-title, .oc-section-header__title, h1")?.textContent || rawTitle.replace(new RegExp(`^${siteName}\\s*(Docs)?\\s*[-—:]\\s*`), ""))
       .replace(/\s+/g, " ").trim();
     const parts = url.split("/").filter(Boolean);
@@ -36,7 +41,7 @@ export async function buildSearchIndex(dist, outFile, { siteName, featured = [] 
       .flatMap((c) => c.textContent.split(/[\s/,|{}]+/))
       .map((w) => w.replace(/^\./, "").replace(/[^\w:.\-[\]()]/g, ""))
       .filter((w) => w.length > 1))].slice(0, 120).join(" ");
-    entries.push({ t: title, u: url, g: group, h: headings, k: keywords, ...(featured.includes(url) ? { f: 1 } : {}) });
+    entries.push({ t: title, u: url, g: group, h: headings, k: keywords, ...(featured.includes(url) ? { f: 1 } : {}), ...(pro ? { p: pro } : {}) });
   }
   entries.sort((a, b) => a.g.localeCompare(b.g) || a.t.localeCompare(b.t));
   // Featured pages first, in the order given

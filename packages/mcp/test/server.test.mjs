@@ -95,6 +95,23 @@ test("list_components finds components and blocks, Pro ones marked", async () =>
   assert.ok(components.total > 100 && components.results.every((r) => r.kind === "component"));
 });
 
+test("Pro components are listed and locked; the free component they add to is Free + Pro", async () => {
+  const by = {};
+  for (const query of ["menu", "graph", "card", "table", "modal"]) {
+    for (const r of (await call("list_components", { query, kind: "component", limit: 200 })).json.results) by[r.name] = r;
+  }
+  for (const name of ["column-menu", "network-graph", "mega-menu", "tint-card-fill", "data-table-pro"]) {
+    assert.equal(by[name]?.label, "Pro", name);
+    assert.ok(by[name].locked, name);
+  }
+  assert.equal(by["tint-card"].label, "Free + Pro");
+  assert.equal(by["tint-card"].proAddition, "tint-card-fill");
+  assert.equal(by["data-table"].label, "Free + Pro");
+  assert.equal(by.modal.label, undefined, "a free component has no label");
+  const locked = (await call("get_component", { name: "mega-menu" })).json;
+  assert.match(locked.locked, /OmniaUI Pro component/);
+});
+
 test("get_component returns the markup and the add commands", async () => {
   const modal = await call("get_component", { name: "oc-modal" });
   assert.equal(modal.error, false);
@@ -110,7 +127,7 @@ test("get_component returns the markup and the add commands", async () => {
   assert.match((await call("get_component", { name: "modl" })).text, /Did you mean "modal"/);
 });
 
-test("Pro blocks come with their HTML when the project has @birdycom/omniaui-pro installed", async (t) => {
+test("Pro blocks and components come with their HTML when the project has @birdycom/omniaui-pro installed", async (t) => {
   const os = await import("node:os");
   const fs = await import("node:fs");
   const path = await import("node:path");
@@ -119,14 +136,23 @@ test("Pro blocks come with their HTML when the project has @birdycom/omniaui-pro
   const pkg = path.join(project, "node_modules/@birdycom/omniaui-pro");
   fs.mkdirSync(path.join(pkg, "blocks"), { recursive: true });
   fs.writeFileSync(path.join(pkg, "package.json"), JSON.stringify({ name: "@birdycom/omniaui-pro", version: "9.9.9" }));
-  fs.writeFileSync(path.join(pkg, "manifest.json"), JSON.stringify({ items: [{ name: "calendar-01", file: "blocks/calendar-01.html", description: "Calendar", requires: ["@birdycom/omniaui-pro", "@birdycom/omniaui"] }] }));
+  fs.writeFileSync(path.join(pkg, "manifest.json"), JSON.stringify({
+    items: [{ name: "calendar-01", file: "blocks/calendar-01.html", description: "Calendar", requires: ["@birdycom/omniaui-pro", "@birdycom/omniaui"] }],
+    components: [{ name: "mega-menu", file: "components/mega-menu.html", description: "Mega menu", requires: ["@birdycom/omniaui-pro", "@birdycom/omniaui"] }],
+  }));
   fs.writeFileSync(path.join(pkg, "blocks/calendar-01.html"), '<div class="oc-block-calendar">licensed</div>\n');
+  fs.mkdirSync(path.join(pkg, "components"), { recursive: true });
+  fs.writeFileSync(path.join(pkg, "components/mega-menu.html"), '<div class="oc-mega" popover>licensed</div>\n');
   const kb = await load({ project });
   const c = kb.getComponent("calendar-01");
   assert.equal(c.html, '<div class="oc-block-calendar">licensed</div>');
   assert.equal(c.source, "@birdycom/omniaui-pro@9.9.9 (installed)");
   assert.match(c.install, /npm install -D @birdycom\/omniaui {2}# and @birdycom\/omniaui-pro/);
   assert.equal(kb.listComponents("", { limit: 1 }).installed["@birdycom/omniaui-pro"], "9.9.9");
+  const mega = kb.getComponent("mega-menu");
+  assert.equal(mega.kind, "component");
+  assert.equal(mega.html, '<div class="oc-mega" popover>licensed</div>', "a Pro component comes with its HTML too");
+  assert.equal(mega.label, "Pro");
 });
 
 test("search_docs finds pages with section links", async () => {
