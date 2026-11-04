@@ -50,12 +50,16 @@ function loadUi(dist, project) {
   const bundled = JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(dist, "omniaui.json.gz"))).toString("utf8"));
   const items = new Map(bundled.items.map((i) => [`${i.kind}:${i.name}`, { ...i, source: "bundled" }]));
   const installed = {};
+  // Pro components from the bundled list and from an installed @birdycom/omniaui-pro (its manifest is newer when the
+  // MCP was built against an OmniaUI release without them).
+  const proComponents = new Map((bundled.proComponents || []).map((p) => [p.name, p]));
   for (const [pkg, kind] of UI_PACKAGES) {
     const dir = findPackage(project, pkg);
     if (!dir) continue;
     let manifest;
     try { manifest = JSON.parse(fs.readFileSync(path.join(dir, "manifest.json"), "utf8")); } catch { continue; }
     installed[pkg] = JSON.parse(fs.readFileSync(path.join(dir, "package.json"), "utf8")).version;
+    if (pkg.endsWith("-pro")) for (const c of manifest.components || []) proComponents.set(c.name, { name: c.name, ...(c.extends ? { extends: c.extends } : {}), description: c.description });
     // The Pro package also lists its components (column menu, mega menu …) next to the blocks.
     const list = [...(manifest.items || []).map((i) => [i, kind]), ...(pkg.endsWith("-pro") ? (manifest.components || []).map((i) => [i, "component"]) : [])];
     for (const [item, itemKind] of list) {
@@ -72,7 +76,7 @@ function loadUi(dist, project) {
     const key = `block:${p.name}`;
     if (!items.has(key)) items.set(key, { name: p.name, kind: "block", package: "@birdycom/omniaui-pro", description: p.description, pro: true, locked: true });
   }
-  for (const p of bundled.proComponents || []) {
+  for (const p of proComponents.values()) {
     const key = `component:${p.name}`;
     if (!items.has(key)) items.set(key, { name: p.name, kind: "component", package: "@birdycom/omniaui-pro", description: p.description, pro: true, locked: true });
     // The free component it adds to gets the site's "Free + Pro" label and the name of its Pro addition.

@@ -95,19 +95,40 @@ test("list_components finds components and blocks, Pro ones marked", async () =>
   assert.ok(components.total > 100 && components.results.every((r) => r.kind === "component"));
 });
 
-test("Pro components are listed and locked; the free component they add to is Free + Pro", async () => {
-  const by = {};
-  for (const query of ["menu", "graph", "card", "table", "modal"]) {
-    for (const r of (await call("list_components", { query, kind: "component", limit: 200 })).json.results) by[r.name] = r;
-  }
-  for (const name of ["column-menu", "network-graph", "mega-menu", "tint-card-fill", "data-table-pro"]) {
-    assert.equal(by[name]?.label, "Pro", name);
-    assert.ok(by[name].locked, name);
-  }
+test("Pro components get the label Pro; the free component they add to is Free + Pro", async (t) => {
+  // From an installed Pro manifest (a fixture): this does not depend on the OmniaUI data the build bundled, which in
+  // CI comes from the last OmniaUI release on npm and can predate the Pro component list.
+  const os = await import("node:os");
+  const fs = await import("node:fs");
+  const path = await import("node:path");
+  const project = fs.mkdtempSync(path.join(os.tmpdir(), "omnia-mcp-"));
+  t.after(() => fs.rmSync(project, { recursive: true, force: true }));
+  const pkg = path.join(project, "node_modules/@birdycom/omniaui-pro");
+  fs.mkdirSync(path.join(pkg, "components"), { recursive: true });
+  fs.writeFileSync(path.join(pkg, "package.json"), JSON.stringify({ name: "@birdycom/omniaui-pro", version: "9.9.9" }));
+  const req = ["@birdycom/omniaui-pro", "@birdycom/omniaui"];
+  fs.writeFileSync(path.join(pkg, "manifest.json"), JSON.stringify({ items: [], components: [
+    { name: "column-menu", file: "components/column-menu.html", description: "Column menu", requires: req },
+    { name: "tint-card-fill", extends: "tint-card", file: "components/tint-card-fill.html", description: "Tint card fill", requires: req },
+    { name: "data-table-pro", extends: "data-table", file: "components/data-table-pro.html", description: "Data table widths", requires: req },
+  ] }));
+  for (const n of ["column-menu", "tint-card-fill", "data-table-pro"]) fs.writeFileSync(path.join(pkg, `components/${n}.html`), `<div class="oc-${n}">licensed</div>\n`);
+  const kb = await load({ project });
+  const by = Object.fromEntries(kb.listComponents("", { kind: "component", limit: 1000 }).results.map((r) => [r.name, r]));
+  for (const name of ["column-menu", "tint-card-fill", "data-table-pro"]) assert.equal(by[name]?.label, "Pro", name);
   assert.equal(by["tint-card"].label, "Free + Pro");
   assert.equal(by["tint-card"].proAddition, "tint-card-fill");
   assert.equal(by["data-table"].label, "Free + Pro");
   assert.equal(by.modal.label, undefined, "a free component has no label");
+});
+
+test("Pro components from the bundled data are listed and locked (when the bundled OmniaUI has them)", async (t) => {
+  const { json } = await call("list_components", { query: "mega", kind: "component" });
+  const mega = json.results.find((r) => r.name === "mega-menu");
+  // The bundle comes from ../omniaUI or from the last OmniaUI release on npm; before 0.14.2 that has no Pro components.
+  if (!mega) return t.skip("the bundled OmniaUI data has no Pro components yet (OmniaUI before 0.14.2 on npm)");
+  assert.equal(mega.label, "Pro");
+  assert.ok(mega.locked);
   const locked = (await call("get_component", { name: "mega-menu" })).json;
   assert.match(locked.locked, /OmniaUI Pro component/);
 });
