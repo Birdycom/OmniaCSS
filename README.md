@@ -17,7 +17,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 > part: utilities, tokens, SCSS, the on-demand engine, the CLI (`init` / `build` / `migrate` / `tokens`),
 > `@birdycom/omniacss-migrate` and the CSS docs. Both repositories share the **same version number**.
 
-**Version:** `0.14.0` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
+**Version:** `0.14.1` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
 
 ## Why OmniaCSS
 
@@ -229,6 +229,7 @@ Newest first.
 
 | Version | Date | Changes |
 |--------|-------|-----|
+| `0.14.1` | 2026-11-04 | Tint card, document layout with table of contents, step list, glossary, styled language list; animations on the GPU |
 | `0.14.0` | 2026-11-03 | Reading, callout, static menu, group, accordion status, neon, backgrounds, particle field and graph; Pro network graph |
 | `0.13.0` | 2026-11-03 | Site building blocks without own CSS: opt-in base.css, [hidden] always hides, subtle text and display font tokens, phone numbers never wrap |
 | `0.12.6` | 2026-11-02 | Winkel- en productblocks, nieuwe componenten (ribbon, lazy loading, rating, gallery …), header/footer-varianten, liquid glass, sneller scrollen |
