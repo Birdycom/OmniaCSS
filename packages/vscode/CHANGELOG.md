@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.2
+
+- `oc-dl--flush` (a definition list without a line above it).
+- The OmniaCSS build keeps element modifiers built in code, such as `oc-terminal-log__line--{{ $level }}` in Blade:
+  before, the `__` in the name made it keep only `line--*`, so those classes were missing from the CSS.
+- `dialog.oc-modal` is as large as its card instead of the whole screen, so `closedby="any"` closes it on a click next
+  to the card (before, that click counted as inside the dialog). The size modifiers keep working.
+
 ## 0.14.1
 
 - Completions and hover CSS for the new OmniaUI parts: tint card (`oc-tint-card`, `__head`, `__title`, `__text`,

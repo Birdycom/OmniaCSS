@@ -59,12 +59,13 @@ export function addCandidates(text, set = new Set()) {
   // Component modifiers built in code keep the whole family: 'oc-btn--'.$variant (PHP), 'oc-btn--' + v (JS),
   // `oc-btn--${v}` (template literal), oc-btn--{{ $v }} (Blade) -> "oc-btn--*". Only BEM modifiers/elements (-- or __):
   // utilities are never built from pieces, so `text-${color}` keeps nothing extra.
-  for (const m of text.matchAll(/([A-Za-z][A-Za-z0-9-]*(?:--|__))(?:['"`]\s*(?:\.|\+)|\$\{|\{\{)/g)) set.add(`${m[1]}*`);
+  // The name may hold an element (oc-terminal-log__line--{{ $level }}): "_" is part of it, else only "line--" was kept.
+  for (const m of text.matchAll(/([A-Za-z][A-Za-z0-9_-]*(?:--|__))(?:['"`]\s*(?:\.|\+)|\$\{|\{\{)/g)) set.add(`${m[1]}*`);
   return set;
 }
 
 /** The prefixes of the "oc-btn--*" candidates that addCandidates records for modifiers built in code. */
-const prefixesOf = (candidates) => [...candidates].filter((c) => /^[A-Za-z][A-Za-z0-9-]*(?:--|__)\*$/.test(c)).map((c) => c.slice(0, -1));
+const prefixesOf = (candidates) => [...candidates].filter((c) => /^[A-Za-z][A-Za-z0-9_-]*(?:--|__)\*$/.test(c)).map((c) => c.slice(0, -1));
 
 /** Classes a selector depends on; classes inside :not()/:where()/:is()/:has() are optional. */
 function requiredClasses(selector) {

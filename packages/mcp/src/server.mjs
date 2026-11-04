@@ -159,7 +159,7 @@ export function createServer(kb, { name = "omniacss", version = kb.version } = {
   server.registerTool("list_components", {
     title: "OmniaUI components and blocks",
     description: "Find OmniaUI components (button, modal, tabs …) and page blocks (pricing, hero, dashboard …) by name or description. " +
-      "Pro blocks are listed too; their HTML needs @birdycom/omniaui-pro in the project.",
+      "Pro blocks and Pro components are listed too (label \"Pro\"); their HTML needs @birdycom/omniaui-pro in the project. A free component with a Pro addition has the label \"Free + Pro\".",
     inputSchema: {
       query: z.string().optional().describe('Words to match, e.g. "dialog", "pricing", "sidebar"'),
       kind: z.enum(["all", "component", "block"]).default("all"),

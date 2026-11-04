@@ -2373,14 +2373,19 @@ button.oc-pagination-item:focus-visible {
    The older .is-open / aria-expanded hooks keep working for script-driven setups.
    =================================================================== */
 
-/* Modal — <dialog>: focus trap, Esc to close and ::backdrop come from the browser */
+/* Modal — <dialog>: focus trap, Esc to close and ::backdrop come from the browser.
+   The dialog is as large as its card, not the whole screen: closedby="any" closes it on a click outside the
+   dialog's box, so a full-screen dialog never closed on a click next to the card. The card keeps the sizes
+   (sm, lg, xl, full or your own max-width); the browser centers the dialog (margin: auto). */
 dialog.oc-modal {
   display: none;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  margin: 0;
+  width: fit-content;
+  height: fit-content;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: visible;
   border: 0;
   background: transparent;
   color: var(--oc-foreground);
@@ -2391,6 +2396,11 @@ dialog.oc-modal[open] {
 dialog.oc-modal::backdrop {
   background: oklch(from var(--color-black-60) l c h / 0.5);
   backdrop-filter: blur(4px);
+}
+/* The card asks for the full width; its max-width (480px, or a size modifier) decides. Low specificity, so a
+   block's own width on the card still wins. */
+:where(dialog.oc-modal[open]) .oc-modal-content {
+  width: calc(100vw - 32px);
 }
 dialog.oc-modal[open] .oc-modal-content {
   transition: opacity var(--oc-transition-normal), scale var(--oc-transition-normal);
@@ -6564,6 +6574,8 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   interpolate-size: allow-keywords;
 }
 .oc-severity-card + .oc-severity-card { margin-block-start: 0.5rem; }
+/* In a stack the gap of the stack is the space between the cards; the margin would add to it. */
+.oc-stack > .oc-severity-card + .oc-severity-card { margin-block-start: 0; }
 
 /* Head row (summary): icon, title + tags, level badge, chevron. */
 .oc-severity-card-head {
@@ -6621,6 +6633,8 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-severity-card[open]::details-content { block-size: auto; }
 .oc-severity-card-body { padding: 0 1rem 1rem 3rem; font-size: 0.875rem; line-height: 1.6; color: var(--oc-muted-foreground); }
 .oc-severity-card-body > :first-child { margin-block-start: 0; }
+/* Without an icon in the head the text lines up with the title instead of the icon column. */
+.oc-severity-card:not(:has(> .oc-severity-card-head .oc-severity-card-icon)) .oc-severity-card-body { padding-inline-start: 1rem; }
 .oc-severity-card-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 0.75rem; }
 
 /* Levels (theme tokens; critical is a deeper red). */
@@ -7631,6 +7645,17 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   .oc-dl--glossary .oc-dl-row { grid-template-columns: minmax(8rem, var(--oc-dl-term-width, 30%)) minmax(0, 1fr); }
 }
 
+/* A definition list inside .oc-prose (a glossary in a privacy policy): the rows keep their own rhythm, not the flow
+   margin of the prose (1.1em on every element), and the dd does not get the indent and top margin of a prose dd. */
+.oc-prose .oc-dl > .oc-dl-row { margin-block: 0; }
+.oc-prose .oc-dl :is(.oc-dl-term, .oc-dl-detail) { margin: 0; padding-inline-start: 0; }
+/* Long terms ("Verwerkingsverantwoordelijke") hyphenate in the language of the page; where the browser has no hyphenation for it, they still break instead of running into the explanation. */
+.oc-dl--glossary .oc-dl-term { hyphens: auto; overflow-wrap: break-word; }
+
+/* Flush: no margin and no line above the list (a list with no .oc-dl-title above it). */
+.oc-dl--flush { margin-block-start: 0; border-block-start: 0; }
+.oc-dl--flush > .oc-dl-row:first-child { padding-block-start: 0; }
+
 /* parts/data-graph.css */
 /* File: packages/ui/src/parts/data-graph.css
    Map: frame -> edges (moving dashes) -> nodes (halo, dot, mark, label) -> levels -> center node + pulse -> focus
@@ -8048,6 +8073,8 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
   margin: 0;
   padding: 0;
   list-style: none;
+  /* One column that never grows with its widest step (a <pre> or a long URL stays inside the card). */
+  grid-template-columns: minmax(0, 1fr);
   counter-reset: oc-step-list;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -8055,7 +8082,9 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
 /* The text flows as normal text (bold words and links stay inline); the number hangs in the indent on the first line. */
 .oc-step-list > li {
   position: relative;
+  min-inline-size: 0;
   padding-inline-start: 1.85rem;
+  overflow-wrap: anywhere;
   counter-increment: oc-step-list;
 }
 .oc-step-list > li::before {
@@ -8073,6 +8102,8 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
 .oc-step-list > li > :first-child { margin-block-start: 0; }
 .oc-step-list > li > :last-child { margin-block-end: 0; }
 .oc-step-list a { text-underline-offset: 2px; }
+/* A code block in a step scrolls inside the step. */
+.oc-step-list pre { max-inline-size: 100%; overflow-x: auto; overflow-wrap: normal; }
 
 /* Small: tighter rows and a smaller text, for a dense panel. */
 .oc-step-list--sm { gap: 0.4rem; font-size: 0.8125rem; }

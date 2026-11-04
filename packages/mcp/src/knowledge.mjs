@@ -39,6 +39,8 @@ const UI_PACKAGES = [
   ["@birdycom/omniaui-blocks", "block"],
   ["@birdycom/omniaui-pro", "block"],
 ];
+/** The label the docs site shows: "Pro" (licence needed) or "Free + Pro" (free, with a Pro addition). */
+const TIER = { pro: "Pro", some: "Free + Pro" };
 
 /**
  * Components and blocks with their HTML: bundled at build time, overlaid with the versions installed in the project.
@@ -54,12 +56,14 @@ function loadUi(dist, project) {
     let manifest;
     try { manifest = JSON.parse(fs.readFileSync(path.join(dir, "manifest.json"), "utf8")); } catch { continue; }
     installed[pkg] = JSON.parse(fs.readFileSync(path.join(dir, "package.json"), "utf8")).version;
-    for (const item of manifest.items || []) {
+    // The Pro package also lists its components (column menu, mega menu …) next to the blocks.
+    const list = [...(manifest.items || []).map((i) => [i, kind]), ...(pkg.endsWith("-pro") ? (manifest.components || []).map((i) => [i, "component"]) : [])];
+    for (const [item, itemKind] of list) {
       let html;
       try { html = fs.readFileSync(path.join(dir, item.file), "utf8").replace(/\r\n/g, "\n").trim(); } catch { continue; }
-      const key = `${kind}:${item.name}`;
+      const key = `${itemKind}:${item.name}`;
       items.set(key, {
-        name: item.name, kind, package: pkg, description: item.description, requires: item.requires, html,
+        name: item.name, kind: itemKind, package: pkg, description: item.description, requires: item.requires, html,
         frameworks: items.get(key)?.frameworks || {}, ...(pkg.endsWith("-pro") ? { pro: true } : {}), source: `${pkg}@${installed[pkg]} (installed)`,
       });
     }
@@ -68,6 +72,14 @@ function loadUi(dist, project) {
     const key = `block:${p.name}`;
     if (!items.has(key)) items.set(key, { name: p.name, kind: "block", package: "@birdycom/omniaui-pro", description: p.description, pro: true, locked: true });
   }
+  for (const p of bundled.proComponents || []) {
+    const key = `component:${p.name}`;
+    if (!items.has(key)) items.set(key, { name: p.name, kind: "component", package: "@birdycom/omniaui-pro", description: p.description, pro: true, locked: true });
+    // The free component it adds to gets the site's "Free + Pro" label and the name of its Pro addition.
+    const base = p.extends && items.get(`component:${p.extends}`);
+    if (base) Object.assign(base, { tier: TIER.some, proAddition: p.name });
+  }
+  for (const i of items.values()) if (i.pro) i.tier = TIER.pro;
   return { items: [...items.values()], installed };
 }
 
@@ -114,7 +126,8 @@ export class Knowledge {
       installed: this.ui.installed,
       results: hits.slice(0, limit).map(({ item: i }) => ({
         name: i.name, kind: i.kind, description: i.description, package: i.package,
-        ...(i.pro ? { pro: true } : {}), ...(i.locked ? { locked: "OmniaUI Pro licence needed" } : {}),
+        ...(i.pro ? { pro: true } : {}), ...(i.tier ? { label: i.tier } : {}), ...(i.proAddition ? { proAddition: i.proAddition } : {}),
+        ...(i.locked ? { locked: "OmniaUI Pro licence needed" } : {}),
       })),
     };
   }
@@ -131,8 +144,8 @@ export class Knowledge {
     }
     if (item.locked) {
       return {
-        name: item.name, kind: item.kind, pro: true, description: item.description,
-        locked: `This is an OmniaUI Pro block. Its HTML comes with a Pro licence (${PRO_URL}). With @birdycom/omniaui-pro installed in the project, this tool returns it.`,
+        name: item.name, kind: item.kind, pro: true, label: TIER.pro, description: item.description,
+        locked: `This is an OmniaUI Pro ${item.kind}. Its HTML comes with a Pro licence (${PRO_URL}). With @birdycom/omniaui-pro installed in the project, this tool returns it.`,
       };
     }
     const flag = item.kind === "block" ? " --kind block" : "";
@@ -140,7 +153,8 @@ export class Knowledge {
     const free = packages.filter((p) => !p.endsWith("-pro"));
     return {
       name: item.name, kind: item.kind, description: item.description, package: item.package, source: item.source,
-      ...(item.pro ? { pro: true } : {}),
+      ...(item.pro ? { pro: true } : {}), ...(item.tier ? { label: item.tier } : {}),
+      ...(item.proAddition ? { proAddition: `${item.proAddition} (OmniaUI Pro): get_component("${item.proAddition}")` } : {}),
       install: `npm install -D ${free.join(" ")}${item.pro ? "  # and @birdycom/omniaui-pro from your Pro release" : ""}`,
       add: {
         css: `npx omniaui add ${item.name}${flag}`,
