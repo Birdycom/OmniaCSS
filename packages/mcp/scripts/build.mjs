@@ -41,14 +41,21 @@ await fs.mkdir(path.join(out, "lib"), { recursive: true });
 for (const [from, to] of FILES) await fs.copyFile(from, path.join(out, to));
 
 // ---- OmniaUI ----------------------------------------------------------------------------------------------
-// A package file from ../omniaUI/<folder>, else from jsDelivr (this version, then latest: OmniaUI is released
-// after OmniaCSS, so on a fresh tag the same version may not be on npm yet).
+// A package file from ../omniaUI/<folder>, else from jsDelivr (this version, then the latest release: OmniaUI is
+// released after OmniaCSS, so on a fresh tag the same version may not be on npm yet).
 const LOCAL = { "@birdycom/omniaui": "packages/ui", "@birdycom/omniaui-blocks": "packages/blocks", "@birdycom/omniaui-react": "packages/react", "@birdycom/omniaui-vue": "packages/vue" };
 const cdnTag = {};
+/** The latest version number on npm. jsDelivr caches "@latest" files for days (it served a 0.14.0 manifest while
+ *  0.14.1 was out), so files are fetched by exact version; "latest" only when the registry cannot be reached. */
+async function latestVersion(pkg) {
+  const res = await fetch(`https://registry.npmjs.org/${pkg}/latest`).catch(() => null);
+  const data = res?.ok ? await res.json().catch(() => null) : null;
+  return data?.version || "latest";
+}
 async function read(pkg, file) {
   const local = await fs.readFile(path.join(omniaUI, LOCAL[pkg], file), "utf8").catch(() => null);
   if (local !== null) return local;
-  for (const tag of cdnTag[pkg] ? [cdnTag[pkg]] : [version, "latest"]) {
+  for (const tag of cdnTag[pkg] ? [cdnTag[pkg]] : [version, await latestVersion(pkg)]) {
     const res = await fetch(`https://cdn.jsdelivr.net/npm/${pkg}@${tag}/${file}`).catch(() => null);
     // jsDelivr can answer 200 with an HTML page (rate limit, error): only a real file counts.
     if (res?.ok && !(res.headers.get("content-type") || "").includes("text/html")) { cdnTag[pkg] = tag; return res.text(); }
