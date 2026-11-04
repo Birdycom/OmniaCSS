@@ -113,6 +113,12 @@ test("Pro components get the label Pro; the free component they add to is Free +
     { name: "data-table-pro", extends: "data-table", file: "components/data-table-pro.html", description: "Data table widths", requires: req },
   ] }));
   for (const n of ["column-menu", "tint-card-fill", "data-table-pro"]) fs.writeFileSync(path.join(pkg, `components/${n}.html`), `<div class="oc-${n}">licensed</div>\n`);
+  // The free components too: the bundle may come from an older OmniaUI release (or a stale CDN copy) without them.
+  const free = path.join(project, "node_modules/@birdycom/omniaui");
+  fs.mkdirSync(path.join(free, "snippets"), { recursive: true });
+  fs.writeFileSync(path.join(free, "package.json"), JSON.stringify({ name: "@birdycom/omniaui", version: "9.9.9" }));
+  fs.writeFileSync(path.join(free, "manifest.json"), JSON.stringify({ items: ["tint-card", "data-table", "modal"].map((n) => ({ name: n, file: `snippets/${n}.html`, description: n, requires: ["@birdycom/omniaui"] })) }));
+  for (const n of ["tint-card", "data-table", "modal"]) fs.writeFileSync(path.join(free, `snippets/${n}.html`), `<div class="oc-${n}"></div>\n`);
   const kb = await load({ project });
   const by = Object.fromEntries(kb.listComponents("", { kind: "component", limit: 1000 }).results.map((r) => [r.name, r]));
   for (const name of ["column-menu", "tint-card-fill", "data-table-pro"]) assert.equal(by[name]?.label, "Pro", name);
