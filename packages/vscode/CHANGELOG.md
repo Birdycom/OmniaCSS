@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.14.1
+
+- Completions and hover CSS for the new OmniaUI parts: tint card (`oc-tint-card`, `__head`, `__title`, `__text`,
+  `__meta`, `__go`, `__art`, `__link`, `--success`, `--warning`, `--destructive`, `--info`, `--muted`, `--lg`), the split
+  section head (`oc-section-head--split`), document layout (`oc-doc-layout`, `--end`, `__aside`, `__main`), the table of
+  contents group label (`oc-toc-group-label`), `oc-prose--ruled` and the glossary (`oc-dl--glossary`).
+- The Pro shape of the tint card (`oc-tint-card--fill`) appears in projects that have OmniaUI Pro.
+- New modifiers: `oc-status-dot--still`, `oc-progress--live`, `oc-meter-list--live`.
+- Step list (`oc-step-list`, `--sm`): a compact numbered list of steps in a card.
+
 ## 0.14.0
 
 - Completions and hover CSS for the new OmniaUI parts: meter row sub-line (`oc-meter-row__sub`, `__subbar`, `__fill`,

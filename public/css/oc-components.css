@@ -1,4 +1,4 @@
-/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.13.0. Do not edit. */
+/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.14.0. Do not edit. */
 /* Semantic theme tokens: every color is light-dark() of an Omnia palette token (oc-colors.css). */
 /* Same source as the desktop export: npx omniacss tokens --format json|dtcg|python */
 :root {
@@ -2114,6 +2114,10 @@ a.oc-breadcrumb-item:hover {
   border-radius: 999px;
   transition: width 300ms ease;
 }
+/* contain: the width change of the bar is laid out inside the track only, never the page around it.
+   --live: no transition, for a bar that gets a new value every few seconds in a window that stays open. */
+.oc-progress { contain: layout paint; }
+.oc-progress--live .oc-progress-bar { transition: none; }
 
 .oc-progress-bar--success { --oc-progress-color: var(--oc-success); }
 .oc-progress-bar--danger { --oc-progress-color: var(--oc-destructive); }
@@ -4057,17 +4061,32 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
    --strong starts at the full accent with a wider ring. */
 .oc-pill .oc-status-dot {
   --oc-status-dot-pulse-alpha: 0.6;
-  --oc-status-dot-pulse-size: 8px;
+  --oc-status-dot-pulse-scale: 3;
+  position: relative;
   inline-size: 0.5rem;
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--oc-accent-from);
-  animation: oc-status-dot-ring 2s infinite;
+  box-shadow: none;
 }
-.oc-pill .oc-status-dot--strong { --oc-status-dot-pulse-alpha: 1; --oc-status-dot-pulse-size: 10px; }
+/* The ring is a ::after that scales and fades (transform + opacity): drawn by the GPU, no work per frame on the page. */
+.oc-pill .oc-status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--oc-accent-from);
+  opacity: 0;
+  pointer-events: none;
+  animation: oc-status-dot-ring 2s ease-out var(--oc-status-dot-pulses, infinite);
+}
+.oc-pill .oc-status-dot--strong { --oc-status-dot-pulse-alpha: 1; --oc-status-dot-pulse-scale: 3.5; }
 @keyframes oc-status-dot-ring {
-  0% { box-shadow: 0 0 0 0 oklch(from var(--oc-accent-from) l c h / var(--oc-status-dot-pulse-alpha)); }
-  70%, 100% { box-shadow: 0 0 0 var(--oc-status-dot-pulse-size) transparent; }
+  0% { transform: scale(1); opacity: var(--oc-status-dot-pulse-alpha); }
+  70%, 100% { transform: scale(var(--oc-status-dot-pulse-scale)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-pill .oc-status-dot::after { animation: none; }
 }
 
 /* Stat strip: big numbers in a bordered row (pairs with .oc-counter for counting up) */
@@ -4319,9 +4338,17 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-sidebar--docs.oc-sidebar--collapsed { inline-size: auto; }
 
 /* ---- On this page: .oc-toc ---------------------------------------------------------------------- */
-.oc-toc { position: sticky; inset-block-start: 0; max-block-size: 100%; overflow: auto; padding-block-start: 2px; padding-inline-end: 0.5rem; }
+/* Sticky only from 64rem: stacked above the text on a phone it would stay over the text. It stops under a sticky site
+   header (--oc-sticky-offset, see parts/site-doc-layout.css). */
+.oc-toc { max-block-size: 100%; overflow: auto; padding-block-start: 2px; padding-inline-end: 0.5rem; }
+@media (min-width: 64rem) {
+  .oc-toc { position: sticky; inset-block-start: var(--oc-sticky-offset, 0px); }
+}
 .oc-toc-title { margin: 1rem 0 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--oc-muted-foreground); }
 .oc-toc-list { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+/* Label above a group of links (Articles, Annexes): a <p> between two lists, or an <li> inside one list. */
+.oc-toc-group-label { margin: 1.25rem 0 0.4rem; padding-inline: 0.5rem; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--oc-subtle-foreground, var(--oc-muted-foreground)); }
+.oc-toc-group-label:first-child { margin-block-start: 0; }
 .oc-toc-link {
   display: block;
   padding: 0.375rem 0.5rem;
@@ -4338,6 +4365,9 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-toc-link.is-active { color: var(--oc-foreground); border-color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.1); }
 /* Scroll-spy without JavaScript: the link of the heading you are reading is highlighted (native :target-current). */
 .oc-toc-list { scroll-target-group: auto; }
+/* One group for the whole table of contents, so with several lists (one per group) only one link lights up. */
+.oc-toc { scroll-target-group: auto; }
+.oc-toc .oc-toc-list { scroll-target-group: none; }
 .oc-toc-link:target-current { color: var(--oc-foreground); border-color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.1); }
 .oc-toc-item--sub { margin-inline-start: 0.75rem; }
 .oc-toc-item--sub .oc-toc-link { font-size: 0.8125rem; }
@@ -6469,7 +6499,7 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-page-header--bordered { margin-block-end: 1rem; border-block-end: 1px solid var(--oc-border); }
 
 /* Sticky: stays on top while the page scrolls (needs a background). */
-.oc-page-header--sticky { position: sticky; inset-block-start: 0; z-index: 10; background: var(--oc-background); }
+.oc-page-header--sticky { position: sticky; inset-block-start: var(--oc-sticky-offset, 0px); z-index: 10; background: var(--oc-background); }
 
 /* Small: for sub pages and dialogs. */
 .oc-page-header--sm { padding-block: 0.5rem 0.75rem; }
@@ -6769,17 +6799,32 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   vertical-align: middle;
 }
 
-/* Tones. --working pulses a ring outwards. */
+/* Tones. --working pulses a ring outwards: a ::after that only scales and fades (transform + opacity), so the GPU
+   draws it and the page does no style or paint work per frame, also in a window that is always open.
+   --oc-status-dot-pulses: how many times (default infinite; 3 = pulse three times and then stay a steady dot).
+   --still: working without the pulse. */
+:where(.oc-status-dot--working) { position: relative; }
 .oc-status-dot--working {
   --oc-status-dot-color: var(--oc-primary);
-  animation: oc-status-dot-pulse 1.8s ease-in-out infinite;
 }
+.oc-status-dot--working::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--oc-status-dot-color);
+  opacity: 0;
+  pointer-events: none;
+  animation: oc-status-dot-pulse 1.8s ease-out var(--oc-status-dot-pulses, infinite);
+}
+.oc-status-dot--still::after { content: none; }
 .oc-status-dot--waiting { --oc-status-dot-color: var(--oc-warning); }
 .oc-status-dot--done { --oc-status-dot-color: var(--oc-success); }
 .oc-status-dot--error { --oc-status-dot-color: var(--oc-destructive); }
 .oc-status-dot--idle { --oc-status-dot-color: var(--oc-muted-foreground); box-shadow: none; opacity: 0.7; }
 @keyframes oc-status-dot-pulse {
-  50% { box-shadow: 0 0 0 5px oklch(from var(--oc-status-dot-color) l c h / 0.08); }
+  0% { transform: scale(1); opacity: 0.35; }
+  100% { transform: scale(2.25); opacity: 0; }
 }
 
 /* Sizes */
@@ -6799,7 +6844,7 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-status__meta { flex: none; margin-inline-start: auto; color: var(--oc-muted-foreground); font-variant-numeric: tabular-nums; }
 
 @media (prefers-reduced-motion: reduce) {
-  .oc-status-dot--working { animation: none; }
+  .oc-status-dot--working::after { animation: none; }
 }
 
 /* parts/app-table-actions.css */
@@ -7337,9 +7382,26 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   block-size: 0.5rem;
   border-radius: 50%;
   background: var(--oc-version-banner-color);
+  position: relative;
+}
+/* The pulse is a ::after that scales and fades (transform + opacity): drawn by the GPU, no work per frame. */
+.oc-version-banner-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--oc-version-banner-color);
+  opacity: 0;
+  pointer-events: none;
   animation: oc-version-banner-pulse 2s ease-in-out infinite;
 }
-@keyframes oc-version-banner-pulse { 50% { box-shadow: 0 0 0 4px oklch(from var(--oc-version-banner-color) l c h / 0.2); } }
+@keyframes oc-version-banner-pulse {
+  0%, 100% { transform: scale(1); opacity: 0; }
+  50% { transform: scale(2); opacity: 0.2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-version-banner-dot::after { animation: none; }
+}
 
 /* Text: the long text hides on small screens, the short one shows instead. */
 .oc-version-banner-text { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -7556,6 +7618,19 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
   .oc-chart-line__dot, .oc-chart-line__tip { transition: none; }
 }
 
+/* parts/data-dl-glossary.css */
+/* File: packages/ui/src/parts/data-dl-glossary.css | Map: glossary rows (term bold, explanation normal, same top line) */
+/* Glossary: the definition list (.oc-dl) as term + explanation instead of label + value. The term is bold in the
+   foreground, the explanation normal text; both use the same line height, so their first lines sit on one line. */
+
+.oc-dl--glossary .oc-dl-row { align-items: baseline; }
+.oc-dl--glossary :is(.oc-dl-term, .oc-dl-detail) { line-height: 1.55; }
+.oc-dl--glossary .oc-dl-term { color: var(--oc-foreground); font-weight: 600; }
+.oc-dl--glossary .oc-dl-detail { color: var(--oc-muted-foreground); font-weight: 400; overflow-wrap: break-word; }
+@media (min-width: 40rem) {
+  .oc-dl--glossary .oc-dl-row { grid-template-columns: minmax(8rem, var(--oc-dl-term-width, 30%)) minmax(0, 1fr); }
+}
+
 /* parts/data-graph.css */
 /* File: packages/ui/src/parts/data-graph.css
    Map: frame -> edges (moving dashes) -> nodes (halo, dot, mark, label) -> levels -> center node + pulse -> focus
@@ -7707,6 +7782,7 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 .oc-meter-row__value { font-size: 0.8125rem; font-variant-numeric: tabular-nums; color: var(--oc-muted-foreground); white-space: nowrap; }
 .oc-meter-row__value strong { color: var(--oc-foreground); }
 .oc-meter-row__bar {
+  contain: layout paint;
   grid-column: 1 / -1;
   block-size: 0.5rem;
   overflow: hidden;
@@ -7749,6 +7825,7 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 }
 .oc-meter-row__subbar {
   --oc-meter-color: var(--oc-muted-foreground);
+  contain: layout paint;
   flex: 1;
   min-inline-size: 2rem;
   block-size: 3px;
@@ -7778,6 +7855,11 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 .oc-meter-list--dense .oc-meter-row__label { font-size: 0.8rem; }
 .oc-meter-list--dense .oc-meter-row__value { font-size: 0.75rem; }
 .oc-meter-list--dense .oc-meter-row__bar { block-size: 5px; }
+/* Live meters (a value every few seconds, a window that stays open): no width transition, so no layout per frame.
+   The dense list is meant for that, so it has none either. */
+:is(.oc-meter-list--live, .oc-meter-list--dense) .oc-meter-row__bar::before,
+:is(.oc-meter-list--live, .oc-meter-list--dense) .oc-meter-row__subbar::before,
+:is(.oc-meter-list--live, .oc-meter-list--dense) .oc-meter-row__fill { transition: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .oc-meter-row__bar::before,
@@ -7950,6 +8032,50 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
 .oc-spec-row > dt { margin: 0; color: var(--oc-muted-foreground); }
 .oc-spec-row > dd { margin: 0; min-inline-size: 0; font-weight: 500; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .oc-spec-row > dd > small { margin-inline-start: 0.25rem; font-weight: 400; color: var(--oc-muted-foreground); }
+
+/* parts/data-step-list.css */
+/* File: packages/ui/src/parts/data-step-list.css | Map: list (one column, counter) -> row (number + text) -> number color
+   -> links -> small */
+/* Step list: a compact numbered list of steps inside a card or a disclosure ("How to remove this", the steps per
+   service, what a scan does). One row per step: the number on the left in the display font, the text on the right.
+   The number takes --oc-step-list-color, else the color of the severity card it sits in (--oc-severity-color), else
+   primary. Start at another number: style="counter-reset: oc-step-list 3" (the first step is then 4).
+   Not to be confused with .oc-steps, the large process section of a website. */
+
+.oc-step-list {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: oc-step-list;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+/* The text flows as normal text (bold words and links stay inline); the number hangs in the indent on the first line. */
+.oc-step-list > li {
+  position: relative;
+  padding-inline-start: 1.85rem;
+  counter-increment: oc-step-list;
+}
+.oc-step-list > li::before {
+  content: counter(oc-step-list);
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 1.25rem;
+  color: var(--oc-step-list-color, var(--oc-severity-color, var(--oc-primary)));
+  font-family: var(--oc-font-display, inherit);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+.oc-step-list > li > :first-child { margin-block-start: 0; }
+.oc-step-list > li > :last-child { margin-block-end: 0; }
+.oc-step-list a { text-underline-offset: 2px; }
+
+/* Small: tighter rows and a smaller text, for a dense panel. */
+.oc-step-list--sm { gap: 0.4rem; font-size: 0.8125rem; }
 
 /* parts/data-stock.css */
 /* File: packages/ui/src/parts/data-stock.css | Map: indicator (dot + text) -> levels (ok, low, out, order) -> badge variant -> count */
@@ -8856,6 +8982,68 @@ button.oc-language-select:hover { background: var(--oc-surface); }
 .oc-language-select--code::after,
 .oc-language-select--code .oc-language-select-icon { display: none; }
 .oc-language-select--code .oc-language-select-control { position: absolute; inset: 0; padding: 0; opacity: 0; }
+
+/* Open list in the OmniaUI dropdown look (Chrome and Edge 135+: customizable select, appearance: base-select).
+   The native list of the system looked like a bare Windows list: narrow, small, no padding. Now it is a popover with
+   the colors, padding, radius and shadow of .oc-dropdown-menu, as wide as the longest language (at least 8rem), with a check at the current
+   language. Other browsers keep the system list (the select still works the same). */
+@supports (appearance: base-select) {
+  .oc-language-select-control,
+  .oc-language-select-control::picker(select) { appearance: base-select; }
+  .oc-language-select-control {
+    min-inline-size: 0;
+    border: 0;
+    background: transparent;
+  }
+  /* The list lines up with the whole pill (icon included), not only with the select inside it. anchor-scope keeps
+     every pill its own anchor when a page has several. */
+  .oc-language-select:has(> .oc-language-select-control) { anchor-name: --oc-language-select; anchor-scope: --oc-language-select; }
+  .oc-language-select-control::picker(select) { position-anchor: --oc-language-select; }
+  /* The label draws its own chevron (::after). */
+  .oc-language-select-control::picker-icon { display: none; }
+  .oc-language-select-control::picker(select) {
+    /* As wide as the longest language, at least 8rem and never narrower than the field. */
+    min-inline-size: max(8rem, anchor-size(inline));
+    margin-block: 4px;
+    padding: 4px;
+    border: 1px solid var(--oc-border);
+    border-radius: var(--oc-radius);
+    background: var(--oc-popover);
+    color: var(--oc-popover-foreground);
+    box-shadow: 0 8px 24px oklch(from var(--color-black-60) l c h / 0.15);
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    position-area: block-end span-inline-end;
+    /* Under the field; above it only when it does not fit below (normal order: no "side with the most room"). */
+    position-try-order: normal;
+    position-try-fallbacks: flip-block;
+  }
+  .oc-language-select-control option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 8px 10px;
+    border-radius: calc(var(--oc-radius) - 2px);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .oc-language-select-control option:hover,
+  .oc-language-select-control option:focus-visible {
+    background: var(--oc-accent);
+    color: var(--oc-accent-foreground);
+    outline: none;
+  }
+  .oc-language-select-control option:checked { font-weight: 600; }
+  /* The check of the current language on the right, in the primary color. */
+  .oc-language-select-control option::checkmark { order: 1; margin-inline-start: auto; color: var(--oc-primary); }
+
+  /* Code: the select lies over the whole button (still invisible text), the list opens under it, aligned right. */
+  .oc-language-select--code .oc-language-select-control { opacity: 1; color: transparent; overflow: hidden; }
+  .oc-language-select--code .oc-language-select-control::picker(select) { position-area: block-end span-inline-start; }
+}
 
 /* parts/forms-number-input.css */
 /* File: packages/ui/src/parts/forms-number-input.css
@@ -12022,6 +12210,47 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   filter: drop-shadow(0 10px 20px oklch(0 0 0 / 0.6));
 }
 
+/* parts/site-doc-layout.css */
+/* File: packages/ui/src/parts/site-doc-layout.css */
+/* Map: sticky offset (token, auto under a site header, scroll padding for anchors) -> document layout (side column +
+   text) -> sticky side column from 64rem -> a table of contents inside it */
+/* A document page with a side column (a table of contents next to a privacy policy, terms or a manual) and the offset
+   that keeps sticky parts and anchor jumps clear of a sticky site header.
+   --oc-sticky-offset: how far from the top sticky parts stop. Set it yourself (:root { --oc-sticky-offset: 5rem }), or
+   let it follow .oc-site-header: its height (--oc-site-header-height, 4.5rem) plus 1rem. Used by .oc-toc,
+   .oc-doc-layout__aside, .oc-page-header--sticky and the scroll padding of the page, so a heading you jump to from the
+   table of contents is not hidden under the header. */
+
+/* Only the header of the page itself (not one shown as an example inside <main>); :where keeps it overridable, also
+   by a scroll-p* utility on <html>. */
+:where(html:has(.oc-site-header:not(main *))) { --oc-sticky-offset: calc(var(--oc-site-header-height, 4.5rem) + 1rem); }
+:where(html) { scroll-padding-block-start: var(--oc-sticky-offset, 0px); }
+
+/* Document layout: side column (--oc-doc-aside, 17rem) and the text; stacked below 64rem, side column first.
+   --end puts the side column on the right on a wide screen. */
+.oc-doc-layout {
+  display: grid;
+  gap: var(--oc-doc-gap, 2rem 4rem);
+  align-items: start;
+}
+.oc-doc-layout__aside,
+.oc-doc-layout__main { min-inline-size: 0; }
+@media (min-width: 64rem) {
+  .oc-doc-layout { grid-template-columns: var(--oc-doc-aside, 17rem) minmax(0, 1fr); }
+  .oc-doc-layout--end { grid-template-columns: minmax(0, 1fr) var(--oc-doc-aside, 17rem); }
+  .oc-doc-layout--end > .oc-doc-layout__aside { order: 1; }
+  /* Sticky only next to the text: stacked on a phone it would stay over the text. */
+  .oc-doc-layout__aside {
+    position: sticky;
+    inset-block-start: var(--oc-sticky-offset, 0px);
+    max-block-size: calc(100dvh - var(--oc-sticky-offset, 0px) - 1rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+}
+/* The column is sticky itself, so the table of contents in it is not. */
+.oc-doc-layout__aside .oc-toc { position: static; max-block-size: none; overflow: visible; }
+
 /* parts/site-fact-list.css */
 /* File: packages/ui/src/parts/site-fact-list.css
    Map: plain -> compact -> stacked -> accent values -> narrow screens
@@ -12165,7 +12394,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 
 /* parts/site-layout.css */
 /* File: packages/ui/src/parts/site-layout.css */
-/* Map: page hero -> section head / more -> action row -> group title -> band -> meta line */
+/* Map: page hero -> section head (split) / more -> action row -> group title -> band -> meta line */
 /* Page building blocks for a marketing or company site, on top of the showcase classes (.oc-section-pad, .oc-display):
    the larger header of an inner page, a section head and a "see more" row, a row of buttons, a group title with a count,
    a full-width band (for a stat strip) and a meta line (version · date). */
@@ -12185,6 +12414,20 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-section-head--center {
   margin-inline: auto;
   text-align: center;
+}
+/* Split: the title on the left, the lead on the right (one column below 56rem). Put the eyebrow and the title in a
+   <div>, the lead next to it. */
+.oc-section-head--split {
+  display: grid;
+  gap: 1rem 4rem;
+  align-items: end;
+  max-inline-size: none;
+}
+.oc-section-head--split > :last-child,
+.oc-section-head--split > div > :last-child { margin-block-end: 0; }
+@media (min-width: 56rem) {
+  .oc-section-head--split { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  .oc-section-head--split > .oc-lead { justify-self: end; max-inline-size: 36rem; }
 }
 .oc-section-more { margin-block-start: 2.5rem; }
 
@@ -12368,16 +12611,30 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
    Colors: --oc-accent-from and --oc-accent-to (brand-1 and brand-2, or an .oc-accent--* preset).
    .oc-glow-border goes on anything with a border: <form class="oc-glass oc-glow-border">, an .oc-card, a panel. */
 
+/* The element keeps a steady border and glow in --oc-accent-from; a ::after with the border and a wider glow in
+   --oc-accent-to fades in and out over it. Only opacity animates, so the GPU does it: no style or paint work per frame.
+   position: relative only when the element has no position of its own (:where = no specificity). */
+:where(.oc-glow-border) { position: relative; }
 .oc-glow-border {
   border-color: var(--oc-accent-from);
   box-shadow: 0 0 10px oklch(from var(--oc-accent-from) l c h / 0.35), var(--oc-glow-extra, 0 0 transparent);
+}
+.oc-glow-border::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--oc-glow-border-width, 1px));
+  border: var(--oc-glow-border-width, 1px) solid var(--oc-accent-to);
+  border-radius: inherit;
+  box-shadow: 0 0 20px oklch(from var(--oc-accent-to) l c h / 0.35);
+  opacity: 0;
+  pointer-events: none;
   animation: oc-glow-border var(--oc-glow-border-duration, 3s) ease-in-out infinite;
 }
 /* Glass keeps its light top edge and drop shadow under the glow. */
 .oc-glass.oc-glow-border { --oc-glow-extra: var(--oc-glass-shadow), inset 0 1px 0 var(--oc-glass-edge-hi); }
 @keyframes oc-glow-border {
-  0%, 100% { border-color: var(--oc-accent-from); box-shadow: 0 0 10px oklch(from var(--oc-accent-from) l c h / 0.35), var(--oc-glow-extra, 0 0 transparent); }
-  50% { border-color: var(--oc-accent-to); box-shadow: 0 0 20px oklch(from var(--oc-accent-to) l c h / 0.35), var(--oc-glow-extra, 0 0 transparent); }
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 /* Neon button: gradient from one accent to the other, with a glow. --oc-btn-neon-ink sets the text color. */
@@ -12394,7 +12651,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-btn--neon:disabled { color: var(--oc-muted-foreground); background: var(--oc-muted); box-shadow: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .oc-glow-border { animation: none; }
+  .oc-glow-border::after { animation: none; }
 }
 
 /* parts/site-next-teaser.css */
@@ -12813,7 +13070,8 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-prose :where(h3) { margin-block-start: 1.6em; font-size: 1.2em; }
 .oc-prose :where(h4) { margin-block-start: 1.4em; font-size: 1em; }
 .oc-prose :where(h1, h2, h3, h4) + :where(*) { margin-block-start: 0.6em; }
-.oc-prose :where(h2, h3, h4) { scroll-margin-block-start: 5rem; }
+/* Room above a heading you jump to: 5rem, or 0.5rem on top of the page's scroll padding (--oc-sticky-offset). */
+.oc-prose :where(h2, h3, h4) { scroll-margin-block-start: max(0.5rem, 5rem - var(--oc-sticky-offset, 0px)); }
 
 /* ---- Paragraphs ---- */
 .oc-prose :where(p) { text-wrap: pretty; }
@@ -12936,6 +13194,8 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-prose--legal :where(a) { color: var(--oc-brand-1); font-weight: inherit; text-decoration-color: currentColor; text-underline-offset: 3px; }
 .oc-prose--legal :where(a:hover) { color: var(--oc-foreground); }
 .oc-prose--legal :where(table) { font-size: 0.93rem; }
+/* Ruled: a line under every h2, so the articles of a long document stand apart (with --legal or any prose). */
+.oc-prose--ruled :where(h2) { padding-block-end: 0.6rem; border-block-end: 1px solid var(--oc-border); }
 
 /* parts/site-stack-list.css */
 /* File: packages/ui/src/parts/site-stack-list.css
@@ -13042,6 +13302,231 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 
 /* Line in the accent color instead of the neutral border. */
 .oc-timeline--accent { border-inline-start-color: color-mix(in oklch, var(--oc-accent-from) 55%, transparent); }
+
+/* parts/site-tint-card.css */
+/* File: packages/ui/src/parts/site-tint-card.css */
+/* Map: tint card (link, tint, lift) -> head (title + go chip) -> text + meta -> corner art (drift, tilt on hover)
+   -> glow -> tones -> large cards -> reduced motion */
+/* Tint card: a card that is a link, tinted in one color (--oc-tint), with a large outline webicon that sticks out of the
+   bottom corner. The icon drifts slowly up and down (each card in a grid on its own beat) and tilts and grows on hover;
+   a soft glow behind it grows with it. The arrow chip top right fills with the tint and the arrow flies out and back
+   in. The card lifts 4px with a shadow in its own tint. For a row of services, training modules or product areas in an
+   .oc-card-grid. Colors mix with the card color, so light and dark mode work without extra classes. */
+
+.oc-tint-card {
+  --oc-tint: var(--oc-primary);
+  --oc-tint-foreground: var(--oc-primary-foreground);
+  --oc-tint-mix: 9%;
+  --oc-tint-mix-hover: 15%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  min-block-size: 9rem;
+  padding: 1.5rem;
+  border: 1px solid color-mix(in oklab, var(--oc-tint) 14%, transparent);
+  border-radius: var(--oc-radius-xl, 1.5rem);
+  background: color-mix(in oklab, var(--oc-tint) var(--oc-tint-mix), var(--oc-card, var(--oc-background)));
+  color: var(--oc-foreground);
+  text-decoration: none;
+  transition:
+    translate 0.3s var(--oc-ease-out, ease-out),
+    box-shadow 0.3s var(--oc-ease-out, ease-out),
+    background-color 0.3s var(--oc-ease-out, ease-out);
+}
+@media (min-width: 40rem) {
+  .oc-tint-card { min-block-size: 15rem; padding: 1.75rem; }
+}
+.oc-tint-card:is(a, button):hover,
+.oc-tint-card:is(a, button):focus-visible,
+.oc-tint-card:has(.oc-tint-card__link:is(:hover, :focus-visible)) {
+  translate: 0 -4px;
+  background: color-mix(in oklab, var(--oc-tint) var(--oc-tint-mix-hover), var(--oc-card, var(--oc-background)));
+  box-shadow: 0 24px 48px -24px color-mix(in oklab, var(--oc-tint) 45%, transparent);
+}
+.oc-tint-card:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+/* A card that is not a link itself: the title link covers the whole card. */
+.oc-tint-card__link { color: inherit; text-decoration: none; }
+.oc-tint-card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.oc-tint-card__link:focus-visible { outline: none; }
+.oc-tint-card__link:focus-visible::after { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+
+/* Head: title on the left, the arrow chip on the right. */
+.oc-tint-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.oc-tint-card__title {
+  margin: 0;
+  font-family: var(--oc-font-display, inherit);
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.oc-tint-card__text {
+  margin: 0.5rem 0 0;
+  max-inline-size: 26ch;
+  color: var(--oc-muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+/* Meta line at the bottom (12 modules, New, From € 9): in the tint, pushed down. */
+.oc-tint-card__meta {
+  margin-block-start: auto;
+  padding-block-start: 1rem;
+  color: color-mix(in oklab, var(--oc-tint) 75%, var(--oc-foreground));
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+@container (min-width: 16rem) {
+  .oc-tint-card__title { font-size: 1.25rem; }
+  .oc-tint-card__text { font-size: 0.94rem; }
+}
+
+/* Arrow chip: a round chip in the tint; on hover it fills and the arrow flies out top right and back in from below. */
+.oc-tint-card__go {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: 2rem;
+  block-size: 2rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--oc-tint) 16%, transparent);
+  color: var(--oc-tint);
+  font-size: 1.1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+.oc-tint-card__go > * { display: block; }
+:is(a.oc-tint-card, button.oc-tint-card):is(:hover, :focus-visible) .oc-tint-card__go,
+.oc-tint-card:has(.oc-tint-card__link:is(:hover, :focus-visible)) .oc-tint-card__go {
+  background: var(--oc-tint);
+  color: var(--oc-tint-foreground);
+}
+:is(a.oc-tint-card, button.oc-tint-card):is(:hover, :focus-visible) .oc-tint-card__go > *,
+.oc-tint-card:has(.oc-tint-card__link:is(:hover, :focus-visible)) .oc-tint-card__go > * {
+  animation: oc-tint-go 0.55s var(--oc-ease-out, ease-out);
+}
+@keyframes oc-tint-go {
+  0% { translate: 0 0; opacity: 1; }
+  45% { translate: 130% -130%; opacity: 0; }
+  46% { translate: -130% 130%; opacity: 0; }
+  100% { translate: 0 0; opacity: 1; }
+}
+
+/* Corner art: a large outline webicon (mdi-light or material-symbols ...-outline), half outside the bottom corner.
+   It drifts slowly (transform); hover tilts and grows it (rotate, scale), so the two never fight. */
+.oc-tint-card__art {
+  position: absolute;
+  inset-block-end: -1rem;
+  inset-inline-end: -0.75rem;
+  z-index: -1;
+  display: block;
+  color: var(--oc-tint);
+  font-size: 6rem;
+  line-height: 1;
+  opacity: 0.32;
+  pointer-events: none;
+  transform-origin: 70% 70%;
+  will-change: transform;
+  animation: oc-tint-drift var(--oc-tint-drift, 6s) ease-in-out var(--oc-tint-delay, 0s) infinite alternate;
+  transition:
+    rotate 0.5s var(--oc-ease-out, ease-out),
+    scale 0.5s var(--oc-ease-out, ease-out),
+    opacity 0.5s var(--oc-ease-out, ease-out);
+}
+.oc-tint-card__art > * { display: block; }
+/* transform (not translate) + will-change: the drift runs on the GPU, so it costs no style work per frame. */
+@keyframes oc-tint-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-4px, -10px, 0); }
+}
+/* Each card in a row drifts on its own beat. */
+.oc-tint-card:nth-child(5n + 2) { --oc-tint-delay: -1.2s; }
+.oc-tint-card:nth-child(5n + 3) { --oc-tint-delay: -2.4s; }
+.oc-tint-card:nth-child(5n + 4) { --oc-tint-delay: -3.6s; }
+.oc-tint-card:nth-child(5n + 5) { --oc-tint-delay: -4.8s; }
+:is(a.oc-tint-card, button.oc-tint-card):is(:hover, :focus-visible) .oc-tint-card__art,
+.oc-tint-card:has(.oc-tint-card__link:is(:hover, :focus-visible)) .oc-tint-card__art {
+  rotate: -8deg;
+  scale: 1.12;
+  opacity: 0.5;
+}
+
+/* Glow: a soft spot in the tint behind the icon that grows on hover. */
+.oc-tint-card::after {
+  content: "";
+  position: absolute;
+  inset-block-end: -35%;
+  inset-inline-end: -25%;
+  z-index: -2;
+  inline-size: min(75%, 14rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--oc-tint) 24%, transparent), transparent 68%);
+  scale: 0.8;
+  pointer-events: none;
+  transition: scale 0.6s var(--oc-ease-out, ease-out);
+}
+.oc-tint-card:is(a, button):is(:hover, :focus-visible)::after,
+.oc-tint-card:has(.oc-tint-card__link:is(:hover, :focus-visible))::after { scale: 1.15; }
+
+/* On a phone the cards are low and wide: the icon stays small there and only grows from 40rem (in a card of 16rem+). */
+@media (min-width: 40rem) {
+  .oc-tint-card__art { inset-block-end: -1.5rem; inset-inline-end: -1.5rem; font-size: 7rem; }
+  @container (min-width: 16rem) {
+    .oc-tint-card__art { font-size: 9rem; }
+  }
+}
+
+/* Tones (or set --oc-tint yourself: style="--oc-tint: #e8590c"). */
+.oc-tint-card--success { --oc-tint: var(--oc-success); --oc-tint-foreground: var(--oc-success-foreground); }
+.oc-tint-card--warning { --oc-tint: var(--oc-warning); --oc-tint-foreground: var(--oc-warning-foreground); }
+.oc-tint-card--destructive { --oc-tint: var(--oc-destructive); --oc-tint-foreground: var(--oc-destructive-foreground); }
+.oc-tint-card--info {
+  --oc-tint: var(--oc-info, light-dark(var(--color-deepskyblue-70), var(--color-skyblue-50)));
+  --oc-tint-foreground: #fff;
+}
+.oc-tint-card--muted { --oc-tint: var(--oc-muted-foreground); --oc-tint-foreground: var(--oc-background); }
+
+/* Large: a card for a row of two or three, with more room and a larger icon. */
+.oc-tint-card--lg { min-block-size: 18rem; }
+@media (min-width: 40rem) {
+  .oc-tint-card--lg { padding: 2.25rem; }
+}
+.oc-tint-card--lg .oc-tint-card__title { font-size: 1.5rem; }
+.oc-tint-card--lg .oc-tint-card__text { max-inline-size: 34ch; font-size: 1rem; }
+@media (min-width: 40rem) {
+  @container (min-width: 22rem) {
+    .oc-tint-card--lg .oc-tint-card__art { font-size: 12rem; }
+  }
+}
+
+/* With the fly-in (.oc-reveal--fly + fly.js) the card keeps its own hover transitions next to the fly-in ones. */
+.oc-fly-ready .oc-tint-card.oc-reveal--fly {
+  transition:
+    opacity 0.6s var(--oc-ease-out, ease) var(--oc-fly-delay, 0s),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--oc-fly-delay, 0s),
+    translate 0.3s var(--oc-ease-out, ease-out),
+    box-shadow 0.3s var(--oc-ease-out, ease-out),
+    background-color 0.3s var(--oc-ease-out, ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-tint-card,
+  .oc-tint-card__art,
+  .oc-tint-card::after { transition: none; animation: none; }
+  .oc-tint-card:is(a, button):is(:hover, :focus-visible),
+  .oc-tint-card:has(.oc-tint-card__link:is(:hover, :focus-visible)) { translate: none; }
+  .oc-tint-card .oc-tint-card__go > * { animation: none !important; }
+}
 
 /* parts/utility-hover.css */
 /* File: packages/ui/src/parts/utility-hover.css */
