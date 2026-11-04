@@ -25,9 +25,9 @@ scroll-driven animations, light-dark(), OKLCH colors, logical properties). Docs:
 
 ## Install
 CDN (prototyping, full build):
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.14.1/dist/omnia.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.14.2/dist/omnia.min.css">
 Starter build (common utilities only, small):
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.14.1/dist/omnia.starter.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@birdycom/omniacss@0.14.2/dist/omnia.starter.min.css">
 
 npm with PostCSS / Vite / Laravel (only the CSS the project uses):
   npm install -D @birdycom/omniacss
