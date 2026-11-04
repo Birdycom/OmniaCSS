@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.14.1",
+      "date": "2026-11-04",
+      "summary": "Tint card, document layout with table of contents, step list, glossary, styled language list; animations on the GPU"
+    },
+    {
       "version": "0.14.0",
       "date": "2026-11-03",
       "summary": "Reading, callout, static menu, group, accordion status, neon, backgrounds, particle field and graph; Pro network graph"
