@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.14.3",
+      "date": "2026-11-05",
+      "summary": "omniacss build: utilities in the last cascade layer, so a utility on a component always wins"
+    },
+    {
       "version": "0.14.2",
       "date": "2026-11-04",
       "summary": "Pro components (mega menu, data table Pro and more) counted and labelled from one source; modals close on a click outside; severity card, step list and glossary fixes"
