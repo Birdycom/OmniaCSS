@@ -4,7 +4,8 @@
 // Map: args -> config -> commands (init | build | purge | migrate | tokens | add/list moved notice) -> output
 // Author: Serge Cools | Framework: OmniaCSS
 // Components and blocks moved to OmniaUI (October 2026): "npx omniaui add <name>" copies them now.
-// "omniacss build" still includes the OmniaUI CSS when @birdycom/omniaui(-blocks) is installed.
+// "omniacss build" still includes the OmniaUI CSS when @birdycom/omniaui(-blocks) is installed, in a layer before the
+// utilities (same order as the PostCSS plugin), so a utility class on a component wins.
 
 import fs from "node:fs/promises";
 import { watch } from "node:fs";
@@ -49,7 +50,7 @@ Options for build (override omnia.config.json):
   -c, --content <glob>   content files to scan (repeatable)
   -o, --output <file>    output CSS file
       --no-components    do not include the OmniaUI component CSS (@birdycom/omniaui, when installed)
-      --no-layer         do not wrap the output in @layer omnia
+      --no-layer         no cascade layers (default: @layer omnia-base, omniaui, omnia; utilities win)
 
 Components and blocks: ${MOVED}
 `;
@@ -109,8 +110,8 @@ Using Vite / PostCSS instead? Add the plugin and put "@omnia;" in your CSS:
 }
 
 /**
- * The element base without its own @layer omnia wrapper: the build wraps everything in that layer, and a nested
- * omnia layer would lose to the reset.
+ * The element base without its own @layer omnia wrapper: the build puts its rules in the base layer, after the
+ * reset (see layered()).
  */
 async function baseCss() {
   const css = await fs.readFile(path.join(pkgDir("@birdycom/omniacss"), "src", "base.css"), "utf8");
@@ -142,6 +143,28 @@ async function omniauiCss(config) {
   return css;
 }
 
+/**
+ * The build in the same order as the PostCSS plugin: `@layer omnia-base, omniaui, omnia;`. The reset, the :root tokens
+ * and the element base sit in the base layer, the OmniaUI components, blocks and Pro in omniaui, and the utilities in
+ * the last layer, so a utility on a component always wins (`lg:sticky` on `.oc-panel`, `mt-8` in `.oc-prose`),
+ * whatever the specificity of the component rule. Without a layer (--no-layer) the utilities come last in the file.
+ */
+function layered(engine, { full, ui, base, candidates, layer, keep }) {
+  const uiLayer = layer ? "omniaui" : false;
+  const baseLayer = layer ? `${layer}-base` : false;
+  // The element base goes after the reset, in the same (base) layer: it beats the reset and loses to every class.
+  const source = base ? `${full}\n${base}` : full;
+  const uiCss = ui ? engine.generate(ui, candidates, { layer: uiLayer, keep }) : "";
+  // The utilities keep the palette tokens (--color-*) that the component tokens point to.
+  const utilities = engine.generate(source, candidates, { layer, baseLayer, keep, referencedBy: [uiCss] });
+  // @import has to come before every rule, only @layer statements may precede it.
+  const imports = [];
+  const strip = (css) => css.replace(/^@import [^;]+;\n?/gm, (m) => { if (!imports.includes(m.trim())) imports.push(m.trim()); return ""; });
+  const body = strip(uiCss) + strip(utilities);
+  const order = layer ? `@layer ${[baseLayer, ui ? uiLayer : null, layer].filter(Boolean).join(", ")};\n` : "";
+  return order + (imports.length ? imports.join("\n") + "\n" : "") + body;
+}
+
 // Browsers for --minify. Without targets lightningcss folds animation-timeline into the animation shorthand,
 // which Chrome rejects (the whole declaration drops, so scroll-driven animations stop). These versions are
 // new enough that nothing (light-dark(), nesting, oklch) gets lowered.
@@ -155,15 +178,14 @@ async function cmdBuild(flags) {
   const run = async () => {
     const started = Date.now();
     const { candidates, files } = await engine.collectCandidates(config.content, cwd);
-    let full = await engine.loadFullCss({ dist: path.join(pkgDir("@birdycom/omniacss"), "dist") });
-    full += await omniauiCss(config);
-    if (config.base) full += "\n" + (await baseCss());
+    const full = await engine.loadFullCss({ dist: path.join(pkgDir("@birdycom/omniacss"), "dist") });
+    const ui = await omniauiCss(config);
     // Block classes in the content while blocks are off: the block CSS would be missing without a word.
     if (!config.blocks) {
       const used = [...candidates].filter((c) => c.startsWith("oc-block-"));
       if (used.length) console.log(`omniacss: ${used.length} block classes found (${used.slice(0, 3).join(", ")}${used.length > 3 ? " …" : ""}) but "blocks" is off — add "blocks": true to ${CONFIG}.`);
     }
-    let css = engine.generate(full, candidates, { layer: config.layer, keep: config.keep });
+    let css = layered(engine, { full, ui, base: config.base ? await baseCss() : "", candidates, layer: config.layer, keep: config.keep });
     if (config.minify) {
       const { transform } = await import("lightningcss");
       css = transform({ filename: config.output, code: Buffer.from(css), minify: true, targets: MINIFY_TARGETS }).code.toString();

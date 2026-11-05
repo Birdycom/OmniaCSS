@@ -47,15 +47,43 @@ test("build says so when the content uses block classes while blocks are off", a
   assert.doesNotMatch(run(quiet, "build", "-o", "out.css"), /block classes found/);
 });
 
-test('"base": true puts the element base in the output, inside the omnia layer', async () => {
+test('"base": true puts the element base in the output, in the base layer after the reset', async () => {
   const dir = await project({ "index.html": '<p class="flex">x</p>', "omnia.config.json": { content: ["index.html"], output: "out.css", base: true } });
   run(dir, "build");
   const css = await fs.readFile(path.join(dir, "out.css"), "utf8");
   assert.match(css, /font-size: var\(--oc-body-size, 1rem\)/);
   assert.doesNotMatch(css, /@layer omnia \{[^}]*@layer omnia/, "no nested omnia layer");
+  const baseLayer = css.slice(css.indexOf("@layer omnia-base {"), css.indexOf("@layer omnia {"));
+  assert.match(baseLayer, /--oc-body-size/, "the element base sits in the base layer, so every class beats it");
   const plain = await project({ "index.html": '<p class="flex">x</p>', "omnia.config.json": { content: ["index.html"], output: "out.css" } });
   run(plain, "build");
   assert.doesNotMatch(await fs.readFile(path.join(plain, "out.css"), "utf8"), /--oc-body-size/);
+});
+
+test("build puts the OmniaUI CSS in a layer before the utilities, so a utility on a component wins", async () => {
+  const dir = await project({
+    "index.html": '<div class="oc-panel lg:sticky mt-8">x</div>',
+    "node_modules/@birdycom/omniaui/package.json": { name: "@birdycom/omniaui" },
+    "node_modules/@birdycom/omniaui/dist/components.css": ":root { --oc-primary: var(--color-blue-60); }\n.oc-panel { position: relative; color: var(--oc-primary); }\n.oc-prose > * + * { margin-top: 1em; }\n.oc-card { display: grid; }\n",
+    "omnia.config.json": { content: ["index.html"], output: "out.css" },
+  });
+  run(dir, "build");
+  const css = await fs.readFile(path.join(dir, "out.css"), "utf8");
+  assert.match(css, /^@layer omnia-base, omniaui, omnia;/, "layer order first: base, components, utilities");
+  assert.match(css, /@layer omniaui \{[\s\S]*\.oc-panel/);
+  assert.ok(css.indexOf("@layer omniaui {") < css.indexOf("@layer omnia {"), "components before the utilities");
+  assert.match(css.slice(css.indexOf("@layer omnia {")), /\.lg\\:sticky/, "the utility sits in the last layer");
+  assert.doesNotMatch(css, /\.oc-card/, "unused components are left out");
+  assert.match(css, /--color-blue-60:/, "the palette color a component token uses stays");
+  assert.doesNotMatch(css, /--color-magenta-80:/, "unused palette colors are still left out");
+  // Without OmniaUI the order names no omniaui layer; with --no-layer there are no layers and the utilities come last.
+  const plain = await project({ "index.html": '<div class="flex"></div>' });
+  run(plain, "build", "-o", "out.css");
+  assert.match(await fs.readFile(path.join(plain, "out.css"), "utf8"), /^@layer omnia-base, omnia;/);
+  run(dir, "build", "--no-layer", "-o", "flat.css");
+  const flat = await fs.readFile(path.join(dir, "flat.css"), "utf8");
+  assert.doesNotMatch(flat, /@layer/);
+  assert.ok(flat.indexOf(".oc-panel") < flat.indexOf("lg\\:sticky"), "utilities after the components");
 });
 
 test("build --minify keeps animation-timeline out of the animation shorthand", async () => {
