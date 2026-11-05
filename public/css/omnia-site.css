@@ -9401,6 +9401,9 @@ select {
   .lg\:fixed {
     position: fixed;
   }
+  .lg\:sticky {
+    position: sticky;
+  }
   .lg\:overflow-auto {
     overflow: auto;
   }
