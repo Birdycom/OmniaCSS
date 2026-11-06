@@ -270,7 +270,7 @@
 }
 
 .oc-block-pricing-features li::before {
-  content: "✓ ";
+  content: "\002713 ";
   color: var(--oc-block-accent);
   font-weight: 600;
 }

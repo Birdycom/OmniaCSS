@@ -58,6 +58,21 @@ function prependOcColorsImport() {
 }
 prependOcColorsImport.postcss = true;
 
+/** Writes non-ASCII characters in `content` as CSS escapes ("→" -> "\002192"). The stylesheets are served as text/css
+ *  without a charset; a page or preview that is not UTF-8 then showed "â†’" instead of the arrow. Escapes read the same
+ *  in every encoding. Runs after cssnano so the minifier never turns them back into raw characters. */
+function escapeContentNonAscii() {
+  return {
+    postcssPlugin: "escape-content-non-ascii",
+    OnceExit(root) {
+      root.walkDecls("content", (decl) => {
+        decl.value = decl.value.replace(/[^\x00-\x7F]/gu, (ch) => "\\" + ch.codePointAt(0).toString(16).padStart(6, "0"));
+      });
+    },
+  };
+}
+escapeContentNonAscii.postcss = true;
+
 export default (cfg = {}) => {
   const dev = cfg.env === "development";
 
@@ -78,6 +93,7 @@ export default (cfg = {}) => {
         : cssnanoPlugin({
             preset: "default",
           }),
+      escapeContentNonAscii(),
       // Run last so the added @import is not resolved by postcss-import (browser loads it at runtime).
       prependOcColorsImport(),
     ].filter(Boolean),

@@ -372183,10 +372183,6 @@ select {
   font-family: "Noto Sans Egyptian Hieroglyphs";
 }
 
-.test:before {
-  content: "𓀀";
-}
-
 /* The font size property */
 .font-0\.6 {
   font-size: 0.625rem;

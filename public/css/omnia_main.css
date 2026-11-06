@@ -372185,10 +372185,6 @@ select {
   font-family: "Noto Sans Egyptian Hieroglyphs";
 }
 
-.test:before {
-  content: "𓀀";
-}
-
 /* The font size property */
 .font-0\.6 {
   font-size: 0.625rem;
@@ -442938,12 +442934,12 @@ select {
 }
 
 .scroll-buttons::scroll-button(inline-start) {
-  content: "‹"/"Previous";
+  content: "\002039"/"Previous";
   left: calc(anchor(left) + 0.5rem);
 }
 
 .scroll-buttons::scroll-button(inline-end) {
-  content: "›"/"Next";
+  content: "\00203a"/"Next";
   right: calc(anchor(right) + 0.5rem);
 }
 
