@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.14.4",
+      "date": "2026-11-06",
+      "summary": "Pijlen en vinkjes uit CSS tonen weer goed (escapes in content, ook na --minify); vergeten .test:before-regel verwijderd"
+    },
+    {
       "version": "0.14.3",
       "date": "2026-11-05",
       "summary": "omniacss build: utilities in the last cascade layer, so a utility on a component always wins"

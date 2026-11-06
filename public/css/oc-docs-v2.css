@@ -266,8 +266,8 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 :is(.oc-docs-content, .ocd-content) .oc-badge-nojs { --ocd-badge: light-dark(var(--color-orange-95), var(--color-orange-40)); }
 :is(.oc-docs-content, .ocd-content) .oc-badge-support--baseline { --ocd-badge: light-dark(var(--color-green-80), var(--color-green-10)); }
 :is(.oc-docs-content, .ocd-content) .oc-badge-support--newest { --ocd-badge: light-dark(var(--color-indigo-60), var(--color-indigo-2)); }
-:is(.oc-docs-content, .ocd-content) .oc-badge-support--baseline::before { content: "✓"; inline-size: auto; aspect-ratio: auto; background: none; font-size: 0.8rem; }
-:is(.oc-docs-content, .ocd-content) .oc-badge-support--newest::before { content: "✦"; inline-size: auto; aspect-ratio: auto; background: none; font-size: 0.75rem; }
+:is(.oc-docs-content, .ocd-content) .oc-badge-support--baseline::before { content: "\002713"; inline-size: auto; aspect-ratio: auto; background: none; font-size: 0.8rem; }
+:is(.oc-docs-content, .ocd-content) .oc-badge-support--newest::before { content: "\002726"; inline-size: auto; aspect-ratio: auto; background: none; font-size: 0.75rem; }
 :is(.oc-docs-content, .ocd-content) .oc-badge-pro { --ocd-badge: light-dark(var(--color-magenta-60), var(--color-magenta-40)); font-weight: 700; }
 
 /* ---- Page hero (OmniaUI pages open with .oc-hero) ----------------------------------------------- */

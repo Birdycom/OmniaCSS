@@ -3840,7 +3840,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   font-weight: 600;
   text-decoration: none;
 }
-.oc-link-arrow::after { content: "→"; transition: translate 0.2s var(--oc-ease-out); }
+.oc-link-arrow::after { content: "\002192"; transition: translate 0.2s var(--oc-ease-out); }
 .oc-link-arrow:hover::after { translate: 4px 0; }
 
 /* Backdrop: slowly drifting color blobs + fine grid behind the page.
@@ -4045,7 +4045,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-product-card__tagline { margin: 0; color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h)); font-weight: 600; font-size: 0.95rem; }
 .oc-product-card__summary { margin: 0; color: var(--oc-muted-foreground); font-size: 0.95rem; flex-grow: 1; }
 .oc-product-card__more { display: inline-flex; align-items: center; gap: 0.4rem; margin-block-start: 0.75rem; font-weight: 600; font-size: 0.92rem; }
-.oc-product-card__more::after { content: "→"; transition: translate 0.25s var(--oc-ease-out); }
+.oc-product-card__more::after { content: "\002192"; transition: translate 0.25s var(--oc-ease-out); }
 .oc-product-card:hover .oc-product-card__more::after { translate: 5px 0; }
 
 /* Pill badge (neutral) and accent pill + pulsing status dot */
@@ -4179,7 +4179,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-tag-list--lg > li { padding: 0.45rem 1rem; font-family: var(--oc-font-display, inherit); font-size: 1rem; font-weight: 700; letter-spacing: 0.02em; }
 .oc-check-list { display: grid; gap: 0.5rem; margin: 1.1rem 0 0; padding: 0; list-style: none; font-size: 0.93rem; }
 .oc-check-list > li { display: flex; gap: 0.5rem; align-items: baseline; }
-.oc-check-list > li::before { content: "✓"; color: var(--oc-brand-1); font-weight: 700; }
+.oc-check-list > li::before { content: "\002713"; color: var(--oc-brand-1); font-weight: 700; }
 
 /* Site header: sticky; turns into glass after scrolling (scroll-driven animation, no JS).
    Mobile menu: <button popovertarget="site-nav"> + <nav id="site-nav" popover> — no JS either. */
@@ -7041,7 +7041,7 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.oc-titlebar__subtitle::before { content: "·"; margin-inline-end: 8px; }
+.oc-titlebar__subtitle::before { content: "\0000b7"; margin-inline-end: 8px; }
 /* Window buttons sit in the top right corner (as on a desktop window), not centred on the title line. */
 .oc-titlebar__actions { display: flex; flex: none; align-self: flex-start; align-items: flex-start; margin-inline-start: auto; }
 
@@ -12119,7 +12119,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   font-size: 0.9rem;
   font-weight: 600;
 }
-.oc-link-card__more::after { content: "→"; transition: translate 0.25s var(--oc-ease-out, ease); }
+.oc-link-card__more::after { content: "\002192"; transition: translate 0.25s var(--oc-ease-out, ease); }
 .oc-link-card:hover .oc-link-card__more::after { translate: 4px 0; }
 
 /* Icon list: rows with an icon in a frame. --points: an icon tile next to a title and a text, without frames. */
@@ -12523,11 +12523,11 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 
 /* Back link: the arrow points left, sits before the text and moves left on hover. */
 .oc-link-arrow--back::after { content: none; }
-.oc-link-arrow--back::before { content: "←"; transition: translate 0.2s var(--oc-ease-out); }
+.oc-link-arrow--back::before { content: "\002190"; transition: translate 0.2s var(--oc-ease-out); }
 .oc-link-arrow--back:is(:hover, :focus-visible)::before { translate: -4px 0; }
 
 /* External link: diagonal arrow that moves up-right. */
-.oc-link-arrow--external::after { content: "↗"; }
+.oc-link-arrow--external::after { content: "\002197"; }
 .oc-link-arrow--external:is(:hover, :focus-visible)::after { translate: 3px -3px; }
 
 /* Colors: accent of the element, or muted text that turns to the foreground color on hover. */
@@ -12734,7 +12734,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   color: var(--oc-muted-foreground);
 }
 .oc-next-teaser__tagline::after {
-  content: "→";
+  content: "\002192";
   color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   transition: translate 0.25s var(--oc-ease-out);
 }
@@ -12742,7 +12742,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 /* Previous: the arrow points left and sits before the tagline. */
 .oc-next-teaser--prev .oc-next-teaser__tagline::after { content: none; }
 .oc-next-teaser--prev .oc-next-teaser__tagline::before {
-  content: "←";
+  content: "\002190";
   color: light-dark(var(--oc-accent-from), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
   transition: translate 0.25s var(--oc-ease-out);
 }
@@ -12865,9 +12865,9 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   font-size: 0.92rem;
 }
 .oc-price-card__feature { display: flex; align-items: baseline; gap: 0.55rem; }
-.oc-price-card__feature::before { content: "✓"; flex-shrink: 0; color: var(--oc-success); font-weight: 700; }
+.oc-price-card__feature::before { content: "\002713"; flex-shrink: 0; color: var(--oc-success); font-weight: 700; }
 .oc-price-card__feature--excluded { color: var(--oc-muted-foreground); }
-.oc-price-card__feature--excluded::before { content: "✕"; color: var(--oc-muted-foreground); font-weight: 400; }
+.oc-price-card__feature--excluded::before { content: "\002715"; color: var(--oc-muted-foreground); font-weight: 400; }
 
 .oc-price-card__cta { inline-size: 100%; }
 
@@ -13056,7 +13056,7 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   font-size: 0.9rem;
   font-weight: 600;
 }
-.oc-project-card__more::after { content: "→"; transition: translate 0.25s var(--oc-ease-out); }
+.oc-project-card__more::after { content: "\002192"; transition: translate 0.25s var(--oc-ease-out); }
 
 /* Hover / focus: lift, accent border, zoom the shot a little, move the arrow. */
 .oc-project-card:is(a, [tabindex]):hover {
