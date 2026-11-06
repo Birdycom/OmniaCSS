@@ -2514,6 +2514,9 @@ details.oc-accordion-item[open]::details-content {
 }
 .oc-theme-switch label {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 0.8rem;
@@ -2534,6 +2537,23 @@ details.oc-accordion-item[open]::details-content {
 }
 .oc-theme-switch label:has(input:focus-visible) {
   outline: 2px solid var(--oc-ring);
+}
+/* A webicon (or svg) in a label, next to the text or alone (--icons). */
+.oc-theme-switch label > :is(iconify-icon, svg) {
+  flex: none;
+  inline-size: 1.15em;
+  block-size: 1.15em;
+  font-size: 1.15em;
+}
+/* Icons only (monitor / sun / moon): the text stays for screen readers in .oc-theme-switch__text, add a title for a tooltip. */
+.oc-theme-switch--icons label { padding: 5px 8px; }
+.oc-theme-switch--icons .oc-theme-switch__text {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* Counter — animated number without JavaScript: <span class="oc-counter" style="--oc-counter-to: 1250"></span> */
