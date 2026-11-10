@@ -2514,6 +2514,9 @@ details.oc-accordion-item[open]::details-content {
 }
 .oc-theme-switch label {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 0.8rem;
@@ -2534,6 +2537,23 @@ details.oc-accordion-item[open]::details-content {
 }
 .oc-theme-switch label:has(input:focus-visible) {
   outline: 2px solid var(--oc-ring);
+}
+/* A webicon (or svg) in a label, next to the text or alone (--icons). */
+.oc-theme-switch label > :is(iconify-icon, svg) {
+  flex: none;
+  inline-size: 1.15em;
+  block-size: 1.15em;
+  font-size: 1.15em;
+}
+/* Icons only (monitor / sun / moon): the text stays for screen readers in .oc-theme-switch__text, add a title for a tooltip. */
+.oc-theme-switch--icons label { padding: 5px 8px; }
+.oc-theme-switch--icons .oc-theme-switch__text {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* Counter — animated number without JavaScript: <span class="oc-counter" style="--oc-counter-to: 1250"></span> */
@@ -10524,17 +10544,30 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
   --oc-liquid-blur: 5px;
   position: relative;
   isolation: isolate;
-  background: var(--oc-liquid-tint);
+  background: none;
   border: 1px solid var(--oc-liquid-edge);
-  /* Light enters at the top left and leaves at the bottom right; a soft glow runs along the inner edge,
-     so the sheet reads as a thick, clear lens rather than frosted plastic. */
+  box-shadow: 0 10px 30px -10px oklch(0% 0 0deg / 0.35);
+}
+/* The lens itself sits on ::after behind the content (not on the element: backdrop-filter there would trap a
+   position: fixed tooltip inside). Light enters at the top left and leaves at the bottom right; a soft glow runs
+   along the inner edge, so the sheet reads as a thick, clear lens rather than frosted plastic. */
+.oc-glass.oc-glass--liquid::after,
+.oc-glass--liquid::after,
+.oc-glass-bar::after,
+.oc-site-header--glass .oc-site-header__inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--oc-liquid-tint);
   box-shadow:
-    0 10px 30px -10px oklch(0% 0 0deg / 0.35),
     inset 2px 2px 1px -2px oklch(100% 0 0deg / 0.95),
     inset -2px -2px 1px -2px oklch(100% 0 0deg / 0.7),
     inset 0 0 10px 1px oklch(100% 0 0deg / 0.22),
     inset 0 -8px 16px -12px oklch(100% 0 0deg / 0.35);
   backdrop-filter: blur(var(--oc-liquid-blur)) saturate(1.9) brightness(1.1) contrast(1.05);
+  pointer-events: none;
 }
 /* Specular rim: bright on the top-left and bottom-right edge, only on the border ring. */
 .oc-glass--liquid::before,
@@ -10600,7 +10633,8 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 
 /* Less transparency asked for, or no backdrop-filter: a solid bar that still reads as one. */
 @media (prefers-reduced-transparency: reduce) {
-  .oc-glass--liquid, .oc-glass-bar { --oc-liquid-tint: var(--oc-card); backdrop-filter: none; }
+  .oc-glass--liquid, .oc-glass-bar { --oc-liquid-tint: var(--oc-card); }
+  .oc-glass--liquid::after, .oc-glass-bar::after { backdrop-filter: none; }
 }
 @supports not (backdrop-filter: blur(1px)) {
   .oc-glass--liquid, .oc-glass-bar { --oc-liquid-tint: light-dark(oklch(100% 0 0deg / 0.85), oklch(25% 0.02 260deg / 0.9)); }
@@ -10683,18 +10717,31 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
   --oc-glass-panel-radius: 14px;
 }
 
-/* Sheet: the outer glass surface (a widget, a floating panel, a dialog over a photo). */
+/* Sheet: the outer glass surface (a widget, a floating panel, a dialog over a photo).
+   The blur and tint sit on a ::after layer behind the content, not on the sheet itself: an element with
+   backdrop-filter becomes the containing block of position: fixed children, so a tooltip inside would be trapped
+   on the sheet instead of next to its anchor. */
 .oc-glass {
   position: relative;
+  isolation: isolate;
   color: var(--oc-foreground);
-  background: var(--oc-glass-sheet);
   border: 1px solid var(--oc-glass-edge);
   border-radius: var(--oc-glass-radius);
-  box-shadow: var(--oc-glass-shadow), inset 0 1px 0 var(--oc-glass-edge-hi);
-  backdrop-filter: blur(var(--oc-glass-blur)) saturate(1.5);
+  box-shadow: var(--oc-glass-shadow);
   /* OmniaUI cards inside become glass panels too. */
   --oc-card-background: var(--oc-glass-panel);
   --oc-card-border: var(--oc-glass-edge);
+}
+.oc-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--oc-glass-sheet);
+  box-shadow: inset 0 1px 0 var(--oc-glass-edge-hi);
+  backdrop-filter: blur(var(--oc-glass-blur)) saturate(1.5);
+  pointer-events: none;
 }
 
 /* Panel: a lighter layer inside a sheet (a group of settings, a meter, a list). */
@@ -10711,15 +10758,12 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 }
 
 /* Strong: more opaque, for text-heavy panels or a hovered row. */
-.oc-glass--strong,
+.oc-glass--strong::after,
 .oc-glass-panel--strong { background: var(--oc-glass-panel-strong); }
 
 /* Flat: a frameless desktop window where the OS draws the blur (acrylic, vibrancy): no own blur, no drop shadow. */
-.oc-glass--flat {
-  border-radius: 8px;
-  box-shadow: inset 0 1px 0 var(--oc-glass-edge-hi);
-  backdrop-filter: none;
-}
+.oc-glass--flat { border-radius: 8px; box-shadow: none; }
+.oc-glass--flat::after { backdrop-filter: none; }
 
 /* Hairline divider in glass (sections, header). */
 .oc-glass-divider { block-size: 1px; margin: 0; border: 0; background: var(--oc-glass-hairline); }
@@ -10731,7 +10775,7 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
     --oc-glass-panel: var(--oc-card);
     --oc-glass-panel-strong: var(--oc-muted);
   }
-  .oc-glass { backdrop-filter: none; }
+  .oc-glass::after { backdrop-filter: none; }
 }
 
 /* parts/media-image-zoom.css */
@@ -12316,21 +12360,29 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
    70px lower, smaller and tilted, and land in their place. Without fly.js (html.oc-fly-ready is missing) or with
    "reduce motion" everything simply stands in its place. Options: --oc-fly-step (offset per column), --oc-fly-stagger
    (delay per column) and data-oc-fly-repeat (fly out again when leaving the view). The lift on hover uses translate, so it never fights the
-   transform of the fly-in. Also: a "New" badge in a product card name and short syntax classes for a code window. */
+   transform of the fly-in. Also: a "New" badge in a product card name and short syntax classes for a code window.
+   Timing (on the grid or a card): --oc-fly-duration (movement, 0.9s), --oc-fly-fade (opacity, 0.6s), --oc-fly-ease,
+   --oc-fly-rise (start lower, 70px) and --oc-fly-blur (start blurred, 0px). Later trigger: data-oc-fly-trigger (fly.js). */
 
-.oc-fly-ready .oc-reveal--fly {
-  /* --oc-fly-delay: set per card by fly.js from --oc-fly-stagger (delay per column). */
+/* The fly timing only while hidden (flying out) and while landing (.is-flying, set by fly.js until the card stands
+   still). After that the card's own transition (hover lift, spotlight tilt) is back, so hover stays quick.
+   html.oc-fly-ready: stronger than a card's own transition rule (e.g. the spotlight card of Pro), which comes later. */
+html.oc-fly-ready .oc-reveal--fly:not(.is-visible),
+html.oc-fly-ready .oc-reveal--fly.is-flying {
+  /* --oc-fly-delay: set per card by fly.js from --oc-fly-stagger (delay per column) or data-oc-fly-random. */
   transition:
-    opacity 0.6s var(--oc-ease-out, ease) var(--oc-fly-delay, 0s),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--oc-fly-delay, 0s),
+    opacity var(--oc-fly-fade, 0.6s) var(--oc-ease-out, ease) var(--oc-fly-delay, 0s),
+    transform var(--oc-fly-duration, 0.9s) var(--oc-fly-ease, cubic-bezier(0.16, 1, 0.3, 1)) var(--oc-fly-delay, 0s),
+    filter var(--oc-fly-fade, 0.6s) var(--oc-ease-out, ease) var(--oc-fly-delay, 0s),
     border-color 0.35s;
 }
-.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
+html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
   opacity: 0;
-  transform: perspective(900px) translate3d(var(--oc-fly-x, 0), 70px, 0) scale(0.9) rotateX(14deg);
+  filter: blur(var(--oc-fly-blur, 0px));
+  transform: perspective(900px) translate3d(var(--oc-fly-x, 0), var(--oc-fly-rise, 70px), 0) scale(0.9) rotateX(14deg);
 }
 @media (prefers-reduced-motion: reduce) {
-  .oc-fly-ready .oc-reveal--fly:not(.is-visible) { opacity: 1; transform: none; }
+  html.oc-fly-ready .oc-reveal--fly:not(.is-visible) { opacity: 1; filter: none; transform: none; }
 }
 
 /* "New" after the name of a product card: <h3 class="oc-product-card__name">Product 1 <span class="oc-product-card__badge oc-pill">New</span></h3> */
@@ -12350,6 +12402,37 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-code-window .oc-tok-c { color: var(--oc-syntax-constant); }
 .oc-code-window .oc-tok-f { color: var(--oc-syntax-function); }
 .oc-code-window .oc-tok-m { color: var(--oc-syntax-comment); }
+
+/* parts/site-header-progress.css */
+/* File: packages/ui/src/parts/site-header-progress.css */
+/* Map: thin line at the bottom of the site header -> fills with the scroll position of the page (no JS) -> fallback */
+/* Reading progress in the site header: put <span class="oc-site-header__progress" aria-hidden="true"></span> inside
+   .oc-site-header (sticky, so it is the containing block). A thin gradient line at the bottom of the header fills from
+   left to right while you scroll the page: a scroll-driven animation, no JS. Browsers without scroll-driven animations
+   simply do not show it. Options: --oc-header-progress-height (3px) and --oc-header-progress-color (brand gradient). */
+
+.oc-site-header__progress {
+  display: none;
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;
+  block-size: var(--oc-header-progress-height, 3px);
+  background: var(--oc-header-progress-color, linear-gradient(90deg, var(--oc-brand-1), var(--oc-brand-2), var(--oc-brand-3)));
+  border-radius: 0 999px 999px 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  .oc-site-header__progress {
+    display: block;
+    animation: oc-header-progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes oc-header-progress {
+  to { transform: scaleX(1); }
+}
 
 /* parts/site-header-variants.css */
 /* File: packages/ui/src/parts/site-header-variants.css

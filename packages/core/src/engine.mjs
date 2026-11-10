@@ -27,9 +27,10 @@ const unescape = (s) => s.replace(/\\(.)/g, "$1");
  * @param {string} [cwd]
  * @returns {Promise<{ candidates: Set<string>, files: string[] }>}
  */
-export async function collectCandidates(patterns, cwd = process.cwd()) {
+export async function collectCandidates(patterns, cwd = process.cwd(), { wrappers = true } = {}) {
   const candidates = new Set(ALWAYS_KEEP);
   const files = [];
+  const texts = [];
   for (const pattern of [].concat(patterns)) {
     // node_modules is skipped, unless the pattern itself points into it (the source of a component wrapper package).
     const intoModules = /node_modules/.test(pattern);
@@ -39,10 +40,84 @@ export async function collectCandidates(patterns, cwd = process.cwd()) {
       const stat = await fs.stat(file).catch(() => null);
       if (!stat || !stat.isFile()) continue;
       files.push(file);
+      const text = await fs.readFile(file, "utf8");
+      texts.push(text);
+      addCandidates(text, candidates);
+    }
+  }
+  // The React/Vue wrappers write their oc-classes in node_modules: scan the source of the components you import.
+  if (wrappers) {
+    for (const file of await wrapperSources(texts, cwd)) {
+      if (files.includes(file)) continue;
+      files.push(file);
       addCandidates(await fs.readFile(file, "utf8"), candidates);
     }
   }
   return { candidates, files };
+}
+
+/** OmniaUI wrapper packages whose source ships in the package (src/), so their class names can be scanned. */
+export const WRAPPER_PACKAGES = ["@birdycom/omniaui-react", "@birdycom/omniaui-vue", "@birdycom/omniaui-pro-react", "@birdycom/omniaui-pro-vue"];
+const SOURCE_EXT = [".tsx", ".ts", ".jsx", ".js", ".vue"];
+
+/**
+ * Source files of the wrapper components that the content imports, plus every file they import themselves
+ * (ConfirmDialog -> AlertDialog). Read on every build, so a newly imported component counts without a restart.
+ * `import { Button, PriceCard } from "@birdycom/omniaui-react"` -> src/components/Button.tsx, PriceCard.tsx …
+ * A namespace or default import of the whole package (`import * as UI`, `app.use(OmniaUI)`) scans all components.
+ * @param {string[]} texts content of the scanned files
+ * @param {string} cwd project root (resolves the installed packages)
+ * @returns {Promise<string[]>} absolute file paths
+ */
+export async function wrapperSources(texts, cwd = process.cwd()) {
+  const wanted = new Map(); // package -> Set of imported names ("*" = all)
+  const importRe = /import\s+([^'";]*?)\s+from\s*['"](@birdycom\/omniaui(?:-pro)?-(?:react|vue))['"]/g;
+  for (const text of texts) {
+    for (const m of text.matchAll(importRe)) {
+      const set = wanted.get(m[2]) ?? new Set();
+      wanted.set(m[2], set);
+      const braces = m[1].match(/\{([^}]*)\}/);
+      if (braces) {
+        for (const raw of braces[1].split(",")) {
+          const name = raw.trim().replace(/^type\s+/, "").split(/\s+as\s+/)[0].trim();
+          if (name) set.add(name);
+        }
+      }
+      if (/\*\s+as\s+\w+/.test(m[1]) || /^\s*[A-Za-z_$][\w$]*\s*(,|$)/.test(m[1])) set.add("*");
+    }
+  }
+  if (!wanted.size) return [];
+
+  const { createRequire } = await import("node:module");
+  const require = createRequire(path.join(cwd, "package.json"));
+  const out = new Set();
+  for (const [pkg, names] of wanted) {
+    let src;
+    try { src = path.join(path.dirname(require.resolve(`${pkg}/package.json`)), "src"); } catch { continue; }
+    const all = [];
+    for await (const rel of fs.glob("**/*.{tsx,ts,jsx,js,vue}", { cwd: src })) all.push(path.join(src, rel));
+    if (!all.length) continue;
+    // Which file exports which name: `export function Button`, `export const X`, `export { A, B }`, OcButton.vue.
+    const owner = new Map();
+    for (const file of all) {
+      const text = await fs.readFile(file, "utf8");
+      if (file.endsWith(".vue")) owner.set(path.basename(file, ".vue"), file);
+      for (const m of text.matchAll(/export\s+(?:default\s+)?(?:async\s+)?(?:const|let|function|class|interface|type|enum)\s+([A-Za-z_$][\w$]*)/g)) if (!owner.has(m[1])) owner.set(m[1], file);
+    }
+    const queue = names.has("*") ? all.filter((f) => /[\\/](components|blocks)[\\/]/.test(f)) : [...names].map((n) => owner.get(n)).filter(Boolean);
+    while (queue.length) {
+      const file = queue.pop();
+      if (out.has(file)) continue;
+      out.add(file);
+      const text = await fs.readFile(file, "utf8");
+      for (const m of text.matchAll(/(?:from|import)\s*['"](\.{1,2}\/[^'"]+)['"]/g)) {
+        const base = path.resolve(path.dirname(file), m[1]);
+        const hit = [base, ...SOURCE_EXT.map((e) => base + e), ...SOURCE_EXT.map((e) => path.join(base, "index" + e))].find((p) => all.includes(p));
+        if (hit && !out.has(hit)) queue.push(hit);
+      }
+    }
+  }
+  return [...out];
 }
 
 /** Split source text into class-like tokens (keeps `:`, `/`, `.` and `%` used in OmniaCSS class names). */
