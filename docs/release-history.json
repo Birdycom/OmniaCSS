@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.15.0",
+      "date": "2026-11-10",
+      "summary": "Thema-schakelaar met iconen; juridische pagina's naar birdycom.be; geïmporteerde React/Vue-componenten automatisch gescand (wrappers); fly-in-opties en scroll-voortgangsbalk; dropdown en tooltip in glas"
+    },
+    {
       "version": "0.14.4",
       "date": "2026-11-06",
       "summary": "Pijlen en vinkjes uit CSS tonen weer goed (escapes in content, ook na --minify); vergeten .test:before-regel verwijderd"
