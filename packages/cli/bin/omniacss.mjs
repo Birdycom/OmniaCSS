@@ -181,7 +181,7 @@ async function cmdBuild(flags) {
 
   const run = async () => {
     const started = Date.now();
-    const { candidates, files } = await engine.collectCandidates(config.content, cwd);
+    const { candidates, files } = await engine.collectCandidates(config.content, cwd, { wrappers: config.wrappers ?? true });
     const full = await engine.loadFullCss({ dist: path.join(pkgDir("@birdycom/omniacss"), "dist") });
     const ui = await omniauiCss(config);
     // Block classes in the content while blocks are off: the block CSS would be missing without a word.

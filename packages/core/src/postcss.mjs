@@ -50,12 +50,14 @@ async function omniauiSource(params, cwd) {
 
 /**
  * @param {{ content: string[], layer?: string|false, baseLayer?: string|false, omniauiLayer?: string|false,
- *   keep?: string[], cwd?: string, referencedBy?: string[] }} options
+ *   keep?: string[], cwd?: string, referencedBy?: string[], wrappers?: boolean }} options
  *   layer: cascade layer of the utilities ("omnia"); omniauiLayer: of the OmniaUI CSS ("omniaui"). With both, the
  *   utilities layer comes last, so a utility class on a component wins.
  *   baseLayer: layer of the reset and :root tokens ("omnia-base"), declared first in the stylesheet so the reset
  *   never overrides a component or one of your own layers.
  *   referencedBy: CSS text of other stylesheets whose var(--…) tokens must stay (this stylesheet always counts).
+ *   wrappers: scan the source of the OmniaUI React/Vue components the content imports (default true), see
+ *   wrapperSources() in engine.mjs.
  */
 export default function omniacss(options = {}) {
   return {
@@ -75,7 +77,7 @@ export default function omniacss(options = {}) {
       // The stylesheet itself uses tokens too (`color: var(--color-teal-60)` next to `@omnia;`): keep those, without
       // having to list this file under content. Other CSS files: put them in content (or in referencedBy).
       const referencedBy = [root.toString(), ...(options.referencedBy || [])];
-      const { candidates, files } = await collectCandidates(options.content, cwd);
+      const { candidates, files } = await collectCandidates(options.content, cwd, { wrappers: options.wrappers ?? true });
       // `from`: the stylesheet being built, so Vite resolves url() in the generated CSS against it.
       const parse = (css) => postcss.parse(css, { from: result.opts.from }).nodes;
 
