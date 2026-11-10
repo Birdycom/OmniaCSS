@@ -47,7 +47,12 @@ const { css, stats } = await buildCss({
   referencedBy,
 });
 // Fonts come from our own server (scripts/self-host-fonts.mjs), never from Google: no visitor IP goes to a third party.
-const siteCss = css.replace(/@import url\(["']https:\/\/fonts\.googleapis\.com\/[^)]*\);?/g, '@import url("oc-google-fonts.css");');
+let siteCss = css.replace(/@import url\(["']https:\/\/fonts\.googleapis\.com\/[^)]*\);?/g, '@import url("oc-google-fonts.css");');
+// The npm package drops the @font-face rules that point at this site's /fonts folder (Lucida Console, Noto); the
+// site does serve those files, so take them back from the full site build.
+const fullSite = await fs.readFile(path.join(out, "css/omnia_main.css"), "utf8");
+const localFaces = fullSite.match(/@font-face\s*\{[^}]*url\(\s*["']?\/fonts\/[^}]*\}/g) ?? [];
+if (localFaces.length) siteCss = siteCss.replace(/(@import[^;]*;\s*)*/, (imports) => imports + localFaces.join("\n") + "\n");
 if (/fonts\.googleapis\.com/.test(siteCss)) throw new Error("[site] css/omnia-site.css still loads Google Fonts");
 await fs.writeFile(path.join(out, "css/omnia-site.css"), siteCss);
 console.log(`[site] css/omnia-site.css ${(stats.outputBytes / 1024).toFixed(0)} KB (full build ${(stats.inputBytes / 1024 / 1024).toFixed(1)} MB)`);

@@ -180,3 +180,11 @@ test("@omniaui brings in the used OmniaUI components, in a layer before the util
   const blocks = await postcss([omniacss({ cwd: dir, content: ["index.html"] })]).process("@omniaui blocks;\n", { from: path.join(dir, "app.css") });
   assert.match(blocks.messages.find((m) => m.type === "warning")?.text ?? "", /omniaui-blocks is not installed/);
 });
+
+test("the package CSS never points at a file it does not ship (no root /fonts/… in dist)", async () => {
+  const dist = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../core/dist");
+  for (const file of ["omnia.css", "omnia.min.css", "omnia.starter.css", "omnia.starter.min.css"]) {
+    const css = await fs.readFile(path.join(dist, file), "utf8");
+    assert.doesNotMatch(css, /url\(\s*["']?\//, `${file} has a root url()`);
+  }
+});
