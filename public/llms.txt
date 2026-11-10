@@ -6,7 +6,7 @@
 > (PostCSS, Vite or CLI) keeps only the classes a project uses. Components and page blocks come from the sister
 > project OmniaUI (https://omniaui.eu, oc-* classes, HTML/React/Vue/Blade/Livewire).
 
-Current version: 0.15.0. Node.js 22 or newer for the npm packages.
+Current version: 0.15.1. Node.js 22 or newer for the npm packages.
 
 ## Rules for AI assistants
 

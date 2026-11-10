@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.15.1",
+      "date": "2026-11-10",
+      "summary": "Lucida Console en Noto blijven, maar het npm-pakket gebruikt het geïnstalleerde lettertype (local()) in plaats van /fonts/: geen 404 meer in apps; build controleert elke url() in de dist"
+    },
+    {
       "version": "0.15.0",
       "date": "2026-11-10",
       "summary": "Thema-schakelaar met iconen; juridische pagina's naar birdycom.be; geïmporteerde React/Vue-componenten automatisch gescand (wrappers); fly-in-opties en scroll-voortgangsbalk; dropdown en tooltip in glas"

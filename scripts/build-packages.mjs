@@ -58,12 +58,53 @@ async function buildTokens() {
   console.log(`[packages] oc-theme.css + dist/tokens (json, dtcg, python): ${Object.keys(data.colors).length} colors, gamut mapped: ${mapped.join(", ")}`);
 }
 
+/** The full build serves the docs site, which has its own /fonts folder. The npm package does not ship those files
+ *  (Lucida Console is a system font we may not redistribute), so an @font-face that points at a root path
+ *  (url("/fonts/…")) would be a 404 in every app. Keep the @font-face, but let it use the installed font:
+ *  src: local("Lucida Console") instead of the site's file. */
+async function localSiteFontFaces(file) {
+  const { default: postcss } = await import("postcss");
+  const root = postcss.parse(await fs.readFile(file, "utf8"));
+  const changed = [];
+  root.walkAtRules("font-face", (at) => {
+    let family = "";
+    at.walkDecls("font-family", (d) => { family = d.value.replace(/["']/g, "").trim(); });
+    at.walkDecls("src", (d) => {
+      if (!/url\(\s*["']?\//.test(d.value)) return;
+      d.value = [family, family.replace(/\s+/g, "")].filter((v, i, a) => a.indexOf(v) === i).map((n) => `local("${n}")`).join(", ");
+      changed.push(family);
+    });
+  });
+  await fs.writeFile(file, root.toString());
+  if (changed.length) console.log(`[packages] ${path.basename(file)}: @font-face uses the installed font (${changed.join(", ")})`);
+}
+
+/** Every url() in the package CSS must work in someone else's app: a data: URL, an https URL, or a relative path to a
+ *  file that ships next to it. A root path ("/fonts/…") or a missing file stops the build. */
+async function checkDistUrls() {
+  const bad = [];
+  for await (const rel of fs.glob("**/*.css", { cwd: r("packages/core/dist") })) {
+    const file = r("packages/core/dist", rel);
+    const css = await fs.readFile(file, "utf8");
+    for (const m of css.matchAll(/url\(\s*(["']?)([^"')]+)\s*\)/g)) {
+      const url = m[2].trim();
+      if (/^(data:|https:\/\/|#)/.test(url)) continue;
+      const target = path.resolve(path.dirname(file), url.split(/[?#]/)[0]);
+      const ok = !url.startsWith("/") && (await fs.stat(target).catch(() => null));
+      if (!ok) bad.push(`${rel}: url(${url})`);
+    }
+  }
+  if (bad.length) throw new Error("dist CSS points at files the package does not ship:\n  " + bad.join("\n  "));
+  console.log("[packages] dist url() check: ok");
+}
+
 async function main() {
   // @birdycom/omniacss — readable build (input for the on-demand engine), minified full build, tokens, SCSS sources.
   await fs.rm(r("packages/core/dist"), { recursive: true, force: true });
   await copy(r("public/css/omnia_main.css"), r("packages/core/dist/omnia.css"));
   await copy(r("public/css/omnia_main.min.css"), r("packages/core/dist/omnia.min.css"));
   await copy(r("src/css/oc-colors.css"), r("packages/core/dist/oc-colors.css"));
+  for (const f of ["omnia.css", "omnia.min.css"]) await localSiteFontFaces(r("packages/core/dist", f));
   await buildStarter();
   await buildTokens();
   await fs.rm(r("packages/core/scss"), { recursive: true, force: true });
@@ -74,6 +115,8 @@ async function main() {
   for await (const rel of fs.glob("**/*.{css,map}", { cwd: r("packages/core/scss") })) {
     await fs.rm(r("packages/core/scss", rel));
   }
+
+  await checkDistUrls();
 
   // Components and blocks moved to the OmniaUI repo (October 2026).
   // The docs site keeps vendored copies of their CSS in public/css (oc-components.css, oc-blocks.css,

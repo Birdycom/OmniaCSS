@@ -1,4 +1,22 @@
 @import url("oc-google-fonts.css");
+@font-face {
+  font-family: "Noto Color Emoji";
+  src: url("/fonts/noto/NotoColorEmoji.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lucida Console";
+  src: url("/fonts/lucida_console/LucidaConsoleRegular.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Sans Egyptian Hieroglyphs";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("/fonts/noto/NotoSansEgyptianHieroglyphs-Regular.ttf") format("truetype");
+  unicode-range: U+13000-1342E, U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 /* ===================================================================
    COLOR TOKENS (@supports oklch)
    Omnia/HTML: --color-{name}-{step} (tone), --color-{name}-mix-{step} (color-mix).
@@ -595,12 +613,12 @@
 /* Local font files served from public/fonts/ */
 @font-face {
   font-family: "Noto Color Emoji";
-  src: url("/fonts/noto/NotoColorEmoji.ttf") format("truetype");
+  src: local("Noto Color Emoji"), local("NotoColorEmoji");
   font-display: swap;
 }
 @font-face {
   font-family: "Lucida Console";
-  src: url("/fonts/lucida_console/LucidaConsoleRegular.ttf") format("truetype");
+  src: local("Lucida Console"), local("LucidaConsole");
   font-display: swap;
 }
 /* Fixed: name must match CSS class "Noto Sans Egyptian Hieroglyphs" */
@@ -611,7 +629,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("/fonts/noto/NotoSansEgyptianHieroglyphs-Regular.ttf") format("truetype");
+  src: local("Noto Sans Egyptian Hieroglyphs"), local("NotoSansEgyptianHieroglyphs");
   unicode-range: U+13000-1342E, U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* CSS Document 
