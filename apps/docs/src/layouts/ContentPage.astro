@@ -18,6 +18,8 @@ const page = transform(raw, route);
 // Old /ui/... links in the content point to the OmniaUI site now (base URL: OMNIAUI_URL in lib/site.mjs).
 const html = crossLinks(page.html);
 const toc = page.toc;
+// Description: the meta of the page, else its intro (lib/transform.mjs). The canonical URL is added at deploy (scripts/deploy.mjs).
+const description = (meta.description || page.description || "Modern CSS as utility classes: OKLCH colors, container queries, :has() and an on-demand build.").replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
 const section = sectionOf(route);
 const isSidebar = meta.layout === "sidebar";
 
@@ -40,7 +42,11 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  {meta.description && <meta name="description" content={meta.description.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&amp;/g, "&")} />}
+  <meta name="description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="OmniaCSS" />
+  <meta property="og:title" content={meta.title || "OmniaCSS"} />
+  <meta property="og:description" content={description} />
   <meta name="generator" content={`OmniaCSS ${VERSION}`}>
   <title>{meta.title || "OmniaCSS"}</title>
   <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->

@@ -1,0 +1,15 @@
+{
+  "components": 182,
+  "blocks": 99,
+  "free-components": 177,
+  "free-blocks": 47,
+  "pro-components": 5,
+  "pro-blocks": 52,
+  "proComponents": [
+    "column-menu",
+    "data-table-pro",
+    "mega-menu",
+    "network-graph",
+    "tint-card-fill"
+  ]
+}
