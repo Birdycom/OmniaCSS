@@ -19,7 +19,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=f1339a439c"><link rel="stylesheet" href="/css/oc-components.css?v=fa4ad93c1f"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=7bb058e070"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=ba4a613daf"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=66d2606476"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=373c1406d2">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=f1339a439c"><link rel="stylesheet" href="/css/oc-components.css?v=fa4ad93c1f"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=7bb058e070"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=ba4a613daf"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=66d2606476"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=424f3a8516">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -37,16 +37,15 @@
     /* Four tiles: 2 x 2, or one row when there is room; never three plus a lone one. */
     @media (min-width: 1280px) { .dx-start { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
     @media (max-width: 520px) { .dx-start { grid-template-columns: minmax(0, 1fr); } }
-    /* Start tiles: a plain card with one colored edge per subject; the color is the only decoration. */
-    .dx-start a.dx-tile { --t: var(--oc-primary); display: grid; gap: 0.25rem; align-content: start; padding: 1rem 1.1rem; border: 1px solid var(--oc-border); border-inline-start: 4px solid var(--t); border-radius: 14px; color: inherit; text-decoration: none; transition: border-color 0.2s; }
-    .dx-start a.dx-tile:hover { border-color: var(--t); }
+    .dx-start a.dx-tile { display: grid; gap: 0.25rem; padding: 1rem 1.1rem; border-radius: 14px; color: var(--color-white-50); text-decoration: none; transition: translate 0.2s; }
+    .dx-start a.dx-tile:hover { translate: 0 -3px; }
     .dx-start a:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
-    .dx-start a:nth-child(1) { --t: var(--color-vividblue-80); }
-    .dx-start a:nth-child(2) { --t: var(--color-magenta-60); }
-    .dx-start a:nth-child(3) { --t: var(--color-orange-60); }
-    .dx-start a:nth-child(4) { --t: var(--color-teal-60); }
+    .dx-start a:nth-child(1) { background: linear-gradient(130deg, var(--color-vividblue-90), var(--color-indigo-60)); }
+    .dx-start a:nth-child(2) { background: linear-gradient(130deg, var(--color-magenta-90), var(--color-purple-60)); }
+    .dx-start a:nth-child(3) { background: linear-gradient(130deg, var(--color-orange-95), var(--color-red-80)); }
+    .dx-start a:nth-child(4) { background: linear-gradient(130deg, var(--color-teal-60), var(--color-green-70)); }
     .dx-start b { font-family: var(--ocd-display); font-size: 1.1rem; }
-    .dx-start span { font-size: 0.85rem; line-height: 1.5; color: var(--oc-muted-foreground); }
+    .dx-start span { font-size: 0.85rem; }
     .dx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 0.75rem; }
     .dx-card { display: grid; gap: 0.3rem; align-content: start; padding: 1rem 1.1rem; border: 1px solid var(--oc-border); border-radius: 14px; color: inherit; text-decoration: none; transition: border-color 0.2s, translate 0.2s; }
     .dx-card:hover { border-color: var(--oc-primary); translate: 0 -2px; }
@@ -54,11 +53,11 @@
     .dx-card b { font-family: var(--ocd-display); font-size: 1.02rem; }
     .dx-card span { font-size: 0.86rem; line-height: 1.5; color: var(--oc-muted-foreground); }
     .dx-card small { font: 500 0.7rem var(--ocd-mono); color: var(--oc-primary); }
-    .dx-new { display: grid; gap: 1rem; margin-block: 1.5rem 0.5rem; padding: 1.1rem 1.25rem; border: 1px solid color-mix(in oklch, var(--color-green-60) 45%, var(--oc-border)); border-radius: 14px; background: oklch(from var(--color-green-60) l c h / 0.05); }
+    .dx-new { display: grid; gap: 1rem; margin-block: 1.5rem 0.5rem; padding: 1.1rem 1.25rem; border: 1px solid color-mix(in oklch, var(--color-green-60) 45%, var(--oc-border)); border-radius: 14px; background: linear-gradient(160deg, oklch(from var(--color-green-60) l c h / 0.1), transparent 60%); }
     .dx-new-head { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.35rem 0.75rem; }
     .dx-new-head h2 { margin: 0; font: 600 1.15rem var(--ocd-display); }
     .dx-new-head p { grid-column: 1 / -1; margin: 0; font-size: 0.875rem; color: var(--oc-muted-foreground); }
-    .dx-new-badge { padding: 0.15rem 0.5rem; border-radius: 999px; font: 700 0.65rem var(--ocd-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-white-50); background: var(--color-green-80); }
+    .dx-new-badge { padding: 0.15rem 0.5rem; border-radius: 999px; font: 700 0.65rem var(--ocd-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-white-50); background: linear-gradient(135deg, var(--color-green-70), var(--color-teal-70)); }
     .dx-new-group h3 { margin: 0 0 0.5rem; font: 600 0.72rem var(--ocd-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--oc-muted-foreground); }
     .dx-new-group h3 small { font-weight: 500; }
     .dx-new-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -104,10 +103,10 @@
         <h1 class="oc-hero-title">OmniaCSS documentation</h1>
         <p class="oc-hero-text">Every page shows the classes, a live demo you can resize, the code, and which browsers support it, straight from MDN. Press <kbd>Ctrl K</kbd> to search, or start with one of these. Building a Laravel app? Begin with a <a href="https://omniaui.test/ui/starter-kits">starter kit</a> for Livewire, Blade, React or Vue.</p>
         <nav class="dx-start" aria-label="Start here">
-          <a class="dx-tile" href="configuration"><b>Install</b><span>CLI, PostCSS or Laravel</span></a>
+          <a class="dx-tile" href="configuration"><b>Install</b><span>CLI, PostCSS, Laravel in one minute</span></a>
           <a class="dx-tile" href="colors/system"><b>Colors</b><span>The Omnia palette in OKLCH</span></a>
           <a class="dx-tile" href="functions/"><b>Modern CSS</b><span>Functions, selectors, at-rules</span></a>
-          <a class="dx-tile" href="creative/"><b>Creative CSS</b><span>Glowing borders, 3D cards, glass, text effects</span></a>
+          <a class="dx-tile" href="creative/"><b>Creative CSS</b><span>Effects that impress, in pure CSS</span></a>
         </nav>
         <aside class="dx-new" aria-labelledby="whats-new-title">
           <div class="dx-new-head"><span class="dx-new-badge">New</span><h2 id="whats-new-title">What is new in v0.15.0</h2>
