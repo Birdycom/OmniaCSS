@@ -1,4 +1,4 @@
-/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.16.1. Do not edit. */
+/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.16.2. Do not edit. */
 /* Semantic theme tokens: every color is light-dark() of an Omnia palette token (oc-colors.css). */
 /* Same source as the desktop export: npx omniacss tokens --format json|dtcg|python */
 :root {
@@ -1265,6 +1265,55 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 .oc-alert--danger {
   border-color: color-mix(in srgb, var(--oc-destructive) 40%, transparent);
   background: color-mix(in srgb, var(--oc-destructive) 5%, var(--oc-background));
+}
+
+/* Icon and actions (0.17.0): .oc-alert-icon on the left, the text in .oc-alert-body, buttons in .oc-alert-actions on the
+   right (under the text when there is no room). */
+.oc-alert:has(> .oc-alert-body) { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
+.oc-alert-body { flex: 1 1 14rem; min-inline-size: 0; }
+.oc-alert-icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  font-size: 1.25rem;
+  color: var(--oc-alert-tone, var(--oc-primary));
+  background: color-mix(in oklch, var(--oc-alert-tone, var(--oc-primary)) 14%, transparent);
+  border-radius: 50%;
+}
+.oc-alert-icon > :is(svg, iconify-icon) { inline-size: 1.25rem; block-size: 1.25rem; font-size: 1.25rem; }
+.oc-alert-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-inline-start: auto; }
+.oc-alert--success { --oc-alert-tone: var(--oc-success); }
+.oc-alert--warning { --oc-alert-tone: var(--oc-warning); }
+.oc-alert--danger { --oc-alert-tone: var(--oc-destructive); }
+
+/* Alarm (0.17.0): an urgent message that must be seen (a help request, a failed payment). data-state="new": a thick edge
+   in the tone and a slow pulse until someone acknowledges it (the app then sets data-state="seen"); seen: calm, until
+   it is closed. Use role="alert" for a new one, and a tone (--danger, --warning). With reduced motion: no pulse, a ring. */
+.oc-alert--alarm[data-state="new"] {
+  position: relative;
+  border: 2px solid var(--oc-alert-tone);
+  background: color-mix(in oklch, var(--oc-alert-tone) 9%, var(--oc-background));
+}
+/* The pulse is a ring around the alert that fades in and out (opacity only, so the GPU draws it). */
+.oc-alert--alarm[data-state="new"]::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 5px oklch(from var(--oc-alert-tone) l c h / 0.35);
+  opacity: 0;
+  pointer-events: none;
+  animation: oc-alarm-pulse 1.6s ease-in-out infinite;
+}
+.oc-alert--alarm[data-state="new"] .oc-alert-title { color: var(--oc-foreground); }
+@keyframes oc-alarm-pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-alert--alarm[data-state="new"]::before { animation: none; opacity: 1; }
 }
 
 /* Inline: a short message right under a field or a form (an error, a hint), tinted, without the box spacing. */
@@ -2802,6 +2851,27 @@ details.oc-accordion-item[open]::details-content {
 .oc-empty-title { margin: 0; font-size: 1rem; font-weight: 600; color: var(--oc-foreground); }
 .oc-empty-text { margin: 0; max-inline-size: 28rem; font-size: 0.875rem; }
 .oc-empty-actions { display: flex; gap: 0.5rem; margin-block-start: 0.5rem; }
+/* Locked (0.17.0): content that opens later (in a zone, after scanning a code, at a time). A dashed frame, the lock in the
+   brand color, and .oc-empty-meta for what is left ("120 m to go", "opens at 14:00"). */
+.oc-empty--locked {
+  border: 1px dashed var(--oc-border-strong);
+  border-radius: calc(var(--oc-radius) + 4px);
+  background: var(--oc-surface);
+}
+.oc-empty--locked .oc-empty-icon {
+  color: var(--oc-primary);
+  background: color-mix(in oklch, var(--oc-primary) 12%, transparent);
+}
+.oc-empty-icon > :is(svg, iconify-icon) { inline-size: 1.25rem; block-size: 1.25rem; font-size: 1.25rem; }
+.oc-empty-meta {
+  padding: 0.15rem 0.65rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--oc-foreground);
+  background: var(--oc-muted);
+  border-radius: 999px;
+}
 
 /* ---- Badge: info ---- */
 .oc-badge--info {
@@ -2941,6 +3011,14 @@ details.oc-sidebar-collapsible[open] > summary::after { transform: rotate(225deg
 
 /* Icon-only mode */
 .oc-sidebar--collapsed { inline-size: var(--oc-sidebar-width-icon); }
+/* Overlay (0.17.0): for a tablet. The layout keeps only the rail width (a negative margin), so opening the sidebar does
+   not push the page: it lies over the content, which darkens (a wide shadow of the sidebar itself). A click outside it
+   and Escape close it; the components do that. Collapsed it is the normal rail. */
+.oc-sidebar.oc-sidebar--overlay { position: relative; z-index: 60; }
+.oc-sidebar.oc-sidebar--overlay:not(.oc-sidebar--collapsed) {
+  margin-inline-end: calc(var(--oc-sidebar-width-icon) - var(--oc-sidebar-width));
+  box-shadow: 0 0 0 100vmax oklch(from var(--color-black-60) l c h / 0.32), 0 0 40px -12px oklch(from var(--color-black-60) l c h / 0.45);
+}
 .oc-sidebar--collapsed .oc-sidebar-menu-label,
 .oc-sidebar--collapsed .oc-sidebar-menu-badge,
 .oc-sidebar--collapsed .oc-sidebar-menu-sub,
@@ -2948,6 +3026,11 @@ details.oc-sidebar-collapsible[open] > summary::after { transform: rotate(225deg
 .oc-sidebar--collapsed .oc-user-text,
 .oc-sidebar--collapsed details.oc-sidebar-collapsible > summary::after { display: none; }
 .oc-sidebar--collapsed .oc-sidebar-menu-button { justify-content: center; padding-inline: 0; }
+/* Collapsed (0.17.0): a menu button with .oc-tooltip.oc-tooltip--right and data-tooltip shows its label as a tooltip on
+   hover and keyboard focus, anchored to the button and fixed, so the scrolling menu does not clip it. In the open
+   sidebar the label is visible: no tooltip. The components add it for you. */
+.oc-sidebar-menu-button.oc-tooltip { cursor: pointer; }
+.oc-sidebar:not(.oc-sidebar--collapsed) .oc-sidebar-menu-button.oc-tooltip::after { content: none; }
 .oc-sidebar--collapsed .oc-sidebar-header,
 .oc-sidebar--collapsed .oc-sidebar-footer { align-items: center; padding-inline: 0.5rem; }
 
@@ -3474,6 +3557,28 @@ details.oc-collapsible[open] > summary { border-end-start-radius: 0; border-end-
 .oc-collapsible-content { padding: 1.5rem; border-block-start: 1px solid var(--oc-border); }
 .oc-collapsible--dense > summary { padding: 0.75rem; }
 .oc-collapsible--dense .oc-collapsible-content { padding: 1rem; }
+/* Meta in the header (0.17.0): a pill before the chevron (a count, "−5 points"). */
+.oc-collapsible-meta {
+  margin-inline-start: auto;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--oc-foreground);
+  background: var(--oc-muted);
+  border-radius: 999px;
+}
+details.oc-collapsible > summary:has(> .oc-collapsible-meta)::after { margin-inline-start: 0.75rem; }
+/* Hint (0.17.0): a tip the player opens on purpose, maybe at a cost. A dashed frame in the warning tone until it is
+   opened; the cost sits in .oc-collapsible-meta. With "once" the components keep it open: a seen hint stays seen. */
+details.oc-collapsible.oc-collapsible--hint {
+  border-style: dashed;
+  border-color: oklch(from var(--oc-warning) l c h / 0.6);
+  background: color-mix(in oklch, var(--oc-warning) 6%, var(--oc-card, var(--oc-background)));
+}
+details.oc-collapsible.oc-collapsible--hint[open] { border-style: solid; }
+.oc-collapsible--hint .oc-collapsible-icon { color: light-dark(oklch(from var(--oc-warning) min(l, 0.55) c h), var(--oc-warning)); }
+.oc-collapsible--hint .oc-collapsible-meta { background: color-mix(in oklch, var(--oc-warning) 22%, transparent); }
 details.oc-collapsible::details-content {
   block-size: 0;
   overflow: clip;
@@ -3772,6 +3877,35 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 }
 .oc-color-field > input[type="color"]:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
 .oc-color-field > .oc-input { flex: 1; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+/* Contrast report under the field (0.17.0): text on the picked color (light or dark text, whichever reads best; 4.5:1)
+   and the color against the page backgrounds you pass (3:1, so a button or a link stands out). A word says the result,
+   the color only repeats it. */
+.oc-color-field:has(> .oc-color-field-report) { flex-wrap: wrap; }
+.oc-color-field-report {
+  display: grid;
+  flex-basis: 100%;
+  gap: 0.35rem;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+.oc-color-field-check { display: flex; align-items: center; gap: 0.5rem; }
+.oc-color-field-sample {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.25rem;
+  block-size: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) - 2px);
+}
+.oc-color-field-sample > i { inline-size: 0.8rem; block-size: 0.8rem; border-radius: 50%; }
+.oc-color-field-ratio { margin-inline-start: auto; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.oc-color-field-check[data-ok="true"] .oc-color-field-ratio { color: var(--oc-success); }
+.oc-color-field-check[data-ok="false"] .oc-color-field-ratio { color: var(--oc-destructive); }
 
 /* ===================================================================
    DROPZONE — file upload target. A <label> around a real <input type="file">; click and keyboard work natively.
@@ -5793,6 +5927,33 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-radio-item--card { padding: 0.75rem 1rem; border: 1px solid var(--oc-border); border-radius: var(--oc-radius); }
 .oc-radio-item--card:has(:checked) { border-color: var(--oc-primary); background: color-mix(in oklab, var(--oc-primary) 8%, transparent); }
 .oc-radio-item--card:has(:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
+/* Answered (0.17.0): data-result="correct" | "wrong" on a card once the answer is checked: a green or red edge and a
+   mark at the end; the cards nobody chose fade. Put the word in the card too for a screen reader
+   (<span class="oc-visually-hidden">Correct</span>); the mark is only a picture. */
+.oc-radio-item--card[data-result] { position: relative; padding-inline-end: 2.75rem; }
+.oc-radio-item--card[data-result="correct"] { --oc-answer-tone: var(--oc-success); }
+.oc-radio-item--card[data-result="wrong"] { --oc-answer-tone: var(--oc-destructive); }
+.oc-radio-item--card[data-result],
+.oc-radio-item--card[data-result]:has(:checked) {
+  border-color: var(--oc-answer-tone);
+  background: color-mix(in oklab, var(--oc-answer-tone) 10%, transparent);
+}
+.oc-radio-item--card[data-result]::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 0.85rem;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  translate: 0 -50%;
+  background: var(--oc-answer-tone);
+}
+.oc-radio-item--card[data-result="correct"]::after { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z'/%3E%3C/svg%3E") center / contain no-repeat; }
+.oc-radio-item--card[data-result="wrong"]::after { -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2m5 13.59L15.59 17L12 13.41L8.41 17L7 15.59L10.59 12L7 8.41L8.41 7L12 10.59L15.59 7L17 8.41L13.41 12z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2m5 13.59L15.59 17L12 13.41L8.41 17L7 15.59L10.59 12L7 8.41L8.41 7L12 10.59L15.59 7L17 8.41L13.41 12z'/%3E%3C/svg%3E") center / contain no-repeat; }
+:is(fieldset, .oc-radio-group):has(> .oc-radio-item--card[data-result]) > .oc-radio-item--card:not([data-result]) { opacity: 0.55; }
+/* The radios lock once there is a result; the marked cards stay fully readable. */
+.oc-radio-item--card[data-result]:has(:disabled) { opacity: 1; cursor: default; }
+.oc-radio-item--card[data-result] input.oc-radio:disabled { opacity: 1; }
 
 .oc-scroll-area {
   max-block-size: 14rem;
@@ -6287,6 +6448,74 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 }
 @media (prefers-reduced-motion: reduce) { .oc-cookie-consent { transition: none; } }
 
+/* parts/app-countdown.css */
+/* File: packages/ui/src/parts/app-countdown.css
+   Map: countdown (label + time) -> --pill -> --display (large digits) -> --bar (shrinking bar) -> states (low, done)
+        -> reduced motion
+   Countdown (0.17.0): the time left for a task, a round or a reservation. role="timer" (a screen reader does not read
+   every second; give it an aria-label). The script or the component writes the time and --oc-countdown-left (1 = full,
+   0 = empty) for the bar, and data-state="low" (little time left, warning tone) or "done" (time is up).
+   <div class="oc-countdown oc-countdown--pill" role="timer" aria-label="Time left" data-state="low">
+     <span class="oc-countdown-label">Time left</span> <b class="oc-countdown-time">0:45</b></div> */
+
+.oc-countdown {
+  --oc-countdown-tone: var(--oc-primary);
+  --oc-countdown-left: 1;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+  color: var(--oc-foreground);
+}
+.oc-countdown-label { color: var(--oc-muted-foreground); font-size: 0.875rem; font-weight: 600; }
+.oc-countdown-time { font-size: 1.125rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.oc-countdown[data-state="low"] { --oc-countdown-tone: var(--oc-warning); }
+.oc-countdown[data-state="done"] { --oc-countdown-tone: var(--oc-destructive); }
+.oc-countdown:is([data-state="low"], [data-state="done"]) .oc-countdown-time { color: light-dark(oklch(from var(--oc-countdown-tone) min(l, 0.5) c h), var(--oc-countdown-tone)); }
+
+/* Pill: a small tinted label, for a header or a card. */
+.oc-countdown--pill {
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid color-mix(in oklch, var(--oc-countdown-tone) 40%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--oc-countdown-tone) 10%, var(--oc-background));
+}
+.oc-countdown--pill .oc-countdown-label { font-size: 0.75rem; }
+.oc-countdown--pill .oc-countdown-time { font-size: 0.9375rem; }
+
+/* Display: large digits in the middle, for a screen people look at from a distance. */
+.oc-countdown--display {
+  display: inline-grid;
+  justify-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+.oc-countdown--display .oc-countdown-time { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1; letter-spacing: -0.03em; }
+
+/* Bar: a line under the time that shrinks from full to empty (--oc-countdown-left). */
+.oc-countdown--bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; }
+.oc-countdown--bar.oc-countdown--display { grid-template-columns: minmax(0, 1fr); }
+.oc-countdown--bar::after {
+  content: "";
+  grid-column: 1 / -1;
+  justify-self: stretch;
+  block-size: 0.375rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--oc-countdown-tone), var(--oc-countdown-tone)) no-repeat 0 0 / calc(var(--oc-countdown-left) * 100%) 100%,
+    var(--oc-muted);
+  transition: background-size 0.3s linear;
+}
+.oc-countdown--bar:dir(rtl)::after { background-position: 100% 0, 0 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-countdown--bar::after { transition: none; }
+}
+@media (forced-colors: active) {
+  .oc-countdown--bar::after { background: linear-gradient(CanvasText, CanvasText) no-repeat 0 0 / calc(var(--oc-countdown-left) * 100%) 100%; border: 1px solid CanvasText; }
+}
+
 /* parts/app-data-table-footer.css */
 /* File: packages/ui/src/parts/app-data-table-footer.css | Map: footer grid (count, rows per page, pager) -> page buttons -> narrow screens */
 /* Footer of the list table (app-data-table.css): the count on the left, rows per page in the middle, the pager on the right. */
@@ -6734,6 +6963,17 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-group__aside[data-tone="warn"] { --oc-group-tone: var(--oc-warning); }
 .oc-group__aside[data-tone="error"] { --oc-group-tone: var(--oc-destructive); }
 .oc-group__meta { margin: 0 0 0.625rem; font-size: 0.75rem; color: var(--oc-muted-foreground); }
+
+/* parts/app-header-settings.css */
+/* File: packages/ui/src/parts/app-header-settings.css
+   Map: group (language menu + theme button + more) -> sizes in the group
+   Header settings (0.17.0): the language and the theme of an app header as one small group of round ghost buttons, each
+   with its name in a tooltip under it (.oc-tooltip--bottom). Works in a glass header too: the buttons stay transparent.
+   <div class="oc-header-settings" role="group" aria-label="Settings"> language-select--icon + theme toggle </div> */
+
+.oc-header-settings { display: inline-flex; align-items: center; gap: 0.25rem; }
+.oc-header-settings > :is(.oc-btn--icon, .oc-language-select--icon) { inline-size: 2.25rem; block-size: 2.25rem; }
+.oc-header-settings > .oc-btn--icon > :is(svg, iconify-icon) { inline-size: 1.15rem; block-size: 1.15rem; font-size: 1.15rem; }
 
 /* parts/app-list-toolbar.css */
 /* File: packages/ui/src/parts/app-list-toolbar.css | Map: toolbar row -> search -> count -> view toggle (radio icons) -> actions -> sticky modifier -> CSS-only view switch (scope) -> narrow screens */
@@ -7838,6 +8078,9 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   padding: 0;
   border: 0;
   appearance: none;
+  /* Firefox clips a progress element (overflow: clip in its own style sheet): the glow at the end of the bar would be
+     cut off there. */
+  overflow: visible;
   color: var(--oc-top-progress-color);
   background: transparent;
   pointer-events: none;
