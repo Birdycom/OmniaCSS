@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Table Display","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Table Display","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Comparison cards: equal height per row, full width of the preview */\n    .tb-scroll { min-inline-size: 0; max-inline-size: 100%; overflow-x: auto; }\n    /* A plain data table: padding and a clear border on every cell */\n    /* Order list built from divs. Every leaf div is a \"cell\": padding plus a border. */\n    .tb-order { font-size: 0.875rem; }\n    .tb-order div:not(:has(> div)) { padding: 0.45rem 0.7rem; border: 1px solid var(--oc-border-strong); background: var(--oc-card); }\n    .tb-order > div:first-child > div, .tb-order .tb-head > div { background: var(--oc-muted); font-weight: 600; }\n    .tb-order .tb-total > div { background: var(--oc-muted); font-weight: 600; }\n    .tb-order .tb-num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }\n    .tb-order div.table-caption { padding: 0 0 0.5rem; border: 0; background: none; font-weight: 600; text-align: start; }\n    /* Plain divs: rows stack, so give each row a little room */\n    .tb-order--plain > div + div { margin-block-start: 0.4rem; }\n    .tb-order--plain div:not(:has(> div)) + div { border-block-start: 0; }\n    .tb-order--plain .tb-num { text-align: start; }\n    .tb-order--flex > .flex > div + div { margin-inline-start: -1px; }\n    .tb-order--flex > .flex + .flex { margin-block-start: -1px; }\n    /* Wide screens: the tall block version on the left, flex and table stacked on the right */\n    /* Equal-height columns */\n    .tb-steps { font-size: 0.9rem; line-height: 1.5; overflow-wrap: anywhere; }\n    @media (max-width: 600px) { .tb-steps { font-size: 0.8rem; } .tb-steps > .table-cell { padding: 0.75rem; } .tb-steps strong { font-size: 0.875rem; } }\n    .tb-steps > .table-cell { padding: 1rem 1.1rem; border-radius: 10px; color: var(--color-white-50); vertical-align: top; }\n    .tb-steps > .table-cell:nth-child(1) { background: var(--color-teal-70); }\n    .tb-steps > .table-cell:nth-child(2) { background: var(--color-vividblue-90); }\n    .tb-steps > .table-cell:nth-child(3) { background: var(--color-slateblue-70); }\n    .tb-steps strong { display: block; margin-block-end: 0.3rem; font-size: 1rem; }\n    .tb-steps p { margin: 0; color: inherit; }\n    /* inline-table in a sentence */\n    .tb-sentence { margin: 0; font-size: 0.95rem; line-height: 2.2; }\n    .tb-mini { vertical-align: middle; border: 1px solid var(--oc-border-strong); border-radius: 6px; font-size: 0.8rem; line-height: 1.3; }\n    .tb-mini > .table-cell { padding: 0.2rem 0.55rem; }\n    .tb-mini > .table-cell + .table-cell { border-inline-start: 1px solid var(--oc-border-strong); background: var(--oc-muted); font-weight: 600; }\n  .tb-in { display: grid; align-content: center; gap: 0.75rem; padding: 0.75rem; color: var(--oc-foreground); }\n\n.tb-order > .table-column-group > div { padding: 0; border: 0; background: var(--oc-card); }\n.tb-order > .table-column-group > div.tb-col-hl { background: color-mix(in oklch, var(--color-teal-70) 30%, var(--oc-card)); }\n.tb-order:has(.tb-col-hl) .table-row:not(.tb-head) .table-cell { background: transparent; }\n  </style>"]}-->
 <section class="oc-docs-section" id="table-display">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Table Display</h2>
@@ -33,17 +33,215 @@
 
           <h3 class="oc-section-content__title mt-8">A table built from divs</h3>
 
-          <p class="oc-section-content__desc">Columns line up across rows because the table algorithm sizes each column from its widest cell, which flex rows cannot do.</p>
+          <p class="oc-section-content__desc">The same four rows of divs, three times. Only the display changes. Look at the Qty and Price columns: only the table display keeps them in one straight line, because the table sizes each column from its widest cell.</p>
 
-          <oc-demo title="table, table-row, table-cell"><div class="dm-grid" style="--dm-min:15rem">
-<div class="dm-tile"><code>.table > .table-row > .table-cell</code><div class="dm-area "><div class="table w-full" style="border-spacing:3px;border-collapse:separate"><div class="table-row"><div class="table-cell dm-box dm-box--alt">Name</div><div class="table-cell dm-box dm-box--alt">Value</div></div><div class="table-row"><div class="table-cell dm-box">A longer name in cell</div><div class="table-cell dm-box">1</div></div><div class="table-row"><div class="table-cell dm-box">Short</div><div class="table-cell dm-box">22</div></div></div></div></div>
-<div class="dm-tile"><code>Same rows with .flex (columns do not align)</code><div class="dm-area "><div class="grid gap-0.3"><div class="flex gap-0.3"><div class="dm-box dm-box--alt">Name</div><div class="dm-box dm-box--alt">Value</div></div><div class="flex gap-0.3"><div class="dm-box">A longer name in cell</div><div class="dm-box">1</div></div><div class="flex gap-0.3"><div class="dm-box">Short</div><div class="dm-box">22</div></div></div></div></div>
-<div class="dm-tile"><code>Header, body and footer groups</code><div class="dm-area "><div class="table w-full" style="border-spacing:3px;border-collapse:separate"><div class="table-header-group"><div class="table-row"><div class="table-cell dm-box dm-box--alt">Head</div><div class="table-cell dm-box dm-box--alt">Head</div></div></div><div class="table-row-group"><div class="table-row"><div class="table-cell dm-box">Body</div><div class="table-cell dm-box">Body</div></div></div><div class="table-footer-group"><div class="table-row"><div class="table-cell dm-box dm-box--alt">Foot</div><div class="table-cell dm-box dm-box--alt">Foot</div></div></div></div></div></div>
-</div><oc-code lang="html">&lt;div class="table"&gt;
+          <oc-demo title="Same divs: block, flex and table">
+<div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">no class</code><div class="oc-eg__note">Display: block. Every div is a block, so each cell gets its own line. Nothing lines up.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><div class="tb-order tb-order--plain"><div><div>Product</div><div>Qty</div><div>Price</div></div><div><div>Product 1</div><div>2</div><div>€24.00</div></div><div><div>Product 2 with a longer name</div><div>1</div><div>€8.50</div></div><div><div>Product 3</div><div>12</div><div>€96.00</div></div></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex</code><div class="oc-eg__note">On each row. Each row sizes its cells on its own. Qty and Price jump left and right.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><div class="tb-order tb-order--flex"><div class="flex"><div>Product</div><div class="tb-num">Qty</div><div class="tb-num">Price</div></div><div class="flex"><div>Product 1</div><div class="tb-num">2</div><div class="tb-num">€24.00</div></div><div class="flex"><div>Product 2 with a longer name</div><div class="tb-num">1</div><div class="tb-num">€8.50</div></div><div class="flex"><div>Product 3</div><div class="tb-num">12</div><div class="tb-num">€96.00</div></div></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.table .table-row .table-cell</code><div class="oc-eg__note">The columns line up across all rows, like a real table.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><div class="tb-order table border-collapse w-full"><div class="table-row"><div class="table-cell">Product</div><div class="table-cell tb-num">Qty</div><div class="table-cell tb-num">Price</div></div><div class="table-row"><div class="table-cell">Product 1</div><div class="table-cell tb-num">2</div><div class="table-cell tb-num">€24.00</div></div><div class="table-row"><div class="table-cell">Product 2 with a longer name</div><div class="table-cell tb-num">1</div><div class="table-cell tb-num">€8.50</div></div><div class="table-row"><div class="table-cell">Product 3</div><div class="table-cell tb-num">12</div><div class="table-cell tb-num">€96.00</div></div></div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- No class: every div is a block, each cell on its own line --&gt;
+&lt;div&gt;
+  &lt;div&gt;
+    &lt;div&gt;Product&lt;/div&gt;
+    &lt;div&gt;Qty&lt;/div&gt;
+    &lt;div&gt;Price&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div&gt;Product 1&lt;/div&gt;
+    &lt;div&gt;2&lt;/div&gt;
+    &lt;div&gt;€24.00&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div&gt;Product 2 with a longer name&lt;/div&gt;
+    &lt;div&gt;1&lt;/div&gt;
+    &lt;div&gt;€8.50&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div&gt;Product 3&lt;/div&gt;
+    &lt;div&gt;12&lt;/div&gt;
+    &lt;div&gt;€96.00&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- .flex on each row: every row sizes its own cells --&gt;
+&lt;div&gt;
+  &lt;div class="flex"&gt;
+    &lt;div&gt;Product&lt;/div&gt;
+    &lt;div&gt;Qty&lt;/div&gt;
+    &lt;div&gt;Price&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="flex"&gt;
+    &lt;div&gt;Product 1&lt;/div&gt;
+    &lt;div&gt;2&lt;/div&gt;
+    &lt;div&gt;€24.00&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="flex"&gt;
+    &lt;div&gt;Product 2 with a longer name&lt;/div&gt;
+    &lt;div&gt;1&lt;/div&gt;
+    &lt;div&gt;€8.50&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="flex"&gt;
+    &lt;div&gt;Product 3&lt;/div&gt;
+    &lt;div&gt;12&lt;/div&gt;
+    &lt;div&gt;€96.00&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- .table, .table-row, .table-cell: the columns line up --&gt;
+&lt;div class="table border-collapse w-full"&gt;
   &lt;div class="table-row"&gt;
-    &lt;div class="table-cell"&gt;Name&lt;/div&gt;
-    &lt;div class="table-cell"&gt;Value&lt;/div&gt;
+    &lt;div class="table-cell"&gt;Product&lt;/div&gt;
+    &lt;div class="table-cell"&gt;Qty&lt;/div&gt;
+    &lt;div class="table-cell"&gt;Price&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row"&gt;
+    &lt;div class="table-cell"&gt;Product 1&lt;/div&gt;
+    &lt;div class="table-cell"&gt;2&lt;/div&gt;
+    &lt;div class="table-cell"&gt;€24.00&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row"&gt;
+    &lt;div class="table-cell"&gt;Product 2 with a longer name&lt;/div&gt;
+    &lt;div class="table-cell"&gt;1&lt;/div&gt;
+    &lt;div class="table-cell"&gt;€8.50&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row"&gt;
+    &lt;div class="table-cell"&gt;Product 3&lt;/div&gt;
+    &lt;div class="table-cell"&gt;12&lt;/div&gt;
+    &lt;div class="table-cell"&gt;€96.00&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Your own CSS draws the cell lines, for example:
+     .table-cell { padding: 0.5rem 0.75rem; border: 1px solid; } --&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Caption, header and footer groups</h3>
+
+          <p class="oc-section-content__desc">In both tables the total row is written <em>before</em> the header in the HTML. With <code>.table-footer-group</code> and <code>.table-header-group</code> the browser still draws the header at the top and the total at the bottom. <code>.table-caption</code> puts a title above the table.</p>
+
+          <oc-demo title="table-caption, table-header-group and table-footer-group">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 22rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.table-row-group</code><div class="oc-eg__note">On every group. Rows appear in the order of the HTML: the total comes first, the header second.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><div class="tb-order table border-collapse w-full"><div class="table-caption">Order 1001 · Customer 1</div><div class="table-row-group"><div class="table-row tb-total"><div class="table-cell">Total</div><div class="table-cell tb-num">15</div><div class="table-cell tb-num">€128.50</div></div></div><div class="table-row-group"><div class="table-row tb-head"><div class="table-cell">Product</div><div class="table-cell tb-num">Qty</div><div class="table-cell tb-num">Price</div></div></div><div class="table-row-group"><div class="table-row"><div class="table-cell">Product 1</div><div class="table-cell tb-num">2</div><div class="table-cell tb-num">€24.00</div></div><div class="table-row"><div class="table-cell">Product 2 with a longer name</div><div class="table-cell tb-num">1</div><div class="table-cell tb-num">€8.50</div></div><div class="table-row"><div class="table-cell">Product 3</div><div class="table-cell tb-num">12</div><div class="table-cell tb-num">€96.00</div></div></div></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.table-header-group .table-footer-group</code><div class="oc-eg__note">Same HTML. The header group moves to the top and the footer group to the bottom.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><div class="tb-order table border-collapse w-full"><div class="table-caption">Order 1001 · Customer 1</div><div class="table-footer-group"><div class="table-row tb-total"><div class="table-cell">Total</div><div class="table-cell tb-num">15</div><div class="table-cell tb-num">€128.50</div></div></div><div class="table-header-group"><div class="table-row tb-head"><div class="table-cell">Product</div><div class="table-cell tb-num">Qty</div><div class="table-cell tb-num">Price</div></div></div><div class="table-row-group"><div class="table-row"><div class="table-cell">Product 1</div><div class="table-cell tb-num">2</div><div class="table-cell tb-num">€24.00</div></div><div class="table-row"><div class="table-cell">Product 2 with a longer name</div><div class="table-cell tb-num">1</div><div class="table-cell tb-num">€8.50</div></div><div class="table-row"><div class="table-cell">Product 3</div><div class="table-cell tb-num">12</div><div class="table-cell tb-num">€96.00</div></div></div></div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- Plain row groups: rows show in HTML order, so the total comes first --&gt;
+&lt;div class="table border-collapse w-full"&gt;
+  &lt;div class="table-caption"&gt;Order 1001 · Customer 1&lt;/div&gt;
+  &lt;div class="table-row-group"&gt;
+    &lt;div class="table-row"&gt;
+      &lt;div class="table-cell"&gt;Total&lt;/div&gt;&lt;div class="table-cell"&gt;15&lt;/div&gt;&lt;div class="table-cell"&gt;€128.50&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row-group"&gt;
+    &lt;div class="table-row"&gt;
+      &lt;div class="table-cell"&gt;Product&lt;/div&gt;&lt;div class="table-cell"&gt;Qty&lt;/div&gt;&lt;div class="table-cell"&gt;Price&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row-group"&gt;
+    &lt;div class="table-row"&gt;
+      &lt;div class="table-cell"&gt;Product 1&lt;/div&gt;&lt;div class="table-cell"&gt;2&lt;/div&gt;&lt;div class="table-cell"&gt;€24.00&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Product 2 and Product 3 --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Same HTML order with header and footer groups: header on top, total at the bottom --&gt;
+&lt;div class="table border-collapse w-full"&gt;
+  &lt;div class="table-caption"&gt;Order 1001 · Customer 1&lt;/div&gt;
+  &lt;div class="table-footer-group"&gt;
+    &lt;div class="table-row"&gt;
+      &lt;div class="table-cell"&gt;Total&lt;/div&gt;&lt;div class="table-cell"&gt;15&lt;/div&gt;&lt;div class="table-cell"&gt;€128.50&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-header-group"&gt;
+    &lt;div class="table-row"&gt;
+      &lt;div class="table-cell"&gt;Product&lt;/div&gt;&lt;div class="table-cell"&gt;Qty&lt;/div&gt;&lt;div class="table-cell"&gt;Price&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row-group"&gt;
+    &lt;div class="table-row"&gt;
+      &lt;div class="table-cell"&gt;Product 1&lt;/div&gt;&lt;div class="table-cell"&gt;2&lt;/div&gt;&lt;div class="table-cell"&gt;€24.00&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Product 2 and Product 3 --&gt;
   &lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Equal-height columns</h3>
+
+          <p class="oc-section-content__desc">Cells in one row are always the same height. The middle text is the longest, and the other two columns grow with it. <code>.table-fixed</code> makes the three columns equally wide, and <code>.border-separate .border-spacing-2</code> puts a gap between them.</p>
+
+          <oc-demo title="Equal-height columns with table-cell">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.table .table-cell</code><div class="oc-eg__note">The three cells are always equally high, like the cells of a table row.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><div class="tb-steps table table-fixed w-full border-separate border-spacing-2">
+<div class="table-cell"><strong>1. Order</strong><p>Customer 1 picks Product 1.</p></div>
+<div class="table-cell"><strong>2. Pay</strong><p>Pay by card or bank transfer. The invoice is sent by email, and a copy stays in your account under Orders.</p></div>
+<div class="table-cell"><strong>3. Delivery</strong><p>The parcel leaves within two working days.</p></div>
+</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="table table-fixed w-full border-separate border-spacing-2"&gt;
+  &lt;div class="table-cell"&gt;
+    &lt;strong&gt;1. Order&lt;/strong&gt;
+    &lt;p&gt;Customer 1 picks Product 1.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="table-cell"&gt;
+    &lt;strong&gt;2. Pay&lt;/strong&gt;
+    &lt;p&gt;Pay by card or bank transfer. The invoice is sent … (longest text)&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="table-cell"&gt;
+    &lt;strong&gt;3. Delivery&lt;/strong&gt;
+    &lt;p&gt;The parcel leaves within two working days.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Inline table</h3>
+
+          <p class="oc-section-content__desc"><code>.table</code> behaves like a block, <code>.inline-table</code> like an inline element. Read the two sentences: the small two-cell table is the same in both.</p>
+
+          <p class="oc-section-content__desc"><code>.table-column-group</code> and <code>.table-column</code> stand for <code>&lt;colgroup&gt;</code> and <code>&lt;col&gt;</code>: empty divs that let you set a background or a width for a whole column at once.</p>
+          <oc-demo title="table-column-group, table-column"><div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.table-column-group .table-column</code><div class="oc-eg__note">Three column divs before the rows. The middle one gets a background, so the whole Qty column is tinted.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><div class="tb-order table border-collapse w-full"><div class="table-column-group"><div class="table-column"></div><div class="table-column tb-col-hl"></div><div class="table-column"></div></div><div class="table-row tb-head"><div class="table-cell">Product</div><div class="table-cell tb-num">Qty</div><div class="table-cell tb-num">Price</div></div><div class="table-row"><div class="table-cell">Product 1</div><div class="table-cell tb-num">2</div><div class="table-cell tb-num">€24.00</div></div><div class="table-row"><div class="table-cell">Product 2</div><div class="table-cell tb-num">1</div><div class="table-cell tb-num">€8.50</div></div></div></div></div></div>
+</div></div><oc-code lang="html">&lt;div class="table border-collapse w-full"&gt;
+  &lt;div class="table-column-group"&gt;
+    &lt;div class="table-column"&gt;&lt;/div&gt;
+    &lt;div class="table-column" style="background: var(--color-teal-70)"&gt;&lt;/div&gt;
+    &lt;div class="table-column"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row"&gt;
+    &lt;div class="table-cell"&gt;Product&lt;/div&gt;&lt;div class="table-cell"&gt;Qty&lt;/div&gt;&lt;div class="table-cell"&gt;Price&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row"&gt;
+    &lt;div class="table-cell"&gt;Product 1&lt;/div&gt;&lt;div class="table-cell"&gt;2&lt;/div&gt;&lt;div class="table-cell"&gt;€24.00&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="table-row"&gt;
+    &lt;div class="table-cell"&gt;Product 2&lt;/div&gt;&lt;div class="table-cell"&gt;1&lt;/div&gt;&lt;div class="table-cell"&gt;€8.50&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- A column only takes a background or a width; the cells must be see-through for the color to show --&gt;</oc-code></oc-demo>
+
+          <oc-demo title="table versus inline-table">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 22rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.table</code><div class="oc-eg__note">A block on its own line. The table breaks the sentence: it starts on a new line, like a div.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><p class="tb-sentence">Order 1001 for Customer 1 comes to <span class="table tb-mini"><span class="table-cell">Qty 15</span><span class="table-cell">€128.50</span></span> including VAT.</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.inline-table</code><div class="oc-eg__note">Sits inside the line. The table flows with the text, like a word, and is only as wide as its cells.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><p class="tb-sentence">Order 1001 for Customer 1 comes to <span class="inline-table tb-mini"><span class="table-cell">Qty 15</span><span class="table-cell">€128.50</span></span> including VAT.</p></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .table: a block, the sentence breaks around it --&gt;
+&lt;p&gt;
+  Order 1001 for Customer 1 comes to
+  &lt;span class="table"&gt;
+    &lt;span class="table-cell"&gt;Qty 15&lt;/span&gt;
+    &lt;span class="table-cell"&gt;€128.50&lt;/span&gt;
+  &lt;/span&gt;
+  including VAT.
+&lt;/p&gt;
+
+&lt;!-- .inline-table: it sits in the line like a word --&gt;
+&lt;p&gt;
+  Order 1001 for Customer 1 comes to
+  &lt;span class="inline-table"&gt;
+    &lt;span class="table-cell"&gt;Qty 15&lt;/span&gt;
+    &lt;span class="table-cell"&gt;€128.50&lt;/span&gt;
+  &lt;/span&gt;
+  including VAT.
+&lt;/p&gt;</oc-code></oc-demo>
         </div>
       </section>

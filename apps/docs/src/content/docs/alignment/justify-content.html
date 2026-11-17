@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Justify Content","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Justify Content","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Alignment demos: frame from the shared example kit (.oc-eg); below only the page palette and what sits inside the stages. */\n    .oc-eg { --eg-c1: var(--color-teal-70); --eg-c2: var(--color-chocolate-80); --eg-c3: var(--color-slateblue-70); --eg-c4: var(--color-teal-70); --eg-c5: var(--color-chocolate-80); --eg-c6: var(--color-slateblue-70); }\n    /* Fixed stage height and clipping as before the kit; items stay on one line. */\n    .al-fixed { block-size: var(--eg-h, 3.75rem); overflow: hidden; white-space: nowrap; }\n    .al-fixed.al-scroll { overflow: auto; max-inline-size: 20rem; }\n    .oc-eg__item.al-wide { min-inline-size: 7.5rem; }\n    .al-surface { box-sizing: border-box; min-inline-size: 0; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .al-real { padding: 0.75rem; }\n    .al-page { display: grid; gap: 0; padding: 0; overflow: hidden; }\n    .al-page > * { padding: 0.875rem 1rem; }\n    .al-page > * + * { border-block-start: 1px solid var(--oc-border); }\n    .al-logo { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1rem; }\n    .al-logo-mark { inline-size: 1.6rem; block-size: 1.6rem; border-radius: 6px 50% 50% 50%; background: var(--eg-c1); }\n    .al-list { display: grid; gap: 0.5rem; }\n    .al-line { padding-block: 0.5rem; border-block-end: 1px dashed var(--oc-border); font-size: 0.9rem; }\n    .al-line:last-child { border-block-end: 0; }\n    .al-price { font-weight: 700; font-variant-numeric: tabular-nums; }\n  </style>"]}-->
 <section class="oc-docs-section" id="justify-content">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Justify Content</h2>
@@ -8,11 +8,12 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>justify-content</code> decides where the items (flex) or tracks (grid) sit along the main axis when they do not fill the whole container. In a row flexbox that is horizontal, in <code>.flex-col</code> it is vertical. Use it for toolbars (<code>.justify-between</code>), centred groups and button rows. It only has an effect when there is leftover space; with <code>.flex-1</code> children or a full-width grid there is nothing to distribute. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content" target="_blank" rel="noopener">MDN: justify-content</a>.</p>
+          <p class="oc-section-content__desc"><strong>In one sentence:</strong> <code>justify-content</code> moves the items along the <strong>main axis</strong>: left to right in a flex row, top to bottom in <code>.flex-col</code>, and the column tracks in a grid.</p>
+          <p class="oc-section-content__desc">It decides where the items (flex) or tracks (grid) sit when they do not fill the whole container. Use it for headers and toolbars (<code>.justify-between</code>), centred button groups and pagination. It only has an effect when there is leftover space: with <code>.flex-1</code> children or a grid of <code>1fr</code> columns there is nothing to hand out. To move items on the other axis use <a href="align-items.html"><code>.align-items-*</code></a>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content" target="_blank" rel="noopener">MDN: justify-content</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Justify Value</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
                 <tr><td><code>.justify-start</code></td><td>justify-content: start</td></tr>
                 <tr><td><code>.justify-center</code></td><td>justify-content: center</td></tr>
@@ -21,7 +22,13 @@
                 <tr class="oc-expandable-table__row-dimmed"><td><code>.justify-around</code></td><td>justify-content: space-around</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.justify-evenly</code></td><td>justify-content: space-evenly</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.justify-stretch</code></td><td>justify-content: stretch</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.justify-center-safe</code></td><td>justify-content: safe center (never clips on overflow)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-normal</code></td><td>justify-content: normal</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-left</code></td><td>justify-content: left</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-right</code></td><td>justify-content: right</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-flex-start</code></td><td>justify-content: flex-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-flex-end</code></td><td>justify-content: flex-end</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-center-safe</code></td><td>justify-content: safe center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-center-unsafe</code></td><td>justify-content: unsafe center</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -30,39 +37,100 @@
           </div>
 
           <h3 class="oc-section-content__title mt-8">Every value side by side</h3>
+          <p class="oc-section-content__desc">Three items of different width in a flex row. The hatched area is the free space: watch where each value puts it.</p>
 
-          <p class="oc-section-content__desc">Three items of different width in a row flexbox. <code>space-around</code> gives each item an equal half-gap on both sides, <code>space-evenly</code> makes all gaps identical.</p>
+          <oc-demo title="justify-content values"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the container</span><span class="oc-eg__key oc-eg__key--strong">Main axis &rarr; (left to right in a flex row)</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-start</code><div class="oc-eg__note">All free space ends up after the items.</div><div class="oc-eg__stage al-fixed flex justify-start"><div class="oc-eg__item">Short</div><div class="oc-eg__item">A longer item</div><div class="oc-eg__item">Mid</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-center</code><div class="oc-eg__note">Free space is split equally before and after the group.</div><div class="oc-eg__stage al-fixed flex justify-center"><div class="oc-eg__item">Short</div><div class="oc-eg__item">A longer item</div><div class="oc-eg__item">Mid</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-end</code><div class="oc-eg__note">All free space ends up before the items.</div><div class="oc-eg__stage al-fixed flex justify-end"><div class="oc-eg__item">Short</div><div class="oc-eg__item">A longer item</div><div class="oc-eg__item">Mid</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-between</code><div class="oc-eg__note">First and last item touch the edges; the space goes in between.</div><div class="oc-eg__stage al-fixed flex justify-between"><div class="oc-eg__item">Short</div><div class="oc-eg__item">A longer item</div><div class="oc-eg__item">Mid</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-around</code><div class="oc-eg__note">Each item gets the same space on both sides, so the edges get half a gap.</div><div class="oc-eg__stage al-fixed flex justify-around"><div class="oc-eg__item">Short</div><div class="oc-eg__item">A longer item</div><div class="oc-eg__item">Mid</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-evenly</code><div class="oc-eg__note">Every gap is the same size, the two edges included.</div><div class="oc-eg__stage al-fixed flex justify-evenly"><div class="oc-eg__item">Short</div><div class="oc-eg__item">A longer item</div><div class="oc-eg__item">Mid</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="flex justify-start"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer item&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex justify-center"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer item&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex justify-end"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer item&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex justify-between"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer item&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex justify-around"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer item&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex justify-evenly"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer item&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
-          <oc-demo title="justify-content values"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.justify-start</code><div class="dm-area flex justify-start"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w1">3</div></div></div>
-<div class="dm-tile"><code>.justify-center</code><div class="dm-area flex justify-center"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w1">3</div></div></div>
-<div class="dm-tile"><code>.justify-end</code><div class="dm-area flex justify-end"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w1">3</div></div></div>
-<div class="dm-tile"><code>.justify-between</code><div class="dm-area flex justify-between"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w1">3</div></div></div>
-<div class="dm-tile"><code>.justify-around</code><div class="dm-area flex justify-around"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w1">3</div></div></div>
-<div class="dm-tile"><code>.justify-evenly</code><div class="dm-area flex justify-evenly"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w1">3</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex justify-between align-items-center"&gt;
-  &lt;div&gt;Logo&lt;/div&gt;
-  &lt;nav&gt;Menu&lt;/nav&gt;
+          <h3 class="oc-section-content__title mt-8">Stretch needs auto-sized grid tracks</h3>
+          <p class="oc-section-content__desc"><code>justify-content: stretch</code> does nothing in flexbox (flex items are sized by <code>flex-grow</code>). In a grid it grows <em>auto</em> tracks, so use it with <code>.grid-flow-col</code> and <code>.grid-cols-auto</code>.</p>
+
+          <oc-demo title="justify-stretch on a grid"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the container</span><span class="oc-eg__key oc-eg__key--strong">Main axis &rarr; (the column tracks)</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-col .grid-cols-auto .justify-start</code><div class="oc-eg__note">Auto tracks keep the width of their content. The rest stays empty.</div><div class="oc-eg__stage al-fixed grid grid-flow-col grid-cols-auto gap-0.5 justify-start"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-col .grid-cols-auto .justify-stretch</code><div class="oc-eg__note">Auto tracks grow until the free space is used up.</div><div class="oc-eg__stage al-fixed grid grid-flow-col grid-cols-auto gap-0.5 justify-stretch"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div></div></div>
+</div></div><oc-code lang="html">&lt;!-- .justify-start: the auto columns stay as narrow as their content --&gt;
+&lt;div class="grid grid-flow-col grid-cols-auto gap-0.5 justify-start"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- .justify-stretch: the auto columns grow to fill the row --&gt;
+&lt;div class="grid grid-flow-col grid-cols-auto gap-0.5 justify-stretch"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8">Stretch needs auto-sized tracks</h3>
+          <h3 class="oc-section-content__title mt-8">Safe alignment when the content is too wide</h3>
+          <p class="oc-section-content__desc">Plain <code>center</code> pushes overflowing items out at the start edge, where no scrollbar can reach them. The <code>safe</code> keyword falls back to <code>start</code> in that case. Try to scroll both rows to their first item.</p>
 
-          <p class="oc-section-content__desc"><code>justify-content: stretch</code> does nothing on a flex container (items are sized by flex rules). It grows <em>auto</em> grid tracks, so use it with <code>.grid-cols-auto</code> and an implicit column flow. Compare it with the same grid on <code>.justify-start</code>.</p>
+          <oc-demo title="center vs center-safe"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Both rows are too wide for their box</span><span class="oc-eg__key oc-eg__key--strong">Main axis &rarr;</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-center</code><div class="oc-eg__note">The row sticks out on both sides. Product 1 is cut off and you cannot scroll back to it.</div><div class="oc-eg__stage al-fixed al-scroll flex gap-0.5 justify-center"><div class="oc-eg__item al-wide flex-shrink-0">Product 1</div><div class="oc-eg__item al-wide flex-shrink-0">Product 2</div><div class="oc-eg__item al-wide flex-shrink-0">Product 3</div><div class="oc-eg__item al-wide flex-shrink-0">Product 4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-center-safe</code><div class="oc-eg__note">Centres while it fits. When it does not, it starts at the left edge: scroll to reach Product 4.</div><div class="oc-eg__stage al-fixed al-scroll flex gap-0.5 justify-center-safe"><div class="oc-eg__item al-wide flex-shrink-0">Product 1</div><div class="oc-eg__item al-wide flex-shrink-0">Product 2</div><div class="oc-eg__item al-wide flex-shrink-0">Product 3</div><div class="oc-eg__item al-wide flex-shrink-0">Product 4</div></div></div>
+</div></div><oc-code lang="html">&lt;!-- justify-center: the row sticks out on both sides, Product 1 cannot be reached --&gt;
+&lt;div class="flex gap-0.5 justify-center" style="overflow-x: auto"&gt;
+  &lt;div class="flex-shrink-0"&gt;Product 1&lt;/div&gt;
+  &lt;div class="flex-shrink-0"&gt;Product 2&lt;/div&gt;
+  &lt;div class="flex-shrink-0"&gt;Product 3&lt;/div&gt;
+  &lt;div class="flex-shrink-0"&gt;Product 4&lt;/div&gt;
+&lt;/div&gt;
 
-          <oc-demo title="justify-stretch on a grid"><div class="dm-grid" style="--dm-min:18rem">
-<div class="dm-tile"><code>.grid-flow-col .grid-cols-auto .justify-start</code><div class="dm-area grid grid-flow-col grid-cols-auto gap-0.3 justify-start"><div class="dm-box">1</div><div class="dm-box">2</div><div class="dm-box">3</div></div></div>
-<div class="dm-tile"><code>… .justify-stretch</code><div class="dm-area grid grid-flow-col grid-cols-auto gap-0.3 justify-stretch"><div class="dm-box">1</div><div class="dm-box">2</div><div class="dm-box">3</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-flow-col grid-cols-auto justify-stretch"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+&lt;!-- justify-center-safe: starts at the left edge when it does not fit, so you can scroll to every item --&gt;
+&lt;div class="flex gap-0.5 justify-center-safe" style="overflow-x: auto"&gt;
+  &lt;div class="flex-shrink-0"&gt;Product 1&lt;/div&gt;
+  &lt;div class="flex-shrink-0"&gt;Product 2&lt;/div&gt;
+  &lt;div class="flex-shrink-0"&gt;Product 3&lt;/div&gt;
+  &lt;div class="flex-shrink-0"&gt;Product 4&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8">Safe alignment</h3>
+          <h3 class="oc-section-content__title mt-8">Real use: header, price list and pagination</h3>
+          <p class="oc-section-content__desc"><code>.justify-between</code> pushes the logo and the buttons apart, and the product name and price in each row. <code>.justify-center</code> keeps the pagination in the middle, whatever the width.</p>
 
-          <p class="oc-section-content__desc">Plain <code>center</code> can push items out of the start edge when they overflow, where they can no longer be scrolled to. The <code>safe</code> keyword falls back to <code>start</code> in that case. Both containers below are too narrow for their content.</p>
+          <oc-demo title="Header, price list and pagination"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min:100%"><div class="oc-eg__panel"><code class="oc-eg__name">.justify-between &middot; .justify-center</code><div class="oc-eg__note">The logo and the buttons sit at the two ends, each price at the right of its row, and the page buttons in the middle.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-surface al-page">
+  <header class="flex justify-between align-items-center gap-1">
+    <div class="al-logo"><span class="al-logo-mark" aria-hidden="true"></span>Company 1</div>
+    <div class="flex align-items-center gap-0.5"><button type="button" class="oc-btn oc-btn--ghost oc-btn--sm">Sign in</button><button type="button" class="oc-btn oc-btn--sm">Get started</button></div>
+  </header>
+  <div class="al-list">
+    <div class="al-line flex justify-between gap-1"><span>Product 1</span><span class="al-price">&euro; 24.00</span></div>
+    <div class="al-line flex justify-between gap-1"><span>Product 2</span><span class="al-price">&euro; 129.00</span></div>
+    <div class="al-line flex justify-between gap-1"><span>Product 3</span><span class="al-price">&euro; 8.50</span></div>
+  </div>
+  <nav class="flex justify-center gap-0.5" aria-label="Pages">
+    <button type="button" class="oc-btn oc-btn--outline oc-btn--sm">Previous</button><button type="button" class="oc-btn oc-btn--sm" aria-current="page">1</button><button type="button" class="oc-btn oc-btn--outline oc-btn--sm">2</button><button type="button" class="oc-btn oc-btn--outline oc-btn--sm">3</button><button type="button" class="oc-btn oc-btn--outline oc-btn--sm">Next</button>
+  </nav>
+</div></div></div></div></div><oc-code lang="html">&lt;header class="flex justify-between align-items-center gap-1"&gt;
+  &lt;div&gt;Company 1&lt;/div&gt;
+  &lt;div class="flex gap-0.5"&gt;
+    &lt;button class="oc-btn oc-btn--ghost"&gt;Sign in&lt;/button&gt;
+    &lt;button class="oc-btn"&gt;Get started&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
 
-          <oc-demo title="center vs center-safe"><div class="dm-grid" style="--dm-min:13rem">
-<div class="dm-tile"><code>.justify-center</code><div class="dm-area flex justify-center" style="inline-size:11rem;"><div class="dm-box dm-w3 flex-shrink-0">long item one</div><div class="dm-box dm-w3 flex-shrink-0">long item two</div><div class="dm-box dm-w3 flex-shrink-0">long item three</div></div></div>
-<div class="dm-tile"><code>.justify-center-safe</code><div class="dm-area flex justify-center-safe" style="inline-size:11rem;"><div class="dm-box dm-w3 flex-shrink-0">long item one</div><div class="dm-box dm-w3 flex-shrink-0">long item two</div><div class="dm-box dm-w3 flex-shrink-0">long item three</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex justify-center-safe"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+&lt;div class="flex justify-between gap-1"&gt;
+  &lt;span&gt;Product 1&lt;/span&gt;
+  &lt;span&gt;&amp;euro; 24.00&lt;/span&gt;
+&lt;/div&gt;
 
-          <p class="oc-section-content__desc">Gotcha: the axis follows <code>flex-direction</code>. With <code>.flex-col</code>, <code>.justify-*</code> works vertically and needs a container height to show anything.</p>
+&lt;nav class="flex justify-center gap-0.5"&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Previous&lt;/button&gt;
+  &lt;button class="oc-btn"&gt;1&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;2&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Next&lt;/button&gt;
+&lt;/nav&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Gotcha: the axis follows <code>flex-direction</code>. With <code>.flex-col</code>, <code>.justify-*</code> works top to bottom and the container needs a height to show anything.</p>
+
         </div>
       </section>

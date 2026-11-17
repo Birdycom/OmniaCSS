@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - At-rules","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .ar-check { display: grid; gap: 0.4rem; inline-size: 100%; }\n    .ar-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.45rem 0.75rem; border-radius: 8px; background: var(--oc-muted); font-size: 0.85rem; }\n    .ar-row code { background: none; padding: 0; }\n    .ar-yes { color: var(--color-green-60); font-weight: 600; }\n    .ar-no { color: var(--color-red-60); font-weight: 600; }\n    @layer ar-base, ar-theme;\n    @layer ar-theme { .ar-layer-box { background: var(--color-green-50); } }\n    @layer ar-base { #ar-layer-target.ar-layer-box { background: var(--color-red-60); } }\n    .ar-box { display: grid; place-items: center; min-block-size: 5rem; padding: 1rem; border-radius: 12px; color: var(--color-white-50); font-weight: 600; text-align: center; }\n    @property --ar-angle { syntax: \"<angle>\"; inherits: false; initial-value: 0deg; }\n    .ar-spin-border { display: grid; place-items: center; min-block-size: 7rem; inline-size: min(100%, 18rem); padding: 1rem; border: 3px solid transparent; border-radius: 16px; background: linear-gradient(var(--oc-card), var(--oc-card)) padding-box, conic-gradient(from var(--ar-angle), var(--color-blue-50), var(--color-magenta-50), var(--color-orange-50), var(--color-blue-50)) border-box; color: var(--oc-foreground); animation: ar-angle 4s linear infinite; }\n    @keyframes ar-angle { to { --ar-angle: 360deg; } }\n    @media (prefers-reduced-motion: reduce) { .ar-spin-border { animation: none; } }\n    .ar-scope-card { display: grid; gap: 0.5rem; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); }\n    .ar-scope-card p, .ar-scope-slot p { margin: 0; }\n    .ar-scope-slot { padding: 0.75rem; border: 1px dashed var(--oc-border-strong); border-radius: 8px; }\n    @scope (.ar-scope-card) to (.ar-scope-slot) { p { color: var(--color-vividblue-80); font-weight: 600; } }\n    .ar-badge { display: inline-block; padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--color-gray-50); color: var(--color-white-50); font-size: 0.8rem; font-weight: 600; }\n    @container style(--status: ok) { .ar-badge { background: var(--color-green-60); } }\n    @container style(--status: warn) { .ar-badge { background: var(--color-orange-60); } }\n    @container style(--status: danger) { .ar-badge { background: var(--color-red-60); } }\n    .ar-fn-wrap { container-type: inline-size; resize: horizontal; overflow: auto; inline-size: 100%; max-inline-size: 100%; min-inline-size: 12rem; padding: 1rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    @function --ar-fluid(--min, --max) { result: clamp(var(--min), 0.5rem + 4cqi, var(--max)); }\n    .ar-fn-text { margin: 0; font-size: 1.25rem; font-size: --ar-fluid(1rem, 2.75rem); font-weight: 700; line-height: 1.2; }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - At-rules","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head": ["<style>\n    /* Inside of the example-kit stages */\n    .ar-stage { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; padding: 1rem; }\n    .ar-stage--fill { place-items: stretch; }\n    .ar-stage--fill > div { display: grid; }\n    .ar-stage--fill .ar-status { align-content: start; block-size: 100%; box-sizing: border-box; }\n    .ar-layer-ask { display: grid; gap: 0.6rem; inline-size: 100%; }\n    .ar-layer-ask i { display: block; block-size: 4.5rem; border-radius: 8px; }\n    .ar-check { display: grid; gap: 0.4rem; inline-size: 100%; }\n    .ar-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.45rem 0.75rem; border-radius: 8px; background: var(--oc-card); font-size: 0.85rem; }\n    .ar-row code { background: none; padding: 0; }\n    .ar-yes { color: light-dark(var(--color-green-80), var(--color-green-30)); font-weight: 600; }\n    .ar-no { color: light-dark(var(--color-red-70), var(--color-red-30)); font-weight: 600; }\n    @layer ar-base, ar-theme;\n    @layer ar-theme { .ar-layer-box { background: var(--color-green-70); } }\n    @layer ar-base { #ar-layer-target.ar-layer-box { background: var(--color-red-70); } }\n    .ar-box { display: grid; place-items: center; min-block-size: 5rem; padding: 1rem; border-radius: 12px; color: var(--color-white-50); font-weight: 600; text-align: center; }\n    @property --ar-angle { syntax: \"<angle>\"; inherits: false; initial-value: 0deg; }\n    .ar-spin-border { display: grid; place-items: center; min-block-size: 7rem; inline-size: 100%; box-sizing: border-box; min-block-size: 9rem; padding: 1rem; border: 3px solid transparent; border-radius: 16px; background: linear-gradient(var(--oc-card), var(--oc-card)) padding-box, conic-gradient(from var(--ar-angle), var(--color-blue-50), var(--color-magenta-50), var(--color-orange-50), var(--color-blue-50)) border-box; color: var(--oc-foreground); animation: ar-angle 4s linear infinite; }\n    @keyframes ar-angle { to { --ar-angle: 360deg; } }\n    @media (prefers-reduced-motion: reduce) { .ar-spin-border { animation: none; } }\n    .ar-scope-card { display: grid; gap: 0.5rem; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); }\n    .ar-scope-card p, .ar-scope-slot p { margin: 0; }\n    .ar-scope-slot { padding: 0.75rem; border: 1px dashed var(--oc-border-strong); border-radius: 8px; }\n    @scope (.ar-scope-card) to (.ar-scope-slot) { p { color: light-dark(var(--color-vividblue-90), var(--color-vividblue-50)); font-weight: 600; } }\n    .ar-scope-slot p { color: var(--oc-foreground); }\n    .ar-badge { display: inline-block; padding: 0.3rem 0.7rem; border-radius: 999px; background: var(--color-gray-80); color: var(--color-white-50); font-size: 0.8rem; font-weight: 600; justify-self: start; }\n    .ar-status { display: grid; gap: 0.6rem; align-content: start; padding: 1rem 1.1rem; border: 1px solid var(--oc-border); border-block-start: 6px solid var(--color-gray-80); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .ar-status strong { font-size: 1rem; }\n    @container style(--status: ok) { .ar-badge { background: var(--color-forestgreen-60); } .ar-status { border-block-start-color: var(--color-forestgreen-60); } }\n    @container style(--status: warn) { .ar-badge { background: var(--color-orange-95); } .ar-status { border-block-start-color: var(--color-orange-95); } }\n    @container style(--status: danger) { .ar-badge { background: var(--color-red-70); } .ar-status { border-block-start-color: var(--color-red-70); } }\n    .ar-fn-wrap { container-type: inline-size; resize: horizontal; overflow: auto; inline-size: 100%; max-inline-size: 100%; min-inline-size: 12rem; padding: 1rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    @function --ar-fluid(--min, --max) { result: clamp(var(--min), 0.5rem + 4cqi, var(--max)); }\n    .ar-fn-text { margin: 0; font-size: 1.25rem; font-size: --ar-fluid(1rem, 2.75rem); font-weight: 700; line-height: 1.2; }\n  .ar-box, .ar-scope-card { inline-size: 100%; box-sizing: border-box; }\n  \n  \n    .ar-box { display: grid; place-content: center; text-align: center; gap: 0.3rem; min-block-size: 4.5rem; padding: 1rem; border-radius: 8px; color: var(--color-white-50); font-size: 1.15rem; font-weight: 700; }\n    .ar-box span { font-size: 0.9rem; font-weight: 400; }\n    .ar-scope-card { font-size: 1.05rem; padding: 1.25rem !important; gap: 0.75rem !important; }\n    .ar-scope-card b { font-size: 1.2rem; color: var(--oc-foreground); }\n    .ar-scope-slot { display: grid; gap: 0.4rem; padding: 1rem !important; }\n    .ar-scope-slot small { color: var(--oc-muted-foreground); font-size: 0.85rem; }\n    .ar-fn-wrap2 { box-sizing: border-box; container-type: inline-size; resize: horizontal; overflow: hidden; inline-size: 60%; min-inline-size: 12rem; max-inline-size: 100%; padding: 1.25rem; border: 2px dashed var(--color-vividblue-90); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .ar-fn-wrap2 .ar-fn-text { color: var(--oc-foreground); }\n  </style>"]}-->
 <section class="oc-docs-section" id="at-rules">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">At-rules</h2>
@@ -61,7 +61,9 @@
           </div>
 
           <oc-demo title="Live feature check in your browser (only supports-[…] variants, no JavaScript)">
-            <div class="ar-check">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.supports-[…]:inline · .supports-[…]:d-none</code><div class="oc-eg__note">Each row tells whether the browser you are using right now supports the feature. Pure CSS, no JavaScript.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage">
+<div class="ar-check">
               <div class="ar-row"><code>anchor-name</code><span class="ar-yes d-none supports-[anchor-name:--a]:inline">✓ supported</span><span class="ar-no supports-[anchor-name:--a]:d-none">✕ not yet</span></div>
               <div class="ar-row"><code>field-sizing</code><span class="ar-yes d-none supports-[field-sizing:content]:inline">✓ supported</span><span class="ar-no supports-[field-sizing:content]:d-none">✕ not yet</span></div>
               <div class="ar-row"><code>selector(:user-invalid)</code><span class="ar-yes d-none supports-[selector(:user-invalid)]:inline">✓ supported</span><span class="ar-no supports-[selector(:user-invalid)]:d-none">✕ not yet</span></div>
@@ -74,13 +76,22 @@
               <div class="ar-row"><code>interpolate-size</code><span class="ar-yes d-none supports-[interpolate-size:allow-keywords]:inline">✓ supported</span><span class="ar-no supports-[interpolate-size:allow-keywords]:d-none">✕ not yet</span></div>
               <div class="ar-row"><code>at-rule(@function)</code><span class="ar-yes d-none supports-[at-rule(@function)]:inline">✓ supported</span><span class="ar-no supports-[at-rule(@function)]:d-none">✕ not yet</span></div>
             </div>
-          <oc-code lang="html">&lt;div class="ar-row"&gt;
-  &lt;code&gt;field-sizing&lt;/code&gt;
-  &lt;span class="d-none supports-[field-sizing:content]:inline"&gt;✓ supported&lt;/span&gt;
-  &lt;span class="supports-[field-sizing:content]:d-none"&gt;✕ not yet&lt;/span&gt;
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="ar-check"&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;anchor-name&lt;/code&gt;&lt;span class="ar-yes d-none supports-[anchor-name:--a]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[anchor-name:--a]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;field-sizing&lt;/code&gt;&lt;span class="ar-yes d-none supports-[field-sizing:content]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[field-sizing:content]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;selector(:user-invalid)&lt;/code&gt;&lt;span class="ar-yes d-none supports-[selector(:user-invalid)]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[selector(:user-invalid)]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;progress()&lt;/code&gt;&lt;span class="ar-yes d-none supports-[opacity:progress(1px,0px,2px)]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[opacity:progress(1px,0px,2px)]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;sibling-index()&lt;/code&gt;&lt;span class="ar-yes d-none supports-[order:sibling-index()]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[order:sibling-index()]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;alpha()&lt;/code&gt;&lt;span class="ar-yes d-none supports-[color:alpha(from_currentColor_/_50%)]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[color:alpha(from_currentColor_/_50%)]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;if()&lt;/code&gt;&lt;span class="ar-yes d-none supports-[width:if(else:1px)]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[width:if(else:1px)]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;random()&lt;/code&gt;&lt;span class="ar-yes d-none supports-[width:random(0px,10px)]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[width:random(0px,10px)]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;scroll-marker-group&lt;/code&gt;&lt;span class="ar-yes d-none supports-[scroll-marker-group:after]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[scroll-marker-group:after]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;interpolate-size&lt;/code&gt;&lt;span class="ar-yes d-none supports-[interpolate-size:allow-keywords]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[interpolate-size:allow-keywords]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="ar-row"&gt;&lt;code&gt;at-rule(@function)&lt;/code&gt;&lt;span class="ar-yes d-none supports-[at-rule(@function)]:inline"&gt;✓ supported&lt;/span&gt;&lt;span class="ar-no supports-[at-rule(@function)]:d-none"&gt;✕ not yet&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;!-- spaces become _ : supports-[color:alpha(from_currentColor_/_50%)]:inline --&gt;
-&lt;!-- selectors and at-rules: supports-[selector(:user-invalid)]:…  supports-[at-rule(@function)]:… --&gt;</oc-code></oc-demo>
+&lt;!-- spaces become _ : supports-[color:alpha(from_currentColor_/_50%)]:inline --&gt;</oc-code></oc-demo>
 
           <oc-code lang="css">/* What the variants compile to */
 @supports (field-sizing:content) {
@@ -93,16 +104,21 @@
           <h3 class="oc-section-content__title mt-10" id="layer">@layer: cascade layers</h3>
           <p class="oc-section-content__desc">Layers decide which rules win <strong>before</strong> specificity is compared: a later layer beats an earlier one, even when the earlier rule uses an id. <code>omniacss build</code> puts all utilities in <code>@layer omnia</code>, after <code>@layer omnia-base</code> (reset and tokens) and <code>@layer omniaui</code> (components), so a utility always beats a component; you can place your own reset before it and your overrides after it. Unlayered CSS always beats layered CSS.</p>
           <oc-demo title="The later layer wins over an id selector in an earlier layer">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div id="ar-layer-target" class="ar-layer-box ar-box">#id in layer ar-base → loses<br>.class in layer ar-theme → wins (green)</div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">@layer ar-base</code><div class="oc-eg__note">A strong selector, <code>#ar-layer-target.ar-layer-box</code>, asks for red, but in the earlier layer.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage"><div class="ar-layer-ask"><i class="bg-red-70"></i></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">@layer ar-theme</code><div class="oc-eg__note">A weak selector, <code>.ar-layer-box</code>, asks for green, but in the later layer.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage"><div class="ar-layer-ask"><i class="bg-green-70"></i></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Result</code><div class="oc-eg__note">The later layer wins, whatever the specificity.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage"><div id="ar-layer-target" class="ar-layer-box ar-box">Result: green</div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="ar-layer-ask"&gt;&lt;i class="bg-red-70"&gt;&lt;/i&gt;&lt;/div&gt;     &lt;!-- what ar-base asks for --&gt;
+&lt;div class="ar-layer-ask"&gt;&lt;i class="bg-green-70"&gt;&lt;/i&gt;&lt;/div&gt;   &lt;!-- what ar-theme asks for --&gt;
+&lt;div id="ar-layer-target" class="ar-layer-box ar-box"&gt;Result: green&lt;/div&gt;</oc-code>
           <oc-code lang="css">@layer ar-base, ar-theme;                /* order is decided here */
 
 @layer ar-theme {
-  .ar-layer-box { background: var(--color-green-50); }
+  .ar-layer-box { background: var(--color-green-70); }
 }
 @layer ar-base {
-  #ar-layer-target.ar-layer-box { background: var(--color-red-60); }  /* higher specificity, earlier layer */
+  #ar-layer-target.ar-layer-box { background: var(--color-red-70); }  /* higher specificity, earlier layer */
 }
 
 /* With OmniaCSS */
@@ -113,9 +129,12 @@
           <h3 class="oc-section-content__title mt-10" id="property">@property: typed, animatable variables</h3>
           <p class="oc-section-content__desc">A registered custom property has a type (<code>&lt;angle&gt;</code>, <code>&lt;color&gt;</code>, <code>&lt;length&gt;</code>, <code>&lt;integer&gt;</code> …), an initial value and an inheritance flag. Because the browser knows the type it can <strong>interpolate</strong> it: gradients, angles and counters become animatable. More on the <a href="../variables/">Variables</a> page.</p>
           <oc-demo title="Rotating conic gradient border with a registered --ar-angle">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="ar-spin-border">@property --ar-angle</div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">@property --ar-angle</code><div class="oc-eg__note">The registered angle can animate, so the colors of the border run around the box.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage">
+<div class="ar-spin-border">@property --ar-angle</div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="ar-spin-border"&gt;@property --ar-angle&lt;/div&gt;</oc-code>
           <oc-code lang="css">@property --ar-angle {
   syntax: "&lt;angle&gt;";
   inherits: false;
@@ -135,12 +154,27 @@
           <h3 class="oc-section-content__title mt-10" id="scope">@scope: styles with an upper and a lower limit</h3>
           <p class="oc-section-content__desc"><code>@scope (root) to (limit)</code> styles only the elements between the scope root and the limit (a "donut"). Slots, nested widgets and user content inside the limit stay untouched, without long selectors or naming schemes.</p>
           <oc-demo title="@scope (.ar-scope-card) to (.ar-scope-slot)">
-            <div class="ar-scope-card">
-              <p>Inside the scope: blue and bold.</p>
-              <div class="ar-scope-slot"><p>Inside the limit (.ar-scope-slot): not styled by the scope.</p></div>
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">@scope (.ar-scope-card) to (.ar-scope-slot)</code><div class="oc-eg__note">Every p in the card turns blue and bold, but not the one inside the dashed slot: the scope stops at its limit.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage">
+<div class="ar-scope-card">
+              <b>Product 1</b>
+              <p>Inside the scope: this text is blue and bold.</p>
+              <p>So is this one: every p in the card, up to the limit.</p>
+              <div class="ar-scope-slot"><small>.ar-scope-slot (the limit)</small><p>A review by Customer 1. This p is inside the limit, so the scope does not style it.</p></div>
             </div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="ar-scope-card"&gt;
+  &lt;b&gt;Product 1&lt;/b&gt;
+  &lt;p&gt;Inside the scope: this text is blue and bold.&lt;/p&gt;
+  &lt;p&gt;So is this one: every p in the card, up to the limit.&lt;/p&gt;
+  &lt;div class="ar-scope-slot"&gt;
+    &lt;small&gt;.ar-scope-slot (the limit)&lt;/small&gt;
+    &lt;p&gt;A review by Customer 1. This p is inside the limit, so the scope does not style it.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</oc-code>
           <oc-code lang="css">@scope (.ar-scope-card) to (.ar-scope-slot) {
-  p { color: var(--color-vividblue-80); font-weight: 600; }
+  p { color: var(--color-vividblue-90); font-weight: 600; }
 }
 /* :scope refers to the root itself */
 @scope (.card) { :scope { container-type: inline-size; } }</oc-code></oc-demo>
@@ -148,23 +182,39 @@
           <h3 class="oc-section-content__title mt-10" id="container-style">@container style(): query a variable</h3>
           <p class="oc-section-content__desc">Size queries are covered on <a href="../container-queries/">Container queries</a>. Style queries test a custom property of the parent: set <code>--status</code> once and every child adapts. Every element is a style container, so no <code>container-type</code> is needed.</p>
           <oc-demo title="One variable, three looks">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div style="--status: ok"><span class="ar-badge">--status: ok</span></div>
-              <div style="--status: warn"><span class="ar-badge">--status: warn</span></div>
-              <div style="--status: danger"><span class="ar-badge">--status: danger</span></div>
-            </div>
-          <oc-code lang="css">@container style(--status: ok)     { .ar-badge { background: var(--color-green-60); } }
-@container style(--status: warn)   { .ar-badge { background: var(--color-orange-60); } }
-@container style(--status: danger) { .ar-badge { background: var(--color-red-60); } }
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">--status: ok</code><div class="oc-eg__note">The style query gives the badge and the top edge a green color.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage ar-stage--fill" style="--eg-h: 10rem"><div style="--status: ok"><div class="ar-status"><strong>Order 1</strong><span class="ar-badge">Paid</span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--status: warn</code><div class="oc-eg__note">The same card with one other value: orange.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage ar-stage--fill" style="--eg-h: 10rem"><div style="--status: warn"><div class="ar-status"><strong>Order 2</strong><span class="ar-badge">Unpaid</span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--status: danger</code><div class="oc-eg__note">And red for an order that is overdue.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage ar-stage--fill" style="--eg-h: 10rem"><div style="--status: danger"><div class="ar-status"><strong>Order 3</strong><span class="ar-badge">Overdue</span></div></div></div></div>
+            </div></div>
+          <oc-code lang="css">@container style(--status: ok)     { .ar-badge { background: var(--color-forestgreen-60); } }
+@container style(--status: warn)   { .ar-badge { background: var(--color-orange-95); } }
+@container style(--status: danger) { .ar-badge { background: var(--color-red-70); } }
 
-/* &lt;div style="--status: danger"&gt;&lt;span class="ar-badge"&gt;…&lt;/span&gt;&lt;/div&gt; */</oc-code></oc-demo>
+/* the top edge follows the same way: .ar-status { border-top-color: … } inside each query */</oc-code>
+          <oc-code lang="html">&lt;div style="--status: ok"&gt;
+  &lt;div class="ar-status"&gt;&lt;strong&gt;Order 1&lt;/strong&gt;&lt;span class="ar-badge"&gt;Paid&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style="--status: warn"&gt;
+  &lt;div class="ar-status"&gt;&lt;strong&gt;Order 2&lt;/strong&gt;&lt;span class="ar-badge"&gt;Unpaid&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style="--status: danger"&gt;
+  &lt;div class="ar-status"&gt;&lt;strong&gt;Order 3&lt;/strong&gt;&lt;span class="ar-badge"&gt;Overdue&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="function">@function: your own CSS functions</h3>
           <p class="oc-section-content__desc">A custom function takes arguments and returns a <code>result</code>. Write the plain declaration first: browsers without <code>@function</code> drop the second line and keep the fallback. Drag the corner of the box to resize it.</p>
           <oc-demo title="--ar-fluid(min, max) — fluid type from the container width">
-            <div class="ar-fn-wrap">
-              <p class="ar-fn-text">Resize me: fluid heading</p>
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">font-size: --ar-fluid(1rem, 2.75rem)</code><div class="oc-eg__note">Drag the bottom-right corner of the dashed box: the heading follows the width of the box.</div><div class="oc-eg__stage oc-eg__stage--plain ar-stage">
+<div class="ar-fn-wrap2">
+              <div class="ar-fn-text">Product 1 for Customer 1</div>
             </div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="ar-fn-wrap2"&gt;      &lt;!-- container-type: inline-size; resize: horizontal; overflow: hidden --&gt;
+  &lt;div class="ar-fn-text"&gt;Product 1 for Customer 1&lt;/div&gt;
+&lt;/div&gt;</oc-code>
           <oc-code lang="css">@function --ar-fluid(--min, --max) {
   result: clamp(var(--min), 0.5rem + 4cqi, var(--max));
 }
@@ -174,7 +224,7 @@
 }</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="media">@media: range syntax and custom media</h3>
-          <p class="oc-section-content__desc">Media queries accept comparison operators. <code>@custom-media</code> gives a query a name; until browsers support it widely, the OmniaCSS breakpoint variants do the same job.</p>
+          <p class="oc-section-content__desc">Media queries accept comparison operators. <code>@custom-media</code> gives a query a name; until browsers support it widely, the OmniaCSS breakpoint variants do the same job. A media query follows the whole browser window, so a preview box cannot show it; the live examples are on <a href="../responsive.html">Responsive &amp; Dark Mode</a>.</p>
           <oc-code lang="css">@media (40rem &lt;= width &lt; 64rem) { … }            /* = md: up to lg */
 @media (prefers-reduced-motion: no-preference) and (hover: hover) { … }
 @media (dynamic-range: high) and (color-gamut: p3) { … }
@@ -184,7 +234,7 @@
 @media (--tablet) { … }</oc-code>
 
           <h3 class="oc-section-content__title mt-10" id="page">@page: print pages and margin boxes</h3>
-          <p class="oc-section-content__desc">Set paper size, margins and running headers or page numbers for printing. Combine with <code>.break-before-page</code> and <code>.break-inside-avoid</code> from <a href="../fragmentation/">Fragmentation</a>.</p>
+          <p class="oc-section-content__desc">Set paper size, margins and running headers or page numbers for printing. Combine with <code>.break-before-page</code> and <code>.break-inside-avoid</code> from <a href="../fragmentation/">Fragmentation</a>. These rules only act when you print, so there is no live example here: open the print preview of your own page to see them.</p>
           <oc-code lang="css">@page {
   size: A4;
   margin: 2cm 1.5cm;
@@ -195,6 +245,7 @@
 .chapter { page: chapter; }</oc-code>
 
           <h3 class="oc-section-content__title mt-10" id="other">@import, @namespace, @font-palette-values, @font-feature-values</h3>
+          <p class="oc-section-content__desc">These rules load files or tune a font; they have no visible effect of their own in a preview box.</p>
           <oc-code lang="css">@charset "UTF-8";
 @import url("omnia.css") layer(omnia) supports(color: oklch(0% 0 0));
 @import url("print.css") print;

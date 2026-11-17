@@ -1,179 +1,75 @@
-<!--oc-page {"title": "OmniaCSS Docs - Typography: Font Families Reference", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<link href=\"/css/oc-google-fonts.css\" rel=\"stylesheet\">"]}-->
-<section class="oc-docs-section" id="families">
+<!--oc-page {"title":"OmniaCSS Docs - Typography: Font Catalog","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<link href=\"/css/oc-google-fonts.css\" rel=\"stylesheet\">","<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    .ty-rows { display: grid; inline-size: 100%; }\n    .ty-row { display: grid; grid-template-columns: minmax(8rem, 13rem) minmax(0, 1fr); gap: 0.35rem 1.5rem; align-items: baseline; padding-block: 0.8rem; border-block-end: 1px solid var(--oc-border); }\n    .ty-row:first-child { padding-block-start: 0; }\n    .ty-row:last-child { padding-block-end: 0; border-block-end: 0; }\n    .ty-row > p, .ty-row > div { margin: 0; min-inline-size: 0; }\n    .ty-row p { color: var(--oc-foreground); }\n    @media (max-width: 40rem) { .ty-row { grid-template-columns: minmax(0, 1fr); } }\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .fx-s { font-size: 1.45rem; line-height: 1.35; }\n    .fx-big { font-size: 1.75rem; line-height: 1.25; }\n    .fx-abc { margin-block-start: 0.35rem; font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }\n    .ty-row .fx-abc, .ty-in .fx-abc { color: var(--oc-muted-foreground); }\n    .fx-meta { display: grid; gap: 0.2rem; align-self: start; }\n    .fx-meta .fx-cls { justify-self: start; padding: 0; background: none; font-size: 0.85rem; font-weight: 600; color: var(--oc-foreground); }\n    .fx-meta small { font-size: 0.75rem; line-height: 1.4; color: var(--oc-muted-foreground); }\n    .fx-glyphs { font-size: 1.9rem; line-height: 1.3; letter-spacing: 0.12em; overflow-wrap: anywhere; }\n    .ty-in .fx-nw { white-space: nowrap; overflow-wrap: normal; }\n    .oc-table-ref td code { white-space: nowrap; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n</style>"]}-->
+<section class="oc-docs-section" id="font-catalog">
         <div class="oc-section-header">
-          <h2 class="oc-section-header__title">Families Reference</h2>
+          <h2 class="oc-section-header__title">Font Catalog</h2>
           <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
           <span class="oc-section-header__badge-scss oc-badge-source-scss">_fonts.scss</span>
           <span class="oc-section-header__badge-file oc-badge-source-file">font-families.html</span>
           <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
-          <p class="oc-section-header__desc">Preview and reference of available web fonts.</p>
+          <p class="oc-section-header__desc">Every font that OmniaCSS can set, shown large so you can choose one. For the list of classes and how to combine them, see <a href="font-family.html">Font Family</a>; for how the fonts reach the browser, see <a href="fonts.html">Loading Fonts</a>.</p>
         </div>
-      </section>
 
-      <!-- QUICK REFERENCE (table >10 rows: Show more) -->
-      <section class="oc-docs-section" id="reference">
-        <div class="oc-section-header">
-          <h2 class="oc-section-header__title">Quick Reference <span class="badge">_fonts.scss</span> <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
-        </div>
         <div class="oc-section-content">
-          <div class="oc-expandable-table">
-            <table class="oc-table-ref">
-            <thead><tr><th class="w-perc-1/3">Class</th><th>Font Stack</th><th>Category</th></tr></thead>
-            <tbody>
-              <tr><td><code>.font-roboto</code></td><td>'Roboto Flex', sans-serif</td><td>Sans-serif</td></tr>
-              <tr><td><code>.font-source</code></td><td>'Source Sans Pro', sans-serif</td><td>Sans-serif</td></tr>
-              <tr><td><code>.font-serif</code></td><td>Times, "Times New Roman", Georgia, serif</td><td>Serif</td></tr>
-              <tr><td><code>.font-sansserif</code></td><td>Verdana, Arial, Helvetica, sans-serif</td><td>Sans-serif</td></tr>
-              <tr><td><code>.font-monospace</code></td><td>"Lucida Console", Courier, monospace</td><td>Monospace</td></tr>
-              <tr><td><code>.font-cursive</code></td><td>'Cedarville Cursive', cursive</td><td>Cursive</td></tr>
-              <tr><td><code>.font-fantasy</code></td><td>'Cormorant Infant', fantasy</td><td>Fantasy</td></tr>
-              <tr><td><code>.font-emoji</code></td><td>'Noto Emoji', emoji</td><td>Emoji</td></tr>
-              <tr><td><code>.font-coloremoji</code></td><td>'Noto Color Emoji', emoji</td><td>Emoji</td></tr>
-              <tr class="oc-expandable-table__row-dimmed"><td><code>.font-math</code></td><td>'Noto Sans Math'</td><td>Math</td></tr>
-              <tr class="oc-expandable-table__row-more"><td><code>.font-fangsong</code></td><td>'Noto Serif JP', 'Noto Sans JP', fangsong</td><td>CJK</td></tr>
-              <tr class="oc-expandable-table__row-more"><td><code>.font-hieroglyphs</code></td><td>'Noto Sans Egyptian Hieroglyphs'</td><td>Historical</td></tr>
-            </tbody>
-          </table>
-          <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
-            <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
-          </div>
-        </div>
-        </div>
-      </section>
+          <h3 class="oc-section-content__title" id="text-fonts">Text fonts</h3>
+          <p class="oc-section-content__desc">The seven fonts for normal reading text. Each row shows a sentence and the full alphabet with numbers. Under the class name you see the font stack and where the font comes from.</p>
+          <oc-demo title="Text font specimens">
+            <div class="ty-rows">
+              <div class="ty-row"><div class="fx-meta"><code class="fx-cls">.font-roboto</code><small>"Roboto Flex", sans-serif</small><small>Google Fonts</small></div><div><p class="fx-big font-roboto">Company 1 ships every order within 24 hours.</p><p class="fx-abc font-roboto">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ! ? € @</p></div></div>
+              <div class="ty-row"><div class="fx-meta"><code class="fx-cls">.font-source</code><small>"Source Sans Pro", sans-serif</small><small>Google Fonts</small></div><div><p class="fx-big font-source">Company 1 ships every order within 24 hours.</p><p class="fx-abc font-source">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ! ? € @</p></div></div>
+              <div class="ty-row"><div class="fx-meta"><code class="fx-cls">.font-serif</code><small>Times, "Times New Roman", Georgia, serif</small><small>Installed on the device</small></div><div><p class="fx-big font-serif">Company 1 ships every order within 24 hours.</p><p class="fx-abc font-serif">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ! ? € @</p></div></div>
+              <div class="ty-row"><div class="fx-meta"><code class="fx-cls">.font-sansserif</code><small>Verdana, Arial, Helvetica, sans-serif</small><small>Installed on the device</small></div><div><p class="fx-big font-sansserif">Company 1 ships every order within 24 hours.</p><p class="fx-abc font-sansserif">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ! ? € @</p></div></div>
+              <div class="ty-row"><div class="fx-meta"><code class="fx-cls">.font-monospace</code><small>"Lucida Console", Courier, monospace</small><small>Installed on the device</small></div><div><p class="fx-big font-monospace">Company 1 ships every order within 24 hours.</p><p class="fx-abc font-monospace">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ! ? € @</p></div></div>
+              <div class="ty-row"><div class="fx-meta"><code class="fx-cls">.font-cursive</code><small>"Cedarville Cursive", cursive</small><small>Google Fonts</small></div><div><p class="fx-big font-cursive">Company 1 ships every order within 24 hours.</p><p class="fx-abc font-cursive">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ! ? € @</p></div></div>
+              <div class="ty-row"><div class="fx-meta"><code class="fx-cls">.font-fantasy</code><small>"Cormorant Infant", fantasy</small><small>Google Fonts</small></div><div><p class="fx-big font-fantasy">Company 1 ships every order within 24 hours.</p><p class="fx-abc font-fantasy">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ! ? € @</p></div></div>
+            </div>
+          <oc-code lang="html">&lt;p class="font-roboto"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-source"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-serif"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-sansserif"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-monospace"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-cursive"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-fantasy"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;</oc-code></oc-demo>
 
-      <!-- VISUAL SPECIMENS -->
-      <section class="oc-docs-section" id="specimens">
-        <div class="oc-section-header">
-          <h2 class="oc-section-header__title">Visual Specimens <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
-          <p class="oc-section-header__desc">Live preview of each font family at different sizes.</p>
-        </div>
-        <div class="oc-section-content">
+          <h3 class="oc-section-content__title mt-10" id="symbol-fonts">Emoji and math</h3>
+          <p class="oc-section-content__desc">Fonts for symbols rather than words. <code>.font-emoji</code> draws emoji as plain shapes in the text color; <code>.font-coloremoji</code> draws them in full color.</p>
+          <oc-demo title="font-emoji, font-coloremoji, font-math">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-emoji</code><div class="oc-eg__note">One color: the emoji take the text color, like letters.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="fx-glyphs fx-nw font-emoji">😀🚀📦✅</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-coloremoji</code><div class="oc-eg__note">Full color. Uses Noto Color Emoji when it is installed, otherwise the system emoji.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="fx-glyphs fx-nw font-coloremoji">😀🚀📦✅</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-math</code><div class="oc-eg__note">Symbols for formulas, such as sums, integrals and Greek letters.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="fx-glyphs fx-nw font-math">∑∫√π≈∞</p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="font-emoji"&gt;😀🚀📦✅&lt;/p&gt;
+&lt;p class="font-coloremoji"&gt;😀🚀📦✅&lt;/p&gt;
+&lt;p class="font-math"&gt;∑∫√π≈∞&lt;/p&gt;</oc-code></oc-demo>
 
-        <!-- Roboto Flex -->
-        <div class="font-specimen">
-          <div class="font-specimen-header">
-            <span class="font-specimen-class">.font-roboto</span>
-            <span class="font-specimen-css">font-family: 'Roboto Flex', sans-serif</span>
-          </div>
-          <div class="font-specimen-sample font-roboto">The quick brown fox jumps over the lazy dog</div>
-          <div class="font-specimen-sample-sm font-roboto">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%</div>
-        </div>
-
-        <!-- Source Sans Pro -->
-        <div class="font-specimen">
-          <div class="font-specimen-header">
-            <span class="font-specimen-class">.font-source</span>
-            <span class="font-specimen-css">font-family: 'Source Sans Pro', sans-serif</span>
-          </div>
-          <div class="font-specimen-sample font-source">The quick brown fox jumps over the lazy dog</div>
-          <div class="font-specimen-sample-sm font-source">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%</div>
+          <h3 class="oc-section-content__title mt-10" id="other-scripts">Other writing systems</h3>
+          <p class="oc-section-content__desc">Two classes are for text that is not written in Latin letters. The name <code>.font-fangsong</code> is a little misleading: fangsong is a Chinese brush style, but the class asks first for <strong>Noto Serif JP</strong>, a Japanese font. Use it for Japanese text; the browser's own fangsong font is only the last fallback.</p>
+          <oc-demo title="font-fangsong, font-hieroglyphs">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-fangsong</code><div class="oc-eg__note">“Japanese text”. This docs site does not download the Japanese font (it is very large), so you see it here only when your device has it; otherwise your system shows its own Japanese font.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="fx-glyphs font-fangsong" lang="ja">日本語の文章</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-hieroglyphs</code><div class="oc-eg__note">Ancient Egyptian signs (Unicode U+13000 and up). The font is used only when it is installed on the device.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="fx-glyphs font-hieroglyphs">𓀀 𓁐 𓃒 𓆣 𓋹</p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="font-fangsong" lang="ja"&gt;日本語の文章&lt;/p&gt;
+&lt;p class="font-hieroglyphs"&gt;𓀀 𓁐 𓃒 𓆣 𓋹&lt;/p&gt;</oc-code></oc-demo>
         </div>
 
-        <!-- Serif -->
-        <div class="font-specimen">
-          <div class="font-specimen-header">
-            <span class="font-specimen-class">.font-serif</span>
-            <span class="font-specimen-css">font-family: Times, "Times New Roman", Georgia, serif</span>
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">The catalog shows every entry of the <code>$fontfamily</code> map. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family" target="_blank" rel="noopener">MDN: font-family</a>.</p>
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>scss/utilities/_fonts.scss</code></td><td>Generates one <code>.font-{name}</code> class per entry of <code>$fontfamily</code></td></tr>
+                  <tr><td><code>scss/variables/_variables_typography.scss</code></td><td>The <code>$fontfamily</code> map: class name → font stack</td></tr>
+                  <tr><td><code>scss/config/omniacss.fonts.scss</code></td><td>The Google Fonts <code>@import</code> and the <code>@font-face</code> rules for local fonts</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc"><a href="font-family.html">Font Family</a> · <a href="font-families.html">Font Catalog</a> · <a href="fonts.html">Loading Fonts</a> · <a href="font-size.html">Font Size</a> · <a href="font-weight.html">Font Weight</a></p>
           </div>
-          <div class="font-specimen-sample font-serif">The quick brown fox jumps over the lazy dog</div>
-          <div class="font-specimen-sample-sm font-serif">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%</div>
-        </div>
-
-        <!-- Sans-serif -->
-        <div class="font-specimen">
-          <div class="font-specimen-header">
-            <span class="font-specimen-class">.font-sansserif</span>
-            <span class="font-specimen-css">font-family: Verdana, Arial, Helvetica, sans-serif</span>
-          </div>
-          <div class="font-specimen-sample font-sansserif">The quick brown fox jumps over the lazy dog</div>
-          <div class="font-specimen-sample-sm font-sansserif">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%</div>
-        </div>
-
-        <!-- Monospace -->
-        <oc-demo title=".font-monospace">
-          
-          <div class="oc-preview flex-column gap-1">
-            <div style="font-size: 0.7rem; color: var(--text-soft);">font-family: "Lucida Console", Courier, monospace</div>
-            <div class="font-monospace" style="font-size: 1.5rem; color: var(--text);">The quick brown fox jumps over the lazy dog</div>
-            <div class="font-monospace" style="font-size: 0.9rem; color: var(--text-soft);">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 !@#$%</div>
-          </div>
-        </oc-demo>
-
-        <!-- Cursive -->
-        <oc-demo title=".font-cursive">
-          
-          <div class="oc-preview flex-column gap-1">
-            <div style="font-size: 0.7rem; color: var(--text-soft);">font-family: 'Cedarville Cursive', cursive</div>
-            <div class="font-cursive" style="font-size: 1.5rem; color: var(--text);">The quick brown fox jumps over the lazy dog</div>
-            <div class="font-cursive" style="font-size: 0.9rem; color: var(--text-soft);">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789</div>
-          </div>
-        </oc-demo>
-
-        <!-- Fantasy -->
-        <oc-demo title=".font-fantasy">
-          
-          <div class="oc-preview flex-column gap-1">
-            <div style="font-size: 0.7rem; color: var(--text-soft);">font-family: 'Cormorant Infant', fantasy</div>
-            <div class="font-fantasy" style="font-size: 1.5rem; color: var(--text);">The quick brown fox jumps over the lazy dog</div>
-            <div class="font-fantasy" style="font-size: 0.9rem; color: var(--text-soft);">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789</div>
-          </div>
-        </oc-demo>
-
-        <!-- Emoji -->
-        <oc-demo title=".font-emoji">
-          
-          <div class="oc-preview flex-column gap-1">
-            <div style="font-size: 0.7rem; color: var(--text-soft);">font-family: 'Noto Emoji', emoji</div>
-            <div class="font-emoji" style="font-size: 2.5rem; color: var(--text);">😀 😍 🔥 ❤ 🌟 🚀 🎵 💡</div>
-            <div class="font-emoji" style="font-size: 0.9rem; color: var(--text-soft);">👍 👎 ✌ 👋 🙏 😎 🤔 💯</div>
-          </div>
-        </oc-demo>
-
-        <!-- Color Emoji -->
-        <oc-demo title=".font-coloremoji">
-          
-          <div class="oc-preview flex-column gap-1">
-            <div style="font-size: 0.7rem; color: var(--text-soft);">font-family: 'Noto Color Emoji', emoji</div>
-            <div class="font-coloremoji" style="font-size: 2.5rem; color: var(--text);">😀 😍 🔥 ❤ 🌟 🚀 🎵 💡</div>
-            <div class="font-coloremoji" style="font-size: 0.9rem; color: var(--text-soft);">👍 👎 ✌ 👋 🙏 😎 🤔 💯</div>
-          </div>
-        </oc-demo>
-
-        <!-- Math -->
-        <oc-demo title=".font-math">
-          
-          <div class="oc-preview flex-column gap-1">
-            <div style="font-size: 0.7rem; color: var(--text-soft);">font-family: 'Noto Sans Math'</div>
-            <div class="font-math" style="font-size: 2.5rem; color: var(--text);">∫ ∑ √ α β γ π ∞</div>
-            <div class="font-math" style="font-size: 0.9rem; color: var(--text-soft);">∀x ∈ ℝ : f(x) = ∫ g(x) dx &#160; α² + β² = γ² &#160; ∑(n=1..∞) 1/n² = π²/6</div>
-          </div>
-        </oc-demo>
-
-        <!-- Fangsong / CJK -->
-        <oc-demo title=".font-fangsong">
-          
-          <div class="oc-preview flex-column gap-1">
-            <div style="font-size: 0.7rem; color: var(--text-soft);">font-family: 'Noto Serif JP', 'Noto Sans JP', fangsong</div>
-            <div class="font-fangsong" style="font-size: 2.5rem; color: var(--text);">こんにちは世界</div>
-            <div class="font-fangsong" style="font-size: 1.5rem; color: var(--text);">日本語フォントの例 — The quick brown fox</div>
-            <div class="font-fangsong" style="font-size: 0.9rem; color: var(--text-soft);">あいうえお アイウエオ 漢字の表示</div>
-          </div>
-        </oc-demo>
-
-        <!-- Egyptian Hieroglyphs -->
-        <oc-demo title=".font-hieroglyphs">
-          
-          <div class="oc-preview flex-column gap-1">
-            <div style="font-size: 0.7rem; color: var(--text-soft);">font-family: 'Noto Sans Egyptian Hieroglyphs'</div>
-            <div class="font-hieroglyphs" style="font-size:3rem; letter-spacing:0.1em; color: var(--text);">𓀀𓀁𓀂𓀃𓀄𓀅𓀆𓀇</div>
-            <div class="font-hieroglyphs" style="font-size:2rem; letter-spacing:0.08em; color: var(--text);">𓀈𓀉𓀊𓀋𓀌𓀍𓀎𓀏𓀐𓀑𓀒𓀓</div>
-            <div class="font-hieroglyphs" style="font-size:2rem; letter-spacing:0.08em; color: var(--text);">𓀔𓀕𓀖𓀗𓀘𓀙𓀚𓀛𓀜𓀝𓀞𓀟</div>
-            <div class="font-hieroglyphs" style="font-size:2rem; letter-spacing:0.08em; color: var(--text);">𓀠𓀡𓀢𓀣𓀤𓀥𓀦𓀧𓀨𓀩𓀪𓀫</div>
-            <p style="font-size:0.78rem; color:var(--text-soft); margin:10px 0 0;">
-              Egyptian Hieroglyphs from Unicode block U+13000–U+1342F. Requires 
-              <a href="https://fonts.google.com/noto/specimen/Noto+Sans+Egyptian+Hieroglyphs" style="color:var(--accent);">Noto Sans Egyptian Hieroglyphs</a> font.
-            </p>
-          </div>
-        </oc-demo>
         </div>
       </section>

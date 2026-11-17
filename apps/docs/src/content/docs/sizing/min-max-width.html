@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Min & Max Width","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Min & Max Width","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Sizing demos: neutral rulers and tracks, the sized element on top in one flat palette color. */\n    .sz-eg { \u002d\u002dsz-c: var(\u002d\u002dcolor-teal-70); \u002d\u002dsz-tick: oklch(from var(\u002d\u002doc-foreground) l c h / 0.16); \u002d\u002dsz-tick-strong: oklch(from var(\u002d\u002doc-foreground) l c h / 0.42); }\n    /* .sz = the inside of a kit stage: rulers and rows */\n    .sz { position: relative; container-type: inline-size; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.55rem; padding: 0.75rem; overflow-x: clip; font-size: 0.8rem; color: var(\u002d\u002doc-foreground); }\n    .sz code { justify-self: start; padding: 0; background: none; font-size: 0.78rem; font-weight: 600; color: var(\u002d\u002doc-foreground); }\n    .sz-val { font-size: 0.75rem; color: var(\u002d\u002doc-muted-foreground); white-space: nowrap; font-variant-numeric: tabular-nums; }\n    .sz-head { font-size: 0.75rem; font-weight: 600; color: var(\u002d\u002doc-muted-foreground); }\n\n    /* Rows: a label column and a measuring track. Below 34rem the label goes above the track. */\n    .sz-row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); align-items: center; gap: 0.2rem 1rem; }\n    .sz-row\u002d\u002dstack { grid-template-columns: minmax(0, 1fr); }\n    .sz-row > :first-child { display: grid; gap: 0.1rem; min-inline-size: 0; }\n    @container (max-width: 34rem) { .sz-row { grid-template-columns: minmax(0, 1fr); } .sz-row\u002d\u002dscale > :first-child { display: none; } }\n\n    /* Horizontal ruler: a long tick every 4rem, a short tick every 1rem. The bar starts at tick 0. */\n    .sz-track { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.6rem; min-inline-size: 0; padding-block: 0.3rem 0.75rem; border-radius: 4px; background-color: var(\u002d\u002doc-muted); background-image: repeating-linear-gradient(to right, var(\u002d\u002dsz-tick-strong) 0 1px, transparent 1px 4rem), repeating-linear-gradient(to right, var(\u002d\u002dsz-tick-strong) 0 1px, transparent 1px 1rem); background-size: 100% 0.6rem, 100% 0.3rem; background-position: left bottom; background-repeat: no-repeat; }\n    .sz-scale { position: relative; block-size: 1rem; overflow: hidden; }\n    .sz-scale > span { position: absolute; inset-block: 0; inset-inline-start: calc(var(\u002d\u002dat) * 1rem); padding-inline-start: 0.25rem; border-inline-start: 1px solid var(\u002d\u002dsz-tick-strong); font-size: 0.7rem; line-height: 1rem; color: var(\u002d\u002doc-muted-foreground); white-space: nowrap; }\n    .sz-bar { position: relative; z-index: 1; flex: none; box-sizing: border-box; display: flex; align-items: center; block-size: 1.75rem; padding-inline: 0.5rem; border-radius: 0 4px 4px 0; background: var(\u002d\u002dsz-c); color: var(\u002d\u002dcolor-white-50); font-size: 0.75rem; font-weight: 600; white-space: nowrap; overflow: hidden; }\n\n    /* Fractions: the track is the parent (100%), quarter lines in the background, the part that is left is striped. */\n    .sz-frac > .sz-bar { block-size: auto; border-radius: 0; }\n\n    /* Vertical plot: bars stand on one baseline, a line every 1rem, a stronger line every 4rem. */\n    .sz-vlabels .sz-val { white-space: normal; }\n    @container (max-width: 34rem) { .sz-vplot, .sz-vlabels { column-gap: 0.3rem; padding-inline: 2.4rem 0.3rem; } .sz-vlabels code { font-size: 0.6rem; white-space: nowrap; } .sz-vlabels .sz-val { font-size: 0.62rem; } }\n\n    /* Area stages: a positioned box, so the limit lines can be drawn on it. */\n    .sz-tiles .sz-val { white-space: normal; }\n    /* Min/max: a box the reader can drag narrower, limits drawn as dashed lines. */\n    .sz-resize { box-sizing: border-box; display: grid; gap: 0.55rem; inline-size: 100%; max-inline-size: 100%; min-inline-size: 12rem; padding: 0.75rem 0.75rem 1.25rem; border: 2px solid var(\u002d\u002dsz-tick-strong); border-radius: 8px; background: var(\u002d\u002doc-card); }\n    .sz-resize > * { min-inline-size: 0; }\n    .sz-hint { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-size: 0.75rem; font-weight: 600; color: var(\u002d\u002doc-muted-foreground); }\n    .sz-hint::before { content: \"\"; inline-size: 0.7rem; block-size: 0.7rem; background-image: repeating-linear-gradient(135deg, transparent 0 2px, var(\u002d\u002dsz-tick-strong) 2px 3px); }\n    .sz-track\u002d\u002dclip { overflow: hidden; }\n    .sz-lim { position: absolute; inset-block: 0; inset-inline-start: var(\u002d\u002dat); border-inline-start: 2px dashed var(\u002d\u002doc-foreground); opacity: 0.7; pointer-events: none; }\n    .sz-file { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem; border-radius: 6px; background: var(\u002d\u002doc-muted); }\n    .sz-file__icon { flex: none; inline-size: 1.5rem; block-size: 1.9rem; border-radius: 3px; background: var(\u002d\u002dsz-c); clip-path: polygon(0 0, 70% 0, 100% 24%, 100% 100%, 0 100%); }\n    .sz-file__name { font-size: 0.8rem; font-weight: 600; white-space: nowrap; }\n    .sz-btn { box-sizing: border-box; padding: 0.4rem 0.6rem; border-radius: 6px; background: var(\u002d\u002dsz-c); color: var(\u002d\u002dcolor-white-50); font-size: 0.75rem; font-weight: 600; text-align: center; white-space: nowrap; }\n  </style>"]}-->
 <section class="oc-docs-section" id="min-max-width">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Min/Max Width</h2>
@@ -20,7 +20,8 @@
                 <tr><td><code>.max-w-sm</code></td><td>24rem (384px)</td></tr>
                 <tr><td><code>.max-w-md</code></td><td>28rem (448px)</td></tr>
                 <tr><td><code>.max-w-lg</code></td><td>32rem (512px)</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.max-w-xl</code></td><td>36rem</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.max-w-xl</code></td><td>36rem (576px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.max-w-2xl … .max-w-7xl</code></td><td>42rem, 48rem, 56rem, 64rem, 72rem, 80rem</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.max-w-full</code></td><td>100%</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.max-w-prose</code></td><td>65ch</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.max-w-fluid</code></td><td>clamp(20rem, 90vw, 65ch)</td></tr>
@@ -32,17 +33,42 @@
             </div>
           </div>
 
-          <oc-demo title="Max-width steps (each bar is wider than its limit)"><div class="dm-grid" style="--dm-min:100%">
-<div class="dm-tile"><code>.max-w-xs</code><div class="dm-area "><div class="max-w-xs"><span class="dm-bar ">max-w-xs</span></div></div></div>
-<div class="dm-tile"><code>.max-w-sm</code><div class="dm-area "><div class="max-w-sm"><span class="dm-bar ">max-w-sm</span></div></div></div>
-<div class="dm-tile"><code>.max-w-md</code><div class="dm-area "><div class="max-w-md"><span class="dm-bar ">max-w-md</span></div></div></div>
-<div class="dm-tile"><code>.max-w-lg</code><div class="dm-area "><div class="max-w-lg"><span class="dm-bar ">max-w-lg</span></div></div></div>
-<div class="dm-tile"><code>.max-w-xl</code><div class="dm-area "><div class="max-w-xl"><span class="dm-bar ">max-w-xl</span></div></div></div>
-<div class="dm-tile"><code>.max-w-prose</code><div class="dm-area "><div class="max-w-prose"><span class="dm-bar ">max-w-prose</span></div></div></div>
-<div class="dm-tile"><code>.max-w-full</code><div class="dm-area "><div class="max-w-full"><span class="dm-bar ">max-w-full</span></div></div></div>
-</div><oc-code lang="html">&lt;article class="max-w-prose mx-auto"&gt;…&lt;/article&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Every bar is <code>.w-full</code>: it wants to be as wide as the box. Its max-width stops it at the dashed line. Drag the bottom-right corner of the box to make it narrower: once the box is smaller than a limit, that bar shrinks with it. A max-width only caps, it never forces a width.</p>
+
+          <oc-demo title="Max-width steps (drag the box narrower)"><div class="oc-eg sz-eg" style="--sz-c: var(--color-royalblue-70)"><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.w-full .max-w-*</code><div class="oc-eg__note">Each bar wants the full width. Its max-width stops it at the dashed line.</div><div class="oc-eg__stage oc-eg__stage--plain sz">
+<div class="sz-resize resize-x overflow-auto">
+<p class="sz-hint">Drag the bottom-right corner</p>
+<div class="sz-row sz-row--stack"><div><code>.max-w-xs</code></div><div class="sz-track sz-track--clip"><span class="sz-lim" style="--at: 20rem"></span><span class="sz-bar w-full max-w-xs">20rem (320px)</span></div></div>
+<div class="sz-row sz-row--stack"><div><code>.max-w-sm</code></div><div class="sz-track sz-track--clip"><span class="sz-lim" style="--at: 24rem"></span><span class="sz-bar w-full max-w-sm">24rem (384px)</span></div></div>
+<div class="sz-row sz-row--stack"><div><code>.max-w-md</code></div><div class="sz-track sz-track--clip"><span class="sz-lim" style="--at: 28rem"></span><span class="sz-bar w-full max-w-md">28rem (448px)</span></div></div>
+<div class="sz-row sz-row--stack"><div><code>.max-w-lg</code></div><div class="sz-track sz-track--clip"><span class="sz-lim" style="--at: 32rem"></span><span class="sz-bar w-full max-w-lg">32rem (512px)</span></div></div>
+<div class="sz-row sz-row--stack"><div><code>.max-w-xl</code></div><div class="sz-track sz-track--clip"><span class="sz-lim" style="--at: 36rem"></span><span class="sz-bar w-full max-w-xl">36rem (576px)</span></div></div>
+<div class="sz-row sz-row--stack"><div><code>.max-w-full</code></div><div class="sz-track sz-track--clip"><span class="sz-bar w-full max-w-full">100% of the box</span></div></div>
+</div>
+</div></div></div></div><oc-code lang="html">&lt;!-- Each bar: as wide as the parent, but never wider than its max-w-* --&gt;
+&lt;div class="w-full max-w-xs"&gt;20rem (320px)&lt;/div&gt;
+&lt;div class="w-full max-w-sm"&gt;24rem (384px)&lt;/div&gt;
+&lt;div class="w-full max-w-md"&gt;28rem (448px)&lt;/div&gt;
+&lt;div class="w-full max-w-lg"&gt;32rem (512px)&lt;/div&gt;
+&lt;div class="w-full max-w-xl"&gt;36rem (576px)&lt;/div&gt;
+&lt;div class="w-full max-w-full"&gt;100% of the box&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc"><code>.max-w-prose</code> is measured in characters (<code>65ch</code>), so it follows the font size. It keeps lines of text at a comfortable reading length. Drag the box narrower and the text simply wraps sooner.</p>
+
+          <oc-demo title="max-w-prose for readable text"><div class="oc-eg sz-eg" style="--sz-c: var(--color-royalblue-70)"><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.max-w-prose</code><div class="oc-eg__note">The paragraph stops at 65 characters (the dashed edge), even when there is room to spare.</div><div class="oc-eg__stage oc-eg__stage--plain sz">
+<div class="sz-resize resize-x overflow-auto">
+<p class="sz-hint">Drag the bottom-right corner</p>
+<p class="max-w-prose" style="margin: 0; padding: 0.75rem 1rem; border-inline-end: 2px dashed var(--oc-foreground); background: var(--oc-muted); font-size: 0.9rem; line-height: 1.6">Company 1 sends Customer 1 an invoice at the end of every month. The invoice lists each product, the price and the total. Lines of about 65 characters are easy to read, so this paragraph stops at <code>.max-w-prose</code> (the dashed edge) even when there is more room on the right.</p>
+</div>
+</div></div></div></div><oc-code lang="html">&lt;p class="max-w-prose"&gt;
+  Company 1 sends Customer 1 an invoice at the end of every month. The invoice lists each
+  product, the price and the total. Lines of about 65 characters are easy to read, so this
+  paragraph stops at .max-w-prose (the dashed edge) even when there is more room on the right.
+&lt;/p&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Min-Width Utilities</h3>
+
+          <p class="oc-section-content__desc">The numbered min-width classes use quarter steps of a rem: <code>.min-w-{n}</code> is <code>n × 0.25rem</code>, so <code>.min-w-24</code> is 6rem (96px). The width scale <code>.w-{n}</code> uses whole rems.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
@@ -53,7 +79,9 @@
                 <tr><td><code>.min-w-min</code></td><td>min-content</td></tr>
                 <tr><td><code>.min-w-max</code></td><td>max-content</td></tr>
                 <tr class="oc-expandable-table__row-dimmed"><td><code>.min-w-fit</code></td><td>fit-content</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.min-w-24</code></td><td>24rem</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.min-w-24</code></td><td>6rem (96px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.min-w-48</code></td><td>12rem (192px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.min-w-4 … .min-w-96</code></td><td>1rem … 24rem (n × 0.25rem)</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -61,16 +89,42 @@
             </div>
           </div>
 
-          <p class="oc-section-content__desc">Each box below has a short text and a <code>w-4</code> (4rem) width that the min-width overrides.</p>
+          <p class="oc-section-content__desc">Every bar below has <code>.w-4</code>, so it asks for 4rem (the dashed line). The text does not fit in 4rem and is cut off. A min-width is stronger than the width: each one makes the bar wider than it asked for.</p>
 
-          <oc-demo title="Min-width overrides width"><div class="dm-grid" style="--dm-min:11rem">
-<div class="dm-tile"><code>.min-w-0</code><div class="dm-area "><div class="min-w-0 w-4 dm-box">Hello world</div></div></div>
-<div class="dm-tile"><code>.min-w-min</code><div class="dm-area "><div class="min-w-min w-4 dm-box">Hello world</div></div></div>
-<div class="dm-tile"><code>.min-w-max</code><div class="dm-area "><div class="min-w-max w-4 dm-box">Hello world</div></div></div>
-<div class="dm-tile"><code>.min-w-fit</code><div class="dm-area "><div class="min-w-fit w-4 dm-box">Hello world</div></div></div>
-<div class="dm-tile"><code>.min-w-24</code><div class="dm-area "><div class="min-w-24 w-4 dm-box">Hello world</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex"&gt;
-  &lt;div class="min-w-0 flex-1 truncate"&gt;Long file name…&lt;/div&gt;
+          <oc-demo title="Min-width overrides width"><div class="oc-eg sz-eg" style="--sz-c: var(--color-purple-60)"><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.w-4 .min-w-*</code><div class="oc-eg__note">Every bar asks for 4rem (the dashed line). The min-width wins and makes it wider.</div><div class="oc-eg__stage oc-eg__stage--plain sz">
+<div class="sz-row sz-row--scale"><span></span><div class="sz-scale"><span style="--at:0">0</span><span style="--at:4">4rem</span><span style="--at:8">8rem</span><span style="--at:12">12rem</span><span style="--at:16">16rem</span><span style="--at:20">20rem</span></div></div>
+<div class="sz-row"><div><code>.w-4</code></div><div class="sz-track"><span class="sz-lim" style="--at: 4rem"></span><span class="sz-bar w-4">Invoice for Customer 1</span><span class="sz-val">4rem = 64px, text cut off</span></div></div>
+<div class="sz-row"><div><code>.w-4 .min-w-24</code></div><div class="sz-track"><span class="sz-lim" style="--at: 4rem"></span><span class="sz-bar w-4 min-w-24">Invoice for Customer 1</span><span class="sz-val">6rem = 96px</span></div></div>
+<div class="sz-row"><div><code>.w-4 .min-w-max</code></div><div class="sz-track"><span class="sz-lim" style="--at: 4rem"></span><span class="sz-bar w-4 min-w-max">Invoice for Customer 1</span><span class="sz-val">As wide as the text</span></div></div>
+<div class="sz-row"><div><code>.w-4 .min-w-48</code></div><div class="sz-track"><span class="sz-lim" style="--at: 4rem"></span><span class="sz-bar w-4 min-w-48">Invoice for Customer 1</span><span class="sz-val">12rem = 192px</span></div></div>
+<div class="sz-row"><div><code>.w-4 .min-w-full</code></div><div class="sz-track"><span class="sz-lim" style="--at: 4rem"></span><span class="sz-bar w-4 min-w-full">Invoice for Customer 1</span></div></div>
+</div></div></div></div><oc-code lang="html">&lt;!-- All five ask for .w-4 (4rem); the min-w-* class wins --&gt;
+&lt;div class="w-4"&gt;Invoice for Customer 1&lt;/div&gt;               &lt;!-- 4rem = 64px, text cut off --&gt;
+&lt;div class="w-4 min-w-24"&gt;Invoice for Customer 1&lt;/div&gt;      &lt;!-- 6rem = 96px --&gt;
+&lt;div class="w-4 min-w-max"&gt;Invoice for Customer 1&lt;/div&gt;     &lt;!-- as wide as the text --&gt;
+&lt;div class="w-4 min-w-48"&gt;Invoice for Customer 1&lt;/div&gt;      &lt;!-- 12rem = 192px --&gt;
+&lt;div class="w-4 min-w-full"&gt;Invoice for Customer 1&lt;/div&gt;    &lt;!-- 100% of the parent --&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">The most useful min-width is <code>.min-w-0</code>. A flex item will not shrink below its content by default, so a long file name pushes the button out of the box. With <code>.min-w-0</code> the name may shrink and <code>.truncate</code> adds the dots. The button has <code>.min-w-24</code> and never gets narrower than 6rem. The box starts narrow, so the second row already overflows; drag it wider and narrower and compare the two rows.</p>
+
+          <oc-demo title="min-w-0 lets a flex item shrink"><div class="oc-eg sz-eg" style="--sz-c: var(--color-purple-60)"><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.min-w-0 .truncate</code><div class="oc-eg__note">With it the file name shrinks and gets dots. Without it the name pushes the button out.</div><div class="oc-eg__stage oc-eg__stage--plain sz">
+<div class="sz-resize resize-x overflow-auto" style="inline-size: min(100%, 28rem); min-inline-size: 14rem">
+<p class="sz-hint">Drag the bottom-right corner wider and narrower</p>
+<span class="sz-head">With .min-w-0 .truncate</span>
+<div class="flex sz-file"><span class="sz-file__icon"></span><span class="sz-file__name min-w-0 flex-1 truncate">invoice-customer-1-november-2026-product-1-and-product-2.pdf</span><span class="sz-btn min-w-24">Download</span></div>
+<span class="sz-head">Without: the name pushes the button out</span>
+<div class="flex sz-file"><span class="sz-file__icon"></span><span class="sz-file__name flex-1">invoice-customer-1-november-2026-product-1-and-product-2.pdf</span><span class="sz-btn min-w-24">Download</span></div>
+</div>
+</div></div></div></div><oc-code lang="html">&lt;!-- With .min-w-0 .truncate: the name gets an ellipsis, the button stays --&gt;
+&lt;div class="flex"&gt;
+  &lt;span class="min-w-0 flex-1 truncate"&gt;invoice-customer-1-november-2026-product-1-and-product-2.pdf&lt;/span&gt;
+  &lt;button class="min-w-24"&gt;Download&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Without: the name pushes the button out of the row --&gt;
+&lt;div class="flex"&gt;
+  &lt;span class="flex-1"&gt;invoice-customer-1-november-2026-product-1-and-product-2.pdf&lt;/span&gt;
+  &lt;button class="min-w-24"&gt;Download&lt;/button&gt;
 &lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>

@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - CSS Functions","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .fn-resize { container-type: inline-size; resize: horizontal; overflow: hidden; inline-size: 70%; min-inline-size: 10rem; max-inline-size: 100%; padding: 1rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    .fn-track { block-size: 2.25rem; border-radius: 999px; background: var(--oc-muted); overflow: hidden; }\n    .fn-progress { --p: 0.5; --p: clamp(0, progress(100cqi, 12rem, 36rem), 1); counter-reset: fnp calc(var(--p) * 100); display: grid; align-items: center; block-size: 100%; inline-size: calc(var(--p) * 100%); min-inline-size: 3.5rem; padding-inline: 0.75rem; border-radius: inherit; background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50) calc(var(--p) * 100%)); color: var(--color-white-50); font-weight: 700; font-size: 0.8rem; }\n    .fn-progress::after { content: counter(fnp) \"%\"; }\n    .fn-note { margin: 0.5rem 0 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .fn-steps { block-size: 2.25rem; background: repeating-linear-gradient(90deg, var(--oc-muted) 0 calc(3rem - 2px), var(--oc-border-strong) 0 3rem); border-radius: 6px; }\n    .fn-snap { block-size: 100%; inline-size: 100%; inline-size: round(down, 100%, 3rem); border-radius: 6px; background: var(--oc-gradient-brand); transition: inline-size 0.2s; }\n    .fn-scale { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem; }\n    .fn-scale span { font-size: calc(1rem * pow(1.25, var(--step))); font-weight: 700; line-height: 1; color: var(--oc-foreground); }\n    .fn-scale small { display: block; font-size: 0.7rem; font-weight: 400; color: var(--oc-muted-foreground); }\n    .fn-orbit { position: relative; inline-size: 14rem; aspect-ratio: 1; margin-inline: auto; animation: fn-turn 18s linear infinite; }\n    .fn-orbit > span { --a: calc((sibling-index() - 1) * 360deg / sibling-count()); position: absolute; left: calc(50% + cos(var(--a)) * 5.5rem - 1.1rem); top: calc(50% + sin(var(--a)) * 5.5rem - 1.1rem); inline-size: 2.2rem; aspect-ratio: 1; border-radius: 50%; background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50) calc((sibling-index() - 1) / (sibling-count() - 1) * 100%)); }\n    @keyframes fn-turn { to { rotate: 1turn; } }\n    @media (prefers-reduced-motion: reduce) { .fn-orbit { animation: none; } }\n    .fn-list { display: grid; gap: 0.4rem; inline-size: min(100%, 22rem); padding: 0; margin: 0; list-style: none; }\n    .fn-list li { padding: 0.5rem 0.75rem; border-radius: 8px; background: var(--oc-muted); }\n    .fn-hand { display: flex; justify-content: center; box-sizing: border-box; inline-size: 100%; padding: 2rem 2rem 1rem; }\n    .fn-hand > div { inline-size: 4.5rem; aspect-ratio: 5 / 7; margin-inline: -0.9rem; border: 2px solid var(--oc-card); border-radius: 10px; background: var(--oc-gradient-brand); box-shadow: 0 6px 16px oklch(from var(--color-black-50) l c h / 0.25); transition: rotate 0.3s, translate 0.3s; }\n    .fn-hand:hover > div { --oc-fan: 14deg; }\n    .fn-hand > div:hover { translate: 0 -0.75rem; }\n    .fn-chart { display: grid; gap: 0.5rem; inline-size: min(100%, 26rem); }\n    .fn-chart div { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; }\n    .fn-chart div::before { content: attr(data-label); flex: none; inline-size: 4rem; color: var(--oc-muted-foreground); }\n    .fn-chart span { block-size: 1.25rem; inline-size: 40%; inline-size: attr(data-value type(<percentage>), 0%); border-radius: 4px; background: var(--color-vividblue-80); }\n    .fn-chart span::after { content: attr(data-value); display: block; padding-inline-start: calc(100% + 0.4rem); line-height: 1.25rem; font-size: 0.75rem; }\n    .fn-status { display: inline-block; align-self: center;padding: 0.35rem 0.8rem; border-radius: 999px; color: var(--color-white-50); font-size: 0.8rem; font-weight: 600; background: var(--color-gray-50); background: if(style(--fn-state: done): var(--color-green-60); style(--fn-state: busy): var(--color-orange-60); else: var(--color-gray-50)); }\n    .fn-acc { inline-size: min(100%, 26rem); border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); interpolate-size: allow-keywords; }\n    .fn-acc summary { padding: 0.75rem 1rem; font-weight: 600; cursor: pointer; }\n    .fn-acc::details-content { block-size: 0; overflow: clip; transition: block-size 0.35s, content-visibility 0.35s allow-discrete; }\n    .fn-acc[open]::details-content { block-size: auto; }\n    .fn-acc p { margin: 0; padding: 0 1rem 1rem; }\n    .fn-confetti { position: relative; block-size: 9rem; inline-size: min(100%, 22rem); margin-inline: auto; overflow: hidden; border-radius: 12px; background: var(--oc-muted); }\n    .fn-confetti i { position: absolute; left: 50%; top: 50%; inline-size: 0.6rem; block-size: 1rem; border-radius: 2px; background: var(--color-orange-50); translate: calc(sin(sibling-index() * 57deg) * 9rem) calc(cos(sibling-index() * 91deg) * 3.5rem); rotate: calc(sibling-index() * 47deg); translate: random(-10rem, 10rem) random(-4rem, 4rem); rotate: random(0deg, 360deg); }\n    .fn-confetti i:nth-child(3n) { background: var(--color-vividblue-80); }\n    .fn-confetti i:nth-child(3n + 1) { background: var(--color-magenta-50); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - CSS Functions","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head": ["<style>\n    .fn-resize { box-sizing: border-box; container-type: inline-size; resize: horizontal; overflow: hidden; inline-size: 70%; min-inline-size: 10rem; max-inline-size: 100%; padding: 1.25rem; border: 2px dashed var(--color-vividblue-90); border-radius: 12px; background: var(--oc-card); }\n    .fn-track { block-size: 3rem; border-radius: 999px; background: var(--oc-muted); overflow: hidden; }\n    /* Stage inside of the example kit */\n    .fn-stage { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; padding: 1.25rem; }\n    .fn-stage--start { justify-items: start; }\n    .fn-stage--flush { padding: 0; }\n    /* progress() demos: the stage is a container, so --fn-room (a registered length) holds the widest the box can get. */\n    @property --fn-room { syntax: \"<length>\"; inherits: true; initial-value: 0px; }\n    @property --p { syntax: \"<number>\"; inherits: true; initial-value: 0.5; }\n    .fn-room { container-type: inline-size; }\n    .fn-drag { --fn-room: 100cqi; box-sizing: border-box; container-type: inline-size; resize: horizontal; overflow: hidden; inline-size: max(50%, 12rem); min-inline-size: 10rem; max-inline-size: 100%; outline: 2px dashed var(--color-vividblue-90); outline-offset: -2px; border-radius: 12px; background: var(--oc-card); }\n    .fn-drag__in { --p: 0.5; --p: clamp(0, progress(100cqi, 10rem, var(--fn-room)), 1); display: grid; gap: 0.6rem; padding: 1.25rem; }\n    .fn-read { font-family: var(--oc-font-mono, ui-monospace, monospace); font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .fn-read::after { counter-reset: fnr calc(var(--p) * 100); content: \"progress = \" counter(fnr) \"%\"; }\n    .fn-progress { counter-reset: fnp calc(var(--p) * 100); display: grid; align-items: center; block-size: 100%; inline-size: calc(var(--p) * 100%); min-inline-size: 3.5rem; box-sizing: border-box; padding-inline: 0.75rem; border-radius: inherit; background: color-mix(in oklch, var(--color-blue-60), var(--color-magenta-90) calc(var(--p) * 100%)); color: var(--color-white-50); font-weight: 700; font-size: 1rem; }\n    .fn-progress::after { content: counter(fnp) \"%\"; }\n    .fn-fluid { font-size: calc(1rem + var(--p) * 1.5rem); font-weight: 700; line-height: 1.15; color: var(--oc-foreground); }\n    .fn-fluid-px::after { counter-reset: fnf calc(16 + var(--p) * 24); content: \"font-size: \" counter(fnf) \"px\"; }\n    .fn-shift { display: grid; gap: 0.2rem; padding: 1rem 1.25rem; border-radius: 10px; background: color-mix(in oklch, var(--color-teal-70), var(--color-indigo-60) calc(var(--p) * 100%)); color: var(--color-white-50); font-weight: 700; }\n    .fn-shift span { font-size: 0.85rem; font-weight: 500; }\n    .fn-space { display: grid; gap: calc(0.25rem + var(--p) * 0.75rem); padding: calc(0.5rem + var(--p) * 2rem); border-radius: calc(4px + var(--p) * 20px); background: var(--color-slateblue-70); color: var(--color-white-50); }\n    .fn-space b { padding: 0.5rem 0.75rem; border-radius: 6px; background: var(--oc-card); color: var(--oc-foreground); font-weight: 600; }\n    .fn-space-px::after { counter-reset: fns calc(8 + var(--p) * 32); content: \"padding: \" counter(fns) \"px\"; }\n    .fn-steps { block-size: 3rem; background: repeating-linear-gradient(90deg, var(--oc-muted) 0 calc(3rem - 2px), var(--oc-border-strong) 0 3rem); border-radius: 6px; }\n    .fn-snap { block-size: 100%; inline-size: 100%; inline-size: round(down, 100%, 3rem); border-radius: 6px; background: var(--color-vividblue-90); transition: inline-size 0.2s; }\n    .fn-scale { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-around; gap: 1rem 1.5rem; inline-size: 100%; }\n    .fn-scale span { font-size: calc(1rem * pow(1.25, var(--step))); font-weight: 700; line-height: 1; color: var(--oc-foreground); }\n    .fn-scale small { display: block; margin-block-start: 0.4rem; font-size: 0.85rem; font-weight: 400; color: var(--oc-muted-foreground); }\n    .fn-orbit { position: relative; inline-size: 14rem; aspect-ratio: 1; margin-inline: auto; animation: fn-turn 18s linear infinite; }\n    .fn-orbit > span { --a: calc((sibling-index() - 1) * 360deg / sibling-count()); --fn-i: calc((sibling-index() - 1) / (sibling-count() - 1)); position: absolute; left: calc(50% + cos(var(--a)) * 5.5rem - 1.1rem); top: calc(50% + sin(var(--a)) * 5.5rem - 1.1rem); inline-size: 2.2rem; aspect-ratio: 1; border-radius: 50%; background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50) calc(var(--fn-i) * 100%)); }\n    @property --fn-i { syntax: \"<number>\"; inherits: false; initial-value: 0; }\n    @keyframes fn-turn { to { rotate: 1turn; } }\n    @media (prefers-reduced-motion: reduce) { .fn-orbit { animation: none; } }\n    .fn-list { display: grid; gap: 0.5rem; inline-size: 100%; box-sizing: border-box; padding: 0 1rem 0 0; margin: 0; list-style: none; }\n    .fn-list li { padding: 0.7rem 1rem; border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font-weight: 600; }\n    .fn-hand { display: flex; justify-content: center; box-sizing: border-box; inline-size: 100%; padding: 2rem 2rem 1rem; }\n    .fn-hand > div { inline-size: 4rem; aspect-ratio: 5 / 7; margin-inline: -0.9rem; border: 2px solid var(--oc-card); border-radius: 10px; background: var(--color-vividblue-90); box-shadow: 0 6px 16px oklch(from var(--color-black-50) l c h / 0.25); transition: rotate 0.3s, translate 0.3s; }\n    .fn-hand > div:nth-child(2) { background: var(--color-teal-70); } .fn-hand > div:nth-child(3) { background: var(--color-purple-60); } .fn-hand > div:nth-child(4) { background: var(--color-orange-95); } .fn-hand > div:nth-child(5) { background: var(--color-red-70); }\n    .fn-hand--spread:hover > div { --oc-fan: 14deg; }\n    .fn-hand > div:hover { translate: 0 -0.75rem; }\n    .fn-chart { display: grid; gap: 0.6rem; inline-size: 100%; padding-inline-end: 3rem; box-sizing: border-box; }\n    .fn-chart div { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--oc-foreground); }\n    .fn-chart div::before { content: attr(data-label); flex: none; inline-size: 4rem; color: var(--oc-foreground); font-weight: 600; }\n    .fn-chart span { block-size: 1.75rem; inline-size: 40%; inline-size: attr(data-value type(<percentage>), 0%); border-radius: 4px; background: var(--color-vividblue-80); }\n    .fn-chart span::after { content: attr(data-value); display: block; padding-inline-start: calc(100% + 0.4rem); line-height: 1.75rem; font-size: 0.8rem; white-space: nowrap; }\n    .fn-status { display: grid; place-content: center; gap: 0.25rem; inline-size: 100%; min-block-size: 6rem; box-sizing: border-box; padding: 1rem; border-radius: 12px; text-align: center; color: var(--color-white-50); font-size: 1rem; font-weight: 700; background: var(--color-gray-80); }\n    @supports (color: if(else: red)) { .fn-status { background: if(style(--fn-state: done): var(--color-forestgreen-60); style(--fn-state: busy): var(--color-orange-95); else: var(--color-gray-80)); } }\n    .fn-status small { font-family: var(--oc-font-mono, ui-monospace, monospace); font-size: 0.8rem; font-weight: 500; }\n    .fn-acc { inline-size: 100%; font-size: 1.05rem; color: var(--oc-foreground); border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); }\n    .fn-acc summary { padding: 1rem 1.25rem; font-weight: 600; cursor: pointer; }\n    .fn-acc::details-content { block-size: 0; overflow: clip; transition: block-size 0.35s, content-visibility 0.35s allow-discrete; }\n    .fn-acc[open]::details-content { block-size: auto; }\n    details.fn-acc p { margin: 0; padding: 0 1.25rem 1.25rem; color: var(--oc-foreground); }\n    .fn-confetti { position: relative; block-size: 13rem; inline-size: 100%; overflow: hidden; border-radius: 6px; }\n    .fn-confetti i { position: absolute; left: 50%; top: 50%; inline-size: 0.9rem; block-size: 1.4rem; border-radius: 3px; background: var(--color-orange-50); translate: calc(sin(sibling-index() * 57deg) * 9rem) calc(cos(sibling-index() * 91deg) * 3.5rem); rotate: calc(sibling-index() * 47deg); translate: random(-24rem, 24rem) random(-5.5rem, 5.5rem); rotate: random(0deg, 360deg); }\n    .fn-confetti i:nth-child(3n) { background: var(--color-vividblue-80); }\n    .fn-confetti i:nth-child(3n + 1) { background: var(--color-magenta-50); }\n  \n  \n    @media (max-width: 40rem) { .fn-confetti i { translate: random(-10rem, 10rem) random(-5.5rem, 5.5rem); } }\n      .fn-accs { display: grid; gap: 0.75rem; inline-size: 100%; }\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (color: if(else: red)) { .sup-note--if { display: none; } }\n    @supports (interpolate-size: allow-keywords) { .sup-note--isize { display: none; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="css-functions">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">CSS Functions</h2>
@@ -38,34 +38,106 @@
           </div>
 
           <h3 class="oc-section-content__title mt-10" id="progress">From clamp() to progress()</h3>
-          <p class="oc-section-content__desc"><code>clamp(min, value, max)</code> limits a value. <code>progress(value, start, end)</code> goes one step further: it tells you <strong>how far</strong> a value is between two points, as a number from 0 to 1. Use that number for anything: width, opacity, a color mix, a counter. Below, the container width (<code>100cqi</code>) between 12rem and 36rem drives the bar, its color and the percentage text. Drag the corner to resize.</p>
-          <oc-demo title="progress(100cqi, 12rem, 36rem) drives width, color and text">
-            <div class="fn-resize">
-              <div class="fn-track"><div class="fn-progress"></div></div>
-              <p class="fn-note">Drag the bottom-right corner →</p>
-            </div>
-          <oc-code lang="css">.fn-resize { container-type: inline-size; resize: horizontal; overflow: hidden; }
+          <p class="oc-section-content__desc"><code>clamp(min, value, max)</code> limits a value. <code>progress(value, start, end)</code> goes one step further: it tells you <strong>how far</strong> a value is between two points, as a number from 0 to 1. Use that number for anything: width, opacity, a color mix, a counter. Below, the width of a dashed box (<code>100cqi</code>), between 10rem and the full width of its stage, gives that number; four panels use it for a bar, a font size, a color and spacing. Drag the bottom-right corner of each box. <code>progress()</code> works in current Chrome, Edge and Firefox; where it is missing, every value sits at its middle (the <code>--p: 0.5</code> fallback).</p>
+          <oc-demo title="progress(): one number from 0 to 1 drives width, size, color and spacing">
+            <div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 30rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">progress() → inline-size, color, counter</code><div class="oc-eg__note">Drag the bottom-right corner of the dashed box. At its narrowest the bar is empty, at its widest it is full; the color and the number follow.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage fn-stage--start fn-room">
+<div class="fn-drag"><div class="fn-drag__in">
+<div class="fn-track"><div class="fn-progress"></div></div>
+</div></div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">progress() → font-size</code><div class="oc-eg__note">Drag the corner: the heading grows from 16px to 40px with the box, without breakpoints.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage fn-stage--start fn-room">
+<div class="fn-drag"><div class="fn-drag__in">
+<div class="fn-fluid">Company 1 news</div>
+<div class="fn-read fn-fluid-px"></div>
+</div></div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">progress() → color-mix()</code><div class="oc-eg__note">Drag the corner: the card shifts from teal to indigo as the box gets wider.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage fn-stage--start fn-room">
+<div class="fn-drag"><div class="fn-drag__in">
+<div class="fn-shift">Customer 1<span>Plan: yearly</span></div>
+<div class="fn-read"></div>
+</div></div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">progress() → padding, gap, radius</code><div class="oc-eg__note">Drag the corner: a wide card gets more room around its content, a narrow one stays compact.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage fn-stage--start fn-room">
+<div class="fn-drag"><div class="fn-drag__in">
+<div class="fn-space"><b>Product 1</b><b>Product 2</b></div>
+<div class="fn-read fn-space-px"></div>
+</div></div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- The same wrapper for every panel: the dashed box can be dragged from 10rem to the full width --&gt;
+&lt;div class="room"&gt;
+  &lt;div class="drag"&gt;
+    &lt;div class="drag-in"&gt;
+      &lt;div class="track"&gt;&lt;div class="bar"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 
-.fn-progress {
-  --p: 0.5;                                                    /* fallback */
-  --p: clamp(0, progress(100cqi, 12rem, 36rem), 1);           /* 0 … 1 */
-  inline-size: calc(var(--p) * 100%);
-  background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50) calc(var(--p) * 100%));
-  counter-reset: fnp calc(var(--p) * 100);                     /* integer context rounds */
+&lt;!-- Inside .drag-in of the other three panels --&gt;
+&lt;div class="fluid"&gt;Company 1 news&lt;/div&gt;
+&lt;div class="shift"&gt;Customer 1 &lt;span&gt;Plan: yearly&lt;/span&gt;&lt;/div&gt;
+&lt;div class="space"&gt;&lt;b&gt;Product 1&lt;/b&gt; &lt;b&gt;Product 2&lt;/b&gt;&lt;/div&gt;</oc-code>
+          <oc-code lang="css">/* --room holds the widest the box can get, as a fixed length */
+@property --room { syntax: "&lt;length&gt;"; inherits: true; initial-value: 0px; }
+.room { container-type: inline-size; }
+.drag {
+  --room: 100cqi;                        /* 100cqi of .room, computed to px here */
+  container-type: inline-size;
+  resize: horizontal; overflow: hidden;
+  inline-size: max(50%, 12rem); min-inline-size: 10rem; max-inline-size: 100%;
 }
-.fn-progress::after { content: counter(fnp) "%"; }
+/* Registered as a number: the browser computes it once, so color-mix() can use it too (Firefox needs this). */
+@property --p { syntax: "&lt;number&gt;"; inherits: true; initial-value: 0.5; }
+.drag-in {
+  --p: 0.5;                                                  /* fallback */
+  --p: clamp(0, progress(100cqi, 10rem, var(--room)), 1);   /* 0 at 10rem, 1 at full width */
+}
 
-/* The same idea for fluid type, without the "preferred value" math of clamp() */
+/* 1. A bar that fills, changes color and prints its own percentage */
+.track { block-size: 3rem; border-radius: 999px; background: var(--oc-muted); overflow: hidden; }
+.bar {
+  block-size: 100%;
+  inline-size: calc(var(--p) * 100%);
+  background: color-mix(in oklch, var(--color-blue-60), var(--color-magenta-90) calc(var(--p) * 100%));
+  counter-reset: pct calc(var(--p) * 100);                  /* integer context rounds */
+}
+.bar::after { content: counter(pct) "%"; }
+
+/* 2. Fluid type: 16px at the narrowest, 40px at the widest */
+.fluid { font-size: calc(1rem + var(--p) * 1.5rem); }
+
+/* 3. A color that shifts */
+.shift { background: color-mix(in oklch, var(--color-teal-70), var(--color-indigo-60) calc(var(--p) * 100%)); }
+
+/* 4. Spacing that grows with the room */
+.space {
+  padding: calc(0.5rem + var(--p) * 2rem);
+  gap: calc(0.25rem + var(--p) * 0.75rem);
+  border-radius: calc(4px + var(--p) * 20px);
+}
+
+/* On a whole page the viewport works too: */
 h1 { font-size: calc(1.5rem + progress(100vw, 20rem, 80rem) * 2rem); }</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="stepped">Stepped values: round(), mod(), rem()</h3>
           <p class="oc-section-content__desc"><code>round(strategy, value, step)</code> snaps to a multiple of <em>step</em> (<code>nearest</code>, <code>up</code>, <code>down</code>, <code>to-zero</code>). The bar below only grows in whole 3rem steps, whatever the container width.</p>
           <oc-demo title="inline-size: round(down, 100%, 3rem)">
-            <div class="fn-resize">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">round(down, 100%, 3rem)</code><div class="oc-eg__note">Drag the bottom-right corner: the bar only grows in whole steps of one 3rem column.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage fn-stage--start">
+<div class="fn-resize">
               <div class="fn-steps"><div class="fn-snap"></div></div>
-              <p class="fn-note">Resize: the bar jumps per 3rem column</p>
             </div>
-          <oc-code lang="css">.fn-snap { inline-size: round(down, 100%, 3rem); }
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="fn-resize"&gt;                &lt;!-- resize: horizontal; container-type: inline-size --&gt;
+  &lt;div class="fn-steps"&gt;              &lt;!-- the 3rem grid lines --&gt;
+    &lt;div class="fn-snap"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.fn-resize { container-type: inline-size; resize: horizontal; overflow: hidden; }
+.fn-steps  { block-size: 3rem; background: repeating-linear-gradient(90deg, var(--oc-muted) 0 calc(3rem - 2px), var(--oc-border-strong) 0 3rem); }
+.fn-snap   { block-size: 100%; inline-size: round(down, 100%, 3rem); transition: inline-size 0.2s; }
 
 /* More examples */
 .grid-auto { grid-template-columns: repeat(round(down, 100cqi, 16rem) / 16rem, 1fr); }
@@ -77,7 +149,9 @@ h1 { font-size: calc(1.5rem + progress(100vw, 20rem, 80rem) * 2rem); }</oc-code>
           <h3 class="oc-section-content__title mt-10" id="exponential">Exponential: pow(), sqrt(), hypot(), log(), exp()</h3>
           <p class="oc-section-content__desc">A modular type scale is one formula: <code>1rem × 1.25<sup>step</sup></code>. <code>hypot()</code> gives the diagonal of a box, <code>sqrt()</code> and <code>log()</code> smooth large ranges.</p>
           <oc-demo title="font-size: calc(1rem * pow(1.25, var(--step)))">
-            <div class="fn-scale">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">calc(1rem * pow(1.25, var(--step)))</code><div class="oc-eg__note">One formula for the whole type scale: each step is 1.25 times the one before, from step -1 to step 5.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="fn-scale">
               <span style="--step: -1">Aa<small>-1</small></span>
               <span style="--step: 0">Aa<small>0</small></span>
               <span style="--step: 1">Aa<small>1</small></span>
@@ -86,7 +160,19 @@ h1 { font-size: calc(1.5rem + progress(100vw, 20rem, 80rem) * 2rem); }</oc-code>
               <span style="--step: 4">Aa<small>4</small></span>
               <span style="--step: 5">Aa<small>5</small></span>
             </div>
-          <oc-code lang="css">.fn-scale span { font-size: calc(1rem * pow(1.25, var(--step))); }
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="fn-scale"&gt;
+  &lt;span style="--step: -1"&gt;Aa&lt;small&gt;-1&lt;/small&gt;&lt;/span&gt;
+  &lt;span style="--step: 0"&gt;Aa&lt;small&gt;0&lt;/small&gt;&lt;/span&gt;
+  &lt;span style="--step: 1"&gt;Aa&lt;small&gt;1&lt;/small&gt;&lt;/span&gt;
+  &lt;span style="--step: 2"&gt;Aa&lt;small&gt;2&lt;/small&gt;&lt;/span&gt;
+  &lt;span style="--step: 3"&gt;Aa&lt;small&gt;3&lt;/small&gt;&lt;/span&gt;
+  &lt;span style="--step: 4"&gt;Aa&lt;small&gt;4&lt;/small&gt;&lt;/span&gt;
+  &lt;span style="--step: 5"&gt;Aa&lt;small&gt;5&lt;/small&gt;&lt;/span&gt;
+&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.fn-scale { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-around; }
+.fn-scale span { font-size: calc(1rem * pow(1.25, var(--step))); }
 
 .diagonal { inline-size: hypot(30rem, 20rem); }          /* ≈ 36.06rem */
 .root     { inline-size: calc(sqrt(2) * 10rem); }
@@ -95,15 +181,26 @@ h1 { font-size: calc(1.5rem + progress(100vw, 20rem, 80rem) * 2rem); }</oc-code>
           <h3 class="oc-section-content__title mt-10" id="trigonometry">Trigonometry + tree counting: a circle without JavaScript</h3>
           <p class="oc-section-content__desc">Each dot computes its own angle from <code>sibling-index()</code> and <code>sibling-count()</code>, then its position with <code>cos()</code> and <code>sin()</code>. Add or remove dots and the circle redistributes itself; the color mixes between two Omnia tokens along the way.</p>
           <oc-demo title="cos() / sin() with sibling-index()">
-            <div class="fn-orbit"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-          <oc-code lang="css">.fn-orbit &gt; span {
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">cos() · sin() · sibling-index() · sibling-count()</code><div class="oc-eg__note">Ten dots work out their own place on the circle from their position in the list. The circle turns slowly.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="fn-orbit"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="fn-orbit"&gt;
+  &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+  &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.fn-orbit { position: relative; inline-size: 14rem; aspect-ratio: 1; }
+.fn-orbit &gt; span {
   --a: calc((sibling-index() - 1) * 360deg / sibling-count());
+  --i: calc((sibling-index() - 1) / (sibling-count() - 1));    /* 0 for the first dot, 1 for the last */
   position: absolute;
   left: calc(50% + cos(var(--a)) * 5.5rem - 1.1rem);
   top:  calc(50% + sin(var(--a)) * 5.5rem - 1.1rem);
-  background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50)
-              calc((sibling-index() - 1) / (sibling-count() - 1) * 100%));
+  background: color-mix(in oklch, var(--color-blue-50), var(--color-magenta-50) calc(var(--i) * 100%));
 }
+/* Registered as a number, so each dot computes its own value; Firefox needs this inside color-mix(). */
+@property --i { syntax: "&lt;number&gt;"; inherits: false; initial-value: 0; }
 .fn-orbit { animation: fn-turn 18s linear infinite; }
 @keyframes fn-turn { to { rotate: 1turn; } }</oc-code></oc-demo>
 
@@ -126,73 +223,140 @@ h1 { font-size: calc(1.5rem + progress(100vw, 20rem, 80rem) * 2rem); }</oc-code>
             </div>
           </div>
 
-          <oc-demo title="Hover the list: .delay-stagger .stagger-100">
-            <ul class="fn-list group stagger-100">
-              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">First item</li>
-              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">Second item</li>
-              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">Third item</li>
-              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">Fourth item</li>
-              <li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger">Fifth item</li>
+          <p class="oc-section-content__desc">Move the mouse over a list: the items turn and slide right one after the other. One class on the list sets the step, <code>.delay-stagger</code> on each item multiplies it by the item's position from the top, <code>.delay-stagger-reverse</code> from the bottom.</p>
+          <oc-demo title="Hover the lists: .delay-stagger and .delay-stagger-reverse">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.stagger-100 + .delay-stagger</code><div class="oc-eg__note">Hover the list: the first item moves first, the others follow 100 ms apart.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<ul class="fn-list group stagger-100">
+              <li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">First item</li>
+              <li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">Second item</li>
+              <li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">Third item</li>
+              <li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">Fourth item</li>
+              <li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">Fifth item</li>
             </ul>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.stagger-60 + .delay-stagger-reverse</code><div class="oc-eg__note">Hover the list: the last item moves first, the others follow upwards 60 ms apart.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<ul class="fn-list group stagger-60">
+              <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse">First item</li>
+              <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse">Second item</li>
+              <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse">Third item</li>
+              <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse">Fourth item</li>
+              <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse">Fifth item</li>
+            </ul>
+</div></div>
+            </div></div>
           <oc-code lang="html">&lt;ul class="group stagger-100"&gt;
-  &lt;li class="opacity-30 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;First item&lt;/li&gt;
-  &lt;li class="… delay-stagger"&gt;Second item&lt;/li&gt;
-  …
+  &lt;li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;First item&lt;/li&gt;
+  &lt;li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;Second item&lt;/li&gt;
+  &lt;li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;Third item&lt;/li&gt;
+  &lt;li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;Fourth item&lt;/li&gt;
+  &lt;li class="group-hover:bg-vividblue-90 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;Fifth item&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul class="group stagger-60"&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse"&gt;First item&lt;/li&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse"&gt;Second item&lt;/li&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse"&gt;Third item&lt;/li&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse"&gt;Fourth item&lt;/li&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger-reverse"&gt;Fifth item&lt;/li&gt;
 &lt;/ul&gt;</oc-code></oc-demo>
 
-          <oc-demo title="A hand of cards: .fan (hover to spread)">
-            <div class="fn-hand">
-              <div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div>
-            </div>
-          <oc-code lang="html">&lt;div class="fn-hand"&gt;
-  &lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- .fn-hand:hover &gt; div { --oc-fan: 14deg; }  (or .fan-15 on each card) --&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.fan</code> turns each card by its distance from the middle card. <code>.fan-3</code> … <code>.fan-15</code> on the hand set the angle step (the default is 6deg).</p>
+          <oc-demo title="A hand of cards: .fan and .fan-3 … .fan-15">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.fan (6deg)</code><div class="oc-eg__note">The default step. Hover the hand to spread the cards, hover one card to lift it.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="fn-hand fn-hand--spread"><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div></div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.fan-3</code><div class="oc-eg__note">A small step: the cards stay almost straight.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="fn-hand fan-3"><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div></div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.fan-10</code><div class="oc-eg__note">A wider step.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="fn-hand fan-10"><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div></div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.fan-15</code><div class="oc-eg__note">The widest step: a full hand of cards.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="fn-hand fan-15"><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div></div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="fn-hand fn-hand--spread"&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="fn-hand fan-3"&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="fn-hand fan-10"&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="fn-hand fan-15"&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;/div&gt;</oc-code>
+          <oc-code lang="css">/* Card look and the hover, page CSS around the .fan classes */
+.fn-hand { display: flex; justify-content: center; }
+.fn-hand &gt; div { inline-size: 4rem; aspect-ratio: 5 / 7; margin-inline: -0.9rem; border-radius: 10px; transition: rotate 0.3s, translate 0.3s; }
+.fn-hand--spread:hover &gt; div { --oc-fan: 14deg; }
+.fn-hand &gt; div:hover { translate: 0 -0.75rem; }</oc-code></oc-demo>
 
           <oc-demo title="Loader: .animate-bounce .animate-delay-stagger .stagger-150">
-            <div class="flex gap-2 align-items-end p-4">
-              <span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
-              <span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
-              <span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
-              <span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-bounce .animate-delay-stagger .stagger-150</code><div class="oc-eg__note">The four dots run the same bounce, each one 150 ms after the one before.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="flex justify-center align-items-end gap-1 w-full pt-2">
+              <span class="size-8 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
+              <span class="size-8 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
+              <span class="size-8 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
+              <span class="size-8 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"></span>
             </div>
-          <oc-code lang="html">&lt;div class="flex gap-2"&gt;
-  &lt;span class="size-3 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"&gt;&lt;/span&gt;
-  … (repeat)
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="flex justify-center align-items-end gap-1 w-full pt-2"&gt;
+  &lt;span class="size-8 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"&gt;&lt;/span&gt;
+  &lt;span class="size-8 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"&gt;&lt;/span&gt;
+  &lt;span class="size-8 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"&gt;&lt;/span&gt;
+  &lt;span class="size-8 round-full bg-vividblue-80 animate-bounce animate-delay-stagger stagger-150"&gt;&lt;/span&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="attr">Typed attr(): data straight from HTML</h3>
           <p class="oc-section-content__desc"><code>attr()</code> used to work only in <code>content</code>. With a type it works in every property: <code>attr(data-value type(&lt;percentage&gt;), 0%)</code>. The bar chart below has no inline styles, only data attributes.</p>
           <oc-demo title="Bar chart from data-value attributes">
-            <div class="fn-chart">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">attr(data-value type(&lt;percentage&gt;))</code><div class="oc-eg__note">Each bar reads its width from its own data-value attribute. There are no inline styles.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="fn-chart">
               <div data-label="HTML"><span data-value="92%"></span></div>
               <div data-label="CSS"><span data-value="78%"></span></div>
               <div data-label="SVG"><span data-value="45%"></span></div>
               <div data-label="JS"><span data-value="18%"></span></div>
             </div>
-          <oc-code lang="css">.fn-chart div::before { content: attr(data-label); }
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="fn-chart"&gt;
+  &lt;div data-label="HTML"&gt;&lt;span data-value="92%"&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div data-label="CSS"&gt;&lt;span data-value="78%"&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div data-label="SVG"&gt;&lt;span data-value="45%"&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div data-label="JS"&gt;&lt;span data-value="18%"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.fn-chart div { display: flex; align-items: center; gap: 0.6rem; }
+.fn-chart div::before { content: attr(data-label); }
+.fn-chart span::after { content: attr(data-value); }
 .fn-chart span {
   inline-size: 40%;                                             /* fallback */
   inline-size: attr(data-value type(&lt;percentage&gt;), 0%);
 }
-/* other types: attr(data-size type(&lt;length&gt;)), attr(data-color type(&lt;color&gt;)), attr(data-n type(&lt;integer&gt;)) */
-/* &lt;div data-label="CSS"&gt;&lt;span data-value="78%"&gt;&lt;/span&gt;&lt;/div&gt; */</oc-code></oc-demo>
+/* other types: attr(data-size type(&lt;length&gt;)), attr(data-color type(&lt;color&gt;)), attr(data-n type(&lt;integer&gt;)) */</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="if">if(): conditions inside a value</h3>
-          <p class="oc-section-content__desc"><code>if()</code> picks a value based on <code>style()</code>, <code>media()</code> or <code>supports()</code>, without a separate rule. Write a plain value first for browsers without <code>if()</code>.</p>
+          <p class="oc-section-content__desc"><code>if()</code> picks a value based on <code>style()</code>, <code>media()</code> or <code>supports()</code>, without a separate rule. Browsers without <code>if()</code> need a plain value. When the <code>if()</code> holds a <code>var()</code>, a plain value on the line above is not enough: those browsers only reject the declaration while they compute the style, and then the background is simply gone. So keep the plain value in the rule and put the <code>if()</code> inside <code>@supports</code>.</p>
           <oc-demo title="background: if(style(--fn-state: done): …; style(--fn-state: busy): …; else: …)">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <span class="fn-status" style="--fn-state: done">done</span>
-              <span class="fn-status" style="--fn-state: busy">busy</span>
-              <span class="fn-status" style="--fn-state: idle">idle</span>
-            </div>
+            <div class="oc-eg"><div class="sup-note sup-note--if"><b>Not in this browser yet.</b> Your browser does not support <code>if()</code>: all three cards show the grey fallback.</div><div class="oc-eg__panels" style="--eg-min: 12rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">--fn-state: done</code><div class="oc-eg__note">if() picks the green background.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage"><div class="fn-status" style="--fn-state: done">Task 1 is done</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--fn-state: busy</code><div class="oc-eg__note">if() picks the orange background.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage"><div class="fn-status" style="--fn-state: busy">Task 2 is busy</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--fn-state: idle</code><div class="oc-eg__note">No condition matches, so else: gives grey.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage"><div class="fn-status" style="--fn-state: idle">Task 3 waits</div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="fn-status" style="--fn-state: done"&gt;Task 1 is done&lt;/div&gt;
+&lt;div class="fn-status" style="--fn-state: busy"&gt;Task 2 is busy&lt;/div&gt;
+&lt;div class="fn-status" style="--fn-state: idle"&gt;Task 3 waits&lt;/div&gt;</oc-code>
           <oc-code lang="css">.fn-status {
-  background: var(--color-gray-50);                            /* fallback */
-  background: if(
-    style(--fn-state: done): var(--color-green-60);
-    style(--fn-state: busy): var(--color-orange-60);
-    else: var(--color-gray-50)
-  );
+  color: var(--color-white-50);
+  background: var(--color-gray-80);                            /* fallback */
+}
+/* In @supports: an if() with var() inside would wipe out the fallback line in browsers without if(). */
+@supports (color: if(else: red)) {
+  .fn-status {
+    background: if(
+      style(--fn-state: done): var(--color-forestgreen-60);
+      style(--fn-state: busy): var(--color-orange-95);
+      else: var(--color-gray-80)
+    );
+  }
 }
 .card { padding: if(media(width &gt;= 40rem): 2rem; else: 1rem); }
 .grid { display: if(supports(display: grid-lanes): grid-lanes; else: grid); }</oc-code></oc-demo>
@@ -200,11 +364,29 @@ h1 { font-size: calc(1.5rem + progress(100vw, 20rem, 80rem) * 2rem); }</oc-code>
           <h3 class="oc-section-content__title mt-10" id="calc-size">calc-size() and interpolate-size: animate to auto</h3>
           <p class="oc-section-content__desc"><code>interpolate-size: allow-keywords</code> (utility <code>.interpolate-size-keywords</code>) lets <code>height: auto</code> animate. <code>calc-size(auto, size + 1rem)</code> calculates with intrinsic sizes. Open the accordion: no JavaScript, no max-height trick.</p>
           <oc-demo title="details + ::details-content + interpolate-size">
-            <details class="fn-acc">
+            <div class="oc-eg"><div class="sup-note sup-note--isize"><b>Not in this browser yet.</b> Your browser does not support <code>interpolate-size</code>: the answers open and close at once, without the slide.</div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">::details-content · interpolate-size: allow-keywords</code><div class="oc-eg__note">Open a question: the answer slides open to its natural height. No JavaScript, no max-height trick.</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage">
+<div class="fn-accs"><details class="fn-acc interpolate-size-keywords">
               <summary>How does this open smoothly?</summary>
               <p>The <code>::details-content</code> pseudo-element animates its block-size from 0 to auto, because the parent allows keyword interpolation. <code>content-visibility</code> switches with <code>allow-discrete</code> at the end.</p>
             </details>
-          <oc-code lang="css">.fn-acc { interpolate-size: allow-keywords; }        /* or class="interpolate-size-keywords" */
+            <details class="fn-acc interpolate-size-keywords"><summary>Does it work without JavaScript?</summary><p>Yes. The browser opens and closes the element; the transition is plain CSS on <code>::details-content</code>.</p></details>
+            <details class="fn-acc interpolate-size-keywords"><summary>What happens in older browsers?</summary><p>The panel opens at once, without the slide. The content is the same, so nothing breaks.</p></details></div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;details class="fn-acc interpolate-size-keywords"&gt;
+  &lt;summary&gt;How does this open smoothly?&lt;/summary&gt;
+  &lt;p&gt;The ::details-content pseudo-element animates its block-size from 0 to auto …&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class="fn-acc interpolate-size-keywords"&gt;
+  &lt;summary&gt;Does it work without JavaScript?&lt;/summary&gt;
+  &lt;p&gt;Yes. The browser opens and closes the element; the transition is plain CSS on ::details-content.&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class="fn-acc interpolate-size-keywords"&gt;
+  &lt;summary&gt;What happens in older browsers?&lt;/summary&gt;
+  &lt;p&gt;The panel opens at once, without the slide. The content is the same, so nothing breaks.&lt;/p&gt;
+&lt;/details&gt;</oc-code>
+          <oc-code lang="css">/* .interpolate-size-keywords = interpolate-size: allow-keywords */
 .fn-acc::details-content {
   block-size: 0;
   overflow: clip;
@@ -217,20 +399,35 @@ h1 { font-size: calc(1.5rem + progress(100vw, 20rem, 80rem) * 2rem); }</oc-code>
 
           <h3 class="oc-section-content__title mt-10" id="random">random(): a different value per element</h3>
           <p class="oc-section-content__desc">Every piece of confetti gets its own position and angle. Browsers without <code>random()</code> keep the line above it: a pseudo-random spread from <code>sin()</code> of the sibling index.</p>
-          <oc-demo title="translate: random(-10rem, 10rem) random(-4rem, 4rem)">
-            <div class="fn-confetti"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <oc-code lang="css">.fn-confetti i {
+          <oc-demo title="translate: random(-24rem, 24rem) random(-5.5rem, 5.5rem)">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">random()</code><div class="oc-eg__note">Every piece of confetti gets its own position and angle. Browsers without random() spread them with sin() and cos().</div><div class="oc-eg__stage oc-eg__stage--plain fn-stage fn-stage--flush">
+<div class="fn-confetti"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="fn-confetti"&gt;
+  &lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;
+  &lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;
+&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.fn-confetti { position: relative; block-size: 13rem; overflow: hidden; }
+.fn-confetti i:nth-child(3n)     { background: var(--color-vividblue-80); }
+.fn-confetti i:nth-child(3n + 1) { background: var(--color-magenta-50); }
+.fn-confetti i {
+  position: absolute; left: 50%; top: 50%;
+  background: var(--color-orange-50);
   /* fallback: deterministic spread */
   translate: calc(sin(sibling-index() * 57deg) * 9rem) calc(cos(sibling-index() * 91deg) * 3.5rem);
   rotate: calc(sibling-index() * 47deg);
   /* random() per element */
-  translate: random(-10rem, 10rem) random(-4rem, 4rem);
+  translate: random(-24rem, 24rem) random(-5.5rem, 5.5rem);
   rotate: random(0deg, 360deg);
 }
+@media (max-width: 40rem) { .fn-confetti i { translate: random(-10rem, 10rem) random(-5.5rem, 5.5rem); } }
 .dice { --n: random(1, 6, by 1); }                       /* steps */
 .same { rotate: random(--shared, 0deg, 90deg); }         /* same value for every element */</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="env">env(): safe areas and the device</h3>
+          <p class="oc-section-content__desc">There is no live example here: on a desktop browser these values are 0 (no notch, no home bar, no title bar overlay, no virtual keyboard). Open a page with these rules on a phone or as an installed app to see the extra padding.</p>
           <oc-code lang="css">.app-bar { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }   /* notch / home bar */
 .screen  { height: calc(100dvh - env(safe-area-inset-top)); }          /* = .h-screen-safe */
 .titlebar { inline-size: env(titlebar-area-width, 100%); }              /* installed PWA */

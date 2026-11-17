@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Advanced Typography", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Advanced Typography","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .tya-p { margin: 0; font-size: 1rem; line-height: 1.5; }\n    .tya-h { margin: 0; font-size: 1.5rem; font-weight: 700; line-height: 1.2; }\n    .tya-hw { max-inline-size: 18rem; }\n    .tya-narrow { max-inline-size: 8.5rem; font-size: 1.1rem; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n    /* Line clamp: the text sits on a card at the top of the stage; the hatch below is the room the hidden lines gave back. */\n    .tya-stage { display: grid; align-content: start; padding: 0.75rem; }\n    .tya-card { padding: 0.8rem 1rem; border-radius: 6px; background: var(--oc-card); box-shadow: 0 0 0 1px var(--oc-border); color: var(--oc-foreground); }\n    .tya-card > p { margin: 0; color: var(--oc-foreground); }\n\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (text-wrap: pretty) { .sup-note--pretty { display: none; } }\n  /* The clamp cards are narrow on purpose, so the text always runs to more lines than the clamp allows, also on a very wide screen. */\n    .tya-card--clamp { box-sizing: border-box; inline-size: min(100%, 17rem); justify-self: center; }\n  /* Clamp stages fill their panel, so the hatched room under a short card is the room the hidden lines gave back. */\n    .oc-eg__panel > .tya-stage:has(> .tya-card--clamp) { align-self: stretch; }\n  </style>"]}-->
 <section class="oc-docs-section" id="advanced">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Advanced Typography</h2>
@@ -12,36 +12,66 @@
         </div>
 
         <div class="oc-section-content">
-          <h3 class="oc-section-content__title">Line Clamp</h3>
-          <p class="oc-section-content__desc">Truncate multi-line text after a specific number of lines.</p>
-          <oc-demo title="Line Clamp"><div class="oc-preview oc-preview-col gap-4">
-            <div class="p-3 round-2 border border-solid max-w-xs line-clamp-2">
-              <strong>Line Clamp 2:</strong> This text is quite long and will eventually be truncated at the end of the second line of text using an ellipsis.
-            </div>
-            <div class="p-3 round-2 border border-solid max-w-xs line-clamp-3">
-              <strong>Line Clamp 3:</strong> This is a slightly longer block of text designed to demonstrate how the three-line clamping utility works. Once the third line is reached, any additional content is hidden and replaced by an ellipsis character to maintain layout consistency.
-            </div>
-          </div></oc-demo>
 
-          <h3 class="oc-section-content__title mt-10">Truncation</h3>
-          <p class="oc-section-content__desc">Truncate single-line text with an ellipsis.</p>
-          <oc-demo title="Truncation"><div class="oc-preview oc-preview-col gap-4">
-            <div class="p-3 round-2 border border-solid max-w-xs truncate">
-              This long string of text will be truncated.
-            </div>
-          </div></oc-demo>
+          <h3 class="oc-section-content__title mt-0" id="line-clamp">Line clamp</h3>
+          <p class="oc-section-content__desc">Cut a text off after a number of lines and end it with an ellipsis (…). Handy for card previews. The three tiles hold the same text.</p>
+          <p class="oc-section-content__desc">Classes: <code>.line-clamp-1</code> … <code>.line-clamp-6</code>, and <code>.line-clamp-none</code> to show everything again. Put the class on the text itself, not on a box with padding, or the hidden lines peek out in the padding.</p>
+          <oc-demo title="line-clamp-2, line-clamp-3, line-clamp-none">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = room the hidden lines gave back</span></div><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.line-clamp-2</code><div class="oc-eg__note">Cut off after two lines, with an ellipsis.</div><div class="oc-eg__stage tya-stage"><div class="tya-card tya-card--clamp"><p class="tya-p line-clamp-2">Product 1 is a sturdy bag for everyday use. It has two outer pockets, a padded laptop sleeve and straps you can adjust. Company 1 makes it from recycled fabric and ships it within 24 hours.</p></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.line-clamp-3</code><div class="oc-eg__note">Cut off after three lines, with an ellipsis.</div><div class="oc-eg__stage tya-stage"><div class="tya-card tya-card--clamp"><p class="tya-p line-clamp-3">Product 1 is a sturdy bag for everyday use. It has two outer pockets, a padded laptop sleeve and straps you can adjust. Company 1 makes it from recycled fabric and ships it within 24 hours.</p></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.line-clamp-none</code><div class="oc-eg__note">No limit: the whole text shows.</div><div class="oc-eg__stage tya-stage"><div class="tya-card tya-card--clamp"><p class="tya-p line-clamp-none">Product 1 is a sturdy bag for everyday use. It has two outer pockets, a padded laptop sleeve and straps you can adjust. Company 1 makes it from recycled fabric and ships it within 24 hours.</p></div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="line-clamp-2"&gt;Product 1 is a sturdy bag for everyday use. …&lt;/p&gt;
+&lt;p class="line-clamp-3"&gt;Product 1 is a sturdy bag for everyday use. …&lt;/p&gt;
+&lt;p class="line-clamp-none"&gt;Product 1 is a sturdy bag for everyday use. …&lt;/p&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-10" id="truncation">Truncation</h3>
+          <p class="oc-section-content__desc"><code>.truncate</code> keeps text on one line and ends it with an ellipsis when it does not fit. Compare it with the same names without the class, which wrap onto a second line.</p>
+          <oc-demo title="truncate">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.truncate</code><div class="oc-eg__note">Each line stays on one line and ends with an ellipsis.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="tya-p truncate">Customer 1 · info@company1.example</div><div class="tya-p truncate">Product 1 · Sturdy everyday bag with laptop sleeve</div><div class="tya-p truncate">Order 1042 · shipped to Customer 1</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">without .truncate</code><div class="oc-eg__note">Long lines wrap onto a second line.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="tya-p">Customer 1 · info@company1.example</div><div class="tya-p">Product 1 · Sturdy everyday bag with laptop sleeve</div><div class="tya-p">Order 1042 · shipped to Customer 1</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;!-- With .truncate: each line ends with … when it does not fit --&gt;
+&lt;div class="truncate"&gt;Customer 1 · info@company1.example&lt;/div&gt;
+&lt;div class="truncate"&gt;Product 1 · Sturdy everyday bag with laptop sleeve&lt;/div&gt;
+&lt;div class="truncate"&gt;Order 1042 · shipped to Customer 1&lt;/div&gt;
 
-          <h3 class="oc-section-content__title mt-10">Hyphens &amp; Wrapping</h3>
-          <table class="oc-table-ref mb-6">
-            <thead><tr><th class="w-perc-1/3">Class</th><th>Behavior</th></tr></thead>
-            <tbody>
-              <tr><td><code>.hyphens-auto</code></td><td>Automatic syllable breaking</td></tr>
-              <tr><td><code>.text-balance</code></td><td>Balanced line lengths for headings</td></tr>
-              <tr><td><code>.text-nowrap</code></td><td>Prevent text wrapping</td></tr>
-            </tbody>
-          </table>
-
-          <oc-code>&lt;h2 class="text-balance font-2"&gt;A Headline That Balances Lines&lt;/h2&gt;
-&lt;p class="line-clamp-3"&gt;Long article summary...&lt;/p&gt;</oc-code>
+&lt;!-- Without: long lines wrap --&gt;
+&lt;div&gt;Product 1 · Sturdy everyday bag with laptop sleeve&lt;/div&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-10" id="wrapping">Balanced headings and hyphens</h3>
+          <p class="oc-section-content__desc"><code>.text-balance</code> spreads the words of a heading evenly over its lines, so no single word ends up alone. <code>.text-pretty</code> only fixes the last line, which suits paragraphs. <code>.hyphens-auto</code> lets the browser split long words with a hyphen in a narrow column; it needs a <code>lang</code> attribute and a hyphenation dictionary for that language in the browser. With <code>.hyphens-manual</code> you mark the break points yourself with <code>&amp;shy;</code>, which works in every browser.</p>          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
+              <tbody>
+                <tr><td><code>.text-balance</code></td><td>text-wrap: balance</td></tr>
+                <tr><td><code>.text-pretty</code></td><td>text-wrap: pretty (avoids a lone last word)</td></tr>
+                <tr><td><code>.text-nowrap</code></td><td>text-wrap: nowrap</td></tr>
+                <tr><td><code>.hyphens-auto</code></td><td>hyphens: auto</td></tr>
+                <tr><td><code>.hyphens-manual</code></td><td>hyphens: manual (only at &amp;shy;)</td></tr>
+                <tr><td><code>.hyphens-none</code></td><td>hyphens: none</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <oc-demo title="default, text-balance, text-pretty">
+            <div class="oc-eg"><div class="sup-note sup-note--pretty"><b>Not in this browser yet.</b> Your browser does not support <code>text-wrap: pretty</code>: the third panel wraps like the default one. <code>text-balance</code> works.</div><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">default</code><div class="oc-eg__note">The browser fills each line, so the last line can be one short word.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="tya-h tya-hw">Free delivery on every order from Company 1 now</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-balance</code><div class="oc-eg__note">The lines are about equally long.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="tya-h tya-hw text-balance">Free delivery on every order from Company 1 now</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-pretty</code><div class="oc-eg__note">Only the end is fixed: the last line gets more than one word. Made for paragraphs.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="tya-h tya-hw text-pretty">Free delivery on every order from Company 1 now</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;h2&gt;Free delivery on every order from Company 1 now&lt;/h2&gt;
+&lt;h2 class="text-balance"&gt;Free delivery on every order from Company 1 now&lt;/h2&gt;
+&lt;h2 class="text-pretty"&gt;Free delivery on every order from Company 1 now&lt;/h2&gt;</oc-code></oc-demo>
+          <oc-demo title="hyphens-none, hyphens-manual, hyphens-auto in a narrow column">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.hyphens-none</code><div class="oc-eg__note">Words are never split, so the narrow column gets ragged.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="tya-p tya-narrow hyphens-none" lang="en">Internationalization requirements are documented separately.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hyphens-manual + &amp;shy;</code><div class="oc-eg__note">Words split only where you put a soft hyphen (&amp;shy;).</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="tya-p tya-narrow hyphens-manual" lang="en">Inter&shy;national&shy;ization require&shy;ments are docu&shy;mented sepa&shy;rately.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hyphens-auto</code><div class="oc-eg__note">The browser splits words where English allows it. If your browser has no English hyphenation dictionary, this looks like the first tile.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="tya-p tya-narrow hyphens-auto" lang="en">Internationalization requirements are documented separately.</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="hyphens-none" lang="en"&gt;Internationalization requirements …&lt;/p&gt;
+&lt;!-- manual: you mark the places where a word may break with &amp;shy; --&gt;
+&lt;p class="hyphens-manual" lang="en"&gt;Inter&amp;shy;national&amp;shy;ization require&amp;shy;ments …&lt;/p&gt;
+&lt;!-- auto: the browser finds the places itself --&gt;
+&lt;p class="hyphens-auto" lang="en"&gt;Internationalization requirements …&lt;/p&gt;</oc-code></oc-demo>
         </div>
       </section>

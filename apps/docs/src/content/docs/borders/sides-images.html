@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Border Sides & Images", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Border Sides & Images","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n.bd-sample { display: grid; place-content: center; gap: 0.15rem; min-block-size: var(--bd-h, 6.5rem); padding: 0.75rem; text-align: center; }\n.bd-sample b { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }\n.bd-sample small { font-size: 0.78rem; color: var(--oc-muted-foreground); }\n.bd-table { inline-size: 100%; border-collapse: collapse; font-size: 0.92rem; color: var(--oc-foreground); }\n.bd-table th, .bd-table td { padding: 0.7rem 0.75rem; text-align: start; }\n.bd-table th { font-size: 0.8rem; font-weight: 600; }\n.bd-table td:last-child, .bd-table th:last-child { text-align: end; }\n.bd-table tfoot td { font-weight: 700; }\n.bd-wrap { overflow-x: auto; }\n.bd-callout { display: grid; gap: 0.25rem; padding: 1rem 1.25rem; color: var(--oc-foreground); font-size: 0.92rem; }\n.bd-callout b { font-size: 1rem; }\n.bd-plain { background: var(--oc-background); }\n.bd-in { container-type: inline-size; display: grid; align-content: center; padding: var(--bd-pad, 0.875rem); }\n\n.bd-out { margin: 0.75rem; }\n  </style>"]}-->
 <section class="oc-docs-section" id="sides-images">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Border Sides &amp; Images</h2>
@@ -15,7 +15,7 @@
           <p class="oc-section-content__desc"><strong>What it does:</strong> this page covers the less common border tools: per-side style and color, logical sides (<code>border-s-*</code> follow the writing direction, so they flip in right-to-left languages), per-corner and logical radii, and <code>border-image</code> for gradient or striped borders. <strong>When to use:</strong> callouts with an accent side, RTL-ready designs, gradient borders. <strong>Gotchas:</strong> <code>border-image</code> ignores <code>border-radius</code> (use a background gradient on a padded wrapper for rounded gradient borders); logical properties need a consistent <code>dir</code>; and per-side colors meet at diagonal joins. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-image" target="_blank" rel="noopener">MDN: border-image</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-inline-start" target="_blank" rel="noopener">MDN: border-inline-start</a>.</p>
 
           <h3 class="oc-section-content__title" id="side-style">Per-side style &amp; color</h3>
-          <p class="oc-section-content__desc">Style and color for one side (<code>t</code>, <code>r</code>, <code>b</code>, <code>l</code>). <code>.border-{side}-line</code> draws a 1px solid line in the current color.</p>
+          <p class="oc-section-content__desc">Style and color for one side (<code>t</code>, <code>r</code>, <code>b</code>, <code>l</code>), widths for a pair of sides (<code>x</code>, <code>y</code>), and a one-class line helper.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -33,31 +33,57 @@
             </div>
           </div>
 
-          <oc-demo title="per-side styles">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.border-t-dashed .border-b-dotted</span>
-                <div class="border-4 border-solid border-t-dashed border-b-dotted border-dodgerblue-50 size-24 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.border-x-4 .border-y-0</span>
-                <div class="border-solid border-x-4 border-y-0 border-forestgreen-50 size-24 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.border-b-line</span>
-                <div class="border-b-line text-darkorange size-24 round-3"></div>
-              </div>
-            </div>
+          <p class="oc-section-content__desc">Each box has an 8px solid border in one color (<code>.border-4 .border-solid</code>); one extra class changes the style of a single side. Per-side classes only change that side, so you can combine several of them.</p>
 
-            
-            
-          <oc-code lang="html">&lt;div class="border-4 border-solid border-t-dashed border-b-dotted border-dodgerblue-50 size-24 round-3"&gt;&lt;/div&gt;
-&lt;div class="border-solid border-x-4 border-y-0 border-forestgreen-50 size-24 round-3"&gt;&lt;/div&gt;
-&lt;div class="border-b-line text-darkorange size-24 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Per side you can also set the color: <code>.border-t-current</code> and <code>.border-t-transparent</code> work like <code>.border-current</code> and <code>.border-transparent</code> on the <a href="border-color.html">Border Color</a> page, for one side. The logical classes (<code>.border-s-*</code>, <code>.border-e-*</code>, <code>.border-bs-*</code>, <code>.border-be-*</code>) follow the writing direction; see the RTL example below.</p>
+          <oc-demo title="per-side styles">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-t-dashed</code><div class="oc-eg__note">The top side is dashed; the other three stay solid.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample border-4 border-solid border-t-dashed border-forestgreen-50 bg-forestgreen-mix-10"><b>top dashed</b><small>others solid</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-r-double</code><div class="oc-eg__note">The right side is double; the other three stay solid.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample border-4 border-solid border-r-double border-forestgreen-50 bg-forestgreen-mix-10"><b>right double</b><small>others solid</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-b-dotted</code><div class="oc-eg__note">The bottom side is dotted; the other three stay solid.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample border-4 border-solid border-b-dotted border-forestgreen-50 bg-forestgreen-mix-10"><b>bottom dotted</b><small>others solid</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-l-none</code><div class="oc-eg__note">The left side has no border; the other three stay solid.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample border-4 border-solid border-l-none border-forestgreen-50 bg-forestgreen-mix-10"><b>no left side</b><small>others solid</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="border-4 border-solid border-t-dashed border-forestgreen-50"&gt;top dashed&lt;/div&gt;
+&lt;div class="border-4 border-solid border-r-double border-forestgreen-50"&gt;right double&lt;/div&gt;
+&lt;div class="border-4 border-solid border-b-dotted border-forestgreen-50"&gt;bottom dotted&lt;/div&gt;
+&lt;div class="border-4 border-solid border-l-none border-forestgreen-50"&gt;no left side&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="axis-widths">Two sides at once</h3>
+          <p class="oc-section-content__desc"><code>.border-x-*</code> sets the left and right width, <code>.border-y-*</code> the top and bottom width (0, 1, 2, 4 or 8 px). Set the other pair to 0, because a border style without a width falls back to the browser default (3px).</p>
+
+          <oc-demo title="border-x-8, border-y-8">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-x-8 .border-y-0</code><div class="oc-eg__note">An 8px border on the left and right, none on the other two sides.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample border-solid border-x-8 border-y-0 border-forestgreen-50 bg-forestgreen-mix-10"><b>left + right</b><small>8px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-y-8 .border-x-0</code><div class="oc-eg__note">An 8px border on the top and bottom, none on the other two sides.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample border-solid border-y-8 border-x-0 border-forestgreen-50 bg-forestgreen-mix-10"><b>top + bottom</b><small>8px</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="border-solid border-x-8 border-y-0 border-forestgreen-50"&gt;left + right&lt;/div&gt;
+&lt;div class="border-solid border-y-8 border-x-0 border-forestgreen-50"&gt;top + bottom&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="side-lines">In practice: lines in a table</h3>
+          <p class="oc-section-content__desc"><code>.border-{side}-line</code> draws a 1px solid line in the current text color, with a single class. Here the header row gets <code>.border-b-line</code> and the total row <code>.border-t-line</code>; the line follows the text color in light and dark mode.</p>
+
+          <oc-demo title="border-b-line and border-t-line in a table">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-b-line .border-t-line</code><div class="oc-eg__note">A line under the header row and one above the total; the body rows have none.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-wrap">
+    <table class="bd-table">
+      <thead><tr><th class="border-b-line">Product</th><th class="border-b-line">Qty</th><th class="border-b-line">Amount</th></tr></thead>
+      <tbody>
+        <tr><td>Product 1</td><td>2</td><td>€ 98.00</td></tr>
+        <tr><td>Product 2</td><td>1</td><td>€ 24.50</td></tr>
+        <tr><td>Product 3</td><td>4</td><td>€ 36.00</td></tr>
+      </tbody>
+      <tfoot><tr><td class="border-t-line">Total for Customer 1</td><td class="border-t-line"></td><td class="border-t-line">€ 158.50</td></tr></tfoot>
+    </table>
+  </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;table&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th class="border-b-line"&gt;Product&lt;/th&gt; …&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;…&lt;/tbody&gt;
+  &lt;tfoot&gt;&lt;tr&gt;&lt;td class="border-t-line"&gt;Total for Customer 1&lt;/td&gt; …&lt;/tr&gt;&lt;/tfoot&gt;
+&lt;/table&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="logical">Logical borders</h3>
-          <p class="oc-section-content__desc"><code>s</code>/<code>e</code> = inline start/end (left/right in LTR, swapped in RTL), <code>bs</code>/<code>be</code> = block start/end.</p>
+          <p class="oc-section-content__desc"><code>s</code>/<code>e</code> = inline start/end (left/right in left-to-right text, swapped in right-to-left text), <code>bs</code>/<code>be</code> = block start/end (top/bottom in horizontal text). Both boxes below use exactly the same classes; only the text direction differs.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -74,26 +100,16 @@
             </div>
           </div>
 
-          <oc-demo title="border-s-line in LTR and RTL">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.dir-ltr .border-s-line</span>
-                <div class="dir-ltr border-s-line border-y-0 text-dodgerblue size-24 round-3 p-1">start</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.dir-rtl .border-s-line</span>
-                <div class="dir-rtl border-s-line border-y-0 text-darkorange size-24 round-3 p-1">start</div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="dir-ltr border-s-line border-y-0 text-dodgerblue size-24 round-3 p-1"&gt;start&lt;/div&gt;
-&lt;div class="dir-rtl border-s-line border-y-0 text-darkorange size-24 round-3 p-1"&gt;start&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="border-s-4 in LTR and RTL">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.dir-ltr .border-s-4 .border-s-solid</code><div class="oc-eg__note">In a left-to-right text the start side is the left.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-callout dir-ltr border-s-4 border-s-solid border-purple-40 bg-purple-mix-10"><b>Left to right</b>The bar is on the start side: the left.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.dir-rtl .border-s-4 .border-s-solid</code><div class="oc-eg__note">The same classes in a right-to-left text: the bar moves to the right.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-callout dir-rtl border-s-4 border-s-solid border-purple-40 bg-purple-mix-10"><b>Right to left</b>The same classes put the bar on the right</div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div dir="ltr" class="border-s-4 border-s-solid border-purple-40"&gt;…&lt;/div&gt;
+&lt;div dir="rtl" class="border-s-4 border-s-solid border-purple-40"&gt;…&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="corner-radius">Per-corner &amp; logical radius</h3>
-          <p class="oc-section-content__desc">Round a single corner. Logical corners: <code>ss</code> start-start, <code>se</code> start-end, <code>es</code> end-start, <code>ee</code> end-end.</p>
+          <p class="oc-section-content__desc">Round a single corner. Unlike the <code>.round-tl*</code> classes on the <a href="border-radius.html">Border-radius</a> page, these set one corner property each, so you can combine them. Logical corners: <code>ss</code> start-start, <code>se</code> start-end, <code>es</code> end-start, <code>ee</code> end-end; the last box is right-to-left, so start-start is the top-right corner.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -107,31 +123,20 @@
             </div>
           </div>
 
-          <oc-demo title="radius-tl-lg, radius-br-full, round-ss-lg">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.radius-tl-lg</span>
-                <div class="radius-tl-lg bg-dodgerblue-mix-30 border-1 border-solid border-dodgerblue-50 size-24 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.radius-br-full</span>
-                <div class="radius-br-full bg-forestgreen-mix-30 border-1 border-solid border-forestgreen-50 size-24 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.round-ss-lg .round-ee-lg</span>
-                <div class="round-ss-lg round-ee-lg bg-darkorange-mix-30 border-1 border-solid border-darkorange-50 size-24"></div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="radius-tl-lg bg-dodgerblue-mix-30 border-1 border-solid border-dodgerblue-50 size-24 round-3"&gt;&lt;/div&gt;
-&lt;div class="radius-br-full bg-forestgreen-mix-30 border-1 border-solid border-forestgreen-50 size-24 round-3"&gt;&lt;/div&gt;
-&lt;div class="round-ss-lg round-ee-lg bg-darkorange-mix-30 border-1 border-solid border-darkorange-50 size-24"&gt;&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="radius-tl-lg, radius-br-full, radius-tr-lg + radius-bl-lg, round-ss-lg + round-ee-lg">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.radius-tl-lg</code><div class="oc-eg__note">Only the top-left corner is round (1rem).</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample radius-tl-lg border-2 border-solid border-forestgreen-50 bg-forestgreen-mix-10"><b>top-left 1rem</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.radius-br-full</code><div class="oc-eg__note">Only the bottom-right corner is fully round.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample radius-br-full border-2 border-solid border-forestgreen-50 bg-forestgreen-mix-10"><b>bottom-right full</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.radius-tr-lg .radius-bl-lg</code><div class="oc-eg__note">Two opposite corners are round.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample radius-tr-lg radius-bl-lg border-2 border-solid border-forestgreen-50 bg-forestgreen-mix-10"><b>two corners</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-ss-lg .round-ee-lg</code><div class="oc-eg__note">Logical corners: in right-to-left text start-start is the top-right.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-ss-lg round-ee-lg dir-rtl border-2 border-solid border-forestgreen-50 bg-forestgreen-mix-10"><b>start-start + end-end</b><small>in RTL</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="radius-tl-lg border-2 border-solid border-forestgreen-50"&gt;top-left 1rem&lt;/div&gt;
+&lt;div class="radius-br-full border-2 border-solid border-forestgreen-50"&gt;bottom-right full&lt;/div&gt;
+&lt;div class="radius-tr-lg radius-bl-lg border-2 border-solid border-forestgreen-50"&gt;two corners&lt;/div&gt;
+&lt;div dir="rtl" class="round-ss-lg round-ee-lg border-2 border-solid border-forestgreen-50"&gt;start-start + end-end&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="border-image">Border image</h3>
-          <p class="oc-section-content__desc">Paint the border with a gradient (uses the <code>.from-*</code>/<code>.to-*</code> stops of <a href="../gradients/">Gradients</a>). The element needs a border width and style.</p>
+          <p class="oc-section-content__desc">Paint the border with an image instead of a color. The image here is a CSS gradient, built from the <code>.from-*</code>/<code>.to-*</code> stops of <a href="../gradients/">Gradients</a>: in this one example the gradient is the subject, not decoration. The element needs a border width and style. Note the third box: <code>border-image</code> ignores <code>border-radius</code>, so the corners stay square.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -151,22 +156,23 @@
           </div>
 
           <oc-demo title="border-image-gradient, border-image-stripes">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.border-image-gradient</span>
-                <div class="border-4 border-solid border-image-gradient from-magenta to-blue size-24 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.border-image-stripes</span>
-                <div class="border-4 border-solid border-image-stripes from-yellow to-black size-24 round-3"></div>
-              </div>
-            </div>
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-image-gradient</code><div class="oc-eg__note">The border is painted with a gradient from magenta to blue.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample bd-plain border-6 border-solid border-image-gradient from-magenta to-blue"><b>gradient</b><small>magenta to blue</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-image-stripes</code><div class="oc-eg__note">The border is painted with yellow and black stripes.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample bd-plain border-6 border-solid border-image-stripes from-yellow to-black"><b>stripes</b><small>yellow and black</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">+ .round-12</code><div class="oc-eg__note">A border image ignores the radius: the corners stay square.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample bd-plain border-6 border-solid border-image-gradient from-magenta to-blue round-12"><b>.round-12 added</b><small>corners stay square</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="border-6 border-solid border-image-gradient from-magenta to-blue"&gt;gradient&lt;/div&gt;
+&lt;div class="border-6 border-solid border-image-stripes from-yellow to-black"&gt;stripes&lt;/div&gt;
+&lt;div class="border-6 border-solid border-image-gradient from-magenta to-blue round-12"&gt;corners stay square&lt;/div&gt;</oc-code></oc-demo>
 
-            
-            
-          <oc-code lang="html">&lt;div class="border-4 border-solid border-image-gradient from-magenta to-blue size-24 round-3"&gt;&lt;/div&gt;
-&lt;div class="border-4 border-solid border-image-stripes from-yellow to-black size-24 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The modifier classes change how the border image is drawn. <code>.border-image-repeat-*</code> and <code>.border-image-width-*</code> have no example: with the built-in gradients every value looks the same; they only matter for a border image made from a picture with a pattern at its edges.</p>
+          <oc-demo title="border-image-outset-2, border-image-slice-fill, border-image-none"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-image-outset-2</code><div class="oc-eg__note">The gradient is drawn 0.5rem outside the box; the dashed line is the edge of the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample bd-plain bd-out border-6 border-solid border-image-gradient border-image-outset-2 from-magenta to-blue outline-1 outline-dashed outline-gray-50"><b>outset</b><small>0.5rem outside</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-image-slice-fill</code><div class="oc-eg__note">The middle of the image fills the box too, behind the text.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample bd-plain border-6 border-solid border-image-gradient border-image-slice-fill from-indigo to-blue text-white"><b>fill</b><span>the gradient fills the box</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.md:border-image-none</code><div class="oc-eg__note">From 50rem up the border image is removed and the plain green border shows again.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample bd-plain border-6 border-solid border-forestgreen-50 border-image-gradient md:border-image-none from-magenta to-blue"><b>none</b><small>from 50rem up: the plain border</small></div></div></div>
+</div></div><oc-code lang="html">&lt;div class="border-6 border-solid border-image-gradient border-image-outset-2 from-magenta to-blue"&gt;outset&lt;/div&gt;
+&lt;div class="border-6 border-solid border-image-gradient border-image-slice-fill from-indigo to-blue text-white"&gt;fill&lt;/div&gt;
+&lt;div class="border-6 border-solid border-forestgreen-50 border-image-gradient md:border-image-none from-magenta to-blue"&gt;none&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Per-side and logical borders and border-image are broadly supported.</p>

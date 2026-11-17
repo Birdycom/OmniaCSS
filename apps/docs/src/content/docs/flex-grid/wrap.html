@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Flex Wrap","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Flex Wrap","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-scroll { overflow-x: auto; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n    .fx-w { inline-size: var(--fx-iw, 5.5rem); flex-shrink: 0; }\n    .fx-resize { box-sizing: border-box; display: grid; gap: 0.75rem; inline-size: var(--fx-rw, min(100%, 48rem)); min-inline-size: min(100%, var(--fx-rmin, 20rem)); max-inline-size: 100%; padding: 0.75rem 1.4rem 1.1rem 0.75rem; border: 1.5px dashed var(--oc-border-strong); border-radius: 12px; background: var(--eg-bg); }\n    .fx-hint { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--oc-muted-foreground); }\n    .fx-hint::before { content: \"\"; flex: none; inline-size: 0.75rem; block-size: 0.75rem; border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor; }\n    .fx-tag { box-sizing: border-box; display: inline-flex; align-items: center; padding: 0.3rem 0.75rem; border-radius: 999px; background: var(--fx-c, var(--color-teal-70)); color: var(--color-white-50); font-size: 0.85rem; font-weight: 600; white-space: nowrap; }\n    .fx-tag:nth-child(6n+2) { --fx-c: var(--color-vividblue-90); }\n    .fx-tag:nth-child(6n+3) { --fx-c: var(--color-orange-95); }\n    .fx-tag:nth-child(6n+4) { --fx-c: var(--color-indigo-60); }\n    .fx-tag:nth-child(6n+5) { --fx-c: var(--color-magenta-90); }\n    .fx-tag:nth-child(6n+6) { --fx-c: var(--color-forestgreen-60); }\n    .fx-hint code { font-size: 0.8rem; }\n    .fx-cap48 { max-inline-size: 48rem; }\n  /* In a box the reader can drag, a row that does not fit scrolls inside its dashed frame: nothing pokes out of it. */\n    .fx-resize .fx-stage { overflow-x: auto; }\n  </style>"]}-->
 <section class="oc-docs-section" id="wrap">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Flex Wrap</h2>
@@ -24,14 +24,62 @@
 
           <h3 class="oc-section-content__title mt-8">The three wrap modes</h3>
 
-          <p class="oc-section-content__desc">Six fixed-width items in a narrow container. In the <code>nowrap</code> tile they refuse to shrink, so the line overflows and scrolls.</p>
+          <p class="oc-section-content__desc">Eight items of the same fixed width in a container that is too narrow for all of them. Compare where the items that do not fit end up.</p>
 
-          <oc-demo title="flex-wrap values"><div class="dm-grid" style="--dm-min:15rem">
-<div class="dm-tile"><code>.flex-nowrap</code><div class="dm-area flex flex-nowrap gap-0.3"><div class="dm-box dm-w3 flex-shrink-0 dm-h1">1</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">2</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">3</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">4</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">5</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.flex-wrap</code><div class="dm-area flex flex-wrap gap-0.3"><div class="dm-box dm-w3 flex-shrink-0 dm-h1">1</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">2</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">3</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">4</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">5</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.flex-wrap-reverse</code><div class="dm-area flex flex-wrap-reverse gap-0.3 dm-h" style="--dm-h:7rem"><div class="dm-box dm-w3 flex-shrink-0 dm-h1">1</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">2</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">3</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">4</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">5</div><div class="dm-box dm-w3 flex-shrink-0 dm-h1">6</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex flex-wrap gap-1"&gt;
-  &lt;div&gt;1&lt;/div&gt; … &lt;div&gt;6&lt;/div&gt;
+          <oc-demo title="flex-wrap values"><div class="oc-eg fx">
+<div class="fx-cap48"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-nowrap</code><div class="oc-eg__note">Everything stays on one line (the default). These items have a fixed width, so the line overflows: scroll it sideways.</div><div class="oc-eg__stage fx-stage flex flex-nowrap gap-0.5 fx-scroll" style="--fx-iw:7rem"><div class="fx-box fx-w">Item 1</div><div class="fx-box fx-w">Item 2</div><div class="fx-box fx-w">Item 3</div><div class="fx-box fx-w">Item 4</div><div class="fx-box fx-w">Item 5</div><div class="fx-box fx-w">Item 6</div><div class="fx-box fx-w">Item 7</div><div class="fx-box fx-w">Item 8</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-wrap</code><div class="oc-eg__note">Items that do not fit move to a new line below.</div><div class="oc-eg__stage fx-stage flex flex-wrap gap-0.5" style="--fx-iw:7rem"><div class="fx-box fx-w">Item 1</div><div class="fx-box fx-w">Item 2</div><div class="fx-box fx-w">Item 3</div><div class="fx-box fx-w">Item 4</div><div class="fx-box fx-w">Item 5</div><div class="fx-box fx-w">Item 6</div><div class="fx-box fx-w">Item 7</div><div class="fx-box fx-w">Item 8</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-wrap-reverse</code><div class="oc-eg__note">New lines are added above: the last items end up on top.</div><div class="oc-eg__stage fx-stage flex flex-wrap-reverse gap-0.5" style="--fx-iw:7rem"><div class="fx-box fx-w">Item 1</div><div class="fx-box fx-w">Item 2</div><div class="fx-box fx-w">Item 3</div><div class="fx-box fx-w">Item 4</div><div class="fx-box fx-w">Item 5</div><div class="fx-box fx-w">Item 6</div><div class="fx-box fx-w">Item 7</div><div class="fx-box fx-w">Item 8</div></div></div>
+</div></div>
+</div><oc-code lang="html">&lt;!-- every item is 7rem wide --&gt;
+&lt;div class="flex flex-nowrap gap-0.5 overflow-x-auto"&gt;
+  &lt;div class="w-7"&gt;Item 1&lt;/div&gt;&lt;div class="w-7"&gt;Item 2&lt;/div&gt;&lt;div class="w-7"&gt;Item 3&lt;/div&gt;&lt;div class="w-7"&gt;Item 4&lt;/div&gt;&lt;div class="w-7"&gt;Item 5&lt;/div&gt;&lt;div class="w-7"&gt;Item 6&lt;/div&gt;&lt;div class="w-7"&gt;Item 7&lt;/div&gt;&lt;div class="w-7"&gt;Item 8&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="flex flex-wrap gap-0.5"&gt;
+  &lt;div class="w-7"&gt;Item 1&lt;/div&gt;&lt;div class="w-7"&gt;Item 2&lt;/div&gt;&lt;div class="w-7"&gt;Item 3&lt;/div&gt;&lt;div class="w-7"&gt;Item 4&lt;/div&gt;&lt;div class="w-7"&gt;Item 5&lt;/div&gt;&lt;div class="w-7"&gt;Item 6&lt;/div&gt;&lt;div class="w-7"&gt;Item 7&lt;/div&gt;&lt;div class="w-7"&gt;Item 8&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="flex flex-wrap-reverse gap-0.5"&gt;
+  &lt;div class="w-7"&gt;Item 1&lt;/div&gt;&lt;div class="w-7"&gt;Item 2&lt;/div&gt;&lt;div class="w-7"&gt;Item 3&lt;/div&gt;&lt;div class="w-7"&gt;Item 4&lt;/div&gt;&lt;div class="w-7"&gt;Item 5&lt;/div&gt;&lt;div class="w-7"&gt;Item 6&lt;/div&gt;&lt;div class="w-7"&gt;Item 7&lt;/div&gt;&lt;div class="w-7"&gt;Item 8&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a row of tags</h3>
+
+          <p class="oc-section-content__desc">The feature tags of Product 1 should wrap instead of running off the card. Drag the box narrower and watch the <code>.flex-wrap</code> row add lines while the <code>.flex-nowrap</code> row only gets cut off.</p>
+
+          <oc-demo title="tags that wrap"><div class="oc-eg fx">
+<div class="fx-resize resize-x overflow-auto">
+<div class="fx-hint"><span>Drag the bottom-right corner of this box to make it narrower or wider.</span></div>
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-wrap</code><div class="oc-eg__note">Tags move to the next line.</div><div class="oc-eg__stage fx-stage flex flex-wrap gap-0.5"><span class="fx-tag">Wireless</span><span class="fx-tag">Bluetooth 5.3</span><span class="fx-tag">Noise cancelling</span><span class="fx-tag">USB-C</span><span class="fx-tag">30 h battery</span><span class="fx-tag">Foldable</span><span class="fx-tag">In stock</span><span class="fx-tag">Free shipping</span><span class="fx-tag">2-year warranty</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-nowrap</code><div class="oc-eg__note">Tags stay on one line and run out of the box.</div><div class="oc-eg__stage fx-stage flex flex-nowrap gap-0.5 fx-scroll"><span class="fx-tag">Wireless</span><span class="fx-tag">Bluetooth 5.3</span><span class="fx-tag">Noise cancelling</span><span class="fx-tag">USB-C</span><span class="fx-tag">30 h battery</span><span class="fx-tag">Foldable</span><span class="fx-tag">In stock</span><span class="fx-tag">Free shipping</span><span class="fx-tag">2-year warranty</span></div></div>
+</div>
+</div>
+</div><oc-code lang="html">&lt;!-- Wrap: the tags move to a new line --&gt;
+&lt;div class="flex flex-wrap gap-0.5"&gt;
+  &lt;span class="tag"&gt;Wireless&lt;/span&gt;
+  &lt;span class="tag"&gt;Bluetooth 5.3&lt;/span&gt;
+  &lt;span class="tag"&gt;Noise cancelling&lt;/span&gt;
+  &lt;span class="tag"&gt;USB-C&lt;/span&gt;
+  &lt;span class="tag"&gt;30 h battery&lt;/span&gt;
+  &lt;span class="tag"&gt;Foldable&lt;/span&gt;
+  &lt;span class="tag"&gt;In stock&lt;/span&gt;
+  &lt;span class="tag"&gt;Free shipping&lt;/span&gt;
+  &lt;span class="tag"&gt;2-year warranty&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- No wrap: one line that scrolls sideways --&gt;
+&lt;div class="flex flex-nowrap gap-0.5 overflow-x-auto"&gt;
+  &lt;span class="tag"&gt;Wireless&lt;/span&gt;
+  &lt;span class="tag"&gt;Bluetooth 5.3&lt;/span&gt;
+  &lt;span class="tag"&gt;Noise cancelling&lt;/span&gt;
+  &lt;span class="tag"&gt;USB-C&lt;/span&gt;
+  &lt;span class="tag"&gt;30 h battery&lt;/span&gt;
+  &lt;span class="tag"&gt;Foldable&lt;/span&gt;
+  &lt;span class="tag"&gt;In stock&lt;/span&gt;
+  &lt;span class="tag"&gt;Free shipping&lt;/span&gt;
+  &lt;span class="tag"&gt;2-year warranty&lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- .tag is your own style (padding, border, radius) --&gt;</oc-code></oc-demo>
         </div>
       </section>

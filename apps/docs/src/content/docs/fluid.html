@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Fluid values (clamp, min, max)", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Fluid values (clamp, min, max)", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n\n    /* The live value the docs script writes into each note. */\n    .fl-row output, .oc-eg__legend [data-fl-vw] { font-family: var(--oc-font-mono, monospace); font-weight: 700; color: var(--oc-foreground); }\n    .fl-bar { box-sizing: border-box; max-inline-size: 100%; min-block-size: 3rem; display: grid; align-items: center; padding: 0.5rem 1rem; border-radius: 8px; color: var(--color-white-50); font-weight: 600; }\n    .fl-plain { box-sizing: border-box; min-block-size: 3rem; display: grid; align-items: center; padding: 0.5rem 1rem; border-radius: 8px; color: var(--color-white-50); font-weight: 600; }\n    .fl-sample { margin: 0; color: var(--oc-foreground); line-height: 1.2; font-weight: 700; }\n    .fl-drag { box-sizing: border-box; container-type: inline-size; inline-size: 60%; min-inline-size: 14rem; max-inline-size: 100%; overflow: hidden; resize: horizontal; border: 2px dashed var(--color-vividblue-90); border-radius: 14px; background: var(--oc-card); color: var(--oc-foreground); }\n    .fl-card { padding: clamp(0.75rem, 4cqi, 2.5rem); }\n    .fl-card h4 { margin: 0 0 0.5rem; font-size: clamp(1.25rem, 7cqi, 3rem); line-height: 1.15; }\n    .fl-card div { font-size: 1rem; }\n    .fl-meter { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin-block-start: 1rem; }\n    .fl-meter span { padding: 0.5rem; border-radius: 8px; text-align: center; font-size: 0.85rem; background: var(--oc-muted); color: var(--oc-foreground); }\n    .fl-meter span.is-on { background: var(--color-vividblue-90); color: var(--color-white-50); font-weight: 700; }\n  </style>"]}-->
 <section class="oc-hero" id="overview">
         <h1 class="oc-hero-title">Fluid values (clamp, min, max)</h1>
         <p class="oc-hero-text">
@@ -65,15 +65,24 @@
           </tbody>
         </table>
           </div>
-        <oc-demo title="min() and max() v0.2.0">
-          
-          <div class="oc-preview flex-column gap-2 mb-2">
-          <p class="text-min">This paragraph uses <code>.text-min</code>.</p>
-          <div class="w-fluid-cap p-2">Default <code>.w-fluid-cap</code>.</div>
-          <div class="w-fluid-cap p-2" style="--w-cap-a: 40vw; --w-cap-b: 50ch">Custom min(40vw, 50ch).</div>
-          <div class="w-fluid-floor p-min">Width floor + padding cap.</div>
-        </div>
-        </oc-demo>
+        <oc-demo title="min() and max(): resize the window and watch the numbers">
+<div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key">Resize the browser window: these classes follow the window width (vw).</span><span class="oc-eg__key oc-eg__key--strong">Window: <b data-fl-vw>…</b></span></div><div class="oc-eg__panels" style="--eg-min: 40rem">
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.text-min</code><div class="oc-eg__note">font-size: max(1rem, 1.2vw), now <output data-fl-prop="font-size">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-sample text-min" data-fl-el>Order 1 for Customer 1 ships today.</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.w-fluid-cap</code><div class="oc-eg__note">width: min(90vw, 65ch), now <output data-fl-prop="width">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-bar bg-teal-70 w-fluid-cap" data-fl-el>65ch on wide screens, 90vw on phones</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.w-fluid-cap + --w-cap-*</code><div class="oc-eg__note">width: min(40vw, 50ch), now <output data-fl-prop="width">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-bar bg-slateblue-70 w-fluid-cap" style="--w-cap-a: 40vw; --w-cap-b: 50ch" data-fl-el>Custom: at most 40vw or 50ch</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.w-fluid-floor</code><div class="oc-eg__note">width: max(20rem, 50vw), now <output data-fl-prop="width">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-bar bg-chocolate-80 w-fluid-floor" data-fl-el>Never narrower than 20rem</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.p-min</code><div class="oc-eg__note">padding: min(1rem, 5vw), now <output data-fl-prop="padding-left">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-bar bg-purple-60 p-min" data-fl-el>Padding shrinks on small screens</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.p-max</code><div class="oc-eg__note">padding: max(0.5rem, 2vw), now <output data-fl-prop="padding-left">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-bar bg-forestgreen-60 p-max" data-fl-el>Padding grows on large screens</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.w-65ch</code><div class="oc-eg__note">width: 65ch, a fixed width (never wider than this box here), now <output data-fl-prop="width">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-bar bg-crimson-70 w-65ch" data-fl-el>Fixed at 65 characters</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="text-min"&gt;Order 1 for Customer 1 ships today.&lt;/p&gt;                     &lt;!-- font-size: max(1rem, 1.2vw) --&gt;
+&lt;div class="w-fluid-cap bg-teal-70"&gt;65ch on wide screens, 90vw on phones&lt;/div&gt;     &lt;!-- width: min(90vw, 65ch) --&gt;
+&lt;div class="w-fluid-cap bg-slateblue-70" style="--w-cap-a: 40vw; --w-cap-b: 50ch"&gt;Custom: at most 40vw or 50ch&lt;/div&gt;
+&lt;div class="w-fluid-floor bg-chocolate-80"&gt;Never narrower than 20rem&lt;/div&gt;        &lt;!-- width: max(20rem, 50vw) --&gt;
+&lt;div class="p-min bg-purple-60"&gt;Padding shrinks on small screens&lt;/div&gt;            &lt;!-- padding: min(1rem, 5vw) --&gt;
+&lt;div class="p-max bg-forestgreen-60"&gt;Padding grows on large screens&lt;/div&gt;         &lt;!-- padding: max(0.5rem, 2vw) --&gt;
+&lt;div class="w-65ch bg-crimson-70"&gt;Fixed at 65 characters&lt;/div&gt;                     &lt;!-- also w-50vw … --&gt;
+&lt;!-- .m-min and .m-max do the same as .p-min and .p-max, for margin --&gt;</oc-code></oc-demo>
       </div></section>
 
       <section class="oc-docs-section" id="fluid-font-size">
@@ -100,14 +109,37 @@
           </tbody>
         </table>
           </div>
-        <oc-demo title="Fluid font-size (clamp) v0.2.0">
-          
-          <div class="oc-preview flex-column gap-2 mb-2">
-          <p class="text-fluid">Body-like fluid text.</p>
-          <h3 class="oc-section-content__title">Fluid heading</h3>
-          <h3 class="oc-section-content__title">Fluid heading wide</h3>
-        </div>
-        </oc-demo>
+        <oc-demo title="Fluid font-size (clamp): resize the window">
+<div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key">Resize the browser window: these classes follow the window width (vw).</span><span class="oc-eg__key oc-eg__key--strong">Window: <b data-fl-vw>…</b></span></div><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 40rem">
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.text-fluid</code><div class="oc-eg__note">font-size: clamp(1rem, 1.2vw, 1.25rem), now <output data-fl-prop="font-size">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-sample text-fluid" data-fl-el>Body text for Product 1</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.text-fluid-heading</code><div class="oc-eg__note">font-size: clamp(1.5rem, 2.5vw, 2rem), now <output data-fl-prop="font-size">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-sample text-fluid-heading" data-fl-el>Section heading</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.text-fluid-heading-wide</code><div class="oc-eg__note">font-size: clamp(1.8rem, 7vw + 1rem, 5rem), now <output data-fl-prop="font-size">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-sample text-fluid-heading-wide" data-fl-el>Big title</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="text-fluid"&gt;Body text for Product 1&lt;/p&gt;                 &lt;!-- clamp(1rem, 1.2vw, 1.25rem) --&gt;
+&lt;h2 class="text-fluid-heading"&gt;Section heading&lt;/h2&gt;  &lt;!-- clamp(1.5rem, 2.5vw, 2rem) --&gt;
+&lt;h1 class="text-fluid-heading-wide"&gt;Big title&lt;/h1&gt;    &lt;!-- clamp(1.8rem, 7vw + 1rem, 5rem) --&gt;</oc-code></oc-demo>
+
+        <p class="oc-section-content__desc">The classes above follow the window. To see <code>clamp()</code> react without resizing the window, use container units: inside a container, <code>cqi</code> is 1% of the container width. Drag the right edge of the box and watch the heading and the padding grow until they hit their maximum.</p>
+        <oc-demo title="Drag the box: clamp() with container units (cqi)">
+          <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 40rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">clamp() + cqi</code><div class="oc-eg__note">Drag the bottom-right corner of the dashed box: the heading and the padding grow with the box until they reach their maximum.</div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-drag" data-fl-drag>
+              <div class="fl-card">
+                <h4>Product 1 for Customer 1</h4>
+                <div>Box: <b data-fl-box>…</b> · heading: <b data-fl-h>…</b> · padding: <b data-fl-p>…</b></div>
+                <div class="fl-meter"><span data-fl-s="min">minimum</span><span data-fl-s="mid">scaling</span><span data-fl-s="max">maximum</span></div>
+              </div>
+            </div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;div class="box"&gt;
+  &lt;div class="card"&gt;
+    &lt;h4&gt;Product 1 for Customer 1&lt;/h4&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- The box size, the values and the minimum / scaling / maximum meter are written by a small docs script --&gt;</oc-code>
+          <oc-code lang="css">.box  { container-type: inline-size; resize: horizontal; overflow: hidden; inline-size: 60%; min-inline-size: 14rem; max-inline-size: 100%; }
+.card { padding: clamp(0.75rem, 4cqi, 2.5rem); }
+.card h4 { font-size: clamp(1.25rem, 7cqi, 3rem); }   /* minimum below about 290px, maximum above about 690px */
+/* 1cqi = 1% of the container width, so the values follow the box, not the window */</oc-code></oc-demo>
       </div></section>
 
       <section class="oc-docs-section" id="fluid-width">
@@ -119,12 +151,13 @@
         </p>
         </div>
         <div class="oc-section-content">
-          <oc-demo title="Fluid width v0.2.0">
-          
-          <div class="oc-preview flex-column gap-2 mb-2">
-          <div class="w-fluid p-2">This block uses <code>.w-fluid</code>.</div>
-        </div>
-        </oc-demo>
+          <oc-demo title="Fluid width: w-fluid = clamp(20rem, 90vw, 65ch)">
+<div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key">Resize the browser window: these classes follow the window width (vw).</span><span class="oc-eg__key oc-eg__key--strong">Window: <b data-fl-vw>…</b></span></div><div class="oc-eg__panels" style="--eg-min: 40rem">
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.w-fluid</code><div class="oc-eg__note">width: clamp(20rem, 90vw, 65ch), now <output data-fl-prop="width">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="fl-bar bg-vividblue-90 w-fluid" data-fl-el>A readable line length: 20rem at least, 65ch at most.</div></div></div>
+<div class="oc-eg__panel fl-row"><code class="oc-eg__name">.max-w-fluid</code><div class="oc-eg__note">max-width: clamp(20rem, 90vw, 65ch), now at most, now <output data-fl-prop="max-width">…</output></div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="bg-teal-70 max-w-fluid fl-plain" data-fl-el>Full width of the box, but never wider than the clamp.</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;div class="w-fluid bg-vividblue-90"&gt;A readable line length: 20rem at least, 65ch at most.&lt;/div&gt;
+&lt;div class="max-w-fluid bg-teal-70"&gt;Full width of the box, but never wider than the clamp.&lt;/div&gt;</oc-code></oc-demo>
       </div></section>
 
       <section class="oc-docs-section" id="custom-use">
@@ -141,3 +174,30 @@
         </p>
         </div>
       </section>
+
+<script data-fl-script>
+  // Docs only: write the live computed values next to each fluid example.
+  (() => {
+    const px = (v) => Math.round(parseFloat(v)) + 'px';
+    const update = () => {
+      for (const el of document.querySelectorAll('[data-fl-vw]')) el.textContent = innerWidth + 'px';
+      for (const row of document.querySelectorAll('.fl-row')) {
+        const out = row.querySelector('[data-fl-prop]'); const el = row.querySelector('[data-fl-el]');
+        if (out && el) out.textContent = px(getComputedStyle(el).getPropertyValue(out.dataset.flProp));
+      }
+      for (const box of document.querySelectorAll('[data-fl-drag]')) {
+        const h = box.querySelector('h4'); const card = box.querySelector('.fl-card');
+        const fs = parseFloat(getComputedStyle(h).fontSize); const root = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        box.querySelector('[data-fl-box]').textContent = Math.round(box.clientWidth) + 'px';
+        box.querySelector('[data-fl-h]').textContent = px(fs);
+        box.querySelector('[data-fl-p]').textContent = px(getComputedStyle(card).paddingLeft);
+        const state = fs <= root * 1.25 + 0.5 ? 'min' : fs >= root * 3 - 0.5 ? 'max' : 'mid';
+        for (const s of box.querySelectorAll('[data-fl-s]')) s.classList.toggle('is-on', s.dataset.flS === state);
+      }
+    };
+    addEventListener('resize', update);
+    const ro = new ResizeObserver(update);
+    document.querySelectorAll('[data-fl-drag]').forEach((b) => ro.observe(b));
+    update();
+  })();
+</script>

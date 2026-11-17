@@ -45,5 +45,9 @@
 
 /* Background size */
 .bg-size-auto { background-size: auto; }
+/* Full and empty sizes: transition between them for a fill that grows (bg-size-x-0 hover:bg-size-full transition-all) */
+.bg-size-full { background-size: 100% 100%; }
+.bg-size-x-0 { background-size: 0% 100%; }
+.bg-size-y-0 { background-size: 100% 0%; }
 .bg-cover { background-size: cover; }
 .bg-contain { background-size: contain; }

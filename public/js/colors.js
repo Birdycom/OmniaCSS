@@ -212,8 +212,8 @@ function renderPalette(container, title, entries, paletteType, isLimited = false
     const shades = isBaseOnlyPalette
       ? (() => {
           const shadeClass = `bg-${colorToken}`;
-          const baseTooltip = ` title="${escapeAttr(toCardTooltip(paletteType, entry.name, { rgb: entry.rgb }))}" tabindex="0"`;
-          return `<div class="oc-palette-swatch oc-palette-swatch--has-tooltip ${shadeClass}"${baseTooltip}></div>`;
+          const baseTooltip = ` data-tooltip="${escapeAttr(toCardTooltip(paletteType, entry.name, { rgb: entry.rgb }))}" tabindex="0"`;
+          return `<div class="oc-palette-swatch oc-palette-swatch--has-tooltip oc-tooltip oc-tooltip--multiline ${shadeClass}"${baseTooltip}></div>`;
         })()
       : gradientSteps
           .map((step) => {
@@ -279,7 +279,7 @@ function renderRalGroups(container, ralGroups) {
       const colorProps = getColorProperties('ralcolors', ralNumber, colorData);
 
       output += `
-        <article class="ocd-swatch" title="${tooltip}" tabindex="0">
+        <article class="ocd-swatch oc-tooltip oc-tooltip--multiline" data-tooltip="${tooltip}" tabindex="0">
           <div class="ocd-swatch-color" style="background: ${colorProps.hex};"></div>
           <div class="ocd-swatch-meta">
             <strong>${ralNumber.toUpperCase()}</strong>
@@ -407,7 +407,7 @@ function createColors(data, typecolor) {
 
       coloroutput += `
    
-       <div class="bg-${color[0].toLowerCase()} oc-color-card p-0.5 ${textClass}" title="${tooltipText}" tabindex="0">
+       <div class="bg-${color[0].toLowerCase()} oc-color-card p-0.5 ${textClass} oc-tooltip oc-tooltip--multiline" data-tooltip="${tooltipText}" tabindex="0">
 
         <h4 data-name="${color[0].toLowerCase()}-name"> ${color[0]}</h4>`
       if (typecolor == 'ralcolors') {

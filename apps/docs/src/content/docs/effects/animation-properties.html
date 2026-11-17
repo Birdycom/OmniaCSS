@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Animation Properties & Motion Path", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Animation Properties & Motion Path","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Docs keyframes: a straight run from the start to the end of a track (the ready-made names spin/pulse/bounce/ping are not straight lines). */\n    @keyframes ap-slide { to { translate: calc(100cqi - 100%) 0; } }\n    @keyframes ap-fill { from { translate: calc((100cqi - 100%) * 0.35) 0; } to { translate: calc(100cqi - 100%) 0; } }\n    @keyframes ap-hop { 50% { translate: 0 -2.5rem; } }\n    @keyframes ap-ticker { to { translate: -50% 0; } }\n    .ap-track { container-type: inline-size; block-size: 28px; border-radius: 999px; background: var(--oc-muted); box-shadow: inset -3px 0 0 var(--oc-muted-foreground); }\n    .ap-dot { position: relative; display: block; block-size: 28px; aspect-ratio: 1; border-radius: 50%; background: var(--ap-c, var(--color-vividblue-90)); }\n    /* Play and Replay without script: checking Play starts the keyframes; each click on Replay swaps to an identical\n       copy of the keyframes, and a new animation name restarts the animation from the beginning. */\n    @keyframes ap-slide-b { to { translate: calc(100cqi - 100%) 0; } }\n    @keyframes ap-fill-b { from { translate: calc((100cqi - 100%) * 0.35) 0; } to { translate: calc(100cqi - 100%) 0; } }\n    .ap-replay { display: none; }\n    .ap-run:has(.ap-go:checked) .ap-play { display: none; }\n    .ap-run:has(.ap-go:checked) .ap-replay { display: inline-flex; }\n    .ap-run:has(.ap-go:checked) .ap-dot { animation-name: ap-slide; }\n    .ap-run:has(.ap-go:checked):has(.ap-again:checked) .ap-dot { animation-name: ap-slide-b; }\n    .ap-run:has(.ap-go:checked) .ap-dot.ap-dot--fill { animation-name: ap-fill; }\n    .ap-run:has(.ap-go:checked):has(.ap-again:checked) .ap-dot.ap-dot--fill { animation-name: ap-fill-b; }\n    .ap-run .oc-btn:has(:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n    .fx-hint { color: var(--oc-muted-foreground); }\n    /* Fill mode: a dashed ring on the track marks the first keyframe; three steps in the legend light up in time. */\n    .ap-track--fill { position: relative; }\n    .ap-track--fill::before, .ap-ring { content: \"\"; box-sizing: border-box; block-size: 28px; aspect-ratio: 1; border-radius: 50%; border: 2px dashed var(--oc-foreground); }\n    .ap-track--fill::before { position: absolute; inset-block-start: 0; inset-inline-start: calc((100cqi - 28px) * 0.35); }\n    .ap-ring { display: inline-block; block-size: 1.1rem; }\n    .ap-phase { gap: 6px; }\n    .ap-phase > span { padding: 3px 10px; border: 1px solid var(--oc-border-strong); border-radius: 999px; }\n    @keyframes ap-lit { from, to { background: var(--oc-primary); color: var(--oc-primary-foreground); border-color: var(--oc-primary); } }\n    @keyframes ap-lit-b { from, to { background: var(--oc-primary); color: var(--oc-primary-foreground); border-color: var(--oc-primary); } }\n    .ap-run:has(.ap-go:checked) .ap-phase > span:nth-child(1) { animation: ap-lit 1s linear; }\n    .ap-run:has(.ap-go:checked) .ap-phase > span:nth-child(2) { animation: ap-lit 2s linear 1s; }\n    .ap-run:has(.ap-go:checked) .ap-phase > span:nth-child(3) { animation: ap-lit 0.2s linear 3s forwards; }\n    .ap-run:has(.ap-go:checked):has(.ap-again:checked) .ap-phase > span { animation-name: ap-lit-b; }\n    .ap-run .oc-eg__panel:nth-child(7n+1) { --ap-c: var(--color-teal-70); }\n    .ap-run .oc-eg__panel:nth-child(7n+2) { --ap-c: var(--color-indigo-60); }\n    .ap-run .oc-eg__panel:nth-child(7n+3) { --ap-c: var(--color-red-70); }\n    .ap-run .oc-eg__panel:nth-child(7n+4) { --ap-c: var(--color-forestgreen-60); }\n    .ap-run .oc-eg__panel:nth-child(7n+5) { --ap-c: var(--color-vividblue-90); }\n    .ap-run .oc-eg__panel:nth-child(7n+6) { --ap-c: var(--color-purple-60); }\n    .ap-run .oc-eg__panel:nth-child(7n+7) { --ap-c: var(--color-chocolate-80); }\n    /* Tiles with a shape */\n    .ap-in { position: relative; display: grid; place-items: center; min-block-size: 9.5rem; padding: 12px; }\n    .ap-square { display: grid; place-items: center; inline-size: 5.5rem; font-size: 1.6rem; aspect-ratio: 1; border-radius: 12px; background: var(--color-teal-70); color: var(--color-white-50); font-weight: 800; }\n    .ap-ghost { position: absolute; z-index: 1; pointer-events: none; inset: 50% auto auto 50%; inline-size: 5.5rem; aspect-ratio: 1; translate: -50% -50%; border: 2px dashed var(--oc-foreground); border-radius: 12px; opacity: 0.5; z-index: 1; pointer-events: none; }\n    .ap-hopper { inline-size: 3rem; aspect-ratio: 1; border-radius: 50%; background: var(--color-indigo-60); animation-name: ap-hop; }\n    .ap-hop-ghost { position: absolute; inset: auto auto 1.25rem calc(50% - 1.5rem); inline-size: 3rem; aspect-ratio: 1; border-radius: 50%; border: 2px dashed var(--oc-foreground); opacity: 0.5; }\n    .ap-hop-ghost--x { translate: 3rem 0; }\n    .ap-in--hop { place-items: end center; padding-block-end: 1.25rem; }\n    /* Ticker that pauses on hover and focus */\n    .ap-ticker { overflow: hidden; inline-size: 100%; border-radius: 12px; background: var(--color-shallowblue-80); color: var(--color-frostblue-10); }\n    .ap-ticker:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 3px; }\n    .ap-ticker ul { display: flex; inline-size: max-content; margin: 0; padding: 14px 0; list-style: none; animation-name: ap-ticker; }\n    .ap-ticker li { padding-inline: 28px; color: var(--color-frostblue-10); white-space: nowrap; font-weight: 600; }\n    .ap-ticker:is(:hover, :focus-visible) ul { animation-play-state: paused; }\n    /* Motion path */\n    .ap-path { position: relative; inline-size: 240px; block-size: 80px; margin: 24px auto; }\n    .ap-path svg { position: absolute; inset: 0; overflow: visible; }\n    .ap-path path { fill: none; stroke: var(--oc-muted-foreground); stroke-width: 2; stroke-dasharray: 6 6; }\n    .ap-shape-box { position: relative; inline-size: 200px; block-size: 140px; }\n    /* Dashed guides that trace each offset-path shape for a 200 x 140 box. */\n    .ap-guide { position: absolute; border: 2px dashed var(--oc-muted-foreground); }\n    .ap-guide--circle { inset: 50% auto auto 50%; inline-size: 138px; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; }\n    .ap-guide--ellipse { inset: 15% 5%; border-radius: 50%; }\n    .ap-guide--inset { inset: 10%; border-radius: 1rem; }\n    .ap-traveler { position: absolute; inset: 0 auto auto 0; inline-size: 26px; block-size: 18px; background: var(--color-orange-95); clip-path: polygon(0 0, 100% 50%, 0 100%, 25% 50%); }\n    @media (prefers-reduced-motion: reduce) { .ap-ticker ul { animation: none; } }\n  .fx-in { display: grid; place-items: center; padding: 16px; }\n.fx-track { display: grid; align-content: center; padding: 14px; }\n.fx-track > * { background: var(--oc-card); }\n</style>"]}-->
 <section class="oc-docs-section" id="animation-properties">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Animation Properties &amp; Motion Path</h2>
@@ -13,19 +13,20 @@
 
         <div class="oc-section-content">
           <h3 class="oc-section-content__title" id="longhands">Animation longhands</h3>
-          <p class="oc-section-content__desc">Combine with an animation name (<code>.animate-name-*</code>) or a preset.</p>
+          <p class="oc-section-content__desc">Combine them with an animation name: <code>.animate-name-*</code> for the four built-in keyframes, or your own <code>animation-name</code>. The races below use a keyframes rule of their own that moves a dot from the start to the end of its track; every other part of the animation comes from the utility classes. Press Play above a race to start it and Replay to see it again (the buttons are checkboxes, so no script is needed). <strong>Reduced motion:</strong> OmniaCSS then shortens every animation to 0.01ms and one cycle, so the dots jump straight to the finish.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
                 <tr><td><code>.animate-duration-{75|150|300|500|700|1000|2000}</code></td><td>animation-duration: {n}ms</td></tr>
                 <tr><td><code>.animate-delay-{0|75|150|300|500|1000}</code></td><td>animation-delay: {n}ms</td></tr>
+                <tr><td><code>.animate-delay-stagger</code></td><td>animation-delay: (sibling-index() - 1) × var(--oc-stagger, 60ms)</td></tr>
                 <tr><td><code>.animate-repeat-{1|2|3|infinite}</code></td><td>animation-iteration-count</td></tr>
                 <tr><td><code>.animate-direction-{normal|reverse|alternate|alternate-reverse}</code></td><td>animation-direction</td></tr>
-                <tr><td><code>.animate-fill-{none|forwards|backwards|both}</code></td><td>animation-fill-mode</td></tr>
-                <tr><td><code>.animate-running / .animate-paused</code></td><td>animation-play-state</td></tr>
-                <tr><td><code>.animate-compose-{replace|add|accumulate}</code></td><td>animation-composition</td></tr>
-                <tr><td><code>.animate-name-{none|spin|pulse|bounce|ping}</code></td><td>animation-name</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.animate-fill-{none|forwards|backwards|both}</code></td><td>animation-fill-mode</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.animate-running</code> · <code>.animate-paused</code></td><td>animation-play-state</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.animate-compose-{replace|add|accumulate}</code></td><td>animation-composition</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.animate-name-{none|spin|pulse|bounce|ping}</code></td><td>animation-name: none / oc-spin / oc-pulse / oc-bounce / oc-ping</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -33,28 +34,151 @@
             </div>
           </div>
 
-          <oc-demo title="animate-name-spin + duration/direction">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.animate-duration-2000</span>
-                <div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-linear bg-linear-to-r from-red to-blue size-12 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.animate-direction-alternate</span>
-                <div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-direction-alternate bg-linear-to-r from-green to-yellow size-12 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.animate-paused</span>
-                <div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-paused bg-linear-to-r from-gray to-white size-12 round-3"></div>
-              </div>
-            </div>
+          <p class="oc-section-content__desc">Duration: all dots start together and run the same distance. <code>.animate-fill-forwards</code> keeps each dot at the finish when it arrives.</p>
+          <oc-demo title="animate-duration race">
+<div class="oc-eg ap-run" id="ap-duration"><div class="oc-eg__legend"><span class="oc-eg__key"><label class="oc-btn oc-btn--sm ap-play"><input type="checkbox" class="sr-only ap-go">Play</label><label class="oc-btn oc-btn--sm ap-replay"><input type="checkbox" class="sr-only ap-again">Replay</label><span class="fx-hint">All dots start together and run the same distance.</span></span></div><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-duration-300</code><div class="oc-eg__note">The dot takes 300 ms to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-300 animate-ease-in-out animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-duration-500</code><div class="oc-eg__note">The dot takes 500 ms to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-500 animate-ease-in-out animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-duration-1000</code><div class="oc-eg__note">The dot takes 1000 ms to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-in-out animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-duration-2000</code><div class="oc-eg__note">The dot takes 2000 ms to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-2000 animate-ease-in-out animate-fill-forwards"></span></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="track"&gt;&lt;span class="dot animate-duration-300 animate-ease-in-out animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-500 animate-ease-in-out animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-in-out animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-2000 animate-ease-in-out animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
 
-            
-            
-          <oc-code lang="html">&lt;div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-linear bg-linear-to-r from-red to-blue size-12 round-3"&gt;&lt;/div&gt;
-&lt;div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-direction-alternate bg-linear-to-r from-green to-yellow size-12 round-3"&gt;&lt;/div&gt;
-&lt;div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-paused bg-linear-to-r from-gray to-white size-12 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+&lt;style&gt;
+  /* Your own keyframes: move the dot to the end of its track (the track is a size container). */
+  .track { container-type: inline-size; }
+  @keyframes slide { to { translate: calc(100cqi - 100%) 0; } }
+  .dot { animation-name: slide; }
+&lt;/style&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Delay: the same one-second run, started later and later. Use <code>.animate-delay-stagger</code> to get this from the order of the siblings alone.</p>
+          <oc-demo title="animate-delay race">
+<div class="oc-eg ap-run" id="ap-delay"><div class="oc-eg__legend"><span class="oc-eg__key"><label class="oc-btn oc-btn--sm ap-play"><input type="checkbox" class="sr-only ap-go">Play</label><label class="oc-btn oc-btn--sm ap-replay"><input type="checkbox" class="sr-only ap-again">Replay</label><span class="fx-hint">The same one-second run, started later and later.</span></span></div><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-delay-0</code><div class="oc-eg__note">Starts at once and takes 1 s to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-0"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-delay-150</code><div class="oc-eg__note">Waits 150 ms, then takes 1 s to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-150"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-delay-300</code><div class="oc-eg__note">Waits 300 ms, then takes 1 s to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-300"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-delay-500</code><div class="oc-eg__note">Waits 500 ms, then takes 1 s to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-500"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-delay-1000</code><div class="oc-eg__note">Waits 1000 ms, then takes 1 s to cross.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-1000"></span></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-0"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-150"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-300"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-500"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-out animate-fill-forwards animate-delay-1000"&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  /* Your own keyframes: move the dot to the end of its track (the track is a size container). */
+  .track { container-type: inline-size; }
+  @keyframes slide { to { translate: calc(100cqi - 100%) 0; } }
+  .dot { animation-name: slide; }
+&lt;/style&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Repeat and direction: each lane runs one second per cycle. <code>.animate-repeat-2</code> and <code>-3</code> start over from the left; <code>alternate</code> runs there and back; <code>reverse</code> runs from right to left.</p>
+          <oc-demo title="animate-repeat and animate-direction">
+<div class="oc-eg ap-run" id="ap-repeat"><div class="oc-eg__legend"><span class="oc-eg__key"><label class="oc-btn oc-btn--sm ap-play"><input type="checkbox" class="sr-only ap-go">Play</label><label class="oc-btn oc-btn--sm ap-replay"><input type="checkbox" class="sr-only ap-again">Replay</label><span class="fx-hint">Each lane runs one second per cycle.</span></span></div><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-repeat-1</code><div class="oc-eg__note">Runs once.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-in-out animate-fill-forwards animate-repeat-1"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-repeat-3</code><div class="oc-eg__note">Runs three times, starting over from the left each time.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-in-out animate-fill-forwards animate-repeat-3"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-direction-reverse</code><div class="oc-eg__note">Runs twice, from the end to the start.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-in-out animate-fill-forwards animate-repeat-2 animate-direction-reverse"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-direction-alternate</code><div class="oc-eg__note">With .animate-repeat-infinite: there and back, again and again.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-in-out animate-repeat-infinite animate-direction-alternate"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-direction-alternate-reverse</code><div class="oc-eg__note">With .animate-repeat-infinite: starts at the end, back and there, again and again.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-duration-1000 animate-ease-in-out animate-repeat-infinite animate-direction-alternate-reverse"></span></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-in-out animate-fill-forwards animate-repeat-1"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-in-out animate-fill-forwards animate-repeat-3"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-in-out animate-fill-forwards animate-repeat-2 animate-direction-reverse"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-in-out animate-repeat-infinite animate-direction-alternate"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-1000 animate-ease-in-out animate-repeat-infinite animate-direction-alternate-reverse"&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  /* Your own keyframes: move the dot to the end of its track (the track is a size container). */
+  .track { container-type: inline-size; }
+  @keyframes slide { to { translate: calc(100cqi - 100%) 0; } }
+  .dot { animation-name: slide; }
+&lt;/style&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Fill mode decides where an element is <em>before</em> its animation starts (during the delay) and <em>after</em> it ends. Every dot sits at the left of its track; its keyframes start at the dashed ring and end at the finish. Each lane waits 1 s (<code>.animate-delay-1000</code>) and then runs 2 s. Press Play and watch steps 1 and 3: <code>backwards</code> and <code>both</code> jump to the ring during the wait; <code>forwards</code> and <code>both</code> stay at the finish afterwards; <code>none</code> does neither.</p>
+          <oc-demo title="animate-fill-none / forwards / backwards / both">
+<div class="oc-eg ap-run" id="ap-fill"><div class="oc-eg__legend"><span class="oc-eg__key"><label class="oc-btn oc-btn--sm ap-play"><input type="checkbox" class="sr-only ap-go">Play</label><label class="oc-btn oc-btn--sm ap-replay"><input type="checkbox" class="sr-only ap-again">Replay</label><span class="fx-hint">Watch where each dot is during step 1 and step 3.</span></span><span class="oc-eg__key ap-phase" aria-hidden="true"><span>1. Delay 1 s</span><span>2. Running 2 s</span><span>3. Finished</span></span><span class="oc-eg__key"><span class="ap-ring" aria-hidden="true"></span>Dashed ring = first keyframe (from)</span></div><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-fill-none</code><div class="oc-eg__note">Waits on its own place at the left, runs, then jumps back to the left.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track ap-track--fill"><span class="ap-dot ap-dot--fill animate-duration-2000 animate-delay-1000 animate-ease-in-out animate-fill-none"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-fill-forwards</code><div class="oc-eg__note">Waits on its own place at the left, runs, then stays at the end.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track ap-track--fill"><span class="ap-dot ap-dot--fill animate-duration-2000 animate-delay-1000 animate-ease-in-out animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-fill-backwards</code><div class="oc-eg__note">Waits on the first keyframe (the dashed ring), runs, then jumps back to the left.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track ap-track--fill"><span class="ap-dot ap-dot--fill animate-duration-2000 animate-delay-1000 animate-ease-in-out animate-fill-backwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-fill-both</code><div class="oc-eg__note">Waits on the dashed ring, runs, then stays at the end.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track ap-track--fill"><span class="ap-dot ap-dot--fill animate-duration-2000 animate-delay-1000 animate-ease-in-out animate-fill-both"></span></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="track"&gt;&lt;span class="dot animate-duration-2000 animate-delay-1000 animate-ease-in-out animate-fill-none"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-2000 animate-delay-1000 animate-ease-in-out animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-2000 animate-delay-1000 animate-ease-in-out animate-fill-backwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-duration-2000 animate-delay-1000 animate-ease-in-out animate-fill-both"&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  .track { container-type: inline-size; }
+  /* The keyframes start at 35% of the track and end at the finish. The dot itself sits at the left. */
+  @keyframes from-35 {
+    from { translate: calc((100cqi - 100%) * 0.35) 0; }
+    to   { translate: calc(100cqi - 100%) 0; }
+  }
+  .dot { animation-name: from-35; }
+&lt;/style&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">The built-in <code>oc-spin</code> keyframes with different longhands. The last tile has <code>.animate-paused</code>, so it stands still.</p>
+          <oc-demo title="animate-name-spin with longhands">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-duration-2000</code><div class="oc-eg__note">Spins once every 2 s at an even speed (with .animate-ease-linear).</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><div class="ap-square animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-linear">A</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-direction-alternate</code><div class="oc-eg__note">Turns one way, then back the other way.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><div class="ap-square animate-name-spin animate-duration-1000 animate-repeat-infinite animate-direction-alternate">A</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-ease-steps-4</code><div class="oc-eg__note">Turns a quarter turn per step.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><div class="ap-square animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-steps-4">A</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-paused</code><div class="oc-eg__note">Stands still: the animation is paused.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><div class="ap-square animate-name-spin animate-duration-1000 animate-repeat-infinite animate-paused">A</div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-linear"&gt;A&lt;/div&gt;
+&lt;div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-direction-alternate"&gt;A&lt;/div&gt;
+&lt;div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-steps-4"&gt;A&lt;/div&gt;
+&lt;div class="animate-name-spin animate-duration-1000 animate-repeat-infinite animate-paused"&gt;A&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Play state in practice: a news ticker that stops while you hover it or focus it with Tab, so it can be read. The ticker runs with <code>.animate-duration-…</code> longhands and <code>animation-play-state: paused</code> on hover and focus (what <code>.animate-paused</code> does). With reduced motion it does not move at all.</p>
+          <oc-demo title="Pause on hover and focus">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">animation-play-state: paused</code><div class="oc-eg__note">A ticker that stops while you hover it or Tab to it, so it can be read.</div><div class="oc-eg__stage oc-eg__stage--plain fx-in"><div class="ap-ticker" tabindex="0" aria-label="Latest updates, hover or focus to pause">
+              <ul class="animate-repeat-infinite animate-ease-linear" style="animation-duration: 20s;">
+                <li>Invoice 1 was paid by Customer 1</li><li>Product 1 is back in stock</li><li>Company 1 added 3 new users</li><li>Order 12 has shipped</li>
+                <li aria-hidden="true">Invoice 1 was paid by Customer 1</li><li aria-hidden="true">Product 1 is back in stock</li><li aria-hidden="true">Company 1 added 3 new users</li><li aria-hidden="true">Order 12 has shipped</li>
+              </ul>
+            </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="ticker" tabindex="0" aria-label="Latest updates, hover or focus to pause"&gt;
+  &lt;ul class="animate-repeat-infinite animate-ease-linear" style="animation-duration: 20s"&gt;
+    &lt;li&gt;Invoice 1 was paid by Customer 1&lt;/li&gt;
+    &lt;li&gt;Product 1 is back in stock&lt;/li&gt;
+    &lt;li&gt;Company 1 added 3 new users&lt;/li&gt;
+    &lt;li&gt;Order 12 has shipped&lt;/li&gt;
+    &lt;!-- the same four items again, so the loop has no gap --&gt;
+    &lt;li aria-hidden="true"&gt;Invoice 1 was paid by Customer 1&lt;/li&gt;
+    &lt;li aria-hidden="true"&gt;Product 1 is back in stock&lt;/li&gt;
+    &lt;li aria-hidden="true"&gt;Company 1 added 3 new users&lt;/li&gt;
+    &lt;li aria-hidden="true"&gt;Order 12 has shipped&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  @keyframes ticker { to { translate: -50% 0; } }
+  .ticker { overflow: hidden; }
+  .ticker ul { display: flex; inline-size: max-content; animation-name: ticker; }
+  .ticker li { padding-inline: 28px; white-space: nowrap; }
+  .ticker:is(:hover, :focus-visible) ul { animation-play-state: paused; }
+&lt;/style&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Composition: both balls have <code>.translate-x-12</code> (moved 3rem right; the dashed circle marks that spot) and run keyframes that only say "halfway, be 2.5rem up". With <code>.animate-compose-replace</code> the keyframe value replaces the 3rem, so the ball also drifts back to the left; with <code>.animate-compose-add</code> the hop is added on top and the ball stays above its spot.</p>
+          <oc-demo title="animate-compose-replace vs animate-compose-add">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-compose-replace</code><div class="oc-eg__note">The default: the 3rem shift is lost while it hops.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in ap-in--hop"><span class="ap-hop-ghost ap-hop-ghost--x"></span><div class="ap-hopper translate-x-12 animate-duration-1000 animate-repeat-infinite animate-ease-in-out animate-compose-replace"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-compose-add</code><div class="oc-eg__note">The hop is added to the 3rem shift.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in ap-in--hop"><span class="ap-hop-ghost ap-hop-ghost--x"></span><div class="ap-hopper translate-x-12 animate-duration-1000 animate-repeat-infinite animate-ease-in-out animate-compose-add"></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="ball translate-x-12 animate-duration-1000 animate-repeat-infinite animate-ease-in-out animate-compose-replace"&gt;&lt;/div&gt;
+&lt;div class="ball translate-x-12 animate-duration-1000 animate-repeat-infinite animate-ease-in-out animate-compose-add"&gt;&lt;/div&gt;
+
+&lt;style&gt;
+  @keyframes hop { 50% { translate: 0 -2.5rem; } }
+  .ball { animation-name: hop; }
+&lt;/style&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="easing">Easing functions</h3>
           <p class="oc-section-content__desc"><code>linear()</code> approximates springs and bounces with many points; <code>steps()</code> jumps between frames. <code>.animate-ease-*</code> for animations, <code>.ease-*</code> for transitions.</p>
@@ -62,7 +186,7 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.animate-ease-{linear|in|out|in-out}</code></td><td>animation-timing-function</td></tr>
+                <tr><td><code>.animate-ease-{linear|in|out|in-out}</code></td><td>animation-timing-function: linear / ease-in / ease-out / ease-in-out</td></tr>
                 <tr><td><code>.animate-ease-steps-4</code></td><td>animation-timing-function: steps(4, end)</td></tr>
                 <tr><td><code>.animate-ease-spring</code></td><td>animation-timing-function: linear(… spring curve …)</td></tr>
                 <tr><td><code>.ease-spring / .ease-bounce</code></td><td>transition-timing-function: linear(…)</td></tr>
@@ -74,37 +198,48 @@
             </div>
           </div>
 
-          <oc-demo title="animate-ease-steps-4, animate-ease-spring">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.animate-ease-steps-4</span>
-                <div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-steps-4 bg-linear-to-r from-magenta to-blue size-12 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.animate-ease-spring</span>
-                <div class="animate-name-bounce animate-duration-1000 animate-repeat-infinite animate-ease-spring bg-dodgerblue size-12 round-full"></div>
-              </div>
-            </div>
+          <p class="oc-section-content__desc">Same run of 2 seconds, different curve. <code>.animate-ease-spring</code> overshoots the finish and settles back; <code>.animate-ease-steps-4</code> jumps in four steps.</p>
+          <oc-demo title="animate-ease race">
+<div class="oc-eg ap-run" id="ap-ease"><div class="oc-eg__legend"><span class="oc-eg__key"><label class="oc-btn oc-btn--sm ap-play"><input type="checkbox" class="sr-only ap-go">Play</label><label class="oc-btn oc-btn--sm ap-replay"><input type="checkbox" class="sr-only ap-again">Replay</label><span class="fx-hint">The same two-second run, a different curve per lane.</span></span></div><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-ease-linear</code><div class="oc-eg__note">The same speed all the way.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-ease-linear animate-duration-2000 animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-ease-in</code><div class="oc-eg__note">Starts slow and ends fast.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-ease-in animate-duration-2000 animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-ease-out</code><div class="oc-eg__note">Starts fast and ends slow.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-ease-out animate-duration-2000 animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-ease-in-out</code><div class="oc-eg__note">Slow at both ends, fast in the middle.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-ease-in-out animate-duration-2000 animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-ease-spring</code><div class="oc-eg__note">Shoots past the end, then settles back.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-ease-spring animate-duration-2000 animate-fill-forwards"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.animate-ease-steps-4</code><div class="oc-eg__note">Jumps in four steps instead of gliding.</div><div class="oc-eg__stage oc-eg__stage--plain fx-track"><div class="ap-track"><span class="ap-dot animate-ease-steps-4 animate-duration-2000 animate-fill-forwards"></span></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="track"&gt;&lt;span class="dot animate-ease-linear animate-duration-2000 animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-ease-in animate-duration-2000 animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-ease-out animate-duration-2000 animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-ease-in-out animate-duration-2000 animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-ease-spring animate-duration-2000 animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class="track"&gt;&lt;span class="dot animate-ease-steps-4 animate-duration-2000 animate-fill-forwards"&gt;&lt;/span&gt;&lt;/div&gt;
 
-            
-            
-          <oc-code lang="html">&lt;div class="animate-name-spin animate-duration-2000 animate-repeat-infinite animate-ease-steps-4 bg-linear-to-r from-magenta to-blue size-12 round-3"&gt;&lt;/div&gt;
-&lt;div class="animate-name-bounce animate-duration-1000 animate-repeat-infinite animate-ease-spring bg-dodgerblue size-12 round-full"&gt;&lt;/div&gt;</oc-code></oc-demo>
+&lt;style&gt;
+  /* Your own keyframes: move the dot to the end of its track (the track is a size container). */
+  .track { container-type: inline-size; }
+  @keyframes slide { to { translate: calc(100cqi - 100%) 0; } }
+  .dot { animation-name: slide; }
+&lt;/style&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="motion-path">Motion path</h3>
-          <p class="oc-section-content__desc">Move an element along a path (<code>offset-path</code>) and set its position on that path (<code>offset-distance</code>). <code>.animate-follow-path</code> animates the distance from 0% to 100%.</p>
+          <p class="oc-section-content__desc">Move an element along a path (<code>offset-path</code>) and set its position on that path (<code>offset-distance</code>). <code>.animate-follow-path</code> animates the distance from 0% to 100% and back.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.offset-path-{none|circle|ellipse|inset|wave|ray}</code></td><td>offset-path</td></tr>
-                <tr><td><code>.offset-distance-{0|25|50|75|100}</code></td><td>offset-distance: {n}%</td></tr>
-                <tr><td><code>.offset-rotate-{auto|reverse|0}</code></td><td>offset-rotate</td></tr>
-                <tr><td><code>.offset-anchor-{center|auto}</code></td><td>offset-anchor</td></tr>
-                <tr><td><code>.offset-position-{normal|center}</code></td><td>offset-position</td></tr>
-                <tr><td><code>.offset-none</code></td><td>offset: none</td></tr>
-                <tr><td><code>.animate-follow-path</code></td><td>animation: offset-distance 0% → 100% (3s, alternate)</td></tr>
+                <tr><td><code>.offset-path-none</code></td><td>offset-path: none</td></tr>
+                <tr><td><code>.offset-path-circle</code></td><td>offset-path: circle(40% at 50% 50%)</td></tr>
+                <tr><td><code>.offset-path-ellipse</code></td><td>offset-path: ellipse(45% 35% at 50% 50%)</td></tr>
+                <tr><td><code>.offset-path-inset</code></td><td>offset-path: inset(10% round 1rem)</td></tr>
+                <tr><td><code>.offset-path-wave</code></td><td>offset-path: path("M 0 40 C 40 0, 80 80, 120 40 S 200 0, 240 40") (240 × 80px)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.offset-path-ray</code></td><td>offset-path: ray(45deg closest-side)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.offset-distance-{0|25|50|75|100}</code></td><td>offset-distance: {n}%</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.offset-rotate-{auto|reverse|0}</code></td><td>offset-rotate: auto / reverse / 0deg</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.offset-anchor-{center|auto}</code></td><td>offset-anchor</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.offset-position-{normal|center}</code></td><td>offset-position</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.offset-none</code></td><td>offset: none</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.animate-follow-path</code></td><td>animation: oc-follow-path 3s ease-in-out infinite alternate (offset-distance 0% → 100%)</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -112,17 +247,32 @@
             </div>
           </div>
 
-          <oc-demo title="offset-path-wave + animate-follow-path">
-            
-            <div class="relative w-16 h-8 round-3 p-1 border-1 border-dashed border-stormblue-100">
-              <div class="absolute top-0 left-0 offset-path-wave offset-rotate-auto animate-follow-path size-4 round-full bg-dodgerblue"></div>
-            </div>
+          <p class="oc-section-content__desc">The orange arrow follows each dashed path. <code>.offset-rotate-auto</code> turns it along the direction of travel. The wave path has a fixed size of 240 × 80 pixels; the circle, ellipse and inset shapes scale with their box.</p>
+          <oc-demo title="offset-path + animate-follow-path">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.offset-path-wave</code><div class="oc-eg__note">The arrow follows a wave drawn as a path.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><div class="ap-path"><svg viewBox="0 0 240 80" aria-hidden="true"><path d="M 0 40 C 40 0, 80 80, 120 40 S 200 0, 240 40"/></svg><span class="ap-traveler offset-path-wave offset-rotate-auto offset-anchor-center animate-follow-path"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.offset-path-circle</code><div class="oc-eg__note">The arrow goes round a circle.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><div class="ap-shape-box"><span class="ap-guide ap-guide--circle"></span><span class="ap-traveler offset-path-circle offset-rotate-auto offset-anchor-center animate-follow-path"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.offset-path-ellipse</code><div class="oc-eg__note">The arrow goes round an ellipse.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><div class="ap-shape-box"><span class="ap-guide ap-guide--ellipse"></span><span class="ap-traveler offset-path-ellipse offset-rotate-auto offset-anchor-center animate-follow-path"></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.offset-path-inset</code><div class="oc-eg__note">The arrow goes round a rectangle with rounded corners.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><div class="ap-shape-box"><span class="ap-guide ap-guide--inset"></span><span class="ap-traveler offset-path-inset offset-rotate-auto offset-anchor-center animate-follow-path"></span></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- The wave path is 240 x 80 px; the other shapes scale with their box --&gt;
+&lt;div class="relative" style="inline-size: 240px; block-size: 80px"&gt;
+  &lt;span class="arrow absolute top-0 left-0 offset-path-wave offset-rotate-auto offset-anchor-center animate-follow-path"&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="relative" style="inline-size: 200px; block-size: 140px"&gt;
+  &lt;span class="arrow absolute top-0 left-0 offset-path-circle offset-rotate-auto offset-anchor-center animate-follow-path"&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="relative" style="inline-size: 200px; block-size: 140px"&gt;
+  &lt;span class="arrow absolute top-0 left-0 offset-path-ellipse offset-rotate-auto offset-anchor-center animate-follow-path"&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="relative" style="inline-size: 200px; block-size: 140px"&gt;
+  &lt;span class="arrow absolute top-0 left-0 offset-path-inset offset-rotate-auto offset-anchor-center animate-follow-path"&gt;&lt;/span&gt;
+&lt;/div&gt;
 
-            
-            
-          <oc-code lang="html">&lt;div class="relative w-16 h-8"&gt;
-  &lt;div class="absolute top-0 left-0 offset-path-wave offset-rotate-auto animate-follow-path size-4 round-full"&gt;&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+&lt;style&gt;
+  /* The arrow shape (decoration only) */
+  .arrow { inline-size: 26px; block-size: 18px; background: var(--color-orange-95); clip-path: polygon(0 0, 100% 50%, 0 100%, 25% 50%); }
+&lt;/style&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="rotate">Rotate property &amp; transform-box</h3>
           <p class="oc-section-content__desc">The individual <code>rotate</code> property works independently of <code>transform</code>, so it does not overwrite translate/scale utilities. <code>transform-box</code> sets the reference box for <code>transform-origin</code> (useful in SVG).</p>
@@ -130,9 +280,9 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.rotate-prop-{0|45|90|180|n45|n90}</code></td><td>rotate: {n}deg</td></tr>
+                <tr><td><code>.rotate-prop-{0|45|90|180|n45|n90}</code></td><td>rotate: {n}deg (n = negative)</td></tr>
                 <tr><td><code>.rotate-prop-x-180 / .rotate-prop-y-180</code></td><td>rotate: x 180deg | y 180deg</td></tr>
-                <tr><td><code>.transform-box-{content|border|fill|stroke|view}</code></td><td>transform-box</td></tr>
+                <tr><td><code>.transform-box-{content|border|fill|stroke|view}</code></td><td>transform-box: content-box / border-box / fill-box / stroke-box / view-box</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -140,23 +290,18 @@
             </div>
           </div>
 
-          <oc-demo title="rotate-prop-45, rotate-prop-y-180">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.rotate-prop-45</span>
-                <div class="rotate-prop-45 bg-linear-to-r from-orange to-red size-12 round-3"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.rotate-prop-n90</span>
-                <div class="rotate-prop-n90 bg-linear-to-r from-teal to-blue size-12 round-3"></div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="rotate-prop-45 bg-linear-to-r from-orange to-red size-12 round-3"&gt;&lt;/div&gt;
-&lt;div class="rotate-prop-n90 bg-linear-to-r from-teal to-blue size-12 round-3"&gt;&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The dashed outline is the box before rotation. The letter shows the turn: with <code>.rotate-prop-x-180</code> it is flipped upside down, with <code>.rotate-prop-y-180</code> mirrored.</p>
+          <oc-demo title="rotate-prop-45, n90, x-180, y-180">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-prop-45</code><div class="oc-eg__note">Turned 45 degrees with the rotate property.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><span class="ap-ghost"></span><div class="ap-square rotate-prop-45">R</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-prop-n90</code><div class="oc-eg__note">Turned -90 degrees: a quarter turn back.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><span class="ap-ghost"></span><div class="ap-square rotate-prop-n90">R</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-prop-x-180</code><div class="oc-eg__note">Flipped upside down around the x axis.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><span class="ap-ghost"></span><div class="ap-square rotate-prop-x-180">R</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-prop-y-180</code><div class="oc-eg__note">Mirrored around the y axis.</div><div class="oc-eg__stage oc-eg__stage--plain ap-in"><span class="ap-ghost"></span><div class="ap-square rotate-prop-y-180">R</div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="rotate-prop-45"&gt;R&lt;/div&gt;
+&lt;div class="rotate-prop-n90"&gt;R&lt;/div&gt;
+&lt;div class="rotate-prop-x-180"&gt;R&lt;/div&gt;
+&lt;div class="rotate-prop-y-180"&gt;R&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="timeline-longhands">Timeline longhands</h3>
           <p class="oc-section-content__desc">Longhands of the scroll-driven animation shorthands on the <a href="../scroll-animations/">Scroll animations</a> page.</p>
@@ -210,9 +355,9 @@
             <h3 class="oc-section-content__title">Related pages</h3>
             <p class="oc-section-content__desc">
               <a class="source-link" href="animations.html">Animations</a>
-               · 
+               ·
               <a class="source-link" href="transitions.html">Transitions</a>
-               · 
+               ·
               <a class="source-link" href="../scroll-animations/">Scroll animations</a>
             </p>
           </div>

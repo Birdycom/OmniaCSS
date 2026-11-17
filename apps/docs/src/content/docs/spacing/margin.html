@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Margin", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Margin","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Spacing visualisations: one calm element color (blue) plus one hatched tone per kind of space:\n       green = padding, orange = margin, purple = gap. Same convention as the browser DevTools box model. */\n    .sp {\n      --sp-el: light-dark(var(--color-vividblue-95), var(--color-vividblue-90));\n      --sp-el-fg: var(--color-white-50);\n      --sp-pad-1: light-dark(color-mix(in oklch, var(--color-green-20) 20%, var(--color-white-50)), oklch(from var(--color-green-80) 0.26 0.06 h));\n      --sp-pad-2: light-dark(color-mix(in oklch, var(--color-green-20) 50%, var(--color-white-50)), oklch(from var(--color-green-80) 0.35 0.10 h));\n      --sp-pad-edge: light-dark(var(--color-green-60), var(--color-green-20));\n      --sp-mar-1: light-dark(color-mix(in oklch, var(--color-orange-50) 25%, var(--color-white-50)), oklch(from var(--color-orange-90) 0.27 0.05 h));\n      --sp-mar-2: light-dark(color-mix(in oklch, var(--color-orange-50) 62%, var(--color-white-50)), oklch(from var(--color-orange-90) 0.37 0.08 h));\n      --sp-mar-edge: light-dark(var(--color-orange-90), var(--color-orange-50));\n      --sp-gap-1: light-dark(color-mix(in oklch, var(--color-mediumpurple-60) 14%, var(--color-white-50)), oklch(from var(--color-mediumpurple-60) 0.26 0.06 h));\n      --sp-gap-2: light-dark(color-mix(in oklch, var(--color-mediumpurple-60) 38%, var(--color-white-50)), oklch(from var(--color-mediumpurple-60) 0.36 0.10 h));\n      --sp-gap-edge: light-dark(var(--color-mediumpurple-60), var(--color-mediumpurple-60));\n      }\n    .sp-hatch-mar { background: repeating-linear-gradient(135deg, var(--sp-mar-2) 0 6px, var(--sp-mar-1) 6px 12px); }\n    .sp-hatch-gap { background: repeating-linear-gradient(45deg, var(--sp-gap-2) 0 6px, var(--sp-gap-1) 6px 12px); }\n\n    /* Legend chips (inside the kit legend) */\n    .sp-chip { inline-size: 1.75rem; block-size: 1.15rem; border-radius: 4px; flex: none; }\n    .sp-chip--mar { border: 2px dashed var(--sp-mar-edge); }\n    .sp-chip--gap { border: 2px solid var(--sp-gap-edge); }\n    .sp-chip--el { background: var(--sp-el); }\n\n    /* Inside of a kit stage: a little room around the box; .sp-tight for the narrow 4-up panels */\n    .sp-stage { display: grid; padding: 0.75rem; }\n    .sp-tight .sp-content, .sp-tight .sp-mel { min-inline-size: 0; overflow: hidden; padding-inline: 0.25rem; font-size: 0.95rem; }\n\n    /* Margin track: the hatched track shows through wherever the element is not: that is its margin */\n    .sp-track { position: relative; }\n    :where(.sp-track) { display: flow-root; }\n    .sp-track { border: 2px dashed var(--sp-mar-edge); border-radius: 10px; }\n    .sp-track--grid { display: grid; min-block-size: 10rem; }\n    .sp-track--flex { display: flex; align-items: center; }\n    .sp-track--gap { border-color: var(--sp-gap-edge); border-style: solid; }\n    :where(.sp-track--gap) { display: flex; flex-direction: column; }\n    .sp-mel { position: relative; display: grid; place-items: center; min-block-size: 3.5rem; padding: 0.5rem 1rem; border-radius: 8px; background: var(--sp-el); color: var(--sp-el-fg); font-size: 1rem; font-weight: 700; text-align: center; }\n    .sp-mel--sm { min-block-size: 2.75rem; }\n\n    /* Measure labels drawn on top of a band */\n    .sp-mark { position: absolute; display: grid; place-items: center; pointer-events: none; }\n    .sp-mark > span, .sp-mel[data-gap]::after { padding: 0.15rem 0.45rem; border-radius: 5px; background: var(--oc-card); color: var(--oc-foreground); font: 700 0.8rem/1.2 var(--oc-font-mono); white-space: nowrap; box-shadow: 0 0 0 1px var(--oc-border); }\n    .sp-mark--t { inset: 0 0 auto 0; block-size: var(--sp-m); }\n    .sp-mark--b { inset: auto 0 0 0; block-size: var(--sp-m); }\n    .sp-mark--l { inset: 0 auto 0 0; inline-size: var(--sp-m); }\n    .sp-mark--r { inset: 0 0 0 auto; inline-size: var(--sp-m); }\n    .sp-mel[data-gap]::after { content: attr(data-gap); position: absolute; inset-inline: 0; inset-block-start: calc(100% + var(--sp-g) / 2); translate: 0 -50%; justify-self: center; inline-size: max-content; margin-inline: auto; }\n\n  </style>"]}-->
 <section class="oc-docs-section" id="margin">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Margin</h2>
@@ -15,12 +15,15 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class Group</th><th>Values</th></tr></thead>
               <tbody>
-                <tr><td><code>.m-{n}</code></td><td>0, 1 (1rem), 2, 4, 8, 10</td></tr>
-                <tr><td><code>.mt-{n}</code></td><td>margin-top</td></tr>
-                <tr><td><code>.mb-{n}</code></td><td>margin-bottom</td></tr>
-                <tr><td><code>.mh-{n}</code></td><td>horizontal (left &amp; right)</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.mv-{n}</code></td><td>vertical (top &amp; bottom)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.m-auto</code></td><td>auto centering</td></tr>
+                <tr><td><code>.m-{n}</code></td><td>All four sides. <code>{n}</code> is the spacing scale: <code>0</code>, <code>px</code>, <code>0.1</code> … <code>10</code> in rem (<code>m-1</code> = 1rem = 16px). See <a href="index.html#scale">the spacing scale</a>.</td></tr>
+                <tr><td><code>.mt-{n}</code> <code>.mr-{n}</code> <code>.mb-{n}</code> <code>.ml-{n}</code></td><td>One side: top, right, bottom, left</td></tr>
+                <tr><td><code>.mh-{n}</code></td><td>Horizontal (left &amp; right)</td></tr>
+                <tr><td><code>.mv-{n}</code></td><td>Vertical (top &amp; bottom)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.m-auto</code> <code>.mh-auto</code> <code>.mv-auto</code></td><td>Auto margins: center a block, or take up the free space</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.mt-auto</code> <code>.mr-auto</code> <code>.mb-auto</code> <code>.ml-auto</code></td><td>Auto on one side: push the element away (to the bottom, left, top, right)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.m-inline-{n}</code> <code>.m-inline-start-{n}</code> <code>.m-inline-end-{n}</code></td><td>Logical: follows the reading direction (<code>margin-inline-*</code>), also with <code>-auto</code></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.m-block-{n}</code> <code>.m-block-start-{n}</code> <code>.m-block-end-{n}</code></td><td>Logical: top / bottom in horizontal writing (<code>margin-block-*</code>)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td>Negative margins</td><td>No classes: write them in your own CSS, for example <code>margin-top: -1rem</code></td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -28,60 +31,120 @@
             </div>
           </div>
 
-                    <h3 class="oc-section-content__title" id="box-model">Margin — what it does (box model)</h3>
-          <p class="oc-section-content__desc">Margin is the space <strong>outside</strong> the border: it pushes the element away from its neighbours and parent. The striped orange area is the margin, exactly like the box-model diagram in the browser DevTools.</p>
-          <oc-demo title="Margin — what it does (box model)">
-            <div class="grid gap-2 w-full">
-            <ul class="oc-boxmodel-legend"><li style="--swatch: var(--color-orange-50)">margin (outside the border)</li><li style="--swatch: var(--color-yellow-80)">border</li><li style="--swatch: var(--color-green-2)">padding (inside the border)</li><li style="--swatch: var(--color-skycyan-50)">content</li></ul>
-            <div class="oc-boxmodel-grid">
-              <div class="oc-boxmodel-card"><code>.m-0</code><div class="oc-boxmodel"><div class="oc-boxmodel__el m-0"><span>content</span></div></div><span class="oc-demo-hint">no margin: the element touches the wrapper</span></div>
-              <div class="oc-boxmodel-card"><code>.m-0.5</code><div class="oc-boxmodel"><div class="oc-boxmodel__el m-0.5"><span>content</span></div></div><span class="oc-demo-hint">0.5rem on all four sides</span></div>
-              <div class="oc-boxmodel-card"><code>.m-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el m-1"><span>content</span></div></div><span class="oc-demo-hint">1rem on all sides</span></div>
-              <div class="oc-boxmodel-card"><code>.mt-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el mt-1"><span>content</span></div></div><span class="oc-demo-hint">1rem on top only</span></div>
-              <div class="oc-boxmodel-card"><code>.mh-2</code><div class="oc-boxmodel"><div class="oc-boxmodel__el mh-2"><span>content</span></div></div><span class="oc-demo-hint">2rem left and right</span></div>
-              <div class="oc-boxmodel-card"><code>.mv-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el mv-1"><span>content</span></div></div><span class="oc-demo-hint">1rem top and bottom</span></div>
+          <h3 class="oc-section-content__title" id="box-model">Margin — what it does</h3>
+          <p class="oc-section-content__desc">Margin is the space <strong>outside</strong> the element. It pushes the element away from its container and its neighbours, and it never gets the element's background. The blue element has <code>m-3</code>: the orange band between it and the dashed container is 3rem (48px) on every side.</p>
+          <oc-demo title="Margin — what it does">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--mar sp-hatch-mar" aria-hidden="true"></span>margin (outside the element)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>the element</span></div>
+              <div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.m-3</code><div class="oc-eg__note">The orange band between the element and the dashed container is its 3rem margin, on every side.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-hatch-mar"><div class="sp-mel m-3" style="min-block-size: 8rem">element</div><span class="sp-mark sp-mark--t" style="--sp-m:3rem"><span>margin 3rem</span></span><span class="sp-mark sp-mark--b" style="--sp-m:3rem"><span>margin 3rem</span></span><span class="sp-mark sp-mark--l" style="--sp-m:3rem"><span>3rem</span></span><span class="sp-mark sp-mark--r" style="--sp-m:3rem"><span>3rem</span></span></div></div></div></div>
             </div>
-            </div>
-          <oc-code lang="html">&lt;div class="m-1"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;div class="m-3"&gt;element&lt;/div&gt;</oc-code></oc-demo>
 
-          <p class="oc-section-content__desc"><strong>What it does:</strong> margin sets the space <em>outside</em> an element's border. It pushes neighbours away and never gets the element's background. <strong>When to use:</strong> spacing between siblings, centering a block with <code>.m-auto</code>, nudging a single element. For spacing between many children, <code>gap</code> on a flex or grid parent is usually cleaner. <strong>Gotchas:</strong> vertical margins of adjacent blocks <em>collapse</em> (the larger one wins instead of adding up), margins of a first/last child can leak through a parent without padding or border, and <code>auto</code> only centers when the element has a width. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin" target="_blank" rel="noopener">MDN: margin</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_box_model/Mastering_margin_collapsing" target="_blank" rel="noopener">margin collapsing</a>.</p>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> margin sets the space <em>outside</em> an element's border. It pushes neighbours away and never gets the element's background. <strong>When to use:</strong> spacing between siblings, centering a block with <code>.mh-auto</code>, nudging a single element. For spacing between many children, <code>gap</code> on a flex or grid parent is usually cleaner. <strong>Gotchas:</strong> vertical margins of adjacent blocks <em>collapse</em> (the larger one wins instead of adding up), margins of a first/last child can leak through a parent without padding or border, and <code>auto</code> only centers when the element has a width. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin" target="_blank" rel="noopener">MDN: margin</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_box_model/Mastering_margin_collapsing" target="_blank" rel="noopener">margin collapsing</a>.</p>
 
           <h3 class="oc-section-content__title mt-8" id="margin-sizes">Margin sizes at a glance</h3>
-          <p class="oc-section-content__desc">The orange area grows with the class. Nothing else changes: the element itself keeps its size.</p>
-          <oc-demo title="m-1, m-2, m-4 (all sides)">
-            <div class="grid gap-2 w-full">
-            <ul class="oc-boxmodel-legend"><li style="--swatch: var(--color-orange-50)">margin</li><li style="--swatch: var(--color-yellow-80)">border</li><li style="--swatch: var(--color-green-2)">padding</li><li style="--swatch: var(--color-skycyan-50)">content</li></ul>
-            <div class="oc-boxmodel-grid">
-              <div class="oc-boxmodel-card"><code>.m-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el m-1"><span>content</span></div></div><span class="oc-demo-hint">1rem</span></div>
-              <div class="oc-boxmodel-card"><code>.m-2</code><div class="oc-boxmodel"><div class="oc-boxmodel__el m-2"><span>content</span></div></div><span class="oc-demo-hint">2rem</span></div>
-              <div class="oc-boxmodel-card"><code>.m-4</code><div class="oc-boxmodel"><div class="oc-boxmodel__el m-4"><span>content</span></div></div><span class="oc-demo-hint">4rem: the element shrinks into the wrapper</span></div>
+          <p class="oc-section-content__desc">Every container is the same size. The orange band grows with the class and leaves less room for the blue element.</p>
+          <oc-demo title="m-0, m-1, m-2, m-3 (all sides)">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--mar sp-hatch-mar" aria-hidden="true"></span>margin (outside the element)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>the element</span></div>
+              <div class="oc-eg__panels" style="--eg-min: 16rem">
+                <div class="oc-eg__panel"><code class="oc-eg__name">.m-0</code><div class="oc-eg__note">No margin: the element fills its container.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp-tight"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel m-0">element</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.m-1</code><div class="oc-eg__note">1rem · 16px. The everyday size.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp-tight"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel m-1">element</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.m-2</code><div class="oc-eg__note">2rem · 32px. A clear gap on every side.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp-tight"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel m-2">element</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.m-3</code><div class="oc-eg__note">3rem · 48px. Large: the element shrinks a lot.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp-tight"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel m-3">element</div></div></div></div>
+              </div>
             </div>
-            </div>
-          <oc-code lang="html">&lt;div class="m-1"&gt;…&lt;/div&gt;
-&lt;div class="m-2"&gt;…&lt;/div&gt;
-&lt;div class="m-4"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;div class="m-0"&gt;element&lt;/div&gt;
+&lt;div class="m-1"&gt;element&lt;/div&gt;
+&lt;div class="m-2"&gt;element&lt;/div&gt;
+&lt;div class="m-3"&gt;element&lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8" id="margin-auto">Centering with auto</h3>
-          <p class="oc-section-content__desc"><code>.m-auto</code> and <code>.mh-auto</code> split the free inline space equally on both sides. The element needs a width smaller than its container, otherwise there is no free space to share.</p>
-          <oc-demo title="mh-auto on a fixed-width element">
-            <div class="grid gap-2 w-full">
-            <div class="oc-boxmodel-grid">
-              <div class="oc-boxmodel-card"><code>.mh-auto + width: 8rem</code><div class="oc-boxmodel"><div class="oc-boxmodel__el mh-auto" style="inline-size: 8rem"><span>content</span></div></div><span class="oc-demo-hint">equal orange area left and right</span></div>
-              <div class="oc-boxmodel-card"><code>no width</code><div class="oc-boxmodel"><div class="oc-boxmodel__el mh-auto"><span>content</span></div></div><span class="oc-demo-hint">block fills the container: nothing to center</span></div>
+          <h3 class="oc-section-content__title mt-8" id="margin-sides">One axis, one side</h3>
+          <p class="oc-section-content__desc"><code>.mh-*</code> adds margin left and right, <code>.mv-*</code> top and bottom, and <code>.mt-*</code>, <code>.mr-*</code>, <code>.mb-*</code>, <code>.ml-*</code> one side. The orange band shows on which side the element is pushed away.</p>
+          <oc-demo title="mt-2, mr-2, mb-2, ml-2, mh-2, mv-2">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--mar sp-hatch-mar" aria-hidden="true"></span>margin (outside the element)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>the element</span></div>
+              <div class="oc-eg__panels" style="--eg-min: 14rem">
+                <div class="oc-eg__panel"><code class="oc-eg__name">.mt-2</code><div class="oc-eg__note">2rem · 32px. Top only: pushed down.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel mt-2">element</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.mr-2</code><div class="oc-eg__note">2rem · 32px. Right only: room on the right.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel mr-2">element</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.mb-2</code><div class="oc-eg__note">2rem · 32px. Bottom only: room below.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel mb-2">element</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.ml-2</code><div class="oc-eg__note">2rem · 32px. Left only: pushed right.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel ml-2">element</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.mh-2</code><div class="oc-eg__note">2rem · 32px. Left and right (horizontal).</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel mh-2">element</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.mv-2</code><div class="oc-eg__note">2rem · 32px. Top and bottom (vertical).</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel mv-2">element</div></div></div></div>
+              </div>
             </div>
+          <oc-code lang="html">&lt;div class="mt-2"&gt;element&lt;/div&gt;
+&lt;div class="mr-2"&gt;element&lt;/div&gt;
+&lt;div class="mb-2"&gt;element&lt;/div&gt;
+&lt;div class="ml-2"&gt;element&lt;/div&gt;
+&lt;div class="mh-2"&gt;element&lt;/div&gt;
+&lt;div class="mv-2"&gt;element&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="margin-auto">Auto margins: center and push</h3>
+          <p class="oc-section-content__desc"><code>auto</code> takes all the free space. Two equal auto margins center an element; one auto margin pushes it to the other side. The orange area is exactly the auto margin. A block needs a width smaller than its container, otherwise there is nothing to share.</p>
+          <oc-demo title="mh-auto, ml-auto and m-auto">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--mar sp-hatch-mar" aria-hidden="true"></span>margin (outside the element)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>the element</span></div>
+              <div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 100%">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.mh-auto</code><div class="oc-eg__note">On a block with a width, the free space is split equally left and right.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-hatch-mar"><div class="sp-mel mh-auto" style="inline-size: 16rem; max-inline-size: 70%">centered</div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.ml-auto</code><div class="oc-eg__note">In a flex row, the left margin of "Sign in" eats all the free space and pushes it to the right. The usual header trick.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--flex sp-hatch-mar"><div class="sp-mel sp-mel--sm">Company 1</div><div class="sp-mel sp-mel--sm ml-auto">Sign in</div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.m-auto</code><div class="oc-eg__note">Inside a grid or flex parent, auto margins also work up and down: the element sits in the middle.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--grid sp-hatch-mar"><div class="sp-mel m-auto">centered both ways</div></div></div></div>
+              </div>
             </div>
-          <oc-code lang="html">&lt;div class="mh-auto" style="inline-size: 8rem"&gt;Centered&lt;/div&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;div class="mh-auto" style="inline-size: 16rem"&gt;centered&lt;/div&gt;
+
+&lt;nav class="flex"&gt;
+  &lt;a&gt;Company 1&lt;/a&gt;
+  &lt;a class="ml-auto"&gt;Sign in&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;div class="grid" style="min-block-size: 10rem"&gt;
+  &lt;div class="m-auto"&gt;centered both ways&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="margin-stack">Space between stacked items</h3>
+          <p class="oc-section-content__desc">A margin on each item spaces a list, but the last item keeps its margin too. <code>gap</code> on the parent puts space <em>only between</em> the items, which is usually what you want. Gap has its own utilities on the <a href="../flex-grid/gap.html">Gap page</a>.</p>
+          <oc-demo title="mb-1 on each item vs gap-1 on the parent">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--mar sp-hatch-mar" aria-hidden="true"></span>margin</span><span class="oc-eg__key"><span class="sp-chip sp-chip--gap sp-hatch-gap" aria-hidden="true"></span>gap</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>the items</span></div>
+              <div class="oc-eg__panels" style="--eg-min: 18rem">
+                <div class="oc-eg__panel"><code class="oc-eg__name">.mb-1</code><div class="oc-eg__note">On every item: 1rem between the items, and an extra 1rem after the last one.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-hatch-mar" style="align-self: start"><div class="sp-mel sp-mel--sm mb-1">Item 1</div><div class="sp-mel sp-mel--sm mb-1">Item 2</div><div class="sp-mel sp-mel--sm mb-1">Item 3</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-col .gap-1</code><div class="oc-eg__note">On the parent: 1rem between the items only. Nothing at the edges.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-track--gap sp-hatch-gap gap-1" style="align-self: start"><div class="sp-mel sp-mel--sm">Item 1</div><div class="sp-mel sp-mel--sm">Item 2</div><div class="sp-mel sp-mel--sm">Item 3</div></div></div></div>
+              </div>
+            </div>
+          <oc-code lang="html">&lt;!-- margin on each item --&gt;
+&lt;div&gt;
+  &lt;div class="mb-1"&gt;Item 1&lt;/div&gt;
+  &lt;div class="mb-1"&gt;Item 2&lt;/div&gt;
+  &lt;div class="mb-1"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- gap on the parent --&gt;
+&lt;div class="flex flex-col gap-1"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8" id="margin-collapse">Gotcha: vertical margins collapse</h3>
-          <p class="oc-section-content__desc">The top box has <code>.mb-2</code> (2rem) and the bottom box has <code>.mt-1</code> (1rem). You might expect a 3rem gap, but adjacent vertical margins merge into the larger one: the gap is 2rem. Horizontal margins and flex/grid items never collapse.</p>
-          <oc-demo title="mb-2 + mt-1 = 2rem gap, not 3rem">
-            <div class="grid gap-2 w-full">
-            <div class="oc-boxmodel-grid">
-              <div class="oc-boxmodel-card"><code>.mb-2 above .mt-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el mb-2"><span>first</span></div><div class="oc-boxmodel__el mt-1"><span>second</span></div></div><span class="oc-demo-hint">one 2rem orange band between the boxes</span></div>
+          <p class="oc-section-content__desc">The first box has <code>mb-2</code> (2rem) and the second has <code>mt-1</code> (1rem). In normal block flow the two margins merge and the larger one wins: the gap is 2rem, not 3rem. In a flex or grid parent margins never collapse, so there they add up to 3rem.</p>
+          <oc-demo title="mb-2 + mt-1: 2rem in block flow, 3rem in flex">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--mar sp-hatch-mar" aria-hidden="true"></span>margin (outside the element)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>the element</span></div>
+              <div class="oc-eg__panels" style="--eg-min: 18rem">
+                <div class="oc-eg__panel"><code class="oc-eg__name">block parent</code><div class="oc-eg__note">The margins overlap: max(2rem, 1rem) = 2rem.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-hatch-mar" style="align-self: start"><div class="sp-mel sp-mel--sm mb-2" data-gap="2rem" style="--sp-g: 2rem">first · mb-2</div><div class="sp-mel sp-mel--sm mt-1">second · mt-1</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-col parent</code><div class="oc-eg__note">No collapsing: 2rem + 1rem = 3rem.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-hatch-mar flex flex-col" style="align-self: start"><div class="sp-mel sp-mel--sm mb-2" data-gap="3rem" style="--sp-g: 3rem">first · mb-2</div><div class="sp-mel sp-mel--sm mt-1">second · mt-1</div></div></div></div>
+              </div>
             </div>
-            </div>
-          <oc-code lang="html">&lt;div class="mb-2"&gt;first&lt;/div&gt;
-&lt;div class="mt-1"&gt;second&lt;/div&gt; &lt;!-- gap = max(2rem, 1rem) --&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;div&gt;
+  &lt;div class="mb-2"&gt;first&lt;/div&gt;
+  &lt;div class="mt-1"&gt;second&lt;/div&gt;  &lt;!-- gap = max(2rem, 1rem) = 2rem --&gt;
+&lt;/div&gt;
+
+&lt;div class="flex flex-col"&gt;
+  &lt;div class="mb-2"&gt;first&lt;/div&gt;
+  &lt;div class="mt-1"&gt;second&lt;/div&gt;  &lt;!-- gap = 2rem + 1rem = 3rem --&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
         </div>
       </section>

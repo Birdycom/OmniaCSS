@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Fragmentation", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Fragmentation","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (break-before: column) { .sup-note--colbreak { display: none; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="fragmentation">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Fragmentation</h2>
@@ -73,20 +73,31 @@
             </div>
           </div>
 
-          <oc-demo title="cols-2 + break-inside-avoid">
-            
-            <div class="cols-2 gap-1 round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
-              <div class="break-inside-avoid mb-1 p-1 round-2 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">Card 1 — never split across columns.</div>
-              <div class="break-inside-avoid mb-1 p-1 round-2 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30">Card 2 — OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</div>
-              <div class="break-inside-avoid mb-1 p-1 round-2 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30">Card 3 — never split across columns.</div>
-            </div>
+          <oc-demo title="break-inside-auto, break-inside-avoid"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.break-inside-auto</code><div class="oc-eg__note">The default: Card 2 is cut in two, half at the bottom of the first column and half at the top of the second.</div><div class="oc-eg__stage oc-eg__stage--plain cols-2 gap-1 p-1 font-1"><div class="break-inside-auto mb-1 p-1 round-2 bg-vividblue-90 text-white">Card 1: a short card.</div><div class="break-inside-auto mb-1 p-1 round-2 bg-forestgreen-60 text-white">Card 2: a longer card. Customer 1 ordered Product 1 on Monday. Company 1 packed it on Tuesday and the parcel arrived on Thursday.</div><div class="break-inside-auto mb-1 p-1 round-2 bg-orange-95 text-white">Card 3: a short card.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.break-inside-avoid</code><div class="oc-eg__note">Card 2 does not fit in the first column, so it moves to the second column as a whole.</div><div class="oc-eg__stage oc-eg__stage--plain cols-2 gap-1 p-1 font-1"><div class="break-inside-avoid mb-1 p-1 round-2 bg-vividblue-90 text-white">Card 1: a short card.</div><div class="break-inside-avoid mb-1 p-1 round-2 bg-forestgreen-60 text-white">Card 2: a longer card. Customer 1 ordered Product 1 on Monday. Company 1 packed it on Tuesday and the parcel arrived on Thursday.</div><div class="break-inside-avoid mb-1 p-1 round-2 bg-orange-95 text-white">Card 3: a short card.</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="cols-2 gap-1"&gt;
+  &lt;div class="break-inside-auto mb-1"&gt;Card 1: a short card.&lt;/div&gt;
+  &lt;div class="break-inside-auto mb-1"&gt;Card 2: a longer card. …&lt;/div&gt;
+  &lt;div class="break-inside-auto mb-1"&gt;Card 3: a short card.&lt;/div&gt;
+&lt;/div&gt;
 
-            
-            
-          <oc-code lang="html">&lt;div class="cols-2 gap-1"&gt;
-  &lt;div class="break-inside-avoid mb-1"&gt;Card 1&lt;/div&gt;
-  &lt;div class="break-inside-avoid mb-1"&gt;Card 2&lt;/div&gt;
-  &lt;div class="break-inside-avoid mb-1"&gt;Card 3&lt;/div&gt;
+&lt;div class="cols-2 gap-1"&gt;
+  &lt;div class="break-inside-avoid mb-1"&gt;Card 1: a short card.&lt;/div&gt;
+  &lt;div class="break-inside-avoid mb-1"&gt;Card 2: a longer card. …&lt;/div&gt;
+  &lt;div class="break-inside-avoid mb-1"&gt;Card 3: a short card.&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">In columns, <code>.break-before-column</code> starts an element at the top of a new column; <code>.break-after-column</code> does the same for what follows it, and the <code>avoid</code> values keep two elements together. The <code>page</code>, <code>left</code>, <code>right</code> and <code>avoid-page</code> values only work when printing, and <code>all</code> only with nested fragments, so they have no example.</p>
+          <oc-demo title="break-before-column"><div class="oc-eg"><div class="sup-note sup-note--colbreak"><b>Not in this browser yet.</b> Your browser does not support column breaks (<code>break-before: column</code>): Chapter 2 stays where it falls.</div><div class="oc-eg__panels" style="--eg-min: 20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">no class</code><div class="oc-eg__note">Chapter 2 follows Chapter 1 wherever there is room.</div><div class="oc-eg__stage oc-eg__stage--plain cols-2 gap-1 p-1 font-1"><div class="font-bold">Chapter 1</div><div class="mb-1">Customer 1 ordered Product 1 on Monday.</div><div class="font-bold text-teal-70 dark:text-teal-30">Chapter 2</div><div class="mb-1">The parcel left on Tuesday.</div><div>It arrived on Thursday.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.break-before-column</code><div class="oc-eg__note">Chapter 2 always starts at the top of a new column.</div><div class="oc-eg__stage oc-eg__stage--plain cols-2 gap-1 p-1 font-1"><div class="font-bold">Chapter 1</div><div class="mb-1">Customer 1 ordered Product 1 on Monday.</div><div class="font-bold break-before-column text-teal-70 dark:text-teal-30">Chapter 2</div><div class="mb-1">The parcel left on Tuesday.</div><div>It arrived on Thursday.</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="cols-2 gap-1"&gt;
+  &lt;div class="font-bold"&gt;Chapter 1&lt;/div&gt;
+  &lt;div&gt;Customer 1 ordered Product 1 on Monday.&lt;/div&gt;
+  &lt;div class="font-bold break-before-column"&gt;Chapter 2&lt;/div&gt;
+  &lt;div&gt;The parcel left on Tuesday.&lt;/div&gt;
+  &lt;div&gt;It arrived on Thursday.&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="orphans-widows">Orphans &amp; widows</h3>
@@ -103,6 +114,8 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+
+          <p class="oc-section-content__desc"><code>.widows-*</code> sets the least number of lines at the top of the next column or page, <code>.orphans-*</code> at the bottom of the previous one. No example here: Chrome already balances the lines of a short text over the columns, so in a small box every value looks the same. The difference shows in long text over several columns and when printing.</p>
 
           <h3 class="oc-section-content__title mt-10" id="box-decoration">Box decoration break</h3>
           <p class="oc-section-content__desc"><code>slice</code> renders a broken box as one continuous box; <code>clone</code> gives every fragment its own padding, border and radius. <code>.box-decoration-*</code> are the long names, <code>.decoration-*</code> the short aliases. <strong>When:</strong> inline highlights that wrap over several lines (a <code>&lt;mark&gt;</code> or a tag with padding and a radius) look much better with <code>clone</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-decoration-break" target="_blank" rel="noopener">MDN: box-decoration-break</a>.</p>
@@ -121,17 +134,19 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">The same highlighted text wraps over several lines in both cards. Look at the ends of each line: cut off (slice) or rounded with padding (clone).</p>
           <oc-demo title="decoration-slice vs decoration-clone">
             
-            <div class="w-12 font-1 leading-6 round-3 p-1 border-1 border-dashed border-stormblue-100">
-              <p class="mb-1"><span class="decoration-slice p-0.5 round-3 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">Slice: one box broken over several lines of text</span></p>
-              <p><span class="decoration-clone p-0.5 round-3 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30">Clone: each line gets its own padding and radius</span></p>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.decoration-slice</code><div class="oc-eg__note">The line breaks cut through one long box: no padding or radius at the breaks.</div><div class="oc-eg__stage oc-eg__stage--plain" style="padding:16px 20px;font-size:1.05rem;line-height:2.4;color:var(--oc-foreground)"><span class="decoration-slice round-2 text-white bg-vividblue-90" style="padding:0.3rem 0.6rem">Slice: one box broken over several lines of text, so the rounded corners only show at the very start and the very end</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.decoration-clone</code><div class="oc-eg__note">Every line is closed off with its own padding and rounded corners.</div><div class="oc-eg__stage oc-eg__stage--plain" style="padding:16px 20px;font-size:1.05rem;line-height:2.4;color:var(--oc-foreground)"><span class="decoration-clone round-2 text-white bg-teal-70" style="padding:0.3rem 0.6rem">Clone: each line gets its own padding and radius, as if every line were a separate box</span></div></div>
+            </div></div>
 
             
             
-          <oc-code lang="html">&lt;span class="decoration-slice p-0.5 round-3"&gt;Slice: one box broken over several lines&lt;/span&gt;
-&lt;span class="decoration-clone p-0.5 round-3"&gt;Clone: each line gets its own padding and radius&lt;/span&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;span class="decoration-slice round-2 text-white bg-vividblue-90" style="padding: 0.3rem 0.6rem"&gt;Slice: one box broken over several lines …&lt;/span&gt;
+&lt;span class="decoration-clone round-2 text-white bg-teal-70" style="padding: 0.3rem 0.6rem"&gt;Clone: each line gets its own padding and radius …&lt;/span&gt;
+&lt;!-- .box-decoration-slice and .box-decoration-clone are the same classes with the long name --&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Break, orphans and widows are hints: browsers that do not support a value use their default breaking. Autoprefixer adds the <code>-webkit-</code> prefix for box-decoration-break.</p>

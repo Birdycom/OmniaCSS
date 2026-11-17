@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Outline-width", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Outline-width","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n.bd-sample { display: grid; place-content: center; gap: 0.15rem; min-block-size: var(--bd-h, 6.5rem); padding: 0.75rem; text-align: center; }\n.bd-sample b { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }\n.bd-sample small { font-size: 0.78rem; color: var(--oc-muted-foreground); }\n.bd-ol { --bd-pad: 1.75rem; }\n.bd-ol .bd-sample { background: var(--oc-background); border: 1px solid var(--oc-border); border-radius: 6px; }\n.bd-chips { display: flex; gap: 0.5rem; }\n.bd-chip { flex: 0 1 8rem; min-inline-size: 0; display: grid; place-items: center; block-size: 5rem; border-radius: 8px; font-weight: 700; color: var(--oc-foreground); background: var(--oc-muted); }\n.bd-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; border: 0; padding: 0.25rem; margin: 0; }\n@container (max-width: 36rem) { .bd-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }\n.bd-gallery legend { padding: 0; margin-block-end: 0.75rem; font-size: 0.9rem; font-weight: 600; color: var(--oc-foreground); }\n.bd-thumb { position: relative; display: grid; place-items: end start; aspect-ratio: 4 / 3; padding: 0.6rem 0.75rem; border-radius: 10px; cursor: pointer; color: var(--color-white-50); font-weight: 700; }\n.bd-in { container-type: inline-size; display: grid; align-content: center; padding: var(--bd-pad, 0.875rem); }\n</style>"]}-->
 <section class="oc-docs-section" id="outline-width">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title font-clamp-1.5">Outline-width</h2>
@@ -40,41 +40,57 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title">Preview — outline-width: basic</h3>
-          <p class="oc-section-content__desc">Basic outline-width: <code>.outline-none</code> (0), <code>.outline-1</code> (2px), <code>.outline-2</code> (4px), <code>.outline-4</code> (8px), <code>.outline-6</code> (12px), <code>.outline-8</code> (16px), <code>.outline-10</code> (20px), <code>.outline-12</code> (32px). Combineer met <code>.outline-solid</code> en een kleur-class (bijv. <code>.outline-darkorange-50</code>) om de outline te tonen.</p>
-             
-          <oc-demo title="outline-none, outline-1, outline-2, outline-4, outline-6, outline-8, outline-10, outline-12">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">outline-none</span>
-                <div class="outline-none outline-solid outline-offset-2 outline-darkorange-50 round-4 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">none</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">outline-1</span>
-                <div class="outline-1 outline-solid outline-offset-2 outline-darkorange-50 round-4 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">2px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">outline-2</span>
-                <div class="outline-2 outline-solid outline-offset-2 outline-darkorange-50 round-4 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">4px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">outline-4</span>
-                <div class="outline-4 outline-solid outline-offset-2 outline-darkorange-50 round-4 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">8px</div>
-              </div>
-            </div>
+          <h3 class="oc-section-content__title">The width scale</h3>
+<p class="oc-section-content__desc">An <strong>outline</strong> is drawn outside the border and takes no space, so it never moves anything around it. Each box below has the same thin grey border and a red outline; only the width class changes. The outline needs a style (<code>.outline-solid</code>) and a color to show. <code>.outline-none</code> (0) is left out because there is nothing to see.</p>
 
-            
-            
-          <oc-code lang="html">
-                &lt;div class="outline-none outline-solid outline-offset-2 outline-darkorange-50 round-4 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;none&lt;/div&gt;
-                &lt;div class="outline-1 outline-solid outline-offset-2 outline-darkorange-50 round-4 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;2px&lt;/div&gt;
-                &lt;div class="outline-2 outline-solid outline-offset-2 outline-darkorange-50 round-4 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;4px&lt;/div&gt;
-                &lt;div class="outline-4 outline-solid outline-offset-2 outline-darkorange-50 round-4 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;8px&lt;/div&gt;
-              </oc-code></oc-demo>
-        </div>  
-        
-        <div class="oc-section-footer">
+<p class="oc-section-content__desc">Every number from <code>.outline-1</code> (2px) to <code>.outline-12</code> exists; the example shows the main steps. <code>.outline-none</code> sets the width to 0: nothing to show.</p>
+          <oc-demo title="outline-1 … outline-8">
+<div class="oc-eg bd-ol"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-1</code><div class="oc-eg__note">A 2px (0.125rem) solid outline around the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-1 outline-solid outline-crimson-50"><b>2px</b><small>0.125rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-2</code><div class="oc-eg__note">A 4px (0.25rem) solid outline around the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-2 outline-solid outline-crimson-50"><b>4px</b><small>0.25rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-3</code><div class="oc-eg__note">A 6px (0.375rem) solid outline around the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-3 outline-solid outline-crimson-50"><b>6px</b><small>0.375rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-4</code><div class="oc-eg__note">A 8px (0.5rem) solid outline around the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-4 outline-solid outline-crimson-50"><b>8px</b><small>0.5rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-6</code><div class="oc-eg__note">A 12px (0.75rem) solid outline around the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-6 outline-solid outline-crimson-50"><b>12px</b><small>0.75rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-8</code><div class="oc-eg__note">A 16px (1rem) solid outline around the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-8 outline-solid outline-crimson-50"><b>16px</b><small>1rem</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="outline-1 outline-solid outline-crimson-50 border border-solid"&gt;2px&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-crimson-50 border border-solid"&gt;4px&lt;/div&gt;
+&lt;div class="outline-3 outline-solid outline-crimson-50 border border-solid"&gt;6px&lt;/div&gt;
+&lt;div class="outline-4 outline-solid outline-crimson-50 border border-solid"&gt;8px&lt;/div&gt;
+&lt;div class="outline-6 outline-solid outline-crimson-50 border border-solid"&gt;12px&lt;/div&gt;
+&lt;div class="outline-8 outline-solid outline-crimson-50 border border-solid"&gt;16px&lt;/div&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-8">Outline vs border: no extra space</h3>
+<p class="oc-section-content__desc">Both rows have four equal chips with an 8px gap. In the top row the second chip gets an 8px <strong>border</strong>: with <code>box-sizing: border-box</code> the chip keeps its size, but its content area shrinks by 16px. In the bottom row the second chip gets an 8px <strong>outline</strong>: the content keeps its full size and the ring is painted over the gap, right up to the neighbours. Nothing moves either way, but only the outline leaves the box alone.</p>
+
+<oc-demo title="border-4 vs outline-4">
+<div class="oc-eg" style="--bd-pad: 1rem"><div class="oc-eg__panels" style="--eg-min: 18rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-4</code><div class="oc-eg__note">The border is inside the box: box 2 gets bigger and the row grows.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-chips"><div class="bd-chip">1</div><div class="bd-chip border-4 border-solid border-crimson-50">2</div><div class="bd-chip">3</div><div class="bd-chip">4</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-4</code><div class="oc-eg__note">The outline is drawn outside: box 2 keeps its size, nothing moves.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-chips"><div class="bd-chip">1</div><div class="bd-chip outline-4 outline-solid outline-crimson-50">2</div><div class="bd-chip">3</div><div class="bd-chip">4</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="border-4 border-solid border-crimson-50"&gt;2&lt;/div&gt;   &lt;!-- eats into the box --&gt;
+&lt;div class="outline-4 outline-solid outline-crimson-50"&gt;2&lt;/div&gt; &lt;!-- drawn outside, takes no space --&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-8">In practice: the selected photo</h3>
+<p class="oc-section-content__desc">A thick outline is a good "selected" mark: switching it on does not shift the grid. Click a photo, or Tab to the group and use the arrow keys. Every thumbnail has a transparent 4px outline; the checked one gets a color with <code>has-[:checked]:</code>, and keyboard focus adds a dashed style.</p>
+
+<oc-demo title="outline-2 + has-[:checked]:outline-crimson-50">
+<div class="oc-eg" style="--bd-pad: 1rem"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-2 .has-[:checked]:outline-crimson-50</code><div class="oc-eg__note">Click a photo or use the arrow keys: the picked one gets a red outline, the others keep a see-through one.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><fieldset class="bd-gallery">
+    <legend>Pick a cover photo</legend>
+    <label class="bd-thumb bg-teal-70 outline-2 outline-solid outline-transparent outline-offset-2 has-[:checked]:outline-crimson-50 has-[:focus-visible]:outline-dashed"><input class="sr-only" type="radio" name="bd-cover" value="1">Photo 1</label>
+    <label class="bd-thumb bg-royalblue-70 outline-2 outline-solid outline-transparent outline-offset-2 has-[:checked]:outline-crimson-50 has-[:focus-visible]:outline-dashed"><input class="sr-only" type="radio" name="bd-cover" value="2" checked>Photo 2</label>
+    <label class="bd-thumb bg-chocolate-80 outline-2 outline-solid outline-transparent outline-offset-2 has-[:checked]:outline-crimson-50 has-[:focus-visible]:outline-dashed"><input class="sr-only" type="radio" name="bd-cover" value="3">Photo 3</label>
+    <label class="bd-thumb bg-purple-60 outline-2 outline-solid outline-transparent outline-offset-2 has-[:checked]:outline-crimson-50 has-[:focus-visible]:outline-dashed"><input class="sr-only" type="radio" name="bd-cover" value="4">Photo 4</label>
+  </fieldset></div></div>
+</div></div>
+<oc-code lang="html">&lt;label class="outline-2 outline-solid outline-transparent outline-offset-2
+              has-[:checked]:outline-crimson-50 has-[:focus-visible]:outline-dashed"&gt;
+  &lt;input type="radio" name="cover" class="sr-only"&gt; Photo 1
+&lt;/label&gt;</oc-code></oc-demo>
+        </div>
+
+          <div class="oc-section-footer">
           <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
           <p class="oc-section-footer__desc">
             The outline-width utilities come from <code>_borders_outlines.scss</code>; the map <code>$outlinesizes</code> is defined in <code>_variables_layout.scss</code>. Classes: <code>.outline-none</code>, <code>.outline-1</code> … <code>.outline-12</code>. Combine with <code>.outline-solid</code> (or another style) and an outline-color class. An outline does not affect the layout.

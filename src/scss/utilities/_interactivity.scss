@@ -185,6 +185,9 @@
 .scroll-buttons::scroll-button(*):focus-visible { outline: 2px solid var(--color-vividblue-80); outline-offset: 2px; }
 .scroll-buttons::scroll-button(inline-start) { content: "\2039" / "Previous"; left: calc(anchor(left) + 0.5rem); }
 .scroll-buttons::scroll-button(inline-end) { content: "\203A" / "Next"; right: calc(anchor(right) + 0.5rem); }
+/* Outside: the arrows sit next to the scroll container instead of on it. Give the parent about 3rem of room on each side. */
+.scroll-buttons-outside::scroll-button(inline-start) { left: auto; right: calc(anchor(left) + 0.5rem); }
+.scroll-buttons-outside::scroll-button(inline-end) { right: auto; left: calc(anchor(right) + 0.5rem); }
 
 /* Overflow anchor — scroll anchoring */
 .overflow-anchor-auto { overflow-anchor: auto; }

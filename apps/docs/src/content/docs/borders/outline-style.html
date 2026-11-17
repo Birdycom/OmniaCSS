@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Outline-style", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n.ol-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 24px; inline-size: 100%; padding: 8px; }\n.ol-row { display: flex; gap: 8px; align-items: stretch; }\n.ol-tile { display: grid; place-items: center; min-inline-size: 5rem; padding: 1rem; border-radius: 8px; background: var(--oc-card); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }\n.ol-border { border: 0 solid var(--color-dodgerblue-90); }\n.ol-border:is(:hover, :focus-visible) { border-width: 6px; }\n.ol-outline { outline-width: 0; outline-color: var(--color-dodgerblue-90); }\n.ol-outline:is(:hover, :focus-visible) { outline-width: 6px; }\n.ol-ghost2 { background: var(--oc-muted); }\n</style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Outline-style","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n.bd-sample { display: grid; place-content: center; gap: 0.15rem; min-block-size: var(--bd-h, 6.5rem); padding: 0.75rem; text-align: center; }\n.bd-sample b { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }\n.bd-sample small { font-size: 0.78rem; color: var(--oc-muted-foreground); }\n.bd-ol { --bd-pad: 1.5rem; }\n.bd-ol .bd-sample { background: var(--oc-background); border: 1px solid var(--oc-border); border-radius: 6px; }\n.bd-row { display: flex; gap: 0.75rem; align-items: stretch; }\n.bd-tilex { flex: none; display: grid; place-items: center; min-block-size: 4.5rem; padding: 0.5rem 1.1rem; border-radius: 10px; font-weight: 700; color: var(--oc-foreground); background: var(--oc-muted); border-color: var(--color-seagreen-50); outline-color: var(--color-seagreen-50); transition: border-width 0.2s, outline-width 0.2s; cursor: pointer; }\n.bd-grow, .bd-ring { background: color-mix(in oklch, var(--color-seagreen-50) 14%, var(--oc-card)); }\n.bd-tilex--muted { cursor: default; color: var(--oc-muted-foreground); font-weight: 600; }\n.bd-grow { border-style: solid; border-width: 0; }\n\n.bd-ring { outline-style: solid; outline-width: 0; }\n\n.bd-in { container-type: inline-size; display: grid; align-content: center; padding: var(--bd-pad, 0.875rem); }\n</style>"]}-->
 <section class="oc-docs-section" id="outline-style">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title font-clamp-1.5">Outline-style</h2>
@@ -20,8 +20,8 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.outline-none</code></td><td>outline-style: none</td></tr>
-                <tr><td><code>.outline-hidden</code></td><td>outline-style: hidden</td></tr>
+                <tr><td><code>.outline-none</code></td><td>outline-style: none (and outline-width: 0)</td></tr>
+                <tr><td><code>.outline-hidden</code></td><td>outline: 2px solid transparent; outline-offset: 2px (visible in forced-colors mode)</td></tr>
                 <tr><td><code>.outline-dotted</code></td><td>outline-style: dotted</td></tr>
                 <tr><td><code>.outline-dashed</code></td><td>outline-style: dashed</td></tr>
                 <tr><td><code>.outline-solid</code></td><td>outline-style: solid</td></tr>
@@ -37,53 +37,59 @@
             </div>
           </div>
           
-          <h3 class="oc-section-content__title">Preview — outline-style: basic</h3>
-          <p class="oc-section-content__desc">Basic outline-style: <code>.outline-none</code> (none), <code>.outline-hidden</code> (hidden), <code>.outline-dotted</code> (dotted), <code>.outline-dashed</code> (dashed), <code>.outline-solid</code> (solid), <code>.outline-double</code> (double), <code>.outline-groove</code> (groove), <code>.outline-ridge</code> (ridge), <code>.outline-inset</code> (inset), <code>.outline-outset</code> (outset). Combineer met <code>.outline-solid</code> en een kleur-class (bijv. <code>.outline-dodgerblue-50</code>) om de outline te tonen.</p>
-   
-          <oc-demo title="outline-none, outline-hidden, outline-dotted, outline-dashed, outline-solid, outline-double, outline-groove, outline-ridge, outline-inset, outline-outset">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-none</span><div class="outline-none outline-solid outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">none</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-hidden</span><div class="outline-hidden outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">hidden</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-dotted</span><div class="outline-2 outline-dotted outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">dotted</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-dashed</span><div class="outline-2 outline-dashed outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">dashed</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-solid</span><div class="outline-2 outline-solid outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">solid</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-double</span><div class="outline-4 outline-double outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">double</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-groove</span><div class="outline-4 outline-groove outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">groove</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-ridge</span><div class="outline-4 outline-ridge outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">ridge</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-inset</span><div class="outline-4 outline-inset outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">inset</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">.outline-outset</span><div class="outline-4 outline-outset outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">outset</div></div>
-            </div>
-          
-            
-            
-          <oc-code lang="html">
-                &lt;div class="outline-none outline-solid outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;none&lt;/div&gt;
-                &lt;div class="outline-hidden outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;hidden&lt;/div&gt;
-                &lt;div class="outline-2 outline-dotted outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;dotted&lt;/div&gt;
-                &lt;div class="outline-2 outline-dashed outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;dashed&lt;/div&gt;
-                &lt;div class="outline-2 outline-solid outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;solid&lt;/div&gt;
-                &lt;div class="outline-4 outline-double outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;double&lt;/div&gt;
-                &lt;div class="outline-4 outline-groove outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;groove&lt;/div&gt;
-                &lt;div class="outline-4 outline-ridge outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;ridge&lt;/div&gt;
-                &lt;div class="outline-4 outline-inset outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;inset&lt;/div&gt;
-                &lt;div class="outline-4 outline-outset outline-offset-2 round-4 outline-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;outset&lt;/div&gt;
-              </oc-code></oc-demo>
+          <h3 class="oc-section-content__title">Every style on the same outline</h3>
+<p class="oc-section-content__desc">An outline is drawn outside the border and takes no space. Each box has the same 8px outline (<code>.outline-4</code>), a 4px gap (<code>.outline-offset-2</code>) and the same color; only the style class changes. Outlines use the same styles as borders, except <code>hidden</code>.</p>
 
-          <h3 class="oc-section-content__title mt-8">Outline vs border: no layout shift</h3>
-          <p class="oc-section-content__desc">Toggling a 6px <b>border</b> on hover pushes the neighbours (the left card grows), while a 6px <b>outline</b> is drawn on top and nothing moves. This is why outlines are the right tool for focus and hover indications. Hover each card and watch its neighbour.</p>
+<p class="oc-section-content__desc"><code>.outline-none</code> removes the outline, so there is nothing to show; <code>.outline-hidden</code> does the same for outlines. Never remove the focus outline without a replacement: see <a href="outline-focus-ring.html">Focus Ring</a>.</p>
+          <oc-demo title="outline-solid … outline-outset">
+<div class="oc-eg bd-ol"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-solid</code><div class="oc-eg__note">One continuous line.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-solid outline-4 outline-offset-2 outline-seagreen-50"><b>solid</b><small>one line</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-dashed</code><div class="oc-eg__note">Short dashes with gaps.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-dashed outline-4 outline-offset-2 outline-seagreen-50"><b>dashed</b><small>short dashes</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-dotted</code><div class="oc-eg__note">Round dots.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-dotted outline-4 outline-offset-2 outline-seagreen-50"><b>dotted</b><small>round dots</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-double</code><div class="oc-eg__note">Two thin lines with a gap between them.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-double outline-4 outline-offset-2 outline-seagreen-50"><b>double</b><small>two lines</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-groove</code><div class="oc-eg__note">Looks carved into the page.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-groove outline-4 outline-offset-2 outline-seagreen-50"><b>groove</b><small>carved in</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-ridge</code><div class="oc-eg__note">Looks like a raised edge.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-ridge outline-4 outline-offset-2 outline-seagreen-50"><b>ridge</b><small>raised edge</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-inset</code><div class="oc-eg__note">The box looks pressed in.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-inset outline-4 outline-offset-2 outline-seagreen-50"><b>inset</b><small>box sinks in</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-outset</code><div class="oc-eg__note">The box looks raised.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-outset outline-4 outline-offset-2 outline-seagreen-50"><b>outset</b><small>box pops out</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="outline-4 outline-solid outline-offset-2 outline-seagreen-50"&gt;solid&lt;/div&gt;
+&lt;div class="outline-4 outline-dashed outline-offset-2 outline-seagreen-50"&gt;dashed&lt;/div&gt;
+&lt;div class="outline-4 outline-dotted outline-offset-2 outline-seagreen-50"&gt;dotted&lt;/div&gt;
+&lt;div class="outline-4 outline-double outline-offset-2 outline-seagreen-50"&gt;double&lt;/div&gt;
+&lt;div class="outline-4 outline-groove outline-offset-2 outline-seagreen-50"&gt;groove&lt;/div&gt;
+&lt;div class="outline-4 outline-ridge outline-offset-2 outline-seagreen-50"&gt;ridge&lt;/div&gt;
+&lt;div class="outline-4 outline-inset outline-offset-2 outline-seagreen-50"&gt;inset&lt;/div&gt;
+&lt;div class="outline-4 outline-outset outline-offset-2 outline-seagreen-50"&gt;outset&lt;/div&gt;</oc-code></oc-demo>
 
-          <oc-demo title="border shifts layout, outline does not">
-            <div class="ol-compare">
-              <div class="bd-cell"><div class="ol-row"><div class="ol-tile ol-border" tabindex="0">hover</div><div class="ol-tile ol-ghost2">neighbour</div></div><code>border grows: neighbour moves</code></div>
-              <div class="bd-cell"><div class="ol-row"><div class="ol-tile ol-outline outline-solid" tabindex="0">hover</div><div class="ol-tile ol-ghost2">neighbour</div></div><code>.outline-solid: stays put</code></div>
-            </div>
-          <oc-code lang="html">.tile { border: 0 solid; }  .tile:hover { border-width: 6px; }        /* shifts layout */
-.tile { outline: 0 solid; } .tile:hover { outline-width: 6px; }       /* does not */</oc-code></oc-demo>
+<h3 class="oc-section-content__title mt-8">Outline vs border: no layout shift</h3>
+<p class="oc-section-content__desc">Hover the first tile in each box, or Tab to it. Left: <code>.hover:border-8</code> adds a 16px <strong>border</strong>; the tile has no fixed width, so it grows by 32px and its neighbours jump to the right. Right: <code>.hover:outline-8</code> draws a 16px <strong>outline</strong> around the tile and nothing moves. That is why focus rings and hover frames use outlines.</p>
+
+<oc-demo title="border shifts the layout, outline does not">
+<div class="oc-eg" style="--bd-pad: 1rem"><div class="oc-eg__panels" style="--eg-min: 18rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:border-8</code><div class="oc-eg__note">Hover the first box: a 16px border makes it bigger and pushes its neighbours away.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-row"><div class="bd-tilex bd-grow border-solid border-seagreen-50 hover:border-8 focus-visible:border-8" tabindex="0">Hover me</div><div class="bd-tilex bd-tilex--muted">Next</div><div class="bd-tilex bd-tilex--muted">Next</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:outline-8</code><div class="oc-eg__note">Hover the first box: a 16px outline is drawn outside, nothing moves.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-row"><div class="bd-tilex bd-ring outline-solid outline-seagreen-50 hover:outline-8 focus-visible:outline-8" tabindex="0">Hover me</div><div class="bd-tilex bd-tilex--muted">Next</div><div class="bd-tilex bd-tilex--muted">Next</div></div></div></div>
+</div></div>
+<oc-code lang="css">&lt;!-- Border: the box grows on hover and pushes the next boxes away --&gt;
+&lt;div class="flex gap-1"&gt;
+  &lt;div class="border-solid border-seagreen-50 hover:border-8 focus-visible:border-8" tabindex="0"&gt;Hover me&lt;/div&gt;
+  &lt;div&gt;Next&lt;/div&gt;
+  &lt;div&gt;Next&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Outline: drawn outside the box, nothing moves --&gt;
+&lt;div class="flex gap-1"&gt;
+  &lt;div class="outline-solid outline-seagreen-50 hover:outline-8 focus-visible:outline-8" tabindex="0"&gt;Hover me&lt;/div&gt;
+  &lt;div&gt;Next&lt;/div&gt;
+  &lt;div&gt;Next&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- The width is 0 until hover: border-width: 0 / outline-width: 0 on the first box --&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-8">outline-none vs outline-hidden</h3>
+<p class="oc-section-content__desc">Both hide the outline, but not in the same way. <code>.outline-none</code> removes it completely. <code>.outline-hidden</code> draws a 2px transparent outline: invisible on a normal screen, but Windows high-contrast mode (forced colors) paints it in a system color, so a custom focus style still has a visible fallback there. Use <code>.outline-hidden</code> when you replace the focus ring with something else, such as a shadow. Both look the same here, so there is no preview; see the <a href="outline-focus-ring.html">focus ring</a> page for what a good ring looks like.</p>
 
         </div>
-        
-        <div class="oc-section-footer">
+
+          <div class="oc-section-footer">
           <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
           <p class="oc-section-footer__desc">
             The outline-style utilities come from <code>_borders_outlines.scss</code>; the map <code>$outlinestyles</code> is defined in <code>_variables_layout.scss</code>. Classes: <code>.outline-none</code>, <code>.outline-hidden</code>, <code>.outline-dotted</code>, <code>.outline-dashed</code>, <code>.outline-solid</code>, <code>.outline-double</code>, and the 3D variants. Combine with outline-width and outline-color.

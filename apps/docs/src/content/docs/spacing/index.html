@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Spacing", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Spacing","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Spacing visualisations: one calm element color (blue) plus one hatched tone per kind of space:\n       green = padding, orange = margin, purple = gap. Same convention as the browser DevTools box model. */\n    .sp {\n      --sp-el: light-dark(var(--color-vividblue-95), var(--color-vividblue-90));\n      --sp-el-fg: var(--color-white-50);\n      --sp-pad-1: light-dark(color-mix(in oklch, var(--color-green-20) 20%, var(--color-white-50)), oklch(from var(--color-green-80) 0.26 0.06 h));\n      --sp-pad-2: light-dark(color-mix(in oklch, var(--color-green-20) 50%, var(--color-white-50)), oklch(from var(--color-green-80) 0.35 0.10 h));\n      --sp-pad-edge: light-dark(var(--color-green-60), var(--color-green-20));\n      --sp-mar-1: light-dark(color-mix(in oklch, var(--color-orange-50) 25%, var(--color-white-50)), oklch(from var(--color-orange-90) 0.27 0.05 h));\n      --sp-mar-2: light-dark(color-mix(in oklch, var(--color-orange-50) 62%, var(--color-white-50)), oklch(from var(--color-orange-90) 0.37 0.08 h));\n      --sp-mar-edge: light-dark(var(--color-orange-90), var(--color-orange-50));\n      --sp-gap-1: light-dark(color-mix(in oklch, var(--color-mediumpurple-60) 14%, var(--color-white-50)), oklch(from var(--color-mediumpurple-60) 0.26 0.06 h));\n      --sp-gap-2: light-dark(color-mix(in oklch, var(--color-mediumpurple-60) 38%, var(--color-white-50)), oklch(from var(--color-mediumpurple-60) 0.36 0.10 h));\n      --sp-gap-edge: light-dark(var(--color-mediumpurple-60), var(--color-mediumpurple-60));\n      }\n    .sp-hatch-pad { background: repeating-linear-gradient(135deg, var(--sp-pad-2) 0 6px, var(--sp-pad-1) 6px 12px); }\n    .sp-hatch-mar { background: repeating-linear-gradient(135deg, var(--sp-mar-2) 0 6px, var(--sp-mar-1) 6px 12px); }\n\n    /* Legend chips (inside the kit legend) */\n    .sp-chip { inline-size: 1.75rem; block-size: 1.15rem; border-radius: 4px; flex: none; }\n    .sp-chip--pad { border: 2px solid var(--sp-pad-edge); }\n    .sp-chip--mar { border: 2px dashed var(--sp-mar-edge); }\n    .sp-chip--el { background: var(--sp-el); }\n\n    /* Inside of a kit stage: a little room around the box; .sp-tight for the narrow 4-up panels */\n    .sp-stage { display: grid; padding: 0.75rem; }\n    .sp-tight .sp-content, .sp-tight .sp-mel { min-inline-size: 0; overflow: hidden; padding-inline: 0.25rem; font-size: 0.95rem; }\n    .sp-val { font-size: 0.85rem; font-weight: 600; color: var(--oc-muted-foreground); white-space: nowrap; }\n\n    /* Padding box: the padding utility sits on .sp-pbox, so the hatched band IS its padding */\n    .sp-pbox { position: relative; display: grid; box-sizing: border-box; min-block-size: 10rem; border: 2px solid var(--sp-pad-edge); border-radius: 10px; }\n    .sp-content { display: grid; place-items: center; min-block-size: 3.5rem; padding: 0.5rem; border-radius: 4px; background: var(--sp-el); color: var(--sp-el-fg); font-size: 1rem; font-weight: 700; text-align: center; }\n\n    /* Margin track: the hatched track shows through wherever the element is not: that is its margin */\n    .sp-track { position: relative; }\n    :where(.sp-track) { display: flow-root; }\n    .sp-track { border: 2px dashed var(--sp-mar-edge); border-radius: 10px; }\n\n    /* Measure labels drawn on top of a band */\n    .sp-mark { position: absolute; display: grid; place-items: center; pointer-events: none; }\n    .sp-mark > span, .sp-mel[data-gap]::after { padding: 0.15rem 0.45rem; border-radius: 5px; background: var(--oc-card); color: var(--oc-foreground); font: 700 0.8rem/1.2 var(--oc-font-mono); white-space: nowrap; box-shadow: 0 0 0 1px var(--oc-border); }\n    .sp-mark--t { inset: 0 0 auto 0; block-size: var(--sp-m); }\n    .sp-mark--b { inset: auto 0 0 0; block-size: var(--sp-m); }\n\n    /* Spacing scale: each bar is an empty element with only pl-*, so its length IS the value */\n    .sp-scale { columns: 2 21.5rem; column-gap: 1rem; margin: 0; padding: 0; list-style: none; }\n    .sp-step { display: grid; grid-template-columns: 3rem 7.25rem 1fr; align-items: center; gap: 0.6rem; min-block-size: 2.4rem; border-block-end: 1px solid var(--oc-border); break-inside: avoid; }\n    .sp-step code { justify-self: start; font-size: 0.95rem; font-weight: 700; }\n    .sp-step .sp-val { font-family: var(--oc-font-mono); font-size: 0.82rem; }\n    .sp-bar { display: block; justify-self: start; block-size: 1.25rem; border-radius: 3px; background: var(--sp-el); }\n        .sp--scale { container-type: inline-size; }\n    @container (max-width: 26rem) { .sp-step { grid-template-columns: 7.75rem 1fr; grid-template-areas: \"k bar\" \"v bar\"; gap: 0.1rem 0.75rem; padding-block: 0.4rem; } .sp-step code { grid-area: k; } .sp-step .sp-val { grid-area: v; font-size: 0.8rem; } .sp-step .sp-bar { grid-area: bar; align-self: center; } }\n  /* Overview panels: the title is a link to the page, the stage is a small live example of it. */\n    .ov-title { justify-self: start; font-size: 1rem; font-weight: 700; }\n    .ov .sp-pbox.ov-fill { min-block-size: 0; }\n    .ov .sp-content { min-block-size: 2.5rem; }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Spacing</h2>
@@ -7,29 +7,70 @@
             Core utilities for controlling the inner and outer space of elements.
           </p>
         </div>
-        
+
         <div class="oc-section-content">
           <p>
-            The Spacing module provides a consistent scale for padding and margin, 
+            The Spacing module provides a consistent scale for padding and margin,
             allowing you to control document hierarchy and element breathing room.
           </p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-1.5">
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Padding</h3>
-              <p class="font-0.8 opacity-70 mb-4">Inner space of an element.</p>
-              <ul class="oc-docs-list">
-                <li><a href="padding.html">Padding Utilities</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Margin</h3>
-              <p class="font-0.8 opacity-70 mb-4">Outer space between elements.</p>
-              <ul class="oc-docs-list">
-                <li><a href="margin.html">Margin Utilities</a></li>
-              </ul>
+          <p class="oc-section-content__desc">The pages of this section, each with a small live example. Click a title to open the page. Gap, the space between the items of a flex or grid container, has its own page under Flex &amp; Grid.</p>
+          <div class="oc-eg sp ov">
+            <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--pad sp-hatch-pad" aria-hidden="true"></span>padding</span><span class="oc-eg__key"><span class="sp-chip sp-chip--mar sp-hatch-mar" aria-hidden="true"></span>margin</span><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>gap (empty space)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>content</span></div>
+            <div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><strong class="ov-title"><a href="padding.html">Padding</a></strong><div class="oc-eg__note"><code>.p-1</code>: 1rem of space inside the border, around the content.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad p-1 ov-fill"><div class="sp-content">content</div></div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="margin.html">Margin</a></strong><div class="oc-eg__note"><code>.m-1</code>: 1rem of space outside the element, around its border.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-hatch-mar ov-fill"><div class="sp-content m-1">content</div></div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="../flex-grid/gap.html">Gap</a></strong><div class="oc-eg__note"><code>.gap-1</code> on the parent: 1rem between the items, none at the edges.</div><div class="oc-eg__stage ov-gap"><div class="grid grid-cols-2 gap-1"><div class="sp-content">1</div><div class="sp-content">2</div><div class="sp-content">3</div><div class="sp-content">4</div></div></div></div>
             </div>
           </div>
+
+          <h3 class="oc-section-content__title mt-3" id="padding-vs-margin">Padding and margin on one element</h3>
+          <p class="oc-section-content__desc">The blue box is the content. The green band around it is its <strong>padding</strong> (inside the border). The orange band outside the border is its <strong>margin</strong>. Both use the same scale, so <code>p-2</code> and <code>m-2</code> are both 2rem.</p>
+          <oc-demo title="m-2 and p-2 on the same element">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--mar sp-hatch-mar" aria-hidden="true"></span>margin</span><span class="oc-eg__key"><span class="sp-chip sp-chip--pad sp-hatch-pad" aria-hidden="true"></span>padding</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>content</span></div>
+              <div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.m-2 .p-2</code><div class="oc-eg__note">The orange band outside the border is the 2rem margin. The green band inside the border is the 2rem padding.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-track sp-hatch-mar">
+                <div class="sp-pbox sp-hatch-pad m-2 p-2" style="min-block-size: 11rem"><div class="sp-content">content</div><span class="sp-mark sp-mark--t" style="--sp-m:2rem"><span>padding 2rem</span></span><span class="sp-mark sp-mark--b" style="--sp-m:2rem"><span>padding 2rem</span></span></div>
+                <span class="sp-mark sp-mark--t" style="--sp-m:2rem"><span>margin 2rem</span></span><span class="sp-mark sp-mark--b" style="--sp-m:2rem"><span>margin 2rem</span></span>
+              </div></div></div></div>
+            </div>
+          <oc-code lang="html">&lt;div class="m-2 p-2"&gt;content&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-3" id="scale">The spacing scale</h3>
+          <p class="oc-section-content__desc">Padding, margin and gap share one rem scale: the number is the size in rem, so <code>p-1</code>, <code>m-1</code> and <code>gap-1</code> are all <strong>1rem (16px)</strong>. Each bar below is exactly as long as its value.</p>
+          <p class="oc-section-content__desc"><strong>Watch out with the decimals:</strong> the digit after the dot is a short name for a quarter or eighth step, not a decimal. <code>0.2</code> is 0.25rem, <code>0.7</code> is 0.75rem, <code>1.2</code> is 1.25rem and <code>1.7</code> is 1.75rem. Only <code>.5</code> means a half.</p>
+          <oc-demo title="Spacing scale: class suffix, value and real length">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key">Use the suffix after any spacing class:</span><span class="oc-eg__key"><code>p-</code><code>pt-</code><code>ph-</code><code>m-</code><code>mt-</code><code>mh-</code><code>gap-</code></span></div>
+              <div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">p-* · m-* · gap-*</code><div class="oc-eg__note">Each bar is an empty element with only <code>pl-*</code>, so its length is exactly the value.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp--scale">
+              <ul class="sp-scale">
+              <li class="sp-step"><code>px</code><span class="sp-val">1px</span><span class="sp-bar pl-px"></span></li>
+              <li class="sp-step"><code>0.1</code><span class="sp-val">0.125rem · 2px</span><span class="sp-bar pl-0.1"></span></li>
+              <li class="sp-step"><code>0.2</code><span class="sp-val">0.25rem · 4px</span><span class="sp-bar pl-0.2"></span></li>
+              <li class="sp-step"><code>0.3</code><span class="sp-val">0.375rem · 6px</span><span class="sp-bar pl-0.3"></span></li>
+              <li class="sp-step"><code>0.5</code><span class="sp-val">0.5rem · 8px</span><span class="sp-bar pl-0.5"></span></li>
+              <li class="sp-step"><code>0.6</code><span class="sp-val">0.625rem · 10px</span><span class="sp-bar pl-0.6"></span></li>
+              <li class="sp-step"><code>0.7</code><span class="sp-val">0.75rem · 12px</span><span class="sp-bar pl-0.7"></span></li>
+              <li class="sp-step"><code>0.8</code><span class="sp-val">0.875rem · 14px</span><span class="sp-bar pl-0.8"></span></li>
+              <li class="sp-step"><code>1</code><span class="sp-val">1rem · 16px</span><span class="sp-bar pl-1"></span></li>
+              <li class="sp-step"><code>1.2</code><span class="sp-val">1.25rem · 20px</span><span class="sp-bar pl-1.2"></span></li>
+              <li class="sp-step"><code>1.5</code><span class="sp-val">1.5rem · 24px</span><span class="sp-bar pl-1.5"></span></li>
+              <li class="sp-step"><code>1.7</code><span class="sp-val">1.75rem · 28px</span><span class="sp-bar pl-1.7"></span></li>
+              <li class="sp-step"><code>2</code><span class="sp-val">2rem · 32px</span><span class="sp-bar pl-2"></span></li>
+              <li class="sp-step"><code>2.5</code><span class="sp-val">2.5rem · 40px</span><span class="sp-bar pl-2.5"></span></li>
+              <li class="sp-step"><code>3</code><span class="sp-val">3rem · 48px</span><span class="sp-bar pl-3"></span></li>
+              <li class="sp-step"><code>4</code><span class="sp-val">4rem · 64px</span><span class="sp-bar pl-4"></span></li>
+              <li class="sp-step"><code>5</code><span class="sp-val">5rem · 80px</span><span class="sp-bar pl-5"></span></li>
+              <li class="sp-step"><code>6</code><span class="sp-val">6rem · 96px</span><span class="sp-bar pl-6"></span></li>
+              <li class="sp-step"><code>8</code><span class="sp-val">8rem · 128px</span><span class="sp-bar pl-8"></span></li>
+              <li class="sp-step"><code>10</code><span class="sp-val">10rem · 160px</span><span class="sp-bar pl-10"></span></li>
+              </ul></div></div></div>
+            </div>
+          <oc-code lang="html">&lt;div class="p-0.2"&gt;0.25rem padding&lt;/div&gt;
+&lt;div class="p-1"&gt;1rem padding&lt;/div&gt;
+&lt;div class="mt-1.5"&gt;1.5rem margin on top&lt;/div&gt;
+&lt;div class="flex gap-0.7"&gt;0.75rem between the items&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Between the steps shown here there are more: every whole number from 1 to 9 also has <code>.2</code>, <code>.5</code> and <code>.7</code> (for example <code>p-6.5</code> = 6.5rem), and the scale stops at <code>10</code> (10rem, 160px). There is also <code>0</code> for none.</p>
         </div>
       </section>
 

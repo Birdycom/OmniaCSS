@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Utilities", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Utilities", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n\n    .ut-cur { box-sizing: border-box; block-size: 100%; display: grid; place-content: center; text-align: center; gap: 0.3rem; min-block-size: 7rem; padding: 1rem; border-radius: 12px; color: var(--color-white-50); font-size: 1.1rem; font-weight: 700; }\n    .ut-text { overflow-wrap: anywhere; display: grid; align-content: center; gap: 0.3rem; padding: 1rem; border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font-size: 1.1rem; }\n    .ut-ctrls { display: grid; gap: 0.9rem; align-content: start; font-size: 1rem; }\n    .ut-ctrls label { display: flex; align-items: center; gap: 0.6rem; color: var(--oc-foreground); }\n    .ut-ctrls input[type=\"checkbox\"], .ut-ctrls input[type=\"radio\"] { inline-size: 1.4rem; block-size: 1.4rem; margin: 0; }\n    .ut-ctrls input[type=\"range\"], .ut-ctrls progress { inline-size: 100%; }\n    .ut-svg { display: grid; place-items: center; min-block-size: 9rem; }\n    .ut-svg svg { inline-size: 7rem; block-size: 7rem; }\n    .ut-svg--dark { border-radius: 10px; background: var(--color-black-40); }\n    .ut-btn { min-block-size: 3.5rem; padding: 0.75rem 1.25rem; border: 0; border-radius: 10px; font: inherit; font-size: 1.05rem; font-weight: 600; cursor: pointer; }\n    .ut-link { font-size: 1.15rem; color: var(--oc-foreground); text-decoration: none; }\n    .ut-input { box-sizing: border-box; inline-size: 100%; padding: 0.75rem 1rem; border: 2px solid var(--oc-border); border-radius: 10px; background: var(--oc-background); color: var(--oc-foreground); font: inherit; font-size: 1.05rem; }\n    .ut-pc { display: grid; align-content: center; justify-items: start; }\n  /* Inside the stage the sample fills the height, so stages in a row line up. */\n    .ut-text, .ut-pc, .ut-svg { box-sizing: border-box; block-size: 100%; }\n  </style>"]}-->
 <!-- Hero -->
       <section class="oc-hero" id="overview">
         <h1 class="oc-hero-title">Utilities</h1>
@@ -29,18 +29,21 @@
           <tr><td><code>.cursor-crosshair</code></td><td>crosshair</td></tr>
         </table>
           </div>
-        <oc-demo title="Cursor _interactivity.scss v0.2.0">
-          
-          <div class="oc-preview flex-column gap-2 mb-2">
-          <div class="flex wrap gap-2.5">
-            <span class="demo-box cursor-pointer">pointer</span>
-            <span class="demo-box cursor-grab">grab</span>
-            <span class="demo-box cursor-not-allowed">not-allowed</span>
-            <span class="demo-box cursor-help">help</span>
-            <span class="demo-box cursor-crosshair">crosshair</span>
-          </div>
-        </div>
-        </oc-demo>
+        <oc-demo title="Move the mouse over each tile: the pointer changes">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-pointer</code><div class="oc-eg__note">A hand: for links and buttons.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-cur cursor-pointer bg-vividblue-90">Link or button</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-grab</code><div class="oc-eg__note">An open hand: for something you can drag.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-cur cursor-grab bg-teal-70">Something to drag</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-not-allowed</code><div class="oc-eg__note">A no-entry sign: the action is not possible now.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-cur cursor-not-allowed bg-red-70">Not possible now</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-help</code><div class="oc-eg__note">An arrow with a question mark: more information is available.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-cur cursor-help bg-slateblue-70">More info</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-crosshair</code><div class="oc-eg__note">A thin cross: for picking an exact point.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-cur cursor-crosshair bg-chocolate-80">Pick a point</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-wait</code><div class="oc-eg__note">A busy sign: the page is still loading.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-cur cursor-wait bg-purple-60">Busy loading</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;button class="cursor-pointer bg-vividblue-90"&gt;Link or button&lt;/button&gt;
+&lt;div class="cursor-grab bg-teal-70"&gt;Something to drag&lt;/div&gt;
+&lt;button class="cursor-not-allowed bg-red-70" disabled&gt;Not possible now&lt;/button&gt;
+&lt;abbr class="cursor-help bg-slateblue-70" title="Opening hours: 9 to 17"&gt;More info&lt;/abbr&gt;
+&lt;div class="cursor-crosshair bg-chocolate-80"&gt;Pick a point&lt;/div&gt;
+&lt;div class="cursor-wait bg-purple-60"&gt;Busy loading&lt;/div&gt;</oc-code></oc-demo>
       </div></section>
 
       <!-- User Select -->
@@ -48,7 +51,7 @@
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">User Select <span class="oc-section-header__badge-version oc-badge-version">_interactivity.scss</span> <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
           
-        <p class="oc-section-header__desc">Control whether text can be selected by the user.</p>
+        <p class="oc-section-header__desc">Control whether text can be selected by the user. Drag over the text in each box below, or click the e-mail address once.</p>
         </div>
         <div class="oc-section-content">
           <div class="oc-expandable-table">
@@ -60,15 +63,15 @@
           <tr><td><code>.select-auto</code></td><td>auto</td></tr>
         </table>
           </div>
-        <oc-demo title="User Select _interactivity.scss v0.2.0">
-          
-          <div class="oc-preview flex-column gap-2 mb-2">
-          <div class="flex gap-2.5">
-            <span class="demo-box select-none">select-none (try selecting)</span>
-            <span class="demo-box select-all">select-all (click to select)</span>
-          </div>
-        </div>
-        </oc-demo>
+        <oc-demo title="Try to select the text in each box">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.select-none</code><div class="oc-eg__note">Cannot be selected: good for button labels.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-text select-none">Add to cart</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.select-text</code><div class="oc-eg__note">Selects like normal text.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-text select-text">Customer 1, Main Street 1</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.select-all</code><div class="oc-eg__note">One click selects all of it.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-text select-all">info@<wbr>company1.example</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;button class="select-none"&gt;Add to cart&lt;/button&gt;
+&lt;address class="select-text"&gt;Customer 1, Main Street 1&lt;/address&gt;
+&lt;code class="select-all"&gt;info@company1.example&lt;/code&gt;</oc-code></oc-demo>
       </div></section>
 
       <!-- Pointer Events -->
@@ -191,30 +194,36 @@
           <tr><td><code>.appearance-none</code></td><td>appearance</td><td>none</td></tr>
           <tr><td><code>.appearance-auto</code></td><td>appearance</td><td>auto</td></tr>
           <tr><td><code>.accent-auto</code></td><td>accent-color</td><td>auto</td></tr>
-          <tr><td><code>.accent-blue</code></td><td>accent-color</td><td>#3b82f6</td></tr>
-          <tr><td><code>.accent-red</code></td><td>accent-color</td><td>#ef4444</td></tr>
-          <tr><td><code>.accent-green</code></td><td>accent-color</td><td>#22c55e</td></tr>
+          <tr><td><code>.accent-blue</code></td><td>accent-color</td><td>var(--color-vividblue-95)</td></tr>
+          <tr><td><code>.accent-red</code></td><td>accent-color</td><td>var(--color-red-60)</td></tr>
+          <tr><td><code>.accent-green</code></td><td>accent-color</td><td>var(--color-green-40)</td></tr>
         </table>
           </div>
-        <oc-demo title="Appearance & Accent _interactivity.scss v0.2.0">
-          
-          <div class="oc-preview flex-column gap-2 mb-2">
-          <div class="flex gap-4 align-center">
-            <!-- inline: font-size, color – demo-specific label styling -->
-            <label class="flex align-center gap-1.5" style="font-size:0.85rem;color:var(--text-soft);">
-              <input type="checkbox" checked class="accent-blue"> Blue
-            </label>
-            <!-- inline: font-size, color – demo-specific label styling -->
-            <label class="flex align-center gap-1.5" style="font-size:0.85rem;color:var(--text-soft);">
-              <input type="checkbox" checked class="accent-red"> Red
-            </label>
-            <!-- inline: font-size, color – demo-specific label styling -->
-            <label class="flex align-center gap-1.5" style="font-size:0.85rem;color:var(--text-soft);">
-              <input type="checkbox" checked class="accent-green"> Green
-            </label>
-          </div>
-        </div>
-        </oc-demo>
+        <p class="oc-section-content__desc">Opera draws its own form controls and ignores <code>accent-color</code>; Chrome, Edge, Firefox and Safari follow it.</p>
+        <oc-demo title="accent-blue, accent-red, accent-green: one class colors every form control">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.accent-blue</code><div class="oc-eg__note">One class on the form: the checkbox, radio, slider and progress bar all turn blue.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-ctrls accent-blue"><label><input type="checkbox" checked> Send the invoice</label><label><input type="radio" name="ut-accent-blue" checked> Pay by card</label><input type="range" value="70" aria-label="Amount"><progress value="0.6" aria-label="Progress"></progress></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.accent-red</code><div class="oc-eg__note">The same controls, all red.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-ctrls accent-red"><label><input type="checkbox" checked> Send the invoice</label><label><input type="radio" name="ut-accent-red" checked> Pay by card</label><input type="range" value="70" aria-label="Amount"><progress value="0.6" aria-label="Progress"></progress></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.accent-green</code><div class="oc-eg__note">The same controls, all green.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-ctrls accent-green"><label><input type="checkbox" checked> Send the invoice</label><label><input type="radio" name="ut-accent-green" checked> Pay by card</label><input type="range" value="70" aria-label="Amount"><progress value="0.6" aria-label="Progress"></progress></div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;form class="accent-blue"&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Send the invoice&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="pay-accent-blue" checked&gt; Pay by card&lt;/label&gt;
+  &lt;input type="range" value="70" aria-label="Amount"&gt;
+  &lt;progress value="0.6" aria-label="Progress"&gt;&lt;/progress&gt;
+&lt;/form&gt;
+&lt;form class="accent-red"&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Send the invoice&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="pay-accent-red" checked&gt; Pay by card&lt;/label&gt;
+  &lt;input type="range" value="70" aria-label="Amount"&gt;
+  &lt;progress value="0.6" aria-label="Progress"&gt;&lt;/progress&gt;
+&lt;/form&gt;
+&lt;form class="accent-green"&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Send the invoice&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="pay-accent-green" checked&gt; Pay by card&lt;/label&gt;
+  &lt;input type="range" value="70" aria-label="Amount"&gt;
+  &lt;progress value="0.6" aria-label="Progress"&gt;&lt;/progress&gt;
+&lt;/form&gt;</oc-code></oc-demo>
       </div></section>
 
       <!-- Caret & Color Scheme -->
@@ -229,7 +238,7 @@
           <tr><th>Class</th><th>Property</th><th>Value</th></tr>
           <tr><td><code>.caret-auto</code></td><td>caret-color</td><td>auto</td></tr>
           <tr><td><code>.caret-transparent</code></td><td>caret-color</td><td>transparent</td></tr>
-          <tr><td><code>.caret-blue</code></td><td>caret-color</td><td>#3b82f6</td></tr>
+          <tr><td><code>.caret-blue</code></td><td>caret-color</td><td>var(--color-vividblue-95)</td></tr>
           <tr><td><code>.scheme-normal</code></td><td>color-scheme</td><td>normal</td></tr>
           <tr><td><code>.scheme-light</code></td><td>color-scheme</td><td>light</td></tr>
           <tr><td><code>.scheme-dark</code></td><td>color-scheme</td><td>dark</td></tr>
@@ -273,11 +282,11 @@
           <tr><th>Class</th><th>Value</th></tr>
           <tr><td><code>.fill-none</code></td><td>none</td></tr>
           <tr><td><code>.fill-current</code></td><td>currentColor</td></tr>
-          <tr><td><code>.fill-black</code></td><td>#000</td></tr>
-          <tr><td><code>.fill-white</code></td><td>#fff</td></tr>
-          <tr><td><code>.fill-blue-500</code></td><td>#3b82f6</td></tr>
-          <tr><td><code>.fill-red-500</code></td><td>#ef4444</td></tr>
-          <tr><td><code>.fill-green-500</code></td><td>#22c55e</td></tr>
+          <tr><td><code>.fill-black</code></td><td>var(--color-black-50)</td></tr>
+          <tr><td><code>.fill-white</code></td><td>var(--color-white-50)</td></tr>
+          <tr><td><code>.fill-blue-500</code></td><td>var(--color-vividblue-70)</td></tr>
+          <tr><td><code>.fill-red-500</code></td><td>var(--color-red-50)</td></tr>
+          <tr><td><code>.fill-green-500</code></td><td>var(--color-green-10)</td></tr>
         </table>
           </div>
 
@@ -287,9 +296,9 @@
           <tr><th>Class</th><th>Value</th></tr>
           <tr><td><code>.stroke-none</code></td><td>none</td></tr>
           <tr><td><code>.stroke-current</code></td><td>currentColor</td></tr>
-          <tr><td><code>.stroke-black</code></td><td>#000</td></tr>
-          <tr><td><code>.stroke-white</code></td><td>#fff</td></tr>
-          <tr><td><code>.stroke-blue-500</code></td><td>#3b82f6</td></tr>
+          <tr><td><code>.stroke-black</code></td><td>var(--color-black-50)</td></tr>
+          <tr><td><code>.stroke-white</code></td><td>var(--color-white-50)</td></tr>
+          <tr><td><code>.stroke-blue-500</code></td><td>var(--color-vividblue-70)</td></tr>
         </table>
           </div>
 
@@ -304,24 +313,21 @@
         </table>
           </div>
 
-        <oc-demo title="Stroke Width">
-          
-          <div class="oc-preview flex-column gap-2 mb-2">
-          <div class="flex gap-4 align-center">
-            <svg class="fill-blue-500 stroke-none" viewBox="0 0 24 24" width="36" height="36"><circle cx="12" cy="12" r="10" /></svg>
-            <svg class="fill-none stroke-blue-500 stroke-2" viewBox="0 0 24 24" width="36" height="36"><circle cx="12" cy="12" r="10" /></svg>
-            <svg class="fill-red-500 stroke-white stroke-2" viewBox="0 0 24 24" width="36" height="36"><circle cx="12" cy="12" r="10" /></svg>
-            <svg class="fill-green-500 stroke-none" viewBox="0 0 24 24" width="36" height="36"><rect x="2" y="2" width="20" height="20" rx="4" /></svg>
-          </div>
-        </div>
-
-        <oc-code lang="html">&lt;svg class="fill-blue-500 stroke-none" viewBox="0 0 24 24" width="36"&gt;
-  &lt;circle cx="12" cy="12" r="10"/&gt;
-&lt;/svg&gt;
-
-&lt;svg class="fill-none stroke-blue-500 stroke-2" viewBox="0 0 24 24" width="36"&gt;
-  &lt;circle cx="12" cy="12" r="10"/&gt;
-&lt;/svg&gt;</oc-code></oc-demo>
+        <oc-demo title="fill-*, stroke-* and stroke-1 / stroke-2 / stroke-3">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.fill-blue-500 .stroke-none</code><div class="oc-eg__note">A filled circle without an outline.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-svg"><svg class="fill-blue-500 stroke-none" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.fill-none .stroke-blue-500 .stroke-1</code><div class="oc-eg__note">Outline only, 1 unit wide.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-svg"><svg class="fill-none stroke-blue-500 stroke-1" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.fill-none .stroke-blue-500 .stroke-2</code><div class="oc-eg__note">Outline only, 2 units wide.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-svg"><svg class="fill-none stroke-blue-500 stroke-2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.fill-none .stroke-blue-500 .stroke-3</code><div class="oc-eg__note">Outline only, 3 units wide.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-svg"><svg class="fill-none stroke-blue-500 stroke-3" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.fill-red-500 .stroke-white .stroke-2</code><div class="oc-eg__note">A red fill with a white outline, on a dark field so the outline shows.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-svg ut-svg--dark"><svg class="fill-red-500 stroke-white stroke-2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.fill-green-500 .stroke-none</code><div class="oc-eg__note">A filled square with round corners.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-svg"><svg class="fill-green-500 stroke-none" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" /></svg></div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;svg class="fill-blue-500 stroke-none" viewBox="0 0 24 24"&gt;&lt;circle cx="12" cy="12" r="9"/&gt;&lt;/svg&gt;
+&lt;svg class="fill-none stroke-blue-500 stroke-1" viewBox="0 0 24 24"&gt;&lt;circle cx="12" cy="12" r="9"/&gt;&lt;/svg&gt;
+&lt;svg class="fill-none stroke-blue-500 stroke-2" viewBox="0 0 24 24"&gt;&lt;circle cx="12" cy="12" r="9"/&gt;&lt;/svg&gt;
+&lt;svg class="fill-none stroke-blue-500 stroke-3" viewBox="0 0 24 24"&gt;&lt;circle cx="12" cy="12" r="9"/&gt;&lt;/svg&gt;
+&lt;svg class="fill-red-500 stroke-white stroke-2" viewBox="0 0 24 24"&gt;&lt;circle cx="12" cy="12" r="9"/&gt;&lt;/svg&gt;   &lt;!-- on a dark field --&gt;
+&lt;svg class="fill-green-500 stroke-none" viewBox="0 0 24 24"&gt;&lt;rect x="3" y="3" width="18" height="18" rx="4"/&gt;&lt;/svg&gt;</oc-code></oc-demo>
       </div></section>
 
       <!-- Pseudo Classes -->
@@ -340,16 +346,15 @@
           <tr><td><code>active:</code></td><td>:active</td><td><code>.active:line-through</code></td></tr>
         </table>
           </div>
-        <oc-demo title="Pseudo-class Modifiers _modifiers.scss v0.2.0">
-          
-          <div class="oc-preview flex-column gap-2 mb-2">
-          <!-- inline: border:0, border-radius, font-family – demo button styling -->
-          <button class="p-1 bg-blue-40 hover:bg-blue-60 text-white cursor-pointer" style="border:0;border-radius:8px;font-family:inherit;">Hover me (bg change)</button>
-        </div>
-
-        <oc-code lang="html">&lt;button class="bg-blue-40 hover:bg-blue-60 text-white"&gt;
-  Hover me
-&lt;/button&gt;</oc-code></oc-demo>
+        <oc-demo title="hover:, focus: and active: prefixes">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem; --eg-h: 5.5rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:bg-vividblue-95</code><div class="oc-eg__note">Hover the button: its blue gets darker.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-pc"><button type="button" class="ut-btn bg-vividblue-90 hover:bg-vividblue-95 text-white transition-colors">Hover me</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:underline</code><div class="oc-eg__note">Hover the link: it gets an underline.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-pc"><a class="ut-link hover:underline" tabindex="0">Hover this link</a></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.focus:text-center</code><div class="oc-eg__note">Click in the field: the text moves to the centre.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-0.8"><div class="ut-pc"><input class="ut-input focus:text-center" value="Click in this field" aria-label="Focus demo"></div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;button class="bg-vividblue-90 hover:bg-vividblue-95 text-white"&gt;Hover me&lt;/button&gt;
+&lt;a class="hover:underline" href="/products"&gt;Hover this link&lt;/a&gt;
+&lt;input class="focus:text-center" value="Click in this field"&gt;</oc-code></oc-demo>
       </div></section>
 
       <!-- Accessibility -->

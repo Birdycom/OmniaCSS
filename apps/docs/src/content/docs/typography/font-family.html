@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Font Family", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Font Family","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<link href=\"/css/oc-google-fonts.css\" rel=\"stylesheet\">","<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    .ty-rows { display: grid; inline-size: 100%; }\n    .ty-row { display: grid; grid-template-columns: minmax(8rem, 13rem) minmax(0, 1fr); gap: 0.35rem 1.5rem; align-items: baseline; padding-block: 0.8rem; border-block-end: 1px solid var(--oc-border); }\n    .ty-row:first-child { padding-block-start: 0; }\n    .ty-row:last-child { padding-block-end: 0; border-block-end: 0; }\n    .ty-lbl { justify-self: start; padding: 0; background: none; font-size: 0.82rem; color: var(--oc-muted-foreground); overflow-wrap: anywhere; }\n    .ty-row > p, .ty-row > div { margin: 0; min-inline-size: 0; }\n    .ty-row p { color: var(--oc-foreground); }\n    @media (max-width: 40rem) { .ty-row { grid-template-columns: minmax(0, 1fr); } }\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .fx-s { font-size: 1.45rem; line-height: 1.35; }\n    .fx-big { font-size: 1.75rem; line-height: 1.25; }\n    .fx-abc { margin-block-start: 0.35rem; font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }\n    .ty-row .fx-abc { color: var(--oc-muted-foreground); }\n    .fx-meta { display: grid; gap: 0.2rem; align-self: start; }\n    .fx-meta .fx-cls { justify-self: start; padding: 0; background: none; font-size: 0.85rem; font-weight: 600; color: var(--oc-foreground); }\n    .fx-meta small { font-size: 0.75rem; line-height: 1.4; color: var(--oc-muted-foreground); }\n    .fx-glyphs { font-size: 1.9rem; line-height: 1.3; letter-spacing: 0.12em; overflow-wrap: anywhere; }\n    .oc-table-ref td code { white-space: nowrap; }\n    .fx-card { display: grid; gap: 0.6rem; max-inline-size: 36rem; padding: 1.4rem 1.6rem; border-radius: 12px; background: var(--oc-card); border: 1px solid var(--oc-border); color: var(--oc-foreground); }\n    .fx-card h3, .fx-card p { margin: 0; color: var(--oc-foreground); }\n    .fx-card .fx-sku { font-size: 0.9rem; color: var(--oc-muted-foreground); }\n    /* The docs site gives its own headings a font; inside this demo the font class must win, as on your own site. */\n    .fx-card h3.font-fantasy { font-family: \"Cormorant Infant\", fantasy; }\n    .fx-card h3.font-roboto { font-family: \"Roboto Flex\", sans-serif; }\n.ty-in { display: grid; align-content: center; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n</style>"]}-->
 <section class="oc-docs-section" id="font-family">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Font Family</h2>
@@ -6,22 +6,26 @@
           <span class="oc-section-header__badge-scss oc-badge-source-scss">_fonts.scss</span>
           <span class="oc-section-header__badge-file oc-badge-source-file">font-family.html</span>
           <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
-          <p class="oc-section-header__desc">
-            Utilities for setting the font family of an element, including web-safe stacks and system fonts.
-          </p>
+          <p class="oc-section-header__desc">Set the typeface of an element with one class. Each class sets a <code>font-family</code> stack: a list of fonts, of which the browser uses the first one it has. To see every font at full size, open the <a href="font-families.html">Font Catalog</a>; to learn which fonts are downloaded and how, read <a href="fonts.html">Loading Fonts</a>.</p>
         </div>
 
         <div class="oc-section-content">
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Font Stack</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Font stack</th><th>Kind</th></tr></thead>
               <tbody>
-                <tr><td><code>.font-roboto</code></td><td>"Roboto", sans-serif</td></tr>
-                <tr><td><code>.font-serif</code></td><td>Georgia, Cambria, serif</td></tr>
-                <tr><td><code>.font-sansserif</code></td><td>system-ui, -apple-system, sans-serif</td></tr>
-                <tr><td><code>.font-monospace</code></td><td>"Courier New", Courier, monospace</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.font-cursive</code></td><td>cursive</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.font-emoji</code></td><td>emoji</td></tr>
+                <tr><td><code>.font-roboto</code></td><td>"Roboto Flex", sans-serif</td><td>Sans-serif</td></tr>
+                <tr><td><code>.font-source</code></td><td>"Source Sans Pro", sans-serif</td><td>Sans-serif</td></tr>
+                <tr><td><code>.font-serif</code></td><td>Times, "Times New Roman", Georgia, serif</td><td>Serif</td></tr>
+                <tr><td><code>.font-sansserif</code></td><td>Verdana, Arial, Helvetica, sans-serif</td><td>Sans-serif</td></tr>
+                <tr><td><code>.font-monospace</code></td><td>"Lucida Console", Courier, monospace</td><td>Monospace</td></tr>
+                <tr><td><code>.font-cursive</code></td><td>"Cedarville Cursive", cursive</td><td>Handwriting</td></tr>
+                <tr><td><code>.font-fantasy</code></td><td>"Cormorant Infant", fantasy</td><td>Display serif</td></tr>
+                <tr><td><code>.font-emoji</code></td><td>"Noto Emoji", emoji</td><td>Emoji (one color)</td></tr>
+                <tr><td><code>.font-coloremoji</code></td><td>"Noto Color Emoji", emoji</td><td>Emoji (in color)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.font-math</code></td><td>"Noto Sans Math"</td><td>Math symbols</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.font-fangsong</code></td><td>"Noto Serif JP", "Noto Sans JP", fangsong</td><td>Japanese</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.font-hieroglyphs</code></td><td>"Noto Sans Egyptian Hieroglyphs"</td><td>Egyptian hieroglyphs</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -29,18 +33,72 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title mt-8">Family Demos</h3>
-          <oc-demo title="Family Demos"><div class="oc-preview oc-preview-col gap-4">
-            <p class="font-roboto font-1.2 m-0">Roboto: The quick brown fox jumps over the lazy dog.</p>
-            <p class="font-serif font-1.2 m-0">Serif: The quick brown fox jumps over the lazy dog.</p>
-            <p class="font-sansserif font-1.2 m-0">Sans-serif: The quick brown fox jumps over the lazy dog.</p>
-            <p class="font-monospace font-1.2 m-0">Monospace: The quick brown fox jumps over the lazy dog.</p>
-            <p class="font-cursive font-1.2 m-0">Cursive: Beautiful handwritten style text.</p>
-            <p class="font-emoji font-1.5 m-0">🚀 ✨ 🌍 💡 🎨 (System Emoji Stack)</p>
-          </div><oc-code lang="html">&lt;p class="font-serif text-lg italic"&gt;
-  "Typography is the craft of endowing human language with a durable visual form."
-&lt;/p&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-8" id="compare">The text fonts side by side</h3>
+          <p class="oc-section-content__desc">The same sentence in each of the seven text fonts, so you can compare them at a glance. The emoji, math and other-script classes are shown in the <a href="font-families.html">Font Catalog</a>.</p>
+          <oc-demo title="font-roboto … font-fantasy">
+            <div class="ty-rows">
+              <div class="ty-row"><code class="ty-lbl">.font-roboto</code><p class="fx-s font-roboto">Company 1 ships every order within 24 hours.</p></div>
+              <div class="ty-row"><code class="ty-lbl">.font-source</code><p class="fx-s font-source">Company 1 ships every order within 24 hours.</p></div>
+              <div class="ty-row"><code class="ty-lbl">.font-serif</code><p class="fx-s font-serif">Company 1 ships every order within 24 hours.</p></div>
+              <div class="ty-row"><code class="ty-lbl">.font-sansserif</code><p class="fx-s font-sansserif">Company 1 ships every order within 24 hours.</p></div>
+              <div class="ty-row"><code class="ty-lbl">.font-monospace</code><p class="fx-s font-monospace">Company 1 ships every order within 24 hours.</p></div>
+              <div class="ty-row"><code class="ty-lbl">.font-cursive</code><p class="fx-s font-cursive">Company 1 ships every order within 24 hours.</p></div>
+              <div class="ty-row"><code class="ty-lbl">.font-fantasy</code><p class="fx-s font-fantasy">Company 1 ships every order within 24 hours.</p></div>
+            </div>
+          <oc-code lang="html">&lt;p class="font-roboto"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-source"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-serif"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-sansserif"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-monospace"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-cursive"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;
+&lt;p class="font-fantasy"&gt;Company 1 ships every order within 24 hours.&lt;/p&gt;</oc-code></oc-demo>
 
-          
+          <h3 class="oc-section-content__title mt-10" id="usage">Using the classes</h3>
+          <p class="oc-section-content__desc">A font family is inherited: put the class on a parent and every child uses it, then give single elements their own class. Combine it with a size and a weight class. The two cards below hold the same content; only the font classes differ.</p>
+          <oc-demo title="Mixing families in one card">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-fantasy .font-source .font-monospace</code><div class="oc-eg__note">The heading in .font-fantasy, the text in .font-source and the code line in .font-monospace.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="fx-card font-source">
+                <h3 class="font-fantasy font-2 font-semibold">Product 1</h3>
+                <p>A sturdy bag for everyday use. Made by Company 1.</p>
+                <p class="font-monospace fx-sku">SKU P1-0042 · € 49.00</p>
+              </div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-roboto .font-serif .font-monospace</code><div class="oc-eg__note">The heading in .font-roboto, the text in .font-serif and the code line in .font-monospace.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="fx-card font-serif">
+                <h3 class="font-roboto font-2 font-bold">Product 1</h3>
+                <p>A sturdy bag for everyday use. Made by Company 1.</p>
+                <p class="font-monospace fx-sku">SKU P1-0042 · € 49.00</p>
+              </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- The parent sets the body font; children inherit it --&gt;
+&lt;div class="font-source"&gt;
+  &lt;h3 class="font-fantasy font-2 font-semibold"&gt;Product 1&lt;/h3&gt;
+  &lt;p&gt;A sturdy bag for everyday use. Made by Company 1.&lt;/p&gt;
+  &lt;p class="font-monospace"&gt;SKU P1-0042 · € 49.00&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="font-serif"&gt;
+  &lt;h3 class="font-roboto font-2 font-bold"&gt;Product 1&lt;/h3&gt;
+  &lt;p&gt;A sturdy bag for everyday use. Made by Company 1.&lt;/p&gt;
+  &lt;p class="font-monospace"&gt;SKU P1-0042 · € 49.00&lt;/p&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">Every class comes from the <code>$fontfamily</code> map. Add your own entry there to get a new <code>.font-{name}</code> class. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family" target="_blank" rel="noopener">MDN: font-family</a>.</p>
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>scss/utilities/_fonts.scss</code></td><td>Generates one <code>.font-{name}</code> class per entry of <code>$fontfamily</code></td></tr>
+                  <tr><td><code>scss/variables/_variables_typography.scss</code></td><td>The <code>$fontfamily</code> map: class name → font stack</td></tr>
+                  <tr><td><code>scss/config/omniacss.fonts.scss</code></td><td>The Google Fonts <code>@import</code> and the <code>@font-face</code> rules for local fonts</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc"><a href="font-family.html">Font Family</a> · <a href="font-families.html">Font Catalog</a> · <a href="fonts.html">Loading Fonts</a> · <a href="font-size.html">Font Size</a> · <a href="font-weight.html">Font Weight</a></p>
+          </div>
         </div>
       </section>

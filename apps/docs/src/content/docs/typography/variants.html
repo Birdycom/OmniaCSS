@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Font Variants & Text Effects", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Font Variants & Text Effects","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .rb-s { margin: 0; font-size: 2rem; line-height: 1.2; }\n    .rb-s rt { font-size: 0.45em; color: var(--oc-muted-foreground); }\n    .em-s { margin: 0; font-size: 1.6rem; line-height: 2.2; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n.ty-center { justify-items: center; text-align: center; }\n    /* Inside the stages only. */\n    .va-col { max-inline-size: 8rem; font-size: 1.2rem; line-height: 1.45; }\n    .va-just { max-inline-size: 13rem; font-size: 1rem; line-height: 1.5; }\n    .va-box { max-inline-size: 13rem; padding: 0.5rem 0.75rem; border: 1.5px solid var(--oc-border-strong); border-radius: 6px; background: var(--oc-card); }\n    .va-vert { block-size: 8rem; font-size: 1.6rem; line-height: 1.2; justify-self: center; }\n\n  </style>"]}-->
 <section class="oc-docs-section" id="variants">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Font Variants &amp; Text Effects</h2>
@@ -32,36 +32,28 @@
             </div>
           </div>
 
-          <oc-demo title="font-caps-small, font-caps-all-small, font-lig-none, font-emoji-text">
+          <oc-demo title="font-caps-small, font-caps-all-small, font-lig-normal/none, font-emoji-text/emoji">
             
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.font-caps-small</span>
-                <span class="font-caps-small font-2">Small Caps</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.font-caps-all-small</span>
-                <span class="font-caps-all-small font-2">All Small</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.font-lig-none</span>
-                <span class="font-lig-none font-2">office fl</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.font-emoji-text</span>
-                <span class="font-emoji-text font-2">☎ ✂ ♥</span>
-              </div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 18rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-caps-small</code><div class="oc-eg__note">Small letters drawn as small capitals.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="font-caps-small font-2">Small Caps</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-caps-all-small</code><div class="oc-eg__note">All letters drawn as small capitals.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="font-caps-all-small font-2">All Small</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-fantasy .font-lig-normal</code><div class="oc-eg__note">Ligatures on (the default): ffi and fl are drawn as one joined shape. Look at the i: it has no dot of its own.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="font-fantasy font-lig-normal font-4">office flow</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-fantasy .font-lig-none</code><div class="oc-eg__note">No ligatures: every letter stands on its own, and the i keeps its dot.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="font-fantasy font-lig-none font-4">office flow</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-emoji-text</code><div class="oc-eg__note">Symbols drawn as text, in the text color.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="font-emoji-text font-2">☎ ✂ ♥</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-emoji-emoji</code><div class="oc-eg__note">The same symbols drawn as color emoji.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="font-emoji-emoji font-2">☎ ✂ ♥</span></div></div>
+</div></div>
 
             
             
           <oc-code lang="html">&lt;span class="font-caps-small font-2"&gt;Small Caps&lt;/span&gt;
 &lt;span class="font-caps-all-small font-2"&gt;All Small&lt;/span&gt;
-&lt;span class="font-lig-none font-2"&gt;office fl&lt;/span&gt;
-&lt;span class="font-emoji-text font-2"&gt;☎ ✂ ♥&lt;/span&gt;</oc-code></oc-demo>
+&lt;span class="font-fantasy font-lig-normal font-4"&gt;office flow&lt;/span&gt;
+&lt;span class="font-fantasy font-lig-none font-4"&gt;office flow&lt;/span&gt;
+&lt;span class="font-emoji-text font-2"&gt;☎ ✂ ♥&lt;/span&gt;
+&lt;span class="font-emoji-emoji font-2"&gt;☎ ✂ ♥&lt;/span&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="variable">Variable fonts &amp; size adjust</h3>
-          <p class="oc-section-content__desc"><code>font-variation-settings</code> sets variable font axes directly — it only has effect with a <strong>variable font</strong> (the demo uses Inter Variable). <code>font-size-adjust</code> keeps the x-height equal when a fallback font is used.</p>
+          <p class="oc-section-content__desc"><code>font-variation-settings</code> sets variable font axes directly — it only has effect with a <strong>variable font</strong> (the demo uses Roboto Flex, which OmniaCSS loads as a variable font with a weight axis from 100 to 1000). <code>font-size-adjust</code> keeps the x-height equal when a fallback font is used.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -80,23 +72,15 @@
             </div>
           </div>
 
-          <oc-demo title="font-wght-300 vs font-wght-800">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.font-wght-300</span>
-                <span class="font-wght-300 oc-font-variable-demo font-2">Omnia</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.font-wght-800</span>
-                <span class="font-wght-800 oc-font-variable-demo font-2">Omnia</span>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;span class="font-wght-300 oc-font-variable-demo font-2"&gt;Omnia&lt;/span&gt;
-&lt;span class="font-wght-800 oc-font-variable-demo font-2"&gt;Omnia&lt;/span&gt;</oc-code></oc-demo>
+          <oc-demo title="font-wght-200, font-wght-500, font-wght-900">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-roboto .font-wght-200</code><div class="oc-eg__note">The weight axis of a variable font at 200: light.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="font-roboto font-3 font-wght-200">Omnia</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-roboto .font-wght-500</code><div class="oc-eg__note">The same font at 500: medium.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="font-roboto font-3 font-wght-500">Omnia</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-roboto .font-wght-900</code><div class="oc-eg__note">At 900: very heavy. One font file draws all three.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="font-roboto font-3 font-wght-900">Omnia</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;div class="font-roboto font-3 font-wght-200"&gt;Omnia&lt;/div&gt;
+&lt;div class="font-roboto font-3 font-wght-500"&gt;Omnia&lt;/div&gt;
+&lt;div class="font-roboto font-3 font-wght-900"&gt;Omnia&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="hyphenation">Hyphenation, justify &amp; wrap mode</h3>
           <p class="oc-section-content__desc">Fine-tune hyphenation (use with <code>.hyphens-auto</code> and a <code>lang</code> attribute), justification and line wrapping.</p>
@@ -116,8 +100,32 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">Each row compares two classes. The hyphen tiles use <code>.hyphens-manual</code> with soft hyphens (<code>&amp;shy;</code>), so they work in every browser. <code>.text-justify-inter-character</code> looks like <code>.text-justify-auto</code> in Chrome, and <code>.hyphenate-limit-*</code> only acts on words that <code>.hyphens-auto</code> splits, so those have no tile.</p>
+          <oc-demo title="hyphenate-char, text-justify, text-wrap-mode, text-combine">
+<div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.hyphenate-char-auto</code><div class="oc-eg__note">A split word ends with the normal hyphen.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="en" class="va-col hyphens-manual hyphenate-char-auto">Inter&shy;national&shy;ization require&shy;ments</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hyphenate-char-equals</code><div class="oc-eg__note">A split word ends with an equals sign instead.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="en" class="va-col hyphens-manual hyphenate-char-equals">Inter&shy;national&shy;ization require&shy;ments</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-justify .text-justify-auto</code><div class="oc-eg__note">Justified text: the browser stretches the spaces so both edges are straight.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="va-just text-justify text-justify-auto">Company 1 ships every order within 24 hours by mail.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-justify .text-justify-none</code><div class="oc-eg__note">No stretching: the right edge stays ragged, even though the text is justified.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="va-just text-justify text-justify-none">Company 1 ships every order within 24 hours by mail.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-wrap-mode-wrap</code><div class="oc-eg__note">The text wraps inside its box.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="va-box text-wrap-mode-wrap">Company 1 ships every order within 24 hours.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-wrap-mode-nowrap</code><div class="oc-eg__note">One long line: it runs out of the box (cut off here by <code>.overflow-hidden</code>).</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="va-box overflow-hidden text-wrap-mode-nowrap">Company 1 ships every order within 24 hours.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-combine-none</code><div class="oc-eg__note">In vertical text the number 24 lies on its side.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="ja" class="va-vert write-vertical-rl">営業<span class="text-combine-none">24</span>時間</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-combine-all</code><div class="oc-eg__note">The two digits are squeezed upright into one square.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="ja" class="va-vert write-vertical-rl">営業<span class="text-combine-all">24</span>時間</div></div></div>
+</div></div>
+<oc-code lang="html">&lt;p lang="en" class="hyphens-manual hyphenate-char-auto"&gt;Inter&amp;shy;national&amp;shy;ization require&amp;shy;ments&lt;/p&gt;
+&lt;p lang="en" class="hyphens-manual hyphenate-char-equals"&gt;Inter&amp;shy;national&amp;shy;ization require&amp;shy;ments&lt;/p&gt;
+
+&lt;p class="text-justify text-justify-auto"&gt;Company 1 ships every order within 24 hours by mail.&lt;/p&gt;
+&lt;p class="text-justify text-justify-none"&gt;Company 1 ships every order within 24 hours by mail.&lt;/p&gt;
+
+&lt;div class="text-wrap-mode-wrap"&gt;Company 1 ships every order within 24 hours.&lt;/div&gt;
+&lt;div class="overflow-hidden text-wrap-mode-nowrap"&gt;Company 1 ships every order within 24 hours.&lt;/div&gt;
+
+&lt;div lang="ja" class="write-vertical-rl"&gt;営業&lt;span class="text-combine-none"&gt;24&lt;/span&gt;時間&lt;/div&gt;
+&lt;div lang="ja" class="write-vertical-rl"&gt;営業&lt;span class="text-combine-all"&gt;24&lt;/span&gt;時間&lt;/div&gt;</oc-code></oc-demo>
+
           <h3 class="oc-section-content__title mt-10" id="text-effects">Text effects &amp; emphasis</h3>
-          <p class="oc-section-content__desc">Outline text with a stroke, make the fill transparent, and set emphasis-mark style and color separately.</p>
+          <p class="oc-section-content__desc">Outline text with a stroke, make the fill transparent, and set the style and color of emphasis marks separately. Emphasis marks come from Chinese and Japanese typography (see <a href="modern.html#text-emphasis">Text emphasis</a>); they work on English text too.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -137,29 +145,20 @@
 
           <oc-demo title="text-outline, text-stroke-1 + text-stroke-black">
             
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.text-outline</span>
-                <span class="text-outline font-3 font-bold text-dodgerblue">Outline</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.text-stroke-1 .text-stroke-black</span>
-                <span class="text-stroke-1 text-stroke-black font-3 font-bold text-orange">Stroke</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.emphasis-style-open .emphasis-color-red</span>
-                <span class="emphasis-style-open emphasis-color-red font-2">強調</span>
-              </div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-outline</code><div class="oc-eg__note">Only the outline of the letters shows.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="text-outline font-3 font-bold text-vividblue-90 dark:text-dodgerblue">Outline</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-stroke-1 .text-stroke-black</code><div class="oc-eg__note">A thin black stroke around orange letters.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="text-stroke-1 text-stroke-black font-3 font-bold text-orange-95">Stroke</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.emphasis-style-open .emphasis-color-red</code><div class="oc-eg__note">Open red marks above the letters.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="emphasis-style-open emphasis-color-red font-2">Only today</span></div></div>
+</div></div>
 
             
             
-          <oc-code lang="html">&lt;span class="text-outline font-3 font-bold text-dodgerblue"&gt;Outline&lt;/span&gt;
-&lt;span class="text-stroke-1 text-stroke-black font-3 font-bold text-orange"&gt;Stroke&lt;/span&gt;
-&lt;span class="emphasis-style-open emphasis-color-red font-2"&gt;強調&lt;/span&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;span class="text-outline font-3 font-bold text-vividblue-90 dark:text-dodgerblue"&gt;Outline&lt;/span&gt;
+&lt;span class="text-stroke-1 text-stroke-black font-3 font-bold text-orange-95"&gt;Stroke&lt;/span&gt;
+&lt;span class="emphasis-style-open emphasis-color-red font-2"&gt;Only today&lt;/span&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="ruby">Ruby &amp; MathML</h3>
-          <p class="oc-section-content__desc">Position and align ruby annotations (<code>&lt;ruby&gt;</code>/<code>&lt;rt&gt;</code>) and switch MathML between display and inline style.</p>
+          <p class="oc-section-content__desc">Ruby puts a small note above or below a word with <code>&lt;ruby&gt;</code> and <code>&lt;rt&gt;</code>. It comes from Chinese and Japanese, where the note shows how to read a character; in English you can use it for a pronunciation hint or a translation. The math classes switch a MathML formula between its large display size and the compact size used inside a line of text.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -177,33 +176,25 @@
             </div>
           </div>
 
-          <oc-demo title="ruby-over, ruby-under, math-compact">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.ruby-over</span>
-                <ruby class="ruby-over font-2">漢<rt>kan</rt>字<rt>ji</rt></ruby>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.ruby-under</span>
-                <ruby class="ruby-under font-2">漢<rt>kan</rt>字<rt>ji</rt></ruby>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.math-normal</span>
-                <math class="math-normal font-2"><mfrac><mn>1</mn><mn>2</mn></mfrac></math>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.math-compact</span>
-                <math class="math-compact font-2"><mfrac><mn>1</mn><mn>2</mn></mfrac></math>
-              </div>
-            </div>
+          <oc-demo title="ruby-over, ruby-under">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.ruby-over</code><div class="oc-eg__note">A pronunciation hint above the word.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="rb-s"><ruby class="ruby-over">Leicester<rt>LES-ter</rt></ruby></p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.ruby-under</code><div class="oc-eg__note">A translation below the word.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="rb-s"><ruby class="ruby-under">Danke<rt>thanks</rt></ruby></p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Original use, in Japanese</code><div class="oc-eg__note">The reading of each character (here in Latin letters) sits above it.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="rb-s"><ruby lang="ja" class="ruby-over">漢<rt>kan</rt>字<rt>ji</rt></ruby></p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;ruby class="ruby-over"&gt;Leicester&lt;rt&gt;LES-ter&lt;/rt&gt;&lt;/ruby&gt;
+&lt;ruby class="ruby-under"&gt;Danke&lt;rt&gt;thanks&lt;/rt&gt;&lt;/ruby&gt;
 
-            
-            
-          <oc-code lang="html">&lt;ruby class="ruby-over font-2"&gt;漢&lt;rt&gt;kan&lt;/rt&gt;字&lt;rt&gt;ji&lt;/rt&gt;&lt;/ruby&gt;
-&lt;ruby class="ruby-under font-2"&gt;漢&lt;rt&gt;kan&lt;/rt&gt;字&lt;rt&gt;ji&lt;/rt&gt;&lt;/ruby&gt;
-&lt;math class="math-normal font-2"&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;/math&gt;
-&lt;math class="math-compact font-2"&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;/math&gt;</oc-code></oc-demo>
+&lt;!-- The original use: how to read Japanese characters --&gt;
+&lt;ruby lang="ja" class="ruby-over"&gt;漢&lt;rt&gt;kan&lt;/rt&gt;字&lt;rt&gt;ji&lt;/rt&gt;&lt;/ruby&gt;</oc-code></oc-demo>
+
+          <oc-demo title="math-normal, math-compact">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.math-normal</code><div class="oc-eg__note">Full size, as in a formula on its own line.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="rb-s"><math class="math-normal"><mfrac><mn>1</mn><mn>2</mn></mfrac></math></p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.math-compact</code><div class="oc-eg__note">Smaller, so it fits inside a line of text.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="rb-s"><math class="math-compact"><mfrac><mn>1</mn><mn>2</mn></mfrac></math></p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;math class="math-normal"&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;/math&gt;
+&lt;math class="math-compact"&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;/math&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Unsupported font features are ignored and the default glyphs are shown.</p>

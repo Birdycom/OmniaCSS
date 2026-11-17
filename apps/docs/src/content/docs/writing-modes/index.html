@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Writing Modes & Logical Properties", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Writing Modes & Logical Properties", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n/* Writing-mode demos: the inside of the example-kit stage, flat palette samples with white text */\n.wm-field { display: grid; place-items: center; block-size: 12rem; padding: 12px; }\n.wm-sample { max-block-size: 100%; padding: 12px 14px; border-radius: 8px; background: var(--wm-c, var(--color-vividblue-90)); color: var(--color-white-50); font-weight: 600; font-size: 0.95rem; line-height: 1.5; }\n.wm-sample small { display: block; font-weight: 400; font-size: 0.8rem; }\n.wm-panel { position: relative; display: grid; align-content: end; inline-size: 100%; block-size: 100%; box-sizing: border-box; padding: 14px; border: 1px solid var(--oc-border-strong); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); }\n.wm-panel strong { font-size: 1rem; }\n.wm-panel span:not(.wm-badge) { font-size: 0.85rem; color: var(--oc-muted-foreground); }\n.wm-badge { padding: 3px 10px; border-radius: 999px; background: var(--color-orange-95); color: var(--color-white-50); font-size: 0.8rem; font-weight: 700; }\n.wm-bidi { display: grid; align-content: center; padding: 1rem 1.15rem; font-size: 1.3rem; color: var(--oc-foreground); }\n.wm-mark { padding: 0 0.2em; border-radius: 4px; background: color-mix(in oklch, var(--color-orange-95) 22%, transparent); }\n.wm-size { display: grid; align-content: center; padding: 0.75rem; }\n.wm-it { box-sizing: border-box; justify-content: start; text-align: start; line-height: 1.35; }\n.wm-it.write-vertical-rl { justify-content: center; }\n.wm-vbox { block-size: 9rem; }\n\n  </style>"]}-->
 <section class="oc-docs-section" id="writing-modes">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Writing Modes &amp; Logical Properties</h2>
@@ -30,28 +30,17 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">The same two lines of text in each card; only the writing mode changes. Follow the direction in which the lines run and where the second line goes.</p>
           <oc-demo title="write-horizontal, write-vertical-rl, write-sideways-lr">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.write-horizontal</span>
-                <div class="write-horizontal border-1 border-solid border-dodgerblue-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30">Omnia</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.write-vertical-rl</span>
-                <div class="write-vertical-rl border-1 border-solid border-forestgreen-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30">Omnia</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.write-sideways-lr</span>
-                <div class="write-sideways-lr border-1 border-solid border-darkorange-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-darkorange-95 dark:text-darkorange-30 bg-darkorange-mix-30">Omnia</div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="write-horizontal border-1 border-solid border-dodgerblue-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30"&gt;Omnia&lt;/div&gt;
-&lt;div class="write-vertical-rl border-1 border-solid border-forestgreen-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30"&gt;Omnia&lt;/div&gt;
-&lt;div class="write-sideways-lr border-1 border-solid border-darkorange-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-darkorange-95 dark:text-darkorange-30 bg-darkorange-mix-30"&gt;Omnia&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 12rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.write-horizontal</code><div class="oc-eg__note">The default: lines run left to right, new lines go down.</div><div class="oc-eg__stage oc-eg__stage--plain wm-field"><div class="write-horizontal wm-sample" style="--wm-c: var(--color-vividblue-90)">Order 1 shipped<small>Customer 1, Company 1</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.write-vertical-rl</code><div class="oc-eg__note">Lines run top to bottom, new lines go to the left (Japanese, Chinese).</div><div class="oc-eg__stage oc-eg__stage--plain wm-field"><div class="write-vertical-rl wm-sample" style="--wm-c: var(--color-teal-70)">Order 1 shipped<small>Customer 1, Company 1</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.write-sideways-lr</code><div class="oc-eg__note">The whole text is turned a quarter to the left: it reads bottom to top, like a book spine.</div><div class="oc-eg__stage oc-eg__stage--plain wm-field"><div class="write-sideways-lr wm-sample" style="--wm-c: var(--color-purple-60)">Order 1 shipped<small>Customer 1, Company 1</small></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- The colored card look (padding, color, small line) is page CSS; the classes do the writing mode --&gt;
+&lt;div class="write-horizontal"&gt;Order 1 shipped&lt;small&gt;Customer 1, Company 1&lt;/small&gt;&lt;/div&gt;
+&lt;div class="write-vertical-rl"&gt;Order 1 shipped&lt;small&gt;Customer 1, Company 1&lt;/small&gt;&lt;/div&gt;
+&lt;div class="write-sideways-lr"&gt;Order 1 shipped&lt;small&gt;Customer 1, Company 1&lt;/small&gt;&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="direction">Direction</h3>
           <p class="oc-section-content__desc">Base direction for text and inline layout. Prefer the HTML <code>dir</code> attribute for real content; use these classes for isolated components. <strong>Gotcha:</strong> the <code>direction</code> property alone does not change the document language; the <code>dir</code> attribute does both and is also read by assistive technology and bidi algorithms. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/direction" target="_blank" rel="noopener">MDN: direction</a>.</p>
@@ -84,28 +73,16 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">All three boxes use <code>.write-vertical-rl</code>; only the <code>text-orient</code> class changes. Compare the Latin letters with the Japanese characters.</p>
           <oc-demo title="write-vertical-rl + text-orient-*">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.text-orient-mixed</span>
-                <div class="text-orient-mixed write-vertical-rl border-1 border-solid border-dodgerblue-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30">Omnia</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.text-orient-upright</span>
-                <div class="text-orient-upright write-vertical-rl border-1 border-solid border-forestgreen-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30">Omnia</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.text-orient-sideways</span>
-                <div class="text-orient-sideways write-vertical-rl border-1 border-solid border-darkorange-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-darkorange-95 dark:text-darkorange-30 bg-darkorange-mix-30">Omnia</div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="text-orient-mixed write-vertical-rl border-1 border-solid border-dodgerblue-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30"&gt;Omnia&lt;/div&gt;
-&lt;div class="text-orient-upright write-vertical-rl border-1 border-solid border-forestgreen-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30"&gt;Omnia&lt;/div&gt;
-&lt;div class="text-orient-sideways write-vertical-rl border-1 border-solid border-darkorange-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-darkorange-95 dark:text-darkorange-30 bg-darkorange-mix-30"&gt;Omnia&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 12rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-orient-mixed</code><div class="oc-eg__note">The default: Japanese characters stay upright, Latin letters and digits lie on their side.</div><div class="oc-eg__stage oc-eg__stage--plain wm-field"><div class="write-vertical-rl text-orient-mixed wm-sample" style="--wm-c: var(--color-vividblue-90)">日本語 Omnia 2026</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-orient-upright</code><div class="oc-eg__note">Every character stands upright, also the Latin letters: they stack one under the other.</div><div class="oc-eg__stage oc-eg__stage--plain wm-field"><div class="write-vertical-rl text-orient-upright wm-sample" style="--wm-c: var(--color-teal-70)">日本語 Omnia 2026</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-orient-sideways</code><div class="oc-eg__note">Everything lies on its side, also the Japanese characters.</div><div class="oc-eg__stage oc-eg__stage--plain wm-field"><div class="write-vertical-rl text-orient-sideways wm-sample" style="--wm-c: var(--color-purple-60)">日本語 Omnia 2026</div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="write-vertical-rl text-orient-mixed"&gt;日本語 Omnia 2026&lt;/div&gt;
+&lt;div class="write-vertical-rl text-orient-upright"&gt;日本語 Omnia 2026&lt;/div&gt;
+&lt;div class="write-vertical-rl text-orient-sideways"&gt;日本語 Omnia 2026&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="unicode-bidi">Unicode bidi</h3>
           <p class="oc-section-content__desc">Fine-grained control over bidirectional text, e.g. user-generated names inside a sentence in another direction. <strong>Gotcha:</strong> <code>isolate</code> is the safe default for user-generated content: it prevents a right-to-left name from reordering the punctuation around it. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/unicode-bidi" target="_blank" rel="noopener">MDN: unicode-bidi</a>.</p>
@@ -126,6 +103,25 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">Top row: a customer name in Hebrew (חברה 1, "Company 1") inside an English sentence, as it could come from a form. Watch where ": 3 orders" ends up. Middle row: right-to-left text with and without override. Bottom row: the same Hebrew-first sentence, once with the page direction and once with <code>.bidi-plaintext</code>, which lets the text itself decide its direction. <code>.bidi-embed</code> and <code>.bidi-isolate-override</code> are the older and the combined forms of these and look the same here.</p>
+          <oc-demo title="bidi-normal, bidi-isolate, bidi-override, bidi-plaintext">
+<div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bidi-normal</code><div class="oc-eg__note">The Hebrew name pulls the number and the colon into its own direction: the sentence reads wrong.</div><div class="oc-eg__stage oc-eg__stage--plain wm-bidi"><div>Customer <span class="bidi-normal wm-mark">חברה 1</span>: 3 orders</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bidi-isolate</code><div class="oc-eg__note">The name is kept apart from the text around it: the sentence reads right.</div><div class="oc-eg__stage oc-eg__stage--plain wm-bidi"><div>Customer <span class="bidi-isolate wm-mark">חברה 1</span>: 3 orders</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.dir-rtl</code><div class="oc-eg__note">Right to left, but Latin letters keep their own order.</div><div class="oc-eg__stage oc-eg__stage--plain wm-bidi"><div class="dir-rtl">Order 1042</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.dir-rtl .bidi-override</code><div class="oc-eg__note">The direction is forced on every letter: the text is mirrored.</div><div class="oc-eg__stage oc-eg__stage--plain wm-bidi"><div class="dir-rtl bidi-override">Order 1042</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bidi-normal</code><div class="oc-eg__note">The page is left to right, so the Hebrew sentence starts on the left and the ! lands at the end.</div><div class="oc-eg__stage oc-eg__stage--plain wm-bidi"><div class="bidi-normal">חברה 1 ships today!</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bidi-plaintext</code><div class="oc-eg__note">The first letter is Hebrew, so the sentence runs right to left and starts on the right.</div><div class="oc-eg__stage oc-eg__stage--plain wm-bidi"><div class="bidi-plaintext">חברה 1 ships today!</div></div></div>
+</div></div>
+<oc-code lang="html">&lt;p&gt;Customer &lt;span class="bidi-normal"&gt;חברה 1&lt;/span&gt;: 3 orders&lt;/p&gt;
+&lt;p&gt;Customer &lt;span class="bidi-isolate"&gt;חברה 1&lt;/span&gt;: 3 orders&lt;/p&gt;
+
+&lt;div class="dir-rtl"&gt;Order 1042&lt;/div&gt;
+&lt;div class="dir-rtl bidi-override"&gt;Order 1042&lt;/div&gt;
+
+&lt;div class="bidi-normal"&gt;חברה 1 ships today!&lt;/div&gt;
+&lt;div class="bidi-plaintext"&gt;חברה 1 ships today!&lt;/div&gt;</oc-code></oc-demo>
+
           <h3 class="oc-section-content__title mt-10" id="logical-inset">Logical inset</h3>
           <p class="oc-section-content__desc">Position utilities that follow the writing direction. Values: <code>auto</code>, <code>0</code>, <code>1</code> (0.25rem), <code>2</code> (0.5rem), <code>4</code> (1rem), <code>8</code> (2rem), <code>full</code> (100%). <strong>When:</strong> any component that must work in left-to-right and right-to-left layouts (badges, close buttons, drawers): <code>inset-inline-start</code> flips automatically where <code>left</code> would not. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/inset-inline-start" target="_blank" rel="noopener">MDN: inset-inline-start</a>.</p>
           <div class="oc-expandable-table">
@@ -143,23 +139,20 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">Both panels hold a badge with the same classes. Watch on which side the badge ends up when the direction changes.</p>
           <oc-demo title="start-1 in LTR and RTL">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.dir-ltr</span>
-                <div class="dir-ltr relative border-1 border-solid border-dodgerblue-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30">LTR<span class="absolute start-1 top-1 p-0.5 round-2 text-white bg-dodgerblue font-0.8">start</span></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.dir-rtl</span>
-                <div class="dir-rtl relative border-1 border-solid border-darkorange-50 flex flex-wrap align-items-center justify-center size-24 font-1 text-darkorange-95 dark:text-darkorange-30 bg-darkorange-mix-30">RTL<span class="absolute start-1 top-1 p-0.5 round-2 text-white bg-dodgerblue font-0.8">start</span></div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="dir-ltr relative"&gt;LTR &lt;span class="absolute start-1 top-1"&gt;start&lt;/span&gt;&lt;/div&gt;
-&lt;div class="dir-rtl relative"&gt;RTL &lt;span class="absolute start-1 top-1"&gt;start&lt;/span&gt;&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.dir-ltr</code><div class="oc-eg__note">The badge has <code>.absolute .start-1 .top-1</code> and sits top left.</div><div class="oc-eg__stage oc-eg__stage--plain wm-field" style="block-size: 9rem"><div class="dir-ltr relative wm-panel"><span class="wm-badge absolute start-1 top-1">New</span><strong>Product 1</strong><span>Left to right: start is the left side</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.dir-rtl</code><div class="oc-eg__note">The same classes. Only the direction changed, and the badge moved to the top right.</div><div class="oc-eg__stage oc-eg__stage--plain wm-field" style="block-size: 9rem"><div class="dir-rtl relative wm-panel"><span class="wm-badge absolute start-1 top-1">New</span><strong>Product 1</strong><span>Right to left: start is the right side</span></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="dir-ltr relative"&gt;
+  &lt;span class="absolute start-1 top-1"&gt;New&lt;/span&gt;
+  &lt;strong&gt;Product 1&lt;/strong&gt; &lt;span&gt;Left to right: start is the left side&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="dir-rtl relative"&gt;
+  &lt;span class="absolute start-1 top-1"&gt;New&lt;/span&gt;
+  &lt;strong&gt;Product 1&lt;/strong&gt; &lt;span&gt;Right to left: start is the right side&lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="logical-sizing">Logical sizing</h3>
           <p class="oc-section-content__desc"><code>inline-size</code> is the width in horizontal text and the height in vertical text; <code>block-size</code> is the other axis. <strong>Gotcha:</strong> mixing physical (<code>width</code>) and logical (<code>block-size</code>) sizes in one component works, but switch the whole component to logical values if you plan to support vertical text. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/inline-size" target="_blank" rel="noopener">MDN: inline-size</a>.</p>
@@ -185,6 +178,25 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+
+          <p class="oc-section-content__desc">The colored box is the element; the hatched area is the room it leaves free. The top four tiles are normal horizontal text, where inline size is the width. In the bottom two the box is vertical text: now <code>.inline-size-full</code> fills the height and <code>.block-size-full</code> fills the width.</p>
+          <oc-demo title="inline-size-fit, min, max, full and block-size-full in vertical text">
+<div class="oc-eg" style="--eg-c1: var(--color-teal-70); --eg-c2: var(--color-teal-70)"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = room the box leaves free</span></div><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.inline-size-fit</code><div class="oc-eg__note">As wide as the text, but never wider than the room: here the text wraps.</div><div class="oc-eg__stage wm-size"><div class="oc-eg__item wm-it inline-size-fit">Free delivery on every order from Company 1 this week</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.inline-size-min</code><div class="oc-eg__note">As narrow as the longest word: every word on its own line.</div><div class="oc-eg__stage wm-size"><div class="oc-eg__item wm-it inline-size-min">Free delivery on every order from Company 1 this week</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.inline-size-max</code><div class="oc-eg__note">As wide as the text on one line, even if that does not fit: it runs out of the box (cut off here).</div><div class="oc-eg__stage wm-size overflow-hidden"><div class="oc-eg__item wm-it inline-size-max">Free delivery on every order from Company 1 this week</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.inline-size-full</code><div class="oc-eg__note">The full width of the parent.</div><div class="oc-eg__stage wm-size"><div class="oc-eg__item wm-it inline-size-full">Free delivery on every order from Company 1 this week</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.write-vertical-rl .inline-size-full</code><div class="oc-eg__note">Vertical text: the inline size is now the height, so the box fills it from top to bottom.</div><div class="oc-eg__stage wm-size"><div class="wm-vbox"><div class="oc-eg__item wm-it write-vertical-rl inline-size-full">Free delivery</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.write-vertical-rl .block-size-full</code><div class="oc-eg__note">Vertical text: the block size is now the width, so the box fills it from left to right.</div><div class="oc-eg__stage wm-size"><div class="wm-vbox"><div class="oc-eg__item wm-it write-vertical-rl block-size-full">Free delivery</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="inline-size-fit"&gt;Free delivery on every order from Company 1 this week&lt;/div&gt;
+&lt;div class="inline-size-min"&gt;Free delivery on every order from Company 1 this week&lt;/div&gt;
+&lt;div class="inline-size-max"&gt;Free delivery on every order from Company 1 this week&lt;/div&gt;
+&lt;div class="inline-size-full"&gt;Free delivery on every order from Company 1 this week&lt;/div&gt;
+
+&lt;!-- In vertical text the axes swap (the parent is 9rem high) --&gt;
+&lt;div class="write-vertical-rl inline-size-full"&gt;Free delivery&lt;/div&gt;
+&lt;div class="write-vertical-rl block-size-full"&gt;Free delivery&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="logical-properties">Logical properties — reference</h3>
           <p class="oc-section-content__desc">Physical properties and their logical equivalent, with the OmniaCSS class family that sets them.</p>

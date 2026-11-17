@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Blend Modes", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .bld-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 16px; inline-size: 100%; }\n    .bld-card { display: grid; gap: 6px; justify-items: start; font-size: 0.75rem; }\n    .bld-back { position: relative; inline-size: 100%; block-size: 6rem; border-radius: 10px; overflow: hidden; background: linear-gradient(90deg, var(--color-darkorange-90) 0 33%, var(--color-dodgerblue-90) 33% 66%, var(--color-forestgreen-90) 66%); }\n    .bld-top { position: absolute; inset: 14% 14%; border-radius: 50%; background: linear-gradient(135deg, var(--color-yellow-80), var(--color-magenta-90)); }\n    .bld-bg { inline-size: 100%; block-size: 6rem; border-radius: 10px; background-color: var(--color-dodgerblue-90); background-image: linear-gradient(90deg, var(--color-darkorange-90), var(--color-yellow-80) 50%, var(--color-magenta-90)), radial-gradient(circle at 70% 30%, var(--color-white-50) 0 25%, transparent 26%); }\n    .bld-photo { position: relative; isolation: isolate; inline-size: 100%; min-block-size: 11rem; border-radius: 12px; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg, var(--color-dodgerblue-90), var(--color-magenta-90) 55%, var(--color-darkorange-90)); }\n    .bld-photo h4 { margin: 0; font-size: clamp(2rem, 8vw, 4.5rem); font-weight: 900; letter-spacing: -0.02em; color: var(--color-white-50); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Blend Modes","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Backdrop: a flat landscape above a strip of six hues and a grey ramp; the gradients only cut hard-edged shapes. */\n    .bld-pic { position: relative; isolation: isolate; display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden;\n      background:\n        radial-gradient(9% 12% at 80% 20%, var(--color-yellow-60) 96%, transparent 100%),\n        radial-gradient(15% 7% at 24% 15%, var(--color-white-50) 96%, transparent 100%),\n        radial-gradient(58% 34% at 20% 66%, var(--color-forestgreen-60) 99%, transparent 100%),\n        radial-gradient(70% 40% at 88% 72%, var(--color-yellowgreen-60) 99%, transparent 100%),\n        var(--color-skycyan-20); }\n    .bld-pic::before, .bld-pic::after { content: \"\"; position: absolute; z-index: -1; inset-inline: 0; }\n    .bld-pic::before { inset-block-end: 14%; block-size: 15%; background: linear-gradient(to right, var(--color-red-60) 0 16.66%, var(--color-orange-60) 0 33.33%, var(--color-yellow-60) 0 50%, var(--color-green-50) 0 66.66%, var(--color-blue-60) 0 83.33%, var(--color-purple-60) 0); }\n    .bld-pic::after { inset-block-end: 0; block-size: 14%; background: linear-gradient(to right, var(--color-white-50) 0 16.66%, var(--color-gray-10) 0 33.33%, var(--color-gray-50) 0 50%, var(--color-black-10) 0 66.66%, var(--color-black-30) 0 83.33%, var(--color-black-50) 0); }\n    /* The top layer: one flat circle that overlaps sky, hills, color strip and grey ramp. */\n    .bld-dot { inline-size: 62%; aspect-ratio: 1; margin-block-start: 22%; border-radius: 50%; background: var(--color-magenta-90); }\n    /* background-blend-mode: one element, a flat tint color under two image layers (six hues on top, a grey ramp below). */\n    .bld-bg { inline-size: 100%; aspect-ratio: 4 / 3; border-radius: 12px; background-color: var(--color-orange-60);\n      background-image:\n        linear-gradient(to right, var(--color-red-60) 0 16.66%, var(--color-yellow-60) 0 33.33%, var(--color-green-50) 0 50%, var(--color-skycyan-20) 0 66.66%, var(--color-blue-60) 0 83.33%, var(--color-purple-60) 0),\n        linear-gradient(to right, var(--color-white-50) 0 16.66%, var(--color-gray-10) 0 33.33%, var(--color-gray-50) 0 50%, var(--color-black-10) 0 66.66%, var(--color-black-30) 0 83.33%, var(--color-black-50) 0);\n      background-size: 100% 51%; background-position: top, bottom; background-repeat: no-repeat; }\n    .bld-swatch { display: inline-block; inline-size: 0.9em; aspect-ratio: 1; margin-inline-end: 6px; vertical-align: -0.1em; border-radius: 3px; background: var(--color-orange-60); }\n    /* Practical examples */\n    .bld-split { display: grid; place-items: center; min-block-size: 10rem; border-radius: 12px; background: linear-gradient(to right, var(--color-white-50) 0 50%, var(--color-black-50) 0); border: 1px solid var(--oc-border); }\n    .bld-split strong { font-size: clamp(2.2rem, 6vw, 3rem); font-weight: 900; letter-spacing: -0.02em; color: var(--color-white-50); }\n    .bld-paper { color-scheme: light; display: grid; align-content: center; gap: 6px; min-block-size: 10rem; padding: 18px 20px; border-radius: 12px; background: var(--color-white-50); color: var(--color-shallowblue-90); border: 1px solid var(--oc-border); font-size: 1rem; line-height: 1.5; }\n    .bld-paper p { margin: 0; color: var(--color-shallowblue-90); }\n    .bld-mark { position: relative; font-weight: 700; white-space: nowrap; }\n    .bld-paper small { display: block; font-size: 0.8rem; color: var(--color-gray-95); }\n    .bld-ink { position: absolute; inset: 0 -4px; border-radius: 3px; background: var(--color-yellow-60); }\n    .bld-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; place-items: center; min-block-size: 10rem; padding: 14px; border-radius: 12px; background: var(--color-teal-70); }\n    .bld-logo { display: grid; place-items: center; inline-size: 100%; padding: 18px 8px; background: var(--color-black-50); color: var(--color-white-50); font-weight: 800; font-size: 1rem; text-align: center; }\n.fx-pic { display: grid; padding: 0.5rem; }\n</style>"]}-->
 <section class="oc-docs-section" id="blend">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Blend Modes</h2>
@@ -51,61 +51,106 @@
           </div>
 
           <h3 class="oc-section-content__title mt-8" id="mix-blend">mix-blend-mode: all 16 modes</h3>
-          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>mix-blend-mode</code> blends an element with whatever is painted <em>behind</em> it (siblings and the parent's background), like layer modes in an image editor. <strong>When to use:</strong> duotone images, text knocked out of a photo, glows (<code>screen</code>), shadows (<code>multiply</code>), highlight effects (<code>difference</code>). <strong>Gotchas:</strong> blending reaches every ancestor layer up to the nearest stacking context, so wrap the group in <code>.isolate</code> to keep it contained; the result depends on both layers, so always check light and dark themes; and blending can hurt text contrast. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode" target="_blank" rel="noopener">MDN: mix-blend-mode</a>. In every card the gradient circle is blended over three colored stripes.</p>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>mix-blend-mode</code> blends an element with whatever is painted <em>behind</em> it (siblings and the parent's background), like layer modes in an image editor. <strong>When to use:</strong> duotone images, text knocked out of a photo, glows (<code>screen</code>), shadows (<code>multiply</code>), highlight effects (<code>difference</code>). <strong>Gotchas:</strong> blending reaches every ancestor layer up to the nearest stacking context, so wrap the group in <code>.isolate</code> to keep it contained; the result depends on both layers, so always check light and dark themes; and blending can hurt text contrast. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode" target="_blank" rel="noopener">MDN: mix-blend-mode</a>.</p>
+          <p class="oc-section-content__desc">In every picture the same flat magenta circle lies on top of a flat landscape, a strip of six colors and a grey ramp. Only the blend mode of the circle changes. Look at where the circle crosses the white and the black end of the ramp: that is where the modes differ most.</p>
           <oc-demo title="All mix-blend modes side by side">
-            <div class="bld-grid">
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-normal"></div></div><code>.mix-blend-normal</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-multiply"></div></div><code>.mix-blend-multiply</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-screen"></div></div><code>.mix-blend-screen</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-overlay"></div></div><code>.mix-blend-overlay</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-darken"></div></div><code>.mix-blend-darken</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-lighten"></div></div><code>.mix-blend-lighten</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-color-dodge"></div></div><code>.mix-blend-color-dodge</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-color-burn"></div></div><code>.mix-blend-color-burn</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-hard-light"></div></div><code>.mix-blend-hard-light</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-soft-light"></div></div><code>.mix-blend-soft-light</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-difference"></div></div><code>.mix-blend-difference</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-exclusion"></div></div><code>.mix-blend-exclusion</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-hue"></div></div><code>.mix-blend-hue</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-saturation"></div></div><code>.mix-blend-saturation</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-color"></div></div><code>.mix-blend-color</code></div>
-              <div class="bld-card"><div class="bld-back isolate"><div class="bld-top mix-blend-luminosity"></div></div><code>.mix-blend-luminosity</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="relative isolate"&gt;
-  &lt;div class="backdrop"&gt;…&lt;/div&gt;
-  &lt;div class="mix-blend-multiply absolute"&gt;…&lt;/div&gt;
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-normal</code><div class="oc-eg__note">No blending: the top layer covers the one below.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-normal"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-multiply</code><div class="oc-eg__note">Multiplies the colors: the result is always darker.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-multiply"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-screen</code><div class="oc-eg__note">The opposite of multiply: the result is always lighter.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-screen"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-overlay</code><div class="oc-eg__note">Multiply on dark parts and screen on light parts of the layer below.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-overlay"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-darken</code><div class="oc-eg__note">Keeps the darker of the two colors.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-darken"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-lighten</code><div class="oc-eg__note">Keeps the lighter of the two colors.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-lighten"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-color-dodge</code><div class="oc-eg__note">Brightens the layer below to reflect the top color.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-color-dodge"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-color-burn</code><div class="oc-eg__note">Darkens the layer below to reflect the top color.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-color-burn"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-hard-light</code><div class="oc-eg__note">Multiply or screen, depending on the top color.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-hard-light"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-soft-light</code><div class="oc-eg__note">A softer version of hard-light.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-soft-light"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-difference</code><div class="oc-eg__note">Subtracts the darker color from the lighter one.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-difference"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-exclusion</code><div class="oc-eg__note">Like difference, with lower contrast.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-exclusion"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-hue</code><div class="oc-eg__note">Hue of the top layer, saturation and lightness of the one below.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-hue"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-saturation</code><div class="oc-eg__note">Saturation of the top layer, hue and lightness of the one below.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-saturation"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-color</code><div class="oc-eg__note">Hue and saturation of the top layer, lightness of the one below.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-color"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-luminosity</code><div class="oc-eg__note">Lightness of the top layer, hue and saturation of the one below.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-pic"><div class="bld-dot mix-blend-luminosity"></div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .bld-pic draws the landscape with page CSS (sky, hills, six colors, grey ramp) and is isolated;
+     .bld-dot is a flat magenta circle on top. With a photo, put an &lt;img&gt; in .bld-pic instead. --&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-normal"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-multiply"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-screen"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-overlay"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-darken"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-lighten"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-color-dodge"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-color-burn"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-hard-light"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-soft-light"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-difference"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-exclusion"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-hue"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-saturation"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-color"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="bld-pic isolate"&gt;&lt;div class="bld-dot mix-blend-luminosity"&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;!-- In a real page: a photo with a colored circle on top --&gt;
+&lt;div class="relative isolate"&gt;
+  &lt;img src="landscape.jpg" alt="Hills under a blue sky"&gt;
+  &lt;div class="absolute round-full mix-blend-multiply"
+       style="inset: 20%; background: var(--color-magenta-90)"&gt;&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8" id="bg-blend">background-blend-mode: layers of one element</h3>
-          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>background-blend-mode</code> blends the background layers of a <em>single</em> element with each other and with its <code>background-color</code>, no extra markup needed. <strong>When to use:</strong> tinting an image with a brand color (<code>multiply</code>, <code>overlay</code>), duotone hero backgrounds, textured gradients. <strong>Gotchas:</strong> it never looks at the content behind the element, that is what <code>mix-blend-mode</code> is for; and it needs at least two layers (color + image/gradient). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode" target="_blank" rel="noopener">MDN: background-blend-mode</a>. Each card has a blue background color with a gradient and a white spot on top.</p>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>background-blend-mode</code> blends the background layers of a <em>single</em> element with each other and with its <code>background-color</code>, no extra markup needed. <strong>When to use:</strong> tinting an image with a brand color (<code>multiply</code>, <code>overlay</code>), duotone hero backgrounds, textured patterns. <strong>Gotchas:</strong> it never looks at the content behind the element, that is what <code>mix-blend-mode</code> is for; and it needs at least two layers (color + image). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode" target="_blank" rel="noopener">MDN: background-blend-mode</a>.</p>
+          <p class="oc-section-content__desc">Each card is one element: an <span class="bld-swatch"></span>orange <code>background-color</code> with an image layer on top (six colors above, a grey ramp below). With <code>.bg-blend-normal</code> the image hides the orange completely; every other mode mixes the orange into it. <code>.bg-blend-multiply</code> is the classic way to tint a photo.</p>
           <oc-demo title="All bg-blend modes side by side">
-            <div class="bld-grid">
-              <div class="bld-card"><div class="bld-bg bg-blend-normal"></div><code>.bg-blend-normal</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-multiply"></div><code>.bg-blend-multiply</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-screen"></div><code>.bg-blend-screen</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-overlay"></div><code>.bg-blend-overlay</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-darken"></div><code>.bg-blend-darken</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-lighten"></div><code>.bg-blend-lighten</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-color-dodge"></div><code>.bg-blend-color-dodge</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-color-burn"></div><code>.bg-blend-color-burn</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-hard-light"></div><code>.bg-blend-hard-light</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-soft-light"></div><code>.bg-blend-soft-light</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-difference"></div><code>.bg-blend-difference</code></div>
-              <div class="bld-card"><div class="bld-bg bg-blend-exclusion"></div><code>.bg-blend-exclusion</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="bg-blend-multiply"
-     style="background-color: var(--color-dodgerblue-90); background-image: linear-gradient(…)"&gt;&lt;/div&gt;</oc-code></oc-demo>
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-normal</code><div class="oc-eg__note">No blending: the top layer covers the one below.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-normal"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-multiply</code><div class="oc-eg__note">Multiplies the colors: the result is always darker.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-multiply"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-screen</code><div class="oc-eg__note">The opposite of multiply: the result is always lighter.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-screen"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-overlay</code><div class="oc-eg__note">Multiply on dark parts and screen on light parts of the layer below.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-overlay"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-darken</code><div class="oc-eg__note">Keeps the darker of the two colors.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-darken"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-lighten</code><div class="oc-eg__note">Keeps the lighter of the two colors.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-lighten"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-color-dodge</code><div class="oc-eg__note">Brightens the layer below to reflect the top color.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-color-dodge"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-color-burn</code><div class="oc-eg__note">Darkens the layer below to reflect the top color.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-color-burn"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-hard-light</code><div class="oc-eg__note">Multiply or screen, depending on the top color.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-hard-light"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-soft-light</code><div class="oc-eg__note">A softer version of hard-light.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-soft-light"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-difference</code><div class="oc-eg__note">Subtracts the darker color from the lighter one.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-difference"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-blend-exclusion</code><div class="oc-eg__note">Like difference, with lower contrast.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-bg bg-blend-exclusion"></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .bld-bg (page CSS): an orange background-color under one image layer
+     (six colors on top, a grey ramp below). Only the blend class changes. --&gt;
+&lt;div class="bld-bg bg-blend-normal"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-multiply"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-screen"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-overlay"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-darken"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-lighten"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-color-dodge"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-color-burn"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-hard-light"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-soft-light"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-difference"&gt;&lt;/div&gt;
+&lt;div class="bld-bg bg-blend-exclusion"&gt;&lt;/div&gt;
 
-          <h3 class="oc-section-content__title mt-8" id="blend-text">Practical: text that blends into a backdrop</h3>
-          <p class="oc-section-content__desc">The same heading with different modes over a gradient photo substitute. <code>.mix-blend-difference</code> keeps the text readable on any backdrop; <code>.mix-blend-overlay</code> makes it look printed into the surface.</p>
-          <oc-demo title="Headline with mix-blend-difference / overlay / multiply">
-            <div class="bld-grid" style="grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))">
-              <div class="bld-card"><div class="bld-photo"><h4 class="mix-blend-difference">Blend</h4></div><code>.mix-blend-difference</code></div>
-              <div class="bld-card"><div class="bld-photo"><h4 class="mix-blend-overlay">Blend</h4></div><code>.mix-blend-overlay</code></div>
-              <div class="bld-card"><div class="bld-photo"><h4 class="mix-blend-multiply">Blend</h4></div><code>.mix-blend-multiply</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="isolate"&gt;
-  &lt;h4 class="mix-blend-difference"&gt;Blend&lt;/h4&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+&lt;!-- In a real page: tint a photo with a palette color --&gt;
+&lt;div class="bg-blend-multiply"
+     style="background-color: var(--color-orange-60); background-image: url(photo.jpg); background-size: cover"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="blend-text">Practical: three everyday uses</h3>
+          <p class="oc-section-content__desc">Left: white text with <code>.mix-blend-difference</code> over a half white, half black panel; it turns black on the white half and stays white on the black half, so it is readable on both. Middle: a yellow highlighter on top of text; with <code>.mix-blend-multiply</code> the text shows through, without it the marker hides the word. Right: a logo on a black square; <code>.mix-blend-screen</code> drops the black, so the logo sits directly on the teal background.</p>
+          <oc-demo title="mix-blend-difference, multiply and screen in real use">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-difference</code><div class="oc-eg__note">The text is white; difference turns it black over the white half.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-split isolate"><strong class="mix-blend-difference">Contrast</strong></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-multiply</code><div class="oc-eg__note">The yellow marker multiplies with the text, so the text stays readable.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-paper isolate"><p><small>Without blending</small>Pay <span class="bld-mark">Invoice 1<span class="bld-ink"></span></span> today.</p><p><small>With multiply</small>Pay <span class="bld-mark">Invoice 1<span class="bld-ink mix-blend-multiply"></span></span> today.</p></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mix-blend-screen</code><div class="oc-eg__note">Screen drops the black box of the logo on the right.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="bld-stage isolate"><div class="bld-logo">Company 1</div><div class="bld-logo mix-blend-screen">Company 1</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="isolate" style="background: linear-gradient(to right, white 50%, black 50%)"&gt;
+  &lt;strong class="mix-blend-difference" style="color: white"&gt;Contrast&lt;/strong&gt;
+&lt;/div&gt;
+
+&lt;span class="relative"&gt;Invoice 1
+  &lt;span class="absolute mix-blend-multiply" style="inset: 0; background: var(--color-yellow-60)"&gt;&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;img class="mix-blend-screen" src="logo-on-black.png" alt="Company 1"&gt;</oc-code></oc-demo>
         </div>
       </section>

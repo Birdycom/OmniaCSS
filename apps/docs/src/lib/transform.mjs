@@ -24,6 +24,7 @@ import path from "node:path";
 import { compatTable, hasCompat, mdnLink, supportSummary } from "./compat.mjs";
 import { REPO, CONTENT } from "./site.mjs";
 import { whatsNewHtml } from "./whats-new.mjs";
+import { countOf } from "./counts.mjs";
 
 const slug = (s) => s.toLowerCase().replace(/&amp;|&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
 
@@ -355,6 +356,8 @@ export function transform(content, route = "") {
 
   // 0. <oc-whats-new>: the latest release and the new OmniaUI components and blocks (lib/whats-new.mjs).
   for (const el of [...body.querySelectorAll("oc-whats-new")]) replaceWithHtml(document, el, whatsNewHtml());
+  // 0b. <oc-count of="components">: totals of OmniaUI (lib/counts.mjs).
+  for (const el of [...body.querySelectorAll("oc-count")]) el.replaceWith(document.createTextNode(countOf(el.getAttribute("of"))));
 
   // 1. Demo panels: a bar (title, Preview | code tabs, preview widths) -> preview -> one code panel per tab.
   //    Every <oc-code> child becomes a tab (HTML, CSS, Vue, React, Blade …); without one, code comes from the preview.
@@ -376,7 +379,7 @@ export function transform(content, route = "") {
     const size = demo.getAttribute("size") ? ` oc-demo__preview--${demo.getAttribute("size")}` : "";
     const tab = (value, label, checked = false) => `<label class="oc-demo__tab"><input type="radio" name="oc-demo-${n}" value="${value}"${checked ? " checked" : ""}><span>${label}</span></label>`;
     const tabs = [tab("preview", "Preview", true), ...(pro ? [tab("code-1", "Code")] : codes.map((c, i) => tab(`code-${i + 1}`, DEMO_LANGS[c.lang] || c.lang.toUpperCase())))].join("");
-    const width = (value, label, icon, checked = false) => `<label class="oc-demo__width" title="${label}"><input type="radio" name="oc-demo-${n}-width" value="${value}" aria-label="${label}"${checked ? " checked" : ""}>${icon}</label>`;
+    const width = (value, label, icon, checked = false) => `<label class="oc-demo__width oc-tooltip" data-tooltip="${label}"><input type="radio" name="oc-demo-${n}-width" value="${value}" aria-label="${label}"${checked ? " checked" : ""}>${icon}</label>`;
     const widths = [width("full", "Full width", WIDTH_ICONS.desktop, true), width("tablet", "Tablet (48rem)", WIDTH_ICONS.tablet), width("phone", "Phone (24rem)", WIDTH_ICONS.phone)].join("");
     const panels = pro ? `<div class="oc-demo__code oc-demo__pro-lock" data-code="1">${PRO_LOCK}</div>`
       : codes.map((c, i) => `<div class="oc-demo__code" data-code="${i + 1}">${codeBlock(c.code, c.lang)}</div>`).join("");
@@ -569,9 +572,9 @@ export function transform(content, route = "") {
     const compatKeys = [...body.querySelectorAll("oc-compat")].flatMap((el) => (el.getAttribute("features") || "").split(/\s+/).filter(Boolean));
     const support = supportSummary([...new Set(compatKeys)]);
     const extra = [];
-    if (!/<script/i.test(demoMarkup)) extra.push(`<span class="oc-section-header__badge-js oc-badge-nojs" title="The demos on this page run without JavaScript">0 KB JavaScript</span>`);
-    if (support?.level === "baseline") extra.push(`<span class="oc-section-header__badge-support oc-badge-support oc-badge-support--baseline" title="Works in Chrome, Firefox and Safari, on desktop and mobile">Baseline</span>`);
-    if (support?.level === "newest") extra.push(`<span class="oc-section-header__badge-support oc-badge-support oc-badge-support--newest" title="${escAttr(`Not yet in every browser: ${support.missing.slice(0, 6).join(", ")}${support.missing.length > 6 ? " …" : ""}`)}">Newest CSS</span>`);
+    if (!/<script/i.test(demoMarkup)) extra.push(`<span class="oc-section-header__badge-js oc-badge-nojs oc-tooltip oc-tooltip--multiline" data-tooltip="The demos on this page run without JavaScript">0 KB JavaScript</span>`);
+    if (support?.level === "baseline") extra.push(`<span class="oc-section-header__badge-support oc-badge-support oc-badge-support--baseline oc-tooltip oc-tooltip--multiline" data-tooltip="Works in Chrome, Firefox and Safari, on desktop and mobile">Baseline</span>`);
+    if (support?.level === "newest") extra.push(`<span class="oc-section-header__badge-support oc-badge-support oc-badge-support--newest oc-tooltip oc-tooltip--multiline" data-tooltip="${escAttr(`Not yet in every browser: ${support.missing.slice(0, 6).join(", ")}${support.missing.length > 6 ? " …" : ""}`)}">Newest CSS</span>`);
     if (extra.length) {
       const badges = [...header.children].filter((c) => /badge/.test(c.className));
       const tpl = document.createElement("template");
@@ -591,7 +594,22 @@ export function transform(content, route = "") {
     replaceWithHtml(document, btn, `<label class="${btn.className}"><input type="checkbox" class="oc-expandable-table__toggle"><span class="oc-expandable-table__more">Show more</span><span class="oc-expandable-table__less">Show less</span></label>`);
   }
 
-  // 5. Headings → ids + table of contents
+  // 5a. Every page has exactly one h1: on reference pages the title of the first section is the page title.
+  if (!body.querySelector("h1")) {
+    const first = body.querySelector(".oc-docs-section .oc-section-header__title");
+    if (first && first.localName === "h2" && !first.closest(".oc-demo, .oc-preview")) {
+      const h1 = document.createElement("h1");
+      for (const a of [...first.attributes]) h1.setAttribute(a.name, a.value);
+      h1.innerHTML = first.innerHTML;
+      first.replaceWith(h1);
+    }
+  }
+  // 5b. Fallback for <meta name="description">: the intro of the page, cut at a word, at most 160 characters.
+  const intro = body.querySelector(".oc-hero-text, .oc-section-header__desc, .oc-section-content__desc, p");
+  let description = intro ? intro.textContent.replace(/\s+/g, " ").trim() : "";
+  if (description.length > 160) description = description.slice(0, 158).replace(/\s+\S*$/, "").replace(/[,;:(]$/, "") + "…";
+
+  // 5c. Headings → ids + table of contents
   const toc = [];
   const used = new Set([...body.querySelectorAll("[id]")].map((e) => e.id));
   for (const h of body.querySelectorAll("h2, h3")) {
@@ -606,5 +624,5 @@ export function transform(content, route = "") {
     toc.push({ id: h.id, text, level: h.localName === "h2" ? 2 : 3 });
   }
 
-  return { html: body.innerHTML, toc };
+  return { html: body.innerHTML, toc, description };
 }

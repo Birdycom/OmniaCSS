@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Backgrounds", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n.lay-tile { padding: 8px 10px; border-radius: 8px; background: var(--color-dodgerblue-90); color: var(--color-white-50); font: 600 0.78rem/1.2 ui-monospace, monospace; }\n.lay-tile--b { background: var(--color-forestgreen-90); } .lay-tile--c { background: var(--color-darkorange-90); } .lay-tile--d { background: var(--color-magenta-90); }\n.lay-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 16px; inline-size: 100%; }\n.lay-cell { display: grid; gap: 6px; align-content: start; font-size: 0.75rem; }\n.lay-cell > code { justify-self: start; }\n.lay-note { font-size: 0.75rem; color: var(--oc-muted-foreground); }\n.lay-bgbox { block-size: 7rem; border-radius: 10px; background-color: var(--oc-muted); }\n.lay-clipbox { padding: 16px; border: 12px dashed var(--color-darkorange-90); border-radius: 10px; background-image: linear-gradient(135deg, var(--color-dodgerblue-90), var(--color-magenta-90)); color: var(--color-white-50); font-weight: 700; }\n.lay-cliptext { font-size: clamp(2rem, 7vw, 3.4rem); font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; color: transparent; background-image: linear-gradient(90deg, var(--color-dodgerblue-90), var(--color-magenta-90), var(--color-darkorange-90)); }\n</style>","<style>\n    .demo-container { background: var(--bg-soft); padding: 24px; border-radius: 12px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 32px; }\n    .demo-gradient { border-radius: 8px; height: 80px; display: flex; align-items: center; justify-content: center; color: light-dark(var(--color-white-95), var(--color-white-2)); font-weight: 700; font-size: 0.9rem; }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Backgrounds","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n.lay-bgbox { block-size: 7rem; border: 1px solid var(--oc-border); border-radius: 8px; background-color: var(--oc-card); }\n.lay-clipbox { display: grid; place-items: center; min-block-size: 6rem; padding: 18px; border: 12px dashed var(--color-darkorange-90); border-radius: 10px; background-color: var(--color-vividblue-90); color: var(--color-white-50); font-weight: 700; }\n.lay-cliptext { font-size: clamp(2rem, 7vw, 3.4rem); font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; color: transparent; background-image: linear-gradient(90deg, var(--color-dodgerblue-90), var(--color-magenta-90), var(--color-darkorange-90)); }\n.bg-swatch { display: flex; align-items: end; min-block-size: 9rem; padding: 12px; border-radius: 12px; }\n.bg-swatch span { padding: 4px 10px; border-radius: 999px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.8rem; font-weight: 600; }\n.lay-pad { padding: 0.75rem; }\n\n/* bg-size / attachment / origin demos */\n.bg-photo { background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='100' viewBox='0 0 160 100'%3E%3Crect width='160' height='100' fill='lightsteelblue'/%3E%3Ccircle cx='118' cy='32' r='16' fill='orange'/%3E%3Cpath d='M0 100 L48 52 L84 84 L118 58 L160 100Z' fill='seagreen'/%3E%3C/svg%3E\"); }\n.lay-sizebox { block-size: 10rem; border: 1px solid var(--oc-border); border-radius: 8px; background-color: var(--oc-card); }\n.lay-dots { background-image: radial-gradient(circle, var(--color-teal-70) 0 18%, transparent 20%); background-size: 1.75rem 1.75rem; }\n.lay-scrollbox { block-size: 10rem; overflow-y: auto; padding: 0.75rem 1rem; border: 1px solid var(--oc-border); border-radius: 8px; background-color: var(--oc-card); color: var(--oc-foreground); font-size: 0.9rem; line-height: 1.7; }\n.lay-scrollbox span { display: block; inline-size: max-content; padding: 0 0.4rem; border-radius: 4px; background: var(--oc-card); }\n.lay-originbox { min-block-size: 7rem; padding: 18px; border: 12px dashed var(--color-darkorange-90); border-radius: 10px; background-color: var(--oc-card); background-image: radial-gradient(circle, var(--color-vividblue-90) 0 45%, transparent 47%); background-size: 2.5rem 2.5rem; }\n  /* Big outlined word for the bg-size fill example. */\n    .lay-fillword { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 900; line-height: 1.1; white-space: nowrap; color: var(--oc-foreground); }\n  </style>","<style>  </style>"]}-->
 <section class="oc-docs-section" id="backgrounds">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Backgrounds</h2>
@@ -17,7 +17,7 @@
               <thead><tr><th class="w-perc-1/3">Class Group</th><th>Available Utilities</th></tr></thead>
               <tbody>
                 <tr><td>Image</td><td><code>.bg-image-none</code>, <code>.bg-image-gradient-*</code>, <code>.bg-image-radial</code></td></tr>
-                <tr><td>Size</td><td><code>.bg-cover</code>, <code>.bg-contain</code>, <code>.bg-size-auto</code></td></tr>
+                <tr><td>Size</td><td><code>.bg-cover</code>, <code>.bg-contain</code>, <code>.bg-size-auto</code>, <code>.bg-size-full</code> (100% 100%), <code>.bg-size-x-0</code> (0% 100%), <code>.bg-size-y-0</code> (100% 0%)</td></tr>
                 <tr><td>Position</td><td><code>.bg-pos-center</code>, <code>.bg-pos-top</code>, <code>.bg-pos-bottom</code>, etc.</td></tr>
                 <tr><td>Repeat</td><td><code>.bg-no-repeat</code>, <code>.bg-repeat</code>, <code>.bg-repeat-x/y</code></td></tr>
                 <tr class="oc-expandable-table__row-dimmed"><td>Attachment</td><td><code>.bg-fixed</code>, <code>.bg-local</code>, <code>.bg-scroll</code></td></tr>
@@ -25,70 +25,150 @@
             </table>
           </div>
 
-          <h3 class="oc-section-content__title">Gradient Demos</h3>
-          <oc-demo title="Gradient Demos"><div class="preview demo-container">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p class="label-sm mb-2 opacity-60">Linear Gradient (.bg-image-gradient-to-r)</p>
-                <div class="bg-image-gradient-to-r demo-gradient">To Right</div>
-              </div>
-              <div>
-                <p class="label-sm mb-2 opacity-60">Radial Gradient (.bg-image-radial)</p>
-                <div class="bg-image-radial demo-gradient">Radial</div>
-              </div>
-            </div>
-          </div><oc-code lang="html">&lt;div class="bg-image-gradient-to-r bg-cover bg-no-repeat h-64"&gt;
-  Hero section background
-&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.bg-image-none</code> removes a background image. There is nothing to see, so it has no example of its own: use it to switch an image off, for example at a breakpoint with <code>md:bg-image-none</code>.</p>
+
+          <h3 class="oc-section-content__title">Built-in gradient images</h3>
+          <p class="oc-section-content__desc">The two built-in gradient images. Put content on a solid chip (as here), not straight on the gradient, so it stays readable at every point of the gradient.</p>
+          <oc-demo title="bg-image-gradient-to-r, bg-image-radial"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-image-gradient-to-r</code><div class="oc-eg__note">A linear gradient that runs from left to right.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="bg-image-gradient-to-r bg-swatch"><span>Linear, to the right</span></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-image-radial</code><div class="oc-eg__note">A radial gradient that starts in the center.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="bg-image-radial bg-swatch"><span>Radial, from the center</span></div></div></div>
+            </div></div><oc-code lang="html">&lt;div class="bg-image-gradient-to-r"&gt;&lt;span&gt;Linear, to the right&lt;/span&gt;&lt;/div&gt;
+&lt;div class="bg-image-radial"&gt;&lt;span&gt;Radial, from the center&lt;/span&gt;&lt;/div&gt;
+
+&lt;!-- Demo boxes: min-height 9rem; the label is a chip with a solid background --&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Background repeat: all values</h3>
           <p class="oc-section-content__desc">A 2.5rem dot tile on a 7rem box. <code>round</code> stretches the tiles so a whole number fits, <code>space</code> keeps the size and distributes the gaps.</p>
 
           <oc-demo title="bg-repeat, bg-no-repeat, bg-repeat-x/y, round, space">
-            <div class="lay-grid">
-              <div class="lay-cell"><div class="lay-bgbox bg-repeat " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-repeat</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-no-repeat " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-no-repeat</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-repeat-x " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-repeat-x</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-repeat-y " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-repeat-y</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-repeat-round " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-repeat-round</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-repeat-space " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-repeat-space</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="bg-repeat-x" style="background-image: …; background-size: 2.5rem"&gt;&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-repeat</code><div class="oc-eg__note">The tile repeats in both directions.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-repeat " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-no-repeat</code><div class="oc-eg__note">One tile, in the top-left corner.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-no-repeat " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-repeat-x</code><div class="oc-eg__note">One row of tiles along the top.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-repeat-x " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-repeat-y</code><div class="oc-eg__note">One column of tiles down the left side.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-repeat-y " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-repeat-round</code><div class="oc-eg__note">The tiles are stretched so a whole number fits.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-repeat-round " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-repeat-space</code><div class="oc-eg__note">The tiles keep their size; the gaps between them grow.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-repeat-space " style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;style&gt;
+  /* the tile: one 2.5rem dot (demo decoration, not an OmniaCSS class) */
+  .dot { height: 7rem; background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem; }
+&lt;/style&gt;
+&lt;div class="dot bg-repeat"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat"&gt;&lt;/div&gt;
+&lt;div class="dot bg-repeat-x"&gt;&lt;/div&gt;
+&lt;div class="dot bg-repeat-y"&gt;&lt;/div&gt;
+&lt;div class="dot bg-repeat-round"&gt;&lt;/div&gt;
+&lt;div class="dot bg-repeat-space"&gt;&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Background position: all values</h3>
           <p class="oc-section-content__desc">With <code>.bg-no-repeat</code> a single tile is placed in the box with each <code>.bg-pos-*</code> class.</p>
 
           <oc-demo title="bg-pos-*">
-            <div class="lay-grid">
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-center bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-center</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-top bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-top</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-bottom bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-bottom</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-left bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-left</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-right bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-right</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-left-top bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-left-top</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-left-bottom bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-left-bottom</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-right-top bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-right-top</code></div>
-              <div class="lay-cell"><div class="lay-bgbox bg-pos-right-bottom bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div><code>.bg-pos-right-bottom</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="bg-no-repeat bg-pos-right-bottom" style="background-image: …"&gt;&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-center</code><div class="oc-eg__note">The tile sits in the middle.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-center bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-top</code><div class="oc-eg__note">Centred along the top edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-top bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-bottom</code><div class="oc-eg__note">Centred along the bottom edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-bottom bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-left</code><div class="oc-eg__note">Centred on the left edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-left bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-right</code><div class="oc-eg__note">Centred on the right edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-right bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-left-top</code><div class="oc-eg__note">In the top-left corner.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-left-top bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-left-bottom</code><div class="oc-eg__note">In the bottom-left corner.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-left-bottom bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-right-top</code><div class="oc-eg__note">In the top-right corner.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-right-top bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-right-bottom</code><div class="oc-eg__note">In the bottom-right corner.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-bgbox bg-pos-right-bottom bg-no-repeat" style="background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem;"></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;style&gt;
+  /* the tile: one 2.5rem dot (demo decoration, not an OmniaCSS class) */
+  .dot { height: 7rem; background-image: radial-gradient(circle, var(--color-dodgerblue-90) 0 32%, transparent 34%); background-size: 2.5rem 2.5rem; }
+&lt;/style&gt;
+&lt;div class="dot bg-no-repeat bg-pos-center"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-top"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-bottom"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-left"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-right"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-left-top"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-left-bottom"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-right-top"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-right-bottom"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Background size: auto, cover, contain</h3>
+          <p class="oc-section-content__desc">The same 160 × 100 picture in three boxes of the same size. Compare how much of the picture you see and how much of the box it fills.</p>
+          <oc-demo title="bg-size-auto, bg-cover, bg-contain"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-size-auto</code><div class="oc-eg__note">The picture keeps its own size (160 × 100) and sits in the middle.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-sizebox bg-photo bg-no-repeat bg-pos-center bg-size-auto"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-cover</code><div class="oc-eg__note">The picture fills the whole box; the parts that do not fit are cut off.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-sizebox bg-photo bg-no-repeat bg-pos-center bg-cover"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-contain</code><div class="oc-eg__note">The whole picture is visible; the box shows empty space beside it.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-sizebox bg-photo bg-no-repeat bg-pos-center bg-contain"></div></div></div>
+</div></div><oc-code lang="html">&lt;style&gt;
+  /* photo.svg is a 160 × 100 picture */
+  .photo { height: 10rem; background-image: url(photo.svg); }
+&lt;/style&gt;
+&lt;div class="photo bg-no-repeat bg-pos-center bg-size-auto"&gt;&lt;/div&gt;
+&lt;div class="photo bg-no-repeat bg-pos-center bg-cover"&gt;&lt;/div&gt;
+&lt;div class="photo bg-no-repeat bg-pos-center bg-contain"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Background attachment: scroll, local, fixed</h3>
+          <p class="oc-section-content__desc">Scroll the order list inside each box and watch the dots. With <code>.bg-scroll</code> the dots stay put, with <code>.bg-local</code> they scroll with the text, and with <code>.bg-fixed</code> they are pinned to the browser window, so they also stay put when you scroll the page itself.</p>
+          <oc-demo title="bg-scroll, bg-local, bg-fixed"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-scroll</code><div class="oc-eg__note">The default. The dots stay where they are while the list scrolls.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-scrollbox lay-dots bg-scroll" tabindex="0"><span>Order 1001</span><span>Order 1002</span><span>Order 1003</span><span>Order 1004</span><span>Order 1005</span><span>Order 1006</span><span>Order 1007</span><span>Order 1008</span><span>Order 1009</span><span>Order 1010</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-local</code><div class="oc-eg__note">The dots belong to the content: they scroll up with the list.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-scrollbox lay-dots bg-local" tabindex="0"><span>Order 1001</span><span>Order 1002</span><span>Order 1003</span><span>Order 1004</span><span>Order 1005</span><span>Order 1006</span><span>Order 1007</span><span>Order 1008</span><span>Order 1009</span><span>Order 1010</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-fixed</code><div class="oc-eg__note">The dots are fixed to the window: scroll the list or the page, they do not move.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-scrollbox lay-dots bg-fixed" tabindex="0"><span>Order 1001</span><span>Order 1002</span><span>Order 1003</span><span>Order 1004</span><span>Order 1005</span><span>Order 1006</span><span>Order 1007</span><span>Order 1008</span><span>Order 1009</span><span>Order 1010</span></div></div></div>
+</div></div><oc-code lang="html">&lt;style&gt;
+  /* a dot pattern behind a scrolling list */
+  .dots { height: 10rem; background-image: radial-gradient(circle, var(--color-teal-70) 0 18%, transparent 20%); background-size: 1.75rem 1.75rem; }
+&lt;/style&gt;
+&lt;div class="dots overflow-y-auto bg-scroll"&gt;
+  &lt;span class="block"&gt;Order 1001&lt;/span&gt;
+  &lt;span class="block"&gt;Order 1002&lt;/span&gt;
+  &lt;!-- … ten rows, more than fit in 10rem … --&gt;
+&lt;/div&gt;
+&lt;div class="dots overflow-y-auto bg-local"&gt;…the same rows…&lt;/div&gt;
+&lt;div class="dots overflow-y-auto bg-fixed"&gt;…the same rows…&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Background clip and origin</h3>
           <p class="oc-section-content__desc"><code>.bg-clip-*</code> decides how far the background paints (border, padding or content box, or the glyphs of the text); <code>.bg-origin-*</code> decides where the 0,0 of the image sits. Here a 12px dashed border and 16px padding make the difference visible.</p>
 
           <oc-demo title="bg-clip-border / padding / content">
-            <div class="lay-grid">
-              <div class="lay-cell"><div class="lay-clipbox bg-clip-border">content</div><code>.bg-clip-border</code></div>
-              <div class="lay-cell"><div class="lay-clipbox bg-clip-padding">content</div><code>.bg-clip-padding</code></div>
-              <div class="lay-cell"><div class="lay-clipbox bg-clip-content">content</div><code>.bg-clip-content</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="bg-clip-content"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-clip-border</code><div class="oc-eg__note">The blue runs under the dashed border too.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-clipbox bg-clip-border">content</div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-clip-padding</code><div class="oc-eg__note">The blue stops at the inside of the border.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-clipbox bg-clip-padding">content</div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.bg-clip-content</code><div class="oc-eg__note">Only the content area is blue; the padding stays clear.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-clipbox bg-clip-content">content</div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;style&gt;
+  .clip-box { padding: 18px; border: 12px dashed var(--color-darkorange-90); background-color: var(--color-vividblue-90); color: var(--color-white-50); }
+&lt;/style&gt;
+&lt;div class="clip-box bg-clip-border"&gt;content&lt;/div&gt;
+&lt;div class="clip-box bg-clip-padding"&gt;content&lt;/div&gt;
+&lt;div class="clip-box bg-clip-content"&gt;content&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">The origin moves the starting point of a background image. Here one dot is placed with <code>.bg-no-repeat .bg-pos-left-top</code>; only the origin class changes.</p>
+          <oc-demo title="bg-origin-border, bg-origin-padding, bg-origin-content"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-origin-border</code><div class="oc-eg__note">The top-left corner of the dot is the outer corner of the border.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-originbox bg-no-repeat bg-pos-left-top bg-origin-border"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-origin-padding</code><div class="oc-eg__note">The default: the dot starts inside the border.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-originbox bg-no-repeat bg-pos-left-top bg-origin-padding"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-origin-content</code><div class="oc-eg__note">The dot starts where the content starts, after the padding.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-originbox bg-no-repeat bg-pos-left-top bg-origin-content"></div></div></div>
+</div></div><oc-code lang="html">&lt;style&gt;
+  .origin-box { min-height: 7rem; padding: 18px; border: 12px dashed var(--color-darkorange-90);
+                background-image: radial-gradient(circle, var(--color-vividblue-90) 0 45%, transparent 47%); background-size: 2.5rem 2.5rem; }
+&lt;/style&gt;
+&lt;div class="origin-box bg-no-repeat bg-pos-left-top bg-origin-border"&gt;&lt;/div&gt;
+&lt;div class="origin-box bg-no-repeat bg-pos-left-top bg-origin-padding"&gt;&lt;/div&gt;
+&lt;div class="origin-box bg-no-repeat bg-pos-left-top bg-origin-content"&gt;&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Gradient text with bg-clip-text</h3>
           <p class="oc-section-content__desc">Paint a gradient as the background, clip it to the glyphs and make the text color transparent. Always keep a solid <code>color</code> fallback for browsers or modes where clipping fails (forced colors).</p>
 
           <oc-demo title="bg-clip-text">
-            <div class="lay-cliptext bg-clip-text">Gradient text</div>
-          <oc-code lang="html">&lt;h2 class="bg-clip-text" style="background-image: linear-gradient(…); color: transparent"&gt;Gradient text&lt;/h2&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%"><div class="oc-eg__panel"><code class="oc-eg__name">.bg-clip-text</code><div class="oc-eg__note">The gradient is painted only inside the letters.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-cliptext bg-clip-text">Gradient text</div></div></div></div></div>
+          <oc-code lang="html">&lt;div class="bg-clip-text"
+     style="background-image: linear-gradient(90deg, var(--color-dodgerblue-90), var(--color-magenta-90), var(--color-darkorange-90));
+            color: transparent; font-size: 3.4rem; font-weight: 900"&gt;Gradient text&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="bg-size-fill">A fill that grows: bg-size-x-0 and bg-size-full</h3>
+          <p class="oc-section-content__desc"><code>background-size</code> can be animated. Start a one-color gradient at <code>.bg-size-x-0</code> (no width) or <code>.bg-size-y-0</code> (no height) and grow it to <code>.bg-size-full</code> on hover. Clipped to outlined text it fills the letters; on a button or link it becomes a sweep. Hover a word.</p>
+          <oc-demo title="bg-size-x-0 / bg-size-y-0 to hover:bg-size-full">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-size-x-0 hover:bg-size-full</code><div class="oc-eg__note">Hover the word: the fill grows from the left.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad grid place-items-center"><div class="lay-fillword cursor-default text-stroke-2 text-stroke-current text-fill-transparent bg-clip-text bg-linear-to-r from-teal to-teal bg-no-repeat bg-pos-left bg-size-x-0 hover:bg-size-full transition-all duration-700">Company 1</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-size-y-0 hover:bg-size-full</code><div class="oc-eg__note">Hover the word: the fill rises from the bottom.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad grid place-items-center"><div class="lay-fillword cursor-default text-stroke-2 text-stroke-current text-fill-transparent bg-clip-text bg-linear-to-r from-magenta to-magenta bg-no-repeat bg-pos-bottom bg-size-y-0 hover:bg-size-full transition-all duration-700">Company 1</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;!-- .lay-fillword: the size of the word (page CSS) --&gt;
+&lt;div class="lay-fillword cursor-default text-stroke-2 text-stroke-current text-fill-transparent bg-clip-text bg-linear-to-r from-teal to-teal bg-no-repeat bg-pos-left bg-size-x-0 hover:bg-size-full transition-all duration-700"&gt;Company 1&lt;/div&gt;
+&lt;div class="lay-fillword cursor-default text-stroke-2 text-stroke-current text-fill-transparent bg-clip-text bg-linear-to-r from-magenta to-magenta bg-no-repeat bg-pos-bottom bg-size-y-0 hover:bg-size-full transition-all duration-700"&gt;Company 1&lt;/div&gt;</oc-code></oc-demo>
 
         </div>
       </section>

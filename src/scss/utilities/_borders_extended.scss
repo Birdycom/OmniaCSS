@@ -60,7 +60,8 @@ $_styles: (solid, dashed, dotted, double, none);
 }
 .border-image-stripes {
   border-image-source: repeating-linear-gradient(45deg, var(--oc-gradient-from, currentcolor) 0 6px, var(--oc-gradient-to, transparent) 6px 12px);
-  border-image-slice: 1;
+  // A slice as wide as one stripe pair keeps the corners and edges diagonal; a slice of 1 stretches one pixel row into dashes.
+  border-image-slice: 12;
 }
 .border-image-slice-1 { border-image-slice: 1; }
 .border-image-slice-fill { border-image-slice: 1 fill; }

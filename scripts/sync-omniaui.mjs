@@ -62,3 +62,7 @@ for (const name of FILES) {
   console.log(`[sync:omniaui] ${name} -> public/css/${name}`);
 }
 console.log("[sync:omniaui] Done. Run \"npm run docs:build\" to rebuild the site CSS (omnia-site.css) and the cache-busting hashes.");
+
+// Totals for <oc-count> on the home (apps/docs/src/lib/counts.mjs): a committed copy, so CI builds without ../omniaUI.
+const counts = path.resolve(root, "../omniaUI/public/data/oc-counts.json");
+if (await exists(counts)) await fs.copyFile(counts, path.join(root, "docs/omniaui-counts.json"));

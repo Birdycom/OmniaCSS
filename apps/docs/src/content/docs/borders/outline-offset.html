@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Outline-offset", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background-color: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n</style>","<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background-color: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n</style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Outline-offset","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n.bd-sample { display: grid; place-content: center; gap: 0.15rem; min-block-size: var(--bd-h, 6.5rem); padding: 0.75rem; text-align: center; }\n.bd-sample b { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }\n.bd-sample small { font-size: 0.78rem; color: var(--oc-muted-foreground); }\n.bd-ol { --bd-pad: 1.75rem; }\n.bd-ol .bd-sample { border-radius: 8px; }\n.bd-hover .bd-sample { cursor: pointer; }\n.bd-photo .bd-sample { color: var(--color-white-50); }\n.bd-photo .bd-sample small { color: var(--color-white-50); }\n.bd-in { container-type: inline-size; display: grid; align-content: center; padding: var(--bd-pad, 0.875rem); }\n</style>"]}-->
 <section class="oc-docs-section" id="outline-offset">
       <div class="oc-section-header">
         <h2 class="oc-section-header__title font-clamp-1.5">Outline-offset</h2>
@@ -12,12 +12,10 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>outline-offset</code> sets the gap between the border edge and the outline; a negative value draws the outline inside the box. <strong>When to use:</strong> focus rings that breathe (2px is a good default), selection frames and highlight effects. <strong>Gotchas:</strong> the offset is not part of the <code>outline</code> shorthand, so a later <code>outline:</code> declaration resets it; outlines take no layout space, so a large offset can overlap neighbours or get clipped by a parent with <code>overflow: hidden</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset" target="_blank" rel="noopener">MDN: outline-offset</a>.</p>
-
-          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>outline-offset</code> sets the gap between the border edge and the outline; a negative value draws the outline inside the box. <strong>When to use:</strong> focus rings that breathe (2px is a good default), selection frames and highlight effects. <strong>Gotchas:</strong> the offset is not part of the <code>outline</code> shorthand, so a later <code>outline:</code> declaration resets it; outlines take no layout space, so a large offset can overlap neighbours or get clipped by a parent with <code>overflow: hidden</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset" target="_blank" rel="noopener">MDN: outline-offset</a>.</p>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>outline-offset</code> sets the gap between the border edge and the outline; a negative value draws the outline inside the box. An outline (unlike a border) takes no space, so changing the offset never moves anything. <strong>When to use:</strong> focus rings that breathe (2px to 4px is a good default), selection frames and highlight effects. <strong>Gotchas:</strong> the offset is not part of the <code>outline</code> shorthand: <code>outline: 2px solid</code> leaves the offset as it was, so set it separately; a large offset can overlap neighbours or get clipped by a parent with <code>overflow: hidden</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset" target="_blank" rel="noopener">MDN: outline-offset</a>.</p>
 
           <h3 class="mb-0.5 font-clamp-1.2">CSS classes</h3>
-          <p class="oc-docs-typo-meta font-clamp-0.8">All classes set <code>outline-offset</code>. Use <code>.outline-offset-none</code> or <code>.outline-offset-1</code> … <code>.outline-offset-12</code>. The number is the same scale as border/outline width (e.g. 2 = 4px).</p>
+          <p class="oc-docs-typo-meta font-clamp-0.8">All classes set <code>outline-offset</code>. Use <code>.outline-offset-none</code> or <code>.outline-offset-1</code> … <code>.outline-offset-12</code>. The number follows the same scale as border and outline width (e.g. 2 = 4px).</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -42,78 +40,61 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title">Preview — outline-offset: basic</h3>
-          <p class="oc-section-content__desc">Basic outline-offset: <code>.outline-offset-none</code> (0), <code>.outline-offset-1</code> (2px), <code>.outline-offset-2</code> (4px), <code>.outline-offset-4</code> (8px), <code>.outline-offset-6</code> (12px), <code>.outline-offset-8</code> (16px), <code>.outline-offset-10</code> (20px), <code>.outline-offset-12</code> (32px). Combineer met <code>.outline-solid</code> en een kleur-class (bijv. <code>.outline-goldenrod-50</code>) om de outline te tonen.</p>
 
-          <oc-demo title="outline-offset-none, outline-offset-1, outline-offset-2, outline-offset-4">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><span class="oc-preview__label">outline-offset-none</span><div class="outline-2 outline-solid outline-goldenrod-50 outline-offset-none border-1 border-solid border-goldenrod-50 round-4 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1">0</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">outline-offset-1</span><div class="outline-2 outline-solid outline-goldenrod-50 outline-offset-1 border-1 border-solid border-goldenrod-50 round-4 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1">2px</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">outline-offset-2</span><div class="outline-2 outline-solid outline-goldenrod-50 outline-offset-2 border-1 border-solid border-goldenrod-50 round-4 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1">4px</div></div>
-              <div class="oc-preview__item"><span class="oc-preview__label">outline-offset-4</span><div class="outline-2 outline-solid outline-goldenrod-50 outline-offset-4 border-1 border-solid border-goldenrod-50 round-4 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1">8px</div></div>
-            </div>
+<h3 class="oc-section-content__title">The offset scale</h3>
+<p class="oc-section-content__desc">The offset is the gap between the edge of the box and the outline. Each box has the same 4px orange outline; only the offset class changes. Look at the strip of page background between the light orange box and the ring: it grows with every step.</p>
 
-            
-            
-          <oc-code lang="html">
-                &lt;div class="outline-2 outline-solid outline-goldenrod-50 outline-offset-none border-1 border-solid border-goldenrod-50 round-4 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;0&lt;/div&gt;
-                &lt;div class="outline-2 outline-solid outline-goldenrod-50 outline-offset-1 border-1 border-solid border-goldenrod-50 round-4 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;2px&lt;/div&gt;
-                &lt;div class="outline-2 outline-solid outline-goldenrod-50 outline-offset-2 border-1 border-solid border-goldenrod-50 round-4 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;4px&lt;/div&gt;
-                &lt;div class="outline-2 outline-solid outline-goldenrod-50 outline-offset-4 border-1 border-solid border-goldenrod-50 round-4 bg-goldenrod-mix-30 text-goldenrod-95 dark:text-goldenrod-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;8px&lt;/div&gt;
-              </oc-code></oc-demo>
+<p class="oc-section-content__desc">Every number from <code>.outline-offset-1</code> (2px) to <code>.outline-offset-12</code> exists; the example shows the main steps.</p>
+          <oc-demo title="outline-offset-none … outline-offset-8">
+<div class="oc-eg bd-ol"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-none</code><div class="oc-eg__note">The outline touches the edge of the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-none outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20"><b>0</b><small>0</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-1</code><div class="oc-eg__note">A 2px (0.125rem) gap between the box and its outline.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-1 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20"><b>2px</b><small>0.125rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-2</code><div class="oc-eg__note">A 4px (0.25rem) gap between the box and its outline.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-2 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20"><b>4px</b><small>0.25rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-4</code><div class="oc-eg__note">A 8px (0.5rem) gap between the box and its outline.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-4 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20"><b>8px</b><small>0.5rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-6</code><div class="oc-eg__note">A 12px (0.75rem) gap between the box and its outline.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-6 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20"><b>12px</b><small>0.75rem</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-8</code><div class="oc-eg__note">A 16px (1rem) gap between the box and its outline.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-8 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20"><b>16px</b><small>1rem</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="outline-2 outline-solid outline-darkorange-80 outline-offset-none"&gt;0&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-darkorange-80 outline-offset-1"&gt;2px&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-darkorange-80 outline-offset-2"&gt;4px&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-darkorange-80 outline-offset-4"&gt;8px&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-darkorange-80 outline-offset-6"&gt;12px&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-darkorange-80 outline-offset-8"&gt;16px&lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8">Animate the offset on hover</h3>
-          <p class="oc-section-content__desc"><code>outline-offset</code> is animatable. Hover or focus the cards: the ring pulls away from the box with a transition, a nice and cheap hover effect.</p>
+<h3 class="oc-section-content__title mt-8">Negative offsets: the ring inside the box</h3>
+<p class="oc-section-content__desc">A negative offset pulls the outline inside the box. That helps when an element touches an edge that would clip the ring, like a photo in a scroll strip or a cell in a table. There is no negative utility class, so set <code>outline-offset</code> inline or in your own CSS. The ring is white on the dark tiles, so it stays visible inside.</p>
 
-          <oc-demo title="hover:outline-offset-8">
-            <div class="bd-grid" style="padding:10px">
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-dodgerblue-50 outline-offset-none transition-all duration-300 hover:outline-offset-8" tabindex="0">hover me</div><code>.outline-offset-none → 8</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-dodgerblue-50 outline-offset-2 transition-all duration-300 hover:outline-offset-8" tabindex="0">hover me</div><code>.outline-offset-2 → 8</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-dodgerblue-50 outline-offset-4 transition-all duration-300 hover:outline-offset-8" tabindex="0">hover me</div><code>.outline-offset-4 → 8</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="outline-2 outline-solid outline-offset-2 transition-all hover:outline-offset-8"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+<oc-demo title="outline-offset: -12px … 6px">
+<div class="oc-eg bd-ol bd-photo"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">outline-offset: -12px</code><div class="oc-eg__note">A negative offset: the outline sits 12px inside the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div style="outline-offset: -12px" class="bd-sample outline-2 outline-solid outline-white-50 bg-teal-70"><b>-12px</b><small>inside</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">outline-offset: -6px</code><div class="oc-eg__note">A negative offset: the outline sits 6px inside the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div style="outline-offset: -6px" class="bd-sample outline-2 outline-solid outline-white-50 bg-teal-70"><b>-6px</b><small>inside</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">outline-offset: 0</code><div class="oc-eg__note">The outline starts at the edge of the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div style="outline-offset: 0" class="bd-sample outline-2 outline-solid outline-darkorange-80 bg-teal-70"><b>0</b><small>on the edge</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">outline-offset: 6px</code><div class="oc-eg__note">The outline sits 6px outside the box.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div style="outline-offset: 6px" class="bd-sample outline-2 outline-solid outline-darkorange-80 bg-teal-70"><b>6px</b><small>outside</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- Negative offsets are not in the scale: use an inline style --&gt;
+&lt;div class="outline-2 outline-solid outline-white-50 bg-teal-70" style="outline-offset: -12px"&gt;-12px inside&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-white-50 bg-teal-70" style="outline-offset: -6px"&gt;-6px inside&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-darkorange-80 bg-teal-70" style="outline-offset: 0"&gt;0 on the edge&lt;/div&gt;
+&lt;div class="outline-2 outline-solid outline-darkorange-80 bg-teal-70" style="outline-offset: 6px"&gt;6px outside&lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8">Negative offsets: the ring inside the box</h3>
-          <p class="oc-section-content__desc">There is no negative offset utility class, so set <code>outline-offset</code> inline or in your own CSS. Inside rings are useful on elements that touch a clipping edge.</p>
+<h3 class="oc-section-content__title mt-8">Animate the offset on hover</h3>
+<p class="oc-section-content__desc"><code>outline-offset</code> can be animated. Move the mouse over a card, or Tab to it: the ring moves out to 16px with a short transition. It is a cheap hover effect that never shifts the layout.</p>
 
-          <oc-demo title="negative and positive offsets">
-            <div class="bd-grid" style="padding:10px">
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:-8px">-8px</div><code>outline-offset: -8px</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:-4px">-4px</div><code>outline-offset: -4px</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:0">0</div><code>outline-offset: 0</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:4px">4px</div><code>outline-offset: 4px</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:8px">8px</div><code>outline-offset: 8px</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="outline-2 outline-solid" style="outline-offset: -4px"&gt;…&lt;/div&gt;</oc-code></oc-demo>
-
-          <h3 class="oc-section-content__title mt-8">Animate the offset on hover</h3>
-          <p class="oc-section-content__desc"><code>outline-offset</code> is animatable. Hover or focus the cards: the ring pulls away from the box with a transition, a nice and cheap hover effect.</p>
-
-          <oc-demo title="hover:outline-offset-8">
-            <div class="bd-grid" style="padding:10px">
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-dodgerblue-50 outline-offset-none transition-all duration-300 hover:outline-offset-8" tabindex="0">hover me</div><code>.outline-offset-none → 8</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-dodgerblue-50 outline-offset-2 transition-all duration-300 hover:outline-offset-8" tabindex="0">hover me</div><code>.outline-offset-2 → 8</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-dodgerblue-50 outline-offset-4 transition-all duration-300 hover:outline-offset-8" tabindex="0">hover me</div><code>.outline-offset-4 → 8</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="outline-2 outline-solid outline-offset-2 transition-all hover:outline-offset-8"&gt;…&lt;/div&gt;</oc-code></oc-demo>
-
-          <h3 class="oc-section-content__title mt-8">Negative offsets: the ring inside the box</h3>
-          <p class="oc-section-content__desc">There is no negative offset utility class, so set <code>outline-offset</code> inline or in your own CSS. Inside rings are useful on elements that touch a clipping edge.</p>
-
-          <oc-demo title="negative and positive offsets">
-            <div class="bd-grid" style="padding:10px">
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:-8px">-8px</div><code>outline-offset: -8px</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:-4px">-4px</div><code>outline-offset: -4px</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:0">0</div><code>outline-offset: 0</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:4px">4px</div><code>outline-offset: 4px</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 outline-2 outline-solid outline-forestgreen-50" style="outline-offset:8px">8px</div><code>outline-offset: 8px</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="outline-2 outline-solid" style="outline-offset: -4px"&gt;…&lt;/div&gt;</oc-code></oc-demo>
-
+<oc-demo title="hover:outline-offset-8 focus-visible:outline-offset-8">
+<div class="oc-eg bd-ol bd-hover"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-none → 8</code><div class="oc-eg__note">Hover or Tab: the gap grows from 0 to 16px.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-none outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20 transition-all duration-300 hover:outline-offset-8 focus-visible:outline-offset-8" tabindex="0"><b>Hover me</b><small>from 0 to 16px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-2 → 8</code><div class="oc-eg__note">Hover or Tab: the gap grows from 4px to 16px.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-2 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20 transition-all duration-300 hover:outline-offset-8 focus-visible:outline-offset-8" tabindex="0"><b>Hover me</b><small>from 4px to 16px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-4 → 8</code><div class="oc-eg__note">Hover or Tab: the gap grows from 8px to 16px.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample outline-offset-4 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20 transition-all duration-300 hover:outline-offset-8 focus-visible:outline-offset-8" tabindex="0"><b>Hover me</b><small>from 8px to 16px</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="outline-offset-none outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20
+            transition-all duration-300 hover:outline-offset-8 focus-visible:outline-offset-8" tabindex="0"&gt;Hover me&lt;/div&gt;
+&lt;div class="outline-offset-2 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20
+            transition-all duration-300 hover:outline-offset-8 focus-visible:outline-offset-8" tabindex="0"&gt;Hover me&lt;/div&gt;
+&lt;div class="outline-offset-4 outline-2 outline-solid outline-darkorange-80 bg-darkorange-mix-20
+            transition-all duration-300 hover:outline-offset-8 focus-visible:outline-offset-8" tabindex="0"&gt;Hover me&lt;/div&gt;</oc-code></oc-demo>
         </div>
-        
-        <div class="oc-section-footer">
+
+          <div class="oc-section-footer">
           <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
           <p class="oc-section-footer__desc">
             The outline-offset utilities come from <code>_borders_outlines.scss</code>; the map <code>$outlineoffsets</code> is defined in <code>_variables_layout.scss</code>. Classes: <code>.outline-offset-none</code>, <code>.outline-offset-1</code> … <code>.outline-offset-12</code>. Sets the gap between the border and the outline; useful for focus rings.

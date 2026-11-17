@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Tables", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Tables","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Comparison cards: equal height per row, full width of the preview */\n    .tb-scroll { min-inline-size: 0; max-inline-size: 100%; overflow-x: auto; }\n    /* A plain data table: padding and a clear border on every cell */\n    .tb-data { inline-size: 100%; font-size: 0.875rem; color: var(--oc-foreground); }\n    .tb-data th, .tb-data td { padding: 0.5rem 0.75rem; text-align: start; border: 1px solid var(--oc-border-strong); background: var(--oc-card); }\n    .tb-data thead th { background: var(--oc-muted); font-weight: 600; }\n    .tb-data tfoot td { background: var(--oc-muted); font-weight: 600; }\n    .tb-data .tb-num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }\n    .tb-data caption { padding: 0.5rem 0.25rem 0; font-size: 0.8rem; text-align: start; color: var(--oc-muted-foreground); }\n    .tb-data tbody tr:nth-child(even) td { background: color-mix(in oklch, var(--oc-muted) 45%, var(--oc-card)); }\n    .tb-index-card p { margin: 0.25rem 0 0.6rem; font-size: 0.9rem; color: var(--oc-muted-foreground); }\n  .tb-in { display: grid; align-content: center; gap: 0.75rem; padding: 0.75rem; color: var(--oc-foreground); }\n\n/* Overview: one panel per page of this section, with a small live example (frame from the example kit) */\n.ov-link { font-family: inherit; font-size: 1rem; font-weight: 700; color: var(--oc-primary); text-decoration: underline; text-underline-offset: 3px; }\n.ov-link:hover { text-decoration-thickness: 2px; }\n.ov-stage { display: grid; align-content: center; gap: 0.5rem; padding: 0.875rem; min-block-size: 8.5rem; color: var(--oc-foreground); font-size: 0.85rem; line-height: 1.5; }\n.ov-chip { padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--color-teal-70); color: var(--color-white-50); font-weight: 600; font-size: 0.8rem; line-height: 1.3; }\n.ov-chip--b { background: var(--color-slateblue-70); } .ov-chip--c { background: var(--color-chocolate-80); } .ov-chip--d { background: var(--color-crimson-70); }\n.ov-t { inline-size: 100%; font-size: 0.8rem; }\n.ov-t :is(td, th, .table-cell) { padding: 0.3rem 0.5rem; border: 2px solid var(--color-teal-70); text-align: start; }\n.ov-t th { background: color-mix(in oklch, var(--color-teal-70) 18%, var(--oc-card)); }\n.ov-t caption { padding: 0.3rem 0.5rem; font-weight: 700; background: color-mix(in oklch, var(--color-chocolate-80) 18%, var(--oc-card)); }\n.ov-t td, .ov-t .table-cell { background: var(--oc-card); }\n.ov-t.border-separate { background: var(--color-teal-70); }\n.ov-t.border-separate td { border-color: var(--oc-card); }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Tables</h2>
@@ -9,33 +9,38 @@
         </div>
         
         <div class="oc-section-content">
-          <p>
-            OmniaCSS provides a set of utility classes for working with HTML tables, 
-            including display properties, border styling, and layout algorithms.
-          </p>
+          <p class="oc-section-content__desc">The Tables section covers the CSS that only tables have: table display for divs, the layout algorithm, borders between cells, the gap between cells and the caption. Below is every page of the section with a small live example; click a title to open the page.</p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-1.5">
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Display &amp; Layout</h3>
-              <ul class="oc-docs-list">
-                <li><a href="display.html">Table Display</a></li>
-                <li><a href="layout.html">Table Layout</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Borders &amp; Spacing</h3>
-              <ul class="oc-docs-list">
-                <li><a href="border-collapse.html">Border Collapse</a></li>
-                <li><a href="border-spacing.html">Border Spacing</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Captions</h3>
-              <ul class="oc-docs-list">
-                <li><a href="caption-side.html">Caption Side</a></li>
-              </ul>
-            </div>
-          </div>
+          <div class="oc-eg mt-1.5"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="display.html">Table Display</a><div class="oc-eg__note">Turn divs into a table: <code>.table</code>, <code>.table-row</code>, <code>.table-cell</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="table border-collapse ov-t"><div class="table-row"><div class="table-cell">div</div><div class="table-cell">div</div></div><div class="table-row"><div class="table-cell">a longer div</div><div class="table-cell">div</div></div></div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="layout.html">Table Layout</a><div class="oc-eg__note">How column widths are worked out: <code>.table-auto</code> or <code>.table-fixed</code> (equal columns).</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><table class="table-fixed border-collapse ov-t"><tr><th>Product</th><th>Note</th></tr><tr><td>Product 1</td><td class="truncate">REF-COMPANY1-0001</td></tr></table></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="border-collapse.html">Border Collapse</a><div class="oc-eg__note">One shared line between cells (<code>.border-collapse</code>) or a line per cell (<code>.border-separate</code>).</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><table class="border-collapse ov-t"><tr><th>Product</th><th>Price</th></tr><tr><td>Product 1</td><td>€24.00</td></tr><tr><td>Product 2</td><td>€8.50</td></tr></table></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="border-spacing.html">Border Spacing</a><div class="oc-eg__note">The gap between separate cells: <code>.border-spacing-0</code> to <code>.border-spacing-8</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><table class="border-separate border-spacing-2 ov-t"><tr><td>Product</td><td>Price</td></tr><tr><td>Product 1</td><td>€24.00</td></tr><tr><td>Product 2</td><td>€8.50</td></tr></table></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="caption-side.html">Caption Side</a><div class="oc-eg__note">The caption above (<code>.caption-top</code>) or below (<code>.caption-bottom</code>) the table.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><table class="border-collapse caption-bottom ov-t"><caption>Order 1001 for Customer 1</caption><tr><th>Product</th><th>Price</th></tr><tr><td>Product 1</td><td>€24.00</td></tr><tr><td>Product 2</td><td>€8.50</td></tr></table></div></div>
+</div></div>
+
+          <h3 class="oc-section-content__title mt-8">All together</h3>
+
+          <p class="oc-section-content__desc">A plain HTML table with <code>.border-collapse</code> (one line between cells), <code>.table-fixed</code> with a half-width first column, <code>.w-full</code> and <code>.caption-bottom</code> (the note under the table). The cell padding and lines come from your own CSS.</p>
+
+          <oc-demo title="An order table with four table utilities">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-collapse .table-fixed .w-full .caption-bottom</code><div class="oc-eg__note">A real order table: shared borders, fixed columns, the full width, and the caption below.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll" style="inline-size:100%"><table class="tb-data border-collapse table-fixed w-full caption-bottom"><caption>Order 1001 for Customer 1. Prices include VAT.</caption><thead><tr><th class="w-perc-1/2">Product</th><th class="tb-num">Qty</th><th class="tb-num">Price</th></tr></thead><tbody><tr><td>Product 1</td><td class="tb-num">2</td><td class="tb-num">€24.00</td></tr><tr><td>Product 2</td><td class="tb-num">1</td><td class="tb-num">€8.50</td></tr><tr><td>Product 3</td><td class="tb-num">12</td><td class="tb-num">€96.00</td></tr></tbody><tfoot><tr><td>Total</td><td class="tb-num">15</td><td class="tb-num">€128.50</td></tr></tfoot></table></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;table class="border-collapse table-fixed w-full caption-bottom"&gt;
+  &lt;caption&gt;Order 1001 for Customer 1. Prices include VAT.&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th class="w-perc-1/2"&gt;Product&lt;/th&gt;&lt;th&gt;Qty&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;€24.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;€8.50&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Product 3&lt;/td&gt;&lt;td&gt;12&lt;/td&gt;&lt;td&gt;€96.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td&gt;Total&lt;/td&gt;&lt;td&gt;15&lt;/td&gt;&lt;td&gt;€128.50&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</oc-code></oc-demo>
         </div>
       </section>
 

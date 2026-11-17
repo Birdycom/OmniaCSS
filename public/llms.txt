@@ -6,7 +6,7 @@
 > (PostCSS, Vite or CLI) keeps only the classes a project uses. Components and page blocks come from the sister
 > project OmniaUI (https://omniaui.eu, oc-* classes, HTML/React/Vue/Blade/Livewire).
 
-Current version: 0.15.1. Node.js 22 or newer for the npm packages.
+Current version: 0.16.0. Node.js 22 or newer for the npm packages.
 
 ## Rules for AI assistants
 
@@ -27,7 +27,7 @@ Current version: 0.15.1. Node.js 22 or newer for the npm packages.
 ## Docs
 
 - [OmniaCSS documentation](https://omniacss.eu/docs/)
-- [Migreren / Migrate](https://omniacss.eu/docs/migrate)
+- [Migrate](https://omniacss.eu/docs/migrate)
 - [AI assistants (MCP)](https://omniacss.eu/docs/ai)
 - [Code syntax](https://omniacss.eu/docs/code-syntax)
 - [Configuration](https://omniacss.eu/docs/configuration)
@@ -236,21 +236,21 @@ Current version: 0.15.1. Node.js 22 or newer for the npm packages.
 ## Typography
 
 - [Advanced Typography](https://omniacss.eu/docs/typography/advanced)
-- [Families Reference](https://omniacss.eu/docs/typography/font-families)
-- [Font Families](https://omniacss.eu/docs/typography/fonts)
+- [Font Catalog](https://omniacss.eu/docs/typography/font-families)
 - [Font Family](https://omniacss.eu/docs/typography/font-family)
 - [Font Size](https://omniacss.eu/docs/typography/font-size)
 - [Font Style](https://omniacss.eu/docs/typography/font-style)
 - [Font Variants & Text Effects](https://omniacss.eu/docs/typography/variants)
 - [Font Weight](https://omniacss.eu/docs/typography/font-weight)
-- [Fonts Usage](https://omniacss.eu/docs/typography/font-usage)
 - [Letter Spacing](https://omniacss.eu/docs/typography/letter-spacing)
 - [Line Height](https://omniacss.eu/docs/typography/line-height)
+- [Loading Fonts](https://omniacss.eu/docs/typography/fonts)
 - [Modern Typography](https://omniacss.eu/docs/typography/modern)
 - [Text Align](https://omniacss.eu/docs/typography/text-align)
 - [Text Decoration](https://omniacss.eu/docs/typography/text-decoration)
 - [Text Transform](https://omniacss.eu/docs/typography/text-transform)
 - [Typography](https://omniacss.eu/docs/typography/)
+- [Using font classes](https://omniacss.eu/docs/typography/font-usage)
 
 ## Units
 

@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Overflow", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n.lay-tile { padding: 8px 10px; border-radius: 8px; background: var(--color-dodgerblue-90); color: var(--color-white-50); font: 600 0.78rem/1.2 ui-monospace, monospace; }\n.lay-tile--b { background: var(--color-forestgreen-90); } .lay-tile--c { background: var(--color-darkorange-90); } .lay-tile--d { background: var(--color-magenta-90); }\n.lay-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 16px; inline-size: 100%; }\n.lay-cell { display: grid; gap: 6px; align-content: start; font-size: 0.75rem; }\n.lay-cell > code { justify-self: start; }\n.lay-note { font-size: 0.75rem; color: var(--oc-muted-foreground); }\n.lay-ovbox { inline-size: 9rem; block-size: 7rem; border: 1px dashed var(--oc-border-strong); border-radius: 8px; font-size: 0.78rem; line-height: 1.4; }\n</style>","<style>\n    .demo-container { background: var(--bg-soft); padding: 24px; border-radius: 12px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 32px; }\n    .demo-scroll-box { height: 120px; background: var(--bg-subtle); border: 1px dashed var(--border); border-radius: 8px; padding: 12px; color: var(--text-soft); font-size: 0.85rem; }\n  </style>"]}-->
+<!--oc-page {"title": "OmniaCSS Docs - Overflow", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n.lay-tile { padding: 8px 10px; border-radius: 8px; background: var(--color-dodgerblue-90); color: var(--color-white-50); font: 600 0.78rem/1.2 ui-monospace, monospace; }\n.lay-tile--b { background: var(--color-forestgreen-90); } .lay-tile--c { background: var(--color-darkorange-90); } .lay-tile--d { background: var(--color-magenta-90); }\n.lay-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 16px; inline-size: 100%; }\n.lay-cell { display: grid; gap: 6px; align-content: start; font-size: 0.75rem; }\n.lay-cell > code { justify-self: start; }\n.lay-note { font-size: 0.75rem; color: var(--oc-muted-foreground); }\n.lay-ovbox { inline-size: 9rem; block-size: 7rem; border: 1px dashed var(--oc-border-strong); border-radius: 8px; font-size: 0.78rem; line-height: 1.4; }\n/* The box of the overflow examples: a fixed size, smaller than its content in both directions. */\n    .ov-stage { display: grid; place-items: start; block-size: var(--ov-h, 12.5rem); padding: 0.75rem; overflow: hidden; }\n    .ov-key { inline-size: 2rem; block-size: 1.1rem; border: 2px dashed var(--oc-foreground); border-radius: 4px; }\n    .ov-frame { box-sizing: border-box; inline-size: var(--ov-w, 8.5rem); block-size: 7rem; border: 2px dashed var(--oc-foreground); border-radius: 6px; background: var(--oc-card); scrollbar-width: auto; scrollbar-color: var(--oc-muted-foreground) var(--oc-muted); }\n    .ov-content { display: grid; gap: 0.3rem; inline-size: max-content; padding: 0.6rem; color: var(--oc-foreground); font-size: 0.85rem; line-height: 1.4; }\n    .ov-wide { inline-size: var(--ov-bar, 10.25rem); padding: 0.35rem 0.6rem; border-radius: 5px; background: var(--color-vividblue-90); color: var(--color-white-50); font-weight: 600; white-space: nowrap; }\n  .ov-liststage { padding: 0.75rem; }\n  </style>","<style>\n/* Overflow demos: a dashed frame (the element) on a grey field that leaves room to see what spills out */\n.ov-list { block-size: 9rem; inline-size: 100%; box-sizing: border-box; padding: 8px; border: 2px dashed var(--oc-foreground); border-radius: 8px; background: var(--oc-card); }\n.ov-list > div { margin-block: 6px; padding: 10px 12px; border-radius: 6px; background: var(--color-teal-70); color: var(--color-white-50); font-weight: 600; font-size: 0.85rem; }\n.ov-list > div:nth-child(even) { background: var(--color-purple-60); }\n</style>"]}-->
 <section class="oc-docs-section" id="overflow">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Overflow</h2>
@@ -28,46 +28,75 @@
           <h3 class="oc-section-content__title">Axis Control</h3>
           <p class="oc-section-content__desc">Use <code>.overflow-x-*</code> or <code>.overflow-y-*</code> for specific axes.</p>
 
-          <h3 class="oc-section-content__title mt-8">Scroll Demo</h3>
-          <oc-demo title="Scroll Demo"><div class="preview demo-container">
-            <div>
-              <p class="label-sm mb-2 opacity-60">Vertical Scroll (.overflow-y-auto)</p>
-              <div class="overflow-y-auto demo-scroll-box">
-                <div style="height: 300px;">
-                  Long content that triggers a vertical scrollbar. 
-                  This is useful for fixed-height sidebars, card descriptions, or code boxes.
-                  Keep scrolling to see the full content of this demonstration box.
-                </div>
-              </div>
-            </div>
-          </div><oc-code lang="html">&lt;div class="overflow-hidden rounded-lg"&gt;
-  &lt;img src="hero.jpg" class="hover:scale-110 duration-200"&gt;
-&lt;/div&gt;</oc-code></oc-demo>
-
           <h3 class="oc-section-content__title mt-8">All overflow values</h3>
-          <p class="oc-section-content__desc">The frame is 7rem tall and 9rem wide; the content is larger. Scroll the boxes that scroll; watch the <code>visible</code> box paint outside its frame.</p>
+          <p class="oc-section-content__desc">The dashed frame is the element: 11rem wide and 8rem tall, with more content than fits. Scroll the frames that show scrollbars, and see how <code>visible</code> lets the content spill out of its frame.</p>
 
-          <oc-demo title="overflow-visible, hidden, clip, auto, scroll, x-auto, y-auto">
-            <div class="lay-grid" style="grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); row-gap: 28px">
-              <div class="lay-cell"><div class="overflow-visible lay-ovbox"><div style="block-size: 11rem; padding: 6px"><span class="lay-tile" style="display:inline-block;inline-size: 13rem">A box wider and taller than its container.</span> Long content that does not fit: more lines of text so you can see how each overflow value deals with it.</div></div><code>.overflow-visible</code></div>
-              <div class="lay-cell"><div class="overflow-hidden lay-ovbox"><div style="block-size: 11rem; padding: 6px"><span class="lay-tile" style="display:inline-block;inline-size: 13rem">A box wider and taller than its container.</span> Long content that does not fit: more lines of text so you can see how each overflow value deals with it.</div></div><code>.overflow-hidden</code></div>
-              <div class="lay-cell"><div class="overflow-clip lay-ovbox"><div style="block-size: 11rem; padding: 6px"><span class="lay-tile" style="display:inline-block;inline-size: 13rem">A box wider and taller than its container.</span> Long content that does not fit: more lines of text so you can see how each overflow value deals with it.</div></div><code>.overflow-clip</code></div>
-              <div class="lay-cell"><div class="overflow-auto lay-ovbox"><div style="block-size: 11rem; padding: 6px"><span class="lay-tile" style="display:inline-block;inline-size: 13rem">A box wider and taller than its container.</span> Long content that does not fit: more lines of text so you can see how each overflow value deals with it.</div></div><code>.overflow-auto</code></div>
-              <div class="lay-cell"><div class="overflow-scroll lay-ovbox"><div style="block-size: 11rem; padding: 6px"><span class="lay-tile" style="display:inline-block;inline-size: 13rem">A box wider and taller than its container.</span> Long content that does not fit: more lines of text so you can see how each overflow value deals with it.</div></div><code>.overflow-scroll</code></div>
-              <div class="lay-cell"><div class="overflow-x-auto lay-ovbox"><div style="block-size: 11rem; padding: 6px"><span class="lay-tile" style="display:inline-block;inline-size: 13rem">A box wider and taller than its container.</span> Long content that does not fit: more lines of text so you can see how each overflow value deals with it.</div></div><code>.overflow-x-auto</code></div>
-              <div class="lay-cell"><div class="overflow-y-auto lay-ovbox"><div style="block-size: 11rem; padding: 6px"><span class="lay-tile" style="display:inline-block;inline-size: 13rem">A box wider and taller than its container.</span> Long content that does not fit: more lines of text so you can see how each overflow value deals with it.</div></div><code>.overflow-y-auto</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="overflow-y-auto" style="max-block-size: 12rem"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="Show it or cut it off: overflow-visible, hidden, clip">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="ov-key" aria-hidden="true"></span>Dashed line = the edge of the box</span><span class="oc-eg__key oc-eg__key--strong">The content is wider and higher than the box: a blue bar and six orders</span></div><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-visible</code><div class="oc-eg__note">The default. What does not fit is painted outside the box, over whatever is next to it.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><div class="overflow-visible ov-frame"><div class="ov-content"><span class="ov-wide">This bar is wider than the frame</span><span>Order 1 · Customer 1</span><span>Order 2 · Customer 2</span><span>Order 3 · Customer 3</span><span>Order 4 · Customer 4</span><span>Order 5 · Customer 5</span><span>Order 6 · Customer 6</span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-hidden</code><div class="oc-eg__note">Cut off at the edge. No scroll bar, but a script or the Tab key can still scroll the box.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><div class="overflow-hidden ov-frame"><div class="ov-content"><span class="ov-wide">This bar is wider than the frame</span><span>Order 1 · Customer 1</span><span>Order 2 · Customer 2</span><span>Order 3 · Customer 3</span><span>Order 4 · Customer 4</span><span>Order 5 · Customer 5</span><span>Order 6 · Customer 6</span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-clip</code><div class="oc-eg__note">Cut off, and the box can never scroll, not even from a script.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><div class="overflow-clip ov-frame"><div class="ov-content"><span class="ov-wide">This bar is wider than the frame</span><span>Order 1 · Customer 1</span><span>Order 2 · Customer 2</span><span>Order 3 · Customer 3</span><span>Order 4 · Customer 4</span><span>Order 5 · Customer 5</span><span>Order 6 · Customer 6</span></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;style&gt;
+  /* the dashed frame: smaller than its content in both directions */
+  .frame { width: 8.5rem; height: 7rem; border: 2px dashed; }
+  .bar { width: 10.25rem; }
+&lt;/style&gt;
+&lt;div class="frame overflow-visible"&gt;
+  &lt;div class="w-max"&gt;
+    &lt;div class="bar"&gt;This bar is wider than the frame&lt;/div&gt;
+    &lt;div&gt;Order 1 · Customer 1&lt;/div&gt;
+    &lt;div&gt;Order 2 · Customer 2&lt;/div&gt;
+    &lt;!-- … up to Order 6 --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="frame overflow-hidden"&gt;…the same content…&lt;/div&gt;
+&lt;div class="frame overflow-clip"&gt;…the same content…&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The next four values let the reader scroll to the part that does not fit. Scroll inside each box, with the mouse wheel, by dragging the bars, or with a finger.</p>
+          <oc-demo title="Let it scroll: overflow-auto, scroll, x-auto, y-auto">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="ov-key" aria-hidden="true"></span>Dashed line = the edge of the box</span><span class="oc-eg__key oc-eg__key--strong">The content is wider and higher than the box: a blue bar and six orders</span></div><div class="oc-eg__panels" style="--eg-min: 18rem; --ov-h: 8.5rem; --ov-w: min(100%, 17rem); --ov-bar: 21rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-auto</code><div class="oc-eg__note">Scroll bars appear only on the sides where something does not fit. Here: both.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><div class="overflow-auto ov-frame"><div class="ov-content"><span class="ov-wide">This bar is wider than the frame</span><span>Order 1 · Customer 1</span><span>Order 2 · Customer 2</span><span>Order 3 · Customer 3</span><span>Order 4 · Customer 4</span><span>Order 5 · Customer 5</span><span>Order 6 · Customer 6</span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-scroll</code><div class="oc-eg__note">Both scroll bars are always there, also when everything fits.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><div class="overflow-scroll ov-frame"><div class="ov-content"><span class="ov-wide">This bar is wider than the frame</span><span>Order 1 · Customer 1</span><span>Order 2 · Customer 2</span><span>Order 3 · Customer 3</span><span>Order 4 · Customer 4</span><span>Order 5 · Customer 5</span><span>Order 6 · Customer 6</span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-x-auto</code><div class="oc-eg__note">For sideways scrolling, such as a wide table. The browser then lets the other direction scroll too.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><div class="overflow-x-auto ov-frame"><div class="ov-content"><span class="ov-wide">This bar is wider than the frame</span><span>Order 1 · Customer 1</span><span>Order 2 · Customer 2</span><span>Order 3 · Customer 3</span><span>Order 4 · Customer 4</span><span>Order 5 · Customer 5</span><span>Order 6 · Customer 6</span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-y-auto</code><div class="oc-eg__note">For up and down, such as a long list in a fixed height. The wide bar still gets a sideways bar, for the same reason.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><div class="overflow-y-auto ov-frame"><div class="ov-content"><span class="ov-wide">This bar is wider than the frame</span><span>Order 1 · Customer 1</span><span>Order 2 · Customer 2</span><span>Order 3 · Customer 3</span><span>Order 4 · Customer 4</span><span>Order 5 · Customer 5</span><span>Order 6 · Customer 6</span></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;style&gt;
+  .frame { width: 17rem; height: 7rem; border: 2px dashed; }
+  .bar { width: 21rem; }
+&lt;/style&gt;
+&lt;div class="frame overflow-auto"&gt;
+  &lt;div class="w-max"&gt;
+    &lt;div class="bar"&gt;This bar is wider than the frame&lt;/div&gt;
+    &lt;div&gt;Order 1 · Customer 1&lt;/div&gt;
+    &lt;div&gt;Order 2 · Customer 2&lt;/div&gt;
+    &lt;!-- … up to Order 6 --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="frame overflow-scroll"&gt;…the same content…&lt;/div&gt;
+&lt;div class="frame overflow-x-auto"&gt;…the same content…&lt;/div&gt;
+&lt;div class="frame overflow-y-auto"&gt;…the same content…&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Overscroll: keep scroll inside the panel</h3>
           <p class="oc-section-content__desc">Scroll the inner list to its end and keep scrolling. With <code>.overscroll-auto</code> the page behind starts scrolling (scroll chaining); with <code>.overscroll-contain</code> the scroll stops at the edge of the panel.</p>
 
           <oc-demo title="overscroll-auto vs overscroll-contain">
-            <div class="lay-grid">
-              <div class="lay-cell"><div class="overflow-y-auto overscroll-auto lay-ovbox" style="block-size: 7rem"><div class="lay-tile" style="margin-block:4px">item 1</div><div class="lay-tile lay-tile--b" style="margin-block:4px">item 2</div><div class="lay-tile" style="margin-block:4px">item 3</div><div class="lay-tile lay-tile--b" style="margin-block:4px">item 4</div><div class="lay-tile" style="margin-block:4px">item 5</div><div class="lay-tile lay-tile--b" style="margin-block:4px">item 6</div><div class="lay-tile" style="margin-block:4px">item 7</div><div class="lay-tile lay-tile--b" style="margin-block:4px">item 8</div></div><code>.overscroll-auto</code></div>
-              <div class="lay-cell"><div class="overflow-y-auto overscroll-contain lay-ovbox" style="block-size: 7rem"><div class="lay-tile" style="margin-block:4px">item 1</div><div class="lay-tile lay-tile--b" style="margin-block:4px">item 2</div><div class="lay-tile" style="margin-block:4px">item 3</div><div class="lay-tile lay-tile--b" style="margin-block:4px">item 4</div><div class="lay-tile" style="margin-block:4px">item 5</div><div class="lay-tile lay-tile--b" style="margin-block:4px">item 6</div><div class="lay-tile" style="margin-block:4px">item 7</div><div class="lay-tile lay-tile--b" style="margin-block:4px">item 8</div></div><code>.overscroll-contain</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="overflow-y-auto overscroll-contain"&gt;…modal body…&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.overscroll-auto</code><div class="oc-eg__note">Scroll the list to its end and keep scrolling: the page itself starts to move.</div><div class="oc-eg__stage oc-eg__stage--plain ov-liststage"><div class="overflow-y-auto overscroll-auto ov-list"><div>Item 1</div><div>Item 2</div><div>Item 3</div><div>Item 4</div><div>Item 5</div><div>Item 6</div><div>Item 7</div><div>Item 8</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.overscroll-contain</code><div class="oc-eg__note">At the end of the list the scrolling stops; the page stays where it is. Use it for a menu or a dialog.</div><div class="oc-eg__stage oc-eg__stage--plain ov-liststage"><div class="overflow-y-auto overscroll-contain ov-list"><div>Item 1</div><div>Item 2</div><div>Item 3</div><div>Item 4</div><div>Item 5</div><div>Item 6</div><div>Item 7</div><div>Item 8</div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- A list that scrolls on its own (height 9rem) --&gt;
+&lt;div class="overflow-y-auto overscroll-auto" style="height: 9rem"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;!-- … up to Item 8 --&gt;
+&lt;/div&gt;
+
+&lt;!-- The same list; the page does not scroll on when it reaches the end --&gt;
+&lt;div class="overflow-y-auto overscroll-contain" style="height: 9rem"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;!-- … up to Item 8 --&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
         </div>
       </section>

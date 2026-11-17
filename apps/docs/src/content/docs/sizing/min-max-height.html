@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Min & Max Height","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Min & Max Height","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Sizing demos: neutral rulers and tracks, the sized element on top in one flat palette color. */\n    .sz-eg { \u002d\u002dsz-c: var(\u002d\u002dcolor-teal-70); \u002d\u002dsz-tick: oklch(from var(\u002d\u002doc-foreground) l c h / 0.16); \u002d\u002dsz-tick-strong: oklch(from var(\u002d\u002doc-foreground) l c h / 0.42); }\n\n    /* Area stages: a positioned box, so the limit lines can be drawn on it. */\n    .sz-area { position: relative; box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; }\n    .sz-fill { box-sizing: border-box; display: grid; place-items: center; padding: 0.3rem 0.5rem; border-radius: 4px; background: var(\u002d\u002dsz-c); color: var(\u002d\u002dcolor-white-50); font-size: 0.75rem; font-weight: 600; line-height: 1.3; text-align: center; }\n    .sz-fill\u002d\u002dneutral { background: oklch(from var(\u002d\u002doc-foreground) l c h / 0.14); color: var(\u002d\u002doc-foreground); font-weight: 500; place-items: start; text-align: start; }\n    .sz-limit { position: absolute; inset-inline: 0; inset-block-start: calc(0.5rem + var(\u002d\u002dat)); border-block-start: 2px dashed var(\u002d\u002dsz-c); pointer-events: none; }\n    .sz-limit > span { position: absolute; inset-inline-end: 0.3rem; inset-block-start: 0.2rem; padding: 0 0.3rem; border-radius: 3px; background: var(\u002d\u002doc-muted); font-size: 0.68rem; font-weight: 600; color: var(\u002d\u002doc-foreground); }\n  </style>"]}-->
 <section class="oc-docs-section" id="min-max-height">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Min/Max Height</h2>
@@ -12,6 +12,8 @@
 
           <h3 class="oc-section-content__title mt-8">Common Utilities</h3>
 
+          <p class="oc-section-content__desc">The numbered classes use quarter steps of a rem: <code>.min-h-{n}</code> and <code>.max-h-{n}</code> are <code>n × 0.25rem</code>, so <code>.min-h-32</code> is 8rem (128px) and <code>.max-h-48</code> is 12rem (192px).</p>
+
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
@@ -23,7 +25,9 @@
                 <tr class="oc-expandable-table__row-dimmed"><td><code>.max-h-full</code></td><td>100%</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.max-h-screen</code></td><td>100vh</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.max-h-dvh</code></td><td>100dvh</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.max-h-24</code></td><td>24rem</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.min-h-32</code> / <code>.max-h-32</code></td><td>8rem (128px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.max-h-24</code></td><td>6rem (96px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.min-h-4 … .min-h-96</code>, <code>.max-h-4 … .max-h-96</code></td><td>1rem … 24rem (n × 0.25rem)</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.max-h-none</code></td><td>none</td></tr>
               </tbody>
             </table>
@@ -32,13 +36,31 @@
             </div>
           </div>
 
+          <h3 class="oc-section-content__title mt-8">Feel the limits</h3>
+
+          <p class="oc-section-content__desc">This box has <code>.min-h-32</code> and <code>.max-h-48</code>. Drag its bottom-right corner up and down: it stops at the first dashed line (8rem) and at the second one (12rem), however far you pull.</p>
+
+          <oc-demo title="Drag the box between its min and max height"><div class="oc-eg sz-eg" style="--sz-c: var(--color-crimson-70)"><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.min-h-32 .max-h-48 .resize-y</code><div class="oc-eg__note">Drag the bottom-right corner up and down. The box stops at 8rem and at 12rem.</div><div class="oc-eg__stage oc-eg__stage--plain sz-area" style="block-size: 14.5rem">
+<span class="sz-limit" style="--at: 8rem"><span>min-h-32 = 8rem</span></span>
+<span class="sz-limit" style="--at: 12rem"><span>max-h-48 = 12rem</span></span>
+<div class="min-h-32 max-h-48 overflow-auto resize-y sz-fill" style="block-size: 10rem; inline-size: min(100%, 22rem); max-inline-size: 100%; place-items: start; align-content: start; gap: 0.3rem; text-align: start">Drag the bottom-right corner<br><span style="font-weight: 400">Height between 8rem and 12rem</span></div>
+</div></div></div></div><oc-code lang="html">&lt;!-- Drag the bottom edge: the box stops at 8rem and at 12rem --&gt;
+&lt;div class="min-h-32 max-h-48 overflow-auto resize-y" style="height: 10rem"&gt;
+  Height between 8rem and 12rem
+&lt;/div&gt;</oc-code></oc-demo>
+
           <h3 class="oc-section-content__title mt-8">Constraint Demos</h3>
 
-          <oc-demo title="min-height and max-height"><div class="dm-grid" style="--dm-min:14rem">
-<div class="dm-tile"><code>.min-h-8 (short content)</code><div class="dm-area "><div class="min-h-8 dm-box dm-box--alt">Content</div></div></div>
-<div class="dm-tile"><code>.min-h-8 (grows with content)</code><div class="dm-area "><div class="min-h-8 dm-box dm-box--alt">Content that is much longer and wraps over several lines so the box grows past its minimum height of eight rem when needed by the text inside.</div></div></div>
-<div class="dm-tile"><code>.max-h-8 .overflow-auto</code><div class="dm-area "><div class="max-h-8 overflow-auto dm-box dm-box--alt" style="place-items:start">Scrollable: the box is capped at 8rem. Add more lines of text so the content overflows and a scrollbar appears for the rest of this long paragraph. More text follows here to make sure.</div></div></div>
-<div class="dm-tile"><code>.max-h-8 .overflow-hidden</code><div class="dm-area "><div class="max-h-8 overflow-hidden dm-box dm-box--alt" style="place-items:start">Clipped: the box is capped at 8rem and the overflow is hidden. Add more lines of text so the content is cut off. More text follows here to make sure it is cut.</div></div></div>
-</div><oc-code lang="html">&lt;div class="max-h-24 overflow-auto"&gt;Long list…&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The dashed line in each tile is 8rem from the top. A min-height is a floor: short content still reaches the line, long content grows past it. A max-height is a ceiling: the box stops at the line and the rest scrolls or is cut off.</p>
+
+          <oc-demo title="min-height and max-height with short and long content"><div class="oc-eg sz-eg" style="--sz-c: var(--color-crimson-70); --sz-min: 10rem"><div class="oc-eg__panels" style="--eg-min: 10rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.min-h-32</code><div class="oc-eg__note">Short content: the box is still 8rem.</div><div class="oc-eg__stage oc-eg__stage--plain sz-area" style="min-block-size: 19rem; padding-inline-end: 3.2rem"><span class="sz-limit" style="--at: 8rem"><span>8rem</span></span><div class="min-h-32 sz-fill">Short content</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.min-h-32</code><div class="oc-eg__note">Long content: the box grows.</div><div class="oc-eg__stage oc-eg__stage--plain sz-area" style="min-block-size: 19rem; padding-inline-end: 3.2rem"><span class="sz-limit" style="--at: 8rem"><span>8rem</span></span><div class="min-h-32 sz-fill sz-fill--neutral">Long content. Customer 1 ordered Product 1 and Product 2 on Monday. The order was delivered on Thursday. This text needs more than 8rem, so the box grows past the line.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.max-h-32 .overflow-auto</code><div class="oc-eg__note">Stops at 8rem, the rest scrolls.</div><div class="oc-eg__stage oc-eg__stage--plain sz-area" style="min-block-size: 19rem; padding-inline-end: 3.2rem"><span class="sz-limit" style="--at: 8rem"><span>8rem</span></span><div class="max-h-32 overflow-auto sz-fill sz-fill--neutral" tabindex="0">Scroll me. Customer 1 ordered Product 1 and Product 2 on Monday. The order was packed on Tuesday, sent on Wednesday and delivered on Thursday. The invoice was paid within thirty days. The box stops at 8rem and the rest of this text scrolls inside it.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.max-h-32 .overflow-hidden</code><div class="oc-eg__note">Stops at 8rem, the rest is hidden.</div><div class="oc-eg__stage oc-eg__stage--plain sz-area" style="min-block-size: 19rem; padding-inline-end: 3.2rem"><span class="sz-limit" style="--at: 8rem"><span>8rem</span></span><div class="max-h-32 overflow-hidden sz-fill sz-fill--neutral">Clipped. Customer 1 ordered Product 1 and Product 2 on Monday. The order was packed on Tuesday, sent on Wednesday and delivered on Thursday. The invoice was paid within thirty days. The box stops at 8rem and the rest of this text is cut off.</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="min-h-32"&gt;Short content&lt;/div&gt;
+&lt;div class="min-h-32"&gt;Long content. Customer 1 ordered Product 1 and Product 2 on Monday. The order was delivered on Thursday. This text needs more than 8rem, so the box grows past the line.&lt;/div&gt;
+&lt;div class="max-h-32 overflow-auto"&gt;Scroll me. Customer 1 ordered Product 1 and Product 2 on Monday. The order was packed on Tuesday, sent on Wednesday and delivered on Thursday. The invoice was paid within thirty days. The box stops at 8rem and the rest of this text scrolls inside it.&lt;/div&gt;
+&lt;div class="max-h-32 overflow-hidden"&gt;Clipped. Customer 1 ordered Product 1 and Product 2 on Monday. The order was packed on Tuesday, sent on Wednesday and delivered on Thursday. The invoice was paid within thirty days. The box stops at 8rem and the rest of this text is cut off.&lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>

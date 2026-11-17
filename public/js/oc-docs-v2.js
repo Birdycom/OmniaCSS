@@ -14,6 +14,13 @@
     scrollTimer = setTimeout(() => { scrollTimer = 0; document.documentElement.classList.remove("ocd-scrolling"); }, 150);
   }, { capture: true, passive: true });
 
+  // ---- "Show less" on a long reference table: keep the button in view, so the reader is not left far below the table ----
+  document.addEventListener("change", (e) => {
+    const box = e.target;
+    if (!box.classList || !box.classList.contains("oc-expandable-table__toggle") || box.checked) return;
+    (box.closest(".oc-expandable-table") || box).scrollIntoView({ block: "nearest" });
+  });
+
   // ---- Menus in demos follow the click ----
   // A demo menu (nav, sidebar, tabs as links, a glass bar) marks its current item with aria-current. A click on another
   // link of the same menu moves the mark there, so you see the active and hover styles without leaving the page.
@@ -30,6 +37,8 @@
       link.setAttribute("aria-current", value);
       return;
     }
+    // An empty "#" link in a demo is a placeholder: it must never jump the page to the top.
+    if (link.getAttribute("href") === "#") e.preventDefault();
   });
 
   // ---- Copy buttons on code blocks ----

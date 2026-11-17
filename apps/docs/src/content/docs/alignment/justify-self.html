@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Justify Self","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Justify Self","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Alignment demos: frame from the shared example kit (.oc-eg); below only the page palette and what sits inside the stages. */\n    .oc-eg { --eg-c1: var(--color-purple-60); --eg-c2: var(--color-purple-60); --eg-c3: var(--color-purple-60); --eg-c4: var(--color-purple-60); --eg-c5: var(--color-purple-60); --eg-c6: var(--color-purple-60); }\n    /* Fixed stage height and clipping as before the kit; items stay on one line. */\n    .al-fixed { block-size: var(--eg-h, 3.75rem); overflow: hidden; white-space: nowrap; }\n    .oc-eg .oc-eg__item.al-hi { --eg-c: var(--eg-c1); }\n    .al-cells { --al-cols: 3; --al-rows: 1; --al-gap: 0.5rem; gap: var(--al-gap);\n      background: linear-gradient(90deg, transparent calc(100% - var(--al-gap)), var(--oc-card) 0) 0 0 / calc((100% + var(--al-gap)) / var(--al-cols)) 100%,\n        linear-gradient(180deg, transparent calc(100% - var(--al-gap)), var(--oc-card) 0) 0 0 / 100% calc((100% + var(--al-gap)) / var(--al-rows)),\n        var(--eg-hatch), var(--eg-bg); }\n    .al-real { padding: 0.75rem; }\n    .al-form { gap: 0.75rem 1rem; padding: 1rem; border: 1px dashed var(--oc-border-strong); border-radius: 10px; }\n    .al-form .oc-field { min-inline-size: 0; }\n    .al-form .oc-input { inline-size: 100%; box-sizing: border-box; }\n  </style>"]}-->
 <section class="oc-docs-section" id="justify-self">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Justify Self</h2>
@@ -8,11 +8,12 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>justify-self</code> overrides the container's <code>justify-items</code> for a single item. Put it on the child of a grid. Gotcha: it has <strong>no effect in flexbox</strong> because flex items share the main axis; use an auto inline margin (<code>.ml-auto</code>) to push a flex item to the end. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self" target="_blank" rel="noopener">MDN: justify-self</a>.</p>
+          <p class="oc-section-content__desc"><strong>In one sentence:</strong> <code>justify-self</code> moves <strong>one</strong> grid item along the <strong>inline axis</strong> (left to right) inside its own cell; put it on the child. In flexbox it does nothing: use <code>.ml-auto</code> there.</p>
+          <p class="oc-section-content__desc">It overrides the grid's <code>justify-items</code> for a single item. Flex items share one main axis, so there is no cell to move in; an auto inline margin (<code>.ml-auto</code>) pushes a flex item to the end instead. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self" target="_blank" rel="noopener">MDN: justify-self</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Self Justify Value</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
                 <tr><td><code>.justify-self-auto</code></td><td>justify-self: auto</td></tr>
                 <tr><td><code>.justify-self-start</code></td><td>justify-self: start</td></tr>
@@ -22,6 +23,13 @@
                 <tr class="oc-expandable-table__row-more"><td><code>.justify-self-left</code></td><td>justify-self: left</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.justify-self-right</code></td><td>justify-self: right</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.justify-self-baseline</code></td><td>justify-self: baseline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-self-baseline-first</code></td><td>justify-self: first baseline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-self-baseline-last</code></td><td>justify-self: last baseline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-self-normal</code></td><td>justify-self: normal</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-self-self-start</code></td><td>justify-self: self-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-self-self-end</code></td><td>justify-self: self-end</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-self-center-safe</code></td><td>justify-self: safe center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-self-center-unsafe</code></td><td>justify-self: unsafe center</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -30,21 +38,41 @@
           </div>
 
           <h3 class="oc-section-content__title mt-8">Every value on the middle cell</h3>
+          <p class="oc-section-content__desc">A three-column grid with <code>.justify-items-start</code>. Only the purple item B carries the class in the label; A and C follow the grid.</p>
 
-          <p class="oc-section-content__desc">Items A and C sit at <code>start</code> through the parent; only B changes. The stretch tile uses a box without a fixed width.</p>
+          <oc-demo title="justify-self values"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = the part of each cell that the item leaves empty</span><span class="oc-eg__key oc-eg__key--strong">Inline axis &rarr; (left to right inside the cell)</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-self-auto</code><div class="oc-eg__note">Follows the grid. It has <code>.justify-items-start</code>, so B sits at the left like A and C.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-start"><div class="oc-eg__item oc-eg__item--ghost">A</div><div class="oc-eg__item al-hi justify-self-auto">B</div><div class="oc-eg__item oc-eg__item--ghost">C</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-self-start</code><div class="oc-eg__note">B sits at the left of its cell.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-start"><div class="oc-eg__item oc-eg__item--ghost">A</div><div class="oc-eg__item al-hi justify-self-start">B</div><div class="oc-eg__item oc-eg__item--ghost">C</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-self-center</code><div class="oc-eg__note">B moves to the middle of its cell.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-start"><div class="oc-eg__item oc-eg__item--ghost">A</div><div class="oc-eg__item al-hi justify-self-center">B</div><div class="oc-eg__item oc-eg__item--ghost">C</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-self-end</code><div class="oc-eg__note">B moves to the right of its cell.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-start"><div class="oc-eg__item oc-eg__item--ghost">A</div><div class="oc-eg__item al-hi justify-self-end">B</div><div class="oc-eg__item oc-eg__item--ghost">C</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-self-stretch</code><div class="oc-eg__note">B fills its whole cell.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-start"><div class="oc-eg__item oc-eg__item--ghost">A</div><div class="oc-eg__item al-hi justify-self-stretch">B</div><div class="oc-eg__item oc-eg__item--ghost">C</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-self-right</code><div class="oc-eg__note">Always the right edge, also in a right-to-left page (end would flip).</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-start"><div class="oc-eg__item oc-eg__item--ghost">A</div><div class="oc-eg__item al-hi justify-self-right">B</div><div class="oc-eg__item oc-eg__item--ghost">C</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-0.5 justify-items-start"&gt;&lt;div&gt;A&lt;/div&gt;&lt;div class="justify-self-auto"&gt;B&lt;/div&gt;&lt;div&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-0.5 justify-items-start"&gt;&lt;div&gt;A&lt;/div&gt;&lt;div class="justify-self-start"&gt;B&lt;/div&gt;&lt;div&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-0.5 justify-items-start"&gt;&lt;div&gt;A&lt;/div&gt;&lt;div class="justify-self-center"&gt;B&lt;/div&gt;&lt;div&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-0.5 justify-items-start"&gt;&lt;div&gt;A&lt;/div&gt;&lt;div class="justify-self-end"&gt;B&lt;/div&gt;&lt;div&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-0.5 justify-items-start"&gt;&lt;div&gt;A&lt;/div&gt;&lt;div class="justify-self-stretch"&gt;B&lt;/div&gt;&lt;div&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-0.5 justify-items-start"&gt;&lt;div&gt;A&lt;/div&gt;&lt;div class="justify-self-right"&gt;B&lt;/div&gt;&lt;div&gt;C&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
-          <oc-demo title="justify-self values"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.justify-self-auto</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-start"><div class="dm-box dm-box--alt dm-w1">A</div><div class="dm-box dm-w1 justify-self-auto">B</div><div class="dm-box dm-box--alt dm-w1">C</div></div></div>
-<div class="dm-tile"><code>.justify-self-start</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-start"><div class="dm-box dm-box--alt dm-w1">A</div><div class="dm-box dm-w1 justify-self-start">B</div><div class="dm-box dm-box--alt dm-w1">C</div></div></div>
-<div class="dm-tile"><code>.justify-self-center</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-start"><div class="dm-box dm-box--alt dm-w1">A</div><div class="dm-box dm-w1 justify-self-center">B</div><div class="dm-box dm-box--alt dm-w1">C</div></div></div>
-<div class="dm-tile"><code>.justify-self-end</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-start"><div class="dm-box dm-box--alt dm-w1">A</div><div class="dm-box dm-w1 justify-self-end">B</div><div class="dm-box dm-box--alt dm-w1">C</div></div></div>
-<div class="dm-tile"><code>.justify-self-stretch</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-start"><div class="dm-box dm-box--alt dm-w1">A</div><div class="dm-box justify-self-stretch">B</div><div class="dm-box dm-box--alt dm-w1">C</div></div></div>
-<div class="dm-tile"><code>.justify-self-left</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-start"><div class="dm-box dm-box--alt dm-w1">A</div><div class="dm-box dm-w1 justify-self-left">B</div><div class="dm-box dm-box--alt dm-w1">C</div></div></div>
-<div class="dm-tile"><code>.justify-self-right</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-start"><div class="dm-box dm-box--alt dm-w1">A</div><div class="dm-box dm-w1 justify-self-right">B</div><div class="dm-box dm-box--alt dm-w1">C</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-3"&gt;
-  &lt;div&gt;A&lt;/div&gt;
-  &lt;div class="justify-self-end"&gt;B&lt;/div&gt;
-  &lt;div&gt;C&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-8">Real use: a form button</h3>
+          <p class="oc-section-content__desc">A two-column form whose button spans both columns. Grid items stretch by default, so the button becomes a wide bar. <code>.justify-self-end</code> on the button alone fixes that.</p>
+
+          <oc-demo title="Form button with justify-self"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">No justify-self class</code><div class="oc-eg__note">The button spans both columns and stretches to the full width of the form.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><form class="al-form grid grid-cols-2"><div class="oc-field"><label class="oc-field-label" for="g-co-0">Company</label><input class="oc-input" id="g-co-0" value="Company 1"></div><div class="oc-field"><label class="oc-field-label" for="g-em-0">E-mail</label><input class="oc-input" id="g-em-0" type="email" value="info@company1.example"></div><button type="button" class="oc-btn col-span-2">Save</button></form></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-self-end</code><div class="oc-eg__note">The button keeps its natural width and sits at the right, under the fields.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><form class="al-form grid grid-cols-2"><div class="oc-field"><label class="oc-field-label" for="g-co-1">Company</label><input class="oc-input" id="g-co-1" value="Company 1"></div><div class="oc-field"><label class="oc-field-label" for="g-em-1">E-mail</label><input class="oc-input" id="g-em-1" type="email" value="info@company1.example"></div><button type="button" class="oc-btn col-span-2 justify-self-end">Save</button></form></div></div>
+</div></div><oc-code lang="html">&lt;!-- No justify-self: the button stretches over both columns --&gt;
+&lt;form class="grid grid-cols-2 gap-1"&gt;
+  &lt;div class="oc-field"&gt;&lt;label class="oc-field-label" for="company"&gt;Company&lt;/label&gt;&lt;input class="oc-input" id="company"&gt;&lt;/div&gt;
+  &lt;div class="oc-field"&gt;&lt;label class="oc-field-label" for="email"&gt;E-mail&lt;/label&gt;&lt;input class="oc-input" id="email"&gt;&lt;/div&gt;
+  &lt;button class="oc-btn col-span-2"&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- .justify-self-end: the button keeps its own width, at the right --&gt;
+&lt;form class="grid grid-cols-2 gap-1"&gt;
+  &lt;div class="oc-field"&gt;&lt;label class="oc-field-label" for="company"&gt;Company&lt;/label&gt;&lt;input class="oc-input" id="company"&gt;&lt;/div&gt;
+  &lt;div class="oc-field"&gt;&lt;label class="oc-field-label" for="email"&gt;E-mail&lt;/label&gt;&lt;input class="oc-input" id="email"&gt;&lt;/div&gt;
+  &lt;button class="oc-btn col-span-2 justify-self-end"&gt;Save&lt;/button&gt;
+&lt;/form&gt;</oc-code></oc-demo>
+
         </div>
       </section>

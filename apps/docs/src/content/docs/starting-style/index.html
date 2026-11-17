@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Entry & Exit Animations", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell oc-docs-shell\u002d\u002dno-right", "bodyClass": "", "head": ["<style>\n    .ss-dialog { inline-size: min(26rem, calc(100vw - 2rem)); padding: 1.25rem; border: 1px solid var(\u002d\u002doc-border); border-radius: 14px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); opacity: 0; translate: 0 1.5rem; scale: 0.96; transition: opacity 0.3s, translate 0.3s, scale 0.3s, overlay 0.3s allow-discrete, display 0.3s allow-discrete; }\n    .ss-dialog[open] { opacity: 1; translate: 0 0; scale: 1; }\n    @starting-style { .ss-dialog[open] { opacity: 0; translate: 0 1.5rem; scale: 0.96; } }\n    .ss-dialog::backdrop { background: oklch(from var(\u002d\u002dcolor-shallowblue-90) l c h / 0.55); opacity: 0; transition: opacity 0.3s, overlay 0.3s allow-discrete, display 0.3s allow-discrete; }\n    .ss-dialog[open]::backdrop { opacity: 1; }\n    @starting-style { .ss-dialog[open]::backdrop { opacity: 0; } }\n    .ss-dialog h4 { margin: 0 0 0.5rem; }\n    .ss-dialog p { margin: 0 0 1rem; color: var(\u002d\u002doc-muted-foreground); }\n    .ss-list { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; inline-size: 100%; max-inline-size: 22rem; }\n    .ss-item { padding: 0.6rem 0.9rem; border: 1px solid var(\u002d\u002doc-border); border-radius: 10px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); }\n    .ss-grow { box-sizing: border-box; inline-size: 100%; max-inline-size: 22rem; block-size: 3.5rem; overflow: hidden; padding: 0.9rem; border: 1px solid var(\u002d\u002doc-border); border-radius: 12px; background: var(\u002d\u002doc-card); color: var(\u002d\u002doc-foreground); cursor: pointer; transition: block-size 0.4s ease; }\n    .ss-grow:is(:hover, :focus) { block-size: auto; }\n    .ss-grow p { margin: 0.5rem 0 0; color: var(\u002d\u002doc-muted-foreground); }\n    @supports (block-size: calc-size(auto, size)) { .ss-grow\u002d\u002dcalc:is(:hover, :focus-visible) { block-size: calc-size(auto, size); } }\n    @media (prefers-reduced-motion: reduce) { .ss-dialog, .ss-dialog::backdrop, .ss-grow { transition: none; } }\n  </style>"]}-->
+<!--oc-page {"title": "OmniaCSS Docs - Entry & Exit Animations", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .ss-dialog { inline-size: min(30rem, calc(100vw - 2rem)); padding: 1.5rem; border: 1px solid var(--oc-border); border-radius: 14px; background: var(--oc-card); color: var(--oc-foreground); opacity: 0; translate: 0 1.5rem; scale: 0.96; transition: opacity 0.6s, translate 0.6s, scale 0.6s, overlay 0.6s allow-discrete, display 0.6s allow-discrete; }\n    .ss-dialog[open] { opacity: 1; translate: 0 0; scale: 1; }\n    @starting-style { .ss-dialog[open] { opacity: 0; translate: 0 1.5rem; scale: 0.96; } }\n    .ss-dialog::backdrop { background: oklch(from var(--color-shallowblue-90) l c h / 0.55); opacity: 0; transition: opacity 0.6s, overlay 0.6s allow-discrete, display 0.6s allow-discrete; }\n    .ss-dialog[open]::backdrop { opacity: 1; }\n    @starting-style { .ss-dialog[open]::backdrop { opacity: 0; } }\n    .ss-dialog h4 { margin: 0 0 0.5rem; }\n    .ss-dialog form p { margin: 0 0 1.25rem; color: var(--oc-foreground); }\n    .ss-list { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; inline-size: 100%; overflow-x: clip; }\n    .ss-list > .ss-item { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 1.1rem; font-size: 1.05rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); }\n    .ss-grow { box-sizing: border-box; inline-size: 100%; block-size: 5.25rem; overflow: hidden; padding: 1.1rem 1.25rem; font-size: 1.05rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); cursor: pointer; transition: block-size 0.6s ease; }\n    .ss-grow:is(:hover, :focus) { block-size: auto; }\n    .ss-grow p { margin: 0.9rem 0 0; color: var(--oc-foreground); }\n    @supports (block-size: calc-size(auto, size)) { .ss-grow--calc:is(:hover, :focus-visible) { block-size: calc-size(auto, size); } }\n    @media (prefers-reduced-motion: reduce) { .ss-dialog, .ss-dialog::backdrop, .ss-grow { transition: none; } }\n  \n    /* Inside of the example-kit stages */\n    .ss-stage { display: grid; place-items: center; min-block-size: 9rem; padding: 1.5rem; text-align: center; color: var(--oc-foreground); }\n    .ss-pad { display: grid; grid-template-columns: minmax(0, 1fr); padding: 1rem; }\n    .ss-pad--top { align-content: start; }\n    .ss-go { padding: 0.9rem 1.6rem; border: 0; border-radius: 10px; font: inherit; font-size: 1.1rem; font-weight: 600; background: var(--color-vividblue-90); color: var(--color-white-50); cursor: pointer; }\n    .ss-go--quiet { background: var(--oc-muted); color: var(--oc-foreground); }\n    .ss-go--red { background: var(--color-red-70); }\n    .ss-pop { inline-size: min(26rem, calc(100vw - 2rem)); padding: 1.5rem; border: 2px solid var(--color-teal-70); border-radius: 14px; background: var(--oc-card); color: var(--oc-foreground); font-size: 1.05rem; box-shadow: 0 1.5rem 3rem oklch(from var(--color-black-50) l c h / 0.3); }\n    .ss-pop b { display: block; margin-block-end: 0.5rem; font-size: 1.2rem; color: var(--color-teal-70); }\n    .ss-pop .ss-go { margin-block-start: 1rem; padding: 0.6rem 1.1rem; font-size: 1rem; background: var(--color-teal-70); }\n    .ss-dialog h4 { font-size: 1.25rem; }\n    .ss-row { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-end; }\n    .ss-row .ss-go { padding: 0.6rem 1.1rem; font-size: 1rem; }\n    .ss-orders { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 1.5rem; inline-size: 100%; }\n    .ss-orders > div:first-child { display: grid; gap: 0.75rem; align-content: start; }\n    .ss-orders .ss-go { inline-size: 100%; }\n    .ss-item small { color: var(--oc-muted-foreground); font-size: 0.9rem; }\n    @media (max-width: 40rem) { .ss-orders { grid-template-columns: 1fr; } }\n    .ss-grow strong { display: block; font-size: 1.15rem; }\n    .ss-grow > i { display: block; font-style: normal; font-size: 0.9rem; color: var(--oc-muted-foreground); }\n    .ss-faq { display: grid; gap: 0.75rem; inline-size: 100%; }\n    .ss-faq details { border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); font-size: 1.05rem; }\n    .ss-faq summary { padding: 1rem 1.25rem; font-weight: 600; cursor: pointer; }\n    .ss-faq details > div { padding: 0 1.25rem 1.1rem; }\n      /* Popovers: the closed state, so they also animate out (the .starting-* classes cover the entry) */\n    .ss-pop:not(:popover-open) { opacity: 0; }\n    .ss-pop--scale:not(:popover-open) { scale: 0.95; }\n    .ss-pop--rise:not(:popover-open) { translate: 0 0.5rem; }\n    .ss-pop--drop:not(:popover-open) { translate: 0 -0.5rem; }\n    .ss-pop .ss-go { display: block; }\n    .ss-note { font-size: 0.85rem; color: var(--oc-muted-foreground); }\n    .ss-stage > .ss-go { white-space: nowrap; font-size: 1rem; padding: 0.75rem 1.25rem; }\n/* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (interpolate-size: allow-keywords) { .sup-note--isize { display: none; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="starting-style">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Entry &amp; Exit Animations</h2>
@@ -7,7 +7,7 @@
           <span class="oc-section-header__badge-file oc-badge-source-file">starting-style/index.html</span>
           <span class="oc-section-header__badge-version oc-badge-version">v0.3.0</span>
           <p class="oc-section-header__desc font-clamp-0.8">
-            Animate elements when they appear — popovers, dialogs, newly inserted items — and animate to <code>height: auto</code>, all without JavaScript. <code>.starting-*</code> classes set the state <em>before</em> the first render via <code>@starting-style</code>; combine them with a transition utility such as <code>.transition-all .duration-300</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" target="_blank" rel="noopener">MDN: @starting-style</a>.
+            Animate elements when they appear — popovers, dialogs, newly inserted items — and animate to <code>height: auto</code>, mostly without JavaScript (only the example that adds rows to the page needs a few lines). <code>.starting-*</code> classes set the state <em>before</em> the first render via <code>@starting-style</code>; combine them with a transition utility such as <code>.transition-all .duration-300</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" target="_blank" rel="noopener">MDN: @starting-style</a>.
           </p>
         </div>
 
@@ -30,49 +30,155 @@
             </div>
           </div>
 
-          <oc-demo title="popover + starting-opacity-0 + starting-scale-95">
-            
-            <div class="flex justify-center p-2 round-3 border-1 border-dashed border-stormblue-100">
-              <button type="button" class="oc-btn" popovertarget="oc-demo-popover">Open popover</button>
-              <div id="oc-demo-popover" popover="" class="starting-opacity-0 starting-scale-95 transition-all transition-discrete duration-300 p-2 round-3 shadow-md font-1">Fades and scales in with CSS only.</div>
-            </div>
+          <p class="oc-section-content__desc">Three popovers, opened and closed with the <code>popover</code> attributes only: no script. Each one fades in with <code>.starting-opacity-0</code> and moves in a different way. The extra CSS in the sample gives the closed state, so the panel also fades out.</p>
+          <oc-demo title="popover + starting-opacity-0 + starting-scale-95 / translate-y">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.starting-scale-95</code><div class="oc-eg__note">Grows from 95% while it fades in.</div><div class="oc-eg__stage oc-eg__stage--plain ss-stage">
+<button type="button" class="ss-go" popovertarget="ss-pop-scale">Open popover</button>
+<div id="ss-pop-scale" popover class="ss-pop ss-pop--scale starting-opacity-0 starting-scale-95 transition-all transition-discrete duration-700">
+  <b>Order 1 is saved</b>This panel fades in and grows from 95% to full size. Click outside it or press Esc to close it.
+  <button type="button" class="ss-go" popovertarget="ss-pop-scale" popovertargetaction="hide">Close</button>
+</div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.starting-translate-y-2</code><div class="oc-eg__note">Rises half a rem into place while it fades in.</div><div class="oc-eg__stage oc-eg__stage--plain ss-stage">
+<button type="button" class="ss-go" popovertarget="ss-pop-rise">Open popover</button>
+<div id="ss-pop-rise" popover class="ss-pop ss-pop--rise starting-opacity-0 starting-translate-y-2 transition-all transition-discrete duration-700">
+  <b>Product 1 is in your cart</b>This panel fades in and rises 0.5rem into place. Click outside it or press Esc to close it.
+  <button type="button" class="ss-go" popovertarget="ss-pop-rise" popovertargetaction="hide">Close</button>
+</div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.starting-translate-y-n2</code><div class="oc-eg__note">Drops half a rem into place while it fades in.</div><div class="oc-eg__stage oc-eg__stage--plain ss-stage">
+<button type="button" class="ss-go" popovertarget="ss-pop-drop">Open popover</button>
+<div id="ss-pop-drop" popover class="ss-pop ss-pop--drop starting-opacity-0 starting-translate-y-n2 transition-all transition-discrete duration-700">
+  <b>New message from Customer 1</b>This panel fades in and drops 0.5rem into place. Click outside it or press Esc to close it.
+  <button type="button" class="ss-go" popovertarget="ss-pop-drop" popovertargetaction="hide">Close</button>
+</div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;button type="button" class="ss-go" popovertarget="pop-scale"&gt;Open popover&lt;/button&gt;
+&lt;div id="pop-scale" popover class="ss-pop ss-pop--scale starting-opacity-0 starting-scale-95 transition-all transition-discrete duration-700"&gt;
+  &lt;b&gt;Order 1 is saved&lt;/b&gt;This panel fades in and grows from 95% to full size. Click outside it or press Esc to close it.
+  &lt;button type="button" class="ss-go" popovertarget="pop-scale" popovertargetaction="hide"&gt;Close&lt;/button&gt;
+&lt;/div&gt;
 
-            
-            
-          <oc-code lang="html">&lt;button popovertarget="info"&gt;Open popover&lt;/button&gt;
-&lt;div id="info" popover
-     class="starting-opacity-0 starting-scale-95 transition-all transition-discrete duration-300"&gt;
-  Fades and scales in with CSS only.
-&lt;/div&gt;</oc-code></oc-demo>
+&lt;button type="button" class="ss-go" popovertarget="pop-rise"&gt;Open popover&lt;/button&gt;
+&lt;div id="pop-rise" popover class="ss-pop ss-pop--rise starting-opacity-0 starting-translate-y-2 transition-all transition-discrete duration-700"&gt;
+  &lt;b&gt;Product 1 is in your cart&lt;/b&gt;This panel fades in and rises 0.5rem into place. Click outside it or press Esc to close it.
+  &lt;button type="button" class="ss-go" popovertarget="pop-rise" popovertargetaction="hide"&gt;Close&lt;/button&gt;
+&lt;/div&gt;
 
-          <oc-demo title="Modal dialog: entry and exit animation (@starting-style + transition-behavior: allow-discrete)">
-            <button type="button" class="oc-btn" onclick="document.getElementById('oc-ss-dialog').showModal()">Open dialog</button>
-            <dialog id="oc-ss-dialog" class="ss-dialog">
-              <form method="dialog">
-                <h4>Animated dialog</h4>
-                <p>It fades and slides in, and out again when closed. The backdrop fades with it. No JavaScript besides opening it.</p>
-                <button class="oc-btn">Close</button>
-              </form>
-            </dialog>
-          <oc-code lang="html">&lt;dialog class="dlg"&gt;…&lt;/dialog&gt;
+&lt;button type="button" class="ss-go" popovertarget="pop-drop"&gt;Open popover&lt;/button&gt;
+&lt;div id="pop-drop" popover class="ss-pop ss-pop--drop starting-opacity-0 starting-translate-y-n2 transition-all transition-discrete duration-700"&gt;
+  &lt;b&gt;New message from Customer 1&lt;/b&gt;This panel fades in and drops 0.5rem into place. Click outside it or press Esc to close it.
+  &lt;button type="button" class="ss-go" popovertarget="pop-drop" popovertargetaction="hide"&gt;Close&lt;/button&gt;
+&lt;/div&gt;
 
-.dlg { opacity: 0; translate: 0 1.5rem;
-  transition: opacity .3s, translate .3s, overlay .3s allow-discrete, display .3s allow-discrete; }
-.dlg[open] { opacity: 1; translate: 0 0; }
-@starting-style { .dlg[open] { opacity: 0; translate: 0 1.5rem; } }
-.dlg::backdrop { opacity: 0; transition: opacity .3s, overlay .3s allow-discrete, display .3s allow-discrete; }
-.dlg[open]::backdrop { opacity: 1; }
-@starting-style { .dlg[open]::backdrop { opacity: 0; } }</oc-code></oc-demo>
+&lt;style&gt;
+  /* The closed state, so the panel also animates out (the .starting-* classes only cover the entry) */
+  .ss-pop:not(:popover-open) { opacity: 0; }
+  .ss-pop--scale:not(:popover-open) { scale: 0.95; }
+  .ss-pop--rise:not(:popover-open) { translate: 0 0.5rem; }
+  .ss-pop--drop:not(:popover-open) { translate: 0 -0.5rem; }
+&lt;/style&gt;</oc-code></oc-demo>
 
-          <oc-demo title="starting-opacity-0 + starting-translate-y-2: items that are added to the DOM">
-            <div class="grid gap-1 w-full">
-              <button type="button" class="oc-btn oc-btn--outline" style="justify-self: start;" onclick="const l=document.getElementById('oc-ss-list');l.append(l.firstElementChild.cloneNode(true))">Add item</button>
-              <ul id="oc-ss-list" class="ss-list">
-                <li class="ss-item starting-opacity-0 starting-translate-y-2 transition-all duration-300">Click "Add item": every new row eases in</li>
-              </ul>
-            </div>
-          <oc-code lang="html">&lt;li class="starting-opacity-0 starting-translate-y-2 transition-all duration-300"&gt;New item&lt;/li&gt;
-&lt;script&gt;list.append(template.content.cloneNode(true));&lt;/script&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The button opens the dialog without script: <code>commandfor="ss-dialog" command="show-modal"</code> (command buttons work in Chrome and Edge 135+ and other recent browsers). In an older browser the button does nothing; use a popover there, or one line of script: <code>dialog.showModal()</code>. The buttons in the form close it with <code>method="dialog"</code>, also without script.</p>
+          <oc-demo title="Modal dialog: entry and exit animation (@starting-style + allow-discrete)">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">@starting-style · transition-behavior: allow-discrete</code><div class="oc-eg__note">Open the dialog, then close it with Cancel, Delete or Esc: it slides in and out, and the dark backdrop fades with it.</div><div class="oc-eg__stage oc-eg__stage--plain ss-stage">
+<button type="button" class="ss-go ss-go--red" commandfor="ss-dialog" command="show-modal">Delete Product 1</button>
+<dialog id="ss-dialog" class="ss-dialog" aria-labelledby="ss-dialog-title">
+  <form method="dialog">
+    <h4 id="ss-dialog-title">Delete Product 1?</h4>
+    <p>The product is removed from the shop. Orders that already contain it stay as they are.</p>
+    <div class="ss-row">
+      <button class="ss-go ss-go--quiet" value="cancel">Cancel</button>
+      <button class="ss-go ss-go--red" value="delete">Delete</button>
+    </div>
+  </form>
+</dialog>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;button type="button" class="ss-go ss-go--red" commandfor="ss-dialog" command="show-modal"&gt;Delete Product 1&lt;/button&gt;
+&lt;dialog id="ss-dialog" class="ss-dialog" aria-labelledby="ss-dialog-title"&gt;
+  &lt;form method="dialog"&gt;
+    &lt;h4 id="ss-dialog-title"&gt;Delete Product 1?&lt;/h4&gt;
+    &lt;p&gt;The product is removed from the shop. Orders that already contain it stay as they are.&lt;/p&gt;
+    &lt;div class="ss-row"&gt;
+      &lt;button class="ss-go ss-go--quiet" value="cancel"&gt;Cancel&lt;/button&gt;
+      &lt;button class="ss-go ss-go--red" value="delete"&gt;Delete&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;
+
+&lt;style&gt;
+  .ss-dialog { opacity: 0; translate: 0 1.5rem;
+    transition: opacity 0.6s, translate 0.6s, overlay 0.6s allow-discrete, display 0.6s allow-discrete; }
+  .ss-dialog[open] { opacity: 1; translate: 0 0; }
+  @starting-style { .ss-dialog[open] { opacity: 0; translate: 0 1.5rem; } }
+  .ss-dialog::backdrop { opacity: 0; transition: opacity 0.6s, overlay 0.6s allow-discrete, display 0.6s allow-discrete; }
+  .ss-dialog[open]::backdrop { opacity: 1; }
+  @starting-style { .ss-dialog[open]::backdrop { opacity: 0; } }
+&lt;/style&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc"><strong>This example needs a few lines of script</strong>, because adding a row to the page is a script job. The script only adds an <code>&lt;li&gt;</code> with the classes; the entry animation itself is CSS. The script is in the sample.</p>
+          <oc-demo title="starting-opacity-0 + starting-translate-x-full: rows that are added to the DOM">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.starting-opacity-0 .starting-translate-x-full</code><div class="oc-eg__note">Click Add order: each new row slides in from the right and fades in. The seventh click clears the list.</div><div class="oc-eg__stage oc-eg__stage--plain ss-pad">
+<div class="ss-orders">
+  <div><button type="button" class="ss-go" id="ss-add">Add order</button></div>
+  <ul id="ss-list" class="ss-list" aria-live="polite">
+    <li class="ss-item"><span>Order 1 · Customer 1</span><small>yesterday</small></li>
+    <li class="ss-item"><span>Order 2 · Customer 2</span><small>yesterday</small></li>
+  </ul>
+</div>
+<script>
+  {
+    // Adding a row to the page needs script. The row only gets classes: the CSS does the animation.
+    const list = document.getElementById('ss-list');
+    const button = document.getElementById('ss-add');
+    button.addEventListener('click', () => {
+      const n = list.children.length + 1;
+      if (n > 6) { list.replaceChildren(); button.textContent = 'Add order'; return; }
+      const row = document.createElement('li');
+      row.className = 'ss-item starting-opacity-0 starting-translate-x-full transition-all duration-700';
+      row.innerHTML = '<span>Order ' + n + ' · Customer ' + n + '</span><small>just added</small>';
+      list.append(row);
+      if (n === 6) button.textContent = 'Clear the list';
+    });
+  }
+</script>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="ss-orders"&gt;
+  &lt;div&gt;&lt;button type="button" class="ss-go" id="ss-add"&gt;Add order&lt;/button&gt;&lt;/div&gt;
+  &lt;ul id="ss-list" class="ss-list" aria-live="polite"&gt;
+    &lt;!-- rows that are already there need no entry classes --&gt;
+    &lt;li class="ss-item"&gt;&lt;span&gt;Order 1 · Customer 1&lt;/span&gt;&lt;small&gt;yesterday&lt;/small&gt;&lt;/li&gt;
+    &lt;li class="ss-item"&gt;&lt;span&gt;Order 2 · Customer 2&lt;/span&gt;&lt;small&gt;yesterday&lt;/small&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  {
+    // Adding a row to the page needs script. The row only gets classes: the CSS does the animation.
+    const list = document.getElementById('ss-list');
+    const button = document.getElementById('ss-add');
+    button.addEventListener('click', () =&gt; {
+      const n = list.children.length + 1;
+      if (n &gt; 6) { list.replaceChildren(); button.textContent = 'Add order'; return; }
+      const row = document.createElement('li');
+      row.className = 'ss-item starting-opacity-0 starting-translate-x-full transition-all duration-700';
+      row.innerHTML = '&lt;span&gt;Order ' + n + ' · Customer ' + n + '&lt;/span&gt;&lt;small&gt;just added&lt;/small&gt;';
+      list.append(row);
+      if (n === 6) button.textContent = 'Clear the list';
+    });
+  }
+&lt;/script&gt;
+
+&lt;style&gt;
+  /* overflow-x: clip hides the row while it is still to the right of the list */
+  .ss-list { display: grid; gap: 0.6rem; overflow-x: clip; }
+&lt;/style&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="transition-behavior">Transition behavior</h3>
           <p class="oc-section-content__desc"><code>.transition-discrete</code> allows transitions on discrete properties like <code>display</code> and <code>overlay</code>, so exit animations can finish before the element is hidden. <strong>What:</strong> normally <code>display: none</code> flips instantly, which cuts every exit animation. With <code>allow-discrete</code> the flip is delayed until the other transitions have finished (and for the top layer, <code>overlay</code> keeps the element there until then). <strong>Gotcha:</strong> list <code>display</code> and (for popover, dialog) <code>overlay</code> in the <code>transition</code> property, because the shorthand <code>transition: all</code> does not animate them unless behavior is set. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior" target="_blank" rel="noopener">MDN: transition-behavior</a>.</p>
@@ -88,6 +194,7 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+          <p class="oc-section-content__desc"><code>.transition-discrete</code> is at work in the popovers above. <code>.transition-normal</code> is the default and has no demo of its own: it switches the behaviour back off, and then a popover disappears at once when it closes.</p>
 
           <h3 class="oc-section-content__title mt-10" id="interpolate-size">Interpolate size &amp; details</h3>
           <p class="oc-section-content__desc"><code>.interpolate-size-keywords</code> lets <code>height: auto</code> (and other size keywords) be animated; it is inherited, so set it on a parent or on <code>:root</code>. <code>.details-animate</code> animates the open/close of a <code>&lt;details&gt;</code> element via <code>::details-content</code>. <strong>When:</strong> accordions, expanding cards, collapsible sidebars: anything that grows to its content size. <strong>Gotchas:</strong> without the opt-in a transition to or from <code>auto</code> jumps. <code>calc-size(auto, size)</code> is the per-value alternative: it makes a single declaration animatable without the inherited property, and allows maths on the intrinsic size such as <code>calc-size(auto, size + 2rem)</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size" target="_blank" rel="noopener">MDN: interpolate-size</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc-size" target="_blank" rel="noopener">MDN: calc-size()</a>.</p>
@@ -104,30 +211,53 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+          <p class="oc-section-content__desc"><code>.interpolate-size-numeric</code> is the default and has no demo of its own: set it on a part of the page to switch <code>.interpolate-size-keywords</code> off again there (the box then jumps open).</p>
 
           <oc-demo title="interpolate-size-keywords vs calc-size(): animate height to auto (hover or focus the cards)">
-            <div class="grid gap-1 w-full">
-              <div class="ss-grow interpolate-size-keywords" tabindex="0"><strong>interpolate-size: allow-keywords</strong><p>The box grows from a fixed height to <code>height: auto</code>. The property is inherited, so one class on a parent opts in the whole subtree.</p></div>
-              <div class="ss-grow ss-grow--calc" tabindex="0"><strong>calc-size(auto, size)</strong><p>Same effect with no opt-in at all: the keyword is wrapped in <code>calc-size()</code> in the hover rule only.</p></div>
-            </div>
-          <oc-code lang="html">.box { height: 3.5rem; overflow: hidden; transition: height .4s; interpolate-size: allow-keywords; }
-.box:hover { height: auto; }
+            <div class="oc-eg"><div class="sup-note sup-note--isize"><b>Not in this browser yet.</b> Your browser does not support <code>interpolate-size</code> or <code>calc-size()</code>: both cards still open, but they jump open without the slide.</div><div class="oc-eg__panels" style="--eg-min: 16rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.interpolate-size-keywords</code><div class="oc-eg__note">Hover or focus the card: it grows smoothly to its natural height. One class on a parent opts in the whole subtree.</div><div class="oc-eg__stage oc-eg__stage--plain ss-pad ss-pad--top" style="--eg-h: 15rem"><div class="ss-grow interpolate-size-keywords" tabindex="0"><strong>interpolate-size</strong><i>Hover or tap to open</i><p>The box grows smoothly from a fixed height to <code>height: auto</code>. The property is inherited, so one class on a parent opts in the whole subtree. Without it the box would jump open.</p></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">block-size: calc-size(auto, size)</code><div class="oc-eg__note">Hover or focus the card: the same effect, with calc-size() in the hover rule only and no opt-in.</div><div class="oc-eg__stage oc-eg__stage--plain ss-pad ss-pad--top" style="--eg-h: 15rem"><div class="ss-grow ss-grow--calc" tabindex="0"><strong>calc-size()</strong><i>Hover or tap to open</i><p>Same effect with no opt-in at all: the keyword is wrapped in <code>calc-size()</code> in the hover rule only. You can also add to it, for example <code>calc-size(auto, size + 2rem)</code>.</p></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="box interpolate-size-keywords" tabindex="0"&gt;
+  &lt;strong&gt;interpolate-size&lt;/strong&gt;&lt;i&gt;Hover or tap to open&lt;/i&gt;
+  &lt;p&gt;The box grows smoothly from a fixed height to height: auto. …&lt;/p&gt;
+&lt;/div&gt;
 
-/* or per value */
-.box2:hover { height: calc-size(auto, size); }</oc-code></oc-demo>
+&lt;div class="box box--calc" tabindex="0"&gt;
+  &lt;strong&gt;calc-size()&lt;/strong&gt;&lt;i&gt;Hover or tap to open&lt;/i&gt;
+  &lt;p&gt;Same effect with no opt-in at all. …&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .box { block-size: 5.25rem; overflow: hidden; transition: block-size 0.6s ease; }
+  /* with .interpolate-size-keywords the jump to auto becomes a smooth transition */
+  .box:is(:hover, :focus) { block-size: auto; }
+  /* or per value, without the opt-in */
+  .box--calc:is(:hover, :focus-visible) { block-size: calc-size(auto, size); }
+&lt;/style&gt;</oc-code></oc-demo>
 
           <oc-demo title="details-animate + interpolate-size-keywords">
-            
-            <details class="details-animate interpolate-size-keywords round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
-              <summary class="cursor-pointer font-bold">What is OmniaCSS?</summary>
-              <p class="mt-1">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
-            </details>
-
-            
-            
-          <oc-code lang="html">&lt;details class="details-animate interpolate-size-keywords"&gt;
-  &lt;summary&gt;What is OmniaCSS?&lt;/summary&gt;
-  &lt;p&gt;…&lt;/p&gt;
+            <div class="oc-eg"><div class="sup-note sup-note--isize"><b>Not in this browser yet.</b> Your browser does not support <code>interpolate-size</code>: the answers open and close at once, without the slide.</div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.details-animate .interpolate-size-keywords</code><div class="oc-eg__note">Open a question: the answer slides open. The three share one name, so opening one closes the others.</div><div class="oc-eg__stage oc-eg__stage--plain ss-pad">
+<div class="ss-faq">
+              <details class="details-animate interpolate-size-keywords" name="ss-faq"><summary>What does Product 1 cost?</summary><div>Product 1 costs 24 euro a month. You can stop at the end of every month.</div></details>
+              <details class="details-animate interpolate-size-keywords" name="ss-faq"><summary>When does my order ship?</summary><div>Orders placed before 3 pm leave the warehouse the same day. Delivery takes one or two working days.</div></details>
+              <details class="details-animate interpolate-size-keywords" name="ss-faq"><summary>How do I contact Company 1?</summary><div>Send an e-mail to info@company1.example. We answer within one working day.</div></details>
+            </div>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- name="faq" on every item: opening one closes the others --&gt;
+&lt;details class="details-animate interpolate-size-keywords" name="faq"&gt;
+  &lt;summary&gt;What does Product 1 cost?&lt;/summary&gt;
+  &lt;div&gt;Product 1 costs 24 euro a month. You can stop at the end of every month.&lt;/div&gt;
+&lt;/details&gt;
+&lt;details class="details-animate interpolate-size-keywords" name="faq"&gt;
+  &lt;summary&gt;When does my order ship?&lt;/summary&gt;
+  &lt;div&gt;Orders placed before 3 pm leave the warehouse the same day. Delivery takes one or two working days.&lt;/div&gt;
+&lt;/details&gt;
+&lt;details class="details-animate interpolate-size-keywords" name="faq"&gt;
+  &lt;summary&gt;How do I contact Company 1?&lt;/summary&gt;
+  &lt;div&gt;Send an e-mail to info@company1.example. We answer within one working day.&lt;/div&gt;
 &lt;/details&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>

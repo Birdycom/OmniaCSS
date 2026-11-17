@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Shapes & Clipping","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .shp-flow { line-height: 1.7; font-size: 0.95rem; padding: 4px; } .shp-flow::after { content: \"\"; display: block; clear: both; } .shp-flow p { margin: 0; } .shp-flow .oc-demo-hint { display: block; margin-bottom: 6px; } .shp-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 24px; inline-size: 100%; }\n  \n    .shp-reveal { inline-size: 100%; aspect-ratio: 4 / 3; border-radius: 8px; transition: clip-path 0.6s ease; outline: none; } .shp-reveal--inset { clip-path: inset(0 100% 0 0); } .shp-reveal--circle { clip-path: circle(12% at 50% 50%); } .shp-reveal--poly { clip-path: polygon(50% 40%, 60% 50%, 50% 60%, 40% 50%); } .shp-flow:is(:hover, :focus-within) .shp-reveal--inset { clip-path: inset(0 0 0 0); } .shp-flow:is(:hover, :focus-within) .shp-reveal--circle { clip-path: circle(75% at 50% 50%); } .shp-flow:is(:hover, :focus-within) .shp-reveal--poly { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); } .shp-flow:has(.shp-reveal) { cursor: pointer; }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Shapes & Clipping","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Page-local demo helpers (shp-*): flat palette colors, big shapes, no text inside a clipped shape. */\n    .shp-stage { display: grid; place-items: center; padding: 1.25rem 0.75rem; }\n    /* the dashed frame is the element's full box: what lies inside it but outside the color is clipped away */\n    .shp-frame { inline-size: 100%; max-inline-size: 12rem; margin-block: auto; outline: 2px dashed var(--oc-muted-foreground); outline-offset: 0; }\n    .shp-frame--wide { max-inline-size: 14rem; }\n    .shp-shape { display: block; inline-size: 100%; aspect-ratio: 1; box-sizing: border-box; background: var(--shp-c, var(--color-vividblue-90)); }\n    .shp-frame--wide .shp-shape { aspect-ratio: 10 / 7; }\n    .shp-c1 { --shp-c: var(--color-vividblue-90); } .shp-c2 { --shp-c: var(--color-teal-70); } .shp-c3 { --shp-c: var(--color-orange-95); } .shp-c4 { --shp-c: var(--color-magenta-90); }\n    .shp-c5 { --shp-c: var(--color-forestgreen-60); } .shp-c6 { --shp-c: var(--color-royalblue-70); } .shp-c7 { --shp-c: var(--color-red-70); } .shp-c8 { --shp-c: var(--color-purple-60); }\n    .shp-bordered { inline-size: 100%; max-inline-size: 12rem; margin-block: auto; color: var(--oc-foreground); }\n    .shp-cut { border: 8px solid var(--oc-foreground); }\n    /* reference boxes: border, padding and content get their own color */\n    .shp-boxes { box-sizing: border-box; inline-size: 100%; max-inline-size: 13rem; margin-block: auto; padding: 1.5rem; border: 1.25rem solid var(--color-orange-95); background: var(--color-vividblue-90); }\n    .shp-boxes > div { block-size: 5.5rem; background: var(--color-forestgreen-60); }\n    .shp-boxwrap { inline-size: 100%; max-inline-size: 13rem; margin-block: auto; outline: 2px dashed var(--oc-muted-foreground); }\n    .shp-key { display: inline-block; inline-size: 1rem; block-size: 1rem; border-radius: 3px; vertical-align: -0.15rem; margin-inline-end: 0.4rem; }\n    /* Text flowing around floats: enough text next to a big shape to see the curve */\n    .shp-text { align-self: stretch; padding: 1rem 1.1rem; font-size: 0.95rem; line-height: 1.6; color: var(--oc-foreground); }\n    .shp-text::after { content: \"\"; display: block; clear: both; }\n    .shp-flow { max-inline-size: 40rem; font-size: 1rem; line-height: 1.65; color: var(--oc-foreground); }\n    .shp-flow::after { content: \"\"; display: block; clear: both; }\n    .shp-flow > div:not([class*=\"float\"]) { color: var(--oc-foreground); }\n    @media (max-width: 30rem) { .shp-text .w-10.h-10, .shp-text .w-9.h-9, .shp-flow .w-12.h-12 { inline-size: 7rem; block-size: 7rem; } .shp-text .w-12.h-8 { inline-size: 9rem; block-size: 6rem; } }\n    /* clip-path transitions: the dashed frame is the full card, the colored part is what the clip shows */\n    .shp-anim { cursor: pointer; outline: none; }\n    .shp-anim:focus-visible { outline: 3px solid var(--oc-primary); outline-offset: 2px; }\n    .shp-reveal-stage { display: grid; gap: 0.75rem; padding: 1rem; }\n    .shp-reveal-frame { outline: 2px dashed var(--oc-muted-foreground); border-radius: 8px; }\n    .shp-reveal { aspect-ratio: 4 / 3; border-radius: 8px; background: var(--shp-c); transition: clip-path 0.6s ease; }\n    .shp-caption { font-size: 0.95rem; font-weight: 600; color: var(--oc-foreground); }\n    .shp-caption span { font-weight: 400; color: var(--oc-muted-foreground); }\n    .shp-reveal--inset { clip-path: inset(0 72% 0 0 round 8px); }\n    .shp-reveal--circle { clip-path: circle(30% at 50% 50%); }\n    .shp-reveal--poly { clip-path: polygon(50% 22%, 82% 50%, 50% 78%, 18% 50%); }\n    .shp-anim:is(:hover, :focus-within) .shp-reveal--inset { clip-path: inset(0 0 0 0 round 8px); }\n    .shp-anim:is(:hover, :focus-within) .shp-reveal--circle { clip-path: circle(75% at 50% 50%); }\n    .shp-anim:is(:hover, :focus-within) .shp-reveal--poly { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }\n    @media (prefers-reduced-motion: reduce) { .shp-reveal { transition: none; } }\n/* the dashed ring shows the shape margin (an outline follows the round corners) */\n    .shp-ring { outline: 2px dashed var(--oc-muted-foreground); }\n    .shp-ring--1 { outline-offset: calc(0.25rem - 2px); } .shp-ring--2 { outline-offset: calc(0.5rem - 2px); } .shp-ring--4 { outline-offset: calc(1rem - 2px); }\n\n  /* Card for the class-based circle reveal: the clip-path comes from OmniaCSS classes. */\n    .shp-box { aspect-ratio: 4 / 3; border-radius: 8px; background: var(--shp-c); }\n  </style>"]}-->
 <section class="oc-docs-section" id="shapes">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Shapes &amp; Clipping</h2>
@@ -22,6 +22,8 @@
               <tbody>
                 <tr><td><code>.clip-none</code></td><td>clip-path: none</td></tr>
                 <tr><td><code>.clip-circle</code></td><td>clip-path: circle(50%)</td></tr>
+                <tr><td><code>.clip-circle-0</code></td><td>clip-path: circle(0% at 50% 50%) (hidden; start of a reveal)</td></tr>
+                <tr><td><code>.clip-circle-cover</code></td><td>clip-path: circle(75% at 50% 50%) (covers the corners; end of a reveal, animate with .transition-clip)</td></tr>
                 <tr><td><code>.clip-ellipse</code></td><td>clip-path: ellipse(50% 40%)</td></tr>
                 <tr><td><code>.clip-inset-4</code></td><td>clip-path: inset(4px)</td></tr>
                 <tr><td><code>.clip-inset-8</code></td><td>clip-path: inset(8px round 8px)</td></tr>
@@ -35,39 +37,37 @@
             </div>
           </div>
 
-          <oc-demo title="clip-circle, clip-ellipse, clip-inset-8">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-circle</span>
-                <div class="clip-border-2 text-dodgerblue-20">
-                <div class="clip-circle flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-dodgerblue-90">circle</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-ellipse</span>
-                <div class="clip-border-2 text-forestgreen-20">
-                <div class="clip-ellipse flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-forestgreen-90">ellipse</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-inset-8</span>
-                <div class="clip-border-2 text-darkorange-20">
-                <div class="clip-inset-8 flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-darkorange-90">inset</div>
-              </div>
-              </div>
-            </div>
+          <p class="oc-section-content__desc">Five boxes of the same size and color. The dashed line shows the full box; the color shows what the clip keeps. Everything outside the shape is hidden.</p>
+          <oc-demo title="clip-none, clip-circle, clip-ellipse, clip-inset-4 and clip-inset-8 on the same square">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key">Dashed line = the full box of the element</span><span class="oc-eg__key oc-eg__key--strong">Color = the part the clip-path keeps</span></div><div class="oc-eg__panels" style="--eg-min: 15rem;">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-none</code><div class="oc-eg__note">No clip: the full square.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c1 clip-none"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-circle</code><div class="oc-eg__note">circle(50%): a round avatar.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c1 clip-circle"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-ellipse</code><div class="oc-eg__note">ellipse(50% 40%): a flat oval.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c1 clip-ellipse"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-inset-4</code><div class="oc-eg__note">inset(4px): a thin 4px strip is cut off each side.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c1 clip-inset-4"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-inset-8</code><div class="oc-eg__note">inset(8px round 8px): 8px cut off, with round corners.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c1 clip-inset-8"></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="clip-none w-12 h-12 bg-vividblue-90"&gt;&lt;/div&gt;
+&lt;div class="clip-circle w-12 h-12 bg-vividblue-90"&gt;&lt;/div&gt;
+&lt;div class="clip-ellipse w-12 h-12 bg-vividblue-90"&gt;&lt;/div&gt;
+&lt;div class="clip-inset-4 w-12 h-12 bg-vividblue-90"&gt;&lt;/div&gt;
+&lt;div class="clip-inset-8 w-12 h-12 bg-vividblue-90"&gt;&lt;/div&gt;</oc-code></oc-demo>
 
-            
-            
-          <oc-code lang="html">&lt;div class="clip-border-2 text-dodgerblue-20"&gt;
-  &lt;div class="clip-circle flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-dodgerblue-90"&gt;circle&lt;/div&gt;
+          <p class="oc-section-content__desc">The reference-box classes clip to one of the element's own boxes. Each box below has an orange border, blue padding and a green content area. Look at which colors are left: <code>.clip-padding-box</code> removes the border, <code>.clip-content-box</code> also removes the padding.</p>
+          <oc-demo title="clip-border-box, clip-padding-box and clip-content-box">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="shp-key" style="background: var(--color-orange-95);"></span>Border</span><span class="oc-eg__key"><span class="shp-key" style="background: var(--color-vividblue-90);"></span>Padding</span><span class="oc-eg__key"><span class="shp-key" style="background: var(--color-forestgreen-60);"></span>Content</span><span class="oc-eg__key">Dashed line = the full box</span></div><div class="oc-eg__panels" style="--eg-min: 15rem;">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-border-box</code><div class="oc-eg__note">Clips at the outer edge of the border: nothing is cut.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-boxwrap"><div class="shp-boxes clip-border-box"><div></div></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-padding-box</code><div class="oc-eg__note">Clips at the inner edge of the border: the border is gone.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-boxwrap"><div class="shp-boxes clip-padding-box"><div></div></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-content-box</code><div class="oc-eg__note">Clips at the content: border and padding are gone.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-boxwrap"><div class="shp-boxes clip-content-box"><div></div></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- page CSS for the colors: border 1.25rem solid orange, padding 1.5rem blue, green content --&gt;
+&lt;div class="clip-border-box p-1.5 bg-vividblue-90" style="border: 1.25rem solid var(--color-orange-95)"&gt;
+  &lt;div class="h-5.5 bg-forestgreen-60"&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="clip-border-2 text-forestgreen-20"&gt;
-  &lt;div class="clip-ellipse flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-forestgreen-90"&gt;ellipse&lt;/div&gt;
+&lt;div class="clip-padding-box p-1.5 bg-vividblue-90" style="border: 1.25rem solid var(--color-orange-95)"&gt;
+  &lt;div class="h-5.5 bg-forestgreen-60"&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="clip-border-2 text-darkorange-20"&gt;
-  &lt;div class="clip-inset-8 flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-darkorange-90"&gt;inset&lt;/div&gt;
+&lt;div class="clip-content-box p-1.5 bg-vividblue-90" style="border: 1.25rem solid var(--color-orange-95)"&gt;
+  &lt;div class="h-5.5 bg-forestgreen-60"&gt;&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="clip-polygon">Clip path — polygons &amp; shape()</h3>
@@ -90,76 +90,28 @@
             </div>
           </div>
 
-          <oc-demo title="polygons and shape()">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-polygon-triangle</span>
-                <div class="clip-border-2 text-dodgerblue-20">
-                <div class="clip-polygon-triangle flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-dodgerblue-90">triangle</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-polygon-diamond</span>
-                <div class="clip-border-2 text-forestgreen-20">
-                <div class="clip-polygon-diamond flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-forestgreen-90">diamond</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-polygon-pentagon</span>
-                <div class="clip-border-2 text-darkorange-20">
-                <div class="clip-polygon-pentagon flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-darkorange-90">pentagon</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-polygon-hexagon</span>
-                <div class="clip-border-2 text-magenta-20">
-                <div class="clip-polygon-hexagon flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-magenta-90">hexagon</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-polygon-arrow-right</span>
-                <div class="clip-border-2 text-slateblue-20">
-                <div class="clip-polygon-arrow-right flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-slateblue-90">arrow</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-polygon-chevron</span>
-                <div class="clip-border-2 text-dodgerblue-20">
-                <div class="clip-polygon-chevron flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-dodgerblue-90">chevron</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-shape-wave</span>
-                <div class="clip-border-2 text-forestgreen-20">
-                <div class="clip-shape-wave flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-forestgreen-90">wave</div>
-              </div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="clip-border-2 text-dodgerblue-20"&gt;
-  &lt;div class="clip-polygon-triangle flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-dodgerblue-90"&gt;triangle&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="clip-border-2 text-forestgreen-20"&gt;
-  &lt;div class="clip-polygon-diamond flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-forestgreen-90"&gt;diamond&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="clip-border-2 text-darkorange-20"&gt;
-  &lt;div class="clip-polygon-pentagon flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-darkorange-90"&gt;pentagon&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="clip-border-2 text-magenta-20"&gt;
-  &lt;div class="clip-polygon-hexagon flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-magenta-90"&gt;hexagon&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="clip-border-2 text-slateblue-20"&gt;
-  &lt;div class="clip-polygon-arrow-right flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-slateblue-90"&gt;arrow&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="clip-border-2 text-dodgerblue-20"&gt;
-  &lt;div class="clip-polygon-chevron flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-dodgerblue-90"&gt;chevron&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="clip-border-2 text-forestgreen-20"&gt;
-  &lt;div class="clip-shape-wave flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-forestgreen-90"&gt;wave&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Every polygon class on a square box, plus the curved <code>shape()</code> edge and one custom polygon written inline (a price tag).</p>
+          <oc-demo title="Polygons, shape() and a custom polygon">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key">Dashed line = the full box of the element</span><span class="oc-eg__key oc-eg__key--strong">Color = the part the clip-path keeps</span></div><div class="oc-eg__panels" style="--eg-min: 15rem;">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-polygon-triangle</code><div class="oc-eg__note">A triangle that points up.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c1 clip-polygon-triangle"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-polygon-diamond</code><div class="oc-eg__note">Four points, one in the middle of each side.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c2 clip-polygon-diamond"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-polygon-pentagon</code><div class="oc-eg__note">Five points: a house shape for a badge.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c3 clip-polygon-pentagon"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-polygon-hexagon</code><div class="oc-eg__note">Six points, flat at the top and bottom.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c4 clip-polygon-hexagon"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-polygon-arrow-right</code><div class="oc-eg__note">An arrow that points right.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c5 clip-polygon-arrow-right"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-polygon-chevron</code><div class="oc-eg__note">A chevron, for the steps of a process.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c6 clip-polygon-chevron"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-shape-wave</code><div class="oc-eg__note">A curved bottom edge, made with shape().</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame"><div class="shp-shape shp-c7 clip-shape-wave"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">clip-path: polygon(…)</code><div class="oc-eg__note">Your own points, written inline: a price tag.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-frame shp-frame--wide"><div class="shp-shape shp-c8" style="clip-path: polygon(0 0, 78% 0, 100% 50%, 78% 100%, 0 100%);"></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="clip-polygon-triangle w-12 h-12 bg-vividblue-90"&gt;&lt;/div&gt;
+&lt;div class="clip-polygon-diamond w-12 h-12 bg-teal-70"&gt;&lt;/div&gt;
+&lt;div class="clip-polygon-pentagon w-12 h-12 bg-orange-95"&gt;&lt;/div&gt;
+&lt;div class="clip-polygon-hexagon w-12 h-12 bg-magenta-90"&gt;&lt;/div&gt;
+&lt;div class="clip-polygon-arrow-right w-12 h-12 bg-forestgreen-60"&gt;&lt;/div&gt;
+&lt;div class="clip-polygon-chevron w-12 h-12 bg-royalblue-70"&gt;&lt;/div&gt;
+&lt;div class="clip-shape-wave w-12 h-12 bg-red-70"&gt;&lt;/div&gt;
+&lt;!-- your own shape: a price tag --&gt;
+&lt;div class="w-14 h-10 bg-purple-60"
+     style="clip-path: polygon(0 0, 78% 0, 100% 50%, 78% 100%, 0 100%)"&gt;&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="clip-border">Clip border</h3>
           <p class="oc-section-content__desc">A normal <code>border</code> is cut away by <code>clip-path</code>. Put <code>.clip-border-*</code> on a <strong>wrapper</strong> around the clipped element: stacked <code>drop-shadow()</code> filters draw an outline that follows the exact shape (polygon, circle or <code>shape()</code>). The color is the wrapper's text color (e.g. <code>.text-dodgerblue-20</code>); the clipped element needs an opaque background.</p>
@@ -177,33 +129,26 @@
             </div>
           </div>
 
-          <oc-demo title="clip-border, clip-border-2, clip-border-4">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-border</span>
-                <div class="clip-border text-dodgerblue-20">
-                <div class="clip-polygon-hexagon flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-dodgerblue-90">border</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-border-2</span>
-                <div class="clip-border-2 text-forestgreen-20">
-                <div class="clip-polygon-hexagon flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-forestgreen-90">border-2</div>
-              </div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.clip-border-4</span>
-                <div class="clip-border-4 text-darkorange-20">
-                <div class="clip-polygon-hexagon flex flex-wrap align-items-center justify-center size-24 font-1 text-white bg-darkorange-90">border-4</div>
-              </div>
-              </div>
-            </div>
+          <p class="oc-section-content__desc">The first hexagon has a normal 6px <code>border</code>: the clip cuts it away except on the flat top and bottom. The other three use a <code>.clip-border-*</code> wrapper, and the outline follows all six sides.</p>
+          <oc-demo title="A normal border versus clip-border, clip-border-2 and clip-border-4">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem;">
+              <div class="oc-eg__panel"><code class="oc-eg__name">border (cut away)</code><div class="oc-eg__note">A normal 8px border: the clip cuts it off on the slanted sides.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="shp-bordered"><div class="shp-shape shp-c2 shp-cut clip-polygon-hexagon"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-border</code><div class="oc-eg__note">A 1px outline that follows all six sides.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="clip-border shp-bordered"><div class="shp-shape shp-c2 clip-polygon-hexagon"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-border-2</code><div class="oc-eg__note">A 2px outline.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="clip-border-2 shp-bordered"><div class="shp-shape shp-c2 clip-polygon-hexagon"></div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.clip-border-4</code><div class="oc-eg__note">A 4px outline.</div><div class="oc-eg__stage oc-eg__stage--plain shp-stage"><div class="clip-border-4 shp-bordered"><div class="shp-shape shp-c2 clip-polygon-hexagon"></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- a normal border is cut away by the clip --&gt;
+&lt;div class="clip-polygon-hexagon w-12 h-12 bg-teal-70" style="border: 8px solid"&gt;&lt;/div&gt;
 
-            
-            
-          <oc-code lang="html">&lt;div class="clip-border-2 text-dodgerblue-20"&gt;
-  &lt;div class="clip-polygon-hexagon size-24 bg-dodgerblue-90 text-white"&gt;hexagon&lt;/div&gt;
+&lt;!-- the wrapper draws the outline in its text color --&gt;
+&lt;div class="clip-border"&gt;
+  &lt;div class="clip-polygon-hexagon w-12 h-12 bg-teal-70"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="clip-border-2"&gt;
+  &lt;div class="clip-polygon-hexagon w-12 h-12 bg-teal-70"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="clip-border-4"&gt;
+  &lt;div class="clip-polygon-hexagon w-12 h-12 bg-teal-70"&gt;&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="shape-outside">Shape outside &amp; shape margin</h3>
@@ -232,62 +177,120 @@
 
           <p class="oc-section-content__desc"><strong>What it does:</strong> <code>shape-outside</code> changes the area that inline content has to avoid around a <em>floated</em> element, from the default rectangle to a circle, ellipse, polygon, inset, or even the alpha channel of an image or gradient. <code>shape-margin</code> adds breathing room between the shape and the text. <strong>When to use:</strong> editorial layouts, pull-quotes and avatars with text flowing around them. <strong>Gotchas:</strong> the element must be floated and have an explicit width and height (a circle of <code>50%</code> is relative to that box); the shape only affects text, not the visual, so pair it with a matching <code>clip-path</code>; and there must be enough text next to the float, otherwise you do not see the wrap. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/shape-outside" target="_blank" rel="noopener">MDN: shape-outside</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/shape-margin" target="_blank" rel="noopener">MDN: shape-margin</a>.</p>
 
-          <oc-demo title="Circle: float-left + shape-circle + shape-m-4 + clip-circle">
-            <div class="shp-flow">
-              <div class="float-left shape-circle shape-m-4 clip-circle bg-dodgerblue-90" style="width:9rem;height:9rem;margin-inline-end:0.5rem"></div>
-              <p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container. OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p>
-            </div>
-          <oc-code lang="html">&lt;div class="float-left shape-circle shape-m-4 clip-circle bg-dodgerblue-90"
-     style="width:9rem;height:9rem"&gt;&lt;/div&gt;
-&lt;p&gt;Text wraps around the circle…&lt;/p&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Look at the left edge of the lines next to the circle: each line starts a bit further in or out, so the text follows the curve with 1rem of room.</p>
+          <oc-demo title="Circle: float-left + shape-circle + clip-circle">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.float-left .shape-circle .clip-circle .m-1</code><div class="oc-eg__note">Follow the left edge of the lines next to the circle: it traces the curve, 1rem away from it.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="shp-flow">
+              <div class="float-left shape-circle clip-circle m-1 w-12 h-12" style="background: var(--color-teal-70);"></div>
+              <div>A floated circle with <code>shape-outside</code> lets the text follow its curve. Look at where each line starts: close to the circle at its middle, and further to the left near its top and bottom. Without <code>.shape-circle</code> the text would stop at a straight edge, as if the circle were still a square. The class <code>.clip-circle</code> makes the box look round, and <code>.shape-circle</code> makes the text treat it as round, so you need both. The margin of 1rem around the float (<code>.m-1</code>) becomes the gap between the circle and the words, because <code>circle(50%)</code> is measured on the margin box. Once the text passes the bottom of the circle, the lines use the full width of the column again, like the last lines of this paragraph.</div>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="float-left shape-circle clip-circle m-1 w-12 h-12 bg-teal-70"&gt;&lt;/div&gt;
+&lt;p&gt;A floated circle with shape-outside lets the text follow its curve. Look at where each
+  line starts: close to the circle at its middle, and further to the left near its top and
+  bottom. (… enough text to run past the bottom of the circle …)&lt;/p&gt;</oc-code></oc-demo>
 
-          <h4 class="oc-section-content__title mt-6">Shape margin: 0 / 0.5rem / 1rem</h4>
-          <p class="oc-section-content__desc"><code>.shape-m-*</code> pushes the wrapping text away from the shape without changing the element itself. Compare the three columns: the text hugs the circle, then keeps a small gap, then a larger gap.</p>
-          <oc-demo title="shape-m-0, shape-m-2, shape-m-4">
-            <div class="shp-cols">
-              <div class="shp-flow"><span class="oc-demo-hint">.shape-m-0</span><div class="float-left shape-circle shape-m-0 clip-circle bg-forestgreen-90" style="width:5rem;height:5rem"></div><p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p></div>
-              <div class="shp-flow"><span class="oc-demo-hint">.shape-m-2</span><div class="float-left shape-circle shape-m-2 clip-circle bg-forestgreen-90" style="width:5rem;height:5rem"></div><p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p></div>
-              <div class="shp-flow"><span class="oc-demo-hint">.shape-m-4</span><div class="float-left shape-circle shape-m-4 clip-circle bg-forestgreen-90" style="width:5rem;height:5rem"></div><p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p></div>
-            </div>
-          <oc-code lang="html">&lt;div class="float-left shape-circle shape-m-0 clip-circle" style="width:5rem;height:5rem"&gt;&lt;/div&gt;
-&lt;div class="float-left shape-circle shape-m-2 clip-circle" style="width:5rem;height:5rem"&gt;&lt;/div&gt;
-&lt;div class="float-left shape-circle shape-m-4 clip-circle" style="width:5rem;height:5rem"&gt;&lt;/div&gt;</oc-code></oc-demo>
+          <h4 class="oc-section-content__title mt-6">Shape margin: 0 / 0.25rem / 0.5rem / 1rem</h4>
+          <p class="oc-section-content__desc"><code>.shape-m-*</code> pushes the wrapping text away from the shape without changing the element itself. Compare the four cards: the text touches the circle, then keeps a thin, a small and a wide gap. One catch: the shape margin cannot reach past the float's margin box, so give the float a margin at least as big (here <code>.mr-1.5</code>), otherwise the words touch the shape at its widest point anyway.</p>
+          <oc-demo title="shape-m-0, shape-m-1, shape-m-2 and shape-m-4 side by side">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key">Dashed ring = the shape margin (drawn for this demo with an outline)</span><span class="oc-eg__key oc-eg__key--strong">The words stay outside the ring</span></div><div class="oc-eg__panels" style="--eg-min: 20rem;">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.shape-m-0</code><div class="oc-eg__note">No shape margin: the words touch the circle.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="float-left shape-border-box shape-m-0 round-full mr-1.5 mb-1 w-9 h-9" style="background: var(--color-orange-95);"></div>The circle is the same size in all four cards. Only the shape margin changes: the room between the round edge and the words. Follow where each line starts next to the circle. More margin keeps the text further away, and the lines still follow the curve.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.shape-m-1</code><div class="oc-eg__note">A thin gap of 0.25rem.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="float-left shape-border-box shape-m-1 round-full mr-1.5 mb-1 w-9 h-9 shp-ring shp-ring--1" style="background: var(--color-orange-95);"></div>The circle is the same size in all four cards. Only the shape margin changes: the room between the round edge and the words. Follow where each line starts next to the circle. More margin keeps the text further away, and the lines still follow the curve.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.shape-m-2</code><div class="oc-eg__note">A gap of 0.5rem.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="float-left shape-border-box shape-m-2 round-full mr-1.5 mb-1 w-9 h-9 shp-ring shp-ring--2" style="background: var(--color-orange-95);"></div>The circle is the same size in all four cards. Only the shape margin changes: the room between the round edge and the words. Follow where each line starts next to the circle. More margin keeps the text further away, and the lines still follow the curve.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.shape-m-4</code><div class="oc-eg__note">A wide gap of 1rem.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="float-left shape-border-box shape-m-4 round-full mr-1.5 mb-1 w-9 h-9 shp-ring shp-ring--4" style="background: var(--color-orange-95);"></div>The circle is the same size in all four cards. Only the shape margin changes: the room between the round edge and the words. Follow where each line starts next to the circle. More margin keeps the text further away, and the lines still follow the curve.</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- shape-border-box + round-full: the round border edge is the shape.
+     mr-1.5 and mb-1 leave room for the shape margin (it cannot reach past the margin box). --&gt;
+&lt;div class="float-left shape-border-box shape-m-0 round-full mr-1.5 mb-1 w-9 h-9 bg-orange-95"&gt;&lt;/div&gt;
+&lt;div class="float-left shape-border-box shape-m-1 round-full mr-1.5 mb-1 w-9 h-9 bg-orange-95"&gt;&lt;/div&gt;
+&lt;div class="float-left shape-border-box shape-m-2 round-full mr-1.5 mb-1 w-9 h-9 bg-orange-95"&gt;&lt;/div&gt;
+&lt;div class="float-left shape-border-box shape-m-4 round-full mr-1.5 mb-1 w-9 h-9 bg-orange-95"&gt;&lt;/div&gt;
+&lt;p&gt;The circle is the same size in all four cards…&lt;/p&gt;</oc-code></oc-demo>
 
           <h4 class="oc-section-content__title mt-6">Other shapes: ellipse, polygon, inset and gradient</h4>
           <p class="oc-section-content__desc">Use the classes for the common shapes and an inline <code>shape-outside</code> for anything custom. A polygon makes text follow a diagonal edge (a triangle floated left makes lines longer as you go down); <code>inset(… round …)</code> follows rounded corners; and a gradient or image makes text wrap around every pixel whose alpha is above <code>shape-image-threshold</code>.</p>
-          <oc-demo title="ellipse, polygon, inset, gradient">
-            <div class="shp-cols">
-              <div class="shp-flow"><span class="oc-demo-hint">.shape-ellipse + .clip-ellipse</span><div class="float-left shape-ellipse shape-m-2 clip-ellipse bg-darkorange-90" style="width:8rem;height:10rem"></div><p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p></div>
-              <div class="shp-flow"><span class="oc-demo-hint">shape-outside: polygon()</span><div class="float-left shape-m-2 clip-polygon-triangle bg-magenta-90" style="width:8rem;height:10rem;shape-outside:polygon(50% 0%, 0% 100%, 100% 100%)"></div><p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p></div>
-              <div class="shp-flow"><span class="oc-demo-hint">shape-outside: inset(0 round 2rem)</span><div class="float-left shape-m-2 bg-slateblue-90" style="width:8rem;height:8rem;border-radius:2rem;shape-outside:inset(0 round 2rem)"></div><p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p></div>
-              <div class="shp-flow"><span class="oc-demo-hint">shape-outside: radial-gradient()</span><div class="float-left shape-m-2 bg-dodgerblue-90 clip-circle" style="width:8rem;height:8rem;shape-outside:radial-gradient(closest-side, var(--color-black-50) 98%, transparent 100%)"></div><p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p></div>
-            </div>
-          <oc-code lang="html">&lt;div class="float-left shape-m-2 clip-polygon-triangle"
-     style="width:8rem;height:10rem;shape-outside:polygon(50% 0%, 0% 100%, 100% 100%)"&gt;&lt;/div&gt;
-&lt;div class="float-left shape-m-2"
-     style="width:8rem;height:8rem;border-radius:2rem;shape-outside:inset(0 round 2rem)"&gt;&lt;/div&gt;
-&lt;div class="float-left shape-m-2 clip-circle"
-     style="width:8rem;height:8rem;shape-outside:radial-gradient(closest-side, black 98%, transparent 100%)"&gt;&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="Text around an ellipse, a triangle, a rounded box and a gradient">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem;">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.shape-ellipse + .clip-ellipse</code><div class="oc-eg__note">The left edge of the lines follows the curve of a wide oval.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="float-left shape-ellipse clip-ellipse m-0.8 w-12 h-8" style="background: var(--color-vividblue-90);"></div>The text follows the curve of a wide oval. Each line starts a little after the edge of the shape, so the left edge of the text copies the outline. The lines are short near the middle of the oval and longer near its top and bottom. Below the shape the lines use the full width again.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">shape-outside: polygon()</code><div class="oc-eg__note">A triangle: the lines get shorter as the shape gets wider.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="float-left shape-m-4 clip-polygon-triangle mr-1 w-10 h-10" style="background: var(--color-magenta-90); shape-outside: polygon(50% 0%, 0% 100%, 100% 100%) border-box;"></div>A triangle floated left makes the lines shorter as you go down, because the shape gets wider at the bottom. The text keeps the same distance from the slanted edge all the way down. Below the shape the lines use the full width again, so you can see where the triangle ends.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.shape-border-box + .round-12</code><div class="oc-eg__note">A box with large round corners: only the lines at the corners move in. The dashed line is the 1rem shape margin.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="float-left shape-border-box shape-m-4 round-12 mr-1 mb-1 w-9 h-9 shp-ring shp-ring--4" style="background: var(--color-indigo-60);"></div>Here the text follows a box with large round corners. Next to the straight middle part, all lines start at the same place. Only the lines next to the top and bottom corners move in a little, along the curve. Below the shape the lines use the full width again.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">shape-outside: radial-gradient()</code><div class="oc-eg__note">The shape comes from a gradient: text avoids every part that is not transparent.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="float-left clip-circle shape-m-4 mr-1.5 mb-1 w-9 h-9" style="background: var(--color-forestgreen-60); shape-outside: radial-gradient(closest-side, var(--color-black-50) 98%, transparent 100%);"></div>The shape comes from a gradient. Text wraps around every part of it that is not transparent, here a circle. The same works with a picture that has a transparent background, so the words can follow a real outline. Below the shape the lines use the full width again.</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- shape-ellipse is measured on the margin box: the margin becomes the gap --&gt;
+&lt;div class="float-left shape-ellipse clip-ellipse m-0.8 w-12 h-8 bg-vividblue-90"&gt;&lt;/div&gt;
+
+&lt;!-- your own polygon; border-box keeps it on the visible triangle, mr-1 leaves room for shape-m-4 --&gt;
+&lt;div class="float-left shape-m-4 clip-polygon-triangle mr-1 w-10 h-10 bg-magenta-90"
+     style="shape-outside: polygon(50% 0%, 0% 100%, 100% 100%) border-box"&gt;&lt;/div&gt;
+
+&lt;!-- the border radius is part of the border box, so the text follows the round corners --&gt;
+&lt;div class="float-left shape-border-box shape-m-4 round-12 mr-1 mb-1 w-9 h-9 bg-indigo-60"&gt;&lt;/div&gt;
+
+&lt;!-- an image or gradient: text avoids every pixel that is not transparent --&gt;
+&lt;div class="float-left clip-circle shape-m-4 mr-1.5 mb-1 w-9 h-9 bg-forestgreen-60"
+     style="shape-outside: radial-gradient(closest-side, black 98%, transparent 100%)"&gt;&lt;/div&gt;
+&lt;p&gt;The text that wraps around the shape…&lt;/p&gt;</oc-code></oc-demo>
 
           <h4 class="oc-section-content__title mt-6">Float right and the reference boxes</h4>
           <p class="oc-section-content__desc"><code>.float-right</code> works mirrored. The reference-box classes (<code>.shape-margin-box</code>, <code>.shape-border-box</code>, <code>.shape-padding-box</code>, <code>.shape-content-box</code>) pick which edge of a box with a border radius the text follows.</p>
           <oc-demo title="float-right + shape-border-box with rounded corners">
-            <div class="shp-flow">
-              <div class="float-right shape-border-box shape-m-4 bg-forestgreen-90" style="width:9rem;height:9rem;border-radius:50%;margin-inline-start:0.5rem"></div>
-              <p>OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container. OmniaCSS generates utility classes from SCSS source files. Each class does exactly one thing, so you compose layouts directly in your markup without writing custom CSS for every component. Because the output is plain CSS, there is no runtime, no build-time lock-in and nothing to hydrate: the browser reads the class names and applies the declarations. When the text is long enough to run past the bottom of the floated shape, the lines return to the full width of the container.</p>
-            </div>
-          <oc-code lang="html">&lt;div class="float-right shape-border-box shape-m-4" style="width:9rem;height:9rem;border-radius:50%"&gt;&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.float-right .shape-border-box .shape-m-4 .round-full</code><div class="oc-eg__note">The text is justified, so every line ends exactly at the shape: follow the right ends, they bend around the dashed ring (the 1rem shape margin). Under the circle they run full width again.</div><div class="oc-eg__stage oc-eg__stage--plain shp-text"><div class="shp-flow text-justify">
+              <div class="float-right shape-border-box shape-m-4 round-full ml-1.5 mb-1 w-12 h-12 shp-ring shp-ring--4" style="background: var(--color-red-70);"></div>
+              <div>Float right works the same way, mirrored. The shape here is a plain box with the class <code>.round-full</code> and the class <code>.shape-border-box</code>, so the text follows the round border edge and the right ends of these lines bend around the circle. No clip-path is needed, because the border radius already makes the box round. <code>.shape-m-4</code> keeps 1rem of room, and the margin on the left of the float (<code>.ml-1.5</code>) must be at least that big, because the shape margin cannot reach past the margin box. This is handy for a photo or a logo at the side of an article. The lines under the shape run across the full width again.</div>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="float-right shape-border-box shape-m-4 round-full ml-1.5 mb-1 w-12 h-12 bg-red-70"&gt;&lt;/div&gt;
+&lt;p class="text-justify"&gt;Float right works the same way, mirrored. (… enough text to run past the bottom of the circle …)&lt;/p&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="clip-animate">Animate a clip-path: reveal on hover</h3>
-          <p class="oc-section-content__desc"><code>clip-path</code> is animatable between shapes with the same number of points, so a plain transition gives you reveals and morphs. Hover or focus the tiles: the left one reveals from <code>inset(0 100% 0 0)</code>, the middle morphs a circle, the right one grows a polygon. No JavaScript.</p>
-          <oc-demo title="transition: clip-path">
-            <div class="shp-cols" style="grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr))">
-              <div class="shp-flow"><span class="oc-demo-hint">inset reveal</span><div class="shp-reveal shp-reveal--inset bg-dodgerblue-90" tabindex="0"></div></div>
-              <div class="shp-flow"><span class="oc-demo-hint">circle grow</span><div class="shp-reveal shp-reveal--circle bg-forestgreen-90" tabindex="0"></div></div>
-              <div class="shp-flow"><span class="oc-demo-hint">polygon morph</span><div class="shp-reveal shp-reveal--poly bg-darkorange-90" tabindex="0"></div></div>
-            </div>
-          <oc-code lang="html">.tile { clip-path: inset(0 100% 0 0); transition: clip-path 0.5s; }
-.tile:hover { clip-path: inset(0 0 0 0); }</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>clip-path</code> is animatable between shapes with the same number of points, so a plain transition gives you reveals and morphs. Hover or focus the cards: the left one slides open from <code>inset(0 72% 0 0)</code>, the middle one grows a circle, the right one grows a polygon. The label sits under the clipped part, so it is never cut. No JavaScript.</p>
+          <oc-demo title="transition: clip-path (hover, focus or tap a card)">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key">Dashed line = the full card</span><span class="oc-eg__key oc-eg__key--strong">Hover, focus or tap a card</span></div><div class="oc-eg__panels" style="--eg-min: 15rem;">
+              <div class="oc-eg__panel shp-anim" tabindex="0"><code class="oc-eg__name">clip-path: inset()</code><div class="oc-eg__note">At rest: a strip on the left. On hover it slides open to the full card.</div><div class="oc-eg__stage oc-eg__stage--plain shp-reveal-stage"><div class="shp-reveal-frame"><div class="shp-reveal shp-reveal--inset shp-c1"></div></div><div class="shp-caption">Product 1 <span>Now in stock</span></div></div></div>
+              <div class="oc-eg__panel shp-anim" tabindex="0"><code class="oc-eg__name">clip-path: circle()</code><div class="oc-eg__note">At rest: a small circle. On hover it grows to the full card.</div><div class="oc-eg__stage oc-eg__stage--plain shp-reveal-stage"><div class="shp-reveal-frame"><div class="shp-reveal shp-reveal--circle shp-c2"></div></div><div class="shp-caption">Product 2 <span>New colors</span></div></div></div>
+              <div class="oc-eg__panel shp-anim" tabindex="0"><code class="oc-eg__name">clip-path: polygon()</code><div class="oc-eg__note">At rest: a small diamond. On hover it opens to fill the card.</div><div class="oc-eg__stage oc-eg__stage--plain shp-reveal-stage"><div class="shp-reveal-frame"><div class="shp-reveal shp-reveal--poly shp-c6"></div></div><div class="shp-caption">Product 3 <span>Last few left</span></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;style&gt;
+  .reveal { aspect-ratio: 4 / 3; transition: clip-path 0.6s ease; }
+  .reveal-inset  { clip-path: inset(0 72% 0 0 round 8px); }
+  .reveal-circle { clip-path: circle(30% at 50% 50%); }
+  /* a morph needs the same number of points before and after */
+  .reveal-poly   { clip-path: polygon(50% 22%, 82% 50%, 50% 78%, 18% 50%); }
+  .card:is(:hover, :focus-within) .reveal-inset  { clip-path: inset(0 0 0 0 round 8px); }
+  .card:is(:hover, :focus-within) .reveal-circle { clip-path: circle(75% at 50% 50%); }
+  .card:is(:hover, :focus-within) .reveal-poly   { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+&lt;/style&gt;
+
+&lt;div class="card" tabindex="0"&gt;
+  &lt;div class="reveal reveal-inset bg-vividblue-90"&gt;&lt;/div&gt;
+  &lt;div&gt;Product 1 Now in stock&lt;/div&gt;   &lt;!-- the label stays outside the clipped part --&gt;
+&lt;/div&gt;
+&lt;div class="card" tabindex="0"&gt;
+  &lt;div class="reveal reveal-circle bg-teal-70"&gt;&lt;/div&gt;
+  &lt;div&gt;Product 2 New colors&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="card" tabindex="0"&gt;
+  &lt;div class="reveal reveal-poly bg-royalblue-70"&gt;&lt;/div&gt;
+  &lt;div&gt;Product 3 Last few left&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="clip-reveal">Circle reveal with classes</h3>
+          <p class="oc-section-content__desc">The circle reveal without your own CSS: <code>.clip-circle-0</code> hides everything, <code>.clip-circle-cover</code> is a circle big enough to cover the corners, and <code>.transition-clip</code> animates between them. Put <code>.group</code> on the card and use <code>group-hover:</code> and <code>group-focus-within:</code>. Hover or Tab to a card.</p>
+          <oc-demo title="clip-circle-0 and clip-circle to group-hover:clip-circle-cover">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key">Dashed line = the full card</span><span class="oc-eg__key oc-eg__key--strong">Hover, focus or tap a card</span></div><div class="oc-eg__panels" style="--eg-min: 15rem;">
+              <div class="oc-eg__panel shp-anim group" tabindex="0"><code class="oc-eg__name">.clip-circle-0 → .clip-circle-cover</code><div class="oc-eg__note">At rest: nothing. On hover a circle grows from the middle and fills the card.</div><div class="oc-eg__stage oc-eg__stage--plain shp-reveal-stage"><div class="shp-reveal-frame"><div class="shp-box shp-c2 clip-circle-0 group-hover:clip-circle-cover group-focus-within:clip-circle-cover transition-clip duration-700 ease-in-out"></div></div><div class="shp-caption">Product 1 <span>Grows from nothing</span></div></div></div>
+              <div class="oc-eg__panel shp-anim group" tabindex="0"><code class="oc-eg__name">.clip-circle → .clip-circle-cover</code><div class="oc-eg__note">At rest: a circle of 50%. On hover it grows to the whole card.</div><div class="oc-eg__stage oc-eg__stage--plain shp-reveal-stage"><div class="shp-reveal-frame"><div class="shp-box shp-c4 clip-circle group-hover:clip-circle-cover group-focus-within:clip-circle-cover transition-clip duration-700 ease-in-out"></div></div><div class="shp-caption">Product 2 <span>Grows from a circle</span></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- .shp-box: size and color of the card (page CSS); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="group" tabindex="0"&gt;
+  &lt;div class="shp-box shp-c2 clip-circle-0 group-hover:clip-circle-cover group-focus-within:clip-circle-cover transition-clip duration-700 ease-in-out"&gt;&lt;/div&gt;
+  &lt;div&gt;Product 1 Grows from nothing&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="group" tabindex="0"&gt;
+  &lt;div class="shp-box shp-c4 clip-circle group-hover:clip-circle-cover group-focus-within:clip-circle-cover transition-clip duration-700 ease-in-out"&gt;&lt;/div&gt;
+  &lt;div&gt;Product 2 Grows from a circle&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Browsers without support for a shape show the element unclipped (a rectangle). The <code>.clip-border-*</code> classes rely on <code>drop-shadow()</code>, which is widely supported.</p>

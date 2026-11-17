@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Place Content","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Place Content","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Alignment demos: frame from the shared example kit (.oc-eg); below only the page palette and what sits inside the stages. */\n    .oc-eg { --eg-c1: var(--color-seagreen-70); --eg-c2: var(--color-darkorange-95); --eg-c3: var(--color-slateblue-70); --eg-c4: var(--color-seagreen-70); --eg-c5: var(--color-darkorange-95); --eg-c6: var(--color-slateblue-70); }\n    /* Fixed stage height and clipping as before the kit; items stay on one line. */\n    .al-fixed { block-size: var(--eg-h, 3.75rem); overflow: hidden; white-space: nowrap; }\n    .al-real { padding: 0.75rem; }\n    .al-muted { color: var(--oc-muted-foreground); font-size: 0.85rem; }\n    .al-hero { box-sizing: border-box; min-block-size: 17rem; padding: 1.5rem; border-radius: 12px; background: var(--color-vividblue-90); color: var(--color-white-50); text-align: center; }\n    .al-hero-title { font-size: 1.75rem; font-weight: 800; line-height: 1.15; }\n    .al-hero-text { max-inline-size: 26rem; font-size: 1rem; line-height: 1.5; }\n    .al-hero-btn { display: inline-flex; align-items: center; padding: 0.55rem 1.1rem; border: 2px solid var(--color-white-50); border-radius: 8px; background: var(--color-white-50); color: var(--color-vividblue-90); font-weight: 700; font-size: 0.9rem; cursor: pointer; }\n    .al-hero-btn.is-ghost { background: transparent; color: var(--color-white-50); }\n  </style>"]}-->
 <section class="oc-docs-section" id="place-content">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Place Content</h2>
@@ -8,20 +8,32 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>place-content: &lt;align&gt; &lt;justify&gt;</code> saves one class when you want the same distribution on both axes. The classic use is centring a grid or wrap block: <code>.grid.place-center</code> centres the tracks horizontally and vertically. It acts on tracks and lines, not on items inside cells (that is <code>place-items</code>), so the container must be larger than its content. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/place-content" target="_blank" rel="noopener">MDN: place-content</a>.</p>
+          <p class="oc-section-content__desc"><strong>In one sentence:</strong> <code>place-content</code> sets <code>align-content</code> (top to bottom) and <code>justify-content</code> (left to right) in one class, so it moves the <strong>whole block</strong> of grid tracks or flex lines on both axes at once.</p>
+          <p class="oc-section-content__desc">The classic use is centring: <code>.grid.place-center</code> centres the tracks horizontally and vertically. It acts on the tracks as a group, not on the items inside their cells (that is <a href="place-items.html"><code>.place-items-*</code></a>), so the container must be bigger than its content. A class with one word uses that value on both axes; a class with two words gives the vertical value first. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/place-content" target="_blank" rel="noopener">MDN: place-content</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Align + Justify</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.place-center</code></td><td>center center</td></tr>
-                <tr><td><code>.place-start</code></td><td>start start</td></tr>
-                <tr><td><code>.place-end</code></td><td>end end</td></tr>
-                <tr><td><code>.place-between</code></td><td>space-between space-between</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.place-around</code></td><td>space-around space-around</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.place-evenly</code></td><td>space-evenly space-evenly</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.place-stretch</code></td><td>stretch stretch</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.place-start-center</code></td><td>start center</td></tr>
+                <tr><td><code>.place-center</code></td><td>place-content: center</td></tr>
+                <tr><td><code>.place-start</code></td><td>place-content: start</td></tr>
+                <tr><td><code>.place-end</code></td><td>place-content: end</td></tr>
+                <tr><td><code>.place-between</code></td><td>place-content: space-between</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.place-around</code></td><td>place-content: space-around</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-evenly</code></td><td>place-content: space-evenly</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-stretch</code></td><td>place-content: stretch</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-baseline</code></td><td>place-content: baseline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-start-center</code></td><td>place-content: start center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-center-start</code></td><td>place-content: center start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-end-left</code></td><td>place-content: end left</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-baseline-center</code></td><td>place-content: baseline center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-baseline-right</code></td><td>place-content: baseline right</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-flex-start-center</code></td><td>place-content: flex-start center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-flex-end-center</code></td><td>place-content: flex-end center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-between-evenly</code></td><td>place-content: space-between space-evenly</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-around-evenly</code></td><td>place-content: space-around space-evenly</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-evenly-stretch</code></td><td>place-content: space-evenly stretch</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.place-stretch-evenly</code></td><td>place-content: stretch space-evenly</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -29,18 +41,62 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title mt-8">Every value on a wrapping flexbox</h3>
+          <h3 class="oc-section-content__title mt-8">Every value on a small grid</h3>
+          <p class="oc-section-content__desc">A grid of two auto-sized columns and two rows inside a 10rem box. The hatched space is what is left over; each value moves the whole block of four.</p>
 
-          <oc-demo title="place-content values"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.place-center</code><div class="dm-area flex wrap gap-0.3 dm-h place-center" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div></div></div>
-<div class="dm-tile"><code>.place-start</code><div class="dm-area flex wrap gap-0.3 dm-h place-start" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div></div></div>
-<div class="dm-tile"><code>.place-end</code><div class="dm-area flex wrap gap-0.3 dm-h place-end" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div></div></div>
-<div class="dm-tile"><code>.place-between</code><div class="dm-area flex wrap gap-0.3 dm-h place-between" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div></div></div>
-<div class="dm-tile"><code>.place-around</code><div class="dm-area flex wrap gap-0.3 dm-h place-around" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div></div></div>
-<div class="dm-tile"><code>.place-evenly</code><div class="dm-area flex wrap gap-0.3 dm-h place-evenly" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div></div></div>
-<div class="dm-tile"><code>.place-stretch</code><div class="dm-area flex wrap gap-0.3 dm-h place-stretch" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid place-center" style="min-height: 100vh"&gt;
-  &lt;div class="card"&gt;Centred card&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="place-content values"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the container</span><span class="oc-eg__key oc-eg__key--strong">Both axes: vertical &darr; first, then horizontal &rarr;</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-center <span class="al-muted">(center)</span></code><div class="oc-eg__note">The block of four sits in the middle on both axes.</div><div class="oc-eg__stage al-fixed grid gap-0.5 place-center" style="--eg-h:10rem; grid-template-columns: repeat(2, auto)"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div><div class="oc-eg__item">Item 4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-start <span class="al-muted">(start)</span></code><div class="oc-eg__note">Top-left corner.</div><div class="oc-eg__stage al-fixed grid gap-0.5 place-start" style="--eg-h:10rem; grid-template-columns: repeat(2, auto)"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div><div class="oc-eg__item">Item 4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-end <span class="al-muted">(end)</span></code><div class="oc-eg__note">Bottom-right corner.</div><div class="oc-eg__stage al-fixed grid gap-0.5 place-end" style="--eg-h:10rem; grid-template-columns: repeat(2, auto)"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div><div class="oc-eg__item">Item 4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-start-center <span class="al-muted">(start center)</span></code><div class="oc-eg__note">At the top, centred left to right.</div><div class="oc-eg__stage al-fixed grid gap-0.5 place-start-center" style="--eg-h:10rem; grid-template-columns: repeat(2, auto)"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div><div class="oc-eg__item">Item 4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-between <span class="al-muted">(space-between)</span></code><div class="oc-eg__note">Rows and columns pushed to the edges, the space in between.</div><div class="oc-eg__stage al-fixed grid gap-0.5 place-between" style="--eg-h:10rem; grid-template-columns: repeat(2, auto)"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div><div class="oc-eg__item">Item 4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-around <span class="al-muted">(space-around)</span></code><div class="oc-eg__note">Equal space around each row and column; half at the edges.</div><div class="oc-eg__stage al-fixed grid gap-0.5 place-around" style="--eg-h:10rem; grid-template-columns: repeat(2, auto)"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div><div class="oc-eg__item">Item 4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-evenly <span class="al-muted">(space-evenly)</span></code><div class="oc-eg__note">Every gap the same size, edges included.</div><div class="oc-eg__stage al-fixed grid gap-0.5 place-evenly" style="--eg-h:10rem; grid-template-columns: repeat(2, auto)"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div><div class="oc-eg__item">Item 4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-stretch <span class="al-muted">(stretch)</span></code><div class="oc-eg__note">The auto-sized rows and columns grow until the box is full.</div><div class="oc-eg__stage al-fixed grid gap-0.5 place-stretch" style="--eg-h:10rem; grid-template-columns: repeat(2, auto)"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div><div class="oc-eg__item">Item 4</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="grid gap-0.5 place-center" style="height: 10rem; grid-template-columns: repeat(2, auto)"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid gap-0.5 place-start" style="height: 10rem; grid-template-columns: repeat(2, auto)"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid gap-0.5 place-end" style="height: 10rem; grid-template-columns: repeat(2, auto)"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid gap-0.5 place-start-center" style="height: 10rem; grid-template-columns: repeat(2, auto)"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid gap-0.5 place-between" style="height: 10rem; grid-template-columns: repeat(2, auto)"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid gap-0.5 place-around" style="height: 10rem; grid-template-columns: repeat(2, auto)"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid gap-0.5 place-evenly" style="height: 10rem; grid-template-columns: repeat(2, auto)"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid gap-0.5 place-stretch" style="height: 10rem; grid-template-columns: repeat(2, auto)"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a centred hero</h3>
+          <p class="oc-section-content__desc">A hero section of at least 17rem. <code>.place-center</code> puts the heading, text and buttons in the middle of it on both axes, however wide the screen is.</p>
+
+          <oc-demo title="Centred hero"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min:100%"><div class="oc-eg__panel"><code class="oc-eg__name">.grid .gap-1 .place-center</code><div class="oc-eg__note">The heading, text and buttons sit in the middle of the hero, both ways.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><section class="al-hero grid gap-1 place-center">
+  <div class="al-hero-title">Company 1</div>
+  <div class="al-hero-text">Customers, products and invoices in one place. Start free, upgrade when you grow.</div>
+  <div class="flex wrap justify-center gap-0.5"><button type="button" class="al-hero-btn">Get started</button><button type="button" class="al-hero-btn is-ghost">See pricing</button></div>
+</section></div></div></div></div><oc-code lang="html">&lt;section class="grid gap-1 place-center" style="min-height: 17rem; text-align: center"&gt;
+  &lt;h1&gt;Company 1&lt;/h1&gt;
+  &lt;p&gt;Customers, products and invoices in one place. Start free, upgrade when you grow.&lt;/p&gt;
+  &lt;div class="flex wrap justify-center gap-0.5"&gt;
+    &lt;button class="oc-btn"&gt;Get started&lt;/button&gt;
+    &lt;button class="oc-btn oc-btn--outline"&gt;See pricing&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</oc-code></oc-demo>
+
+        </div>
+      </section></div></div></div></div><oc-code lang="html">&lt;section class="grid gap-1 place-center" style="min-height: 17rem; text-align: center"&gt;
+  &lt;h1&gt;Company 1&lt;/h1&gt;
+  &lt;p&gt;Customers, products and invoices in one place. …&lt;/p&gt;
+  &lt;div class="flex wrap justify-center gap-0.5"&gt;
+    &lt;button class="oc-btn"&gt;Get started&lt;/button&gt;
+    &lt;button class="oc-btn oc-btn--outline"&gt;See pricing&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</oc-code></oc-demo>
+
+        </div>
+      </section></div></div></div></div><oc-code lang="html">&lt;section class="grid gap-1 place-center" style="min-height: 17rem; text-align: center"&gt;
+  &lt;h1&gt;Company 1&lt;/h1&gt;
+  &lt;p&gt;Customers, products and invoices in one place. …&lt;/p&gt;
+  &lt;div class="flex wrap justify-center gap-0.5"&gt;
+    &lt;button class="oc-btn"&gt;Get started&lt;/button&gt;
+    &lt;button class="oc-btn oc-btn--outline"&gt;See pricing&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</oc-code></oc-demo>
+
         </div>
       </section>

@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Flex Direction","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Flex Direction","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n    .fx-w { inline-size: var(--fx-iw, 5.5rem); flex-shrink: 0; }\n    .fx-tall { min-block-size: var(--fx-mh, 12rem); }\n    .fx-dot { flex: none; display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 50%; background: var(--fx-c, var(--color-indigo-60)); color: var(--color-white-50); font-weight: 700; font-size: 0.9rem; }\n    .fx-bubble { box-sizing: border-box; max-inline-size: 75%; padding: 0.55rem 0.85rem; border-radius: 12px; background: var(--oc-card); border: 1px solid var(--oc-border); color: var(--oc-foreground); font-size: 0.9rem; line-height: 1.4; }\n    .fx-bubble--own { border-color: transparent; background: var(--color-teal-70); color: var(--color-white-50); }\n  </style>"]}-->
 <section class="oc-docs-section" id="direction">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Flex Direction</h2>
@@ -24,13 +24,67 @@
 
           <h3 class="oc-section-content__title mt-8">All four directions</h3>
 
-          <oc-demo title="flex-direction values"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.flex-row</code><div class="dm-area flex flex-row gap-0.3"><div class="dm-box">1</div><div class="dm-box">2</div><div class="dm-box">3</div></div></div>
-<div class="dm-tile"><code>.flex-row-reverse</code><div class="dm-area flex flex-row-reverse gap-0.3"><div class="dm-box">1</div><div class="dm-box">2</div><div class="dm-box">3</div></div></div>
-<div class="dm-tile"><code>.flex-col</code><div class="dm-area flex flex-col gap-0.3"><div class="dm-box dm-w2">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w2">3</div></div></div>
-<div class="dm-tile"><code>.flex-col-reverse</code><div class="dm-area flex flex-col-reverse gap-0.3"><div class="dm-box dm-w2">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w2">3</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex flex-col md:flex-row gap-1"&gt;
-  &lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;
+          <p class="oc-section-content__desc">The same three items in four containers. Look at where Item 1 starts and where the free space (the hatched area) ends up.</p>
+
+          <oc-demo title="flex-direction values"><div class="oc-eg fx">
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-row</code><div class="oc-eg__note">Left to right (the default). The free space stays at the end.</div><div class="oc-eg__stage fx-stage flex flex-row gap-0.5"><div class="fx-box fx-w">Item 1</div><div class="fx-box fx-w">Item 2</div><div class="fx-box fx-w">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-row-reverse</code><div class="oc-eg__note">Right to left. Item 1 sits at the far right, the free space moves to the start.</div><div class="oc-eg__stage fx-stage flex flex-row-reverse gap-0.5"><div class="fx-box fx-w">Item 1</div><div class="fx-box fx-w">Item 2</div><div class="fx-box fx-w">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-col</code><div class="oc-eg__note">Top to bottom. Items stretch across the full width.</div><div class="oc-eg__stage fx-stage flex flex-col gap-0.5 fx-tall" style="--fx-mh:13rem"><div class="fx-box ">Item 1</div><div class="fx-box ">Item 2</div><div class="fx-box ">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-col-reverse</code><div class="oc-eg__note">Bottom to top. Item 1 is at the bottom, the free space at the top.</div><div class="oc-eg__stage fx-stage flex flex-col-reverse gap-0.5 fx-tall" style="--fx-mh:13rem"><div class="fx-box ">Item 1</div><div class="fx-box ">Item 2</div><div class="fx-box ">Item 3</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="flex flex-row gap-0.5"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex flex-row-reverse gap-0.5"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex flex-col gap-0.5"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex flex-col-reverse gap-0.5"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: toolbar or stacked menu</h3>
+
+          <p class="oc-section-content__desc">The same four buttons, only the direction differs. A row gives a toolbar (<code>.align-items-start</code> keeps the buttons at their own height), a column gives a menu where every button is as wide as the container. Add a breakpoint prefix (<code>.flex-col md:flex-row</code>) to switch between the two.</p>
+
+          <oc-demo title="toolbar and stacked menu"><div class="oc-eg fx">
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-row</code><div class="oc-eg__note">A toolbar.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage flex flex-row gap-0.5 align-items-start"><button type="button" class="oc-btn oc-btn--secondary">New</button><button type="button" class="oc-btn oc-btn--secondary">Edit</button><button type="button" class="oc-btn oc-btn--secondary">Copy</button><button type="button" class="oc-btn oc-btn--secondary">Delete</button></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-col</code><div class="oc-eg__note">The same four buttons as a stacked menu.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage flex flex-col gap-0.5"><button type="button" class="oc-btn oc-btn--secondary">New</button><button type="button" class="oc-btn oc-btn--secondary">Edit</button><button type="button" class="oc-btn oc-btn--secondary">Copy</button><button type="button" class="oc-btn oc-btn--secondary">Delete</button></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- Toolbar --&gt;
+&lt;div class="flex flex-row gap-0.5 align-items-start"&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;New&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;Edit&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;Copy&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;Delete&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Stacked menu: only the direction changes --&gt;
+&lt;div class="flex flex-col gap-0.5"&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;New&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;Edit&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;Copy&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;Delete&lt;/button&gt;
 &lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: chat messages</h3>
+
+          <p class="oc-section-content__desc">The reverse variant mirrors a row without changing the HTML: the avatar of your own messages moves to the right. Screen readers still read avatar first, then text, which is what you want here.</p>
+
+          <oc-demo title="flex-row-reverse in a chat"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-row and .flex-row-reverse</code><div class="oc-eg__note">Each message is avatar + text in the same order. Your own messages use <code>.flex-row-reverse</code>.</div><div class="oc-eg__stage fx-stage flex flex-col gap-1"><div class="flex flex-row gap-0.6 align-items-center"><div class="fx-dot">C1</div><div class="fx-bubble">Hello, is order 1042 ready to ship?</div></div><div class="flex flex-row-reverse gap-0.6 align-items-center"><div class="fx-dot" style="--fx-c:var(--color-teal-70)">You</div><div class="fx-bubble fx-bubble--own">Yes, it leaves the warehouse today.</div></div><div class="flex flex-row gap-0.6 align-items-center"><div class="fx-dot">C1</div><div class="fx-bubble">Great, thank you.</div></div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="flex flex-col gap-1"&gt;
+  &lt;div class="flex flex-row gap-0.6 align-items-center"&gt;
+    &lt;div class="avatar"&gt;C1&lt;/div&gt;
+    &lt;div class="bubble"&gt;Hello, is order 1042 ready to ship?&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="flex flex-row-reverse gap-0.6 align-items-center"&gt;
+    &lt;div class="avatar"&gt;You&lt;/div&gt;
+    &lt;div class="bubble"&gt;Yes, it leaves the warehouse today.&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="flex flex-row gap-0.6 align-items-center"&gt;
+    &lt;div class="avatar"&gt;C1&lt;/div&gt;
+    &lt;div class="bubble"&gt;Great, thank you.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- .avatar and .bubble are your own styles (round badge, rounded box) --&gt;</oc-code></oc-demo>
         </div>
       </section>

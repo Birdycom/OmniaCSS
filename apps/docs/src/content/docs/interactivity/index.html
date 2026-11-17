@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Interactivity", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Interactivity","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Overview demo (ix-*): one small, real example per sub-page. Flat palette colors. */\n    .ix-stage { display: grid; align-content: center; gap: 0.9rem; padding: 1.1rem; }\n    .ix-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }\n    .ix-chip { display: grid; place-items: center; flex: 1 1 6rem; min-block-size: 3.5rem; padding: 0.5rem 0.75rem; border-radius: 10px; background: var(--ix-c, var(--color-teal-70)); color: var(--color-white-10); font-weight: 700; font-size: 0.95rem; text-align: center; }\n    .ix-c1 { --ix-c: var(--color-teal-70); } .ix-c2 { --ix-c: var(--color-indigo-60); } .ix-c3 { --ix-c: var(--color-red-70); } .ix-c4 { --ix-c: var(--color-royalblue-70); } .ix-c5 { --ix-c: var(--color-forestgreen-60); } .ix-c6 { --ix-c: var(--color-purple-60); }\n    .ix-code { display: block; padding: 0.7rem 0.9rem; border: 2px dashed var(--oc-border); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font: 600 0.95rem/1.3 var(--oc-font-mono, ui-monospace, monospace); }\n    .ix-snap { display: flex; gap: 0.75rem; padding-block-end: 0.5rem; }\n    .ix-snap > div { flex: none; display: grid; place-items: center; inline-size: 10rem; block-size: 7rem; border-radius: 12px; background: var(--ix-c); color: var(--color-white-10); font-weight: 700; font-size: 1.05rem; }\n    .ix-form { display: grid; gap: 0.8rem; color: var(--oc-foreground); font-size: 0.95rem; }\n    .ix-form label { display: flex; align-items: center; gap: 0.5rem; }\n    .ix-form input[type=\"checkbox\"], .ix-form input[type=\"radio\"] { inline-size: 1.25rem; block-size: 1.25rem; }\n    .ix-form input[type=\"range\"] { inline-size: 12rem; max-inline-size: 100%; }\n    .ix-form input[type=\"text\"] { min-inline-size: 6rem; max-inline-size: 100%; padding: 0.5rem 0.7rem; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-background); color: var(--oc-foreground); font: inherit; }\n    .ix-flow { gap: 0.6rem; justify-content: center; }\n    .ix-flow .oc-btn:focus-visible { outline: 3px solid var(--color-orange-95); outline-offset: 2px; }\n    .ix-hint { margin: 0; color: var(--oc-muted-foreground); font-size: 0.85rem; text-align: center; }\n</style>"]}-->
 <section class="oc-docs-section" id="interactivity">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Interactivity</h2>
@@ -12,28 +12,73 @@
         </div>
 
         <div class="oc-section-content">
-          <h3 class="oc-section-content__title" id="pages">Pages</h3>
-          <div class="oc-card-grid">
-            <a class="oc-product-card" href="cursor-selection.html"><h4 class="oc-product-card__name">Cursor, selection &amp; pointer</h4><p class="oc-product-card__summary">.cursor-*, .select-*, .pointer-events-*</p><span class="oc-product-card__more">Open</span></a>
-            <a class="oc-product-card oc-accent--cyan" href="scrolling.html"><h4 class="oc-product-card__name">Scrolling &amp; touch</h4><p class="oc-product-card__summary">.scroll-smooth, .snap-*, scroll markers, .touch-*</p><span class="oc-product-card__more">Open</span></a>
-            <a class="oc-product-card oc-accent--green" href="forms.html"><h4 class="oc-product-card__name">Form controls</h4><p class="oc-product-card__summary">.accent-*, .caret-*, .scheme-*, .resize-*, field-sizing, base-select</p><span class="oc-product-card__more">Open</span></a>
-            <a class="oc-product-card oc-accent--violet" href="performance-a11y.html"><h4 class="oc-product-card__name">Performance &amp; accessibility</h4><p class="oc-product-card__summary">.will-change-*, .reading-flow-*</p><span class="oc-product-card__more">Open</span></a>
-          </div>
+          <h3 class="oc-section-content__title" id="overview">The four pages at a glance</h3>
+          <p class="oc-section-content__desc">This group has four pages. Below is one small, real example from each: try it, then open the page for every class and the details.</p>
+          <oc-demo title="Interactivity at a glance: one example per page">
+            <div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-* · .select-all</code><div class="oc-eg__note"><strong>Cursor, selection &amp; pointer.</strong> Move the mouse over the three boxes: the pointer changes. Click the address once: all of it is selected.</div><div class="oc-eg__stage oc-eg__stage--plain ix-stage">
+              <div class="ix-chips"><div class="ix-chip ix-c1 cursor-pointer">pointer</div><div class="ix-chip ix-c2 cursor-help">help</div><div class="ix-chip ix-c3 cursor-not-allowed">not-allowed</div></div>
+              <span class="ix-code select-all">info@company1.example</span>
+            </div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.snap-x · .snap-start</code><div class="oc-eg__note"><strong>Scrolling &amp; touch.</strong> Scroll the row sideways (swipe, Shift + mouse wheel, or drag the bar): every card stops at the left edge.</div><div class="oc-eg__stage oc-eg__stage--plain ix-stage">
+              <div class="ix-snap overflow-x-auto snap-x">
+                <div class="snap-start ix-c1">Product 1</div><div class="snap-start ix-c2">Product 2</div><div class="snap-start ix-c4">Product 3</div><div class="snap-start ix-c5">Product 4</div><div class="snap-start ix-c6">Product 5</div><div class="snap-start ix-c3">Product 6</div>
+              </div>
+            </div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.accent-green · .field-sizing-content</code><div class="oc-eg__note"><strong>Form controls.</strong> The native checkbox, radio and slider take one color (Opera ignores <code>accent-color</code>). Type in the text field: it grows with your text.</div><div class="oc-eg__stage oc-eg__stage--plain ix-stage">
+              <div class="ix-form">
+                <label><input type="checkbox" class="accent-green" checked> Send me the invoice</label>
+                <label><input type="radio" name="ix-plan" class="accent-green" checked> Monthly plan</label>
+                <label>Seats <input type="range" class="accent-green" min="1" max="10" value="6" aria-label="Seats"></label>
+                <label>Name <input type="text" class="field-sizing-content" value="Customer 1" aria-label="Name"></label>
+              </div>
+            </div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-row-reverse · .reading-flow-flex-visual</code><div class="oc-eg__note"><strong>Performance &amp; accessibility.</strong> The HTML lists Step 3, 2, 1; the row shows them reversed. Click Step 1 and press Tab: the focus follows the order you see (Chrome 137+).</div><div class="oc-eg__stage oc-eg__stage--plain ix-stage">
+              <div class="ix-flow flex flex-row-reverse reading-flow-flex-visual"><button type="button" class="oc-btn oc-btn--secondary">Step 3</button><button type="button" class="oc-btn oc-btn--secondary">Step 2</button><button type="button" class="oc-btn oc-btn--secondary">Step 1</button></div>
+              <p class="ix-hint">Without the class, Tab would go 3, 2, 1: backwards.</p>
+            </div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- 1. cursor and selection --&gt;
+&lt;div class="cursor-pointer"&gt;pointer&lt;/div&gt;
+&lt;div class="cursor-help"&gt;help&lt;/div&gt;
+&lt;div class="cursor-not-allowed"&gt;not-allowed&lt;/div&gt;
+&lt;span class="select-all"&gt;info@company1.example&lt;/span&gt;
+
+&lt;!-- 2. a row that snaps (the cards have a fixed width, e.g. 10rem) --&gt;
+&lt;div class="flex gap-0.8 overflow-x-auto snap-x"&gt;
+  &lt;div class="snap-start"&gt;Product 1&lt;/div&gt;
+  &lt;div class="snap-start"&gt;Product 2&lt;/div&gt;
+  &lt;div class="snap-start"&gt;Product 3&lt;/div&gt;
+  &lt;div class="snap-start"&gt;Product 4&lt;/div&gt;
+  &lt;div class="snap-start"&gt;Product 5&lt;/div&gt;
+  &lt;div class="snap-start"&gt;Product 6&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 3. native controls in one color, a field that grows --&gt;
+&lt;label&gt;&lt;input type="checkbox" class="accent-green" checked&gt; Send me the invoice&lt;/label&gt;
+&lt;label&gt;&lt;input type="radio" name="plan" class="accent-green" checked&gt; Monthly plan&lt;/label&gt;
+&lt;label&gt;Seats &lt;input type="range" class="accent-green" min="1" max="10" value="6"&gt;&lt;/label&gt;
+&lt;label&gt;Name &lt;input type="text" class="field-sizing-content" value="Customer 1"&gt;&lt;/label&gt;
+
+&lt;!-- 4. Tab follows the order you see --&gt;
+&lt;div class="flex flex-row-reverse reading-flow-flex-visual"&gt;
+  &lt;button&gt;Step 3&lt;/button&gt;&lt;button&gt;Step 2&lt;/button&gt;&lt;button&gt;Step 1&lt;/button&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="pages">Open a page</h3>
+          <table class="oc-table-ref">
+            <thead><tr><th class="w-perc-1/3">Page</th><th>What it is for</th><th>Main classes</th></tr></thead>
+            <tbody>
+              <tr><td><a href="cursor-selection.html">Cursor, selection &amp; pointer</a></td><td>What the mouse pointer looks like, what the reader can select, which elements ignore the mouse</td><td><code>.cursor-*</code>, <code>.select-*</code>, <code>.pointer-events-*</code></td></tr>
+              <tr><td><a href="scrolling.html">Scrolling &amp; touch</a></td><td>Smooth scrolling, rows and carousels that snap, CSS carousel dots, what a finger may do on a touch screen</td><td><code>.scroll-smooth</code>, <code>.snap-*</code>, <code>.scroll-markers-*</code>, <code>.touch-*</code></td></tr>
+              <tr><td><a href="forms.html">Form controls</a></td><td>Colors of native controls and the text cursor, light or dark widgets, boxes the reader can resize, fields that grow, a select you can style</td><td><code>.accent-*</code>, <code>.caret-*</code>, <code>.scheme-*</code>, <code>.resize-*</code>, <code>.field-sizing-content</code>, <code>.appearance-base-select</code></td></tr>
+              <tr><td><a href="performance-a11y.html">Performance &amp; accessibility</a></td><td>A hint for smooth animations, and a Tab order that follows the layout you see</td><td><code>.will-change-*</code>, <code>.reading-flow-*</code></td></tr>
+            </tbody>
+          </table>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Unsupported values are ignored and the browser keeps its default behaviour, so these classes are safe progressive enhancements.</p>
           <oc-compat features="css.properties.cursor css.properties.user-select css.properties.pointer-events css.properties.resize css.properties.scroll-behavior css.properties.scroll-snap-type css.properties.touch-action css.properties.accent-color css.properties.appearance css.properties.caret-color css.properties.color-scheme css.properties.will-change css.properties.field-sizing css.properties.appearance.base-select css.properties.reading-flow css.properties.scroll-marker-group css.properties.overflow-anchor css.properties.print-color-adjust"></oc-compat>
-
-          <h3 class="oc-section-content__title mt-10" id="usage">Usage example</h3>
-
-          <oc-code>&lt;button class="cursor-pointer select-none touch-manipulation"&gt;
-  Interactive Button
-&lt;/button&gt;
-
-&lt;div class="snap-x scroll-smooth"&gt;
-  &lt;div class="snap-start"&gt;Slide 1&lt;/div&gt;
-  &lt;div class="snap-start"&gt;Slide 2&lt;/div&gt;
-&lt;/div&gt;</oc-code>
         </div>
 
         <div class="oc-section-footer">

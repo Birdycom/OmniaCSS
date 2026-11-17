@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Layout Flow", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n.lay-tile { padding: 8px 10px; border-radius: 8px; background: var(--color-dodgerblue-90); color: var(--color-white-50); font: 600 0.78rem/1.2 ui-monospace, monospace; }\n.lay-tile--b { background: var(--color-forestgreen-90); } .lay-tile--c { background: var(--color-darkorange-90); } .lay-tile--d { background: var(--color-magenta-90); }\n.lay-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 16px; inline-size: 100%; }\n.lay-cell { display: grid; gap: 6px; align-content: start; font-size: 0.75rem; }\n.lay-cell > code { justify-self: start; }\n.lay-note { font-size: 0.75rem; color: var(--oc-muted-foreground); }\n.lay-textbox { font-size: 0.82rem; line-height: 1.6; padding: 4px; }\n</style>","<style>\n    .demo-container { background: var(--bg-soft); padding: 24px; border-radius: 12px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 32px; }\n    .demo-box { background: var(--accent); color: light-dark(var(--color-white-95), var(--color-white-2)); padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; text-align: center; }\n    .demo-float-img { width: 80px; height: 80px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--accent); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Layout Flow","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style></style>","<style>\n/* Flow demos: frame from the shared example kit (.oc-eg); flat palette boxes with white text */\n.fl-field { padding: 14px; color: var(--oc-foreground); font-size: 0.85rem; line-height: 1.6; }\n.fl-box { display: grid; place-content: center; inline-size: 5.5rem; block-size: 4rem; margin-block-end: 6px; border-radius: 8px; background: var(--color-vividblue-90); color: var(--color-white-50); font-weight: 700; font-size: 0.8rem; }\n.fl-box.float-start, .fl-box.float-left { margin-inline-end: 12px; }\n.fl-box.float-end, .fl-box.float-right { margin-inline-start: 12px; background: var(--color-teal-70); }\n.fl-box.float-none { inline-size: auto; background: var(--color-purple-60); }\n.fl-cols { padding: 14px; color: var(--oc-foreground); font-size: 0.85rem; line-height: 1.6; column-gap: 1.5rem; column-rule: 2px solid var(--oc-border-strong); }\n</style>"]}-->
 <section class="oc-docs-section" id="layout-flow">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Layout Flow</h2>
@@ -26,17 +26,6 @@
             </table>
           </div>
 
-          <h3 class="oc-section-content__title">Float Demo</h3>
-          <oc-demo title="Float Demo"><div class="preview demo-container">
-            <div class="flow-root">
-              <div class="float-start demo-float-img mr-4 mb-2">Float Start</div>
-              <p class="oc-docs-typo-meta">
-                This text wraps around the floated element. Floats are helpful for simple image positioning 
-                within text-heavy layouts. The <code>.flow-root</code> parent clears the float.
-              </p>
-            </div>
-          </div></oc-demo>
-
           <h3 class="oc-section-content__title mt-8">Multi-Columns</h3>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
@@ -54,52 +43,60 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title">Columns Demo</h3>
-          <oc-demo title="Columns Demo"><div class="preview demo-container">
-            <div class="columns-2 gap-6">
-              <p class="oc-docs-typo-meta mb-4">Column 1 content flows into column 2 naturally.</p>
-              <p class="oc-docs-typo-meta">Multi-column layouts are useful for newspaper-style text distribution.</p>
-            </div>
-          </div><oc-code lang="html">&lt;div class="columns-3 gap-8"&gt;
-  &lt;p&gt;Three column text flow...&lt;/p&gt;
-&lt;/div&gt;</oc-code></oc-demo>
-
           <h3 class="oc-section-content__title mt-8">Floats: start, end, left, right, none</h3>
           <p class="oc-section-content__desc">Compare the five float classes with the same box and text. <code>.float-none</code> keeps the box in the normal flow above the text.</p>
 
           <oc-demo title="All float values">
-            <div class="lay-grid" style="grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr))">
-              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-start lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-start</code></div>
-              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-end lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-end</code></div>
-              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-left lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-left</code></div>
-              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-right lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-right</code></div>
-              <div class="lay-cell"><div class="flow-root lay-textbox"><div class="float-none lay-tile" style="margin:0 8px 4px 0">box</div>Floats are helpful for simple image positioning within text-heavy layouts: the text wraps around the box and returns to full width below it. </div><code>.float-none</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="flow-root"&gt;
-  &lt;img class="float-start" src="…"&gt;
-  &lt;p&gt;Text wraps around the image…&lt;/p&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.float-start</code><div class="oc-eg__note">Box on the start side (left in left-to-right text), text on the other side.</div><div class="oc-eg__stage oc-eg__stage--plain fl-field flow-root"><div class="float-start fl-box">.float-start</div>Floats are handy to put a small picture next to a text. The text wraps around the box and returns to the full width below it.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.float-end</code><div class="oc-eg__note">Box on the end side (right in left-to-right text).</div><div class="oc-eg__stage oc-eg__stage--plain fl-field flow-root"><div class="float-end fl-box">.float-end</div>Floats are handy to put a small picture next to a text. The text wraps around the box and returns to the full width below it.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.float-left</code><div class="oc-eg__note">Always left, also in right-to-left text.</div><div class="oc-eg__stage oc-eg__stage--plain fl-field flow-root"><div class="float-left fl-box">.float-left</div>Floats are handy to put a small picture next to a text. The text wraps around the box and returns to the full width below it.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.float-right</code><div class="oc-eg__note">Always right, also in right-to-left text.</div><div class="oc-eg__stage oc-eg__stage--plain fl-field flow-root"><div class="float-right fl-box">.float-right</div>Floats are handy to put a small picture next to a text. The text wraps around the box and returns to the full width below it.</div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.float-none</code><div class="oc-eg__note">No float: the box stays in the normal flow, the text starts below it.</div><div class="oc-eg__stage oc-eg__stage--plain fl-field flow-root"><div class="float-none fl-box">.float-none</div>Floats are handy to put a small picture next to a text. The text wraps around the box and returns to the full width below it.</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- The same box and text five times; only the float class changes --&gt;
+&lt;div class="flow-root"&gt;
+  &lt;div class="float-start"&gt;.float-start&lt;/div&gt;
+  Floats are handy to put a small picture next to a text. The text wraps around the box and returns to the full width below it.
+&lt;/div&gt;
+&lt;div class="flow-root"&gt;&lt;div class="float-end"&gt;.float-end&lt;/div&gt;Floats are handy to put …&lt;/div&gt;
+&lt;div class="flow-root"&gt;&lt;div class="float-left"&gt;.float-left&lt;/div&gt;Floats are handy to put …&lt;/div&gt;
+&lt;div class="flow-root"&gt;&lt;div class="float-right"&gt;.float-right&lt;/div&gt;Floats are handy to put …&lt;/div&gt;
+&lt;div class="flow-root"&gt;&lt;div class="float-none"&gt;.float-none&lt;/div&gt;Floats are handy to put …&lt;/div&gt;
+&lt;!-- Box in this demo: 5.5rem × 4rem, 12px space towards the text --&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Columns: 1 to 6, and by minimum width</h3>
-          <p class="oc-section-content__desc"><code>.columns-{n}</code> asks for exactly <em>n</em> columns; <code>.columns-xs/sm/md</code> ask for columns of at least 20, 24 or 28rem and let the browser decide how many fit, which is naturally responsive.</p>
+          <p class="oc-section-content__desc"><code>.columns-{n}</code> asks for exactly <em>n</em> columns; <code>.columns-xs/sm/md</code> ask for columns of at least 20, 24 or 28rem and let the browser decide how many fit, which is naturally responsive. <code>.columns-auto</code> sets the count back to <code>auto</code>: without a column width that is one column, so it looks like <code>.columns-1</code> and has no example of its own; use it to undo a count at a breakpoint, for example <code>md:columns-auto</code>.</p>
 
+          <p class="oc-section-content__desc">The same text with a different number of columns. The vertical line between the columns is a <code>column-rule</code>, added here only to make the columns easy to see.</p>
           <oc-demo title="columns-1 … columns-6">
-            <div class="lay-grid" style="grid-template-columns: 1fr">
-              <div class="lay-cell"><div class="columns-1 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-1</code></div>
-              <div class="lay-cell"><div class="columns-2 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-2</code></div>
-              <div class="lay-cell"><div class="columns-3 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-3</code></div>
-              <div class="lay-cell"><div class="columns-4 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-4</code></div>
-              <div class="lay-cell"><div class="columns-6 gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-6</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="columns-3 gap-4"&gt;…long text…&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 100%">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.columns-1</code><div class="oc-eg__note">One column: the text runs the full width.</div><div class="oc-eg__stage oc-eg__stage--plain columns-1 fl-cols">Multi-column layout pours one text into several columns, like a newspaper. The text runs down the first column and continues at the top of the next one. The browser balances the columns so they end at about the same height. Use it for long lists, footers and short articles; for page layout use grid instead. </div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.columns-2</code><div class="oc-eg__note">Two columns of equal width.</div><div class="oc-eg__stage oc-eg__stage--plain columns-2 fl-cols">Multi-column layout pours one text into several columns, like a newspaper. The text runs down the first column and continues at the top of the next one. The browser balances the columns so they end at about the same height. Use it for long lists, footers and short articles; for page layout use grid instead. </div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.columns-3</code><div class="oc-eg__note">Three columns of equal width.</div><div class="oc-eg__stage oc-eg__stage--plain columns-3 fl-cols">Multi-column layout pours one text into several columns, like a newspaper. The text runs down the first column and continues at the top of the next one. The browser balances the columns so they end at about the same height. Use it for long lists, footers and short articles; for page layout use grid instead. </div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.columns-4</code><div class="oc-eg__note">Four columns: on a phone the lines get very short.</div><div class="oc-eg__stage oc-eg__stage--plain columns-4 fl-cols">Multi-column layout pours one text into several columns, like a newspaper. The text runs down the first column and continues at the top of the next one. The browser balances the columns so they end at about the same height. Use it for long lists, footers and short articles; for page layout use grid instead. </div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.columns-6</code><div class="oc-eg__note">Six columns: only good for short words or lists.</div><div class="oc-eg__stage oc-eg__stage--plain columns-6 fl-cols">Multi-column layout pours one text into several columns, like a newspaper. The text runs down the first column and continues at the top of the next one. The browser balances the columns so they end at about the same height. Use it for long lists, footers and short articles; for page layout use grid instead. </div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- The same text five times; only the columns class changes --&gt;
+&lt;div class="columns-1"&gt;Multi-column layout pours one text into several columns, like a newspaper. …&lt;/div&gt;
+&lt;div class="columns-2"&gt;Multi-column layout pours one text …&lt;/div&gt;
+&lt;div class="columns-3"&gt;Multi-column layout pours one text …&lt;/div&gt;
+&lt;div class="columns-4"&gt;Multi-column layout pours one text …&lt;/div&gt;
+&lt;div class="columns-6"&gt;Multi-column layout pours one text …&lt;/div&gt;
 
+&lt;!-- The line between the columns is only for this demo:
+     .demo-cols { column-gap: 1.5rem; column-rule: 2px solid var(--oc-border-strong); } --&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Here you set the smallest column width, not the number. Make the window narrower: the columns drop one by one when they no longer fit.</p>
           <oc-demo title="columns-xs, columns-sm, columns-md (resize the window)">
-            <div class="lay-grid" style="grid-template-columns: 1fr">
-              <div class="lay-cell"><div class="columns-xs gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-xs</code></div>
-              <div class="lay-cell"><div class="columns-sm gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-sm</code></div>
-              <div class="lay-cell"><div class="columns-md gap-2 lay-textbox">Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. Multi-column layouts are useful for newspaper-style text distribution. The text flows down the first column and continues at the top of the next one. </div><code>.columns-md</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="columns-sm gap-4"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 100%">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.columns-xs</code><div class="oc-eg__note">Columns of at least 20rem: as many as fit.</div><div class="oc-eg__stage oc-eg__stage--plain columns-xs fl-cols">Multi-column layout pours one text into several columns, like a newspaper. The text runs down the first column and continues at the top of the next one. The browser balances the columns so they end at about the same height. Use it for long lists, footers and short articles; for page layout use grid instead. </div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.columns-sm</code><div class="oc-eg__note">Columns of at least 24rem: as many as fit.</div><div class="oc-eg__stage oc-eg__stage--plain columns-sm fl-cols">Multi-column layout pours one text into several columns, like a newspaper. The text runs down the first column and continues at the top of the next one. The browser balances the columns so they end at about the same height. Use it for long lists, footers and short articles; for page layout use grid instead. </div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.columns-md</code><div class="oc-eg__note">Columns of at least 28rem: as many as fit.</div><div class="oc-eg__stage oc-eg__stage--plain columns-md fl-cols">Multi-column layout pours one text into several columns, like a newspaper. The text runs down the first column and continues at the top of the next one. The browser balances the columns so they end at about the same height. Use it for long lists, footers and short articles; for page layout use grid instead. </div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="columns-xs"&gt;Multi-column layout pours one text into several columns, like a newspaper. …&lt;/div&gt;  &lt;!-- columns of at least 20rem --&gt;
+&lt;div class="columns-sm"&gt;Multi-column layout pours one text …&lt;/div&gt;  &lt;!-- at least 24rem --&gt;
+&lt;div class="columns-md"&gt;Multi-column layout pours one text …&lt;/div&gt;  &lt;!-- at least 28rem --&gt;</oc-code></oc-demo>
 
         </div>
       </section>

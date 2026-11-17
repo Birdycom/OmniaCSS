@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Interactivity: Form controls", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Interactivity: Form controls","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Inside the example stages (fc-*) */\n    .fc-stage { padding: 1rem; }\n    .fc-scheme__stage { display: grid; gap: 0.85rem; align-content: start; padding: 1rem; color: var(--oc-foreground); }\n    .fc-resize__stage { block-size: 11rem; padding: 0.5rem; overflow: hidden; }\n    .fc-accent__row { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: center; }\n    .fc-accent__row label { display: inline-flex; gap: 0.4rem; align-items: center; }\n    .fc-accent__row input[type=\"checkbox\"], .fc-accent__row input[type=\"radio\"] { inline-size: 1.15rem; block-size: 1.15rem; margin: 0; }\n    .fc-accent__row input[type=\"range\"], .fc-accent__row progress { inline-size: 9rem; }\n    .fc-caret input { font-size: 1.25rem; }\n    .fc-check { display: inline-flex; gap: 0.5rem; align-items: center; font-size: 0.9rem; }\n    .fc-check input { inline-size: 1.1rem; block-size: 1.1rem; margin: 0; }\n    .fc-resize__box { box-sizing: border-box; display: grid; gap: 0.2rem; align-content: start; inline-size: 9.5rem; block-size: 5rem; min-inline-size: 7rem; min-block-size: 4rem; max-inline-size: 100%; max-block-size: 100%; padding: 0.7rem 0.8rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); }\n    .fc-resize__box span { color: var(--oc-muted-foreground); font-size: 0.8rem; }\n    .fc-select-field { display: grid; gap: 0.35rem; inline-size: min(100%, 20rem); }\n    .fc-select { inline-size: 100%; padding: 0.55rem 0.8rem; border: 1px solid var(--oc-input); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; cursor: pointer; }\n    .fc-select:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n    .fc-select::picker-icon { color: var(--oc-muted-foreground); transition: rotate 0.2s; }\n    .fc-select:open::picker-icon { rotate: 180deg; }\n    .fc-select::picker(select) { margin-block-start: 0.35rem; padding: 0.35rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-popover, var(--oc-card)); color: var(--oc-foreground); box-shadow: 0 12px 32px oklch(from var(--color-black-60) l c h / 0.18); }\n    .fc-select option { display: flex; gap: 0.7rem; align-items: center; padding: 0.55rem 0.7rem; border-radius: 8px; }\n    .fc-select option:is(:hover, :focus-visible) { background: var(--oc-muted); outline: none; }\n    .fc-select option:checked { background: oklch(from var(--oc-primary) l c h / 0.1); }\n    .fc-select option::checkmark { order: 1; margin-inline-start: auto; color: var(--oc-primary); }\n    .fc-dot { flex: none; inline-size: 0.65rem; block-size: 0.65rem; border-radius: 50%; background: var(--dot); }\n    .fc-opt { display: grid; }\n    .fc-opt small { color: var(--oc-muted-foreground); font-size: 0.78rem; font-weight: 400; }\n    .fc-select selectedcontent { display: flex; gap: 0.6rem; align-items: center; }\n    .fc-select selectedcontent small { display: none; }\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (appearance: base-select) { .sup-note--select { display: none; } }\n    /* Read only by the plain select of browsers without base-select, so the name and the explanation do not run together. */\n    .fc-sep { display: none; }\n  </style>"]}-->
 <section class="oc-docs-section" id="forms">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Form controls</h2>
@@ -35,20 +35,63 @@
             </div>
           </div>
 
-          <oc-demo title="accent-color and caret-color on native controls">
-            <div class="flex flex-wrap gap-3 align-items-center">
-              <label class="flex gap-0.5 align-items-center accent-blue"><input type="checkbox" checked> .accent-blue</label>
-              <label class="flex gap-0.5 align-items-center accent-red"><input type="radio" checked> .accent-red</label>
-              <label class="flex gap-0.5 align-items-center accent-green"><input type="range" value="70"> .accent-green</label>
-              <input class="caret-red p-0.5 round-2 oc-demo-input" value="Type here: red caret (.caret-red)">
-            </div>
-          </oc-demo>
+          <p class="oc-section-content__desc"><strong>Accent color</strong> is the color the browser uses for the filled part of its own controls: the tick of a checkbox, the dot of a radio button, the filled part of a slider and a progress bar. Each row below holds the same four controls; only the class on the row differs. Opera draws its own form controls and ignores <code>accent-color</code>; Chrome, Edge, Firefox and Safari follow it.</p>
+          <oc-demo title="accent-color: one class recolors every native control in the row">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 22rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">(no class)</code><div class="oc-eg__note">The browser's own color for the tick, the dot, the slider and the bar.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage fc-accent__row"><label><input type="checkbox" checked> Checkbox</label><label><input type="radio" checked> Radio</label><input type="range" value="70" aria-label="Slider"><progress value="60" max="100" aria-label="Progress"></progress></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.accent-blue</code><div class="oc-eg__note">All four controls fill in blue.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage fc-accent__row accent-blue"><label><input type="checkbox" checked> Checkbox</label><label><input type="radio" checked> Radio</label><input type="range" value="70" aria-label="Slider"><progress value="60" max="100" aria-label="Progress"></progress></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.accent-red</code><div class="oc-eg__note">All four controls fill in red.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage fc-accent__row accent-red"><label><input type="checkbox" checked> Checkbox</label><label><input type="radio" checked> Radio</label><input type="range" value="70" aria-label="Slider"><progress value="60" max="100" aria-label="Progress"></progress></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.accent-green</code><div class="oc-eg__note">All four controls fill in green.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage fc-accent__row accent-green"><label><input type="checkbox" checked> Checkbox</label><label><input type="radio" checked> Radio</label><input type="range" value="70" aria-label="Slider"><progress value="60" max="100" aria-label="Progress"></progress></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Checkbox&lt;/label&gt; &lt;label&gt;&lt;input type="radio" checked&gt; Radio&lt;/label&gt;
+  &lt;input type="range" value="70"&gt; &lt;progress value="60" max="100"&gt;&lt;/progress&gt;
+&lt;/div&gt;  &lt;!-- the browser's own color --&gt;
+&lt;div class="accent-blue"&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Checkbox&lt;/label&gt; &lt;label&gt;&lt;input type="radio" checked&gt; Radio&lt;/label&gt;
+  &lt;input type="range" value="70"&gt; &lt;progress value="60" max="100"&gt;&lt;/progress&gt;
+&lt;/div&gt;
+&lt;div class="accent-red"&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Checkbox&lt;/label&gt; &lt;label&gt;&lt;input type="radio" checked&gt; Radio&lt;/label&gt;
+  &lt;input type="range" value="70"&gt; &lt;progress value="60" max="100"&gt;&lt;/progress&gt;
+&lt;/div&gt;
+&lt;div class="accent-green"&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Checkbox&lt;/label&gt; &lt;label&gt;&lt;input type="radio" checked&gt; Radio&lt;/label&gt;
+  &lt;input type="range" value="70"&gt; &lt;progress value="60" max="100"&gt;&lt;/progress&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><strong>Caret color</strong> is the color of the caret: the thin blinking line that shows where your next letter will appear in a text field. Click in each field below and look at the blinking line after the text.</p>
+          <oc-demo title="caret-color: the blinking line in a text field">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">(no class)</code><div class="oc-eg__note">Click in the field: the caret has the text color.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage fc-caret"><input aria-label="no class example" class="oc-input" value="Click here"></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.caret-red</code><div class="oc-eg__note">Click in the field: a red caret blinks after the text.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage fc-caret"><input aria-label="caret-red example" class="oc-input caret-red" value="Click here"></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.caret-green</code><div class="oc-eg__note">Click in the field: a green caret blinks after the text.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage fc-caret"><input aria-label="caret-green example" class="oc-input caret-green" value="Click here"></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;input value="Click here"&gt;                    &lt;!-- the caret has the text color --&gt;
+&lt;input class="caret-red" value="Click here"&gt;
+&lt;input class="caret-green" value="Click here"&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><strong>Color scheme</strong> tells the browser whether a part of the page is light or dark. The browser then draws its own parts to match: the calendar of a date field, the list of a select, check marks and scroll bars. The two panels below hold the same fields; only the class on the panel differs. Open the date field and the select in both.</p>
           <oc-demo title="color-scheme switches the native widgets">
-            <div class="flex flex-wrap gap-2">
-              <div class="scheme-light oc-fx-card oc-canvas"><strong>.scheme-light</strong><select><option>Light select</option></select><input type="date"></div>
-              <div class="scheme-dark oc-fx-card oc-canvas"><strong>.scheme-dark</strong><select><option>Dark select</option></select><input type="date"></div>
-            </div>
-          </oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.scheme-light</code><div class="oc-eg__note">Open the date field and the select: the calendar and the list are light.</div><div class="oc-eg__stage oc-eg__stage--plain fc-scheme__stage scheme-light">
+                <label class="oc-field"><span class="oc-label">Delivery date</span><input class="oc-input" type="date" value="2026-11-20"></label>
+                <label class="oc-field"><span class="oc-label">Country</span><select class="oc-select"><option>Belgium</option><option>Netherlands</option><option>France</option><option>Germany</option></select></label>
+                <label class="fc-check"><input type="checkbox" checked> Send me the invoice by mail</label></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scheme-dark</code><div class="oc-eg__note">Open the same fields here: the browser draws them dark.</div><div class="oc-eg__stage oc-eg__stage--plain fc-scheme__stage scheme-dark">
+                <label class="oc-field"><span class="oc-label">Delivery date</span><input class="oc-input" type="date" value="2026-11-20"></label>
+                <label class="oc-field"><span class="oc-label">Country</span><select class="oc-select"><option>Belgium</option><option>Netherlands</option><option>France</option><option>Germany</option></select></label>
+                <label class="fc-check"><input type="checkbox" checked> Send me the invoice by mail</label></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;section class="scheme-light"&gt;
+  &lt;label&gt;Delivery date &lt;input type="date" value="2026-11-20"&gt;&lt;/label&gt;
+  &lt;label&gt;Country &lt;select&gt;&lt;option&gt;Belgium&lt;/option&gt;&lt;option&gt;Netherlands&lt;/option&gt;&lt;option&gt;France&lt;/option&gt;&lt;option&gt;Germany&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Send me the invoice by mail&lt;/label&gt;
+&lt;/section&gt;
+
+&lt;section class="scheme-dark"&gt;
+  &lt;label&gt;Delivery date &lt;input type="date" value="2026-11-20"&gt;&lt;/label&gt;
+  &lt;label&gt;Country &lt;select&gt;&lt;option&gt;Belgium&lt;/option&gt;&lt;option&gt;Netherlands&lt;/option&gt;&lt;option&gt;France&lt;/option&gt;&lt;option&gt;Germany&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" checked&gt; Send me the invoice by mail&lt;/label&gt;
+&lt;/section&gt;</oc-code></oc-demo>
 
           <!-- Resize -->
           <h3 class="oc-section-content__title" id="resize">Resize</h3>
@@ -63,13 +106,19 @@
             </tbody>
           </table>
 
-          <oc-demo title="Drag the bottom-right corner">
-            <div class="flex flex-wrap gap-2">
-              <div class="oc-fx-card resize overflow-auto" style="min-inline-size: 10rem; min-block-size: 5rem;"><strong>.resize</strong><span>both directions</span></div>
-              <div class="oc-fx-card resize-x overflow-auto" style="min-inline-size: 10rem;"><strong>.resize-x</strong><span>horizontal only</span></div>
-              <div class="oc-fx-card resize-y overflow-auto" style="min-block-size: 5rem;"><strong>.resize-y</strong><span>vertical only</span></div>
-            </div>
-          </oc-demo>
+          <oc-demo title="Drag the bottom-right corner of each box">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 18rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.resize</code><div class="oc-eg__note">Drag the corner: width and height change.</div><div class="oc-eg__stage oc-eg__stage--plain fc-resize__stage"><div class="fc-resize__box resize overflow-auto"><strong>.resize</strong><span>both directions</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.resize-x</code><div class="oc-eg__note">Drag the corner: only the width changes.</div><div class="oc-eg__stage oc-eg__stage--plain fc-resize__stage"><div class="fc-resize__box resize-x overflow-auto"><strong>.resize-x</strong><span>width only</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.resize-y</code><div class="oc-eg__note">Drag the corner: only the height changes.</div><div class="oc-eg__stage oc-eg__stage--plain fc-resize__stage"><div class="fc-resize__box resize-y overflow-auto"><strong>.resize-y</strong><span>height only</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.resize-none</code><div class="oc-eg__note">No handle: the box keeps its size.</div><div class="oc-eg__stage oc-eg__stage--plain fc-resize__stage"><div class="fc-resize__box resize-none overflow-auto"><strong>.resize-none</strong><span>no handle</span></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- resize needs an overflow other than visible --&gt;
+&lt;div class="resize overflow-auto"&gt;both directions&lt;/div&gt;
+&lt;div class="resize-x overflow-auto"&gt;width only&lt;/div&gt;
+&lt;div class="resize-y overflow-auto"&gt;height only&lt;/div&gt;
+&lt;div class="resize-none overflow-auto"&gt;no handle&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Every box sits in its own fixed cell, so dragging one never moves another.</p>
 
           <!-- Field Sizing -->
           <h3 class="oc-section-content__title mt-10" id="field-sizing">Field Sizing</h3>
@@ -89,12 +138,16 @@
 
           
 
+          <p class="oc-section-content__desc"><code>.field-sizing-fixed</code> is the normal behaviour (a field keeps its own size whatever you type), so it needs no demo: use it to switch a field back inside a form that has <code>.field-sizing-content</code>.</p>
           <oc-demo title="field-sizing-content: the field grows while you type">
-            <div class="flex flex-wrap gap-2 align-items-start">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.field-sizing-content</code><div class="oc-eg__note">Type in both fields: each one grows and shrinks with its text.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage"><div class="flex flex-wrap gap-2 align-items-start">
               <textarea class="field-sizing-content oc-demo-input p-0.5 round-2" style="min-inline-size: 12rem; max-inline-size: 28rem;" aria-label="Auto-growing textarea">Type here - the textarea grows with its content.</textarea>
               <input class="field-sizing-content oc-demo-input p-0.5 round-2" value="short" aria-label="Auto-growing input">
-            </div>
-          <oc-code lang="html">&lt;textarea class="field-sizing-content"&gt;&lt;/textarea&gt;</oc-code></oc-demo>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;textarea class="field-sizing-content p-0.5 round-2" style="min-inline-size: 12rem; max-inline-size: 28rem"&gt;Type here - the textarea grows with its content.&lt;/textarea&gt;
+&lt;input class="field-sizing-content p-0.5 round-2" value="short"&gt;</oc-code></oc-demo>
 
           <!-- Customizable Select -->
           <h3 class="oc-section-content__title mt-10" id="base-select">Customizable Select</h3>
@@ -111,13 +164,42 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">Below: a status select where every option has a colored dot, a name and a short explanation, the open list has rounded corners and a shadow, and the chosen option shows a check mark. All of it is one <code>&lt;select&gt;</code>: keyboard, screen reader and form submit work as always. In a browser without support you see the same options as a plain list.</p>
           <oc-demo title="appearance-base-select (Chrome 135+; other browsers show a normal select)">
-            <select class="appearance-base-select oc-rich-select" aria-label="Choose a fruit">
-              <button><selectedcontent></selectedcontent></button>
-              <option value="apple">&#x1F34E; Apple</option>
-              <option value="banana">&#x1F34C; Banana</option>
-              <option value="grapes">&#x1F347; Grapes</option>
-            </select>
-          </oc-demo>
+            <div class="oc-eg"><div class="sup-note sup-note--select"><b>Not in this browser yet.</b> Your browser does not support <code>appearance: base-select</code>: you see a normal select, and every option shows its name and explanation as plain text.</div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.appearance-base-select</code><div class="oc-eg__note">Open the select: every option has a colored dot, a name and a short explanation, and the chosen one gets a check mark.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage"><label class="fc-select-field">
+              <span class="oc-label">Order status</span>
+              <select class="appearance-base-select fc-select" aria-label="Order status" data-fc-rich></select>
+              <template data-fc-rich-content>
+                <button><selectedcontent></selectedcontent></button>
+                <option value="new" selected><span class="fc-dot" style="--dot: var(--color-vividblue-80)"></span><span class="fc-opt"><b>New</b><span class="fc-sep">: </span><small>Just came in, nobody has looked at it</small></span></option>
+                <option value="progress"><span class="fc-dot" style="--dot: var(--color-orange-60)"></span><span class="fc-opt"><b>In progress</b><span class="fc-sep">: </span><small>Somebody is working on it</small></span></option>
+                <option value="shipped"><span class="fc-dot" style="--dot: var(--color-green-60)"></span><span class="fc-opt"><b>Shipped</b><span class="fc-sep">: </span><small>On its way to the customer</small></span></option>
+                <option value="cancelled"><span class="fc-dot" style="--dot: var(--color-red-60)"></span><span class="fc-opt"><b>Cancelled</b><span class="fc-sep">: </span><small>Stopped, nothing will be sent</small></span></option>
+              </template>
+            </label></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;select class="appearance-base-select"&gt;
+  &lt;button&gt;&lt;selectedcontent&gt;&lt;/selectedcontent&gt;&lt;/button&gt;
+  &lt;option value="new" selected&gt;&lt;span class="dot"&gt;&lt;/span&gt; &lt;b&gt;New&lt;/b&gt;&lt;span class="sep"&gt;: &lt;/span&gt;&lt;small&gt;Just came in, nobody has looked at it&lt;/small&gt;&lt;/option&gt;
+  &lt;option value="progress"&gt;&lt;span class="dot"&gt;&lt;/span&gt; &lt;b&gt;In progress&lt;/b&gt;&lt;span class="sep"&gt;: &lt;/span&gt;&lt;small&gt;Somebody is working on it&lt;/small&gt;&lt;/option&gt;
+  &lt;option value="shipped"&gt;&lt;span class="dot"&gt;&lt;/span&gt; &lt;b&gt;Shipped&lt;/b&gt;&lt;span class="sep"&gt;: &lt;/span&gt;&lt;small&gt;On its way to the customer&lt;/small&gt;&lt;/option&gt;
+  &lt;option value="cancelled"&gt;&lt;span class="dot"&gt;&lt;/span&gt; &lt;b&gt;Cancelled&lt;/b&gt;&lt;span class="sep"&gt;: &lt;/span&gt;&lt;small&gt;Stopped, nothing will be sent&lt;/small&gt;&lt;/option&gt;
+&lt;/select&gt;</oc-code>
+          <oc-code lang="css">select, ::picker(select) { appearance: base-select; }   /* = .appearance-base-select */
+::picker(select) { border-radius: 12px; padding: 0.35rem; box-shadow: 0 12px 32px rgb(0 0 0 / 0.18); }
+option { display: flex; gap: 0.7rem; padding: 0.55rem 0.7rem; border-radius: 8px; }
+option:checked { font-weight: 600; }
+option::checkmark { order: 1; margin-inline-start: auto; }   /* the check mark, moved to the end */
+selectedcontent small { display: none; }                    /* the closed select shows the name only */
+.sep { display: none; }   /* only a plain select (no base-select support) reads it: "New: Just came in …" */</oc-code></oc-demo>
         </div>
       </section>
+<script data-fc-rich-script>
+  // Docs only: the build tool of this site cannot write a <button> inside a <select>, so the rich content of the
+  // demo select waits in a <template> and is moved in here. In your own HTML you write it directly in the <select>.
+  for (const select of document.querySelectorAll("select[data-fc-rich]")) {
+    const content = select.parentElement.querySelector("template[data-fc-rich-content]");
+    if (content) select.append(content.content.cloneNode(true));
+  }
+</script>

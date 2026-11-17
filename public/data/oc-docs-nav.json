@@ -486,16 +486,12 @@
               "href": "font-family.html"
             },
             {
-              "label": "Fonts (overview)",
-              "href": "fonts.html"
-            },
-            {
-              "label": "Font Families",
+              "label": "Font Catalog",
               "href": "font-families.html"
             },
             {
-              "label": "Font Usage",
-              "href": "font-usage.html"
+              "label": "Loading Fonts",
+              "href": "fonts.html"
             },
             {
               "label": "Font Size",
@@ -942,6 +938,14 @@
         {
           "label": "Font Family",
           "href": "font-family.html"
+        },
+        {
+          "label": "Font Catalog",
+          "href": "font-families.html"
+        },
+        {
+          "label": "Loading Fonts",
+          "href": "fonts.html"
         },
         {
           "label": "Font Size",
@@ -1490,16 +1494,16 @@
       "title": "Fonts",
       "items": [
         {
-          "label": "Overview",
-          "href": "typography/fonts.html"
+          "label": "Font Family",
+          "href": "typography/font-family.html"
         },
         {
-          "label": "Families reference",
+          "label": "Font Catalog",
           "href": "typography/font-families.html"
         },
         {
-          "label": "Usage",
-          "href": "typography/font-usage.html"
+          "label": "Loading Fonts",
+          "href": "typography/fonts.html"
         }
       ]
     },

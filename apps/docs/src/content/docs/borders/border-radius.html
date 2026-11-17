@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Border-radius", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background-color: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n.bd-pad { padding: 0.75rem; }\n.bd-inner { display: grid; place-items: center; min-block-size: 3.5rem; font-weight: 600; font-size: 0.78rem; }\n</style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Border-radius","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n.bd-sample { display: grid; place-content: center; gap: 0.15rem; min-block-size: var(--bd-h, 6.5rem); padding: 0.75rem; text-align: center; }\n.bd-sample b { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }\n.bd-sample small { font-size: 0.78rem; color: var(--oc-muted-foreground); }\n.bd-sq .bd-sample { aspect-ratio: 1; min-block-size: 0; }\n.bd-shape { display: grid; place-items: center; min-block-size: 8rem; }\n.bd-pill { padding: 0.75rem 1.75rem; font: inherit; font-weight: 700; color: var(--color-white-50); background: var(--color-magenta-90); cursor: pointer; }\n.bd-circle { display: grid; place-items: center; inline-size: 6rem; block-size: 6rem; font-size: 1.6rem; font-weight: 700; color: var(--color-white-50); background: var(--color-teal-70); }\n.bd-tag { padding: 0.35rem 1rem; font-size: 0.95rem; font-weight: 700; color: var(--oc-foreground); }\n.bd-card { display: flex; flex-direction: column; overflow: hidden; background: var(--oc-background); color: var(--oc-foreground); }\n.bd-media { display: grid; place-items: end start; min-block-size: 8.5rem; padding: 1rem; background-color: var(--color-teal-70); color: var(--color-white-50); font-weight: 700; }\n.bd-body { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; padding: 1.25rem; }\n.bd-who { display: flex; align-items: center; gap: 0.85rem; }\n.bd-avatar { display: grid; place-items: center; flex: none; inline-size: 3rem; block-size: 3rem; font-weight: 700; color: var(--color-white-50); background: var(--color-magenta-90); }\n.bd-who b { display: block; }\n.bd-who span { font-size: 0.85rem; color: var(--oc-muted-foreground); }\n.bd-input { inline-size: 100%; padding: 0.6rem 0.8rem; font: inherit; color: var(--oc-foreground); background: var(--oc-card); }\n.bd-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-block-start: auto; }\n.bd-btn { padding: 0.6rem 1.1rem; font: inherit; font-weight: 600; cursor: pointer; color: var(--color-white-50); background: var(--color-magenta-90); }\n.bd-btn--ghost { color: var(--oc-foreground); background: transparent; }\n.bd-inner { display: grid; place-content: center; min-block-size: 6rem; text-align: center; color: var(--oc-foreground); font-weight: 700; }\n.bd-inner small { font-weight: 400; color: var(--oc-muted-foreground); }\n.bd-in { container-type: inline-size; display: grid; align-content: center; padding: var(--bd-pad, 0.875rem); }\n</style>"]}-->
 <section class="oc-docs-section" id="borders-radius">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Border-radius </h2>
@@ -15,7 +15,7 @@
           <p class="oc-section-content__desc"><strong>What it does:</strong> <code>border-radius</code> rounds the corners of an element's box; the radius also clips the background and any content that overflows if <code>overflow</code> is not visible. <strong>When to use:</strong> cards, buttons, inputs, avatars (<code>.round-full</code>). Pick one or two radii for your design system and use them consistently. <strong>Gotchas:</strong> a huge radius such as <code>.round-full</code> on a non-square box gives a pill, not an ellipse; nested rounded elements look best when the inner radius equals the outer radius minus the padding; and child images do not get rounded unless the parent has <code>overflow: hidden</code> or the image has its own radius. Combine with <code>corner-shape</code> for bevels and squircles. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius" target="_blank" rel="noopener">MDN: border-radius</a>.</p>
 
           <h3 class="oc-section-content__title">CSS classes</h3>
-          <p class="oc-section-content__desc">All classes set <code>border-radius</code>. Use <code>.round-none</code> … <code>.round-12</code> or <code>.round-full</code> for all corners; use <code>.round-t*</code>, <code>.round-r*</code>, <code>.round-b*</code>, <code>.round-l*</code> for one side, or <code>.round-tl*</code>, <code>.round-tr*</code>, <code>.round-bl*</code>, <code>.round-br*</code> for a single corner. The number (1–12) is the size step.</p>
+          <p class="oc-section-content__desc">All classes set <code>border-radius</code>. Use <code>.round-none</code> … <code>.round-12</code> or <code>.round-full</code> for all corners; use <code>.round-t*</code>, <code>.round-r*</code>, <code>.round-b*</code>, <code>.round-l*</code> for one side, or <code>.round-tl*</code>, <code>.round-tr*</code>, <code>.round-bl*</code>, <code>.round-br*</code> for a single corner, and <code>.round-tlbr*</code>, <code>.round-trbl*</code> for two opposite corners. The number (1–12) is the size step.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -34,17 +34,17 @@
                 <tr class="oc-expandable-table__row-dimmed"><td><code>.round-10</code></td><td>border-radius: 1.5rem (24px)</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.round-11</code></td><td>border-radius: 1.75rem (28px)</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.round-12</code></td><td>border-radius: 2rem (32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-full</code></td><td>border-radius: 9999rem (9999px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-t</code> … <code>.round-t12</code></td><td>top corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-r</code> … <code>.round-r12</code></td><td>right corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-b</code> … <code>.round-b12</code></td><td>bottom corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-l</code> … <code>.round-l12</code></td><td>left corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-tl</code> … <code>.round-tl12</code></td><td>top-left corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-tr</code> … <code>.round-tr12</code></td><td>top-right corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-bl</code> … <code>.round-bl12</code></td><td>bottom-left corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-br</code> … <code>.round-br12</code></td><td>bottom-right corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-tlbr</code> … <code>.round-tlbr12</code></td><td>top-left, bottom-right corners only (1px … 32px)</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.round-bltr</code> … <code>.round-bltr12</code></td><td>bottom-left, top-right corners only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-full</code></td><td>border-radius: 9999rem (pill or circle)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-t</code> … <code>.round-t12</code></td><td>both top corners (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-r</code> … <code>.round-r12</code></td><td>both right corners (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-b</code> … <code>.round-b12</code></td><td>both bottom corners (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-l</code> … <code>.round-l12</code></td><td>both left corners (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-tl</code> … <code>.round-tl12</code></td><td>top-left corner only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-tr</code> … <code>.round-tr12</code></td><td>top-right corner only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-bl</code> … <code>.round-bl12</code></td><td>bottom-left corner only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-br</code> … <code>.round-br12</code></td><td>bottom-right corner only (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-tlbr</code> … <code>.round-tlbr12</code></td><td>top-left and bottom-right corners (1px … 32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.round-trbl</code> … <code>.round-trbl12</code></td><td>top-right and bottom-left corners (1px … 32px)</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -52,163 +52,125 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title">Preview — radius: basic</h3>
-          <p class="oc-section-content__desc">Basic radius: <code>.round-none</code> (0), <code>.round-2</code> (4px), <code>.round-6</code> (12px) en <code>.round-full</code> (pill/cirkel). Combineer met <code>.border</code>, <code>.border-solid</code> en een kleur-class (bijv. <code>.border-darkorange-50</code>) om de rand te tonen.</p>
+          <h3 class="oc-section-content__title">The radius scale</h3>
+<p class="oc-section-content__desc">Eight equal squares with the same 2px border; only the radius class changes. The steps are in rem, so they grow with the font size. <code>.round-full</code> turns a square into a circle.</p>
 
-          <oc-demo title="round-none, round-2, round-6, round-full">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-none</span>
-                <div class="round-none border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">none</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-2</span>
-                <div class="round-2 border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">Round <br> 4px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-6</span>
-                <div class="round-6 border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">Round <br> 12px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-full</span>
-                <div class="round-full border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1">pill</div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">
-                &lt;div class="round-none border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;none&lt;/div&gt;
-                &lt;div class="round-2 border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Round 4px&lt;/div&gt;
-                &lt;div class="round-6 border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Round 12px&lt;/div&gt;
-                &lt;div class="round-full border border-solid border-darkorange-50 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;pill&lt;/div&gt;
-              </oc-code></oc-demo>
-
-          <h3 class="oc-section-content__title">Preview — radius: directional</h3>
-          <p class="oc-section-content__desc">Directional radius: <code>.round-t5</code> (top 10px), <code>.round-r5</code> (right 10px), <code>.round-b5</code> (bottom 10px), <code>.round-l5</code> (left 10px). Combineer met <code>.border</code>, <code>.border-solid</code> en een kleur-class (bijv. <code>.border-forestgreen-50</code>) om de rand te tonen.</p>
-
-          <oc-demo title="round-t5, round-r5, round-b5, round-l5">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-t5</span>
-                <div class="round-t5 border border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top <br> 10px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-r5</span>
-                <div class="round-r5 border border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1">Right <br> 10px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-b5</span>
-                <div class="round-b5 border border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1">Bottom <br> 10px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-l5</span>
-                <div class="round-l5 border border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1">Left <br> 10px</div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">
-                &lt;div class="round-t5 border border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top 10px&lt;/div&gt;
-                &lt;div class="round-r5 border border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Right 10px&lt;/div&gt;
-                &lt;div class="round-b5 border border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Bottom 10px&lt;/div&gt;
-                &lt;div class="round-l5 border border-solid border-forestgreen-50 bg-forestgreen-mix-30 text-forestgreen-95 dark:text-forestgreen-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Left 10px&lt;/div&gt;
-              </oc-code></oc-demo>
-
-          <h3 class="oc-section-content__title">Preview — radius: one corner</h3>
-          <p class="oc-section-content__desc">One corner radius: <code>.round-tl5</code> (top-left 10px), <code>.round-tr5</code> (top-right 10px), <code>.round-br5</code> (bottom-right 10px), <code>.round-bl5</code> (bottom-left 10px). Combineer met <code>.border</code>, <code>.border-solid</code> en een kleur-class (bijv. <code>.border-dodgerblue-50</code>) om de rand te tonen.</p>
-
-          <oc-demo title="round-tl5, round-tr5, round-br5, round-bl5">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-tl5</span>
-                <div class="round-tl5 border border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-left <br> 10px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-tr5</span>
-                <div class="round-tr5 border border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-right <br> 10px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-br5</span>
-                <div class="round-br5 border border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">Bottom-right <br> 10px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-bl5</span>
-                <div class="round-bl5 border border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1">Bottom-left <br> 10px</div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">
-                &lt;div class="round-tl5 border border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-left 10px&lt;/div&gt;
-                &lt;div class="round-tr5 border border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-right 10px&lt;/div&gt;
-                &lt;div class="round-br5 border border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Bottom-right 10px&lt;/div&gt;
-                &lt;div class="round-bl5 border border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Bottom-left 10px&lt;/div&gt;
-              </oc-code></oc-demo>
-
-          <h3 class="oc-section-content__title">Preview — radius: two corners</h3>
-          <p class="oc-section-content__desc">Two corners radius: <code>.round-tlbr10</code> (top-left 10px, bottom-right 10px), <code>.round-trbl10</code> (top-right 10px, bottom-left 10px). Combineer met <code>.border</code>, <code>.border-solid</code> en een kleur-class (bijv. <code>.border-magenta-50</code>) om de rand te tonen.</p>
-
-          <oc-demo title="round-tlbr10, round-trbl10">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-tlbr10</span>
-                <div class="round-tlbr10 border border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-left <br> bottom-right <br> 24px</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">round-trbl10</span>
-                <div class="round-trbl10 border border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1">Top-right <br> bottom-left <br> 24px</div>
-              </div>
-            </div>
-
-            
-            
-          <oc-code lang="html">
-                &lt;div class="round-tlbr10 border border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-left, bottom-right 24px&lt;/div&gt;
-                &lt;div class="round-trbl10 border border-solid border-magenta-50 bg-magenta-mix-30 text-magenta-95 dark:text-magenta-30 flex flex-wrap align-items-center justify-center size-24 font-1"&gt;Top-right, bottom-left 24px&lt;/div&gt;
-              </oc-code></oc-demo>
-
-          <h3 class="oc-section-content__title mt-8">The whole radius scale</h3>
-          <p class="oc-section-content__desc">Every size next to each other on the same 4:3 box.</p>
-
+<p class="oc-section-content__desc">The scale has a step for every number from <code>.round-1</code> (2px) to <code>.round-12</code> (32px), and <code>.round</code> is the default radius; the example shows every other step. The side and corner classes (<code>.round-t</code>, <code>.round-tl12</code>, <code>.round-tlbr</code> …) take the same numbers.</p>
           <oc-demo title="round-none … round-full">
-            <div class="bd-grid">
-              <div class="bd-cell"><div class="bd-box round-none border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-none</code></div>
-              <div class="bd-cell"><div class="bd-box round-1 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-1</code></div>
-              <div class="bd-cell"><div class="bd-box round-2 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-2</code></div>
-              <div class="bd-cell"><div class="bd-box round-3 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-3</code></div>
-              <div class="bd-cell"><div class="bd-box round-4 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-4</code></div>
-              <div class="bd-cell"><div class="bd-box round-5 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-5</code></div>
-              <div class="bd-cell"><div class="bd-box round-6 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-6</code></div>
-              <div class="bd-cell"><div class="bd-box round-8 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-8</code></div>
-              <div class="bd-cell"><div class="bd-box round-10 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-10</code></div>
-              <div class="bd-cell"><div class="bd-box round-12 border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-12</code></div>
-              <div class="bd-cell"><div class="bd-box round-full border-2 border-solid border-dodgerblue-50 bg-dodgerblue-mix-30 text-dodgerblue-95 dark:text-dodgerblue-30">&nbsp;</div><code>.round-full</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="round-4"&gt;…&lt;/div&gt;
-&lt;img class="round-full" src="avatar.jpg"&gt;</oc-code></oc-demo>
+<div class="oc-eg bd-sq"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-none</code><div class="oc-eg__note">No rounding: square corners.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-none border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>0</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-2</code><div class="oc-eg__note">A 4px radius on all four corners.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-2 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>4px</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-4</code><div class="oc-eg__note">A 8px radius on all four corners.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-4 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>8px</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-6</code><div class="oc-eg__note">A 12px radius on all four corners.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-6 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>12px</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-8</code><div class="oc-eg__note">A 16px radius on all four corners.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-8 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>16px</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-10</code><div class="oc-eg__note">A 24px radius on all four corners.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>24px</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-12</code><div class="oc-eg__note">A 32px radius on all four corners.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-12 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>32px</b></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-full</code><div class="oc-eg__note">A radius larger than the box: the square becomes a circle.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-full border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>9999rem</b></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="round-none border-2 border-solid border-magenta-80"&gt;0&lt;/div&gt;
+&lt;div class="round-2 border-2 border-solid border-magenta-80"&gt;4px&lt;/div&gt;
+&lt;div class="round-4 border-2 border-solid border-magenta-80"&gt;8px&lt;/div&gt;
+&lt;div class="round-6 border-2 border-solid border-magenta-80"&gt;12px&lt;/div&gt;
+&lt;div class="round-8 border-2 border-solid border-magenta-80"&gt;16px&lt;/div&gt;
+&lt;div class="round-10 border-2 border-solid border-magenta-80"&gt;24px&lt;/div&gt;
+&lt;div class="round-12 border-2 border-solid border-magenta-80"&gt;32px&lt;/div&gt;
+&lt;div class="round-full border-2 border-solid border-magenta-80"&gt;9999rem&lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8">Nested radius: inner = outer minus padding</h3>
-          <p class="oc-section-content__desc">Left: both boxes use the same radius, so the gap between the curves is uneven. Right: inner radius = outer radius minus the padding, so the border looks even all around.</p>
+<h3 class="oc-section-content__title mt-8">One side or one corner</h3>
+<p class="oc-section-content__desc">A side letter rounds the two corners of that side (<code>.round-t10</code>: both top corners); a corner pair rounds one corner (<code>.round-tl10</code>: top-left). All eight boxes use step 10 (24px). Each class sets all four corners, so two of them on one element do not add up: for two opposite corners use <code>.round-tlbr10</code> or <code>.round-trbl10</code>.</p>
 
-          <oc-demo title="nested radii">
-            <div class="bd-grid" style="grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr))">
-              <div class="bd-cell"><div class="round-8 border-2 border-solid border-darkorange-50 bd-pad"><div class="round-8 bg-darkorange-mix-30 bd-inner text-darkorange-95 dark:text-darkorange-30">same radius</div></div><code>outer 1rem, inner 1rem</code></div>
-              <div class="bd-cell"><div class="round-8 border-2 border-solid border-forestgreen-50 bd-pad"><div class="bg-forestgreen-mix-30 bd-inner text-forestgreen-95 dark:text-forestgreen-30" style="border-radius: calc(1rem - 0.75rem)">minus padding</div></div><code>outer 1rem, inner 0.25rem</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="round-8 p-0.75"&gt;
-  &lt;div style="border-radius: calc(1rem - 0.75rem)"&gt;…&lt;/div&gt;
+<oc-demo title="round-t10 … round-bl10">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-t10</code><div class="oc-eg__note">Both top corners get a 24px radius.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-t10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>top</b><small>24px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-r10</code><div class="oc-eg__note">Both right corners get a 24px radius.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-r10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>right</b><small>24px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-b10</code><div class="oc-eg__note">Both bottom corners get a 24px radius.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-b10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>bottom</b><small>24px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-l10</code><div class="oc-eg__note">Both left corners get a 24px radius.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-l10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>left</b><small>24px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-tl10</code><div class="oc-eg__note">Only the top-left corner gets a 24px radius.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-tl10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>top-left</b><small>24px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-tr10</code><div class="oc-eg__note">Only the top-right corner gets a 24px radius.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-tr10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>top-right</b><small>24px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-br10</code><div class="oc-eg__note">Only the bottom-right corner gets a 24px radius.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-br10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>bottom-right</b><small>24px</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-bl10</code><div class="oc-eg__note">Only the bottom-left corner gets a 24px radius.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample round-bl10 border-2 border-solid border-magenta-80 bg-magenta-mix-10"><b>bottom-left</b><small>24px</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="round-t10 border-2 border-solid border-magenta-80"&gt;top&lt;/div&gt;
+&lt;div class="round-r10 border-2 border-solid border-magenta-80"&gt;right&lt;/div&gt;
+&lt;div class="round-b10 border-2 border-solid border-magenta-80"&gt;bottom&lt;/div&gt;
+&lt;div class="round-l10 border-2 border-solid border-magenta-80"&gt;left&lt;/div&gt;
+&lt;div class="round-tl10 border-2 border-solid border-magenta-80"&gt;top-left&lt;/div&gt;
+&lt;div class="round-tr10 border-2 border-solid border-magenta-80"&gt;top-right&lt;/div&gt;
+&lt;div class="round-br10 border-2 border-solid border-magenta-80"&gt;bottom-right&lt;/div&gt;
+&lt;div class="round-bl10 border-2 border-solid border-magenta-80"&gt;bottom-left&lt;/div&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-8">Pill and circle</h3>
+<p class="oc-section-content__desc">The same <code>.round-full</code> gives a pill on a wide element and a circle on a square one. Use it for buttons, tags and avatars.</p>
+
+<oc-demo title="round-full on a button, an avatar and a tag">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-full</code><div class="oc-eg__note">On a wide button the ends turn into half circles: a pill.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-shape"><button type="button" class="bd-pill round-full border-none">Subscribe</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-full</code><div class="oc-eg__note">On a square avatar the same class makes a circle.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-shape"><div class="bd-circle round-full">C1</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-full</code><div class="oc-eg__note">On a small tag it gives a soft, round label.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-shape"><span class="bd-tag round-full border-2 border-solid border-magenta-80 bg-magenta-mix-10">New</span></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;button class="round-full"&gt;Subscribe&lt;/button&gt;
+&lt;div class="round-full"&gt;C1&lt;/div&gt;
+&lt;span class="round-full border-2 border-solid border-magenta-80"&gt;New&lt;/span&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-8">In practice: one card, four radii</h3>
+<p class="oc-section-content__desc">A real card mixes radii: a larger one for the card (<code>.round-8</code>), a smaller one for the input and buttons (<code>.round-4</code>) and <code>.round-full</code> for the avatar. The card has <code>overflow: hidden</code>, so the image strip at the top gets the card corners too. The second card uses <code>.round-none</code> for comparison.</p>
+
+<oc-demo title="round-8 card, round-4 controls, round-full avatar">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-8 .round-4 .round-full</code><div class="oc-eg__note">A rounded card with rounded controls and a round avatar.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-card round-8 border border-solid border-gray-30 dark:border-gray-70">
+      <div class="bd-media">Rounded</div>
+      <div class="bd-body">
+        <div class="bd-who"><div class="bd-avatar round-full">C1</div><div><b>Customer 1</b><span>info@company1.example</span></div></div>
+        <input class="bd-input round-4 border border-solid border-gray-40 dark:border-gray-60" type="text" value="Company 1" aria-label="Company">
+        <div class="bd-actions"><button type="button" class="bd-btn round-4 border-none">Save</button><button type="button" class="bd-btn bd-btn--ghost round-4 border border-solid border-gray-40 dark:border-gray-60">Cancel</button></div>
+      </div>
+    </div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-none</code><div class="oc-eg__note">The same card with square corners everywhere, for comparison.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-card round-none border border-solid border-gray-30 dark:border-gray-70">
+      <div class="bd-media">Square</div>
+      <div class="bd-body">
+        <div class="bd-who"><div class="bd-avatar round-none">C1</div><div><b>Customer 1</b><span>info@company1.example</span></div></div>
+        <input class="bd-input round-none border border-solid border-gray-40 dark:border-gray-60" type="text" value="Company 1" aria-label="Company">
+        <div class="bd-actions"><button type="button" class="bd-btn round-none border-none">Save</button><button type="button" class="bd-btn bd-btn--ghost round-none border border-solid border-gray-40 dark:border-gray-60">Cancel</button></div>
+      </div>
+    </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- Rounded: card round-8, field and buttons round-4, avatar round-full --&gt;
+&lt;div class="round-8 overflow-hidden border border-solid border-gray-30 dark:border-gray-70"&gt;
+  &lt;div&gt;Rounded&lt;/div&gt;                          &lt;!-- the coloured top band --&gt;
+  &lt;div&gt;
+    &lt;div class="round-full"&gt;C1&lt;/div&gt; &lt;b&gt;Customer 1&lt;/b&gt; info@company1.example
+    &lt;input class="round-4 border border-solid border-gray-40 dark:border-gray-60" type="text" value="Company 1"&gt;
+    &lt;button type="button" class="round-4 border-none"&gt;Save&lt;/button&gt;
+    &lt;button type="button" class="round-4 border border-solid border-gray-40 dark:border-gray-60"&gt;Cancel&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Square: the same card with round-none everywhere --&gt;
+&lt;div class="round-none overflow-hidden border border-solid border-gray-30 dark:border-gray-70"&gt;
+  &lt;div&gt;Square&lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="round-none"&gt;C1&lt;/div&gt; &lt;b&gt;Customer 1&lt;/b&gt; info@company1.example
+    &lt;input class="round-none border border-solid border-gray-40 dark:border-gray-60" type="text" value="Company 1"&gt;
+    &lt;button type="button" class="round-none border-none"&gt;Save&lt;/button&gt;
+    &lt;button type="button" class="round-none border border-solid border-gray-40 dark:border-gray-60"&gt;Cancel&lt;/button&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
+<h3 class="oc-section-content__title mt-8">Nested radius: inner = outer minus padding</h3>
+<p class="oc-section-content__desc">When a rounded box sits inside another one, give the inner box the outer radius minus the padding. Left: both use 1.5rem, so the gap between the curves is uneven at the corners. Right: the 1rem padding gives 1.5rem − 1rem = 0.5rem (<code>.round-4</code>), so the gap is even all around.</p>
+
+<oc-demo title="nested radii">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-10 › .round-10</code><div class="oc-eg__note">Inner and outer box both 1.5rem: the gap between the curves is uneven at the corners.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="p-1 round-10 border-2 border-solid border-magenta-80"><div class="bd-inner round-10 bg-magenta-mix-10">Same radius<small>outer 1.5rem, inner 1.5rem</small></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-10 › .round-4</code><div class="oc-eg__note">Inner radius = outer radius minus the padding: the gap is even all around.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="p-1 round-10 border-2 border-solid border-magenta-80"><div class="bd-inner round-4 bg-magenta-mix-10">Minus padding<small>outer 1.5rem, inner 0.5rem</small></div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- padding 1rem: inner radius = 1.5rem - 1rem = 0.5rem --&gt;
+&lt;div class="round-10 p-1 border-2 border-solid border-magenta-80"&gt;
+  &lt;div class="round-4"&gt;…&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
         </div>
 
-        <div class="oc-section-footer" id="source">
+          <div class="oc-section-footer" id="source">
           <h2 class="oc-section-footer__title">Source &amp; Further Reading</h2>
           <p class="oc-section-footer__desc">
             Border-radius utilities come from <code>_borders_outlines.scss</code>; the map <code>$roundsizes</code> is in <code>_variables_layout.scss</code>. Classes: <code>.round-none</code> … <code>.round-12</code>, <code>.round-full</code>, plus directional variants (<code>.round-t*</code>, <code>.round-r*</code>, <code>.round-tl*</code>, <code>.round-tlbr*</code>, etc.).
@@ -220,7 +182,7 @@
               <table class="oc-table-ref">
                 <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
                 <tbody>
-                  <tr><td><code>src/scss/utilities/_borders_outlines.scss</code></td><td>border-radius (<code>$roundsizes</code>): .round-none, .round, .round-1 … .round-12, .round-full, plus .round-t*, .round-r*, .round-b*, .round-l*, .round-tl*, .round-tr*, .round-bl*, .round-br*, .round-tlbr*, .round-bltr*</td></tr>
+                  <tr><td><code>src/scss/utilities/_borders_outlines.scss</code></td><td>border-radius (<code>$roundsizes</code>): .round-none, .round, .round-1 … .round-12, .round-full, plus .round-t*, .round-r*, .round-b*, .round-l*, .round-tl*, .round-tr*, .round-bl*, .round-br*, .round-tlbr*, .round-trbl*</td></tr>
                   <tr><td><code>src/scss/variables/_variables_layout.scss</code></td><td><code>$roundsizes</code> (0, 1px … 32px, 9999px)</td></tr>
                 </tbody>
               </table>

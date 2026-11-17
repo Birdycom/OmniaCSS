@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Scroll Snap","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .ss-wrap { position: relative; inline-size: 100%; padding-block-end: 1.75rem; }\n    .ss-track { display: flex; gap: 1rem; padding: 0.5rem 0.25rem 0.75rem; overscroll-behavior-x: contain; }\n    .ss-slide { flex: none; display: grid; align-content: end; gap: 0.25rem; inline-size: min(78%, 18rem); aspect-ratio: 4 / 3; padding: 1rem; border-radius: 16px; color: var(--color-white-50); background: linear-gradient(150deg, var(--a), var(--b)); }\n    .ss-slide b { font-size: 1.15rem; }\n    .ss-slide span { font-size: 0.8rem; opacity: 0.9; }\n    .ss-s1 { --a: var(--color-vividblue-80); --b: var(--color-indigo-60); }\n    .ss-s2 { --a: var(--color-magenta-50); --b: var(--color-purple-60); }\n    .ss-s3 { --a: var(--color-orange-50); --b: var(--color-red-60); }\n    .ss-s4 { --a: var(--color-teal-50); --b: var(--color-green-60); }\n    .ss-s5 { --a: var(--color-skycyan-60); --b: var(--color-blue-60); }\n    .ss-state { display: flex; gap: 1rem; padding: 1rem 30%; overflow-x: auto; }\n    .ss-state > div { flex: none; inline-size: 9rem; }\n    .ss-card { display: grid; place-items: center; block-size: 9rem; border-radius: 14px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 700; transition: scale 0.3s, opacity 0.3s, filter 0.3s; }\n    .ss-pages { inline-size: 100%; border: 1px solid var(--oc-border); border-radius: 14px; }\n    .ss-pages section { display: grid; place-items: center; block-size: 100%; font-size: 1.4rem; font-weight: 700; color: var(--color-white-50); }\n    .ss-pages section:nth-child(1) { background: var(--color-vividblue-80); }\n    .ss-pages section:nth-child(2) { background: var(--color-magenta-50); }\n    .ss-pages section:nth-child(3) { background: var(--color-teal-50); }\n    .ss-header { position: sticky; top: 0; z-index: 1; padding: 0.6rem 1rem; background: oklch(from var(--color-black-40) l c h / 0.85); color: var(--color-white-50); font-weight: 600; font-size: 0.85rem; }\n    .ss-list { block-size: 14rem; inline-size: min(100%, 26rem); border: 1px solid var(--oc-border); border-radius: 12px; }\n    .ss-list p { margin: 0; padding: 1.25rem 1rem; border-bottom: 1px solid var(--oc-border); color: var(--oc-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Scroll Snap","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* The visible field is exactly one slide wide, so every slide (also the last one) can snap. 3rem on each side is the room for the arrows, which sit next to the slides. */\n    .ss-wrap { position: relative; box-sizing: border-box; inline-size: min(100%, 34rem); margin-inline: auto; padding-inline: 3rem; }\n    .ss-track { display: flex; gap: 1rem; overscroll-behavior-x: contain; border-radius: 16px; }\n    .ss-slide { flex: none; box-sizing: border-box; display: grid; align-content: end; gap: 0.25rem; inline-size: 100%; aspect-ratio: 16 / 9; padding: 1rem; border-radius: 16px; color: var(--color-white-50); background: var(--a); }\n    .ss-slide b { font-size: 1.15rem; }\n    .ss-slide span { font-size: 0.8rem; }\n    .ss-s1 { --a: var(--color-vividblue-90); }\n    .ss-s2 { --a: var(--color-magenta-90); }\n    .ss-s3 { --a: var(--color-orange-95); }\n    .ss-s4 { --a: var(--color-teal-70); }\n    .ss-s5 { --a: var(--color-steelblue-80); }\n    /* Three cards wide; the padding lets the first and the last card reach the middle. */\n    .ss-state-wrap { container-type: inline-size; inline-size: min(100%, 30rem); margin-inline: auto; }\n    .ss-state { display: flex; gap: 1rem; padding: 1rem calc(50cqi - 4.5rem); overflow-x: auto; }\n    .ss-state > div { flex: none; inline-size: 9rem; }\n    .ss-card { display: grid; place-items: center; block-size: 9rem; border-radius: 14px; background: var(--ss-flat, var(--color-vividblue-90)); color: var(--color-white-50); font-weight: 700; transition: scale 0.3s, opacity 0.3s, filter 0.3s; }\n    .ss-pages { inline-size: 100%; border: 1px solid var(--oc-border); border-radius: 14px; }\n    .ss-pages section { display: grid; place-items: center; block-size: 100%; font-size: 1.4rem; font-weight: 700; color: var(--color-white-50); }\n    .ss-pages section:nth-child(1) { background: var(--color-vividblue-90); }\n    .ss-pages section:nth-child(2) { background: var(--color-magenta-90); }\n    .ss-pages section:nth-child(3) { background: var(--color-teal-70); }\n    .ss-header { position: sticky; top: 0; z-index: 1; padding: 0.6rem 1rem; background: oklch(from var(--color-black-40) l c h / 0.85); color: var(--color-white-50); font-weight: 600; font-size: 0.85rem; }\n    .ss-list { block-size: 14rem; inline-size: min(100%, 26rem); border: 1px solid var(--oc-border); border-radius: 12px; }\n    .ss-list p { margin: 0; padding: 1.25rem 1rem; border-bottom: 1px solid var(--oc-border); color: var(--oc-foreground); }\n  .ss-card.ss-s2 { --ss-flat: var(--color-magenta-90); } .ss-card.ss-s3 { --ss-flat: var(--color-orange-95); } .ss-card.ss-s4 { --ss-flat: var(--color-teal-70); } .ss-card.ss-s5 { --ss-flat: var(--color-purple-60); }\n  /* Inside the example stage: some room around the scroller, centered. */\n    .ss-stage { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; padding: 1rem; }\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports selector(::scroll-marker) { .sup-note--marker { display: none; } }\n    @supports (container-type: scroll-state) { .sup-note--sstate { display: none; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="scroll-snap">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Scroll Snap</h2>
@@ -23,6 +23,7 @@
                 <tr><td><code>.snap-always</code> / <code>.snap-normal</code></td><td>scroll-snap-stop: always | normal (never skip an item)</td></tr>
                 <tr><td><code>.scroll-p-{n}</code>, <code>.scroll-m-{n}</code> (+ block/inline sides)</td><td>scroll-padding / scroll-margin (sticky headers, peeking)</td></tr>
                 <tr><td><code>.scroll-markers-before</code> / <code>.scroll-markers-after</code></td><td>scroll-marker-group + styled ::scroll-marker dots</td></tr>
+                <tr><td><code>.scroll-buttons-outside</code></td><td>With <code>.scroll-buttons</code>: the arrows sit next to the scroll container instead of on it (give the parent about 3rem of room on each side)</td></tr>
                 <tr><td><code>.scroll-buttons</code></td><td>::scroll-button(inline-start / inline-end) arrows, positioned with anchor positioning</td></tr>
                 <tr><td><code>.container-scroll-state</code> + <code>snapped:</code>, <code>snapped-x:</code>, <code>snapped-y:</code></td><td>@container scroll-state(snapped: x)</td></tr>
                 <tr><td><code>.scroll-smooth</code>, <code>.overscroll-contain</code></td><td>scroll-behavior, overscroll-behavior</td></tr>
@@ -34,57 +35,84 @@
           </div>
 
           <h3 class="oc-section-content__title mt-10" id="carousel">A complete carousel in HTML + classes</h3>
-          <p class="oc-section-content__desc">Snapping, arrows and dots, keyboard and screen-reader friendly, zero JavaScript. Browsers without <code>::scroll-button()</code> and <code>::scroll-marker</code> still get a snapping, swipeable row.</p>
+          <p class="oc-section-content__desc">Snapping, arrows and dots, keyboard and screen-reader friendly, zero JavaScript. Each slide is as wide as the visible field, so every slide, also the last one, can come to rest. <code>.scroll-buttons-outside</code> puts the arrows next to the slides instead of on them. Browsers without <code>::scroll-button()</code> and <code>::scroll-marker</code> still get a snapping, swipeable row.</p>
           <oc-demo title=".snap-x .scroll-buttons .scroll-markers-after">
-            <div class="ss-wrap">
-              <div class="ss-track overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-markers-after">
+            <div class="oc-eg"><div class="sup-note sup-note--marker"><b>Not in this browser yet.</b> Your browser does not draw scroll buttons or scroll markers: there are no arrows or dots, but the slides still scroll and snap.</div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.snap-x .scroll-buttons .scroll-buttons-outside .scroll-markers-after</code><div class="oc-eg__note">Click the arrows or a dot, or swipe: one slide moves at a time, and the last slide comes to rest too.</div><div class="oc-eg__stage oc-eg__stage--plain ss-stage"><div class="ss-wrap">
+              <div class="ss-track overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-buttons-outside scroll-markers-after">
                 <article class="ss-slide ss-s1 snap-center"><b>Omnia</b><span>Slide 1 of 5</span></article>
                 <article class="ss-slide ss-s2 snap-center"><b>Magenta</b><span>Slide 2 of 5</span></article>
                 <article class="ss-slide ss-s3 snap-center"><b>Orange</b><span>Slide 3 of 5</span></article>
                 <article class="ss-slide ss-s4 snap-center"><b>Teal</b><span>Slide 4 of 5</span></article>
                 <article class="ss-slide ss-s5 snap-center"><b>Sky</b><span>Slide 5 of 5</span></article>
               </div>
-            </div>
-          <oc-code lang="html">&lt;div class="flex gap-4 overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-markers-after"&gt;
-  &lt;article class="snap-center"&gt;…&lt;/article&gt;
-  &lt;article class="snap-center"&gt;…&lt;/article&gt;
-  …
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- The parent leaves 3rem on each side for the arrows --&gt;
+&lt;div class="ph-3"&gt;
+  &lt;div class="flex gap-4 overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-buttons-outside scroll-markers-after"&gt;
+    &lt;!-- Every slide is as wide as the visible field (w-full, flex-none), so the last one can snap too --&gt;
+    &lt;article class="snap-center flex-none w-full"&gt;&lt;b&gt;Omnia&lt;/b&gt; Slide 1 of 5&lt;/article&gt;
+    &lt;article class="snap-center flex-none w-full"&gt;&lt;b&gt;Magenta&lt;/b&gt; Slide 2 of 5&lt;/article&gt;
+    &lt;article class="snap-center flex-none w-full"&gt;&lt;b&gt;Orange&lt;/b&gt; Slide 3 of 5&lt;/article&gt;
+    &lt;article class="snap-center flex-none w-full"&gt;&lt;b&gt;Teal&lt;/b&gt; Slide 4 of 5&lt;/article&gt;
+    &lt;article class="snap-center flex-none w-full"&gt;&lt;b&gt;Sky&lt;/b&gt; Slide 5 of 5&lt;/article&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="snapped">Style the snapped item: snapped-x:</h3>
-          <p class="oc-section-content__desc">Make each item a scroll-state container (<code>.container-scroll-state</code>); its child can then react to "I am snapped" with <code>snapped-x:</code>. The centered card grows, the others fade. Scroll sideways.</p>
+          <p class="oc-section-content__desc">Make each item a scroll-state container (<code>.container-scroll-state</code>); its child can then react to "I am snapped" with <code>snapped-x:</code>. The centered card grows, the others fade. The field shows three cards; scroll sideways and each card, also the first and the last, comes to rest in the middle.</p>
           <oc-demo title=".container-scroll-state + snapped-x:scale-110 snapped-x:opacity-100">
-            <div class="ss-state snap-x scrollbar-thin">
-              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">1</div></div>
-              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">2</div></div>
-              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">3</div></div>
-              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">4</div></div>
-              <div class="snap-center container-scroll-state"><div class="ss-card opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">5</div></div>
-            </div>
-          <oc-code lang="html">&lt;div class="flex overflow-x-auto snap-x"&gt;
+            <div class="oc-eg"><div class="sup-note sup-note--sstate"><b>Not in this browser yet.</b> Your browser does not support scroll-state queries: the cards still snap to the middle, but the snapped card does not grow or light up.</div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.container-scroll-state · snapped-x:scale-110 snapped-x:opacity-100</code><div class="oc-eg__note">Scroll sideways: the card in the middle grows and lights up, the others stay small and faint.</div><div class="oc-eg__stage oc-eg__stage--plain ss-stage"><div class="ss-state-wrap"><div class="ss-state snap-x scrollbar-thin">
+              <div class="snap-center container-scroll-state"><div class="ss-card ss-s1 opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">1</div></div>
+              <div class="snap-center container-scroll-state"><div class="ss-card ss-s2 opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">2</div></div>
+              <div class="snap-center container-scroll-state"><div class="ss-card ss-s3 opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">3</div></div>
+              <div class="snap-center container-scroll-state"><div class="ss-card ss-s4 opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">4</div></div>
+              <div class="snap-center container-scroll-state"><div class="ss-card ss-s5 opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110">5</div></div>
+            </div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- each card is about a third of the field wide, so three cards are in view --&gt;
+&lt;div class="flex overflow-x-auto snap-x scrollbar-thin"&gt;
   &lt;div class="snap-center container-scroll-state"&gt;
     &lt;div class="opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110 transition-all"&gt;1&lt;/div&gt;
   &lt;/div&gt;
-  …
+  &lt;div class="snap-center container-scroll-state"&gt;
+    &lt;div class="opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110 transition-all"&gt;2&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="snap-center container-scroll-state"&gt;
+    &lt;div class="opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110 transition-all"&gt;3&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="snap-center container-scroll-state"&gt;
+    &lt;div class="opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110 transition-all"&gt;4&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="snap-center container-scroll-state"&gt;
+    &lt;div class="opacity-50 scale-90 snapped-x:opacity-100 snapped-x:scale-110 transition-all"&gt;5&lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="pages">Full-height sections: .snap-y + .snap-always</h3>
           <p class="oc-section-content__desc">A vertical pager: every wheel tick or swipe moves exactly one section, because <code>.snap-always</code> forbids skipping.</p>
           <oc-demo title=".snap-y on the container, .snap-start .snap-always on each section">
-            <div class="ss-pages block-size-64 overflow-y-auto snap-y scrollbar-thin">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.snap-y · .snap-start .snap-always</code><div class="oc-eg__note">Scroll inside the box: every wheel tick or swipe moves exactly one section.</div><div class="oc-eg__stage oc-eg__stage--plain ss-stage"><div class="ss-pages block-size-64 overflow-y-auto snap-y scrollbar-thin">
               <section class="snap-start snap-always">Section 1 ↓</section>
               <section class="snap-start snap-always">Section 2 ↓</section>
               <section class="snap-start snap-always">Section 3</section>
-            </div>
-          <oc-code lang="html">&lt;main class="h-svh overflow-y-auto snap-y"&gt;
-  &lt;section class="h-svh snap-start snap-always"&gt;…&lt;/section&gt;
-  &lt;section class="h-svh snap-start snap-always"&gt;…&lt;/section&gt;
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- on a real page: h-svh (one screen high); in the demo the box and its sections are 16rem high --&gt;
+&lt;main class="h-svh overflow-y-auto snap-y scrollbar-thin"&gt;
+  &lt;section class="h-svh snap-start snap-always"&gt;Section 1&lt;/section&gt;
+  &lt;section class="h-svh snap-start snap-always"&gt;Section 2&lt;/section&gt;
+  &lt;section class="h-svh snap-start snap-always"&gt;Section 3&lt;/section&gt;
 &lt;/main&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="scroll-padding">Sticky header: scroll-padding</h3>
           <p class="oc-section-content__desc">Without padding, snapped items slide under a sticky header. <code>.scroll-p-12</code> tells the snap area where the visible part starts.</p>
           <oc-demo title=".snap-y .scroll-p-12 with a sticky header">
-            <div class="ss-list overflow-y-auto snap-y scroll-p-12 scrollbar-thin">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.snap-y .scroll-p-12</code><div class="oc-eg__note">Scroll the list: each item stops just below the sticky header, not under it.</div><div class="oc-eg__stage oc-eg__stage--plain ss-stage"><div class="ss-list overflow-y-auto snap-y scroll-p-12 scrollbar-thin">
               <div class="ss-header">Sticky header</div>
               <p class="snap-start">Item 1 — starts below the header</p>
               <p class="snap-start">Item 2</p>
@@ -93,11 +121,17 @@
               <p class="snap-start">Item 5</p>
               <p class="snap-start">Item 6</p>
               <p class="snap-start">Item 7</p>
-            </div>
+            </div></div></div>
+            </div></div>
           <oc-code lang="html">&lt;div class="overflow-y-auto snap-y scroll-p-12"&gt;
   &lt;div class="sticky top-0"&gt;Sticky header&lt;/div&gt;
-  &lt;p class="snap-start"&gt;Item 1&lt;/p&gt;
-  …
+  &lt;p class="snap-start"&gt;Item 1 — starts below the header&lt;/p&gt;
+  &lt;p class="snap-start"&gt;Item 2&lt;/p&gt;
+  &lt;p class="snap-start"&gt;Item 3&lt;/p&gt;
+  &lt;p class="snap-start"&gt;Item 4&lt;/p&gt;
+  &lt;p class="snap-start"&gt;Item 5&lt;/p&gt;
+  &lt;p class="snap-start"&gt;Item 6&lt;/p&gt;
+  &lt;p class="snap-start"&gt;Item 7&lt;/p&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="css">The CSS behind .scroll-buttons and the markers</h3>

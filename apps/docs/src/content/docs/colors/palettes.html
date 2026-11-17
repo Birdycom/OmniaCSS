@@ -25,17 +25,19 @@
             </table>
           </div>
 
-          <h3 class="oc-section-content__title">Mix Demo</h3>
-          <oc-demo title="Mix Demo"><div class="preview">
-            <div class="flex gap-1 flex-wrap">
-              <span class="bg-red-mix-10 p-2 round-1">red-mix-10</span>
-              <span class="bg-red-mix-30 p-2 round-1">red-mix-30</span>
-              <span class="bg-red-mix-50 p-2 round-1">red-mix-50</span>
-              <span class="bg-red-mix-80 p-2 round-1">red-mix-80</span>
-              <span class="text-blue-mix-50 bg-white round-2 p-2">text blue-mix-50</span>
-            </div>
-          </div><oc-code lang="html">&lt;div class="bg-red-mix-30 p-2"&gt;30% Red&lt;/div&gt;
-&lt;span class="text-blue-mix-50"&gt;50% Blue Text&lt;/span&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title">Color-mix classes: background and text</h3>
+          <oc-demo title="bg-red-mix-10 … bg-red-mix-80, text-blue-mix-50"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-red-mix-10</code><div class="oc-eg__note">10% red, 90% see-through: the stage shows through.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="bg-red-mix-10 p-1 round-2 font-semibold" style="min-block-size: 6rem; display: grid; align-content: end; color: var(--oc-foreground)">red-mix-10</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-red-mix-30</code><div class="oc-eg__note">30% red.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="bg-red-mix-30 p-1 round-2 font-semibold" style="min-block-size: 6rem; display: grid; align-content: end; color: var(--oc-foreground)">red-mix-30</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-red-mix-50</code><div class="oc-eg__note">Half red, half see-through.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="bg-red-mix-50 p-1 round-2 font-semibold" style="min-block-size: 6rem; display: grid; align-content: end; color: var(--oc-foreground)">red-mix-50</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-red-mix-80</code><div class="oc-eg__note">80% red: almost the full color.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="bg-red-mix-80 p-1 round-2 font-semibold" style="min-block-size: 6rem; display: grid; align-content: end; color: var(--oc-foreground)">red-mix-80</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-blue-mix-50</code><div class="oc-eg__note">Text at 50% strength: lighter on purpose, so use it for large text or decoration, not for body copy.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="p-1 round-2" style="background: var(--color-white-50)"><span class="text-blue-mix-50 font-2 font-bold">Order 1</span></div></div></div>
+</div></div><oc-code lang="html">&lt;div class="bg-red-mix-10 p-1 round-2"&gt;red-mix-10&lt;/div&gt;
+&lt;div class="bg-red-mix-30 p-1 round-2"&gt;red-mix-30&lt;/div&gt;
+&lt;div class="bg-red-mix-50 p-1 round-2"&gt;red-mix-50&lt;/div&gt;
+&lt;div class="bg-red-mix-80 p-1 round-2"&gt;red-mix-80&lt;/div&gt;
+
+&lt;span class="text-blue-mix-50 font-2 font-bold"&gt;Order 1&lt;/span&gt;</oc-code></oc-demo>
           
 
           <h3 class="oc-section-content__title" id="ral-color-mix">RAL color-mix examples</h3>

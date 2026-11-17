@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Typography", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Typography", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    /* Overview cards: the frame is the shared example kit (.oc-eg); below only what sits inside the stages. */\n    .ty-ov-link { font-size: 1rem; font-weight: 700; color: var(--oc-primary); text-decoration: none; }\n    .ty-ov-link:hover, .ty-ov-link:focus-visible { text-decoration: underline; text-underline-offset: 0.2em; }\n    .ty-ov-stage { display: grid; align-content: center; gap: 0.4rem; min-inline-size: 0; min-block-size: 7.5rem; padding: 0.9rem 1.1rem; color: var(--oc-foreground); }\n    .ty-ov-stage p { margin: 0; color: var(--oc-foreground); }\n    .ty-ov-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; line-height: 1.1; }\n    .ty-ov-col { display: grid; gap: 0.15rem; }\n    .ty-ov-align > div { padding: 0.15rem 0.5rem; border-radius: 4px; background: var(--oc-card); font-size: 0.9rem; }\n    .ty-ov-p { font-size: 0.85rem; }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Typography</h2>
@@ -9,53 +9,46 @@
         </div>
         
         <div class="oc-section-content">
-          <p>
-            The Typography module provides a comprehensive suite of utilities for handling everything 
-            from basic font sizing to advanced layout concerns like line-clamping and truncation.
-          </p>
+          <p class="oc-section-content__desc">Typography classes set how text looks: its size, weight, font and style, how lines are spaced and aligned, and newer features such as drop caps and balanced headings. Every card below shows one page with a small live sample made with the classes from that page. Click a title to open the page.</p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-1.5">
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Font Styles</h3>
-              <ul class="oc-docs-list">
-                <li><a href="font-size.html">Font Size</a></li>
-                <li><a href="font-weight.html">Font Weight</a></li>
-                <li><a href="font-family.html">Font Family</a></li>
-                <li><a href="font-style.html">Font Style</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Font Families</h3>
-              <ul class="oc-docs-list">
-                <li><a href="fonts.html">Font Families</a></li>
-                <li><a href="font-families.html">Families Reference</a></li>
-                <li><a href="font-usage.html">Fonts Usage</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Text Layout</h3>
-              <ul class="oc-docs-list">
-                <li><a href="text-align.html">Text Alignment</a></li>
-                <li><a href="line-height.html">Line Height</a></li>
-                <li><a href="letter-spacing.html">Letter Spacing</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Decoration &amp; Transform</h3>
-              <ul class="oc-docs-list">
-                <li><a href="text-decoration.html">Text Decoration</a></li>
-                <li><a href="text-transform.html">Text Transform</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Advanced</h3>
-              <ul class="oc-docs-list">
-                <li><a href="advanced.html">Advanced Features</a></li>
-                <li><a href="modern.html">Modern Typography</a></li>
-                <li><a href="variants.html">Font Variants &amp; Text Effects</a></li>
-              </ul>
-            </div>
-          </div>
+          <h3 class="oc-section-content__title mt-8" id="ov-font-styles">Size, weight and style</h3>
+          <p class="oc-section-content__desc">The three basic choices for any text.</p>
+          <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><a class="ty-ov-link" href="font-size.html">Font size →</a><div class="oc-eg__note"><code>.font-0.7</code> to <code>.font-4</code>: a fixed size scale in rem.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="ty-ov-row"><span class="font-0.8">Aa</span><span class="font-1.2">Aa</span><span class="font-2">Aa</span><span class="font-3">Aa</span></div></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="font-weight.html">Font weight →</a><div class="oc-eg__note"><code>.font-thin</code> to <code>.font-extrablack</code>: from hairline to very heavy.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="ty-ov-row font-1.7"><span class="font-thin">Aa</span><span class="font-normal">Aa</span><span class="font-bold">Aa</span><span class="font-extrablack">Aa</span></div></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="font-style.html">Font style →</a><div class="oc-eg__note"><code>.font-italic</code>, <code>.font-oblique</code> and <code>.font-normal</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="ty-ov-col font-1.5"><span class="font-normal">Customer 1</span><span class="font-italic">Customer 1</span></div></div></div>
+          </div></div>
+
+          <h3 class="oc-section-content__title mt-8" id="ov-fonts">Fonts</h3>
+          <p class="oc-section-content__desc">Which font a text uses, which fonts there are, and how they are loaded.</p>
+          <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><a class="ty-ov-link" href="font-family.html">Font family →</a><div class="oc-eg__note">The classes that pick a font: <code>.font-roboto</code>, <code>.font-serif</code>, <code>.font-monospace</code> …</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="ty-ov-col font-1.2"><span class="font-roboto">Company 1</span><span class="font-serif">Company 1</span><span class="font-monospace">Company 1</span></div></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="font-families.html">Font catalog →</a><div class="oc-eg__note">Every font shown large, with its letters and numbers.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="ty-ov-col font-1.2"><span class="font-fantasy">Aa Bb Cc 123</span><span class="font-source">Aa Bb Cc 123</span><span class="font-sansserif">Aa Bb Cc 123</span></div></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="fonts.html">Loading fonts →</a><div class="oc-eg__note">What OmniaCSS downloads, and how to host the fonts yourself.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="font-cursive font-2">Thank you</div></div></div>
+          </div></div>
+
+          <h3 class="oc-section-content__title mt-8" id="ov-layout">Text layout</h3>
+          <p class="oc-section-content__desc">How lines of text sit next to and below each other.</p>
+          <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><a class="ty-ov-link" href="text-align.html">Text align →</a><div class="oc-eg__note"><code>.text-left</code>, <code>.text-center</code>, <code>.text-right</code>, <code>.text-justify</code> and the logical <code>.text-start</code> / <code>.text-end</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage ty-ov-align"><div class="text-left">Left</div><div class="text-center">Center</div><div class="text-right">Right</div></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="line-height.html">Line height →</a><div class="oc-eg__note">The room between lines: <code>.lineheight-tight</code> to <code>.lineheight-loose</code>, or a fixed rem value.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><p class="ty-ov-p lineheight-tight">Tight lines sit close together, as in this short text.</p><p class="ty-ov-p lineheight-loose">Loose lines leave a lot of room between them.</p></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="letter-spacing.html">Letter spacing →</a><div class="oc-eg__note">Room between the letters: <code>.letterspacing-2</code> pulls them in, <code>.letterspacing-9</code> spreads them out.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="font-1.5 font-bold letterspacing-2">Spring sale</div><div class="font-0.8 font-semibold uppercase letterspacing-9">New arrivals</div></div></div>
+          </div></div>
+
+          <h3 class="oc-section-content__title mt-8" id="ov-decoration">Decoration and transform</h3>
+          <p class="oc-section-content__desc">Lines on the text, and the case of the letters.</p>
+          <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><a class="ty-ov-link" href="text-decoration.html">Text decoration →</a><div class="oc-eg__note">Underline, line-through and overline, with style, thickness, offset and color.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="font-1.5">Please <span class="underline decoration-wavy decoration-red decoration-1">recieve</span></div><div class="font-1.2"><span class="line-through">€ 59.00</span> <strong>€ 49.00</strong></div></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="text-transform.html">Text transform →</a><div class="oc-eg__note"><code>.uppercase</code>, <code>.lowercase</code>, <code>.capitalize</code> and <code>.normalcase</code>, without changing the source text.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="ty-ov-col font-1.2"><span class="uppercase">order shipped</span><span class="capitalize">order shipped</span></div></div></div>
+          </div></div>
+
+          <h3 class="oc-section-content__title mt-8" id="ov-advanced">Advanced and modern</h3>
+          <p class="oc-section-content__desc">Line clamps and balanced headings, drop caps and emphasis marks, small caps and text outlines.</p>
+          <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><a class="ty-ov-link" href="advanced.html">Advanced →</a><div class="oc-eg__note"><code>.line-clamp-*</code>, <code>.truncate</code>, <code>.text-balance</code> and hyphens.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><p class="ty-ov-p line-clamp-2">Product 1 is a sturdy bag for everyday use. It has two outer pockets, a padded laptop sleeve and straps you can adjust.</p></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="modern.html">Modern typography →</a><div class="oc-eg__note">Drop caps, emphasis marks, trimmed text boxes, CJK spacing and tab size.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><p class="ty-ov-p initial-letter-2">Company 1 packs every order by hand and ships it within 24 hours.</p><div class="font-1.2"><span class="emphasis-dot">Only today</span></div></div></div>
+<div class="oc-eg__panel"><a class="ty-ov-link" href="variants.html">Variants and effects →</a><div class="oc-eg__note">Small caps, ligatures, variable font weight, text outlines and ruby notes.</div><div class="oc-eg__stage oc-eg__stage--plain ty-ov-stage"><div class="font-1.5 font-caps-small">Small caps</div><div class="font-1.5 font-wght-800">Weight 800</div></div></div>
+          </div></div>
         </div>
 
         <!-- Standard footer (same layout as effects/animation-properties.html). Browser support is placed above it at build time. -->
@@ -85,7 +78,7 @@
 
             <h3 class="oc-section-content__title">Related pages</h3>
             <p class="oc-section-content__desc">
-              <a class="source-link" href="font-size.html">Font Size</a> · <a class="source-link" href="fonts.html">Fonts</a> · <a class="source-link" href="modern.html">Modern Typography</a>
+              <a class="source-link" href="font-size.html">Font Size</a> · <a class="source-link" href="font-families.html">Font Catalog</a> · <a class="source-link" href="modern.html">Modern Typography</a>
             </p>
           </div>
         </div>

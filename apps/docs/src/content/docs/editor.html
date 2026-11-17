@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Editor extension", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Editor extension", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    /* Editor screenshots: never wider than their natural 1280px, keep the 16:9 ratio, thin frame. */\n    .ed-shot { display: block; inline-size: 100%; max-inline-size: 1280px; block-size: auto; aspect-ratio: 1280 / 720; margin-block: 1rem 1.75rem; border: 1px solid var(--oc-border); border-radius: 0.5rem; background: var(--oc-muted); }\n  </style>"]}-->
 <section class="oc-hero" id="overview">
         <h1 class="oc-hero-title">Editor extension</h1>
         <p class="oc-hero-text">OmniaCSS IntelliSense for VS Code and Cursor: autocomplete for every utility, variant and OmniaUI class, the generated CSS on hover, color swatches and linting with quick fixes.</p>
@@ -29,11 +29,11 @@ cursor --install-extension Birdycom.omniacss-intellisense   # Cursor</oc-code>
         </div>
         <div class="oc-section-content">
           <p>Suggestions for every utility and variant (<code>hover:</code>, <code>dark:</code>, <code>cq-md:</code>, <code>group-hover/card:</code>, <code>data-[state=open]:</code> …). Color classes show their swatch, also for the RAL colors and their mix steps (<code>bg-ral3020-mix-20</code>), and the details panel shows the CSS the class generates.</p>
-          <img class="w-full rounded-lg" src="/image/editor/autocomplete.webp" alt="bg-ral30 lists the RAL 3000 colors and their mix steps with swatches and the color-mix() CSS" width="1280" height="720" loading="lazy">
+          <img class="ed-shot" src="/image/editor/autocomplete.webp" alt="bg-ral30 lists the RAL 3000 colors and their mix steps with swatches and the color-mix() CSS" width="1280" height="720" loading="lazy">
           <p>Inside <code>var(</code> you get every Omnia token with its OKLCH value; the color picker snaps a class or token to the nearest Omnia color.</p>
-          <img class="w-full rounded-lg" src="/image/editor/tokens.webp" alt="var(--color-ral lists the RAL tokens with swatches, the OKLCH value and the hex fallback" width="1280" height="720" loading="lazy">
+          <img class="ed-shot" src="/image/editor/tokens.webp" alt="var(--color-ral lists the RAL tokens with swatches, the OKLCH value and the hex fallback" width="1280" height="720" loading="lazy">
           <p>Hover a class to see its CSS exactly as the build writes it, variants included; rem values get a px comment.</p>
-          <img class="w-full rounded-lg" src="/image/editor/hover.webp" alt="Hovering cq-md:grid-cols-2 shows @container (min-width: 28rem) with the grid-template-columns rule" width="1280" height="720" loading="lazy">
+          <img class="ed-shot" src="/image/editor/hover.webp" alt="Hovering cq-md:grid-cols-2 shows @container (min-width: 28rem) with the grid-template-columns rule" width="1280" height="720" loading="lazy">
         </div>
       </section>
 
@@ -43,7 +43,7 @@ cursor --install-extension Birdycom.omniacss-intellisense   # Cursor</oc-code>
           <p class="oc-section-header__desc">Component classes from <a href="https://omniaui.eu">OmniaUI</a> are in the same list: <code>oc-btn</code>, <code>oc-card</code>, <code>oc-tooltip__title</code>, <code>oc-block-…</code>.</p>
         </div>
         <div class="oc-section-content">
-          <img class="w-full rounded-lg" src="/image/editor/components.webp" alt="Typing oc-card lists the OmniaUI card classes; the details panel shows the .oc-card rule" width="1280" height="720" loading="lazy">
+          <img class="ed-shot" src="/image/editor/components.webp" alt="Typing oc-card lists the OmniaUI card classes; the details panel shows the .oc-card rule" width="1280" height="720" loading="lazy">
           <ul>
             <li>Without anything installed you get the free OmniaUI classes of the version the extension was built with (handy with the CDN links or <code>@omniacss</code> in Laravel).</li>
             <li>When <code>@birdycom/omniaui</code>, <code>@birdycom/omniaui-blocks</code> or <code>@birdycom/omniaui-pro</code> is in your project's <code>node_modules</code>, the classes and CSS of <strong>that installed version</strong> are used. After <code>npm install</code> or an upgrade the list follows within a few seconds.</li>

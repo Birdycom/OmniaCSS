@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Flex & Grid Display","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Flex & Grid Display","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n    .fx-text .fx-ctr { margin-inline: 0.35rem; }\n    .fx-ctr { outline: 2px dashed var(--color-vividblue-90); outline-offset: 3px; }\n    .fx-text { color: var(--oc-foreground); font-size: 0.95rem; line-height: 2.2; }\n    .fx-chip { align-items: center; gap: 0.4rem; padding: 0.15rem 0.6rem; border-radius: 999px; background: var(--color-forestgreen-60); color: var(--color-white-50); font-size: 0.85rem; font-weight: 600; line-height: 1.6; }\n    .fx-chip::before { content: \"\"; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--color-white-50); }\n  .fx-key-ctr { inline-size: 2rem; block-size: 1.1rem; border-radius: 4px; outline: 2px dashed var(--color-vividblue-90); outline-offset: -2px; }\n  </style>"]}-->
 <section class="oc-docs-section" id="display">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Display</h2>
@@ -30,27 +30,88 @@
 
           <h3 class="oc-section-content__title mt-8">Block-level versus inline-level</h3>
 
-          <p class="oc-section-content__desc">The blue dashed line shows how wide each container really is. Inline containers wrap their content and stay on the line of the surrounding text.</p>
+          <p class="oc-section-content__desc">The same three items in six containers, each with text before and after. The blue dashed line shows the container itself: block-level containers take a line of their own and the full width, inline-level ones stay in the sentence.</p>
 
-          <oc-demo title="display values"><div class="dm-grid" style="--dm-min:13rem">
-<div class="dm-tile"><code>.block (items stack)</code><div class="dm-area block"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div></div></div>
-<div class="dm-tile"><code>.flex</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div></div></div>
-<div class="dm-tile"><code>.grid</code><div class="dm-area grid gap-0.3"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div></div></div>
-<div class="dm-tile"><code>.inline-flex / .inline-grid in text</code><div class="dm-area "><p class="dm-text">Before <span class="inline-flex gap-0.3"><div class="dm-box dm-w1 dm-h1">1</div><div class="dm-box dm-w1 dm-h1">2</div></span> middle <span class="inline-grid gap-0.3"><div class="dm-box dm-w1 dm-h1">1</div><div class="dm-box dm-w1 dm-h1">2</div></span> after.</p></div></div>
-</div><oc-code lang="html">&lt;div class="flex gap-1"&gt;…&lt;/div&gt;
-&lt;div class="grid grid-cols-3"&gt;…&lt;/div&gt;
-&lt;p&gt;Text &lt;span class="inline-flex"&gt;…&lt;/span&gt; text&lt;/p&gt;</oc-code></oc-demo>
+          <oc-demo title="display values"><div class="oc-eg fx">
+<div class="oc-eg__legend"><span class="oc-eg__key"><span class="fx-key-ctr" aria-hidden="true"></span>Blue dashed line = the container</span></div>
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.block</code><div class="oc-eg__note">A plain block box: the items stack, each one full width. Gap classes do nothing here.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-text">Text before <div class="fx-ctr block"><div class="fx-box ">Item 1</div><div class="fx-box ">Item 2</div><div class="fx-box ">Item 3</div></div> text after.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid</code><div class="oc-eg__note">Block-level grid. Without column classes it has one column, so the items stack too.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-text">Text before <div class="fx-ctr grid gap-0.5"><div class="fx-box ">Item 1</div><div class="fx-box ">Item 2</div><div class="fx-box ">Item 3</div></div> text after.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex</code><div class="oc-eg__note">Block-level: its own line, full width. The items line up in a row.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-text">Text before <div class="fx-ctr flex gap-0.5"><div class="fx-box ">Item 1</div><div class="fx-box ">Item 2</div><div class="fx-box ">Item 3</div></div> text after.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-3</code><div class="oc-eg__note">Add <code>.grid-cols-3</code> and the items fill three equal columns.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-text">Text before <div class="fx-ctr grid grid-cols-3 gap-0.5"><div class="fx-box ">Item 1</div><div class="fx-box ">Item 2</div><div class="fx-box ">Item 3</div></div> text after.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.inline-flex</code><div class="oc-eg__note">Inline-level: only as wide as its items, and it stays in the line of text.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-text">Text before <span class="fx-ctr inline-flex gap-0.5"><div class="fx-box ">Item 1</div><div class="fx-box ">Item 2</div><div class="fx-box ">Item 3</div></span> text after.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.inline-grid .grid-cols-3</code><div class="oc-eg__note">An inline grid: as wide as its content, inside the text.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-text">Text before <span class="fx-ctr inline-grid grid-cols-3 gap-0.5"><div class="fx-box ">Item 1</div><div class="fx-box ">Item 2</div><div class="fx-box ">Item 3</div></span> text after.</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div&gt;Text before
+  &lt;div class="block"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+text after.&lt;/div&gt;
+
+&lt;div&gt;Text before
+  &lt;div class="grid gap-0.5"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+text after.&lt;/div&gt;
+
+&lt;div&gt;Text before
+  &lt;div class="flex gap-0.5"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+text after.&lt;/div&gt;
+
+&lt;div&gt;Text before
+  &lt;div class="grid grid-cols-3 gap-0.5"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+text after.&lt;/div&gt;
+
+&lt;div&gt;Text before
+  &lt;span class="inline-flex gap-0.5"&gt;&lt;span&gt;Item 1&lt;/span&gt;&lt;span&gt;Item 2&lt;/span&gt;&lt;span&gt;Item 3&lt;/span&gt;&lt;/span&gt;
+text after.&lt;/div&gt;
+
+&lt;div&gt;Text before
+  &lt;span class="inline-grid grid-cols-3 gap-0.5"&gt;&lt;span&gt;Item 1&lt;/span&gt;&lt;span&gt;Item 2&lt;/span&gt;&lt;span&gt;Item 3&lt;/span&gt;&lt;/span&gt;
+text after.&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a status chip in a sentence</h3>
+
+          <p class="oc-section-content__desc">A chip with a dot and a word needs flexbox to line them up. With <code>.flex</code> it breaks the sentence; <code>.inline-flex</code> keeps it in the text.</p>
+
+          <oc-demo title="status chip in a sentence"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex</code><div class="oc-eg__note">The chip breaks the sentence and stretches over the full width.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-text">Order 1042 is <span class="fx-chip flex">Paid</span> and leaves the warehouse today.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.inline-flex</code><div class="oc-eg__note">The chip is as wide as its content and stays in the sentence.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-text">Order 1042 is <span class="fx-chip inline-flex">Paid</span> and leaves the warehouse today.</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- .flex: the chip breaks the sentence --&gt;
+&lt;p&gt;Order 1042 is &lt;span class="flex align-items-center gap-0.3 chip"&gt;Paid&lt;/span&gt; and leaves the warehouse today.&lt;/p&gt;
+
+&lt;!-- .inline-flex: the chip stays in the sentence --&gt;
+&lt;p&gt;Order 1042 is &lt;span class="inline-flex align-items-center gap-0.3 chip"&gt;Paid&lt;/span&gt; and leaves the warehouse today.&lt;/p&gt;
+
+&lt;!-- .chip is your own style: padding, radius, background and a dot (::before) --&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">display: contents</h3>
 
-          <p class="oc-section-content__desc">Wrapper elements that exist only for markup reasons can be dissolved so their children join the grid of the grandparent. Gotcha: older browsers dropped <code>display: contents</code> elements from the accessibility tree; always test buttons and lists.</p>
+          <p class="oc-section-content__desc">Wrapper elements that exist only for markup reasons can be dissolved so their children join the grid of the grandparent. Below: a form where every label and field sit in a wrapper div. Gotcha: older browsers dropped <code>display: contents</code> elements from the accessibility tree; always test buttons and lists.</p>
 
-          <oc-demo title=".contents inside a grid"><div class="dm-grid" style="--dm-min:16rem">
-<div class="dm-tile"><code>Without .contents: wrapper is the only item</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="grid grid-cols-subgrid col-span-3 gap-0.3 dm-ring"><div class="dm-box">1</div><div class="dm-box">2</div><div class="dm-box">3</div></div></div></div>
-<div class="dm-tile"><code>.contents on the wrapper</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="contents"><div class="dm-box">1</div><div class="dm-box">2</div><div class="dm-box">3</div></div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-3"&gt;
+          <oc-demo title=".contents inside a grid"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">Without .contents</code><div class="oc-eg__note">Each wrapper (blue dashed line) is one grid item, so label and field share one cell and the pairs zigzag over the two columns.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="grid gap-0.6 align-items-center" style="grid-template-columns: auto minmax(0, 1fr)"><div class="fx-ctr"><label class="oc-label" for="fx-fa0">Company</label><input class="oc-input" id="fx-fa0" value="Company 1"></div><div class="fx-ctr"><label class="oc-label" for="fx-fa1">Email</label><input class="oc-input" id="fx-fa1" value="info@company1.example"></div><div class="fx-ctr"><label class="oc-label" for="fx-fa2">Phone</label><input class="oc-input" id="fx-fa2" value="+32 000 00 00 01"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.contents on the wrappers</code><div class="oc-eg__note">The wrappers disappear. Labels go into column 1, fields into column 2.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="grid gap-0.6 align-items-center" style="grid-template-columns: auto minmax(0, 1fr)"><div class="contents"><label class="oc-label" for="fx-fb0">Company</label><input class="oc-input" id="fx-fb0" value="Company 1"></div><div class="contents"><label class="oc-label" for="fx-fb1">Email</label><input class="oc-input" id="fx-fb1" value="info@company1.example"></div><div class="contents"><label class="oc-label" for="fx-fb2">Phone</label><input class="oc-input" id="fx-fb2" value="+32 000 00 00 01"></div></div></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- Without .contents: each wrapper div is one grid item --&gt;
+&lt;div class="grid gap-0.6" style="grid-template-columns: auto 1fr"&gt;
+  &lt;div&gt;&lt;label for="company"&gt;Company&lt;/label&gt; &lt;input id="company" value="Company 1"&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;label for="email"&gt;Email&lt;/label&gt; &lt;input id="email" value="info@company1.example"&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;label for="phone"&gt;Phone&lt;/label&gt; &lt;input id="phone" value="+32 000 00 00 01"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- With .contents: labels go into column 1, fields into column 2 --&gt;
+&lt;div class="grid gap-0.6" style="grid-template-columns: auto 1fr"&gt;
   &lt;div class="contents"&gt;
-    &lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;
+    &lt;label for="company"&gt;Company&lt;/label&gt;
+    &lt;input id="company" value="Company 1"&gt;
+  &lt;/div&gt;
+  &lt;div class="contents"&gt;
+    &lt;label for="email"&gt;Email&lt;/label&gt;
+    &lt;input id="email" value="info@company1.example"&gt;
+  &lt;/div&gt;
+  &lt;div class="contents"&gt;
+    &lt;label for="phone"&gt;Phone&lt;/label&gt;
+    &lt;input id="phone" value="+32 000 00 00 01"&gt;
   &lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
         </div>

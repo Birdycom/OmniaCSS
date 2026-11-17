@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.16.0
+
+- Completions and hover CSS for the new utilities: `border-conic-spin`, `shadow-neon`, `text-shadow-neon`,
+  `text-shadow-3d`, `text-shadow-3d-2`, `glass`, `animate-float`, `animate-typing`, `animate-wave`, `animate-beat`,
+  `transition-clip`, `clip-circle-0`, `clip-circle-cover`, `mask-ring`, `bg-size-full`, `bg-size-x-0`, `bg-size-y-0`,
+  `ease-overshoot` and `scroll-buttons-outside`.
+- The new OmniaUI parts: paper, combobox with icons, language menu, logo, mode badge, code plate, card accent band,
+  sheet options (glass, inset, footer panel), sidebar meta, and the blocks type picker, content blocks, route steps,
+  route progress and step view.
+- `hover:scale-*`, `hover:rotate-*` and `hover:translate-*` show the CSS they now generate (the individual
+  `scale`, `rotate` and `translate` properties, so the change is no longer applied twice).
+
 ## 0.14.2
 
 - `oc-dl--flush` (a definition list without a line above it).

@@ -52,6 +52,21 @@ test("a namespace import scans every component; Vue components by file name", as
   assert.ok(!candidates.has("oc-card"));
 });
 
+test("a wrapper that imports a script of @birdycom/omniaui: the classes that script writes at runtime are kept (0.16.0)", async () => {
+  const ui = "node_modules/@birdycom/omniaui";
+  const dir = await project({
+    ...files,
+    [`${react}/src/components/DataTable.tsx`]: 'import { bindDataTable } from "../../../ui/src/data-table.js";\nexport function DataTable() { return <div className="oc-data-table" />; }',
+    [`${ui}/package.json`]: pkg("@birdycom/omniaui"),
+    [`${ui}/dist/data-table.js`]: 'export function bindDataTable(root) { const card = document.createElement("article"); card.className = "oc-data-table-card"; }',
+    "src/App.tsx": 'import { DataTable } from "@birdycom/omniaui-react";',
+  });
+  const { candidates } = await collectCandidates(["src/**/*.tsx"], dir);
+  assert.ok(candidates.has("oc-data-table"));
+  assert.ok(candidates.has("oc-data-table-card"), "class written by data-table.js in the card view");
+  assert.ok(!candidates.has("oc-otp"));
+});
+
 test("wrappers: false keeps node_modules out; no import, no extra files", async () => {
   const dir = await project({ ...files, "src/App.tsx": 'import { OtpInput } from "@birdycom/omniaui-react";', "src/plain.html": '<div class="oc-card"></div>' });
   assert.ok(!(await collectCandidates(["src/**/*.tsx"], dir, { wrappers: false })).candidates.has("oc-otp"));
