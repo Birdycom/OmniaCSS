@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.16.1
+
+- Completions and hover CSS for the OmniaUI additions of 0.16.1: `oc-icon--xs` … `oc-icon--xl` (Webicon sizes),
+  `oc-card--fill`, `oc-live-frame--laptop` and the card band height token.
+
 ## 0.16.0
 
 - Completions and hover CSS for the new utilities: `border-conic-spin`, `shadow-neon`, `text-shadow-neon`,
