@@ -99,7 +99,9 @@ async function contentOf(remote, local) {
   // site serves the same fonts itself (scripts/self-host-fonts.mjs), so no visitor IP goes to Google.
   // Both forms: @import url("https://…") and the minified @import "https://…".
   if (remote.endsWith(".css")) text = text.replace(/@import (?:url\(["']?https:\/\/fonts\.googleapis\.com\/[^)]*\)|["']https:\/\/fonts\.googleapis\.com\/[^"']*["']);?/g, '@import url("oc-google-fonts.css");');
-  if (/\.(css|html)$/.test(remote) && /fonts\.(googleapis|gstatic)\.com/.test(text)) throw new Error(`${remote} still loads Google Fonts`);
+  // Text inside a code sample (<pre>…</pre>) only shows an address to the reader; it loads nothing.
+  const loads = remote.endsWith(".html") ? text.replace(/<pre\b[\s\S]*?<\/pre>/g, "") : text;
+  if (/\.(css|html)$/.test(remote) && /fonts\.(googleapis|gstatic)\.com/.test(loads)) throw new Error(`${remote} still loads Google Fonts`);
   return Buffer.from(withCanonical(remote, text));
 }
 
