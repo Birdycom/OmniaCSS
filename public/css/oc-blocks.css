@@ -1178,232 +1178,6 @@
 
 .oc-block-dash-table { inline-size: 100%; }
 
-/* parts/app-block-picker.css */
-/* File: packages/blocks/src/parts/app-block-picker.css
-   Map: frame -> head -> tools (search + category chips) -> grid of type cards (radio, preview, name, hint)
-        -> mini previews (text, image, question, callout, link, countdown, tip, video, code) -> foot -> container sizes
-   Block picker: a gallery of the content types a user can add (to a page, a step, a lesson, a form). Each card is a
-   label around a radio, so picking works with a click, a tap or the arrow keys, without JavaScript. The small preview
-   in each card is real markup at a small size, not a grey skeleton. Search and category chips filter with a few
-   optional lines of script (or your framework's state). */
-
-.oc-block-picker {
-  container: oc-block-picker / inline-size;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1rem;
-  padding: 1.25rem;
-  border: 1px solid var(--oc-border);
-  border-radius: calc(var(--oc-radius) + 4px);
-  background: var(--oc-card);
-  color: var(--oc-foreground);
-}
-
-.oc-block-picker-head { display: grid; gap: 0.25rem; }
-.oc-block-picker-title { margin: 0; font-size: 1.125rem; font-weight: 650; line-height: 1.3; }
-.oc-block-picker-text { margin: 0; color: var(--oc-muted-foreground); font-size: 0.875rem; line-height: 1.5; }
-
-/* Search left, category chips right; stacked in a narrow container. */
-.oc-block-picker-tools { display: grid; gap: 0.6rem; grid-template-columns: minmax(0, 1fr); align-items: center; }
-.oc-block-picker-tools > .oc-input-group { min-inline-size: 0; }
-.oc-block-picker-tools .oc-chip-filter { margin: 0; }
-
-/* The cards: equal width and equal height in every row (golden rule). */
-.oc-block-picker-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.25rem), 1fr));
-  grid-auto-rows: 1fr;
-  gap: 0.75rem;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-.oc-block-picker-group { display: contents; }
-.oc-block-picker-group-title {
-  grid-column: 1 / -1;
-  margin: 0.25rem 0 -0.25rem;
-  color: var(--oc-muted-foreground);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.oc-block-picker-group-title:first-child { margin-block-start: 0; }
-
-.oc-block-picker-item {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-  gap: 0.35rem;
-  padding: 0.5rem 0.5rem 0.65rem;
-  border: 1px solid var(--oc-border);
-  border-radius: var(--oc-radius);
-  background: var(--oc-card);
-  cursor: pointer;
-  transition: border-color var(--oc-transition-fast), background-color var(--oc-transition-fast);
-}
-.oc-block-picker-item[hidden] { display: none; }
-.oc-block-picker-item:hover { border-color: var(--oc-border-strong); background: var(--oc-hover, var(--oc-muted)); }
-/* The radio stays in the accessibility tree and takes the keyboard focus; the card shows the state. */
-.oc-block-picker-input {
-  position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
-  margin: 0;
-  opacity: 0;
-  cursor: inherit;
-}
-.oc-block-picker-item:has(.oc-block-picker-input:checked) {
-  border-color: var(--oc-primary);
-  background: oklch(from var(--oc-primary) l c h / 0.07);
-  box-shadow: inset 0 0 0 1px var(--oc-primary);
-}
-.oc-block-picker-item:has(.oc-block-picker-input:focus-visible) {
-  outline: var(--oc-focus-width, 2px) solid var(--oc-ring);
-  outline-offset: 2px;
-}
-/* Disabled: the preview fades and the name turns muted; the hint stays readable, it says why. */
-.oc-block-picker-item:has(.oc-block-picker-input:disabled) { cursor: not-allowed; border-style: dashed; }
-.oc-block-picker-item:has(.oc-block-picker-input:disabled) .oc-block-picker-preview { opacity: 0.45; }
-.oc-block-picker-item:has(.oc-block-picker-input:disabled) .oc-block-picker-name { color: var(--oc-muted-foreground); }
-.oc-block-picker-item:has(.oc-block-picker-input:disabled):hover { border-color: var(--oc-border); background: var(--oc-card); }
-
-/* Check mark in the corner of the picked card (drawn in CSS). */
-.oc-block-picker-item::after {
-  content: "";
-  position: absolute;
-  inset-block-start: 0.85rem;
-  inset-inline-end: 0.85rem;
-  inline-size: 1.15rem;
-  block-size: 1.15rem;
-  border-radius: 50%;
-  background: var(--oc-primary) no-repeat center / 0.7rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke=%27white%27 stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.2 5 8.5l4.5-5'/%3E%3C/svg%3E");
-  scale: 0;
-  transition: scale var(--oc-transition-fast);
-  pointer-events: none;
-}
-.oc-block-picker-item:has(.oc-block-picker-input:checked)::after { scale: 1; }
-
-.oc-block-picker-name { font-size: 0.875rem; font-weight: 600; line-height: 1.3; padding-inline: 0.15rem; }
-.oc-block-picker-hint { color: var(--oc-muted-foreground); font-size: 0.75rem; line-height: 1.4; padding-inline: 0.15rem; }
-
-/* ---- Mini previews: real markup at a small size, never focusable (aria-hidden + inert in the markup). ---- */
-.oc-block-picker-preview {
-  display: grid;
-  align-content: center;
-  gap: 0.3rem;
-  aspect-ratio: 16 / 10;
-  padding: 0.55rem 0.65rem;
-  overflow: hidden;
-  border: 1px solid var(--oc-border);
-  border-radius: calc(var(--oc-radius) - 2px);
-  background: var(--oc-background);
-  color: var(--oc-foreground);
-  font-size: 0.625rem;
-  line-height: 1.35;
-  pointer-events: none;
-  user-select: none;
-}
-.oc-block-picker-preview > * { min-inline-size: 0; }
-.oc-block-picker-preview b { font-size: 0.75rem; font-weight: 650; }
-.oc-block-picker-preview p { margin: 0; color: var(--oc-muted-foreground); }
-.oc-block-picker-preview :is(iconify-icon, svg[data-icon]) { font-size: 0.9rem; }
-.oc-block-picker-art-video :is(iconify-icon, svg[data-icon]) { font-size: 2rem; }
-
-/* Image: a small landscape in flat palette colors. */
-.oc-block-picker-art-img { display: block; inline-size: 100%; block-size: 100%; border-radius: 0.3rem; }
-.oc-block-picker-preview:has(.oc-block-picker-art-img) { padding: 0.35rem; }
-
-/* Question: a line of text and three answer rows, one picked. */
-.oc-block-picker-art-option {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.1rem 0.3rem;
-  border: 1px solid var(--oc-border);
-  border-radius: 0.25rem;
-}
-.oc-block-picker-art-option::before {
-  content: "";
-  inline-size: 0.45rem;
-  block-size: 0.45rem;
-  border: 1px solid var(--oc-border-strong);
-  border-radius: 50%;
-  flex: none;
-}
-.oc-block-picker-art-option--on { border-color: var(--oc-primary); }
-.oc-block-picker-art-option--on::before { border-color: var(--oc-primary); background: var(--oc-primary); box-shadow: inset 0 0 0 1.5px var(--oc-background); }
-
-/* Callout: a tinted note with a bar on the left. */
-.oc-block-picker-art-note {
-  padding: 0.3rem 0.45rem;
-  border-inline-start: 3px solid var(--oc-warning);
-  border-radius: 0.25rem;
-  background: oklch(from var(--oc-warning) l c h / 0.14);
-}
-
-/* Link: a small outline button. */
-.oc-block-picker-art-btn {
-  justify-self: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.15rem 0.5rem;
-  border: 1px solid var(--oc-border-strong);
-  border-radius: 0.3rem;
-  font-weight: 600;
-}
-
-/* Countdown: the time and a bar that shrinks. */
-.oc-block-picker-art-time { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
-.oc-block-picker-art-bar { block-size: 0.25rem; border-radius: 1rem; background: var(--oc-muted); overflow: hidden; }
-.oc-block-picker-art-bar::before { content: ""; display: block; inline-size: 60%; block-size: 100%; background: var(--oc-primary); }
-
-/* Tip: a closed row with a chevron. */
-.oc-block-picker-art-row { display: flex; align-items: center; justify-content: space-between; padding: 0.15rem 0.35rem; border: 1px solid var(--oc-border); border-radius: 0.25rem; font-weight: 600; }
-
-/* Video: a dark frame with a play button. */
-.oc-block-picker-art-video {
-  display: grid;
-  place-items: center;
-  block-size: 100%;
-  border-radius: 0.3rem;
-  background: oklch(from var(--oc-primary) 0.26 0.05 h);
-  color: var(--color-white-50);
-}
-.oc-block-picker-preview:has(.oc-block-picker-art-video) { padding: 0.35rem; align-content: stretch; }
-
-/* Code to scan: a QR-like pattern on a white plate (always dark on white, like a real code). */
-.oc-block-picker-art-code { justify-self: center; block-size: 100%; aspect-ratio: 1; padding: 0.2rem; border-radius: 0.2rem; background: var(--color-white-50); color: var(--color-black-50); }
-.oc-block-picker-preview:has(.oc-block-picker-art-code) { padding: 0.35rem; align-content: stretch; }
-.oc-block-picker-preview:has(.oc-block-picker-art-code) > svg { block-size: 100%; min-block-size: 0; }
-
-.oc-block-picker-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; padding-block-start: 0.25rem; border-block-start: 1px solid var(--oc-border); padding-block-start: 1rem; }
-
-.oc-block-picker-empty { grid-column: 1 / -1; margin: 0; padding: 1.5rem; color: var(--oc-muted-foreground); font-size: 0.875rem; text-align: center; }
-.oc-block-picker-empty[hidden] { display: none; }
-
-@container oc-block-picker (min-width: 40rem) {
-  .oc-block-picker { padding: 1.5rem; }
-  .oc-block-picker-tools { grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr); }
-  .oc-block-picker-tools .oc-chip-filter { justify-content: flex-end; }
-  .oc-block-picker-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 10.5rem), 1fr)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .oc-block-picker-item, .oc-block-picker-item::after { transition: none; }
-}
-
-/* Sample picture colors, shared by the picker, route-steps and step-view demos (theme based, so light and dark both
-   work). Use them on the shapes of an inline SVG placeholder; a real photo needs none of this. */
-.oc-block-art-sky { fill: light-dark(oklch(from var(--oc-primary) 0.88 0.06 h), oklch(from var(--oc-primary) 0.36 0.07 h)); }
-.oc-block-art-sun { fill: var(--oc-warning); }
-.oc-block-art-land { fill: light-dark(oklch(from var(--oc-success) 0.56 0.12 h), oklch(from var(--oc-success) 0.46 0.1 h)); }
-.oc-block-art-wall { fill: light-dark(oklch(from var(--oc-warning) 0.74 0.09 60), oklch(from var(--oc-warning) 0.56 0.08 60)); }
-.oc-block-art-roof { fill: light-dark(oklch(from var(--oc-destructive) 0.5 0.12 35), oklch(from var(--oc-destructive) 0.42 0.1 35)); }
-
 /* parts/app-content-blocks.css */
 /* File: packages/blocks/src/parts/app-content-blocks.css
    Map: frame -> top bar (prev/next, title, actions) -> list -> block card (details: head with grip, type, peek,
@@ -2152,6 +1926,232 @@
 @media (prefers-reduced-motion: reduce) {
   .oc-block-step-view-countdown::after { transition: none; }
 }
+
+/* parts/app-type-picker.css */
+/* File: packages/blocks/src/parts/app-type-picker.css
+   Map: frame -> head -> tools (search + category chips) -> grid of type cards (radio, preview, name, hint)
+        -> mini previews (text, image, question, callout, link, countdown, tip, video, code) -> foot -> container sizes
+   Type picker: a gallery of the content types a user can add (to a page, a step, a lesson, a form). Each card is a
+   label around a radio, so picking works with a click, a tap or the arrow keys, without JavaScript. The small preview
+   in each card is real markup at a small size, not a grey skeleton. Search and category chips filter with a few
+   optional lines of script (or your framework's state). */
+
+.oc-block-type-picker {
+  container: oc-block-type-picker / inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) + 4px);
+  background: var(--oc-card);
+  color: var(--oc-foreground);
+}
+
+.oc-block-type-picker-head { display: grid; gap: 0.25rem; }
+.oc-block-type-picker-title { margin: 0; font-size: 1.125rem; font-weight: 650; line-height: 1.3; }
+.oc-block-type-picker-text { margin: 0; color: var(--oc-muted-foreground); font-size: 0.875rem; line-height: 1.5; }
+
+/* Search left, category chips right; stacked in a narrow container. */
+.oc-block-type-picker-tools { display: grid; gap: 0.6rem; grid-template-columns: minmax(0, 1fr); align-items: center; }
+.oc-block-type-picker-tools > .oc-input-group { min-inline-size: 0; }
+.oc-block-type-picker-tools .oc-chip-filter { margin: 0; }
+
+/* The cards: equal width and equal height in every row (golden rule). */
+.oc-block-type-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.25rem), 1fr));
+  grid-auto-rows: 1fr;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.oc-block-type-picker-group { display: contents; }
+.oc-block-type-picker-group-title {
+  grid-column: 1 / -1;
+  margin: 0.25rem 0 -0.25rem;
+  color: var(--oc-muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.oc-block-type-picker-group-title:first-child { margin-block-start: 0; }
+
+.oc-block-type-picker-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.35rem;
+  padding: 0.5rem 0.5rem 0.65rem;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+  background: var(--oc-card);
+  cursor: pointer;
+  transition: border-color var(--oc-transition-fast), background-color var(--oc-transition-fast);
+}
+.oc-block-type-picker-item[hidden] { display: none; }
+.oc-block-type-picker-item:hover { border-color: var(--oc-border-strong); background: var(--oc-hover, var(--oc-muted)); }
+/* The radio stays in the accessibility tree and takes the keyboard focus; the card shows the state. */
+.oc-block-type-picker-input {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:checked) {
+  border-color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.07);
+  box-shadow: inset 0 0 0 1px var(--oc-primary);
+}
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:focus-visible) {
+  outline: var(--oc-focus-width, 2px) solid var(--oc-ring);
+  outline-offset: 2px;
+}
+/* Disabled: the preview fades and the name turns muted; the hint stays readable, it says why. */
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:disabled) { cursor: not-allowed; border-style: dashed; }
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:disabled) .oc-block-type-picker-preview { opacity: 0.45; }
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:disabled) .oc-block-type-picker-name { color: var(--oc-muted-foreground); }
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:disabled):hover { border-color: var(--oc-border); background: var(--oc-card); }
+
+/* Check mark in the corner of the picked card (drawn in CSS). */
+.oc-block-type-picker-item::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.85rem;
+  inset-inline-end: 0.85rem;
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  border-radius: 50%;
+  background: var(--oc-primary) no-repeat center / 0.7rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke=%27white%27 stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.2 5 8.5l4.5-5'/%3E%3C/svg%3E");
+  scale: 0;
+  transition: scale var(--oc-transition-fast);
+  pointer-events: none;
+}
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:checked)::after { scale: 1; }
+
+.oc-block-type-picker-name { font-size: 0.875rem; font-weight: 600; line-height: 1.3; padding-inline: 0.15rem; }
+.oc-block-type-picker-hint { color: var(--oc-muted-foreground); font-size: 0.75rem; line-height: 1.4; padding-inline: 0.15rem; }
+
+/* ---- Mini previews: real markup at a small size, never focusable (aria-hidden + inert in the markup). ---- */
+.oc-block-type-picker-preview {
+  display: grid;
+  align-content: center;
+  gap: 0.3rem;
+  aspect-ratio: 16 / 10;
+  padding: 0.55rem 0.65rem;
+  overflow: hidden;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: var(--oc-background);
+  color: var(--oc-foreground);
+  font-size: 0.625rem;
+  line-height: 1.35;
+  pointer-events: none;
+  user-select: none;
+}
+.oc-block-type-picker-preview > * { min-inline-size: 0; }
+.oc-block-type-picker-preview b { font-size: 0.75rem; font-weight: 650; }
+.oc-block-type-picker-preview p { margin: 0; color: var(--oc-muted-foreground); }
+.oc-block-type-picker-preview :is(iconify-icon, svg[data-icon]) { font-size: 0.9rem; }
+.oc-block-type-picker-art-video :is(iconify-icon, svg[data-icon]) { font-size: 2rem; }
+
+/* Image: a small landscape in flat palette colors. */
+.oc-block-type-picker-art-img { display: block; inline-size: 100%; block-size: 100%; border-radius: 0.3rem; }
+.oc-block-type-picker-preview:has(.oc-block-type-picker-art-img) { padding: 0.35rem; }
+
+/* Question: a line of text and three answer rows, one picked. */
+.oc-block-type-picker-art-option {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid var(--oc-border);
+  border-radius: 0.25rem;
+}
+.oc-block-type-picker-art-option::before {
+  content: "";
+  inline-size: 0.45rem;
+  block-size: 0.45rem;
+  border: 1px solid var(--oc-border-strong);
+  border-radius: 50%;
+  flex: none;
+}
+.oc-block-type-picker-art-option--on { border-color: var(--oc-primary); }
+.oc-block-type-picker-art-option--on::before { border-color: var(--oc-primary); background: var(--oc-primary); box-shadow: inset 0 0 0 1.5px var(--oc-background); }
+
+/* Callout: a tinted note with a bar on the left. */
+.oc-block-type-picker-art-note {
+  padding: 0.3rem 0.45rem;
+  border-inline-start: 3px solid var(--oc-warning);
+  border-radius: 0.25rem;
+  background: oklch(from var(--oc-warning) l c h / 0.14);
+}
+
+/* Link: a small outline button. */
+.oc-block-type-picker-art-btn {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--oc-border-strong);
+  border-radius: 0.3rem;
+  font-weight: 600;
+}
+
+/* Countdown: the time and a bar that shrinks. */
+.oc-block-type-picker-art-time { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.oc-block-type-picker-art-bar { block-size: 0.25rem; border-radius: 1rem; background: var(--oc-muted); overflow: hidden; }
+.oc-block-type-picker-art-bar::before { content: ""; display: block; inline-size: 60%; block-size: 100%; background: var(--oc-primary); }
+
+/* Tip: a closed row with a chevron. */
+.oc-block-type-picker-art-row { display: flex; align-items: center; justify-content: space-between; padding: 0.15rem 0.35rem; border: 1px solid var(--oc-border); border-radius: 0.25rem; font-weight: 600; }
+
+/* Video: a dark frame with a play button. */
+.oc-block-type-picker-art-video {
+  display: grid;
+  place-items: center;
+  block-size: 100%;
+  border-radius: 0.3rem;
+  background: oklch(from var(--oc-primary) 0.26 0.05 h);
+  color: var(--color-white-50);
+}
+.oc-block-type-picker-preview:has(.oc-block-type-picker-art-video) { padding: 0.35rem; align-content: stretch; }
+
+/* Code to scan: a QR-like pattern on a white plate (always dark on white, like a real code). */
+.oc-block-type-picker-art-code { justify-self: center; block-size: 100%; aspect-ratio: 1; padding: 0.2rem; border-radius: 0.2rem; background: var(--color-white-50); color: var(--color-black-50); }
+.oc-block-type-picker-preview:has(.oc-block-type-picker-art-code) { padding: 0.35rem; align-content: stretch; }
+.oc-block-type-picker-preview:has(.oc-block-type-picker-art-code) > svg { block-size: 100%; min-block-size: 0; }
+
+.oc-block-type-picker-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; padding-block-start: 0.25rem; border-block-start: 1px solid var(--oc-border); padding-block-start: 1rem; }
+
+.oc-block-type-picker-empty { grid-column: 1 / -1; margin: 0; padding: 1.5rem; color: var(--oc-muted-foreground); font-size: 0.875rem; text-align: center; }
+.oc-block-type-picker-empty[hidden] { display: none; }
+
+@container oc-block-type-picker (min-width: 40rem) {
+  .oc-block-type-picker { padding: 1.5rem; }
+  .oc-block-type-picker-tools { grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr); }
+  .oc-block-type-picker-tools .oc-chip-filter { justify-content: flex-end; }
+  .oc-block-type-picker-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 10.5rem), 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-block-type-picker-item, .oc-block-type-picker-item::after { transition: none; }
+}
+
+/* Sample picture colors, shared by the picker, route-steps and step-view demos (theme based, so light and dark both
+   work). Use them on the shapes of an inline SVG placeholder; a real photo needs none of this. */
+.oc-block-art-sky { fill: light-dark(oklch(from var(--oc-primary) 0.88 0.06 h), oklch(from var(--oc-primary) 0.36 0.07 h)); }
+.oc-block-art-sun { fill: var(--oc-warning); }
+.oc-block-art-land { fill: light-dark(oklch(from var(--oc-success) 0.56 0.12 h), oklch(from var(--oc-success) 0.46 0.1 h)); }
+.oc-block-art-wall { fill: light-dark(oklch(from var(--oc-warning) 0.74 0.09 60), oklch(from var(--oc-warning) 0.56 0.08 60)); }
+.oc-block-art-roof { fill: light-dark(oklch(from var(--oc-destructive) 0.5 0.12 35), oklch(from var(--oc-destructive) 0.42 0.1 35)); }
 
 /* parts/site-about-timeline.css */
 /* File: packages/blocks/src/parts/site-about-timeline.css

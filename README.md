@@ -17,7 +17,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 > part: utilities, tokens, SCSS, the on-demand engine, the CLI (`init` / `build` / `migrate` / `tokens`),
 > `@birdycom/omniacss-migrate` and the CSS docs. Both repositories share the **same version number**.
 
-**Version:** `0.15.1` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
+**Version:** `0.16.0` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
 
 ## Why OmniaCSS
 
@@ -229,6 +229,7 @@ Newest first.
 
 | Version | Date | Changes |
 |--------|-------|-----|
+| `0.16.0` | 2026-11-17 | Nieuwe utilities (border-conic-spin, shadow-neon, text-shadow-3d, glass, animate-typing/wave/float, clip-circle, mask-ring, ease-overshoot); hover-varianten voor scale/rotate/translate tellen niet meer dubbel; border-image-stripes hersteld; docs: alle voorbeelden in een vaste opmaak met volledige code, getest in Chrome, Firefox en Opera |
 | `0.15.1` | 2026-11-10 | Lucida Console en Noto blijven, maar het npm-pakket gebruikt het geïnstalleerde lettertype (local()) in plaats van /fonts/: geen 404 meer in apps; build controleert elke url() in de dist |
 | `0.15.0` | 2026-11-10 | Thema-schakelaar met iconen; juridische pagina's naar birdycom.be; geïmporteerde React/Vue-componenten automatisch gescand (wrappers); fly-in-opties en scroll-voortgangsbalk; dropdown en tooltip in glas |
 | `0.14.4` | 2026-11-06 | Pijlen en vinkjes uit CSS tonen weer goed (escapes in content, ook na --minify); vergeten .test:before-regel verwijderd |
