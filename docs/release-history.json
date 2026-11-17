@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.16.1",
+      "date": "2026-11-17",
+      "summary": "Webicon (iconen op naam zonder iconify-runtime) en de OmniaUI-fixes van 0.16.1 in de editor-extensie en de MCP"
+    },
+    {
       "version": "0.16.0",
       "date": "2026-11-17",
       "summary": "Nieuwe utilities (border-conic-spin, shadow-neon, text-shadow-3d, glass, animate-typing/wave/float, clip-circle, mask-ring, ease-overshoot); hover-varianten voor scale/rotate/translate tellen niet meer dubbel; border-image-stripes hersteld; docs: alle voorbeelden in een vaste opmaak met volledige code, getest in Chrome, Firefox en Opera"
