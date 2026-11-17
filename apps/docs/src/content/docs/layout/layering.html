@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Layering", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n.lay-tile { padding: 8px 10px; border-radius: 8px; background: var(--color-dodgerblue-90); color: var(--color-white-50); font: 600 0.78rem/1.2 ui-monospace, monospace; }\n.lay-tile--b { background: var(--color-forestgreen-90); } .lay-tile--c { background: var(--color-darkorange-90); } .lay-tile--d { background: var(--color-magenta-90); }\n.lay-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 16px; inline-size: 100%; }\n.lay-cell { display: grid; gap: 6px; align-content: start; font-size: 0.75rem; }\n.lay-cell > code { justify-self: start; }\n.lay-note { font-size: 0.75rem; color: var(--oc-muted-foreground); }\n.lay-zstage { position: relative; inline-size: 100%; block-size: 6.5rem; }\n.lay-zstage .lay-tile { inline-size: 5.6rem; block-size: 3rem; box-shadow: 0 0 0 2px var(--oc-background); }\n.lay-isostage { position: relative; display: flex; align-items: center; gap: 0; padding: 12px; border-radius: 10px; background: var(--oc-muted); min-block-size: 6rem; }\n.lay-isocard { inline-size: 7rem; block-size: 4.2rem; border-radius: 8px; background: var(--oc-card); border: 1px solid var(--oc-border); }\n.lay-isokid { inset-block-start: 1rem; inset-inline-start: 3.4rem; inline-size: 6.4rem; }\n.lay-isobadge { margin-inline-start: -1.5rem; }\n</style>","<style>\n    .demo-container { background: var(--bg-soft); padding: 48px 24px; border-radius: 12px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 32px; position: relative; min-height: 160px; }\n    .demo-box { width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: 700; position: absolute; box-shadow: 0 4px 12px oklch(from var(--color-black-60) l c h / 0.15); }\n    .box-1 { background: var(--accent); color: light-dark(var(--color-white-95), var(--color-white-2)); top: 20px; left: 20px; }\n    .box-2 { background: var(--bg-subtle); color: var(--text); border: 1px solid var(--border); top: 40px; left: 60px; }\n    .box-3 { background: light-dark(var(--color-green-95), var(--color-green-2)); color: light-dark(var(--color-white-95), var(--color-white-2)); top: 60px; left: 100px; }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Layering","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>.ly-iso-card { position: absolute; inset: 0.9rem auto auto 4%; inline-size: 56%; block-size: 8.2rem; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--oc-border-strong); background: var(--oc-card); color: var(--oc-foreground); font: 600 0.8rem ui-monospace, monospace; }\n.ly-iso-kid { position: absolute; inset: 2.6rem auto auto 40%; inline-size: 78%; block-size: 3.4rem; display: grid; place-content: center; border-radius: 8px; background: var(--color-orange-95); color: var(--color-white-50); font: 700 0.85rem ui-monospace, monospace; box-shadow: 0 0 0 2px var(--oc-background); }\n.ly-iso-badge { position: absolute; inset: 1.8rem 4% auto auto; inline-size: 34%; block-size: 5rem; display: grid; place-content: center; border-radius: 8px; background: var(--color-purple-60); color: var(--color-white-50); font: 700 0.85rem ui-monospace, monospace; box-shadow: 0 0 0 2px var(--oc-background); }\n  </style>","<style>\n/* Layering demos: frame from the shared example kit (.oc-eg); overlapping flat palette cards with white text */\n.ly-stage { position: relative; block-size: 11rem; }\n.ly-box { position: absolute; display: grid; place-content: center; text-align: center; inline-size: 42%; block-size: 5.5rem; border-radius: 10px; color: var(--color-white-50); font: 700 0.85rem/1.3 ui-monospace, monospace; box-shadow: 0 0 0 2px var(--oc-background), 0 8px 18px -8px oklch(from var(--color-black-60) l c h / 0.5); }\n.ly-box small { font-weight: 500; font-size: 0.72rem; }\n.ly-box--1 { background: var(--color-vividblue-90); inset: 1rem auto auto 6%; }\n.ly-box--2 { background: var(--color-teal-70); inset: 2.75rem auto auto 29%; }\n.ly-box--3 { background: var(--color-red-70); inset: 4.5rem auto auto 52%; }\n.ly-ladder { position: relative; block-size: 10rem; }\n.ly-ladder > div { position: absolute; display: grid; place-content: center; inline-size: 24%; block-size: 4rem; border-radius: 10px; color: var(--color-white-50); font: 700 0.85rem ui-monospace, monospace; box-shadow: 0 0 0 2px var(--oc-background); }\n.ly-row { display: flex; gap: 10px; padding: 14px; }\n.ly-row > span { flex: 1 1 0; display: grid; place-content: center; text-align: center; min-block-size: 4rem; padding: 8px; border-radius: 8px; color: var(--color-white-50); font: 600 0.85rem/1.3 ui-monospace, monospace; }\n</style>"]}-->
 <section class="oc-docs-section" id="layering">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Layering</h2>
@@ -27,13 +27,26 @@
               </tbody>
             </table>
           </div>
+          <p class="oc-section-content__desc"><code>.z-auto</code> is the default: the element paints in source order, as in the left stage below, and does not start a stacking context of its own. Use it to undo a z-index class, for example at a breakpoint.</p>
 
-          <h3 class="oc-section-content__title">Stacking Demo</h3>
-          <oc-demo title="Stacking Demo"><div class="preview demo-container">
-            <div class="demo-box box-1 z-30">z-30</div>
-            <div class="demo-box box-2 z-20">z-20</div>
-            <div class="demo-box box-3 z-10">z-10</div>
-          </div></oc-demo>
+          <h3 class="oc-section-content__title">Stacking order</h3>
+          <p class="oc-section-content__desc">Both stages hold the same three positioned cards in the same source order. Left, without z-index, the card that comes last in the HTML paints on top. Right, the z-index classes reverse that: Card 1 (<code>.z-30</code>) is now on top.</p>
+          <oc-demo title="source order vs z-index"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem">
+            <div class="oc-eg__panel"><code class="oc-eg__name">no z-index</code><div class="oc-eg__note">Card 3 comes last, so it covers the others.</div><div class="oc-eg__stage oc-eg__stage--plain ly-stage"><div class="ly-box ly-box--1">Card 1</div><div class="ly-box ly-box--2">Card 2</div><div class="ly-box ly-box--3">Card 3</div></div></div>
+            <div class="oc-eg__panel"><code class="oc-eg__name">.z-30 / .z-20 / .z-10</code><div class="oc-eg__note">The highest z-index paints on top, whatever the order in the HTML.</div><div class="oc-eg__stage oc-eg__stage--plain ly-stage"><div class="ly-box ly-box--1 z-30">Card 1<small>.z-30</small></div><div class="ly-box ly-box--2 z-20">Card 2<small>.z-20</small></div><div class="ly-box ly-box--3 z-10">Card 3<small>.z-10</small></div></div></div>
+          </div></div><oc-code lang="html">&lt;!-- Without z-index: the last card in the HTML paints on top --&gt;
+&lt;div class="relative h-11"&gt;
+  &lt;div class="absolute" style="top: 1rem; left: 6%"&gt;Card 1&lt;/div&gt;
+  &lt;div class="absolute" style="top: 2.75rem; left: 29%"&gt;Card 2&lt;/div&gt;
+  &lt;div class="absolute" style="top: 4.5rem; left: 52%"&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Same HTML order, now with z-index: Card 1 is on top --&gt;
+&lt;div class="relative h-11"&gt;
+  &lt;div class="absolute z-30" style="top: 1rem; left: 6%"&gt;Card 1&lt;/div&gt;
+  &lt;div class="absolute z-20" style="top: 2.75rem; left: 29%"&gt;Card 2&lt;/div&gt;
+  &lt;div class="absolute z-10" style="top: 4.5rem; left: 52%"&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Visibility &amp; Isolation</h3>
           <div class="oc-expandable-table">
@@ -52,31 +65,54 @@
 &lt;/div&gt;</oc-code>
 
           <h3 class="oc-section-content__title mt-8">All z-index levels</h3>
-          <p class="oc-section-content__desc">Six overlapping cards, each offset from the previous one, with z-0 to z-50. A higher number paints on top regardless of the source order. Card <code>z-auto</code> follows the source order.</p>
+          <p class="oc-section-content__desc">Six overlapping cards from <code>.z-0</code> to <code>.z-50</code>. In the HTML they are written in reverse order (z-50 first), yet each higher number still paints on top of the card before it.</p>
 
           <oc-demo title="z-0 … z-50 (source order is reversed)">
-            <div class="lay-zstage"><div class="lay-z z-50 relative lay-tile lay-tile--b" style="inset-inline-start:17.0rem;inset-block-start:2.5rem;position:absolute">z-50</div><div class="lay-z z-40 relative lay-tile" style="inset-inline-start:13.6rem;inset-block-start:2.0rem;position:absolute">z-40</div><div class="lay-z z-30 relative lay-tile lay-tile--b" style="inset-inline-start:10.2rem;inset-block-start:1.5rem;position:absolute">z-30</div><div class="lay-z z-20 relative lay-tile" style="inset-inline-start:6.8rem;inset-block-start:1.0rem;position:absolute">z-20</div><div class="lay-z z-10 relative lay-tile lay-tile--b" style="inset-inline-start:3.4rem;inset-block-start:0.5rem;position:absolute">z-10</div><div class="lay-z z-0 relative lay-tile" style="inset-inline-start:0.0rem;inset-block-start:0.0rem;position:absolute">z-0</div></div>
-          <oc-code lang="html">&lt;div class="relative z-10"&gt;…&lt;/div&gt;
-&lt;div class="relative z-50"&gt;paints on top&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%"><div class="oc-eg__panel"><code class="oc-eg__name">.z-0 &middot; .z-10 &middot; .z-20 &middot; .z-30 &middot; .z-40 &middot; .z-50</code><div class="oc-eg__note">z-50 is first in the HTML and z-0 last, yet every higher number paints on top.</div><div class="oc-eg__stage oc-eg__stage--plain ly-ladder"><div class="z-50" style="inset-inline-start:76.0%;inset-block-start:5.25rem;background:var(--color-forestgreen-60)">z-50</div><div class="z-40" style="inset-inline-start:60.8%;inset-block-start:4.35rem;background:var(--color-red-70)">z-40</div><div class="z-30" style="inset-inline-start:45.6%;inset-block-start:3.45rem;background:var(--color-orange-95)">z-30</div><div class="z-20" style="inset-inline-start:30.4%;inset-block-start:2.55rem;background:var(--color-purple-60)">z-20</div><div class="z-10" style="inset-inline-start:15.2%;inset-block-start:1.65rem;background:var(--color-teal-70)">z-10</div><div class="z-0" style="inset-inline-start:0.0%;inset-block-start:0.75rem;background:var(--color-vividblue-90)">z-0</div></div></div></div></div>
+          <oc-code lang="html">&lt;!-- z-50 comes first in the HTML, z-0 last; the higher number still paints on top --&gt;
+&lt;div class="relative h-10"&gt;
+  &lt;div class="absolute z-50" style="left: 76%; top: 5.25rem"&gt;z-50&lt;/div&gt;
+  &lt;div class="absolute z-40" style="left: 61%; top: 4.35rem"&gt;z-40&lt;/div&gt;
+  &lt;div class="absolute z-30" style="left: 46%; top: 3.45rem"&gt;z-30&lt;/div&gt;
+  &lt;div class="absolute z-20" style="left: 30%; top: 2.55rem"&gt;z-20&lt;/div&gt;
+  &lt;div class="absolute z-10" style="left: 15%; top: 1.65rem"&gt;z-10&lt;/div&gt;
+  &lt;div class="absolute z-0"  style="left: 0;   top: 0.75rem"&gt;z-0&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Isolation: contain the z-index war</h3>
           <p class="oc-section-content__desc">Both cards hold a child with <code>z-50</code> and sit next to a <code>z-10</code> badge. Without isolation the left child escapes and covers the badge; with <code>.isolate</code> on the card (right) its children stay inside the card and the badge wins.</p>
 
-          <oc-demo title="isolate">
-            <div class="lay-grid" style="grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr))">
-              <div class="lay-cell"><div class="lay-isostage"><div class="lay-isocard relative"><div class="absolute z-50 lay-tile lay-tile--c lay-isokid">z-50 child</div></div><div class="lay-isobadge relative z-10 lay-tile lay-tile--d">z-10 badge</div></div><code>no isolation</code></div>
-              <div class="lay-cell"><div class="lay-isostage"><div class="lay-isocard relative isolate"><div class="absolute z-50 lay-tile lay-tile--c lay-isokid">z-50 child</div></div><div class="lay-isobadge relative z-10 lay-tile lay-tile--d">z-10 badge</div></div><code>.isolate</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="relative isolate"&gt;
-  &lt;div class="absolute z-50"&gt;stays inside&lt;/div&gt;
+          <oc-demo title="isolate"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem">
+            <div class="oc-eg__panel"><code class="oc-eg__name">no isolation</code><div class="oc-eg__note">The child's z-50 competes with the badge's z-10 on the page level, so the orange child covers the purple badge.</div><div class="oc-eg__stage oc-eg__stage--plain ly-stage"><div class="ly-iso-card">Card<div class="ly-iso-kid z-50">z-50 child</div></div><div class="ly-iso-badge z-10">z-10 badge</div></div></div>
+            <div class="oc-eg__panel"><code class="oc-eg__name">.isolate on the card</code><div class="oc-eg__note">The card is its own stacking context. Its z-50 only counts inside the card, and the badge stays on top.</div><div class="oc-eg__stage oc-eg__stage--plain ly-stage"><div class="ly-iso-card isolate">Card<div class="ly-iso-kid z-50">z-50 child</div></div><div class="ly-iso-badge z-10">z-10 badge</div></div></div>
+          </div></div><oc-code lang="html">&lt;!-- Without isolation: the child's z-50 beats the badge's z-10 --&gt;
+&lt;div class="relative h-11"&gt;
+  &lt;div class="absolute"&gt;                 &lt;!-- the card --&gt;
+    Card
+    &lt;div class="absolute z-50"&gt;z-50 child&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="absolute z-10"&gt;z-10 badge&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- .isolate on the card: its z-50 only counts inside the card --&gt;
+&lt;div class="relative h-11"&gt;
+  &lt;div class="absolute isolate"&gt;
+    Card
+    &lt;div class="absolute z-50"&gt;z-50 child&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="absolute z-10"&gt;z-10 badge&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">visible vs invisible</h3>
-          <p class="oc-section-content__desc"><code>.invisible</code> hides the element but keeps its box, so the layout does not jump; compare with <code>.none</code> on the Display page, which also removes the space.</p>
+          <p class="oc-section-content__desc"><code>.invisible</code> hides the middle card but keeps its box, so the third card stays where it was; compare with <code>.none</code> on the <a href="/docs/layout/display">Display</a> page, which also removes the space.</p>
 
           <oc-demo title="visible, invisible">
-            <div class="flex flex-wrap gap-2 items-center"><span class="lay-tile visible">visible</span><span class="lay-tile lay-tile--c invisible">invisible</span><span class="lay-tile lay-tile--b">next tile (gap left behind)</span></div>
-          <oc-code lang="html">&lt;span class="invisible"&gt;still takes space&lt;/span&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%"><div class="oc-eg__panel"><code class="oc-eg__name">.visible &middot; .invisible</code><div class="oc-eg__note">The middle card is not drawn, but its box keeps its place.</div><div class="oc-eg__stage oc-eg__stage--plain ly-row"><span class="visible" style="background:var(--color-vividblue-90)">.visible</span><span class="invisible" style="background:var(--color-orange-95)">.invisible</span><span style="background:var(--color-forestgreen-60)">next card: the gap stays</span></div></div></div></div>
+          <oc-code lang="html">&lt;div class="flex gap-1"&gt;
+  &lt;span class="visible"&gt;.visible&lt;/span&gt;
+  &lt;span class="invisible"&gt;.invisible&lt;/span&gt;
+  &lt;span&gt;next card: the gap stays&lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
         </div>
       </section>

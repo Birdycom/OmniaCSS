@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Border Spacing","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Border Spacing","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Comparison cards: equal height per row, full width of the preview */\n    .tb-scroll { min-inline-size: 0; max-inline-size: 100%; overflow-x: auto; }\n    /* A plain data table: padding and a clear border on every cell */\n    .tb-data { inline-size: 100%; font-size: 0.875rem; color: var(--oc-foreground); }\n    .tb-data th, .tb-data td { padding: 0.5rem 0.75rem; text-align: start; border: 1px solid var(--oc-border-strong); background: var(--oc-card); }\n    .tb-data thead th { background: var(--oc-muted); font-weight: 600; }\n    .tb-data tfoot td { background: var(--oc-muted); font-weight: 600; }\n    .tb-data .tb-num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }\n    /* Two tones: the table background (the gap) is teal, the cells are the card color */\n    .tb-gap { background: var(--color-teal-70); border-radius: 6px; }\n    .tb-gap td { border: 1px solid var(--oc-border-strong); }\n    .tb-gap thead th { background: var(--oc-muted); }\n    /* Card rows: space between rows only */\n    .tb-cardrows { inline-size: 100%; font-size: 0.875rem; color: var(--oc-foreground); }\n    .tb-cardrows th { padding: 0 0.9rem 0.1rem; font-size: 0.75rem; font-weight: 600; text-align: start; color: var(--oc-muted-foreground); }\n    .tb-cardrows td { padding: 0.7rem 0.9rem; background: var(--oc-card); border-block: 1px solid var(--oc-border-strong); }\n    .tb-cardrows td:first-child { border-inline-start: 4px solid var(--color-vividblue-80); border-radius: 8px 0 0 8px; font-weight: 600; }\n    .tb-cardrows td:last-child { border-inline-end: 1px solid var(--oc-border-strong); border-radius: 0 8px 8px 0; }\n    .tb-cardrows .tb-num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }\n    .tb-cardrows-area { inline-size: 100%; box-sizing: border-box; padding: 0.75rem; border-radius: 10px; background: var(--oc-muted); }\n  .tb-in { display: grid; align-content: center; gap: 0.75rem; padding: 0.75rem; color: var(--oc-foreground); }\n</style>"]}-->
 <section class="oc-docs-section" id="border-spacing">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Border Spacing</h2>
@@ -25,12 +25,60 @@
 
           <h3 class="oc-section-content__title mt-8">Spacing scale</h3>
 
-          <oc-demo title="border-spacing values"><div class="dm-grid" style="--dm-min:13rem">
-<div class="dm-tile"><code>.border-separate .border-spacing-0</code><div class="dm-area "><table class="dm-tbl border-separate border-spacing-0"><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table></div></div>
-<div class="dm-tile"><code>.border-separate .border-spacing-1</code><div class="dm-area "><table class="dm-tbl border-separate border-spacing-1"><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table></div></div>
-<div class="dm-tile"><code>.border-separate .border-spacing-2</code><div class="dm-area "><table class="dm-tbl border-separate border-spacing-2"><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table></div></div>
-<div class="dm-tile"><code>.border-separate .border-spacing-4</code><div class="dm-area "><table class="dm-tbl border-separate border-spacing-4"><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table></div></div>
-<div class="dm-tile"><code>.border-separate .border-spacing-8</code><div class="dm-area "><table class="dm-tbl border-separate border-spacing-8"><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table></div></div>
-</div><oc-code lang="html">&lt;table class="border-separate border-spacing-2"&gt;…&lt;/table&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The same two-row table five times, each value on its own line. The teal you see between the cells is the table background: that is the border spacing. At <code>.border-spacing-0</code> there is no teal at all.</p>
+
+          <oc-demo title="border-spacing values">
+<div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch oc-eg__swatch--solid" style="--eg-c: var(--color-teal-70)" aria-hidden="true"></span>Gap (the table background)</span><span class="oc-eg__key"><span class="oc-eg__swatch" style="background: var(--oc-card)" aria-hidden="true"></span>Cell</span></div><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-spacing-0</code><div class="oc-eg__note">No gap: the borders of neighbouring cells sit side by side.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><table class="tb-data tb-gap border-separate border-spacing-0"><tbody><tr><td>Product 1</td><td class="tb-num">2</td><td class="tb-num">€24.00</td></tr><tr><td>Product 2</td><td class="tb-num">1</td><td class="tb-num">€8.50</td></tr></tbody></table></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-spacing-1</code><div class="oc-eg__note">A 4px gap between the cells and around them.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><table class="tb-data tb-gap border-separate border-spacing-1"><tbody><tr><td>Product 1</td><td class="tb-num">2</td><td class="tb-num">€24.00</td></tr><tr><td>Product 2</td><td class="tb-num">1</td><td class="tb-num">€8.50</td></tr></tbody></table></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-spacing-2</code><div class="oc-eg__note">A 8px gap between the cells and around them.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><table class="tb-data tb-gap border-separate border-spacing-2"><tbody><tr><td>Product 1</td><td class="tb-num">2</td><td class="tb-num">€24.00</td></tr><tr><td>Product 2</td><td class="tb-num">1</td><td class="tb-num">€8.50</td></tr></tbody></table></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-spacing-4</code><div class="oc-eg__note">A 16px gap between the cells and around them.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><table class="tb-data tb-gap border-separate border-spacing-4"><tbody><tr><td>Product 1</td><td class="tb-num">2</td><td class="tb-num">€24.00</td></tr><tr><td>Product 2</td><td class="tb-num">1</td><td class="tb-num">€8.50</td></tr></tbody></table></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-spacing-8</code><div class="oc-eg__note">A 32px gap between the cells and around them.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><table class="tb-data tb-gap border-separate border-spacing-8"><tbody><tr><td>Product 1</td><td class="tb-num">2</td><td class="tb-num">€24.00</td></tr><tr><td>Product 2</td><td class="tb-num">1</td><td class="tb-num">€8.50</td></tr></tbody></table></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;table class="border-separate border-spacing-0"&gt;
+  &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;€24.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;€8.50&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class="border-separate border-spacing-1"&gt;
+  &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;€24.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;€8.50&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class="border-separate border-spacing-2"&gt;
+  &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;€24.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;€8.50&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class="border-separate border-spacing-4"&gt;
+  &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;€24.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;€8.50&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class="border-separate border-spacing-8"&gt;
+  &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;€24.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;€8.50&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;!-- In this demo the table background shows in the gap:
+     table { background: var(--color-teal-70); }
+     td { background: var(--oc-card); border: 1px solid; } --&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Card rows</h3>
+
+          <p class="oc-section-content__desc">With two values, <code>border-spacing: 0 0.5rem</code>, the cells touch side by side but every row gets space above and below. Each row then reads as a separate card.</p>
+
+          <oc-demo title="Space between rows only">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">border-spacing: 0 0.5rem</code><div class="oc-eg__note">Space between the rows only, so each row reads like a card.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-cardrows-area tb-scroll"><table class="tb-cardrows border-separate" style="border-spacing: 0 0.5rem"><thead><tr><th>Order</th><th>Customer</th><th class="tb-num">Total</th></tr></thead><tbody>
+<tr><td>Order 1001</td><td>Customer 1</td><td class="tb-num">€128.50</td></tr><tr><td>Order 1002</td><td>Customer 2</td><td class="tb-num">€42.00</td></tr><tr><td>Order 1003</td><td>Customer 3</td><td class="tb-num">€310.75</td></tr>
+</tbody></table></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;table class="border-separate" style="border-spacing: 0 0.5rem"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Order&lt;/th&gt;&lt;th&gt;Customer&lt;/th&gt;&lt;th&gt;Total&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Order 1001&lt;/td&gt;&lt;td&gt;Customer 1&lt;/td&gt;&lt;td&gt;€128.50&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Order 1002&lt;/td&gt;&lt;td&gt;Customer 2&lt;/td&gt;&lt;td&gt;€42.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Order 1003&lt;/td&gt;&lt;td&gt;Customer 3&lt;/td&gt;&lt;td&gt;€310.75&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</oc-code></oc-demo>
         </div>
       </section>

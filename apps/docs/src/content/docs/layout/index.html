@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Layout", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Layout","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n\n/* Overview: one panel per page of this section, with a small live example (frame from the example kit) */\n.ov-link { font-family: inherit; font-size: 1rem; font-weight: 700; color: var(--oc-primary); text-decoration: underline; text-underline-offset: 3px; }\n.ov-link:hover { text-decoration-thickness: 2px; }\n.ov-stage { display: grid; align-content: center; gap: 0.5rem; padding: 0.875rem; min-block-size: 8.5rem; color: var(--oc-foreground); font-size: 0.85rem; line-height: 1.5; }\n.ov-chip { padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--color-teal-70); color: var(--color-white-50); font-weight: 600; font-size: 0.8rem; line-height: 1.3; }\n.ov-chip--b { background: var(--color-slateblue-70); } .ov-chip--c { background: var(--color-chocolate-80); } .ov-chip--d { background: var(--color-crimson-70); }\n.ov-sz { box-sizing: border-box; inline-size: 9rem; padding: 0.5rem; border: 6px solid var(--color-chocolate-80); background: color-mix(in oklch, var(--color-teal-70) 25%, var(--oc-card)); font-weight: 600; font-size: 0.75rem; }\n.ov-sz.box-content { box-sizing: content-box; }\n.ov-ruler { inline-size: 9rem; border-inline: 2px solid var(--oc-foreground); border-block-end: 2px solid var(--oc-foreground); block-size: 0.4rem; }\n.ov-float { inline-size: 3.5rem; block-size: 2.75rem; margin-inline-end: 0.6rem; border-radius: 6px; background: var(--color-teal-70); }\n.ov-stack { position: relative; block-size: 6.5rem; }\n.ov-stack > div { position: absolute; inline-size: 45%; block-size: 3.5rem; display: grid; place-content: end; padding: 0.3rem 0.5rem; border-radius: 8px; color: var(--color-white-50); font-weight: 700; font-size: 0.8rem; box-shadow: 0 0 0 2px var(--oc-card); }\n.ov-scroll { block-size: 6.5rem; overflow-y: auto; padding: 0.4rem 0.6rem; border: 2px dashed var(--oc-foreground); border-radius: 6px; background: var(--oc-card); }\n.ov-dots { block-size: 6.5rem; border-radius: 8px; border: 1px solid var(--oc-border); background-color: var(--oc-card); background-image: radial-gradient(circle, var(--color-slateblue-70) 0 28%, transparent 30%); background-size: 1.6rem 1.6rem; }\n\n.ov-inset { block-size: 6.5rem; border-radius: 8px; background: var(--color-vividblue-90); }\n.ov-inset__layer { display: grid; place-content: center; border: 2px dashed var(--color-white-50); border-radius: 6px; background: var(--color-chocolate-80); color: var(--color-white-50); font-weight: 700; font-size: 0.8rem; }\n.ov-hg { gap: 0.3rem; block-size: 7rem; }\n.ov-hg > div { display: grid; place-content: center; border-radius: 5px; color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Layout</h2>
@@ -9,46 +9,17 @@
         </div>
         
         <div class="oc-section-content">
-          <p>
-            The Layout module provides essential utilities for structuring your web pages, 
-            handling How elements are rendered, how they interact with the document flow, 
-            and how they are layered.
-          </p>
+          <p class="oc-section-content__desc">The Layout section covers how boxes are displayed, how they flow, how they stack and what happens when content does not fit. Below is every page of the section with a small live example of what it does; click a title to open the page.</p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-1.5">
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Display &amp; Box Model</h3>
-              <ul class="oc-docs-list">
-                <li><a href="display.html">Display</a></li>
-                <li><a href="box-sizing.html">Box Sizing</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Flow &amp; Positioning</h3>
-              <ul class="oc-docs-list">
-                <li><a href="flow.html">Document Flow</a></li>
-                <li><a href="layering.html">Layering (Z-Index)</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Behavior</h3>
-              <ul class="oc-docs-list">
-                <li><a href="overflow.html">Overflow</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Visuals</h3>
-              <ul class="oc-docs-list">
-                <li><a href="backgrounds.html">Backgrounds</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Extras</h3>
-              <ul class="oc-docs-list">
-                <li><a href="extras.html">Layout Extras</a> — inset, logical min/max sizes, flex-flow, grid areas, margin-trim</li>
-              </ul>
-            </div>
-          </div>
+          <div class="oc-eg mt-1.5"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="display.html">Display</a><div class="oc-eg__note">How a box takes part in the layout: <code>.block</code>, <code>.inline-block</code>, <code>.none</code>, <code>.contents</code>, <code>.flow-root</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div>Text <span class="inline-block ov-chip">.inline-block</span> stays in the line of text.<span class="block ov-chip ov-chip--b" style="margin-top: 0.5rem">.block takes its own line</span></div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="box-sizing.html">Box Sizing</a><div class="oc-eg__note">Whether padding and border count in the width: <code>.box-border</code> or <code>.box-content</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="ov-ruler"></div><div class="ov-sz box-border">.box-border: 9rem</div><div class="ov-sz box-content">.box-content: wider</div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="flow.html">Document Flow</a><div class="oc-eg__note">Floats and newspaper columns: <code>.float-start</code>, <code>.columns-2</code>, <code>.columns-sm</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="flow-root"><div class="float-start ov-float"></div>The text flows around the green box, which floats to the start.</div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="layering.html">Layering</a><div class="oc-eg__note">Which box paints on top: <code>.z-0</code> to <code>.z-50</code> and <code>.isolate</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="ov-stack"><div class="z-30" style="inset: 0.4rem auto auto 4%; background: var(--color-teal-70)">.z-30</div><div class="z-20" style="inset: 1.6rem auto auto 28%; background: var(--color-slateblue-70)">.z-20</div><div class="z-10" style="inset: 2.8rem auto auto 52%; background: var(--color-chocolate-80)">.z-10</div></div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="overflow.html">Overflow</a><div class="oc-eg__note">What happens to content that does not fit: <code>.overflow-hidden</code>, <code>.overflow-y-auto</code>, <code>.overscroll-contain</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="ov-scroll overflow-y-auto" tabindex="0">Order 1 · Customer 1<br>Order 2 · Customer 2<br>Order 3 · Customer 3<br>Order 4 · Customer 4<br>Order 5 · Customer 5<br>Order 6 · Customer 6</div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="backgrounds.html">Backgrounds</a><div class="oc-eg__note">Background images and patterns: repeat, position, size, clip and origin, such as <code>.bg-repeat</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="ov-dots bg-repeat"></div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="extras.html">Layout Extras</a><div class="oc-eg__note">Inset, logical sizes, flex-flow, named grid areas, zoom, masks and more, such as <code>.absolute .inset-2</code>.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="relative ov-inset"><div class="absolute inset-2 ov-inset__layer">.absolute .inset-2</div></div></div></div>
+</div></div>
         </div>
       </section>
 

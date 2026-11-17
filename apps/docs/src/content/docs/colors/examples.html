@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Colors Examples & Customizing", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Colors Examples & Customizing","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .ce-swatch { display: grid; align-content: space-between; gap: 1rem; min-block-size: 9rem; padding: 1.25rem; border-radius: 12px; font-size: 1.15rem; font-weight: 600; }\n    .ce-cls { display: block; font-family: var(--oc-font-mono, monospace); font-size: 0.85rem; font-weight: 400; }\n    .ce-btn { min-block-size: 3.5rem; border: 0; border-radius: 10px; font: inherit; font-size: 1.05rem; font-weight: 600; cursor: pointer; }\n    .ce-now { display: grid; place-items: center; min-block-size: 8rem; border-radius: 12px; color: var(--color-white-50); font-size: 1.4rem; font-weight: 700; text-align: center; padding: 1rem; }\n    .ce-states { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); grid-auto-rows: 1fr; gap: 1rem; inline-size: 100%; margin-block-start: 1rem; }\n    .ce-state { display: grid; grid-template-columns: 2.5rem 1fr; align-items: center; gap: 0.75rem; padding: 0.9rem 1rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); }\n    .ce-state i { inline-size: 2.5rem; block-size: 2.5rem; border-radius: 8px; }\n    .ce-state b { display: block; }\n    .ce-here { margin-inline-start: 0.4rem; padding: 0.1rem 0.6rem; border-radius: 99px; background: var(--oc-foreground); color: var(--oc-card); font-size: 0.75rem; font-weight: 700; }\n    .ce-card { display: grid; gap: 0.6rem; align-content: start; padding: 1.25rem; border: 2px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .ce-card b { font-size: 1.15rem; }\n    .ce-card button { justify-self: start; margin-block-start: 0.5rem; padding: 0.6rem 1.1rem; border: 0; border-radius: 8px; font: inherit; font-weight: 600; background: var(--oc-primary); color: var(--oc-primary-foreground); }\n    .ce-promo { --oc-card: light-dark(color-mix(in oklch, var(--color-orange-60) 14%, var(--color-white-50)), color-mix(in oklch, var(--color-orange-60) 16%, var(--color-black-50))); --oc-border: var(--color-orange-60); --oc-primary: var(--color-orange-95); }\n    .ce-calm { --oc-card: light-dark(color-mix(in oklch, var(--color-teal-70) 10%, var(--color-white-50)), color-mix(in oklch, var(--color-teal-70) 22%, var(--color-black-50))); --oc-border: var(--color-teal-70); --oc-primary: var(--color-teal-70); }\n      .ce-promo, .ce-calm { --oc-primary-foreground: var(--color-white-50); }\n  .cl-in { display: grid; align-content: center; gap: 0.75rem; padding: 0.875rem; color: var(--oc-foreground); }\n.cl-center { place-items: center; }\n</style>"]}-->
 <section class="oc-docs-section" id="examples">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Practical Examples</h2>
@@ -11,36 +11,46 @@
         <div class="oc-section-content">
           <h3 class="oc-section-content__title">Basic Combinations</h3>
           <oc-demo title="Omnia scale, HTML color and RAL base color">
-            <div class="flex gap-2 flex-wrap items-center">
-              <div class="bg-red-40 text-white p-2 round-1">.bg-red-40 .text-white</div>
-              <div class="bg-cornflowerblue hover:bg-cornflowerblue-90 text-white p-2 round-1">.bg-cornflowerblue (hover me)</div>
-              <div class="bg-ral1003 text-ral9005 p-2 round-1">.bg-ral1003 .text-ral9005</div>
-            </div>
-          <oc-code>&lt;!-- Omnia scale --&gt;
-&lt;div class="bg-red-40 text-white p-2"&gt;...&lt;/div&gt;
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-red-70 .text-white</code><div class="oc-eg__note">A step of the Omnia scale: red at 70, with white text.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in"><div class="ce-swatch bg-red-70 text-white">Omnia scale<span><span class="ce-cls">.bg-red-70</span><span class="ce-cls">.text-white</span></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-cornflowerblue .hover:bg-cornflowerblue-90</code><div class="oc-eg__note">An HTML color name. Hover it: the background and text change.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in"><div class="ce-swatch bg-cornflowerblue text-ral9005 hover:bg-cornflowerblue-90 hover:text-white transition-colors duration-200">HTML color (hover me)<span><span class="ce-cls">.bg-cornflowerblue</span><span class="ce-cls">.hover:bg-cornflowerblue-90</span></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-ral1003 .text-ral9005</code><div class="oc-eg__note">A RAL base color with RAL black text.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in"><div class="ce-swatch bg-ral1003 text-ral9005">RAL base color<span><span class="ce-cls">.bg-ral1003</span><span class="ce-cls">.text-ral9005</span></span></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- Omnia scale --&gt;
+&lt;div class="bg-red-70 text-white"&gt;…&lt;/div&gt;
 
-&lt;!-- HTML color with pseudo class --&gt;
-&lt;div class="bg-cornflowerblue hover:bg-cornflowerblue-90"&gt;...&lt;/div&gt;
+&lt;!-- HTML color name, with a darker tone on hover --&gt;
+&lt;div class="bg-cornflowerblue text-ral9005 hover:bg-cornflowerblue-90 hover:text-white"&gt;…&lt;/div&gt;
 
 &lt;!-- RAL base color --&gt;
-&lt;div class="bg-ral1003 text-ral9005"&gt;...&lt;/div&gt;</oc-code></oc-demo>
+&lt;div class="bg-ral1003 text-ral9005"&gt;…&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title">Hover States</h3>
-          <oc-demo title="Hover the button">
-            <div class="flex gap-2 flex-wrap">
-              <button type="button" class="bg-blue-40 hover:bg-blue-60 text-white p-2 round-1 border-none cursor-pointer transition-colors duration-200">Save changes</button>
-              <button type="button" class="bg-green-50 hover:bg-green-70 text-white p-2 round-1 border-none cursor-pointer transition-colors duration-200">Publish</button>
-              <button type="button" class="bg-red-40 hover:bg-red-70 text-white p-2 round-1 border-none cursor-pointer transition-colors duration-200">Delete</button>
-            </div>
-          <oc-code>&lt;button class="bg-blue-40 hover:bg-blue-60 text-white p-2"&gt;Save changes&lt;/button&gt;</oc-code></oc-demo>
+          <oc-demo title="Hover the buttons: each one turns one tone darker">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-vividblue-90 .hover:bg-vividblue-95</code><div class="oc-eg__note">Hover the button: it turns one step darker.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in cl-center"><button type="button" class="ce-btn bg-vividblue-90 hover:bg-vividblue-95 text-white transition-colors duration-200">Save changes</button></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-green-70 .hover:bg-green-80</code><div class="oc-eg__note">Hover the button: it turns one step darker.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in cl-center"><button type="button" class="ce-btn bg-green-70 hover:bg-green-80 text-white transition-colors duration-200">Publish</button></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-red-70 .hover:bg-red-80</code><div class="oc-eg__note">Hover the button: it turns one step darker.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in cl-center"><button type="button" class="ce-btn bg-red-70 hover:bg-red-80 text-white transition-colors duration-200">Delete</button></div></div>
+</div></div>
+<oc-code lang="html">&lt;button class="bg-vividblue-90 hover:bg-vividblue-95 text-white transition-colors"&gt;Save changes&lt;/button&gt;
+&lt;button class="bg-green-70 hover:bg-green-80 text-white transition-colors"&gt;Publish&lt;/button&gt;
+&lt;button class="bg-red-70 hover:bg-red-80 text-white transition-colors"&gt;Delete&lt;/button&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title">Responsive Overrides</h3>
-          <p class="oc-section-content__desc">Color utilities have no responsive prefix of their own; combine the color classes with the responsive display utilities (<code>md:hidden</code>, <code>hidden md:block</code>) to switch colors per breakpoint.</p>
+          <p class="oc-section-content__desc">Color utilities have no responsive prefix of their own; combine the color classes with the responsive display utilities (<code>md:hidden</code>, <code>none md:block</code>) to switch colors per breakpoint.</p>
           <oc-demo title="Resize the window: blue below 50rem, green from 50rem up">
-            <div class="bg-blue-40 text-white p-2 round-1 md:hidden">Small screen: blue</div>
-            <div class="bg-green-50 text-white p-2 round-1 hidden md:block">md and up: green</div>
-          <oc-code>&lt;div class="bg-blue-40 p-2 md:hidden"&gt;Small screen&lt;/div&gt;
-&lt;div class="bg-green-50 p-2 hidden md:block"&gt;md and up&lt;/div&gt;</oc-code></oc-demo>
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.md:hidden · .none .md:block</code><div class="oc-eg__note">Below 50rem the blue box shows, from 50rem up the green one. Resize the window to switch.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in"><div class="w-full">
+              <div class="md:hidden"><div class="ce-now bg-vividblue-90">Below 50rem: blue</div></div>
+              <div class="none md:block"><div class="ce-now bg-green-70">50rem and wider: green</div></div>
+              <div class="ce-states">
+                <div class="ce-state"><i class="bg-vividblue-90"></i><div><b>Below 50rem</b>Phones and narrow windows <span class="ce-here md:hidden">now</span></div></div>
+                <div class="ce-state"><i class="bg-green-70"></i><div><b>50rem and wider</b>Tablets and desktops <span class="ce-here none md:inline">now</span></div></div>
+              </div>
+            </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="bg-vividblue-90 text-white md:hidden"&gt;Below 50rem: blue&lt;/div&gt;
+&lt;div class="bg-green-70 text-white none md:block"&gt;50rem and wider: green&lt;/div&gt;</oc-code></oc-demo>
 
           <div class="mt-4">
             <a class="oc-docs-cta" href="/pages/colors.html">Open Live Colors Playground</a>
@@ -57,16 +67,45 @@
         <div class="oc-section-content">
           <p>Modify color sources in <code>src/scss/json/</code> and rebuild the framework.</p>
           <oc-demo title="Live: re-theme a component by overriding tokens on a wrapper">
-            <div class="flex gap-2 flex-wrap items-center">
-              <div class="oc-card" style="padding: 1rem; max-inline-size: 16rem;"><strong>Default theme</strong><p class="m-0">Uses the Omnia theme tokens.</p></div>
-              <div class="oc-card" style="padding: 1rem; max-inline-size: 16rem; --oc-card: light-dark(var(--color-orange-2), var(--color-orange-95)); --oc-border: light-dark(var(--color-orange-60), var(--color-orange-50));"><strong>Scoped override</strong><p class="m-0">Only <code>--oc-card</code> and <code>--oc-border</code> changed on this wrapper.</p></div>
-            </div>
-          <oc-code>// Workflow
-1. Update src/scss/json/omnia-colors.json
-2. Run npm run build
-3. New utilities are ready for use
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">default tokens</code><div class="oc-eg__note">The card with the theme tokens as they are.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in"><div class="ce-card"><b>Product 1</b><span>Uses the Omnia theme tokens as they are.</span><button type="button">Add to cart</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.ce-promo</code><div class="oc-eg__note">The same card. The wrapper sets four tokens.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in"><div class="ce-card ce-promo"><b>Product 2</b><span>Same markup. The wrapper sets four tokens.</span><button type="button">Add to cart</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.ce-calm</code><div class="oc-eg__note">The same card with a teal set of tokens.</div><div class="oc-eg__stage oc-eg__stage--plain cl-in"><div class="ce-card ce-calm"><b>Product 3</b><span>Same markup, a teal set of tokens.</span><button type="button">Add to cart</button></div></div></div>
+</div></div>
+<oc-code lang="css">&lt;div class="card"&gt;
+  &lt;b&gt;Product 1&lt;/b&gt; Uses the Omnia theme tokens as they are.
+  &lt;button type="button"&gt;Add to cart&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="card promo"&gt;
+  &lt;b&gt;Product 2&lt;/b&gt; Same markup. The wrapper sets four tokens.
+  &lt;button type="button"&gt;Add to cart&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="card calm"&gt;
+  &lt;b&gt;Product 3&lt;/b&gt; Same markup, a teal set of tokens.
+  &lt;button type="button"&gt;Add to cart&lt;/button&gt;
+&lt;/div&gt;
 
-/* or override theme tokens in CSS, scoped to any element */
-.promo { --oc-card: light-dark(var(--color-orange-2), var(--color-orange-95)); }</oc-code></oc-demo>
+&lt;style&gt;
+  /* The card only uses theme tokens */
+  .card { background: var(--oc-card); border: 2px solid var(--oc-border); }
+  .card button { background: var(--oc-primary); color: var(--oc-primary-foreground); }
+
+  /* Override the tokens on the wrapper: the same card changes color */
+  .promo {
+    --oc-card: light-dark(color-mix(in oklch, var(--color-orange-60) 14%, var(--color-white-50)),
+                          color-mix(in oklch, var(--color-orange-60) 16%, var(--color-black-50)));
+    --oc-border: var(--color-orange-60);
+    --oc-primary: var(--color-orange-95);
+    --oc-primary-foreground: var(--color-white-50);
+  }
+  .calm {
+    --oc-card: light-dark(color-mix(in oklch, var(--color-teal-70) 10%, var(--color-white-50)),
+                          color-mix(in oklch, var(--color-teal-70) 22%, var(--color-black-50)));
+    --oc-border: var(--color-teal-70);
+    --oc-primary: var(--color-teal-70);
+    --oc-primary-foreground: var(--color-white-50);
+  }
+&lt;/style&gt;
+&lt;!-- For a permanent change: edit src/scss/json/omnia-colors.json and run npm run build --&gt;</oc-code></oc-demo>
         </div>
       </section>

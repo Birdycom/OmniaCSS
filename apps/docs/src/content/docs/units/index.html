@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - CSS Units","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .un-line { display: flex; gap: 0.5em; align-items: start; margin: 0; font-size: 1.35rem; line-height: 1.5; color: var(--oc-foreground); }\n    .un-line svg { flex: none; fill: none; stroke: var(--color-vividblue-80); stroke-width: 2.4; }\n    .un-cap { display: flex; align-items: baseline; gap: 0.3em; margin: 0; font-size: 2.25rem; font-weight: 700; color: var(--oc-foreground); }\n    .un-cap span { display: inline-block; inline-size: 1cap; block-size: 1cap; border-radius: 3px; background: var(--color-magenta-50); }\n    .un-notebook { box-sizing: border-box; inline-size: min(100%, 28rem); min-block-size: 4lh; padding: 0 0.75rem; border: 1px solid var(--oc-border); border-radius: 8px; font: inherit; font-size: 1rem; line-height: 1.75; color: var(--oc-foreground); background: var(--oc-card) repeating-linear-gradient(transparent 0 calc(1lh - 1px), var(--color-mistblue-20) calc(1lh - 1px) 1lh) local; resize: none; }\n    .un-clamp { inline-size: min(100%, 28rem); padding-inline: 0.75rem; border-left: 3px solid var(--color-vividblue-80); line-height: 1.6; overflow: auto; color: var(--oc-foreground); }\n    .un-clamp p { margin: 0; }\n    .un-measure { margin: 0; padding: 1rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); line-height: 1.6; }\n    .un-measure.is-wide { max-inline-size: none; }\n    .un-measure.is-ch { max-inline-size: 45ch; }\n    .un-cq { container-type: inline-size; resize: horizontal; overflow: hidden; inline-size: 75%; min-inline-size: 12rem; max-inline-size: 100%; padding: 1rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    .un-cq h4 { margin: 0 0 0.25rem; font-size: clamp(1rem, 7cqi, 2.75rem); line-height: 1.1; color: var(--oc-foreground); }\n    .un-cq p { margin: 0; font-size: clamp(0.75rem, 2.8cqi, 1rem); color: var(--oc-muted-foreground); }\n    .un-vp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; inline-size: min(100%, 30rem); }\n    .un-vp div { display: grid; grid-template-rows: auto 1fr; gap: 0.3rem; font-size: 0.75rem; text-align: center; color: var(--oc-muted-foreground); }\n    .un-phone { position: relative; block-size: 9rem; border: 2px solid var(--oc-border-strong); border-radius: 12px; overflow: hidden; background: var(--oc-muted); }\n    .un-phone::before { content: \"\"; position: absolute; inset: 0 0 auto; block-size: 1.2rem; background: var(--color-mistblue-60); }\n    .un-phone::after { content: \"\"; position: absolute; inset: auto 0 0; block-size: 1rem; background: var(--color-mistblue-60); }\n    .un-phone i { position: absolute; inset-inline: 0.4rem; border-radius: 6px; background: oklch(from var(--color-vividblue-80) l c h / 0.75); z-index: 1; }\n    .un-s i { top: 1.2rem; bottom: 1rem; }\n    .un-l i { top: 0; bottom: 0; }\n    .un-d i { top: 1.2rem; bottom: 1rem; animation: un-dyn 3s ease-in-out infinite alternate; }\n    @keyframes un-dyn { to { top: 0; bottom: 0; } }\n    @media (prefers-reduced-motion: reduce) { .un-d i { animation: none; } }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - CSS Units","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Inside the example stages (un-*): measurable bars, real text, flat palette colors. */\n    .un-stage { padding: 1rem; }\n    .un-meters { display: grid; gap: 0.5rem; align-content: center; }\n    .un-phones { display: grid; place-items: center; }\n    /* A 45ch ruler is wider than a phone: its own box scrolls, the page does not. */\n    .un-chs { max-inline-size: 100%; overflow-x: auto; }\n    /* rem / em / % */\n    .un-meter { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); align-items: center; gap: 0.75rem; }\n    .un-meter > code { padding: 0; background: none; font-size: 0.82rem !important; font-weight: 600; color: var(--oc-foreground); }\n    .un-track { min-inline-size: 0; border-radius: 6px; background: repeating-linear-gradient(90deg, oklch(from var(--oc-foreground) l c h / 0.18) 0 1px, transparent 1px 2rem), var(--oc-muted); }\n    .un-bar { display: block; box-sizing: border-box; max-inline-size: 100%; padding: 0.3rem 0.6rem; border-radius: 6px; color: var(--color-white-10); font-size: 0.8rem; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; }\n    .un-bar--rem { background: var(--color-teal-70); }\n    .un-bar--em { background: var(--color-indigo-60); }\n    .un-bar--pct { background: var(--color-orange-95); }\n    /* lh */\n    .un-line { display: flex; gap: 0.5em; align-items: start; margin: 0; line-height: 1.5; color: var(--oc-foreground); }\n    .un-line svg { flex: none; fill: none; stroke: var(--color-teal-70); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }\n    .un-notebook { box-sizing: border-box; inline-size: min(100%, 40rem); min-block-size: 4lh; padding: 0 0.75rem; border: 1px solid var(--oc-border); border-radius: 8px; font: inherit; font-size: 1.05rem; line-height: 1.75; color: var(--oc-foreground); background: var(--oc-card) repeating-linear-gradient(transparent 0 calc(1lh - 1px), var(--color-mistblue-20) calc(1lh - 1px) 1lh) local; resize: none; }\n    .un-clamp { padding-inline: 0.75rem; border-inline-start: 4px solid var(--color-teal-70); line-height: 1.6; overflow: auto; color: var(--oc-foreground); }\n    /* cap and ch */\n    .un-caps { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem; }\n    .un-cap { display: flex; align-items: baseline; gap: 0.3em; margin: 0; font-weight: 700; line-height: 1.2; color: var(--oc-foreground); }\n    .un-cap span { display: inline-block; flex: none; inline-size: 1cap; block-size: 1cap; border-radius: 3px; background: var(--color-magenta-90); }\n    .un-ruler { display: block; box-sizing: border-box; max-inline-size: 100%; margin-block-end: 0.4rem; padding: 0.15rem 0.5rem; border-radius: 4px; background: var(--color-indigo-60); color: var(--color-white-10); font-weight: 700; line-height: 1.2; }\n    .un-ruler span { font-size: 0.75rem; }\n    .un-measure { margin: 0; line-height: 1.6; color: var(--oc-foreground); }\n    /* viewport */\n    .un-phone { position: relative; inline-size: 8.5rem; block-size: 15rem; border: 3px solid var(--oc-foreground); border-radius: 18px; overflow: hidden; background: var(--oc-muted); }\n    .un-phone::before, .un-phone::after { content: \"\"; position: absolute; inset-inline: 0; background: var(--color-stormblue-100); z-index: 2; opacity: 0.85; }\n    .un-phone::before { inset-block-start: 0; block-size: 2rem; }\n    .un-phone::after { inset-block-end: 0; block-size: 1.75rem; }\n    .un-phone i { position: absolute; inset-inline: 0.5rem; display: grid; place-items: center; border-radius: 8px; background: var(--color-teal-70); color: var(--color-white-10); font-style: normal; font-weight: 700; font-size: 0.85rem; z-index: 1; }\n    .un-s i { top: 2rem; bottom: 1.75rem; }\n    .un-l i { top: 0; bottom: 0; }\n    .un-d i { top: 2rem; bottom: 1.75rem; animation: un-dyn 3s ease-in-out infinite alternate; }\n    .un-d::before { animation: un-top 3s ease-in-out infinite alternate; }\n    .un-d::after { animation: un-bottom 3s ease-in-out infinite alternate; }\n    @keyframes un-top { 0%, 20% { translate: 0 0; } 80%, 100% { translate: 0 -100%; } }\n    @keyframes un-bottom { 0%, 20% { translate: 0 0; } 80%, 100% { translate: 0 100%; } }\n    @keyframes un-dyn { 0%, 20% { top: 2rem; bottom: 1.75rem; } 80%, 100% { top: 0; bottom: 0; } }\n    @media (prefers-reduced-motion: reduce) { .un-d i, .un-d::before, .un-d::after { animation: none; } }\n    /* container units */\n    .un-cq { resize: horizontal; overflow: hidden; box-sizing: border-box; inline-size: 75%; min-inline-size: 12rem; max-inline-size: 100%; padding: 1.25rem; border: 2px dashed var(--oc-border-strong); border-radius: 12px; background: var(--oc-card); }\n    .un-cq h4 { margin: 0 0 0.4rem; font-size: clamp(1rem, 7cqi, 2.75rem); line-height: 1.1; color: var(--oc-foreground); }\n    .un-cq div { font-size: clamp(0.8rem, 2.8cqi, 1.05rem); line-height: 1.5; color: var(--oc-muted-foreground); }\n</style>"]}-->
 <section class="oc-docs-section" id="units">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">CSS Units</h2>
@@ -36,6 +36,29 @@
             </div>
           </div>
 
+          <h3 class="oc-section-content__title mt-10" id="rem-em">rem, em and %: what does the width follow?</h3>
+          <p class="oc-section-content__desc">Three boxes with a different font size, each with the same three bars: <code>width: 8rem</code>, <code>width: 8em</code> and <code>width: 50%</code>. The grid lines in the track are 2rem apart. The rem bar never changes (8 &times; the root font size, 16px). The em bar grows with the font size of its box. The % bar is always half of the track.</p>
+          <oc-demo title="8rem, 8em and 50% in boxes with a different font size">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 40rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">font-size: 0.875rem</code><div class="oc-eg__note">A box with 14px text: 8em is 112px, 8rem stays 128px and 50% is half the track.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage un-meters" style="font-size: 0.875rem;"><div class="un-meter"><code>8rem</code><div class="un-track"><span style="display: block; inline-size: 8rem; max-inline-size: 100%;"><span class="un-bar un-bar--rem">128px</span></span></div></div><div class="un-meter"><code>8em</code><div class="un-track"><span style="display: block; inline-size: 8em; max-inline-size: 100%;"><span class="un-bar un-bar--em">112px</span></span></div></div><div class="un-meter"><code>50%</code><div class="un-track"><span style="display: block; inline-size: 50%;"><span class="un-bar un-bar--pct">half the track</span></span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">font-size: 1.25rem</code><div class="oc-eg__note">A box with 20px text: 8em is 160px, 8rem stays 128px and 50% is half the track.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage un-meters" style="font-size: 1.25rem;"><div class="un-meter"><code>8rem</code><div class="un-track"><span style="display: block; inline-size: 8rem; max-inline-size: 100%;"><span class="un-bar un-bar--rem">128px</span></span></div></div><div class="un-meter"><code>8em</code><div class="un-track"><span style="display: block; inline-size: 8em; max-inline-size: 100%;"><span class="un-bar un-bar--em">160px</span></span></div></div><div class="un-meter"><code>50%</code><div class="un-track"><span style="display: block; inline-size: 50%;"><span class="un-bar un-bar--pct">half the track</span></span></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">font-size: 1.75rem</code><div class="oc-eg__note">A box with 28px text: 8em is 224px, 8rem stays 128px and 50% is half the track.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage un-meters" style="font-size: 1.75rem;"><div class="un-meter"><code>8rem</code><div class="un-track"><span style="display: block; inline-size: 8rem; max-inline-size: 100%;"><span class="un-bar un-bar--rem">128px</span></span></div></div><div class="un-meter"><code>8em</code><div class="un-track"><span style="display: block; inline-size: 8em; max-inline-size: 100%;"><span class="un-bar un-bar--em">224px</span></span></div></div><div class="un-meter"><code>50%</code><div class="un-track"><span style="display: block; inline-size: 50%;"><span class="un-bar un-bar--pct">half the track</span></span></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div style="font-size: 0.875rem"&gt;
+  &lt;div style="width: 8rem"&gt;128px&lt;/div&gt;
+  &lt;div style="width: 8em"&gt;112px&lt;/div&gt;
+  &lt;div style="width: 50%"&gt;half the track&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style="font-size: 1.25rem"&gt;
+  &lt;div style="width: 8rem"&gt;128px&lt;/div&gt;
+  &lt;div style="width: 8em"&gt;160px&lt;/div&gt;
+  &lt;div style="width: 50%"&gt;half the track&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style="font-size: 1.75rem"&gt;
+  &lt;div style="width: 8rem"&gt;128px&lt;/div&gt;
+  &lt;div style="width: 8em"&gt;224px&lt;/div&gt;
+  &lt;div style="width: 50%"&gt;half the track&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
           <h3 class="oc-section-content__title mt-10" id="lh">The lh unit: size things in lines of text</h3>
           <p class="oc-section-content__desc"><code>1lh</code> is the computed line height of the element. An icon of <code>1lh</code> always lines up with the first line, a box of <code>3lh</code> shows exactly three lines, and a background of <code>1lh</code> stripes follows the text, whatever the font size.</p>
           <div class="oc-expandable-table">
@@ -54,33 +77,77 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">The same check icon and sentence at two font sizes. The icon has <code>.size-lh</code>, so it is one line high in both and stays level with the first line when the text wraps.</p>
           <oc-demo title="Icon of .size-lh next to a wrapping line">
-            <p class="un-line"><svg class="size-lh" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The check mark is exactly one line high, so it stays aligned with the first line even when the text wraps to a second line.</p>
-          <oc-code lang="html">&lt;p class="flex gap-2"&gt;&lt;svg class="size-lh" viewBox="0 0 24 24"&gt;…&lt;/svg&gt;Text that may wrap …&lt;/p&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.size-lh at 1rem</code><div class="oc-eg__note">The icon is exactly one line high and stays level with the first line.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage"><div class="un-line" style="font-size: 1rem;"><svg class="size-lh" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Your order has been sent. You will get an email from info@company1.example when it arrives.</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.size-lh at 1.5rem</code><div class="oc-eg__note">The icon is exactly one line high and stays level with the first line.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage"><div class="un-line" style="font-size: 1.5rem;"><svg class="size-lh" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Your order has been sent. You will get an email when it arrives.</span></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- .un-line: display: flex; gap: 0.5em; align-items: start; line-height: 1.5 --&gt;
+&lt;div class="un-line" style="font-size: 1rem"&gt;
+  &lt;svg class="size-lh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"&gt;&lt;path d="M5 12.5l4.5 4.5L19 7.5"/&gt;&lt;/svg&gt;
+  &lt;span&gt;Your order has been sent. You will get an email from info@company1.example when it arrives.&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="un-line" style="font-size: 1.5rem"&gt;
+  &lt;svg class="size-lh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"&gt;&lt;path d="M5 12.5l4.5 4.5L19 7.5"/&gt;&lt;/svg&gt;
+  &lt;span&gt;Your order has been sent. You will get an email when it arrives.&lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
+          <p class="oc-section-content__desc">Both boxes have <code>.max-h-3lh</code>: they show exactly three lines and scroll the rest, at a small and at a large font size. Scroll inside a box to read on.</p>
           <oc-demo title="Show three lines, scroll the rest: .max-h-3lh">
-            <div class="un-clamp max-h-3lh"><p>OmniaCSS sizes this quote in lines, not in pixels. Whatever the font size or line height, the box shows exactly three lines and scrolls the remaining text. Change the font size and the box follows, because lh is computed from the element itself. Useful for previews, comments and log output.</p></div>
-          <oc-code lang="html">&lt;div class="max-h-3lh overflow-auto"&gt;Long text …&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.max-h-3lh at 0.95rem</code><div class="oc-eg__note">Three lines show; scroll inside the box to read the rest.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage"><div class="un-clamp max-h-3lh" style="font-size: 0.95rem;" tabindex="0">Customer 1 called about the late delivery of Product 1. The parcel left the warehouse on Monday. The carrier says it will arrive on Thursday. We offered free shipping on the next order. Customer 1 accepted and thanked the team for the quick reply.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.max-h-3lh at 1.35rem</code><div class="oc-eg__note">Larger text, so the box is taller: still exactly three lines.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage"><div class="un-clamp max-h-3lh" style="font-size: 1.35rem;" tabindex="0">Customer 1 called about the late delivery of Product 1. The parcel left the warehouse on Monday. The carrier says it will arrive on Thursday.</div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="max-h-3lh overflow-auto" style="font-size: 0.95rem" tabindex="0"&gt;
+  Customer 1 called about the late delivery of Product 1. The parcel left the warehouse on Monday. The carrier says it will arrive on Thursday. We offered free shipping on the next order. Customer 1 accepted and thanked the team for the quick reply.
+&lt;/div&gt;
+&lt;div class="max-h-3lh overflow-auto" style="font-size: 1.35rem" tabindex="0"&gt;
+  Customer 1 called about the late delivery of Product 1. The parcel left the warehouse on Monday. The carrier says it will arrive on Thursday. We offered free shipping on the next order. Customer 1 accepted and thanked the team for the quick reply.
+&lt;/div&gt;</oc-code></oc-demo>
 
+          <p class="oc-section-content__desc">The ruled lines are a background of <code>1lh</code> stripes, so they always sit under the text. Type a few lines: thanks to <code>.field-sizing-content</code> the box grows with you (in browsers that support it).</p>
           <oc-demo title="Notebook lines with 1lh stripes + field-sizing-content">
-            <textarea class="un-notebook field-sizing-content" aria-label="Notes">Type here: the ruled lines are 1lh apart,
-so they always match the text.
-The textarea grows with its content.</textarea>
-          <oc-code lang="css">.un-notebook {
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.field-sizing-content + 1lh stripes</code><div class="oc-eg__note">Type a few lines: the box grows with the text and the ruled lines stay under every line.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage"><textarea class="un-notebook field-sizing-content" aria-label="Notes">Call Customer 1 about the new prices.
+Order more of Product 1 before Friday.
+Book the meeting room for Tuesday.</textarea></div></div>
+            </div></div>
+          <oc-code lang="css">.notebook {
   line-height: 1.75;
   min-block-size: 4lh;
   background: var(--oc-card) repeating-linear-gradient(transparent 0 calc(1lh - 1px),
               var(--color-mistblue-20) calc(1lh - 1px) 1lh) local;
 }
-/* &lt;textarea class="un-notebook field-sizing-content"&gt;&lt;/textarea&gt; */</oc-code></oc-demo>
-
-          <h3 class="oc-section-content__title mt-10" id="cap-ch">cap, ch and ic</h3>
+/* field-sizing-content (the class) lets the textarea grow with its text */</oc-code>
+          <oc-code lang="html">&lt;textarea class="notebook field-sizing-content" aria-label="Notes"&gt;Call Customer 1 about the new prices.
+Order more of Product 1 before Friday.
+Book the meeting room for Tuesday.&lt;/textarea&gt;</oc-code></oc-demo>          <h3 class="oc-section-content__title mt-10" id="cap-ch">cap, ch and ic</h3>
           <p class="oc-section-content__desc"><code>1cap</code> matches the height of capital letters (icons next to headings), <code>ch</code> counts characters (a readable line length of 45–75ch), <code>ic</code> does the same for CJK text.</p>
-          <oc-demo title="A 1cap square next to capitals, and a 45ch measure">
-            <p class="un-cap"><span></span>CAPITAL HEIGHT</p>
-            <p class="un-measure is-ch mt-4">This paragraph has max-inline-size: 45ch, about 45 characters per line, which keeps long texts comfortable to read on wide screens.</p>
-          <oc-code lang="css">.un-cap span { inline-size: 1cap; block-size: 1cap; }
-.un-measure  { max-inline-size: 45ch; }
+          <p class="oc-section-content__desc">First: a <code>1cap</code> square in front of headings of three sizes. It always has exactly the height of the capital letters. Then: two paragraphs with a ruler above them, one limited to <code>30ch</code> and one to <code>45ch</code> (about 30 and 45 characters per line).</p>
+          <oc-demo title="A 1cap square next to capitals, and ch measures">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 40rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">inline-size: 1cap; block-size: 1cap</code><div class="oc-eg__note">The magenta square is exactly as high as the capital letters, at every font size.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage"><div class="un-caps">
+                <div class="un-cap" style="font-size: 1.25rem;"><span></span>INVOICES</div>
+                <div class="un-cap" style="font-size: 2rem;"><span></span>INVOICES</div>
+                <div class="un-cap" style="font-size: 3rem;"><span></span>INVOICES</div>
+              </div></div></div>
+            </div><div class="oc-eg__panels" style="--eg-min: 40rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">max-inline-size: 30ch / 45ch</code><div class="oc-eg__note">Each paragraph is limited to the width of its ruler: about 30 and about 45 characters per line.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage"><div class="un-chs"><div class="un-ruler" style="inline-size: 30ch;"><span>30ch</span></div>
+                <div class="un-measure" style="max-inline-size: 30ch;">Short lines like these suit narrow cards and side notes.</div>
+                <div class="un-ruler" style="inline-size: 45ch; margin-block-start: 1rem;"><span>45ch</span></div>
+                <div class="un-measure" style="max-inline-size: 45ch;">About 45 to 75 characters per line is the comfortable range for reading longer text.</div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="heading" style="font-size: 1.25rem"&gt;&lt;span class="heading-mark"&gt;&lt;/span&gt;INVOICES&lt;/div&gt;
+&lt;div class="heading" style="font-size: 2rem"&gt;&lt;span class="heading-mark"&gt;&lt;/span&gt;INVOICES&lt;/div&gt;
+&lt;div class="heading" style="font-size: 3rem"&gt;&lt;span class="heading-mark"&gt;&lt;/span&gt;INVOICES&lt;/div&gt;
+
+&lt;div class="note"&gt;Short lines like these suit narrow cards and side notes.&lt;/div&gt;
+&lt;div class="article"&gt;About 45 to 75 characters per line is the comfortable range for reading longer text.&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.heading      { display: flex; align-items: baseline; gap: 0.3em; font-weight: 700; }
+.heading-mark { inline-size: 1cap; block-size: 1cap; background: var(--color-magenta-90); }
+.note        { max-inline-size: 30ch; }
+.article     { max-inline-size: 45ch; }
 .cjk         { max-inline-size: 30ic; }</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="viewport">Viewport units: svh, lvh and dvh</h3>
@@ -100,25 +167,37 @@ The textarea grows with its content.</textarea>
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
-          <oc-demo title="What 100svh, 100lvh and 100dvh cover (bars = browser UI)">
-            <div class="un-vp">
-              <div><span>.h-svh</span><div class="un-phone un-s"><i></i></div></div>
-              <div><span>.h-lvh</span><div class="un-phone un-l"><i></i></div></div>
-              <div><span>.h-dvh</span><div class="un-phone un-d"><i></i></div></div>
-            </div>
-          <oc-code lang="html">&lt;section class="min-h-svh grid place-items-center"&gt;Hero that always fits&lt;/section&gt;
-&lt;div class="h-dvh"&gt;Full-screen app shell&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Three sketches of a phone. The dark bands are the browser bars (address bar on top, toolbar below); the teal block is an element with a height of 100 of each unit. Watch the right phone: <code>dvh</code> grows and shrinks as the bars slide away and come back.</p>
+          <oc-demo title="What 100svh, 100lvh and 100dvh cover (dark bands = browser bars)">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.h-svh</code><div class="oc-eg__note">Fits between the bars. Never hidden behind them.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage un-phones"><div class="un-phone un-s"><i>100svh</i></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.h-lvh</code><div class="oc-eg__note">As tall as the screen without bars. Partly hidden while they show.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage un-phones"><div class="un-phone un-l"><i>100lvh</i></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.h-dvh</code><div class="oc-eg__note">Follows the bars live, so the height changes while you scroll.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage un-phones"><div class="un-phone un-d"><i>100dvh</i></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- The phones above are drawings: in a real page these classes measure the browser window --&gt;
+&lt;section class="h-svh"&gt;Fits between the bars&lt;/section&gt;
+&lt;section class="h-lvh"&gt;As tall as the screen without bars&lt;/section&gt;
+&lt;div class="h-dvh"&gt;Full-screen app shell that follows the bars&lt;/div&gt;
+
+&lt;section class="min-h-svh grid place-items-center"&gt;Hero that always fits&lt;/section&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The width classes (<code>.w-svw</code>, <code>.w-dvw</code> …) and <code>.h-screen-safe</code> have no live example: inside a preview box they would only stretch to the browser window, and the safe-area insets are 0 on a desktop screen.</p>
 
           <h3 class="oc-section-content__title mt-10" id="container-units">Container units: cqi and cqb</h3>
           <p class="oc-section-content__desc">Inside a size container (<code>.cq-inline</code>), <code>1cqi</code> is 1% of its inline size. Type scales with the card, not with the screen. Drag the corner.</p>
-          <oc-demo title="font-size: clamp(1rem, 7cqi, 2.75rem)">
-            <div class="un-cq">
-              <h4>Container-sized heading</h4>
-              <p>The text follows the width of this box.</p>
-            </div>
-          <oc-code lang="css">.card    { container-type: inline-size; }            /* = class="cq-inline" */
-.card h4 { font-size: clamp(1rem, 7cqi, 2.75rem); }
-.card p  { font-size: clamp(0.75rem, 2.8cqi, 1rem); }</oc-code></oc-demo>
+          <oc-demo title="font-size: clamp(1rem, 7cqi, 2.75rem) (drag the corner)">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.cq-inline + font-size: clamp(1rem, 7cqi, 2.75rem)</code><div class="oc-eg__note">Drag the bottom-right corner of the dashed box: the heading and the text follow the width of the box, not the screen.</div><div class="oc-eg__stage oc-eg__stage--plain un-stage"><div class="un-cq cq-inline">
+                <h4>Spring sale at Company 1</h4>
+                <div>The heading and this text follow the width of this box, not the width of the screen. Make the box narrow and the heading shrinks, down to 1rem.</div>
+              </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="card cq-inline"&gt;                         &lt;!-- cq-inline = container-type: inline-size --&gt;
+  &lt;h4&gt;Spring sale at Company 1&lt;/h4&gt;
+  &lt;div&gt;The heading and this text follow the width of this box, not the width of the screen.&lt;/div&gt;
+&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.card     { resize: horizontal; overflow: hidden; min-inline-size: 12rem; max-inline-size: 100%; }
+.card h4  { font-size: clamp(1rem, 7cqi, 2.75rem); }
+.card div { font-size: clamp(0.8rem, 2.8cqi, 1.05rem); }</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc"><code>lh</code>, <code>rlh</code>, <code>cap</code>, <code>ic</code>, the small/large/dynamic viewport units and container units work in all current browsers.</p>

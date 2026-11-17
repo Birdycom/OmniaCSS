@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Text Transform", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Text Transform","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .tt-row > p { font-size: 1.6rem; line-height: 1.25; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n</style>"]}-->
 <section class="oc-docs-section" id="text-transform">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Text Transform</h2>
@@ -14,24 +14,27 @@
         <div class="oc-section-content">
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Value / Behavior</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>Value</th></tr></thead>
               <tbody>
-                <tr><td><code>.uppercase</code></td><td>All characters uppercase</td></tr>
-                <tr><td><code>.lowercase</code></td><td>All characters lowercase</td></tr>
-                <tr><td><code>.capitalize</code></td><td>First letter of each word uppercase</td></tr>
-                <tr><td><code>.normalcase</code></td><td>Reset to original casing</td></tr>
+                <tr><td><code>.uppercase</code></td><td>text-transform: uppercase (all capitals)</td></tr>
+                <tr><td><code>.lowercase</code></td><td>text-transform: lowercase (no capitals)</td></tr>
+                <tr><td><code>.capitalize</code></td><td>text-transform: capitalize (first letter of each word)</td></tr>
+                <tr><td><code>.normalcase</code></td><td>text-transform: none (the text as written)</td></tr>
               </tbody>
             </table>
           </div>
-
-          <h3 class="oc-section-content__title mt-8">Transform Demos</h3>
-          <oc-demo title="Transform Demos"><div class="oc-preview oc-preview-col gap-4">
-            <p class="uppercase font-1.2 m-0">The quick brown fox (UPPERCASE)</p>
-            <p class="lowercase font-1.2 m-0">The QUICK Brown FOX (lowercase)</p>
-            <p class="capitalize font-1.2 m-0">the quick brown fox (Capitalize)</p>
-            <p class="normalcase font-1.2 m-0">tHe QuIcK bRoWn FoX (Normalcase)</p>
-          </div><oc-code lang="html">&lt;span class="uppercase letterspacing-5 fontweight-bold"&gt;Button Text&lt;/span&gt;</oc-code></oc-demo>
-
-          
+          <h3 class="oc-section-content__title mt-8" id="transform">One text, four results</h3>
+          <p class="oc-section-content__desc">Every row has the same HTML text: <code>order SHIPPED to customer 1</code>. Only the class changes what you see; the text itself, for example for copy and paste or search engines, stays as written.</p>
+          <oc-demo title="uppercase, lowercase, capitalize, normalcase">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.normalcase</code><div class="oc-eg__note">The text as it was written.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in tt-row"><p class="normalcase">order SHIPPED to customer 1</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.uppercase</code><div class="oc-eg__note">Every letter as a capital.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in tt-row"><p class="uppercase">order SHIPPED to customer 1</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.lowercase</code><div class="oc-eg__note">Every letter small.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in tt-row"><p class="lowercase">order SHIPPED to customer 1</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.capitalize</code><div class="oc-eg__note">The first letter of each word as a capital.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in tt-row"><p class="capitalize">order SHIPPED to customer 1</p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="normalcase"&gt;order SHIPPED to customer 1&lt;/p&gt;
+&lt;p class="uppercase"&gt;order SHIPPED to customer 1&lt;/p&gt;
+&lt;p class="lowercase"&gt;order SHIPPED to customer 1&lt;/p&gt;
+&lt;p class="capitalize"&gt;order SHIPPED to customer 1&lt;/p&gt;</oc-code></oc-demo>
         </div>
       </section>

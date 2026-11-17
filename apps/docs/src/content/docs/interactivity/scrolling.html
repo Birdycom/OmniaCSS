@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Interactivity: Scrolling & touch", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Interactivity: Scrolling & touch","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports selector(::scroll-marker) { .sup-note--marker { display: none; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="scrolling">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Scrolling &amp; touch</h2>
@@ -18,16 +18,53 @@
             </tbody>
           </table>
 
-          <oc-demo title="scroll-smooth: jump links glide instead of jump">
-            <div class="grid gap-1 w-full">
-              <nav class="flex gap-1"><a class="oc-btn oc-btn--sm oc-btn--outline" href="#oc-sb-1">Part 1</a><a class="oc-btn oc-btn--sm oc-btn--outline" href="#oc-sb-2">Part 2</a><a class="oc-btn oc-btn--sm oc-btn--outline" href="#oc-sb-3">Part 3</a></nav>
-              <div class="scroll-smooth overflow-y-auto" style="block-size: 9rem; border: 1px solid var(--oc-border); border-radius: 10px;">
-                <p id="oc-sb-1" class="p-1 m-0" style="block-size: 9rem;">Part 1 - click Part 3.</p>
-                <p id="oc-sb-2" class="p-1 m-0" style="block-size: 9rem;">Part 2</p>
-                <p id="oc-sb-3" class="p-1 m-0" style="block-size: 9rem;">Part 3 - reached smoothly.</p>
+          <oc-demo title="scroll-smooth: the box glides to the part, scroll-auto jumps">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.scroll-auto / .scroll-smooth</code><div class="oc-eg__note">Press a part: both boxes go there. The left box jumps, the right box glides.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="grid gap-1 w-full" data-sb-demo>
+              <div class="flex gap-1" role="group" aria-label="Go to a part in both boxes"><button class="oc-btn oc-btn--sm oc-btn--outline" type="button" data-sb-part="0">Part 1</button><button class="oc-btn oc-btn--sm oc-btn--outline" type="button" data-sb-part="1">Part 2</button><button class="oc-btn oc-btn--sm oc-btn--outline" type="button" data-sb-part="2">Part 3</button></div>
+              <div class="grid gap-1" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));">
+                <div class="grid gap-0.5"><code>.scroll-auto</code>
+                  <div class="scroll-auto overflow-y-auto" data-sb-box style="block-size: 9rem; border: 1px solid var(--oc-border); border-radius: 10px;">
+                    <p class="p-1 m-0" style="block-size: 9rem;">Part 1</p><p class="p-1 m-0" style="block-size: 9rem;">Part 2</p><p class="p-1 m-0" style="block-size: 9rem;">Part 3</p>
+                  </div>
+                </div>
+                <div class="grid gap-0.5"><code>.scroll-smooth</code>
+                  <div class="scroll-smooth overflow-y-auto" data-sb-box style="block-size: 9rem; border: 1px solid var(--oc-border); border-radius: 10px;">
+                    <p class="p-1 m-0" style="block-size: 9rem;">Part 1</p><p class="p-1 m-0" style="block-size: 9rem;">Part 2</p><p class="p-1 m-0" style="block-size: 9rem;">Part 3</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </oc-demo>
+            </div></div></div>
+            </div></div>
+            <script>
+              // The buttons scroll only the two boxes; scroll-behavior decides whether that jumps or glides.
+              document.addEventListener("click", (e) => {
+                const b = e.target.closest("[data-sb-part]");
+                if (b) for (const box of b.closest("[data-sb-demo]").querySelectorAll("[data-sb-box]")) box.scrollTo({ top: box.children[b.dataset.sbPart].offsetTop - box.offsetTop });
+              });
+            </script>
+          <oc-code lang="html">&lt;div data-sb-demo&gt;
+  &lt;button type="button" data-sb-part="0"&gt;Part 1&lt;/button&gt;
+  &lt;button type="button" data-sb-part="1"&gt;Part 2&lt;/button&gt;
+  &lt;button type="button" data-sb-part="2"&gt;Part 3&lt;/button&gt;
+
+  &lt;div class="scroll-auto overflow-y-auto" style="height: 9rem" data-sb-box&gt;
+    &lt;p style="height: 9rem"&gt;Part 1&lt;/p&gt;&lt;p style="height: 9rem"&gt;Part 2&lt;/p&gt;&lt;p style="height: 9rem"&gt;Part 3&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="scroll-smooth overflow-y-auto" style="height: 9rem" data-sb-box&gt;
+    &lt;p style="height: 9rem"&gt;Part 1&lt;/p&gt;&lt;p style="height: 9rem"&gt;Part 2&lt;/p&gt;&lt;p style="height: 9rem"&gt;Part 3&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  // scroll only the boxes; scroll-behavior decides whether that jumps or glides
+  document.addEventListener("click", (e) =&gt; {
+    const b = e.target.closest("[data-sb-part]");
+    if (b) for (const box of b.closest("[data-sb-demo]").querySelectorAll("[data-sb-box]"))
+      box.scrollTo({ top: box.children[b.dataset.sbPart].offsetTop - box.offsetTop });
+  });
+&lt;/script&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The buttons move both boxes to the same part: the left box jumps, the right one glides. Only the boxes scroll, not the page. This one example needs a few lines of JavaScript (shown in the sample): <code>scroll-behavior</code> only shows when something scrolls the box, and a plain link would also move this whole page. On your own page a link such as <code>&lt;a href="#part-3"&gt;</code> does the same for the whole page when <code>.scroll-smooth</code> is on <code>&lt;html&gt;</code>.</p>
 
           <!-- Scroll Snap -->
           <h3 class="oc-section-content__title" id="scroll-snap">Scroll Snap</h3>
@@ -54,12 +91,19 @@
             </div>
           </div>
 
-          <oc-demo title="Scroll snap carousel (scroll sideways)">
-            <div class="snap-x overflow-x-auto scroll-smooth oc-carousel"><div class="snap-start oc-slide">Slide 1</div><div class="snap-start oc-slide">Slide 2</div><div class="snap-start oc-slide">Slide 3</div><div class="snap-start oc-slide">Slide 4</div><div class="snap-start oc-slide">Slide 5</div></div>
-          <oc-code lang="html">&lt;div class="snap-x overflow-x-auto scroll-smooth"&gt;
-  &lt;div class="snap-start"&gt;Slide 1&lt;/div&gt;
-  &lt;div class="snap-start"&gt;Slide 2&lt;/div&gt;
+          <oc-demo title="Scroll snap carousel: swipe on a touch screen, or drag the scroll bar">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.snap-x + .snap-start + .overflow-x-auto</code><div class="oc-eg__note">Swipe sideways on a touch screen, or drag the thin scroll bar under the slide: each slide clicks into place.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="oc-carousel-wrap"><div class="snap-x overflow-x-auto scroll-smooth scrollbar-thin oc-carousel"><div class="snap-start oc-slide"><b>Slide 1</b><span>1 of 5</span></div><div class="snap-start oc-slide"><b>Slide 2</b><span>2 of 5</span></div><div class="snap-start oc-slide"><b>Slide 3</b><span>3 of 5</span></div><div class="snap-start oc-slide"><b>Slide 4</b><span>4 of 5</span></div><div class="snap-start oc-slide"><b>Slide 5</b><span>5 of 5</span></div></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="flex snap-x overflow-x-auto scroll-smooth scrollbar-thin"&gt;
+  &lt;!-- flex-none w-full: a slide is as wide as the visible field, so the last one can snap too --&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 1&lt;/div&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 2&lt;/div&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 3&lt;/div&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 4&lt;/div&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 5&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc" data-touch-hint>The other snap classes (<code>.snap-center</code>, <code>.snap-end</code>, <code>.snap-always</code>, <code>.snap-y</code>, <code>.snap-proximity</code> …) have their own examples on the <a href="../scroll-snap/">Scroll snap</a> page. This one is made for touch: on a phone or tablet you swipe sideways and the slide clicks into place. With a mouse, drag the thin scroll bar under the slide, or hold <kbd>Shift</kbd> and turn the scroll wheel.</p>
 
           <!-- Scroll Markers -->
           <h3 class="oc-section-content__title mt-10" id="scroll-markers">Scroll Markers (CSS carousels)</h3>
@@ -79,11 +123,17 @@
           </div>
 
           <oc-demo title="CSS-only carousel with scroll markers (dots appear in Chrome 135+)">
-            <div class="snap-x overflow-x-auto scroll-smooth scroll-markers-after oc-carousel"><div class="snap-start oc-slide">Slide 1</div><div class="snap-start oc-slide">Slide 2</div><div class="snap-start oc-slide">Slide 3</div><div class="snap-start oc-slide">Slide 4</div><div class="snap-start oc-slide">Slide 5</div></div>
-          <oc-code lang="html">&lt;div class="snap-x overflow-x-auto scroll-markers-after"&gt;
-  &lt;div class="snap-start"&gt;Slide 1&lt;/div&gt;
-  &lt;div class="snap-start"&gt;Slide 2&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="sup-note sup-note--marker"><b>Not in this browser yet.</b> Your browser does not draw scroll markers: there are no dots, but you can still scroll or swipe the slides.</div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.scroll-markers-after</code><div class="oc-eg__note">Click a dot under the slide to jump to that slide. The dots are made by CSS alone.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="oc-carousel-wrap"><div class="snap-x overflow-x-auto scroll-smooth scrollbar-none scroll-markers-after oc-carousel"><div class="snap-start oc-slide"><b>Slide 1</b><span>1 of 5</span></div><div class="snap-start oc-slide"><b>Slide 2</b><span>2 of 5</span></div><div class="snap-start oc-slide"><b>Slide 3</b><span>3 of 5</span></div><div class="snap-start oc-slide"><b>Slide 4</b><span>4 of 5</span></div><div class="snap-start oc-slide"><b>Slide 5</b><span>5 of 5</span></div></div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="flex snap-x overflow-x-auto scroll-smooth scrollbar-none scroll-markers-after"&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 1&lt;/div&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 2&lt;/div&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 3&lt;/div&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 4&lt;/div&gt;
+  &lt;div class="snap-start flex-none w-full"&gt;Slide 5&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- the look of the dots: .oc-carousel::scroll-marker { … } (site CSS of these docs) --&gt;</oc-code></oc-demo>
 
           <!-- Touch Action -->
           <h3 class="oc-section-content__title" id="touch">Touch Action</h3>
@@ -109,6 +159,8 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc" data-touch-note><strong>You need a touch screen to see these classes work.</strong> They change what a finger may do (scroll, zoom, swipe); a mouse is not affected. To try them on a computer, open the developer tools of your browser and switch on the phone or touch mode.</p>
+
           <!-- Overflow Anchor & Print -->
           <h3 class="oc-section-content__title mt-10" id="overflow-anchor">Scroll Anchoring &amp; Print Color</h3>
           <p class="oc-section-content__desc">Disable scroll anchoring for feeds that should not jump, and force backgrounds and colors to print exactly (badges, charts). <strong>What:</strong> scroll anchoring keeps the visible content steady when content above it loads. Opt out only where it fights your own scroll logic. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-anchor" target="_blank" rel="noopener">MDN: overflow-anchor</a>.</p>
@@ -126,5 +178,6 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+          <p class="oc-section-content__desc">No live demo for these four: scroll anchoring only shows while content is loaded above the part you are reading, and print colors only show in a print preview (Ctrl+P). Use <code>.overflow-anchor-none</code> on a feed that you scroll yourself, and <code>.print-exact</code> on a badge or chart whose colors must survive printing.</p>
         </div>
       </section>

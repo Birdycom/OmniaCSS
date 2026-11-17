@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Padding", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Padding","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Spacing visualisations: one calm element color (blue) plus one hatched tone per kind of space:\n       green = padding, orange = margin, purple = gap. Same convention as the browser DevTools box model. */\n    .sp {\n      --sp-el: light-dark(var(--color-vividblue-95), var(--color-vividblue-90));\n      --sp-el-fg: var(--color-white-50);\n      --sp-pad-1: light-dark(color-mix(in oklch, var(--color-green-20) 20%, var(--color-white-50)), oklch(from var(--color-green-80) 0.26 0.06 h));\n      --sp-pad-2: light-dark(color-mix(in oklch, var(--color-green-20) 50%, var(--color-white-50)), oklch(from var(--color-green-80) 0.35 0.10 h));\n      --sp-pad-edge: light-dark(var(--color-green-60), var(--color-green-20));\n      --sp-mar-1: light-dark(color-mix(in oklch, var(--color-orange-50) 25%, var(--color-white-50)), oklch(from var(--color-orange-90) 0.27 0.05 h));\n      --sp-mar-2: light-dark(color-mix(in oklch, var(--color-orange-50) 62%, var(--color-white-50)), oklch(from var(--color-orange-90) 0.37 0.08 h));\n      --sp-mar-edge: light-dark(var(--color-orange-90), var(--color-orange-50));\n      --sp-gap-1: light-dark(color-mix(in oklch, var(--color-mediumpurple-60) 14%, var(--color-white-50)), oklch(from var(--color-mediumpurple-60) 0.26 0.06 h));\n      --sp-gap-2: light-dark(color-mix(in oklch, var(--color-mediumpurple-60) 38%, var(--color-white-50)), oklch(from var(--color-mediumpurple-60) 0.36 0.10 h));\n      --sp-gap-edge: light-dark(var(--color-mediumpurple-60), var(--color-mediumpurple-60));\n      }\n    .sp-hatch-pad { background: repeating-linear-gradient(135deg, var(--sp-pad-2) 0 6px, var(--sp-pad-1) 6px 12px); }\n\n    /* Legend chips (inside the kit legend) */\n    .sp-chip { inline-size: 1.75rem; block-size: 1.15rem; border-radius: 4px; flex: none; }\n    .sp-chip--pad { border: 2px solid var(--sp-pad-edge); }\n    .sp-chip--el { background: var(--sp-el); }\n\n    /* Inside of a kit stage: a little room around the box; .sp-tight for the narrow 4-up panels */\n    .sp-stage { display: grid; padding: 0.75rem; }\n    .sp-tight .sp-content, .sp-tight .sp-mel { min-inline-size: 0; overflow: hidden; padding-inline: 0.25rem; font-size: 0.95rem; }\n\n    /* Padding box: the padding utility sits on .sp-pbox, so the hatched band IS its padding */\n    .sp-pbox { position: relative; display: grid; box-sizing: border-box; min-block-size: 10rem; border: 2px solid var(--sp-pad-edge); border-radius: 10px; }\n    .sp-pbox--big { min-block-size: 15rem; }\n    .sp-content { display: grid; place-items: center; min-block-size: 3.5rem; padding: 0.5rem; border-radius: 4px; background: var(--sp-el); color: var(--sp-el-fg); font-size: 1rem; font-weight: 700; text-align: center; }\n\n    /* Measure labels drawn on top of a band */\n    .sp-mark { position: absolute; display: grid; place-items: center; pointer-events: none; }\n    .sp-mark > span, .sp-mel[data-gap]::after { padding: 0.15rem 0.45rem; border-radius: 5px; background: var(--oc-card); color: var(--oc-foreground); font: 700 0.8rem/1.2 var(--oc-font-mono); white-space: nowrap; box-shadow: 0 0 0 1px var(--oc-border); }\n    .sp-mark--t { inset: 0 0 auto 0; block-size: var(--sp-m); }\n    .sp-mark--b { inset: auto 0 0 0; block-size: var(--sp-m); }\n    .sp-mark--l { inset: 0 auto 0 0; inline-size: var(--sp-m); }\n    .sp-mark--r { inset: 0 0 0 auto; inline-size: var(--sp-m); }\n\n    /* In practice: a button and its x-ray */\n    .sp-btnrow { display: grid; justify-items: center; align-content: center; gap: 1rem; padding-block: 0.5rem; }\n    .sp-btn { display: inline-block; border-radius: 8px; background: var(--sp-el); color: var(--sp-el-fg); font-size: 1rem; font-weight: 600; line-height: 1.5; }\n    .sp-btn--xray { outline: 2px dashed var(--sp-pad-edge); outline-offset: -2px; background: repeating-linear-gradient(135deg, var(--sp-pad-2) 0 6px, var(--sp-pad-1) 6px 12px); color: var(--sp-el-fg); }\n    .sp-btn--xray > span { display: block; border-radius: 3px; background: var(--sp-el); }\n\n  </style>"]}-->
 <section class="oc-docs-section" id="padding">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Padding</h2>
@@ -15,11 +15,15 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class Group</th><th>Values</th></tr></thead>
               <tbody>
-                <tr><td><code>.p-{n}</code></td><td>0, 1 (1rem), 2, 4, 8, 10</td></tr>
-                <tr><td><code>.pt-{n}</code></td><td>padding-top</td></tr>
-                <tr><td><code>.pb-{n}</code></td><td>padding-bottom</td></tr>
-                <tr><td><code>.ph-{n}</code></td><td>horizontal (left &amp; right)</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.pv-{n}</code></td><td>vertical (top &amp; bottom)</td></tr>
+                <tr><td><code>.p-{n}</code></td><td>All four sides. <code>{n}</code> is the spacing scale: <code>0</code>, <code>px</code>, <code>0.1</code> … <code>10</code> in rem (<code>p-1</code> = 1rem = 16px). See <a href="index.html#scale">the spacing scale</a>.</td></tr>
+                <tr><td><code>.pt-{n}</code> <code>.pr-{n}</code> <code>.pb-{n}</code> <code>.pl-{n}</code></td><td>One side: top, right, bottom, left</td></tr>
+                <tr><td><code>.ph-{n}</code></td><td>Horizontal (left &amp; right)</td></tr>
+                <tr><td><code>.pv-{n}</code></td><td>Vertical (top &amp; bottom)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.p-inline-start-{n}</code> <code>.p-inline-end-{n}</code></td><td>Logical: the start or end of the line, follows the reading direction (<code>padding-inline-start</code> / <code>-end</code>)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.p-inline-{n}</code> <code>.p-block-{n}</code></td><td>Logical: both inline sides / both block sides</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.p-block-start-{n}</code> <code>.p-block-end-{n}</code></td><td>Logical: top / bottom in horizontal writing</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.p-safe</code></td><td>The device safe-area insets (notch, home bar): <code>env(safe-area-inset-*)</code></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.p-min</code> / <code>.p-max</code></td><td><code>min(1rem, 5vw)</code> / <code>max(0.5rem, 2vw)</code></td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -27,61 +31,82 @@
             </div>
           </div>
 
-                    <h3 class="oc-section-content__title" id="box-model">Padding — what it does (box model)</h3>
-          <p class="oc-section-content__desc">Padding is the space <strong>inside</strong> the border, between the border and the content: the background extends into it. The green area is the padding, blue is the content, like the DevTools box-model diagram.</p>
-          <oc-demo title="Padding — what it does (box model)">
-            <div class="grid gap-2 w-full">
-            <ul class="oc-boxmodel-legend"><li style="--swatch: var(--color-orange-50)">margin (outside the border)</li><li style="--swatch: var(--color-yellow-80)">border</li><li style="--swatch: var(--color-green-2)">padding (inside the border)</li><li style="--swatch: var(--color-skycyan-50)">content</li></ul>
-            <div class="oc-boxmodel-grid">
-              <div class="oc-boxmodel-card"><code>.p-0</code><div class="oc-boxmodel"><div class="oc-boxmodel__el p-0"><span>content</span></div></div><span class="oc-demo-hint">no padding: content touches the border</span></div>
-              <div class="oc-boxmodel-card"><code>.p-0.5</code><div class="oc-boxmodel"><div class="oc-boxmodel__el p-0.5"><span>content</span></div></div><span class="oc-demo-hint">0.5rem inside on all sides</span></div>
-              <div class="oc-boxmodel-card"><code>.p-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el p-1"><span>content</span></div></div><span class="oc-demo-hint">1rem inside on all sides</span></div>
-              <div class="oc-boxmodel-card"><code>.pt-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el pt-1"><span>content</span></div></div><span class="oc-demo-hint">1rem on top only</span></div>
-              <div class="oc-boxmodel-card"><code>.ph-2</code><div class="oc-boxmodel"><div class="oc-boxmodel__el ph-2"><span>content</span></div></div><span class="oc-demo-hint">2rem left and right</span></div>
-              <div class="oc-boxmodel-card"><code>.pv-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el pv-1"><span>content</span></div></div><span class="oc-demo-hint">1rem top and bottom</span></div>
+          <h3 class="oc-section-content__title" id="box-model">Padding — what it does</h3>
+          <p class="oc-section-content__desc">Padding is the space <strong>inside</strong> the border, between the border and the content. This box has <code>p-3</code>: the green band is 3rem (48px) wide on every side, and the blue content starts after it.</p>
+          <oc-demo title="Padding — what it does">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--pad sp-hatch-pad" aria-hidden="true"></span>padding (inside the border)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>content</span></div>
+              <div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.p-3</code><div class="oc-eg__note">The green band inside the border is the 3rem padding. The blue content starts after it.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-pbox--big sp-hatch-pad p-3"><div class="sp-content">content</div><span class="sp-mark sp-mark--t" style="--sp-m:3rem"><span>padding 3rem</span></span><span class="sp-mark sp-mark--b" style="--sp-m:3rem"><span>padding 3rem</span></span><span class="sp-mark sp-mark--l" style="--sp-m:3rem"><span>3rem</span></span><span class="sp-mark sp-mark--r" style="--sp-m:3rem"><span>3rem</span></span></div></div></div></div>
             </div>
-            </div>
-          <oc-code lang="html">&lt;div class="p-1"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;div class="p-3"&gt;content&lt;/div&gt;</oc-code></oc-demo>
 
           <p class="oc-section-content__desc"><strong>What it does:</strong> padding is the space <em>inside</em> an element, between its border and its content; the element's background paints through it. <strong>When to use:</strong> buttons, cards, inputs, any container whose content should not touch its edge. <strong>Gotchas:</strong> padding adds to the element's size unless <code>box-sizing: border-box</code> is on (OmniaCSS' reset sets it, see Box sizing); padding cannot be negative or <code>auto</code>; percentages are relative to the parent's <em>width</em>, even for top and bottom. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding" target="_blank" rel="noopener">MDN: padding</a>.</p>
 
           <h3 class="oc-section-content__title mt-8" id="padding-sizes">Padding sizes at a glance</h3>
-          <p class="oc-section-content__desc">The green area grows with the class and pushes the blue content inward; the border and the outside stay put.</p>
-          <oc-demo title="p-1, p-2, p-4 (all sides)">
-            <div class="grid gap-2 w-full">
-            <ul class="oc-boxmodel-legend"><li style="--swatch: var(--color-orange-50)">margin</li><li style="--swatch: var(--color-yellow-80)">border</li><li style="--swatch: var(--color-green-2)">padding</li><li style="--swatch: var(--color-skycyan-50)">content</li></ul>
-            <div class="oc-boxmodel-grid">
-              <div class="oc-boxmodel-card"><code>.p-1</code><div class="oc-boxmodel"><div class="oc-boxmodel__el p-1"><span>content</span></div></div><span class="oc-demo-hint">1rem</span></div>
-              <div class="oc-boxmodel-card"><code>.p-2</code><div class="oc-boxmodel"><div class="oc-boxmodel__el p-2"><span>content</span></div></div><span class="oc-demo-hint">2rem</span></div>
-              <div class="oc-boxmodel-card"><code>.p-4</code><div class="oc-boxmodel"><div class="oc-boxmodel__el p-4"><span>content</span></div></div><span class="oc-demo-hint">4rem</span></div>
+          <p class="oc-section-content__desc">All four boxes are the same size. Only the class changes: the green band gets wider and the blue content gets smaller.</p>
+          <oc-demo title="p-0, p-1, p-2, p-3 (all sides)">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--pad sp-hatch-pad" aria-hidden="true"></span>padding (inside the border)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>content</span></div>
+              <div class="oc-eg__panels" style="--eg-min: 16rem">
+                <div class="oc-eg__panel"><code class="oc-eg__name">.p-0</code><div class="oc-eg__note">No padding: the content touches the border.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp-tight"><div class="sp-pbox sp-hatch-pad p-0"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.p-1</code><div class="oc-eg__note">1rem · 16px. The everyday size for cards and panels.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp-tight"><div class="sp-pbox sp-hatch-pad p-1"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.p-2</code><div class="oc-eg__note">2rem · 32px. Roomy: hero blocks and empty states.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp-tight"><div class="sp-pbox sp-hatch-pad p-2"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.p-3</code><div class="oc-eg__note">3rem · 48px. Large: the content gets much less room.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage sp-tight"><div class="sp-pbox sp-hatch-pad p-3"><div class="sp-content">content</div></div></div></div>
+              </div>
             </div>
-            </div>
-          <oc-code lang="html">&lt;div class="p-1"&gt;…&lt;/div&gt;
-&lt;div class="p-2"&gt;…&lt;/div&gt;
-&lt;div class="p-4"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;div class="p-0"&gt;content&lt;/div&gt;
+&lt;div class="p-1"&gt;content&lt;/div&gt;
+&lt;div class="p-2"&gt;content&lt;/div&gt;
+&lt;div class="p-3"&gt;content&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8" id="padding-axes">One axis, one side</h3>
-          <p class="oc-section-content__desc"><code>.ph-*</code> (horizontal), <code>.pv-*</code> (vertical) and the side variants <code>.pt-*</code> / <code>.pb-*</code> let you pad asymmetrically.</p>
-          <oc-demo title="ph-2, pv-2, pt-2, pb-2">
-            <div class="grid gap-2 w-full">
-            <div class="oc-boxmodel-grid">
-              <div class="oc-boxmodel-card"><code>.ph-2</code><div class="oc-boxmodel"><div class="oc-boxmodel__el ph-2"><span>content</span></div></div><span class="oc-demo-hint">left and right</span></div>
-              <div class="oc-boxmodel-card"><code>.pv-2</code><div class="oc-boxmodel"><div class="oc-boxmodel__el pv-2"><span>content</span></div></div><span class="oc-demo-hint">top and bottom</span></div>
-              <div class="oc-boxmodel-card"><code>.pt-2</code><div class="oc-boxmodel"><div class="oc-boxmodel__el pt-2"><span>content</span></div></div><span class="oc-demo-hint">top only</span></div>
-              <div class="oc-boxmodel-card"><code>.pb-2</code><div class="oc-boxmodel"><div class="oc-boxmodel__el pb-2"><span>content</span></div></div><span class="oc-demo-hint">bottom only</span></div>
+          <p class="oc-section-content__desc"><code>.ph-*</code> pads left and right, <code>.pv-*</code> pads top and bottom, and <code>.pt-*</code>, <code>.pr-*</code>, <code>.pb-*</code>, <code>.pl-*</code> pad one side. Look where the green band is: the other sides have none.</p>
+          <oc-demo title="pt-2, pr-2, pb-2, pl-2, ph-2, pv-2">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--pad sp-hatch-pad" aria-hidden="true"></span>padding (inside the border)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>content</span></div>
+              <div class="oc-eg__panels" style="--eg-min: 14rem">
+                <div class="oc-eg__panel"><code class="oc-eg__name">.pt-2</code><div class="oc-eg__note">2rem · 32px. Top only.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad pt-2"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.pr-2</code><div class="oc-eg__note">2rem · 32px. Right only.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad pr-2"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.pb-2</code><div class="oc-eg__note">2rem · 32px. Bottom only.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad pb-2"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.pl-2</code><div class="oc-eg__note">2rem · 32px. Left only.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad pl-2"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.ph-2</code><div class="oc-eg__note">2rem · 32px. Left and right (horizontal).</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad ph-2"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.pv-2</code><div class="oc-eg__note">2rem · 32px. Top and bottom (vertical).</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad pv-2"><div class="sp-content">content</div></div></div></div>
+              </div>
             </div>
+          <oc-code lang="html">&lt;div class="pt-2"&gt;content&lt;/div&gt;
+&lt;div class="pr-2"&gt;content&lt;/div&gt;
+&lt;div class="pb-2"&gt;content&lt;/div&gt;
+&lt;div class="pl-2"&gt;content&lt;/div&gt;
+&lt;div class="ph-2"&gt;content&lt;/div&gt;
+&lt;div class="pv-2"&gt;content&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="padding-logical">Start and end: logical padding</h3>
+          <p class="oc-section-content__desc"><code>.p-inline-start-*</code> pads the side where a line of text <em>starts</em>. In a left-to-right page that is the left; in a right-to-left page (Arabic, Hebrew) it flips to the right by itself. Both boxes below have the same class.</p>
+          <oc-demo title="p-inline-start-3 in ltr and rtl">
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--pad sp-hatch-pad" aria-hidden="true"></span>padding (inside the border)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>content</span></div>
+              <div class="oc-eg__panels" style="--eg-min: 18rem">
+                <div class="oc-eg__panel"><code class="oc-eg__name">dir="ltr"</code><div class="oc-eg__note">3rem · 48px. Left to right: the padding is on the left.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad p-inline-start-3" dir="ltr"><div class="sp-content">content</div></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">dir="rtl"</code><div class="oc-eg__note">3rem · 48px. Right to left: the same class puts it on the right.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-pbox sp-hatch-pad p-inline-start-3" dir="rtl"><div class="sp-content">content</div></div></div></div>
+              </div>
             </div>
-          <oc-code lang="html">&lt;button class="ph-2 pv-1"&gt;Standard Button&lt;/button&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;div dir="ltr" class="p-inline-start-3"&gt;content&lt;/div&gt;
+&lt;div dir="rtl" class="p-inline-start-3"&gt;content&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8" id="padding-buttons">In practice: buttons</h3>
-          <p class="oc-section-content__desc">The same label with three paddings (plain elements, so the component padding of <code>.oc-btn</code> does not interfere). The fill of the button shows exactly where the padding ends.</p>
+          <p class="oc-section-content__desc">A button is mostly padding. The same label gets three sizes from <code>pv-*</code> and <code>ph-*</code> alone. Under each button is the same button with its padding shown in green, so you can see where the label ends and the padding begins.</p>
           <oc-demo title="pv / ph on a button">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="pv-0.5 ph-1" style="display:inline-block;border-radius:8px;background:var(--oc-primary);color:var(--oc-primary-foreground);font-weight:600">pv-0.5 ph-1</span>
-              <span class="pv-1 ph-2" style="display:inline-block;border-radius:8px;background:var(--oc-primary);color:var(--oc-primary-foreground);font-weight:600">pv-1 ph-2</span>
-              <span class="pv-1 ph-4" style="display:inline-block;border-radius:8px;background:var(--oc-primary);color:var(--oc-primary-foreground);font-weight:600">pv-1 ph-4</span>
+            <div class="oc-eg sp">
+              <div class="oc-eg__legend"><span class="oc-eg__key"><span class="sp-chip sp-chip--pad sp-hatch-pad" aria-hidden="true"></span>padding (inside the border)</span><span class="oc-eg__key"><span class="sp-chip sp-chip--el" aria-hidden="true"></span>content</span></div>
+              <div class="oc-eg__panels" style="--eg-min: 13rem">
+                <div class="oc-eg__panel"><code class="oc-eg__name">.pv-0.5 .ph-1</code><div class="oc-eg__note">Small: 0.5rem above and below, 1rem left and right.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-btnrow"><span class="sp-btn pv-0.5 ph-1">Save</span><span class="sp-btn sp-btn--xray pv-0.5 ph-1"><span>Save</span></span></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.pv-0.7 .ph-1.5</code><div class="oc-eg__note">Medium: 0.75rem above and below, 1.5rem left and right.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-btnrow"><span class="sp-btn pv-0.7 ph-1.5">Save</span><span class="sp-btn sp-btn--xray pv-0.7 ph-1.5"><span>Save</span></span></div></div></div>
+                <div class="oc-eg__panel"><code class="oc-eg__name">.pv-1 .ph-2</code><div class="oc-eg__note">Large: 1rem above and below, 2rem left and right.</div><div class="oc-eg__stage oc-eg__stage--plain sp-stage"><div class="sp-btnrow"><span class="sp-btn pv-1 ph-2">Save</span><span class="sp-btn sp-btn--xray pv-1 ph-2"><span>Save</span></span></div></div></div>
+              </div>
             </div>
-          <oc-code lang="html">&lt;span class="pv-1 ph-2 bg-primary"&gt;Label&lt;/span&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;button class="pv-0.5 ph-1"&gt;Save&lt;/button&gt;   &lt;!-- 0.5rem / 1rem --&gt;
+&lt;button class="pv-0.7 ph-1.5"&gt;Save&lt;/button&gt; &lt;!-- 0.75rem / 1.5rem --&gt;
+&lt;button class="pv-1 ph-2"&gt;Save&lt;/button&gt;     &lt;!-- 1rem / 2rem --&gt;</oc-code></oc-demo>
 
         </div>
       </section>

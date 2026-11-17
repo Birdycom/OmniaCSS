@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Modern Typography", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Modern Typography","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Inside the stages only: text sizes for the samples. */\n    .mo-il { margin: 0; font-size: 1rem; line-height: 1.6; }\n    .mo-il--wide { max-inline-size: 40rem; font-size: 1.05rem; }\n    .mo-ws { font-size: 0.95rem; line-height: 1.6; }\n    .mo-cjk { font-size: 1.6rem; line-height: 1.6; }\n    .mo-cjk--col { max-inline-size: 7em; font-size: 1.35rem; }\n    .mo-big { font-size: 2.6rem; line-height: 1.15; }\n    .mo-kern { font-size: 4rem; line-height: 1.1; }\n    .mo-meas { display: inline-block; padding-block-end: 0.15rem; border-block-end: 5px solid var(--color-teal-70); }\n    .mo-huge { font-size: 4.5rem; line-height: 1.05; }\n    .mo-pre { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--oc-foreground); background: none; padding: 0; overflow-x: auto; }\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .em-s { margin: 0; font-size: 1.6rem; line-height: 2.2; }\n    .em-orig { margin-block-start: 1rem; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n.ty-center { justify-items: center; text-align: center; }\n/* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (initial-letter: 3) { .sup-note--il { display: none; } }\n    @supports (text-spacing-trim: trim-start) and (word-break: auto-phrase) { .sup-note--cjk { display: none; } }\n    /* Without initial-letter the first letter stays small: drop the room after it, or it looks like a stray gap. */\n    @supports not (initial-letter: 3) { .mo-il.mo-il--wide::first-letter { margin-inline-end: 0; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="modern">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Modern Typography</h2>
@@ -32,21 +32,15 @@
 
           <oc-demo title="text-box-normal vs text-box-trim">
             
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.text-box-normal</span>
-                <span class="text-box-normal inline-block p-0.5 round-2 font-2 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30">Omnia</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.text-box-trim</span>
-                <span class="text-box-trim inline-block p-0.5 round-2 font-2 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30">Omnia</span>
-              </div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-box-normal</code><div class="oc-eg__note">The box keeps the space above and below the letters.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="text-box-normal inline-block p-0.5 round-2 font-2 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30">Omnia</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-box-trim</code><div class="oc-eg__note">The space above the capitals and below the baseline is cut away.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in ty-center"><span class="text-box-trim inline-block p-0.5 round-2 font-2 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30">Omnia</span></div></div>
+</div></div>
 
             
             
-          <oc-code lang="html">&lt;span class="text-box-normal inline-block p-0.5"&gt;Omnia&lt;/span&gt;
-&lt;span class="text-box-trim inline-block p-0.5"&gt;Omnia&lt;/span&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;span class="text-box-normal inline-block p-0.5 round-2 font-2 text-dodgerblue-95 dark:text-dodgerblue-30 bg-dodgerblue-mix-30"&gt;Omnia&lt;/span&gt;
+&lt;span class="text-box-trim inline-block p-0.5 round-2 font-2 text-forestgreen-95 dark:text-forestgreen-30 bg-forestgreen-mix-30"&gt;Omnia&lt;/span&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="text-wrap-style">Text wrap style &amp; white space</h3>
           <p class="oc-section-content__desc"><code>.text-stable</code> keeps earlier lines stable while the user edits text. The <code>white-space-collapse</code> classes control space collapsing independently of wrapping (<code>.text-balance</code>, <code>.text-pretty</code> live in Advanced).</p>
@@ -68,6 +62,28 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">Each tile holds the same two source lines, with four spaces in the middle of each line. Look at what happens to those spaces and to the line break. <code>.whitespace-preserve-spaces</code> is not in Chrome yet (it looks like the first tile there). <code>.text-stable</code> and <code>.text-wrap-auto</code> give the same picture in every browser today: they only change how lines re-wrap while someone is typing, so they have no example.</p>
+          <oc-demo title="whitespace-collapse, preserve, preserve-breaks, break-spaces">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.whitespace-collapse</code><div class="oc-eg__note">The default: the spaces shrink to one and the line break becomes a space.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-ws font-monospace whitespace-collapse">Order    1042
+Shipped    today</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.whitespace-preserve</code><div class="oc-eg__note">Every space and the line break stay, as in a &lt;pre&gt;.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-ws font-monospace whitespace-preserve">Order    1042
+Shipped    today</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.whitespace-preserve-breaks</code><div class="oc-eg__note">The line break stays, the spaces still shrink to one.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-ws font-monospace whitespace-preserve-breaks">Order    1042
+Shipped    today</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.whitespace-break-spaces</code><div class="oc-eg__note">Like preserve, but a long run of spaces may also wrap to the next line.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-ws font-monospace whitespace-break-spaces">Order    1042
+Shipped    today</div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- The same source text in each: four spaces in the middle of each line, and a line break --&gt;
+&lt;div class="whitespace-collapse font-monospace"&gt;Order    1042
+Shipped    today&lt;/div&gt;
+&lt;div class="whitespace-preserve font-monospace"&gt;Order    1042
+Shipped    today&lt;/div&gt;
+&lt;div class="whitespace-preserve-breaks font-monospace"&gt;Order    1042
+Shipped    today&lt;/div&gt;
+&lt;div class="whitespace-break-spaces font-monospace"&gt;Order    1042
+Shipped    today&lt;/div&gt;</oc-code></oc-demo>
+
           <h3 class="oc-section-content__title mt-10" id="initial-letter">Initial letter</h3>
           <p class="oc-section-content__desc">Drop caps on the first letter of a paragraph. <code>.initial-letter-3-2</code> = 3 lines tall, sunk 2 lines.</p>
           <div class="oc-expandable-table">
@@ -85,16 +101,27 @@
             </div>
           </div>
 
-          <oc-demo title="initial-letter-3">
-            
-            <p class="initial-letter-3 round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component. OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
+          <p class="oc-section-content__desc">Compare the three sizes: the number is how many lines high the first letter is. The large letter has no room of its own, so the lines next to it start right against it. In the wide tile below, variants on <code>::first-letter</code> add that room (<code>first-letter:m-inline-end-0.5</code>), a bold weight and a color: a real drop cap with classes only.</p>
+          <oc-demo title="initial-letter-2, initial-letter-3, initial-letter-3-2 and a styled drop cap">
+<div class="oc-eg"><div class="sup-note sup-note--il"><b>Not in this browser yet.</b> Your browser does not support <code>initial-letter</code>: the first letter stays at text size (only the bold weight and the color of the last tile show).</div><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.initial-letter-2</code><div class="oc-eg__note">The first letter is two lines high.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="mo-il initial-letter-2">Company 1 packs every order by hand and ships it within 24 hours. You get an e-mail with a tracking link as soon as the parcel leaves the warehouse.</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.initial-letter-3</code><div class="oc-eg__note">Three lines high; the text flows around it.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="mo-il initial-letter-3">Company 1 packs every order by hand and ships it within 24 hours. You get an e-mail with a tracking link as soon as the parcel leaves the warehouse.</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.initial-letter-3-2</code><div class="oc-eg__note">Three lines high, but sunk only two lines: it sticks out above the text.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="mo-il initial-letter-3-2">Company 1 packs every order by hand and ships it within 24 hours. You get an e-mail with a tracking link as soon as the parcel leaves the warehouse.</p></div></div>
+</div>
+<div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.initial-letter-3 + first-letter:m-inline-end-0.5 first-letter:font-bold first-letter:text-vividblue-90</code><div class="oc-eg__note">The same drop cap with room after the letter, a bold weight and a color.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="mo-il mo-il--wide initial-letter-3 first-letter:m-inline-end-0.5 first-letter:font-bold first-letter:text-vividblue-90 dark:first-letter:text-vividblue-40">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component. The first letter of this paragraph is three lines high and the text flows around it.</p></div></div>
+</div></div>
+<oc-code lang="html">&lt;p class="initial-letter-2"&gt;Company 1 packs every order by hand …&lt;/p&gt;
+&lt;p class="initial-letter-3"&gt;Company 1 packs every order by hand …&lt;/p&gt;
+&lt;p class="initial-letter-3-2"&gt;Company 1 packs every order by hand …&lt;/p&gt;
 
-            
-            
-          <oc-code lang="html">&lt;p class="initial-letter-3"&gt;OmniaCSS generates utility classes…&lt;/p&gt;</oc-code></oc-demo>
+&lt;!-- A styled drop cap: room after the letter, bold and blue, with first-letter: variants --&gt;
+&lt;p class="initial-letter-3 first-letter:m-inline-end-0.5 first-letter:font-bold first-letter:text-vividblue-90 dark:first-letter:text-vividblue-40"&gt;
+  OmniaCSS generates utility classes from SCSS source files. …
+&lt;/p&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="text-emphasis">Text emphasis</h3>
-          <p class="oc-section-content__desc">Emphasis marks above or below characters, common in East Asian typography.</p>
+          <p class="oc-section-content__desc">Emphasis marks are small dots or circles placed above or below every letter. They come from Chinese and Japanese, which have no italics: there, marks like these stress a word. The marks work on any text, so you can also use them on English words, for example to make a short label stand out.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -114,28 +141,27 @@
             </div>
           </div>
 
-          <oc-demo title="emphasis-dot, emphasis-sesame, emphasis-under">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.emphasis-dot</span>
-                <span class="emphasis-dot font-2 text-dodgerblue">強調</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.emphasis-sesame</span>
-                <span class="emphasis-sesame font-2 text-forestgreen">強調</span>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.emphasis-circle .emphasis-under</span>
-                <span class="emphasis-circle emphasis-under font-2 text-darkorange">Omnia</span>
-              </div>
-            </div>
+          <oc-demo title="emphasis-dot, emphasis-sesame, emphasis-open-circle, emphasis-under">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.emphasis-dot</code><div class="oc-eg__note">A small dot above every letter.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="em-s"><span class="emphasis-dot">Only today</span></p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.emphasis-circle</code><div class="oc-eg__note">A larger filled circle above every letter.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="em-s"><span class="emphasis-circle">Only today</span></p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.emphasis-open-circle</code><div class="oc-eg__note">An open circle above every letter.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="em-s"><span class="emphasis-open-circle">Only today</span></p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.emphasis-sesame</code><div class="oc-eg__note">A sesame-seed mark above every letter.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="em-s"><span class="emphasis-sesame">Only today</span></p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.emphasis-triangle</code><div class="oc-eg__note">A small filled triangle above every letter.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="em-s"><span class="emphasis-triangle">Only today</span></p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.emphasis-circle .emphasis-under</code><div class="oc-eg__note">Filled circles, placed under the letters.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="em-s"><span class="emphasis-circle emphasis-under">Only today</span></p></div></div>
+</div></div>
+            <div class="oc-eg em-orig"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">Original use, in Japanese</code><div class="oc-eg__note">The marks stress 今日だけ, “only today”. In Japanese this does the job that italics or bold do in English.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="em-s">Sale <span lang="ja" class="emphasis-sesame">今日だけ</span></p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;span class="emphasis-dot"&gt;Only today&lt;/span&gt;
+&lt;span class="emphasis-circle"&gt;Only today&lt;/span&gt;
+&lt;span class="emphasis-open-circle"&gt;Only today&lt;/span&gt;
+&lt;span class="emphasis-sesame"&gt;Only today&lt;/span&gt;
+&lt;span class="emphasis-triangle"&gt;Only today&lt;/span&gt;
+&lt;span class="emphasis-circle emphasis-under"&gt;Only today&lt;/span&gt;
 
-            
-            
-          <oc-code lang="html">&lt;span class="emphasis-dot"&gt;強調&lt;/span&gt;
-&lt;span class="emphasis-sesame"&gt;強調&lt;/span&gt;
-&lt;span class="emphasis-circle emphasis-under"&gt;Omnia&lt;/span&gt;</oc-code></oc-demo>
+&lt;!-- The original use: stress a Japanese word --&gt;
+&lt;p&gt;Sale &lt;span lang="ja" class="emphasis-sesame"&gt;今日だけ&lt;/span&gt;&lt;/p&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="cjk-spacing">CJK spacing &amp; hanging punctuation</h3>
           <p class="oc-section-content__desc"><code>text-spacing-trim</code> trims full-width punctuation, <code>text-autospace</code> adds space between CJK and Latin text, and <code>hanging-punctuation</code> lets quotes hang outside the text block.</p>
@@ -162,6 +188,26 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">Each row compares two classes on the same Japanese text. Top row: the brackets and the comma. Middle row: the gap between the Latin word, the number and the Japanese letters. Bottom row: where a narrow column breaks its lines. The <code>hanging-*</code> classes work only in Safari; Chrome and Firefox ignore them, so they have no example here.</p>
+          <oc-demo title="text-spacing-trim, text-autospace and break-auto-phrase">
+<div class="oc-eg"><div class="sup-note sup-note--cjk"><b>Not in this browser yet.</b> Your browser does not support <code>text-spacing-trim</code> or <code>break-auto-phrase</code>: in those two rows both panels look the same. <code>text-autospace</code> works.</div><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-spacing-trim-space-all</code><div class="oc-eg__note">Every bracket and comma keeps its full width, so the marks in the middle leave wide gaps.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="ja" class="mo-cjk text-spacing-trim-space-all">「東京」、（大阪）。</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-spacing-trim-normal</code><div class="oc-eg__note">The default: marks that stand side by side share their space, so the gaps close.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="ja" class="mo-cjk text-spacing-trim-normal">「東京」、（大阪）。</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-autospace-none</code><div class="oc-eg__note">Latin letters, numbers and Japanese letters touch.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="ja" class="mo-cjk text-autospace-none">OmniaCSSは2026年に</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-autospace-normal</code><div class="oc-eg__note">A small gap appears where Latin letters or numbers meet Japanese letters.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="ja" class="mo-cjk text-autospace-normal">OmniaCSSは2026年に</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">without .break-auto-phrase</code><div class="oc-eg__note">Japanese may break between any two letters, even in the middle of a word.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="ja" class="mo-cjk mo-cjk--col">日本語の文章を読みやすく改行します。</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.break-auto-phrase</code><div class="oc-eg__note">Lines break only between phrases, so each line reads as a whole.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div lang="ja" class="mo-cjk mo-cjk--col break-auto-phrase">日本語の文章を読みやすく改行します。</div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div lang="ja" class="text-spacing-trim-space-all"&gt;「東京」、（大阪）。&lt;/div&gt;
+&lt;div lang="ja" class="text-spacing-trim-normal"&gt;「東京」、（大阪）。&lt;/div&gt;
+
+&lt;div lang="ja" class="text-autospace-none"&gt;OmniaCSSは2026年に&lt;/div&gt;
+&lt;div lang="ja" class="text-autospace-normal"&gt;OmniaCSSは2026年に&lt;/div&gt;
+
+&lt;!-- A narrow column (7em wide) --&gt;
+&lt;div lang="ja" style="max-inline-size: 7em"&gt;日本語の文章を読みやすく改行します。&lt;/div&gt;
+&lt;div lang="ja" class="break-auto-phrase" style="max-inline-size: 7em"&gt;日本語の文章を読みやすく改行します。&lt;/div&gt;</oc-code></oc-demo>
+
           <h3 class="oc-section-content__title mt-10" id="font-rendering">Font rendering &amp; tab size</h3>
           <p class="oc-section-content__desc">Switches for variable font optical sizing, kerning, synthesized bold/italic, color font palettes and the width of tab characters in <code>&lt;pre&gt;</code>.</p>
           <div class="oc-expandable-table">
@@ -185,6 +231,57 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+
+          <p class="oc-section-content__desc">Each row compares two classes on the same words. Kerning moves letter pairs such as A and V closer together (here in <code>.font-serif</code>, whose kerning is strong). Optical sizing lets a variable font (here Roboto Flex) draw large text thinner and tighter. <code>.font-synthesis-none</code> stops the browser from faking a bold or italic style that the font does not have (Cedarville Cursive has only one style). <code>.font-palette-light</code> and <code>.font-palette-dark</code> only work with a color font that ships light and dark palettes; none of the fonts OmniaCSS loads has them, so they have no example.</p>
+          <oc-demo title="font-kerning, font-optical and font-synthesis-none">
+<div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-kerning-normal</code><div class="oc-eg__note">Kerning is on: A and V, A and T tuck into each other. The teal bar shows how long the word is.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-kern font-serif font-kerning-normal"><span class="mo-meas">AVATAR</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-kerning-none</code><div class="oc-eg__note">Kerning is off: every letter keeps its full box, the gaps look uneven and the bar is longer.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-kern font-serif font-kerning-none"><span class="mo-meas">AVATAR</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-optical-auto</code><div class="oc-eg__note">The default: at this size the font uses its large-text design, thin and tight.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-huge font-roboto font-optical-auto">Rag 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-optical-none</code><div class="oc-eg__note">The same size drawn with the small-text design: heavier and wider.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-huge font-roboto font-optical-none">Rag 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-cursive .font-bold .font-italic</code><div class="oc-eg__note">The font has no bold or italic, so the browser fakes them: thicker and slanted.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-big font-cursive font-bold font-italic">Thank you</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">… + .font-synthesis-none</code><div class="oc-eg__note">No faking: the text stays in the one style the font really has.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="mo-big font-cursive font-bold font-italic font-synthesis-none">Thank you</div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="font-serif font-4 font-kerning-normal"&gt;AVATAR&lt;/div&gt;
+&lt;div class="font-serif font-4 font-kerning-none"&gt;AVATAR&lt;/div&gt;
+
+&lt;div class="font-roboto font-4 font-optical-auto"&gt;Rag 3&lt;/div&gt;
+&lt;div class="font-roboto font-4 font-optical-none"&gt;Rag 3&lt;/div&gt;
+
+&lt;div class="font-cursive font-bold font-italic"&gt;Thank you&lt;/div&gt;
+&lt;div class="font-cursive font-bold font-italic font-synthesis-none"&gt;Thank you&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">The same code block three times, indented with tab characters: the class decides how wide one tab is (2, 4 or 8 spaces).</p>
+          <oc-demo title="tab-2, tab-4, tab-8 on a pre block">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.tab-2</code><div class="oc-eg__note">One tab is as wide as two spaces.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><pre class="mo-pre tab-2">{
+	"id": 1,
+	"tags": [
+		"new"
+	]
+}</pre></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.tab-4</code><div class="oc-eg__note">One tab is four spaces wide.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><pre class="mo-pre tab-4">{
+	"id": 1,
+	"tags": [
+		"new"
+	]
+}</pre></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.tab-8</code><div class="oc-eg__note">Eight spaces: the browser default, very wide.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><pre class="mo-pre tab-8">{
+	"id": 1,
+	"tags": [
+		"new"
+	]
+}</pre></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- Each line is indented with real tab characters --&gt;
+&lt;pre class="tab-2"&gt;{
+	&quot;id&quot;: 1,
+	&quot;tags&quot;: [
+		&quot;new&quot;
+	]
+}&lt;/pre&gt;
+&lt;pre class="tab-4"&gt;…&lt;/pre&gt;
+&lt;pre class="tab-8"&gt;…&lt;/pre&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Every class is a progressive enhancement: unsupported browsers ignore it and render the default typography.</p>

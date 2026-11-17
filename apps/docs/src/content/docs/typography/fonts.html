@@ -1,50 +1,76 @@
-<!--oc-page {"title": "OmniaCSS Docs - Typography: Font Families Overview", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
-<!-- HERO -->
-      <section class="oc-docs-section" id="overview">
+<!--oc-page {"title":"OmniaCSS Docs - Typography: Loading Fonts","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<link href=\"/css/oc-google-fonts.css\" rel=\"stylesheet\">","<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .fx-s { font-size: 1.45rem; line-height: 1.35; }\n    .fx-big { font-size: 1.75rem; line-height: 1.25; }\n    .fx-abc { margin-block-start: 0.35rem; font-size: 0.95rem; line-height: 1.5; overflow-wrap: anywhere; }\n    .ty-in .fx-abc, .ty-in .fx-abc { color: var(--oc-muted-foreground); }\n    .fx-meta { display: grid; gap: 0.2rem; align-self: start; }\n    .fx-meta .fx-cls { justify-self: start; padding: 0; background: none; font-size: 0.85rem; font-weight: 600; color: var(--oc-foreground); }\n    .fx-meta small { font-size: 0.75rem; line-height: 1.4; color: var(--oc-muted-foreground); }\n    .fx-glyphs { font-size: 1.9rem; line-height: 1.3; letter-spacing: 0.12em; overflow-wrap: anywhere; }\n    .ty-in .fx-nw { white-space: nowrap; overflow-wrap: normal; }\n    .oc-table-ref td code { white-space: nowrap; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n</style>"]}-->
+<section class="oc-docs-section" id="loading-fonts">
         <div class="oc-section-header">
-          <h2 class="oc-section-header__title">Font Families</h2>
+          <h2 class="oc-section-header__title">Loading Fonts</h2>
           <span class="oc-section-header__badge-source oc-badge-source">CSS class</span>
           <span class="oc-section-header__badge-scss oc-badge-source-scss">_fonts.scss</span>
           <span class="oc-section-header__badge-file oc-badge-source-file">fonts.html</span>
           <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span>
-          <p class="oc-section-header__desc">Every font family in OmniaCSS. Each class sets a <code>font-family</code> stack.
-          Classes in <code>omnia_main.css</code>; source: <code>_fonts.scss</code>, <code>_variables_typography.scss</code>.</p>
-        </div>
-      </section>
-
-      <!-- SOURCE -->
-      <section class="oc-docs-section" id="source">
-        <div class="oc-section-header">
-          <h2 class="oc-section-header__title">Source &amp; Further Reading</h2>
-          <p class="oc-section-header__desc">
-            Font family utilities are generated from <code>_fonts.scss</code> and variable maps in <code>_variables_typography.scss</code>.
-          </p>
+          <p class="oc-section-header__desc">Where the fonts behind the <a href="font-family.html">Font Family</a> classes come from, what <code>omnia.css</code> downloads, and how to host the fonts yourself. To see the fonts, open the <a href="font-families.html">Font Catalog</a>.</p>
         </div>
 
         <div class="oc-section-content">
-          <h3 class="oc-section-content__title">SCSS Source Files</h3>
+          <h3 class="oc-section-content__title" id="sources">Three kinds of fonts</h3>
+          <p class="oc-section-content__desc">Every font class falls in one of three groups. Only the first group causes a download.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Where the font comes from</th><th>Classes</th></tr></thead>
               <tbody>
-                <tr><td><code>src/scss/utilities/_fonts.scss</code></td><td>Font family, size, style, weight, variant-numeric</td></tr>
-                <tr><td><code>src/scss/variables/_variables_typography.scss</code></td><td>Maps: $fontfamily, $fontsize, $fontstyle, $fontweight</td></tr>
-                <tr><td><code>src/scss/config/omniacss.fonts.scss</code></td><td>Google Fonts @import declarations</td></tr>
+                <tr><td><strong>Google Fonts</strong><br><span class="font-0.8">Downloaded from Google Fonts through one <code>@import</code> at the top of <code>omnia.css</code>.</span></td><td><code>.font-roboto</code> <code>.font-source</code> <code>.font-cursive</code> <code>.font-fantasy</code> <code>.font-emoji</code> <code>.font-math</code> <code>.font-fangsong</code></td></tr>
+                <tr><td><strong>Installed on the device</strong><br><span class="font-0.8">Nothing is downloaded. The stack names fonts that almost every computer and phone already has.</span></td><td><code>.font-serif</code> <code>.font-sansserif</code> <code>.font-monospace</code></td></tr>
+                <tr><td><strong>Only if installed</strong><br><span class="font-0.8">An <code>@font-face</code> rule with <code>local()</code>: the font is used when the device has it, otherwise the next font in the stack.</span></td><td><code>.font-coloremoji</code> <code>.font-hieroglyphs</code></td></tr>
               </tbody>
             </table>
           </div>
 
-          <h3 class="oc-section-content__title mt-5">Generation Pattern</h3>
-          <oc-code>// _fonts.scss — font-family generation
-@each $fontfamily-prop, $fontfamily-value in $fontfamily {
-  .font-#{$fontfamily-prop} {
-    font-family: $fontfamily-value;
-  }
-}</oc-code>
+          <h3 class="oc-section-content__title mt-10" id="omnia-css">What omnia.css and the on-demand build load</h3>
+          <p class="oc-section-content__desc">The full <code>omnia.css</code> starts with one Google Fonts <code>@import</code> for all eight web fonts. The on-demand build (PostCSS <code>@omnia;</code> or the engine) is smarter: it keeps only the families your classes use, and drops the import when you use none.</p>
+          <oc-code lang="css">/* Top of omnia.css (shortened) */
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&amp;family=Cormorant+Infant…&amp;family=Roboto+Flex…&amp;display=swap");
 
-          <h3 class="oc-section-content__title mt-5">Related Pages</h3>
-          <p class="oc-docs-typo-meta">
-            <a class="source-link" href="../typography.html">Typography</a> (font size, weight, text align, line-height, etc.)
-          </p>
+/* On-demand build, page uses only .font-roboto: */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100…&amp;display=swap");</oc-code>
+
+          <h3 class="oc-section-content__title mt-10" id="fallback">Why loading matters</h3>
+          <p class="oc-section-content__desc">When a font is missing, the browser moves down the stack and uses the next font it has. The left tile uses <code>.font-cursive</code> with Cedarville Cursive loaded; the right tile shows what a visitor gets without it: the browser's own <code>cursive</code> font, which differs per device.</p>
+          <oc-demo title="Loaded font vs fallback">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.font-cursive (font loaded)</code><div class="oc-eg__note">The cursive font that OmniaCSS loads.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="fx-big font-cursive">Thank you for your order</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">style="font-family: cursive" (fallback)</code><div class="oc-eg__note">The browser picks its own cursive font: it differs per system.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="fx-big" style="font-family: cursive">Thank you for your order</p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="font-cursive"&gt;Thank you for your order&lt;/p&gt;
+
+&lt;!-- What the browser falls back to when Cedarville Cursive is not loaded --&gt;
+&lt;p style="font-family: cursive"&gt;Thank you for your order&lt;/p&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-10" id="self-host">Hosting the fonts yourself</h3>
+          <p class="oc-section-content__desc">The Google import sends each visitor's IP address to Google. To avoid that, download the font files, serve them from your own server and declare them with <code>@font-face</code> under the same family name. The classes keep working, because they only refer to the name. Remove the Google <code>@import</code> from your copy of the CSS (or use the on-demand build without font classes). This docs site does exactly that.</p>
+          <oc-code lang="css">/* Your own CSS, loaded before omnia.css */
+@font-face {
+  font-family: "Roboto Flex";
+  src: url("/fonts/roboto-flex.woff2") format("woff2");
+  font-weight: 100 1000;
+  font-display: swap;
+}</oc-code>
+        </div>
+
+        <div class="oc-section-footer">
+          <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
+          <p class="oc-section-footer__desc">The import and the local font rules live in <code>omniacss.fonts.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face" target="_blank" rel="noopener">MDN: @font-face</a>.</p>
+          <div class="oc-section-content">
+            <h3 class="oc-section-content__title">SCSS source</h3>
+            <div class="oc-expandable-table">
+              <table class="oc-table-ref">
+                <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
+                <tbody>
+                  <tr><td><code>scss/utilities/_fonts.scss</code></td><td>Generates one <code>.font-{name}</code> class per entry of <code>$fontfamily</code></td></tr>
+                  <tr><td><code>scss/variables/_variables_typography.scss</code></td><td>The <code>$fontfamily</code> map: class name → font stack</td></tr>
+                  <tr><td><code>scss/config/omniacss.fonts.scss</code></td><td>The Google Fonts <code>@import</code> and the <code>@font-face</code> rules for local fonts</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3 class="oc-section-content__title">Related pages</h3>
+            <p class="oc-section-content__desc"><a href="font-family.html">Font Family</a> · <a href="font-families.html">Font Catalog</a> · <a href="fonts.html">Loading Fonts</a> · <a href="font-size.html">Font Size</a> · <a href="font-weight.html">Font Weight</a></p>
+          </div>
         </div>
       </section>

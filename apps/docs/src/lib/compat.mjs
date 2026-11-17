@@ -45,6 +45,11 @@ function logo(id) {
   return `<img class="oc-compat__logo" src="/img/browsers/${id}.svg" alt="" width="20" height="20" decoding="async">`;
 }
 
+// Our own test results where a browser does not do what its compat data says. Merged over the MDN entry per browser.
+const OVERRIDES = {
+  "css.properties.accent-color": { opera: { state: "partial", notes: ["Opera draws its own form controls and ignores accent-color (tested in Opera 140)"] } },
+};
+
 function cell(browser, s, first) {
   const st = STATES[s.state] || STATES.no;
   const version = s.state === "preview" ? "Preview" : s.state === "no" ? "No" : (s.version || "").replace("≤", "≤ ");
@@ -52,7 +57,7 @@ function cell(browser, s, first) {
   const notes = [...(s.notes || []), ...(s.earlier ? [`earlier: ${s.earlier}`] : [])];
   if (notes.length) tip += " — " + notes.join("; ");
   const earlier = s.earlier ? `<span class="oc-compat__earlier">◐ ${esc(s.earlier.replace("partial since ", "").replace(" since ", " "))}</span>` : "";
-  return `<td class="${first ? "oc-compat__first-mobile " : ""}oc-compat__cell is-${s.state}" title="${esc(tip)}"><span class="oc-compat__icon" aria-hidden="true">${st.icon}</span><span class="oc-compat__version">${esc(version)}</span>${earlier}<span class="sr-only">${esc(tip)}</span></td>`;
+  return `<td class="${first ? "oc-compat__first-mobile " : ""}oc-compat__cell is-${s.state} oc-tooltip oc-tooltip--multiline" data-tooltip="${esc(tip)}"><span class="oc-compat__icon" aria-hidden="true">${st.icon}</span><span class="oc-compat__version">${esc(version)}</span>${earlier}<span class="sr-only">${esc(tip)}</span></td>`;
 }
 
 /** @param {string[]} keys MDN browser-compat-data keys, e.g. ["css.properties.clip-path"] */
@@ -72,7 +77,7 @@ export function compatTable(keys) {
     if (!f) return `<tr><th scope="row">${esc(key)}</th><td colspan="${ordered.length}">No data — run npm run compat:build</td></tr>`;
     const badges = (f.status.experimental ? ' <span class="oc-compat__badge">experimental</span>' : "") + (f.status.deprecated ? ' <span class="oc-compat__badge oc-compat__badge--deprecated">deprecated</span>' : "");
     const name = f.mdn ? `<a href="${esc(f.mdn)}" target="_blank" rel="noopener"><code>${esc(f.label)}</code></a>` : `<code>${esc(f.label)}</code>`;
-    return `<tr><th scope="row" class="oc-compat__feature">${name}${badges}</th>${ordered.map((b, i) => cell(b, f.support[b.id] || { state: "no" }, i === desktop.length)).join("")}</tr>`;
+    return `<tr><th scope="row" class="oc-compat__feature">${name}${badges}</th>${ordered.map((b, i) => cell(b, { ...(f.support[b.id] || { state: "no" }), ...(OVERRIDES[key]?.[b.id] || {}) }, i === desktop.length)).join("")}</tr>`;
   }).join("");
   const legend = `<ul class="oc-compat__legend">${Object.entries(STATES).map(([k, v]) => `<li class="is-${k}"><span aria-hidden="true">${v.icon}</span> ${v.label.replace(" since", "")}</li>`).join("")}</ul>`;
   const source = `<p class="oc-compat__source">Version = first release with support. Hover a cell for notes. Data: <a href="https://github.com/mdn/browser-compat-data" target="_blank" rel="noopener">MDN browser-compat-data</a> ${esc(data.source.version)} (${esc(String(data.source.timestamp).slice(0, 10))}).</p>`;

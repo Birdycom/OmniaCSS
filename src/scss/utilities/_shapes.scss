@@ -13,6 +13,9 @@
 /* Clip path — basic shapes */
 .clip-none { clip-path: none; }
 .clip-circle { clip-path: circle(50%); }
+/* Circle reveal: from nothing to a circle that covers the whole box (corners included); animate with .transition-clip */
+.clip-circle-0 { clip-path: circle(0% at 50% 50%); }
+.clip-circle-cover { clip-path: circle(75% at 50% 50%); }
 .clip-ellipse { clip-path: ellipse(50% 40%); }
 .clip-inset-4 { clip-path: inset(4px); }
 .clip-inset-8 { clip-path: inset(8px round 8px); }

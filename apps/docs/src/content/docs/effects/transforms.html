@@ -1,11 +1,11 @@
-<!--oc-page {"title": "OmniaCSS Docs - Transforms", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .tf3d-scene { inline-size: 12rem; block-size: 7.5rem; outline-offset: 4px; }\n    .tf3d-card { position: relative; inline-size: 100%; block-size: 100%; transition: rotate 0.7s; }\n    .tf3d-scene:is(:hover, :focus-visible) .tf3d-card { rotate: y 180deg; }\n    .tf3d-face { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 12px; font-weight: 800; background: var(--oc-gradient-brand); color: var(--color-white-50); }\n    .tf3d-back { rotate: y 180deg; background: var(--color-forestgreen-90); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Transforms","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Every sample: a flat field, a dashed ghost at the original place, and the transformed box inside the ghost. */\n    @media (max-width: 640px) {  .tf-box, button.tf-box { font-size: 0.72rem; } }\n    .tf-stage--start .tf-ghost { inline-size: 38cqi; }\n    .tf-stage { container-type: inline-size; display: grid; place-items: center; aspect-ratio: 1; max-block-size: 16rem; inline-size: 100%; overflow: clip; }\n    /* Capped: with a strong perspective a larger box would shoot far out of its tile on a wide screen. */\n    .tf-stage--big .tf-ghost { inline-size: min(64cqi, 7.5rem); }\n    .tf-stage--start { place-items: center start; padding-inline-start: 12%; }\n    .tf-ghost { position: relative; inline-size: min(46cqi, 6rem); aspect-ratio: 1; border-radius: 10px; }\n    /* The dashed outline is drawn on top, so the original place stays visible even under a grown box. */\n    .tf-ghost::after { content: \"\"; position: absolute; z-index: 1; inset: 0; border: 2px dashed var(--oc-foreground); border-radius: 10px; opacity: 0.55; pointer-events: none; }\n    .tf-box { position: relative; display: grid; place-items: center; inline-size: 100%; block-size: 100%; border-radius: 8px; background: var(--color-vividblue-90); color: var(--color-white-50); font-size: 0.85rem; font-weight: 700; }\n    button.tf-box { border: 0; font: inherit; font-weight: 700; cursor: pointer; }\n    .tf-box:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 3px; }\n    /* The origin point: a ring that stays put while the box turns around it. */\n    .tf-origin .tf-box::after { content: \"\"; position: absolute; inline-size: 12px; aspect-ratio: 1; border-radius: 50%; background: var(--color-orange-60); border: 2px solid var(--color-white-50); translate: -50% -50%; }\n    .tf-origin .origin-center::after { inset: 50% auto auto 50%; }\n    .tf-origin .origin-top::after { inset: 0 auto auto 50%; }\n    .tf-origin .origin-top-right::after { inset: 0 auto auto 100%; }\n    .tf-origin .origin-right::after { inset: 50% auto auto 100%; }\n    .tf-origin .origin-bottom-right::after { inset: 100% auto auto 100%; }\n    .tf-origin .origin-bottom::after { inset: 100% auto auto 50%; }\n    .tf-origin .origin-bottom-left::after { inset: 100% auto auto 0; }\n    .tf-origin .origin-left::after { inset: 50% auto auto 0; }\n    .tf-origin .origin-top-left::after { inset: 0 auto auto 0; }\n    .tf-origin .tf-ghost { inline-size: 40cqi; }\n    /* Keyboard focus gets the same move as hover (OmniaCSS has focus-visible: variants for scale, rotate and translate-y only). */\n    .tf-box.hover\\:skew-x-12:focus-visible { --oc-skew-x: 12deg; transform: skewX(12deg); }\n    .tf-box.hover\\:translate-x-8:focus-visible { translate: 2rem 0; }\n    .tf-box.hover\\:-translate-y-4:focus-visible { translate: 0 -1rem; }\n    /* Real use: a card that grows a little, a button whose arrow slides */\n    .tf-use { display: grid; gap: 6px; align-content: start; padding: 18px; border: 1px solid var(--oc-border); border-radius: 14px; background: var(--oc-card); color: var(--oc-foreground); text-decoration: none; }\n    a.tf-use:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 3px; }\n    .tf-use small { color: var(--oc-muted-foreground); font-size: 0.85rem; }\n    .tf-use > strong { font-size: 1rem; }\n    .tf-arrow { display: inline-block; transition: translate 0.3s; }\n    .oc-btn:is(:hover, :focus-visible) .tf-arrow { translate: 0.25rem 0; }\n    .tf-chev { display: inline-block; transition: rotate 0.3s; }\n    details[open] .tf-chev { rotate: 180deg; }\n    .tf-use summary { display: flex; justify-content: space-between; align-items: center; gap: 8px; cursor: pointer; font-weight: 700; list-style: none; }\n    .tf-use summary::-webkit-details-marker { display: none; }\n    .tf-use summary:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 3px; border-radius: 4px; }\n    /* 3D flip card with a flat color per face */\n    .tf3d-scene { inline-size: min(100%, 20rem); block-size: 12rem; border-radius: 14px; cursor: pointer; }\n    .tf3d-scene:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 4px; }\n    .tf3d-card { position: relative; inline-size: 100%; block-size: 100%; transition: rotate 0.7s; }\n    .tf3d-scene:is(:hover, :focus-visible) .tf3d-card { rotate: y 180deg; }\n    .tf3d-face { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 6px; padding: 16px; border-radius: 14px; text-align: center; color: var(--color-white-50); }\n    .tf3d-face strong { font-size: 1.3rem; }\n    .tf3d-front { background: var(--color-indigo-60); }\n    .tf3d-back { rotate: y 180deg; background: var(--color-teal-70); }\n    .tf3d-wrap { display: grid; justify-items: center; padding: 28px 16px; }\n    @media (prefers-reduced-motion: reduce) { .tf3d-card, .tf-arrow, .tf-chev { transition: none; } }\n  .fx-in { display: grid; place-items: center; padding: 16px; }\n</style>"]}-->
 <section class="oc-docs-section" id="scale-rotate">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Scale &amp; Rotate</h2>
           <span class="oc-section-header__badge-source oc-badge-source">_motion_transforms.scss</span>
           <span class="oc-section-header__badge-version oc-badge-version">v0.4.0</span>
           <p class="oc-section-header__desc">
-            Resize and rotate elements with <code>.scale-{n}</code> and <code>.rotate-{deg}</code>. They use the individual CSS properties <code>scale</code> and <code>rotate</code>, so each class works on its own and classes combine freely (no extra <code>.transform</code> class needed). The dashed outline shows the original position.
+            Resize and rotate elements with <code>.scale-{n}</code> and <code>.rotate-{deg}</code>. They use the individual CSS properties <code>scale</code> and <code>rotate</code>, so each class works on its own and classes combine freely (no extra <code>.transform</code> class needed). In every example the dashed outline shows the original place of the box.
           </p>
         </div>
 
@@ -16,66 +16,109 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.scale-0</code> … <code>.scale-150</code></td><td>scale: 0, .5, .75, .9, .95, 1, 1.05, 1.1, 1.25, 1.5</td></tr>
+                <tr><td><code>.scale-{0,50,75,90,95,100,105,110,125,150}</code></td><td>scale: 0, .5, .75, .9, .95, 1, 1.05, 1.1, 1.25, 1.5</td></tr>
+                <tr><td><code>.scale-x-{n}</code> · <code>.scale-y-{n}</code></td><td>scale one axis only (same steps)</td></tr>
                 <tr><td><code>.rotate-0</code> · <code>.rotate-45</code> · <code>.rotate-90</code> · <code>.rotate-180</code></td><td>rotate: 0deg / 45deg / 90deg / 180deg</td></tr>
                 <tr><td><code>.origin-{side}</code></td><td>transform-origin: center, top, top right, right, bottom right, bottom, bottom left, left, top left</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.hover:scale-110</code> · <code>.hover:rotate-45</code></td><td>applied on :hover — combine with .transition-transform</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.hover:scale-{95,100,105,110,125,150}</code> · <code>.hover:rotate-{0,1,2,3,6,12,45,90,180}</code></td><td>applied on :hover; combine with .transition-transform</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.focus-visible:scale-{95…125}</code> · <code>.focus-visible:rotate-{0…180}</code></td><td>the same on keyboard focus</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.group-hover:scale-{105,110,125}</code> · <code>.group-hover:rotate-180</code></td><td>applied when a parent with <code>.group</code> is hovered</td></tr>
               </tbody>
             </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
           </div>
 
+          <p class="oc-section-content__desc">All scale values on the same box. Below 100 the box shrinks inside its dashed outline; above 100 it grows past it, while the outline (the space the layout keeps) stays the same.</p>
           <oc-demo title="All scale values">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-0">0</div></div><span class="oc-preview__label">.scale-0</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-50">50</div></div><span class="oc-preview__label">.scale-50</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-75">75</div></div><span class="oc-preview__label">.scale-75</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-90">90</div></div><span class="oc-preview__label">.scale-90</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-95">95</div></div><span class="oc-preview__label">.scale-95</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-100">100</div></div><span class="oc-preview__label">.scale-100</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-105">105</div></div><span class="oc-preview__label">.scale-105</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-110">110</div></div><span class="oc-preview__label">.scale-110</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-125">125</div></div><span class="oc-preview__label">.scale-125</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-150">150</div></div><span class="oc-preview__label">.scale-150</span></div>
-            </div>
-          <oc-code lang="html">&lt;div class="scale-110"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-0</code><div class="oc-eg__note">Shrunk to nothing: the box is gone.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-0">0</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-50</code><div class="oc-eg__note">Scaled to 50% of its size.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-50">50</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-75</code><div class="oc-eg__note">Scaled to 75% of its size.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-75">75</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-90</code><div class="oc-eg__note">Scaled to 90% of its size.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-90">90</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-95</code><div class="oc-eg__note">Scaled to 95% of its size.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-95">95</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-100</code><div class="oc-eg__note">Its normal size: 100%.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-100">100</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-105</code><div class="oc-eg__note">Scaled to 105% of its size.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-105">105</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-110</code><div class="oc-eg__note">Scaled to 110% of its size.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-110">110</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-125</code><div class="oc-eg__note">Scaled to 125% of its size.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-125">125</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-150</code><div class="oc-eg__note">Scaled to 150% of its size.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-150">150</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-0"&gt;0&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-50"&gt;50&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-75"&gt;75&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-90"&gt;90&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-95"&gt;95&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-100"&gt;100&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-105"&gt;105&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-110"&gt;110&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-125"&gt;125&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-150"&gt;150&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Rotation turns the box around its center. The number stays readable so you can follow the turn: at <code>.rotate-180</code> it is upside down. The last box combines two classes.</p>
+          <oc-demo title="Rotate">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-0</code><div class="oc-eg__note">Not turned.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-0">0°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-45</code><div class="oc-eg__note">Turned 45 degrees clockwise.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45">45°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-90</code><div class="oc-eg__note">Turned 90 degrees clockwise.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-90">90°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-180</code><div class="oc-eg__note">Turned 180 degrees clockwise.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-180">180°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.scale-75 .rotate-45</code><div class="oc-eg__note">Shrunk to 75% and turned 45 degrees.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box scale-75 rotate-45">both</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-0"&gt;0°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45"&gt;45°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-90"&gt;90°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-180"&gt;180°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box scale-75 rotate-45"&gt;both&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Every box is turned 45 degrees with <code>.rotate-45</code>; only the origin differs. The orange dot marks the origin: it is the one point that stays in place. The tiles are laid out like the origins themselves (top left in the top-left corner).</p>
           <oc-demo title="All transform origins (rotate-45)">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-center">45°</div></div><span class="oc-preview__label">.origin-center</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-top">45°</div></div><span class="oc-preview__label">.origin-top</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-top-right">45°</div></div><span class="oc-preview__label">.origin-top-right</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-right">45°</div></div><span class="oc-preview__label">.origin-right</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-bottom-right">45°</div></div><span class="oc-preview__label">.origin-bottom-right</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-bottom">45°</div></div><span class="oc-preview__label">.origin-bottom</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-bottom-left">45°</div></div><span class="oc-preview__label">.origin-bottom-left</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-left">45°</div></div><span class="oc-preview__label">.origin-left</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-top-left">45°</div></div><span class="oc-preview__label">.origin-top-left</span></div>
-            </div>
-          <oc-code lang="html">&lt;div class="rotate-45 origin-top-left"&gt;…&lt;/div&gt;</oc-code></oc-demo>
-          <oc-demo title="Scale">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-50">50%</div></div><span class="oc-preview__label">.scale-50</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-75">75%</div></div><span class="oc-preview__label">.scale-75</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-100">100%</div></div><span class="oc-preview__label">.scale-100</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-110">110%</div></div><span class="oc-preview__label">.scale-110</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-125">125%</div></div><span class="oc-preview__label">.scale-125</span></div>
-            </div>
-          </oc-demo>
-          <oc-demo title="Rotate and transform origin">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45">45°</div></div><span class="oc-preview__label">.rotate-45</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-90">90°</div></div><span class="oc-preview__label">.rotate-90</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-top-left">45° ↖</div></div><span class="oc-preview__label">.rotate-45 .origin-top-left</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box rotate-45 origin-bottom-right">45° ↘</div></div><span class="oc-preview__label">.rotate-45 .origin-bottom-right</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box scale-75 rotate-45">both</div></div><span class="oc-preview__label">.scale-75 .rotate-45</span></div>
-            </div>
-          </oc-demo>
-          <oc-demo title="On hover (transition + hover variant)">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-300 ease-out hover:scale-125" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:scale-125</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-500 ease-spring hover:rotate-180" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:rotate-180 .ease-spring</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-300 hover:skew-x-12" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:skew-x-12</span></div>
-            </div>
-          </oc-demo>
+<div class="oc-eg tf-origin"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-top-left</code><div class="oc-eg__note">Turns 45 degrees around its top-left corner.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-top-left"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-top</code><div class="oc-eg__note">Turns 45 degrees around the middle of its top edge.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-top"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-top-right</code><div class="oc-eg__note">Turns 45 degrees around its top-right corner.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-top-right"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-left</code><div class="oc-eg__note">Turns 45 degrees around the middle of its left edge.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-left"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-center</code><div class="oc-eg__note">Turns 45 degrees around its center (the default).</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-center"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-right</code><div class="oc-eg__note">Turns 45 degrees around the middle of its right edge.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-right"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-bottom-left</code><div class="oc-eg__note">Turns 45 degrees around its bottom-left corner.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-bottom-left"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-bottom</code><div class="oc-eg__note">Turns 45 degrees around the middle of its bottom edge.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-bottom"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.origin-bottom-right</code><div class="oc-eg__note">Turns 45 degrees around its bottom-right corner.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box rotate-45 origin-bottom-right"></div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-top-left"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-top"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-top-right"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-left"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-center"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-right"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-bottom-left"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-bottom"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box rotate-45 origin-bottom-right"&gt;&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Hover a box, or press Tab to focus it: the change animates because each box also has <code>.transition-transform</code> and a <code>.duration-*</code>. The first two use OmniaCSS <code>focus-visible:</code> variants; skew has none, so the third box gets one rule of its own for keyboard focus.</p>
+          <oc-demo title="On hover and focus (transition + hover variant)">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:scale-125</code><div class="oc-eg__note">Hover or Tab: grows to 125%.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><button type="button" class="tf-box transition-transform duration-300 ease-out hover:scale-125 focus-visible:scale-125">hover</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:rotate-180</code><div class="oc-eg__note">Hover or Tab: turns 180 degrees with a spring.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><button type="button" class="tf-box transition-transform duration-500 ease-spring hover:rotate-180 focus-visible:rotate-180">hover</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:skew-x-12</code><div class="oc-eg__note">Hover or Tab: slants 12 degrees. Focus needs its own rule here.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><button type="button" class="tf-box transition-transform duration-300 hover:skew-x-12">hover</button></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost"&gt;&lt;button type="button" class="tf-box transition-transform duration-300 ease-out hover:scale-125 focus-visible:scale-125"&gt;hover&lt;/button&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;button type="button" class="tf-box transition-transform duration-500 ease-spring hover:rotate-180 focus-visible:rotate-180"&gt;hover&lt;/button&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;button type="button" class="tf-box transition-transform duration-300 hover:skew-x-12"&gt;hover&lt;/button&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">In practice: a card that grows a little on hover or focus, a button whose arrow slides forward, and a disclosure whose arrow turns over when it opens (click it).</p>
+          <oc-demo title="Practical: card, button arrow, disclosure">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:scale-105</code><div class="oc-eg__note">Hover the card or Tab to it: it grows a little.</div><div class="oc-eg__stage oc-eg__stage--plain fx-in"><a class="tf-use transition-transform duration-300 ease-out hover:scale-105 focus-visible:scale-105" tabindex="0"><strong>Product 1</strong><small>€ 49 · grows to 105% on hover or focus</small></a></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">translate on :hover</code><div class="oc-eg__note">Hover the button or Tab to it: the arrow slides to the right.</div><div class="oc-eg__stage oc-eg__stage--plain fx-in"><div class="tf-use"><strong>Invoice 1</strong><small>Customer 1 · € 1,280</small><span><a class="oc-btn" tabindex="0">Open invoice <span class="tf-arrow" aria-hidden="true">&rarr;</span></a></span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">rotate on [open]</code><div class="oc-eg__note">Open the details: the arrow turns upside down.</div><div class="oc-eg__stage oc-eg__stage--plain fx-in"><details class="tf-use"><summary>Shipping details <span class="tf-chev" aria-hidden="true">&darr;</span></summary><small>Ships within 2 days to Customer 1, info@company1.example.</small></details></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-use, .tf-arrow, .tf-chev: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;a class="tf-use transition-transform duration-300 ease-out hover:scale-105 focus-visible:scale-105" href="/products/1"&gt;&lt;strong&gt;Product 1&lt;/strong&gt;&lt;small&gt;€ 49 · grows to 105% on hover or focus&lt;/small&gt;&lt;/a&gt;
+&lt;div class="tf-use"&gt;&lt;strong&gt;Invoice 1&lt;/strong&gt;&lt;small&gt;Customer 1 · € 1,280&lt;/small&gt;&lt;span&gt;&lt;a class="oc-btn" href="/invoices/1"&gt;Open invoice &lt;span class="tf-arrow" aria-hidden="true"&gt;→&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;details class="tf-use"&gt;&lt;summary&gt;Shipping details &lt;span class="tf-chev" aria-hidden="true"&gt;↓&lt;/span&gt;&lt;/summary&gt;&lt;small&gt;Ships within 2 days to Customer 1, info@company1.example.&lt;/small&gt;&lt;/details&gt;</oc-code></oc-demo>
         </div>
       </section>
 
@@ -85,42 +128,60 @@
           <p class="oc-section-header__desc">Move elements with <code>.translate-x-{n}</code> / <code>.translate-y-{n}</code> (CSS <code>translate</code>; x and y combine) and tilt them with <code>.skew-x-{deg}</code> / <code>.skew-y-{deg}</code>. Translating never changes the layout: the space of the original box stays reserved.</p>
         </div>
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>translate</code> moves an element along x and/or y without touching the layout; <code>skew</code> slants it. <strong>When to use:</strong> slide-in effects, hover lifts, parallelogram buttons. <strong>Gotchas:</strong> percentages (<code>.translate-x-full</code>) are relative to the element's own size, not its parent; skew has no individual CSS property yet, so <code>.skew-x-*</code> and <code>.skew-y-*</code> set <code>transform</code> and replace each other. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/translate" target="_blank" rel="noopener">MDN: translate</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skew" target="_blank" rel="noopener">MDN: skew()</a>.</p>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>translate</code> moves an element along x and/or y without touching the layout; <code>skew</code> slants it. <strong>When to use:</strong> slide-in effects, hover lifts, parallelogram buttons. <strong>Gotchas:</strong> percentages (<code>.translate-x-full</code>) are relative to the element's own size, not its parent; skew has no individual CSS property yet, so <code>.skew-x-*</code> and <code>.skew-y-*</code> set <code>transform</code> (they share it through custom properties, so x and y combine). See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/translate" target="_blank" rel="noopener">MDN: translate</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skew" target="_blank" rel="noopener">MDN: skew()</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.translate-x-{0,1,2,4,8,full}</code></td><td>translate: 0 / .25rem / .5rem / 1rem / 2rem / 100% (x)</td></tr>
-                <tr><td><code>.translate-y-{0,1,2,4,8,full}</code></td><td>translate: … (y)</td></tr>
+                <tr><td><code>.translate-x-{0,1,2,3,4,5,6,8,10,12,16,20,24,32,full}</code></td><td>translate (x): 0 / .25rem / .5rem / .75rem / 1rem / 1.25rem / 1.5rem / 2rem / 2.5rem / 3rem / 4rem / 5rem / 6rem / 8rem / 100%</td></tr>
+                <tr><td><code>.translate-y-{same steps}</code></td><td>translate (y)</td></tr>
                 <tr><td><code>.skew-x-{0,3,6,12}</code></td><td>transform: skewX(…deg)</td></tr>
                 <tr><td><code>.skew-y-{0,3,6,12}</code></td><td>transform: skewY(…deg)</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.hover:translate-x-4</code> · <code>.hover:-translate-y-2</code> · <code>.hover:skew-x-6</code></td><td>applied on :hover</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.hover:translate-x-{1,2,4,8}</code> · <code>.hover:-translate-y-{1,2,4,8}</code> · <code>.hover:skew-{x,y}-{6,12}</code></td><td>applied on :hover</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.focus-visible:translate-y-{0,1}</code> · <code>.focus-visible:-translate-y-1</code></td><td>applied on keyboard focus</td></tr>
               </tbody>
             </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
           </div>
+          <p class="oc-section-content__desc">The box leaves its dashed outline; the outline is where the layout still thinks the box is. <code>.translate-x-full</code> moves it by its own width.</p>
           <oc-demo title="Translate">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box translate-x-4">x 1rem</div></div><span class="oc-preview__label">.translate-x-4</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box translate-y-4">y 1rem</div></div><span class="oc-preview__label">.translate-y-4</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box translate-x-8 translate-y-2">x + y</div></div><span class="oc-preview__label">.translate-x-8 .translate-y-2</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box translate-x-full">x 100%</div></div><span class="oc-preview__label">.translate-x-full</span></div>
-            </div>
-          </oc-demo>
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.translate-x-4</code><div class="oc-eg__note">Moves 1rem to the right.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--start"><div class="tf-ghost"><div class="tf-box translate-x-4">x 1rem</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.translate-y-4</code><div class="oc-eg__note">Moves 1rem down.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box translate-y-4">y 1rem</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.translate-x-8 .translate-y-2</code><div class="oc-eg__note">Moves 2rem right and 0.5rem down.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--start"><div class="tf-ghost"><div class="tf-box translate-x-8 translate-y-2">x + y</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.translate-x-full</code><div class="oc-eg__note">Moves right by its own full width.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--start"><div class="tf-ghost"><div class="tf-box translate-x-full">100%</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box translate-x-4"&gt;x 1rem&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box translate-y-4"&gt;y 1rem&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box translate-x-8 translate-y-2"&gt;x + y&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box translate-x-full"&gt;100%&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
           <oc-demo title="Skew">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box skew-x-6">x 6°</div></div><span class="oc-preview__label">.skew-x-6</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box skew-x-12">x 12°</div></div><span class="oc-preview__label">.skew-x-12</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box skew-y-6">y 6°</div></div><span class="oc-preview__label">.skew-y-6</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box skew-y-12">y 12°</div></div><span class="oc-preview__label">.skew-y-12</span></div>
-            </div>
-          </oc-demo>
-          <oc-demo title="Hover: slide and lift">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-300 ease-out hover:translate-x-8" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:translate-x-8</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost"><div class="oc-ghost__box transition-transform duration-300 ease-out hover:-translate-y-4" tabindex="0">hover</div></div><span class="oc-preview__label">.hover:-translate-y-4</span></div>
-            </div>
-          </oc-demo>
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.skew-x-6</code><div class="oc-eg__note">Slants 6 degrees along the x axis.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box skew-x-6">x 6°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.skew-x-12</code><div class="oc-eg__note">Slants 12 degrees along the x axis.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box skew-x-12">x 12°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.skew-y-6</code><div class="oc-eg__note">Slants 6 degrees along the y axis.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box skew-y-6">y 6°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.skew-y-12</code><div class="oc-eg__note">Slants 12 degrees along the y axis.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><div class="tf-box skew-y-12">y 12°</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box skew-x-6"&gt;x 6°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box skew-x-12"&gt;x 12°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box skew-y-6"&gt;y 6°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;div class="tf-box skew-y-12"&gt;y 12°&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Hover a box or Tab to it. The first slides right, the second lifts. The third is the everyday version: a card that lifts by a quarter rem, with the OmniaCSS <code>focus-visible:-translate-y-1</code> variant for the keyboard.</p>
+          <oc-demo title="Hover and focus: slide and lift">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:translate-x-8</code><div class="oc-eg__note">Hover or Tab: slides 2rem to the right.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--start"><div class="tf-ghost"><button type="button" class="tf-box transition-transform duration-300 ease-out hover:translate-x-8">hover</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:-translate-y-4</code><div class="oc-eg__note">Hover or Tab: lifts 1rem.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost"><button type="button" class="tf-box transition-transform duration-300 ease-out hover:-translate-y-4">hover</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:-translate-y-1</code><div class="oc-eg__note">Hover the card or Tab to it: it lifts 0.25rem.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><a class="tf-use transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:-translate-y-1" tabindex="0" style="inline-size: 80%;"><strong>Customer 1</strong><small>lifts 0.25rem</small></a></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box, .tf-use: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost"&gt;&lt;button type="button" class="tf-box transition-transform duration-300 ease-out hover:translate-x-8"&gt;hover&lt;/button&gt;&lt;/div&gt;
+&lt;div class="tf-ghost"&gt;&lt;button type="button" class="tf-box transition-transform duration-300 ease-out hover:-translate-y-4"&gt;hover&lt;/button&gt;&lt;/div&gt;
+&lt;a class="tf-use transition-transform duration-200 ease-out hover:-translate-y-1 focus-visible:-translate-y-1" href="/customers/1"&gt;&lt;strong&gt;Customer 1&lt;/strong&gt;&lt;small&gt;lifts 0.25rem&lt;/small&gt;&lt;/a&gt;</oc-code></oc-demo>
         </div>
       </section>
 
@@ -128,51 +189,72 @@
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">3D Transforms</h2>
           <span class="oc-section-header__badge-source oc-badge-source">_motion_transforms.scss</span>
-          <p class="oc-section-header__desc">Depth with <code>.perspective-*</code>, <code>.transform-3d</code> and <code>.backface-hidden</code>.</p>
+          <p class="oc-section-header__desc">Depth with <code>.perspective-*</code>, <code>.rotate-x-*</code> / <code>.rotate-y-*</code>, <code>.transform-3d</code> and <code>.backface-hidden</code>.</p>
         </div>
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>perspective</code> on a parent sets how strongly its children recede into the screen (smaller value = stronger effect); <code>transform-style: preserve-3d</code> (<code>.transform-3d</code>) lets nested children keep their own depth; <code>backface-visibility: hidden</code> hides an element once it is turned away from you. <strong>When to use:</strong> flip cards, tilt-on-hover, product spins. <strong>Gotchas:</strong> perspective goes on the <em>parent</em> of the rotating element, <code>overflow</code> and <code>filter</code> on the parent flatten the 3D scene, and rotation about x or y needs the individual <code>rotate: y 40deg</code> syntax (or <code>transform: rotateY()</code>) since <code>.rotate-*</code> only turns around z. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/perspective" target="_blank" rel="noopener">MDN: perspective</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backface-visibility" target="_blank" rel="noopener">MDN: backface-visibility</a>.</p>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> <code>perspective</code> on a parent sets how strongly its children recede into the screen (smaller value = stronger effect); <code>transform-style: preserve-3d</code> (<code>.transform-3d</code>) lets nested children keep their own depth; <code>backface-visibility: hidden</code> hides an element once it is turned away from you. <strong>When to use:</strong> flip cards, tilt-on-hover, product spins. <strong>Gotchas:</strong> perspective goes on the <em>parent</em> of the rotating element, <code>overflow</code> and <code>filter</code> on the parent flatten the 3D scene, and <code>.rotate-*</code> only turns around z: use <code>.rotate-x-*</code> / <code>.rotate-y-*</code> (or <code>rotate: y 40deg</code>) to turn around the other axes. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/perspective" target="_blank" rel="noopener">MDN: perspective</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backface-visibility" target="_blank" rel="noopener">MDN: backface-visibility</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.perspective-none</code> · <code>.perspective-250</code> · <code>.perspective-500</code> · <code>.perspective-750</code> · <code>.perspective-1000</code></td><td>perspective: none / 250px / 500px / 750px / 1000px</td></tr>
-                <tr><td><code>.perspective-origin-{center,top,bottom,left,right}</code></td><td>perspective-origin</td></tr>
-                <tr><td><code>.transform-flat</code> · <code>.transform-3d</code></td><td>transform-style: flat / preserve-3d</td></tr>
-                <tr><td><code>.backface-visible</code> · <code>.backface-hidden</code></td><td>backface-visibility</td></tr>
+                <tr><td><code>.perspective-{none,100,250,300,500,750,800,1000,1200,1500,2000}</code></td><td>perspective: none / 100px … 2000px</td></tr>
+                <tr><td><code>.perspective-origin-{center,top,bottom,left,right,top-left,top-right,bottom-left,bottom-right}</code></td><td>perspective-origin</td></tr>
+                <tr><td><code>.rotate-x-{n}</code> · <code>.rotate-y-{n}</code> · <code>.rotate-z-{n}</code></td><td>transform: rotateX/Y/Z(0, 1, 2, 3, 6, 12, 15, 30, 45, 60, 90, 180deg)</td></tr>
+                <tr><td><code>.translate-z-{0,1,2,4,8,12,16,24,32}</code> · <code>.scale-z-{n}</code></td><td>move towards the viewer / scale depth</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.transform-flat</code> · <code>.transform-3d</code></td><td>transform-style: flat / preserve-3d</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.backface-visible</code> · <code>.backface-hidden</code></td><td>backface-visibility</td></tr>
               </tbody>
             </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
           </div>
 
           <h3 class="oc-section-content__title mt-8">Perspective strength</h3>
-          <oc-demo title="perspective-250 / 500 / 750 / 1000 (same rotateY)">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item"><div class="oc-ghost perspective-250"><div class="oc-ghost__box" style="rotate: y 45deg">250</div></div><span class="oc-preview__label">.perspective-250</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost perspective-500"><div class="oc-ghost__box" style="rotate: y 45deg">500</div></div><span class="oc-preview__label">.perspective-500</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost perspective-750"><div class="oc-ghost__box" style="rotate: y 45deg">750</div></div><span class="oc-preview__label">.perspective-750</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost perspective-1000"><div class="oc-ghost__box" style="rotate: y 45deg">1000</div></div><span class="oc-preview__label">.perspective-1000</span></div>
-              <div class="oc-preview__item"><div class="oc-ghost perspective-none"><div class="oc-ghost__box" style="rotate: y 45deg">none</div></div><span class="oc-preview__label">.perspective-none</span></div>
-            </div>
-          <oc-code lang="html">&lt;div class="perspective-500"&gt;
-  &lt;div style="rotate: y 45deg"&gt;…&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Every box is turned 60 degrees around the y axis with <code>.rotate-y-60</code>; only the perspective on its parent (the dashed outline) differs. With a small perspective the near edge looms large and the far edge shrinks; with <code>.perspective-none</code> there is no depth and the box just looks narrower.</p>
+          <oc-demo title="perspective-100 … perspective-none (same rotate-y-60)">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.perspective-100</code><div class="oc-eg__note">Very close: a strong 3D effect.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--big"><div class="tf-ghost perspective-100"><div class="tf-box rotate-y-60">100</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.perspective-250</code><div class="oc-eg__note">Close: still a strong effect.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--big"><div class="tf-ghost perspective-250"><div class="tf-box rotate-y-60">250</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.perspective-500</code><div class="oc-eg__note">A medium 3D effect.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--big"><div class="tf-ghost perspective-500"><div class="tf-box rotate-y-60">500</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.perspective-1000</code><div class="oc-eg__note">Far away: a mild effect.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--big"><div class="tf-ghost perspective-1000"><div class="tf-box rotate-y-60">1000</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.perspective-none</code><div class="oc-eg__note">No perspective: the turned box just looks narrower.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage tf-stage--big"><div class="tf-ghost perspective-none"><div class="tf-box rotate-y-60">none</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost perspective-100"&gt;&lt;div class="tf-box rotate-y-60"&gt;100&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost perspective-250"&gt;&lt;div class="tf-box rotate-y-60"&gt;250&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost perspective-500"&gt;&lt;div class="tf-box rotate-y-60"&gt;500&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost perspective-1000"&gt;&lt;div class="tf-box rotate-y-60"&gt;1000&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost perspective-none"&gt;&lt;div class="tf-box rotate-y-60"&gt;none&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">The three axes in the same <code>.perspective-500</code>: x tips the box backwards, y turns it like a door, z turns it flat on the screen.</p>
+          <oc-demo title="rotate-x, rotate-y, rotate-z">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-x-45</code><div class="oc-eg__note">Tilts 45 degrees around the x axis.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost perspective-500"><div class="tf-box rotate-x-45">x 45°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-y-45</code><div class="oc-eg__note">Turns 45 degrees around the y axis.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost perspective-500"><div class="tf-box rotate-y-45">y 45°</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rotate-z-45</code><div class="oc-eg__note">Turns 45 degrees flat, like .rotate-45.</div><div class="oc-eg__stage oc-eg__stage--plain tf-stage"><div class="tf-ghost perspective-500"><div class="tf-box rotate-z-45">z 45°</div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .tf-ghost, .tf-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="tf-ghost perspective-500"&gt;&lt;div class="tf-box rotate-x-45"&gt;x 45°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost perspective-500"&gt;&lt;div class="tf-box rotate-y-45"&gt;y 45°&lt;/div&gt;&lt;/div&gt;
+&lt;div class="tf-ghost perspective-500"&gt;&lt;div class="tf-box rotate-z-45"&gt;z 45°&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Flip card with backface-hidden</h3>
-          <p class="oc-section-content__desc">Hover or focus the card. Both faces have <code>.backface-hidden</code>, the back face is pre-rotated 180 degrees, and the card uses <code>.transform-3d</code> so the faces keep their depth.</p>
+          <p class="oc-section-content__desc">Hover the card or focus it with Tab. Both faces have <code>.backface-hidden</code>, the back face is turned 180 degrees in advance, and the card uses <code>.transform-3d</code> so the faces keep their depth. With reduced motion the card switches sides without the turn.</p>
           <oc-demo title="transform-3d + backface-hidden">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="tf3d-scene perspective-1000" tabindex="0">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.perspective-1000 .transform-3d .backface-hidden</code><div class="oc-eg__note">Hover the card or Tab to it: it flips and shows its back.</div><div class="oc-eg__stage oc-eg__stage--plain tf3d-wrap"><div class="tf3d-scene perspective-1000" tabindex="0" aria-label="Product 1 card, focus to see the back">
                 <div class="tf3d-card transform-3d">
-                  <div class="tf3d-face backface-hidden">Front</div>
-                  <div class="tf3d-face tf3d-back backface-hidden">Back</div>
+                  <div class="tf3d-face tf3d-front backface-hidden"><strong>Product 1</strong><span>Hover or focus to flip</span></div>
+                  <div class="tf3d-face tf3d-back backface-hidden"><strong>€ 49</strong><span>In stock · ships in 2 days</span></div>
                 </div>
-              </div>
-            </div>
-          <oc-code lang="html">&lt;div class="perspective-1000"&gt;
-  &lt;div class="card transform-3d"&gt;   &lt;!-- rotates on hover --&gt;
-    &lt;div class="face backface-hidden"&gt;Front&lt;/div&gt;
-    &lt;div class="face backface-hidden" style="rotate: y 180deg"&gt;Back&lt;/div&gt;
+              </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="scene perspective-1000" tabindex="0"&gt;
+  &lt;div class="card transform-3d"&gt;   &lt;!-- rotate: y 180deg on :hover / :focus-visible --&gt;
+    &lt;div class="face backface-hidden"&gt;Product 1&lt;/div&gt;
+    &lt;div class="face backface-hidden" style="rotate: y 180deg"&gt;€ 49&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
         </div>

@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Align Content","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Align Content","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Alignment demos: frame from the shared example kit (.oc-eg); below only the page palette and what sits inside the stages. */\n    .oc-eg { --eg-c1: var(--color-magenta-90); --eg-c2: var(--color-royalblue-70); --eg-c3: var(--color-seagreen-70); --eg-c4: var(--color-magenta-90); --eg-c5: var(--color-royalblue-70); --eg-c6: var(--color-seagreen-70); }\n    /* Fixed stage height and clipping as before the kit; items stay on one line. */\n    .al-fixed { block-size: var(--eg-h, 3.75rem); overflow: hidden; white-space: nowrap; }\n    .al-real { padding: 0.75rem; }\n    .oc-eg__item.al-tag { padding: 0.4rem 0.75rem; border-radius: 999px; }\n    .al-text { box-sizing: border-box; padding: 0.6rem 0.8rem; border-radius: 6px; background: var(--eg-c2); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; }\n    .al-filter { box-sizing: border-box; block-size: 11rem; padding: 0.75rem; border: 1px solid var(--oc-border-strong); border-radius: 10px; background: var(--oc-card); }\n    .al-chip { display: inline-flex; align-items: center; padding: 0.3rem 0.8rem; border: 1.5px solid var(--eg-c1); border-radius: 999px; background: color-mix(in oklch, var(--eg-c1) 10%, var(--oc-card)); color: var(--oc-foreground); font-size: 0.85rem; font-weight: 600; }\n  </style>"]}-->
 <section class="oc-docs-section" id="align-content">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Align Content</h2>
@@ -8,11 +8,12 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>align-content</code> packs whole lines (not individual items) inside a container that is taller than its content. It only shows up when the container is multi-line: <code>.flex.wrap</code>, a grid with extra block-size, or (since Chrome 123 / Firefox 125 / Safari 17.4) a plain block container. For a single flex line use <code>.align-items-*</code> instead. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-content" target="_blank" rel="noopener">MDN: align-content</a>.</p>
+          <p class="oc-section-content__desc"><strong>In one sentence:</strong> <code>align-content</code> moves whole <strong>lines</strong> (rows) along the <strong>cross axis</strong>: the lines of a wrapping flex row, the rows of a grid, or the content of a plain block, top to bottom.</p>
+          <p class="oc-section-content__desc">It packs lines, not single items, inside a container that is taller than its content. So it only shows up when there is more than one line: <code>.flex.wrap</code>, a grid with extra height, or (since Chrome 123 / Firefox 125 / Safari 17.4) a plain block container. For a single flex line use <a href="align-items.html"><code>.align-items-*</code></a> instead. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-content" target="_blank" rel="noopener">MDN: align-content</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Align Value</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
                 <tr><td><code>.align-start</code></td><td>align-content: start</td></tr>
                 <tr><td><code>.align-center</code></td><td>align-content: center</td></tr>
@@ -22,6 +23,11 @@
                 <tr class="oc-expandable-table__row-more"><td><code>.align-evenly</code></td><td>align-content: space-evenly</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.align-stretch</code></td><td>align-content: stretch</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.align-normal</code></td><td>align-content: normal</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-baseline</code></td><td>align-content: baseline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-flex-start</code></td><td>align-content: flex-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-flex-end</code></td><td>align-content: flex-end</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-center-safe</code></td><td>align-content: safe center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-center-unsafe</code></td><td>align-content: unsafe center</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -30,31 +36,65 @@
           </div>
 
           <h3 class="oc-section-content__title mt-8">Every value on a wrapping flexbox</h3>
+          <p class="oc-section-content__desc">Seven tags wrap into lines inside a box that is 10rem high. Look at the hatched space between and around the lines: each value hands it out differently.</p>
 
-          <p class="oc-section-content__desc">Six items wrap into lines inside a container with a fixed height. <code>stretch</code> (the default behaviour) enlarges the lines to fill the height; every other value keeps the lines at their natural size.</p>
-
-          <oc-demo title="align-content values"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.align-start</code><div class="dm-area flex wrap gap-0.3 dm-h align-start" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.align-center</code><div class="dm-area flex wrap gap-0.3 dm-h align-center" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.align-end</code><div class="dm-area flex wrap gap-0.3 dm-h align-end" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.align-between</code><div class="dm-area flex wrap gap-0.3 dm-h align-between" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.align-around</code><div class="dm-area flex wrap gap-0.3 dm-h align-around" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.align-evenly</code><div class="dm-area flex wrap gap-0.3 dm-h align-evenly" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.align-stretch</code><div class="dm-area flex wrap gap-0.3 dm-h align-stretch" style="--dm-h:9rem"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex wrap align-between" style="height: 12rem"&gt;
-  &lt;div&gt;1&lt;/div&gt; … &lt;div&gt;6&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="align-content values"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the container</span><span class="oc-eg__key oc-eg__key--strong">Cross axis &darr; (the lines are stacked top to bottom)</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-start</code><div class="oc-eg__note">The lines are packed at the top.</div><div class="oc-eg__stage al-fixed flex wrap gap-0.5 align-start" style="--eg-h:10rem"><div class="oc-eg__item al-tag">Design</div><div class="oc-eg__item al-tag">Development</div><div class="oc-eg__item al-tag">SEO</div><div class="oc-eg__item al-tag">Hosting</div><div class="oc-eg__item al-tag">Support</div><div class="oc-eg__item al-tag">E-mail</div><div class="oc-eg__item al-tag">Training</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-center</code><div class="oc-eg__note">The lines are packed in the middle.</div><div class="oc-eg__stage al-fixed flex wrap gap-0.5 align-center" style="--eg-h:10rem"><div class="oc-eg__item al-tag">Design</div><div class="oc-eg__item al-tag">Development</div><div class="oc-eg__item al-tag">SEO</div><div class="oc-eg__item al-tag">Hosting</div><div class="oc-eg__item al-tag">Support</div><div class="oc-eg__item al-tag">E-mail</div><div class="oc-eg__item al-tag">Training</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-end</code><div class="oc-eg__note">The lines are packed at the bottom.</div><div class="oc-eg__stage al-fixed flex wrap gap-0.5 align-end" style="--eg-h:10rem"><div class="oc-eg__item al-tag">Design</div><div class="oc-eg__item al-tag">Development</div><div class="oc-eg__item al-tag">SEO</div><div class="oc-eg__item al-tag">Hosting</div><div class="oc-eg__item al-tag">Support</div><div class="oc-eg__item al-tag">E-mail</div><div class="oc-eg__item al-tag">Training</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-between</code><div class="oc-eg__note">First line at the top, last line at the bottom, the space in between.</div><div class="oc-eg__stage al-fixed flex wrap gap-0.5 align-between" style="--eg-h:10rem"><div class="oc-eg__item al-tag">Design</div><div class="oc-eg__item al-tag">Development</div><div class="oc-eg__item al-tag">SEO</div><div class="oc-eg__item al-tag">Hosting</div><div class="oc-eg__item al-tag">Support</div><div class="oc-eg__item al-tag">E-mail</div><div class="oc-eg__item al-tag">Training</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-around</code><div class="oc-eg__note">Equal space above and below each line, so the edges get half.</div><div class="oc-eg__stage al-fixed flex wrap gap-0.5 align-around" style="--eg-h:10rem"><div class="oc-eg__item al-tag">Design</div><div class="oc-eg__item al-tag">Development</div><div class="oc-eg__item al-tag">SEO</div><div class="oc-eg__item al-tag">Hosting</div><div class="oc-eg__item al-tag">Support</div><div class="oc-eg__item al-tag">E-mail</div><div class="oc-eg__item al-tag">Training</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-evenly</code><div class="oc-eg__note">Every gap is the same size, the top and bottom edges included.</div><div class="oc-eg__stage al-fixed flex wrap gap-0.5 align-evenly" style="--eg-h:10rem"><div class="oc-eg__item al-tag">Design</div><div class="oc-eg__item al-tag">Development</div><div class="oc-eg__item al-tag">SEO</div><div class="oc-eg__item al-tag">Hosting</div><div class="oc-eg__item al-tag">Support</div><div class="oc-eg__item al-tag">E-mail</div><div class="oc-eg__item al-tag">Training</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-stretch</code><div class="oc-eg__note">The lines grow to share the height, and the tags grow with them.</div><div class="oc-eg__stage al-fixed flex wrap gap-0.5 align-stretch" style="--eg-h:10rem"><div class="oc-eg__item al-tag">Design</div><div class="oc-eg__item al-tag">Development</div><div class="oc-eg__item al-tag">SEO</div><div class="oc-eg__item al-tag">Hosting</div><div class="oc-eg__item al-tag">Support</div><div class="oc-eg__item al-tag">E-mail</div><div class="oc-eg__item al-tag">Training</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-normal</code><div class="oc-eg__note">The default. On a wrapping flexbox it behaves like stretch.</div><div class="oc-eg__stage al-fixed flex wrap gap-0.5 align-normal" style="--eg-h:10rem"><div class="oc-eg__item al-tag">Design</div><div class="oc-eg__item al-tag">Development</div><div class="oc-eg__item al-tag">SEO</div><div class="oc-eg__item al-tag">Hosting</div><div class="oc-eg__item al-tag">Support</div><div class="oc-eg__item al-tag">E-mail</div><div class="oc-eg__item al-tag">Training</div></div></div>
+</div></div><oc-code lang="html">&lt;!-- The tags are your own style; only the align-* class changes --&gt;
+&lt;div class="flex wrap gap-0.5 align-start" style="height: 10rem"&gt;&lt;div&gt;Design&lt;/div&gt;&lt;div&gt;Development&lt;/div&gt;&lt;div&gt;SEO&lt;/div&gt;&lt;div&gt;Hosting&lt;/div&gt;&lt;div&gt;Support&lt;/div&gt;&lt;div&gt;E-mail&lt;/div&gt;&lt;div&gt;Training&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex wrap gap-0.5 align-center" style="height: 10rem"&gt;&lt;div&gt;Design&lt;/div&gt;&lt;div&gt;Development&lt;/div&gt;&lt;div&gt;SEO&lt;/div&gt;&lt;div&gt;Hosting&lt;/div&gt;&lt;div&gt;Support&lt;/div&gt;&lt;div&gt;E-mail&lt;/div&gt;&lt;div&gt;Training&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex wrap gap-0.5 align-end" style="height: 10rem"&gt;&lt;div&gt;Design&lt;/div&gt;&lt;div&gt;Development&lt;/div&gt;&lt;div&gt;SEO&lt;/div&gt;&lt;div&gt;Hosting&lt;/div&gt;&lt;div&gt;Support&lt;/div&gt;&lt;div&gt;E-mail&lt;/div&gt;&lt;div&gt;Training&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex wrap gap-0.5 align-between" style="height: 10rem"&gt;&lt;div&gt;Design&lt;/div&gt;&lt;div&gt;Development&lt;/div&gt;&lt;div&gt;SEO&lt;/div&gt;&lt;div&gt;Hosting&lt;/div&gt;&lt;div&gt;Support&lt;/div&gt;&lt;div&gt;E-mail&lt;/div&gt;&lt;div&gt;Training&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex wrap gap-0.5 align-around" style="height: 10rem"&gt;&lt;div&gt;Design&lt;/div&gt;&lt;div&gt;Development&lt;/div&gt;&lt;div&gt;SEO&lt;/div&gt;&lt;div&gt;Hosting&lt;/div&gt;&lt;div&gt;Support&lt;/div&gt;&lt;div&gt;E-mail&lt;/div&gt;&lt;div&gt;Training&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex wrap gap-0.5 align-evenly" style="height: 10rem"&gt;&lt;div&gt;Design&lt;/div&gt;&lt;div&gt;Development&lt;/div&gt;&lt;div&gt;SEO&lt;/div&gt;&lt;div&gt;Hosting&lt;/div&gt;&lt;div&gt;Support&lt;/div&gt;&lt;div&gt;E-mail&lt;/div&gt;&lt;div&gt;Training&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex wrap gap-0.5 align-stretch" style="height: 10rem"&gt;&lt;div&gt;Design&lt;/div&gt;&lt;div&gt;Development&lt;/div&gt;&lt;div&gt;SEO&lt;/div&gt;&lt;div&gt;Hosting&lt;/div&gt;&lt;div&gt;Support&lt;/div&gt;&lt;div&gt;E-mail&lt;/div&gt;&lt;div&gt;Training&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex wrap gap-0.5 align-normal" style="height: 10rem"&gt;&lt;div&gt;Design&lt;/div&gt;&lt;div&gt;Development&lt;/div&gt;&lt;div&gt;SEO&lt;/div&gt;&lt;div&gt;Hosting&lt;/div&gt;&lt;div&gt;Support&lt;/div&gt;&lt;div&gt;E-mail&lt;/div&gt;&lt;div&gt;Training&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Block containers</h3>
-
           <p class="oc-section-content__desc">Newer browsers apply <code>align-content</code> to ordinary block containers, so vertical centring no longer needs flex or grid. Add <code>.align-center</code> to any element with a height; in older browsers the content simply stays at the top.</p>
 
-          <oc-demo title="align-content on a plain block"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.align-start</code><div class="dm-area align-start dm-h"><p class="dm-text">Paragraph in a block container</p></div></div>
-<div class="dm-tile"><code>.align-center</code><div class="dm-area align-center dm-h"><p class="dm-text">Paragraph in a block container</p></div></div>
-<div class="dm-tile"><code>.align-end</code><div class="dm-area align-end dm-h"><p class="dm-text">Paragraph in a block container</p></div></div>
-</div><oc-code lang="html">&lt;div class="align-center" style="height: 10rem"&gt;
-  &lt;p&gt;Vertically centred without flex&lt;/p&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="align-content on a plain block"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the container</span><span class="oc-eg__key oc-eg__key--strong">Block axis &darr; (top to bottom)</span></div><div class="oc-eg__panels" style="--eg-min:14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-start</code><div class="oc-eg__note">The default: content at the top.</div><div class="oc-eg__stage al-fixed align-start" style="--eg-h:8rem"><div class="al-text">Customer 1 signed up today.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-center</code><div class="oc-eg__note">Vertically centred, without flex or grid.</div><div class="oc-eg__stage al-fixed align-center" style="--eg-h:8rem"><div class="al-text">Customer 1 signed up today.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-end</code><div class="oc-eg__note">Content at the bottom.</div><div class="oc-eg__stage al-fixed align-end" style="--eg-h:8rem"><div class="al-text">Customer 1 signed up today.</div></div></div>
+</div></div><oc-code lang="html">&lt;!-- align-content also works on a plain block (no flex or grid) --&gt;
+&lt;div class="align-start" style="height: 8rem"&gt;&lt;div&gt;Customer 1 signed up today.&lt;/div&gt;&lt;/div&gt;
+&lt;div class="align-center" style="height: 8rem"&gt;&lt;div&gt;Customer 1 signed up today.&lt;/div&gt;&lt;/div&gt;
+&lt;div class="align-end" style="height: 8rem"&gt;&lt;div&gt;Customer 1 signed up today.&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a tag box</h3>
+          <p class="oc-section-content__desc">A filter box with a fixed height and a few tags. Without a class, the wrapped lines are stretched; <code>.align-start</code> keeps the tags compact at the top.</p>
+
+          <oc-demo title="Tag box with a fixed height"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">No align-content class</code><div class="oc-eg__note">The default stretches the two lines over the full height: the tags turn into tall blobs.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-filter flex wrap gap-0.5"><span class="al-chip">Design</span><span class="al-chip">Development</span><span class="al-chip">SEO</span><span class="al-chip">Hosting</span><span class="al-chip">Support</span><span class="al-chip">E-mail</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-start</code><div class="oc-eg__note">The lines stay at their natural height and are packed at the top. The empty space waits for more tags.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-filter flex wrap gap-0.5 align-start"><span class="al-chip">Design</span><span class="al-chip">Development</span><span class="al-chip">SEO</span><span class="al-chip">Hosting</span><span class="al-chip">Support</span><span class="al-chip">E-mail</span></div></div></div>
+</div></div><oc-code lang="html">&lt;!-- No align-content class: the lines spread over the height --&gt;
+&lt;div class="flex wrap gap-0.5" style="height: 11rem"&gt;
+  &lt;span class="chip"&gt;Design&lt;/span&gt;
+  &lt;span class="chip"&gt;Development&lt;/span&gt;
+  &lt;span class="chip"&gt;SEO&lt;/span&gt;
+  &lt;span class="chip"&gt;Hosting&lt;/span&gt;
+  &lt;span class="chip"&gt;Support&lt;/span&gt;
+  &lt;span class="chip"&gt;E-mail&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- .align-start: the lines stay together at the top --&gt;
+&lt;div class="flex wrap gap-0.5 align-start" style="height: 11rem"&gt;
+  &lt;span class="chip"&gt;Design&lt;/span&gt;
+  &lt;span class="chip"&gt;Development&lt;/span&gt;
+  &lt;span class="chip"&gt;SEO&lt;/span&gt;
+  &lt;span class="chip"&gt;Hosting&lt;/span&gt;
+  &lt;span class="chip"&gt;Support&lt;/span&gt;
+  &lt;span class="chip"&gt;E-mail&lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- .chip is your own style (padding, border, radius) --&gt;</oc-code></oc-demo>
+
         </div>
       </section>

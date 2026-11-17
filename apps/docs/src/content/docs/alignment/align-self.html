@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Align Self","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Align Self","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Alignment demos: frame from the shared example kit (.oc-eg); below only the page palette and what sits inside the stages. */\n    .oc-eg { --eg-c1: var(--color-forestgreen-60); --eg-c2: var(--color-forestgreen-60); --eg-c3: var(--color-forestgreen-60); --eg-c4: var(--color-forestgreen-60); --eg-c5: var(--color-forestgreen-60); --eg-c6: var(--color-forestgreen-60); }\n    /* Fixed stage height and clipping as before the kit; items stay on one line. */\n    .al-fixed { block-size: var(--eg-h, 3.75rem); overflow: hidden; white-space: nowrap; }\n    .oc-eg .oc-eg__item.al-hi { --eg-c: var(--eg-c1); }\n    .oc-eg__item.al-sm { font-size: 0.8rem; }\n    .oc-eg__item.al-lg { font-size: 1.5rem; padding-block: 0.35rem; }\n    .al-real { padding: 0.75rem; }\n    .al-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); grid-auto-rows: 1fr; gap: 1rem; }\n    .al-card { display: flex; flex-direction: column; gap: 0.6rem; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .al-card-img { block-size: 5rem; border-radius: 8px; background: var(--eg-c1); }\n    .al-card:nth-child(2) .al-card-img { background: var(--color-steelblue-80); }\n    .al-card:nth-child(3) .al-card-img { background: var(--color-chocolate-80); }\n    .al-card-title { font-weight: 700; }\n    .al-card-text { font-size: 0.85rem; line-height: 1.45; color: var(--oc-muted-foreground); }\n    .al-card-tag { align-self: flex-start; font-size: 0.75rem; }\n  </style>"]}-->
 <section class="oc-docs-section" id="align-self">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Align Self</h2>
@@ -8,11 +8,12 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>align-self</code> lets one item opt out of the container's <code>align-items</code>. It is set on the <em>child</em>, never on the container. Typical use: push one card to the bottom of a row, or keep a badge at the top while everything else is centred. <code>auto</code> means "inherit from the parent's align-items". In flexbox, an auto margin (<code>margin-top: auto</code>) wins over <code>align-self</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-self" target="_blank" rel="noopener">MDN: align-self</a>.</p>
+          <p class="oc-section-content__desc"><strong>In one sentence:</strong> <code>align-self</code> moves <strong>one</strong> item along the <strong>cross axis</strong> (top to bottom in a flex row, left to right in <code>.flex-col</code>, up or down in a grid cell) and overrides the container's <code>align-items</code>.</p>
+          <p class="oc-section-content__desc">It is set on the <em>child</em>, never on the container. Typical use: keep one button at its natural width in a card, or keep a badge at the top while everything else is centred. <code>auto</code> means "do what the parent's align-items says". In flexbox, an auto margin (<code>.mt-auto</code>) wins over <code>align-self</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-self" target="_blank" rel="noopener">MDN: align-self</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Self Align Value</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
                 <tr><td><code>.align-self-auto</code></td><td>align-self: auto</td></tr>
                 <tr><td><code>.align-self-start</code></td><td>align-self: start</td></tr>
@@ -22,7 +23,13 @@
                 <tr class="oc-expandable-table__row-more"><td><code>.align-self-baseline</code></td><td>align-self: baseline</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.align-self-baseline-first</code></td><td>align-self: first baseline</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.align-self-baseline-last</code></td><td>align-self: last baseline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-self-normal</code></td><td>align-self: normal</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-self-flex-start</code></td><td>align-self: flex-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-self-flex-end</code></td><td>align-self: flex-end</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-self-self-start</code></td><td>align-self: self-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-self-self-end</code></td><td>align-self: self-end</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.align-self-center-safe</code></td><td>align-self: safe center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-self-center-unsafe</code></td><td>align-self: unsafe center</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -30,21 +37,54 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title mt-8">Every value on the middle item</h3>
+          <h3 class="oc-section-content__title mt-8">Every value on one item</h3>
+          <p class="oc-section-content__desc">The container is 8rem high and has <code>.align-items-start</code>. Only the green item carries the class in the label; the outlined items follow the container.</p>
 
-          <p class="oc-section-content__desc">The container uses <code>.align-items-start</code>; only item 2 carries the highlighted class. The stretch tile uses an item without a fixed height.</p>
+          <oc-demo title="align-self values"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the container</span><span class="oc-eg__key oc-eg__key--strong">Cross axis &darr; (top to bottom in a flex row)</span></div><div class="oc-eg__panels" style="--eg-min:14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-self-auto</code><div class="oc-eg__note">Follows the container. It has <code>.align-items-start</code>, so item 2 stays at the top like the others.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-start" style="--eg-h:8rem"><div class="oc-eg__item oc-eg__item--ghost">Item 1</div><div class="oc-eg__item al-hi align-self-auto">Item 2</div><div class="oc-eg__item oc-eg__item--ghost">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-self-start</code><div class="oc-eg__note">Item 2 sits at the top. Same as auto here.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-start" style="--eg-h:8rem"><div class="oc-eg__item oc-eg__item--ghost">Item 1</div><div class="oc-eg__item al-hi align-self-start">Item 2</div><div class="oc-eg__item oc-eg__item--ghost">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-self-center</code><div class="oc-eg__note">Item 2 moves to the middle; items 1 and 3 stay at the top.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-start" style="--eg-h:8rem"><div class="oc-eg__item oc-eg__item--ghost">Item 1</div><div class="oc-eg__item al-hi align-self-center">Item 2</div><div class="oc-eg__item oc-eg__item--ghost">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-self-end</code><div class="oc-eg__note">Item 2 drops to the bottom.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-start" style="--eg-h:8rem"><div class="oc-eg__item oc-eg__item--ghost">Item 1</div><div class="oc-eg__item al-hi align-self-end">Item 2</div><div class="oc-eg__item oc-eg__item--ghost">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-self-stretch</code><div class="oc-eg__note">Item 2 grows to the full height of the row.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-start" style="--eg-h:8rem"><div class="oc-eg__item oc-eg__item--ghost">Item 1</div><div class="oc-eg__item al-hi align-self-stretch">Item 2</div><div class="oc-eg__item oc-eg__item--ghost">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-self-baseline</code><div class="oc-eg__note">Items 2 and 3 both have the class: their text shares one line, while item 1 stays at the top.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-start" style="--eg-h:8rem"><div class="oc-eg__item oc-eg__item--ghost">Item 1</div><div class="oc-eg__item al-hi al-lg align-self-baseline">Large</div><div class="oc-eg__item al-hi al-sm align-self-baseline">small</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="flex gap-0.5 align-items-start" style="height: 8rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div class="align-self-auto"&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-start" style="height: 8rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div class="align-self-start"&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-start" style="height: 8rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div class="align-self-center"&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-start" style="height: 8rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div class="align-self-end"&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-start" style="height: 8rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div class="align-self-stretch"&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-start" style="height: 8rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div class="align-self-baseline" style="font-size: 1.5rem"&gt;Large&lt;/div&gt;&lt;div class="align-self-baseline" style="font-size: 0.8rem"&gt;small&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
-          <oc-demo title="align-self values"><div class="dm-grid" style="--dm-min:10rem">
-<div class="dm-tile"><code>.align-self-auto</code><div class="dm-area flex gap-0.3 align-items-start dm-h"><div class="dm-box dm-box--alt dm-w1 dm-h1">1</div><div class="dm-box dm-w1 dm-h2 align-self-auto">2</div><div class="dm-box dm-box--alt dm-w1 dm-h1">3</div></div></div>
-<div class="dm-tile"><code>.align-self-start</code><div class="dm-area flex gap-0.3 align-items-start dm-h"><div class="dm-box dm-box--alt dm-w1 dm-h1">1</div><div class="dm-box dm-w1 dm-h2 align-self-start">2</div><div class="dm-box dm-box--alt dm-w1 dm-h1">3</div></div></div>
-<div class="dm-tile"><code>.align-self-center</code><div class="dm-area flex gap-0.3 align-items-start dm-h"><div class="dm-box dm-box--alt dm-w1 dm-h1">1</div><div class="dm-box dm-w1 dm-h2 align-self-center">2</div><div class="dm-box dm-box--alt dm-w1 dm-h1">3</div></div></div>
-<div class="dm-tile"><code>.align-self-end</code><div class="dm-area flex gap-0.3 align-items-start dm-h"><div class="dm-box dm-box--alt dm-w1 dm-h1">1</div><div class="dm-box dm-w1 dm-h2 align-self-end">2</div><div class="dm-box dm-box--alt dm-w1 dm-h1">3</div></div></div>
-<div class="dm-tile"><code>.align-self-stretch</code><div class="dm-area flex gap-0.3 align-items-start dm-h"><div class="dm-box dm-box--alt dm-w1 dm-h1">1</div><div class="dm-box dm-w1  align-self-stretch">2</div><div class="dm-box dm-box--alt dm-w1 dm-h1">3</div></div></div>
-<div class="dm-tile"><code>.align-self-baseline</code><div class="dm-area flex gap-0.3 align-items-start dm-h"><div class="dm-box dm-box--alt dm-w1 dm-h1">1</div><div class="dm-box dm-w1 dm-h2 align-self-baseline">2</div><div class="dm-box dm-box--alt dm-w1 dm-h1">3</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex align-items-start" style="height: 8rem"&gt;
-  &lt;div&gt;1&lt;/div&gt;
-  &lt;div class="align-self-end"&gt;2&lt;/div&gt;
-  &lt;div&gt;3&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-8">Real use: the button in a card</h3>
+          <p class="oc-section-content__desc">Each card is a <code>.flex.flex-col</code>, so its cross axis runs left to right and the button stretches to the full width by default. <code>.align-self-start</code> or <code>.align-self-end</code> keeps it at its natural width. <code>.mt-auto</code> (a margin, not align-self) pins it to the bottom, so the buttons line up although the texts differ in length.</p>
+
+          <oc-demo title="Card buttons with align-self"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min:100%"><div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-col &middot; .align-self-start &middot; .align-self-end</code><div class="oc-eg__note">Three cards side by side. Only the button of each card differs: stretched, at the left, at the right.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-cards">
+<div class="al-card"><div class="al-card-img" aria-hidden="true"></div><code class="al-card-tag">no align-self: stretched</code><div class="al-card-title">Product 1</div><div class="al-card-text">Short text.</div><button type="button" class="oc-btn oc-btn--sm mt-auto">Add to cart</button></div>
+<div class="al-card"><div class="al-card-img" aria-hidden="true"></div><code class="al-card-tag">.align-self-start</code><div class="al-card-title">Product 2</div><div class="al-card-text">A longer description that takes a few lines, so this card has more text than the others.</div><button type="button" class="oc-btn oc-btn--sm mt-auto align-self-start">Add to cart</button></div>
+<div class="al-card"><div class="al-card-img" aria-hidden="true"></div><code class="al-card-tag">.align-self-end</code><div class="al-card-title">Product 3</div><div class="al-card-text">Medium length text for this one.</div><button type="button" class="oc-btn oc-btn--sm mt-auto align-self-end">Add to cart</button></div>
+</div></div></div></div></div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-1"&gt;
+  &lt;!-- no align-self: the button stretches over the card width --&gt;
+  &lt;div class="card flex flex-col gap-0.5"&gt;
+    &lt;img src="product-1.jpg" alt=""&gt;
+    &lt;h3&gt;Product 1&lt;/h3&gt;
+    &lt;p&gt;Short text.&lt;/p&gt;
+    &lt;button class="oc-btn oc-btn--sm mt-auto"&gt;Add to cart&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;!-- .align-self-start: the button at the left, its own width --&gt;
+  &lt;div class="card flex flex-col gap-0.5"&gt;
+    &lt;img src="product-2.jpg" alt=""&gt;
+    &lt;h3&gt;Product 2&lt;/h3&gt;
+    &lt;p&gt;A longer description that takes a few lines, so this card has more text than the others.&lt;/p&gt;
+    &lt;button class="oc-btn oc-btn--sm mt-auto align-self-start"&gt;Add to cart&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;!-- .align-self-end: the button at the right --&gt;
+  &lt;div class="card flex flex-col gap-0.5"&gt;
+    &lt;img src="product-3.jpg" alt=""&gt;
+    &lt;h3&gt;Product 3&lt;/h3&gt;
+    &lt;p&gt;Medium length text for this one.&lt;/p&gt;
+    &lt;button class="oc-btn oc-btn--sm mt-auto align-self-end"&gt;Add to cart&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- .card is your own style (border, padding, radius) --&gt;</oc-code></oc-demo>
+
         </div>
       </section>

@@ -128,16 +128,29 @@ npx omniaui list -f vue --kind block          # names available in that flavour<
           
         </div>
         <div class="oc-section-content">
-          <oc-code>&lt;div class="p-1 text-blue-50 bg-blue-10"&gt;
-  Config-driven utility output
-&lt;/div&gt;</oc-code>
-        <div class="oc-card mt-2.5">
-          <p class="oc-card-text">Config-driven utility output</p>
+          <p>The classes below come straight from the settings above: the spacing scale gives <code>p-1</code> and <code>p-2</code>, the color settings give <code>text-blue-90</code>, <code>bg-mistblue-10</code> and <code>bg-teal-70</code>. Change a setting, rebuild, and the same markup follows.</p>
+          <oc-demo title="Utilities generated from the config">
+            <div class="oc-eg">
+              <div class="oc-eg__panels" style="--eg-min: 15rem">
+                <div class="oc-eg__panel">
+                  <code class="oc-eg__name">.p-1 .text-blue-90 .bg-mistblue-10</code>
+                  <div class="oc-eg__note">Padding from the spacing scale, text and background from the color settings.</div>
+                  <div class="oc-eg__stage oc-eg__stage--plain p-1">
+                    <div class="p-1 text-blue-90 bg-mistblue-10">Config-driven utility output</div>
+                  </div>
+                </div>
+                <div class="oc-eg__panel">
+                  <code class="oc-eg__name">.p-2 .text-white .bg-teal-70</code>
+                  <div class="oc-eg__note">Twice the padding, and white text on a teal from the same settings.</div>
+                  <div class="oc-eg__stage oc-eg__stage--plain p-1">
+                    <div class="p-2 text-white bg-teal-70">Config-driven utility output</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <oc-code lang="html">&lt;div class="p-1 text-blue-90 bg-mistblue-10"&gt;Config-driven utility output&lt;/div&gt;
+&lt;div class="p-2 text-white bg-teal-70"&gt;Config-driven utility output&lt;/div&gt;</oc-code>
+          </oc-demo>
+          <p class="mt-2" id="playground">Try the settings in the playgrounds: <a href="/pages/colors.html">colors</a>, <a href="/pages/fonts.html">fonts</a> and <a href="/pages/spacing.html">spacing</a>.</p>
         </div>
-        </div>
-      </section>
-      <section class="oc-alert oc-alert--info" id="playground">
-        Playgrounds: <a class="oc-card-link" href="/pages/colors.html">colors</a>,
-        <a class="oc-card-link" href="/pages/fonts.html">fonts</a>,
-        <a class="oc-card-link" href="/pages/spacing.html">spacing</a>.
       </section>

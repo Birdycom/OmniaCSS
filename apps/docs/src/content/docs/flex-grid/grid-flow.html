@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Grid Auto Flow","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Grid Auto Flow","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n    .fx-pic { min-block-size: 4.5rem; }\n  </style>"]}-->
 <section class="oc-docs-section" id="grid-flow">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Grid Auto Flow</h2>
@@ -16,7 +16,7 @@
               <tbody>
                 <tr><td><code>.grid-flow-row</code></td><td>Fill each row in turn (default)</td></tr>
                 <tr><td><code>.grid-flow-col</code></td><td>Fill each column in turn</td></tr>
-                <tr><td><code>.grid-flow-dense</code></td><td>Fill holes in the grid (dense packing)</td></tr>
+                <tr><td><code>.grid-flow-dense</code></td><td>grid-auto-flow: dense (same as row dense)</td></tr>
                 <tr><td><code>.grid-flow-row-dense</code></td><td>Row-based dense packing</td></tr>
                 <tr><td><code>.grid-flow-col-dense</code></td><td>Col-based dense packing</td></tr>
               </tbody>
@@ -25,26 +25,90 @@
 
           <h3 class="oc-section-content__title mt-8">Row flow: holes versus dense</h3>
 
-          <p class="oc-section-content__desc">Items 1 and 2 span two of the three columns. Without dense, item 2 does not fit next to item 1, so the third column of row 1 stays empty. With dense, item 3 jumps back into the hole.</p>
+          <p class="oc-section-content__desc">Items 1, 2 and 5 span two of the three columns. The hatched cell is a hole that the default flow leaves behind.</p>
 
-          <oc-demo title="grid-flow-row and row-dense"><div class="dm-grid" style="--dm-min:14rem">
-<div class="dm-tile"><code>.grid-flow-row</code><div class="dm-area grid grid-cols-3 grid-flow-row gap-0.3"><div class="dm-box col-span-2">1</div><div class="dm-box col-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
-<div class="dm-tile"><code>.grid-flow-row-dense</code><div class="dm-area grid grid-cols-3 grid-flow-row-dense gap-0.3"><div class="dm-box col-span-2">1</div><div class="dm-box col-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
-<div class="dm-tile"><code>.grid-flow-dense (same as row-dense)</code><div class="dm-area grid grid-cols-3 grid-flow-dense gap-0.3"><div class="dm-box col-span-2">1</div><div class="dm-box col-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-3 grid-flow-row-dense gap-1"&gt;
-  &lt;div class="col-span-2"&gt;High priority&lt;/div&gt;
-  &lt;div class="col-span-2"&gt;Wide&lt;/div&gt;
-  &lt;div&gt;Fills the hole&lt;/div&gt;
+          <oc-demo title="grid-flow-row and row-dense"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-row</code><div class="oc-eg__note">The default. Item 2 does not fit next to Item 1, so it starts a new row and leaves a hole.</div><div class="oc-eg__stage fx-stage grid grid-cols-3 grid-flow-row gap-0.5"><div class="fx-box col-span-2">Item 1<small>.col-span-2</small></div><div class="fx-box col-span-2">Item 2<small>.col-span-2</small></div><div class="fx-box ">Item 3</div><div class="fx-box ">Item 4</div><div class="fx-box col-span-2">Item 5<small>.col-span-2</small></div><div class="fx-box ">Item 6</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-row-dense</code><div class="oc-eg__note">Item 3 jumps back into the hole. <code>.grid-flow-dense</code> does the same.</div><div class="oc-eg__stage fx-stage grid grid-cols-3 grid-flow-row-dense gap-0.5"><div class="fx-box col-span-2">Item 1<small>.col-span-2</small></div><div class="fx-box col-span-2">Item 2<small>.col-span-2</small></div><div class="fx-box ">Item 3</div><div class="fx-box ">Item 4</div><div class="fx-box col-span-2">Item 5<small>.col-span-2</small></div><div class="fx-box ">Item 6</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- Default: holes stay --&gt;
+&lt;div class="grid grid-cols-3 grid-flow-row gap-0.5"&gt;
+  &lt;div class="col-span-2"&gt;Item 1&lt;/div&gt;
+  &lt;div class="col-span-2"&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+  &lt;div&gt;Item 4&lt;/div&gt;
+  &lt;div class="col-span-2"&gt;Item 5&lt;/div&gt;
+  &lt;div&gt;Item 6&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Dense: later items fill the holes --&gt;
+&lt;div class="grid grid-cols-3 grid-flow-row-dense gap-0.5"&gt;
+  &lt;div class="col-span-2"&gt;Item 1&lt;/div&gt;
+  &lt;div class="col-span-2"&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+  &lt;div&gt;Item 4&lt;/div&gt;
+  &lt;div class="col-span-2"&gt;Item 5&lt;/div&gt;
+  &lt;div&gt;Item 6&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Column flow</h3>
 
-          <p class="oc-section-content__desc">With <code>grid-flow-col</code> items go down first. Three explicit rows are defined; items 1 and 2 span two rows.</p>
+          <p class="oc-section-content__desc">With <code>.grid-flow-col</code> the items go down first. There are three rows; Items 1 and 2 span two of them. <code>.grid-cols-fr</code> makes the columns that are created equally wide.</p>
 
-          <oc-demo title="grid-flow-col and col-dense"><div class="dm-grid" style="--dm-min:14rem">
-<div class="dm-tile"><code>.grid-flow-col</code><div class="dm-area grid grid-rows-3 grid-flow-col gap-0.3" style="block-size:8rem"><div class="dm-box row-span-2">1</div><div class="dm-box row-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
-<div class="dm-tile"><code>.grid-flow-col-dense</code><div class="dm-area grid grid-rows-3 grid-flow-col-dense gap-0.3" style="block-size:8rem"><div class="dm-box row-span-2">1</div><div class="dm-box row-span-2">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-rows-3 grid-flow-col-dense gap-1"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="grid-flow-col and col-dense"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-col</code><div class="oc-eg__note">Items go down first. Item 2 does not fit under Item 1, so a hole stays in column 1.</div><div class="oc-eg__stage fx-stage grid grid-rows-3 grid-flow-col grid-cols-fr gap-0.5" style="block-size:13rem"><div class="fx-box row-span-2">Item 1<small>.row-span-2</small></div><div class="fx-box row-span-2">Item 2<small>.row-span-2</small></div><div class="fx-box ">Item 3</div><div class="fx-box ">Item 4</div><div class="fx-box ">Item 5</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-col-dense</code><div class="oc-eg__note">Item 3 fills the hole under Item 1.</div><div class="oc-eg__stage fx-stage grid grid-rows-3 grid-flow-col-dense grid-cols-fr gap-0.5" style="block-size:13rem"><div class="fx-box row-span-2">Item 1<small>.row-span-2</small></div><div class="fx-box row-span-2">Item 2<small>.row-span-2</small></div><div class="fx-box ">Item 3</div><div class="fx-box ">Item 4</div><div class="fx-box ">Item 5</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-rows-3 grid-flow-col grid-cols-fr gap-0.5" style="height: 13rem"&gt;
+  &lt;div class="row-span-2"&gt;Item 1&lt;/div&gt;
+  &lt;div class="row-span-2"&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt; &lt;div&gt;Item 4&lt;/div&gt; &lt;div&gt;Item 5&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="grid grid-rows-3 grid-flow-col-dense grid-cols-fr gap-0.5" style="height: 13rem"&gt;
+  &lt;div class="row-span-2"&gt;Item 1&lt;/div&gt;
+  &lt;div class="row-span-2"&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt; &lt;div&gt;Item 4&lt;/div&gt; &lt;div&gt;Item 5&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a photo wall</h3>
+
+          <p class="oc-section-content__desc">Dense packing is made for galleries and tile walls, where the order does not matter. Compare the holes in the first wall with the second one.</p>
+
+          <oc-demo title="photo wall with dense packing"><div class="oc-eg fx">
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-4 .grid-flow-row</code><div class="oc-eg__note">Big and wide photos leave holes when they do not fit at the end of a row.</div><div class="oc-eg__stage fx-stage grid grid-cols-4 grid-flow-row gap-0.5"><div class="fx-box fx-pic ">Photo 1</div><div class="fx-box fx-pic col-span-2 row-span-2">Photo 2<small>.col-span-2 .row-span-2</small></div><div class="fx-box fx-pic ">Photo 3</div><div class="fx-box fx-pic col-span-2">Photo 4<small>.col-span-2</small></div><div class="fx-box fx-pic ">Photo 5</div><div class="fx-box fx-pic col-span-2">Photo 6<small>.col-span-2</small></div><div class="fx-box fx-pic ">Photo 7</div><div class="fx-box fx-pic ">Photo 8</div><div class="fx-box fx-pic ">Photo 9</div><div class="fx-box fx-pic col-span-2">Photo 10<small>.col-span-2</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-4 .grid-flow-dense</code><div class="oc-eg__note">Smaller photos further down fill the holes. The holes are gone, but the visual order is no longer the HTML order.</div><div class="oc-eg__stage fx-stage grid grid-cols-4 grid-flow-dense gap-0.5"><div class="fx-box fx-pic ">Photo 1</div><div class="fx-box fx-pic col-span-2 row-span-2">Photo 2<small>.col-span-2 .row-span-2</small></div><div class="fx-box fx-pic ">Photo 3</div><div class="fx-box fx-pic col-span-2">Photo 4<small>.col-span-2</small></div><div class="fx-box fx-pic ">Photo 5</div><div class="fx-box fx-pic col-span-2">Photo 6<small>.col-span-2</small></div><div class="fx-box fx-pic ">Photo 7</div><div class="fx-box fx-pic ">Photo 8</div><div class="fx-box fx-pic ">Photo 9</div><div class="fx-box fx-pic col-span-2">Photo 10<small>.col-span-2</small></div></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- Without dense: holes at the end of a row --&gt;
+&lt;div class="grid grid-cols-4 grid-flow-row gap-0.5"&gt;
+  &lt;img src="photo-1.jpg" alt="Photo 1"&gt;
+  &lt;img class="col-span-2 row-span-2" src="photo-2.jpg" alt="Photo 2"&gt;
+  &lt;img src="photo-3.jpg" alt="Photo 3"&gt;
+  &lt;img class="col-span-2" src="photo-4.jpg" alt="Photo 4"&gt;
+  &lt;img src="photo-5.jpg" alt="Photo 5"&gt;
+  &lt;img class="col-span-2" src="photo-6.jpg" alt="Photo 6"&gt;
+  &lt;img src="photo-7.jpg" alt="Photo 7"&gt;
+  &lt;img src="photo-8.jpg" alt="Photo 8"&gt;
+  &lt;img src="photo-9.jpg" alt="Photo 9"&gt;
+  &lt;img class="col-span-2" src="photo-10.jpg" alt="Photo 10"&gt;
+&lt;/div&gt;
+
+&lt;!-- With dense: smaller photos fill the holes --&gt;
+&lt;div class="grid grid-cols-4 grid-flow-dense gap-0.5"&gt;
+  &lt;img src="photo-1.jpg" alt="Photo 1"&gt;
+  &lt;img class="col-span-2 row-span-2" src="photo-2.jpg" alt="Photo 2"&gt;
+  &lt;img src="photo-3.jpg" alt="Photo 3"&gt;
+  &lt;img class="col-span-2" src="photo-4.jpg" alt="Photo 4"&gt;
+  &lt;img src="photo-5.jpg" alt="Photo 5"&gt;
+  &lt;img class="col-span-2" src="photo-6.jpg" alt="Photo 6"&gt;
+  &lt;img src="photo-7.jpg" alt="Photo 7"&gt;
+  &lt;img src="photo-8.jpg" alt="Photo 8"&gt;
+  &lt;img src="photo-9.jpg" alt="Photo 9"&gt;
+  &lt;img class="col-span-2" src="photo-10.jpg" alt="Photo 10"&gt;
+&lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>
 
@@ -67,6 +131,8 @@
                 <tr><td><code>.grid-rows-fr</code></td><td>grid-auto-rows: minmax(0, 1fr)</td></tr>
                 <tr class="oc-expandable-table__row-dimmed"><td><code>.grid-cols-min</code></td><td>grid-auto-columns: min-content</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.grid-cols-max</code></td><td>grid-auto-columns: max-content</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.grid-rows-min</code></td><td>grid-auto-rows: min-content</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.grid-rows-max</code></td><td>grid-auto-rows: max-content</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -74,12 +140,19 @@
             </div>
           </div>
 
-          <oc-demo title="implicit column sizing"><div class="dm-grid" style="--dm-min:16rem">
-<div class="dm-tile"><code>.grid-flow-col .grid-cols-auto</code><div class="dm-area grid grid-flow-col grid-cols-auto gap-0.3"><div class="dm-box">short</div><div class="dm-box">a longer label</div><div class="dm-box">mid</div></div></div>
-<div class="dm-tile"><code>.grid-flow-col .grid-cols-fr</code><div class="dm-area grid grid-flow-col grid-cols-fr gap-0.3"><div class="dm-box">short</div><div class="dm-box">a longer label</div><div class="dm-box">mid</div></div></div>
-<div class="dm-tile"><code>.grid-flow-col .grid-cols-min</code><div class="dm-area grid grid-flow-col grid-cols-min gap-0.3"><div class="dm-box">short</div><div class="dm-box">a longer label</div><div class="dm-box">mid</div></div></div>
-<div class="dm-tile"><code>.grid-flow-col .grid-cols-max</code><div class="dm-area grid grid-flow-col grid-cols-max gap-0.3"><div class="dm-box">short</div><div class="dm-box">a longer label</div><div class="dm-box">mid</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-flow-col grid-cols-fr gap-1"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Three items in a row of implicit columns. Only the class for the column size changes.</p>
+
+          <oc-demo title="implicit column sizing"><div class="oc-eg fx">
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-col .grid-cols-auto</code><div class="oc-eg__note">Columns as wide as their content, then the free space is shared out.</div><div class="oc-eg__stage fx-stage grid grid-flow-col grid-cols-auto gap-0.5"><div class="fx-box ">Short</div><div class="fx-box ">A longer label</div><div class="fx-box ">Mid</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-col .grid-cols-fr</code><div class="oc-eg__note">Equal columns, whatever the content.</div><div class="oc-eg__stage fx-stage grid grid-flow-col grid-cols-fr gap-0.5"><div class="fx-box ">Short</div><div class="fx-box ">A longer label</div><div class="fx-box ">Mid</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-col .grid-cols-min</code><div class="oc-eg__note">As narrow as possible: the text wraps at every word.</div><div class="oc-eg__stage fx-stage grid grid-flow-col grid-cols-min gap-0.5"><div class="fx-box ">Short</div><div class="fx-box ">A longer label</div><div class="fx-box ">Mid</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-flow-col .grid-cols-max</code><div class="oc-eg__note">As wide as the text on one line; the rest of the row stays free.</div><div class="oc-eg__stage fx-stage grid grid-flow-col grid-cols-max gap-0.5"><div class="fx-box ">Short</div><div class="fx-box ">A longer label</div><div class="fx-box ">Mid</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-flow-col grid-cols-auto gap-0.5"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer label&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-flow-col grid-cols-fr gap-0.5"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer label&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-flow-col grid-cols-min gap-0.5"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer label&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-flow-col grid-cols-max gap-0.5"&gt;&lt;div&gt;Short&lt;/div&gt;&lt;div&gt;A longer label&lt;/div&gt;&lt;div&gt;Mid&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Masonry / grid-lanes (experimental)</h3>
 

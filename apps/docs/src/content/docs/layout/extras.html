@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Layout Extras", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Layout Extras","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n/* Layout extras demos: frame from the shared example kit (.oc-eg) */\n.lx-field { display: grid; place-items: center; padding: 14px; color: var(--oc-foreground); }\n.lx-photo { position: relative; inline-size: 100%; block-size: 9rem; border-radius: 10px; background: var(--color-vividblue-90); }\n.lx-overlay { position: absolute; display: grid; place-content: center; border: 2px dashed var(--color-white-50); border-radius: 8px; background: oklch(from var(--color-orange-95) l c h / 0.9); color: var(--color-white-50); font-weight: 700; font-size: 0.85rem; }\n.lx-mini { display: grid; gap: 6px; inline-size: 11rem; padding: 12px; border: 1px solid var(--oc-border-strong); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.9rem; }\n.lx-mini b { font-size: 1rem; }\n.lx-mini span { color: var(--oc-muted-foreground); }\n.lx-mini i { font-style: normal; justify-self: start; padding: 4px 12px; border-radius: 999px; background: var(--color-teal-70); color: var(--color-white-50); font-weight: 600; }\n.lx-text { margin: 0; padding: 14px 16px; border-radius: 10px; background: var(--oc-card); border: 1px solid var(--oc-border-strong); color: var(--oc-foreground); font-size: 0.95rem; line-height: 1.6; block-size: 7.4rem; overflow: hidden; }\n    .lx-hg { inline-size: 100%; gap: 0.75rem; padding: 0.75rem; border: 2px dashed var(--oc-border); border-radius: 14px; grid-template-rows: auto minmax(14rem, auto) auto; }\n    .lx-hg > div { display: grid; align-content: start; gap: 0.35rem; padding: 1rem 1.1rem; border-radius: 10px; color: var(--color-white-50); font-size: 1rem; }\n    .lx-hg > div b { font-size: 1.15rem; }\n    .lx-cls { font-family: var(--oc-font-mono, monospace); font-size: 0.8rem; }\n    .lx-hg code { justify-self: start; padding: 0.05rem 0.4rem; border-radius: 4px; background: oklch(from var(--color-black-50) l c h / 0.25); color: inherit; font-size: 0.8rem; }\n    .lx-hg ul { margin: 0.25rem 0 0; padding-inline-start: 1.1rem; color: inherit; }\n    .lx-hg ul li { color: inherit; }\n    @media (max-width: 30rem) { .lx-hg { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 0.5rem; padding: 0.5rem; }\n    .lx-hg > div { padding: 0.8rem; }\n    .lx-cls { overflow-wrap: anywhere; } }\n.lay-pad { padding: 0.75rem; }\n\n/* extra demos (round 5) */\n.lx-box { position: relative; inline-size: 100%; block-size: 8rem; border-radius: 10px; border: 2px dashed var(--oc-border-strong); background: var(--oc-card); }\n.lx-bar { position: absolute; display: grid; place-content: center; padding: 0.5rem; border-radius: 6px; background: var(--color-teal-70); color: var(--color-white-50); font-weight: 700; font-size: 0.85rem; }\n.lx-chip { padding: 0.5rem 0.75rem; border-radius: 8px; background: var(--color-slateblue-70); color: var(--color-white-50); font-weight: 600; font-size: 0.9rem; line-height: 1.35; }\n.lx-flow { gap: 0.5rem; padding: 0.75rem; block-size: 9rem; }\n.lx-clipframe { inline-size: 9rem; block-size: 4.5rem; margin: 1.5rem auto; border: 2px dashed var(--oc-foreground); border-radius: 6px; background: var(--oc-card); }\n.lx-clipframe > div { inline-size: 13rem; padding: 0.5rem 0.6rem; border-radius: 6px; background: var(--color-vividblue-90); color: var(--color-white-50); font-weight: 600; font-size: 0.85rem; line-height: 1.4; }\n.lx-table { margin-inline: auto; border-collapse: separate; border-spacing: 6px; }\n.lx-table td { padding: 0.5rem 0.9rem; border: 2px solid var(--color-teal-70); border-radius: 6px; background: var(--oc-card); color: var(--oc-foreground); }\n.lx-dot { block-size: 8rem; border: 1px solid var(--oc-border); border-radius: 8px; background-color: var(--oc-card); background-image: radial-gradient(circle, var(--color-vividblue-90) 0 45%, transparent 47%); background-size: 2.5rem 2.5rem; }\n.lx-svg { display: block; inline-size: 100%; block-size: 8rem; border-radius: 8px; background: var(--oc-card); border: 1px solid var(--oc-border); }\n.lx-svg circle { fill: var(--color-crimson-70); }\n.lx-svg rect { fill: var(--color-teal-70); }\n.lx-strip { display: flex; gap: 0.5rem; overflow: hidden; padding: 0.25rem 0; }\n.lx-strip > span { flex: none; padding: 0.5rem 0.9rem; border-radius: 999px; background: var(--color-indigo-60); color: var(--color-white-50); font-weight: 600; font-size: 0.85rem; }\n  \n:where(.lx-btn) { padding: 0.55rem 1.2rem; border: 0; border-radius: 8px; background: var(--color-vividblue-90); color: var(--color-white-50); font-weight: 700; font-size: 0.9rem; cursor: pointer; }\n  </style>"]}-->
 <section class="oc-docs-section" id="layout-extras">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Layout Extras</h2>
@@ -32,17 +32,32 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">The blue card is <code>.relative</code>; the orange layer inside it is <code>.absolute</code> and stretched with an <code>inset-*</code> class. Compare how far the layer stays from the card edges.</p>
           <oc-demo title="relative + absolute inset-2">
-            
-            <div class="relative size-24 round-3 p-1 border-1 border-dashed border-stormblue-100">
-              <div class="absolute inset-2 round-2 bg-dodgerblue-mix-30 border-1 border-solid border-dodgerblue-50"></div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.absolute .inset-0</code><div class="oc-eg__note">Covers the whole card: edge to edge.</div><div class="oc-eg__stage oc-eg__stage--plain lx-field"><div class="lx-photo"><span class="absolute inset-0 lx-overlay">.inset-0</span></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.absolute .inset-2</code><div class="oc-eg__note">Stays 0.5rem from every edge.</div><div class="oc-eg__stage oc-eg__stage--plain lx-field"><div class="lx-photo"><span class="absolute inset-2 lx-overlay">.inset-2</span></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.absolute .inset-4</code><div class="oc-eg__note">Stays 1rem from every edge.</div><div class="oc-eg__stage oc-eg__stage--plain lx-field"><div class="lx-photo"><span class="absolute inset-4 lx-overlay">.inset-4</span></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="relative"&gt;&lt;div class="absolute inset-0"&gt;.inset-0&lt;/div&gt;&lt;/div&gt;
+&lt;div class="relative"&gt;&lt;div class="absolute inset-2"&gt;.inset-2&lt;/div&gt;&lt;/div&gt;
+&lt;div class="relative"&gt;&lt;div class="absolute inset-4"&gt;.inset-4&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
-            
-            
-          <oc-code lang="html">&lt;div class="relative"&gt;
-  &lt;div class="absolute inset-2"&gt;&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The logical classes follow the writing direction. <code>.inset-bs-*</code> and <code>.inset-be-*</code> place a box at the block start and end (top and bottom in horizontal text); <code>.max-inline-*</code> and <code>.min-inline-*</code> limit the width the same way, and <code>.min-block-*</code> / <code>.max-block-*</code> the height.</p>
+          <oc-demo title="inset-bs-0, inset-be-0, max-inline-fit, max-inline-min"><div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.absolute .inset-x-0 .inset-bs-0</code><div class="oc-eg__note">A bar along the block start: the top in horizontal text.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-box"><div class="lx-bar absolute inset-x-0 inset-bs-0">inset-bs-0</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.absolute .inset-x-0 .inset-be-0</code><div class="oc-eg__note">The same bar at the block end: the bottom.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-box"><div class="lx-bar absolute inset-x-0 inset-be-0">inset-be-0</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.max-inline-fit</code><div class="oc-eg__note">A block that is only as wide as its text, never wider than its parent.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-chip max-inline-fit">Customer 1 ordered two boxes on Monday.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.max-inline-min</code><div class="oc-eg__note">As narrow as the longest word: every word gets its own line.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-chip max-inline-min">Customer 1 ordered two boxes on Monday.</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="relative"&gt;
+  &lt;div class="absolute inset-x-0 inset-bs-0"&gt;inset-bs-0&lt;/div&gt;   &lt;!-- top --&gt;
+&lt;/div&gt;
+&lt;div class="relative"&gt;
+  &lt;div class="absolute inset-x-0 inset-be-0"&gt;inset-be-0&lt;/div&gt;   &lt;!-- bottom --&gt;
+&lt;/div&gt;
+
+&lt;div class="max-inline-fit"&gt;Customer 1 ordered two boxes on Monday.&lt;/div&gt;
+&lt;div class="max-inline-min"&gt;Customer 1 ordered two boxes on Monday.&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="flex-grid">Flex flow &amp; grid areas</h3>
           <p class="oc-section-content__desc"><code>flex-flow</code> sets direction and wrapping at once. Named grid areas give readable layouts: put <code>.grid-areas-holy-grail</code> on the grid and <code>.area-*</code> on the children.</p>
@@ -51,7 +66,7 @@
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
                 <tr><td><code>.flex-flow-{row|row-wrap|col|col-wrap|row-reverse-wrap}</code></td><td>flex-flow</td></tr>
-                <tr><td><code>.grid-areas-holy-grail</code></td><td>grid-template-areas: "header header" "sidebar main" "footer footer"</td></tr>
+                <tr><td><code>.grid-areas-holy-grail</code></td><td>grid-template-areas: "header header" "sidebar main" "footer footer"; grid-template-columns: minmax(10rem, 1fr) 3fr</td></tr>
                 <tr><td><code>.grid-areas-stack</code></td><td>grid-template-areas: "header" "main" "sidebar" "footer"</td></tr>
                 <tr><td><code>.grid-areas-none / .grid-template-none / .grid-none</code></td><td>reset grid templates</td></tr>
                 <tr><td><code>.area-{header|sidebar|main|footer|auto|full}</code></td><td>grid-area</td></tr>
@@ -63,22 +78,45 @@
             </div>
           </div>
 
-          <oc-demo title="grid-areas-holy-grail">
-            
-            <div class="grid grid-areas-holy-grail gap-1 font-1 round-3 p-1 border-1 border-dashed border-stormblue-100">
-              <div class="area-header p-1 round-2 bg-dodgerblue-mix-30">header</div>
-              <div class="area-sidebar p-1 round-2 bg-forestgreen-mix-30">sidebar</div>
-              <div class="area-main p-1 round-2 bg-darkorange-mix-30">main</div>
-              <div class="area-footer p-1 round-2 bg-magenta-mix-30">footer</div>
-            </div>
+          <p class="oc-section-content__desc"><code>.flex-flow-*</code> sets the direction and the wrapping in one class. The stages have a fixed height, so you see where a row wraps and a column stops.</p>
+          <oc-demo title="flex-flow-row-wrap, flex-flow-col, flex-flow-row-reverse-wrap"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-flow-row-wrap</code><div class="oc-eg__note">A row that wraps onto a new line when it is full.</div><div class="oc-eg__stage oc-eg__stage--plain flex flex-flow-row-wrap lx-flow align-start"><div class="oc-eg__item">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div><div class="oc-eg__item">4</div><div class="oc-eg__item">5</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-flow-col</code><div class="oc-eg__note">A column that never wraps: the items stack.</div><div class="oc-eg__stage oc-eg__stage--plain flex flex-flow-col lx-flow"><div class="oc-eg__item">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-flow-row-reverse-wrap</code><div class="oc-eg__note">Right to left, and it still wraps.</div><div class="oc-eg__stage oc-eg__stage--plain flex flex-flow-row-reverse-wrap lx-flow align-start"><div class="oc-eg__item">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div><div class="oc-eg__item">4</div><div class="oc-eg__item">5</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="flex flex-flow-row-wrap gap-0.5"&gt;
+  &lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="flex flex-flow-col gap-0.5"&gt;
+  &lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="flex flex-flow-row-reverse-wrap gap-0.5"&gt;
+  &lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
-            
-            
+          <p class="oc-section-content__desc">Below, the same four areas twice: once with <code>.grid-areas-holy-grail</code>, once with <code>.grid-areas-stack</code> for a phone. <code>.area-full</code> stretches an item over the whole grid, <code>.area-auto</code> and <code>.grid-areas-none</code> undo the named areas. <code>.margin-trim-*</code> is not in Chrome yet (Safari only), so it has no example here.</p>
+          <oc-demo title="grid-areas-holy-grail: a page skeleton from four class names">
+<div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 100%"><div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-areas-holy-grail</code><div class="oc-eg__note">Header and footer span the full width; the sidebar and the main area share the middle row.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="grid grid-areas-holy-grail lx-hg">
+              <div class="area-header bg-vividblue-90"><b>Header</b><span class="lx-cls">.area-header</span></div>
+              <div class="area-sidebar bg-teal-70"><b>Sidebar</b><span class="lx-cls">.area-sidebar</span><ul><li>Orders</li><li>Customers</li><li>Products</li></ul></div>
+              <div class="area-main bg-slateblue-70"><b>Main</b><span class="lx-cls">.area-main</span><span>Customer 1 placed Order 1 on Monday. The main area takes the wide column and grows with its content.</span></div>
+              <div class="area-footer bg-chocolate-80"><b>Footer</b><span class="lx-cls">.area-footer</span></div>
+            </div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-areas-stack</code><div class="oc-eg__note">One column: header, main, sidebar and footer under each other. The same HTML as above.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="grid grid-areas-stack lx-hg" style="grid-template-rows: auto"><div class="area-header bg-vividblue-90"><b>Header</b><span class="lx-cls">.area-header</span></div><div class="area-sidebar bg-teal-70"><b>Sidebar</b><span class="lx-cls">.area-sidebar</span></div><div class="area-main bg-slateblue-70"><b>Main</b><span class="lx-cls">.area-main</span></div><div class="area-footer bg-chocolate-80"><b>Footer</b><span class="lx-cls">.area-footer</span></div></div></div></div>
+</div></div>
           <oc-code lang="html">&lt;div class="grid grid-areas-holy-grail gap-1"&gt;
-  &lt;div class="area-header"&gt;header&lt;/div&gt;
-  &lt;div class="area-sidebar"&gt;sidebar&lt;/div&gt;
-  &lt;div class="area-main"&gt;main&lt;/div&gt;
-  &lt;div class="area-footer"&gt;footer&lt;/div&gt;
+  &lt;header class="area-header"&gt;Header&lt;/header&gt;
+  &lt;nav class="area-sidebar"&gt;Sidebar&lt;/nav&gt;
+  &lt;main class="area-main"&gt;Main&lt;/main&gt;
+  &lt;footer class="area-footer"&gt;Footer&lt;/footer&gt;
+&lt;/div&gt;
+&lt;!-- the class sets grid-template-areas and grid-template-columns: minmax(10rem, 1fr) 3fr --&gt;
+
+&lt;!-- Same HTML, one column: header, main, sidebar, footer --&gt;
+&lt;div class="grid grid-areas-stack gap-1"&gt;
+  &lt;header class="area-header"&gt;Header&lt;/header&gt;
+  &lt;nav class="area-sidebar"&gt;Sidebar&lt;/nav&gt;
+  &lt;main class="area-main"&gt;Main&lt;/main&gt;
+  &lt;footer class="area-footer"&gt;Footer&lt;/footer&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="overflow-scroll">Logical overflow, overscroll &amp; scroll spacing</h3>
@@ -100,6 +138,21 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+
+          <p class="oc-section-content__desc"><code>.overflow-clip-margin-*</code> lets content that is cut off with <code>.overflow-clip</code> paint a little past the edge. Compare how far the blue bar reaches outside the dashed frame.</p>
+          <oc-demo title="overflow-clip, overflow-clip-margin-2, overflow-clip-margin-4"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-clip</code><div class="oc-eg__note">Cut off exactly at the dashed edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-clipframe overflow-clip"><div>This bar is wider and taller than the dashed frame. It is cut off near the edge.</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-clip .overflow-clip-margin-2</code><div class="oc-eg__note">The content may paint 0.5rem past the edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-clipframe overflow-clip overflow-clip-margin-2"><div>This bar is wider and taller than the dashed frame. It is cut off near the edge.</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.overflow-clip .overflow-clip-margin-4</code><div class="oc-eg__note">1rem past the edge, then it is cut off.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-clipframe overflow-clip overflow-clip-margin-4"><div>This bar is wider and taller than the dashed frame. It is cut off near the edge.</div></div></div></div>
+</div></div><oc-code lang="html">&lt;style&gt;
+  .frame { width: 9rem; height: 4.5rem; border: 2px dashed; }
+  .frame &gt; div { width: 13rem; }
+&lt;/style&gt;
+&lt;div class="frame overflow-clip"&gt;&lt;div&gt;This bar is wider and taller than the dashed frame. …&lt;/div&gt;&lt;/div&gt;
+&lt;div class="frame overflow-clip overflow-clip-margin-2"&gt;&lt;div&gt;This bar is wider and taller than the dashed frame. …&lt;/div&gt;&lt;/div&gt;
+&lt;div class="frame overflow-clip overflow-clip-margin-4"&gt;&lt;div&gt;This bar is wider and taller than the dashed frame. …&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">No example for the other groups in this table, and why: <code>.overflow-inline-*</code> and <code>.overflow-block-*</code> only work in Firefox. <code>.overscroll-inline-*</code> and <code>.overscroll-block-*</code> do the same as <code>.overscroll-contain</code> on the <a href="overflow.html">Overflow</a> page, for one axis only. The scroll margin and padding classes only show when the browser scrolls to an element, with scroll snap or a jump link; see <a href="../scroll-snap/index.html">Scroll Snap</a>.</p>
 
           <h3 class="oc-section-content__title mt-10" id="safe-zoom">Safe areas, zoom, container &amp; reset</h3>
           <p class="oc-section-content__desc">Safe-area padding keeps content clear of notches (add <code>viewport-fit=cover</code> to the viewport meta). <code>.all-*</code> resets every property of an element.</p>
@@ -124,23 +177,56 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">The same small card three times. <code>zoom</code> scales everything inside it, text, padding and borders, and unlike <code>transform: scale()</code> the card also takes up more or less room in the layout.</p>
           <oc-demo title="zoom-75, zoom-125">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.zoom-75</span>
-                <div class="zoom-75 p-1 round-2 bg-dodgerblue-mix-30 font-1">zoom 75%</div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.zoom-125</span>
-                <div class="zoom-125 p-1 round-2 bg-forestgreen-mix-30 font-1">zoom 125%</div>
-              </div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 18rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">.zoom-75</code><div class="oc-eg__note">Everything at 75%.</div><div class="oc-eg__stage oc-eg__stage--plain lx-field" style="min-block-size: 13rem"><div class="zoom-75 lx-mini"><b>Product 1</b><span>Company 1</span><i>€24.00</i></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">no zoom</code><div class="oc-eg__note">The normal size.</div><div class="oc-eg__stage oc-eg__stage--plain lx-field" style="min-block-size: 13rem"><div class=" lx-mini"><b>Product 1</b><span>Company 1</span><i>€24.00</i></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.zoom-125</code><div class="oc-eg__note">Everything at 125%, and the card needs more room.</div><div class="oc-eg__stage oc-eg__stage--plain lx-field" style="min-block-size: 13rem"><div class="zoom-125 lx-mini"><b>Product 1</b><span>Company 1</span><i>€24.00</i></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="zoom-75"&gt;…&lt;/div&gt;
+&lt;div class="zoom-125"&gt;…&lt;/div&gt;</oc-code></oc-demo>
 
-            
-            
-          <oc-code lang="html">&lt;div class="zoom-75 p-1 round-2 bg-dodgerblue-mix-30 font-1"&gt;zoom 75%&lt;/div&gt;
-&lt;div class="zoom-125 p-1 round-2 bg-forestgreen-mix-30 font-1"&gt;zoom 125%&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.zoom-50</code>, <code>.zoom-100</code> and <code>.zoom-150</code> work the same way.</p>
+
+          <p class="oc-section-content__desc"><code>.all-*</code> resets every property of an element at once. Here the same styled button three times.</p>
+          <oc-demo title="all-unset, all-revert"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">no class</code><div class="oc-eg__note">A button with its own style (here a page class, .btn in the code).</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad grid place-items-center"><button type="button" class="lx-btn">Save</button></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.all-unset</code><div class="oc-eg__note">Every property is reset: it looks like plain text, but it is still a button.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad grid place-items-center"><button type="button" class="lx-btn all-unset">Save</button></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.all-revert</code><div class="oc-eg__note">Back to the browser default look of a button.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad grid place-items-center"><button type="button" class="lx-btn all-revert">Save</button></div></div>
+</div></div><oc-code lang="html">&lt;!-- .btn is your own button style; OmniaCSS must load after it, so the all-* class wins --&gt;
+&lt;button type="button" class="btn"&gt;Save&lt;/button&gt;
+&lt;button type="button" class="btn all-unset"&gt;Save&lt;/button&gt;
+&lt;button type="button" class="btn all-revert"&gt;Save&lt;/button&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc"><code>.empty-cells-*</code> decides whether an empty table cell still gets its border and background. It only works with <code>border-separate</code>.</p>
+          <oc-demo title="empty-cells-show, empty-cells-hide"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.empty-cells-show</code><div class="oc-eg__note">The default: the empty cell still has its border.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><table class="lx-table empty-cells-show"><tr><td>Product 1</td><td>2</td></tr><tr><td>Product 2</td><td></td></tr></table></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.empty-cells-hide</code><div class="oc-eg__note">The empty cell is not drawn at all.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><table class="lx-table empty-cells-hide"><tr><td>Product 1</td><td>2</td></tr><tr><td>Product 2</td><td></td></tr></table></div></div>
+</div></div><oc-code lang="html">&lt;!-- only works with border-separate --&gt;
+&lt;table class="border-separate empty-cells-show"&gt;
+  &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class="border-separate empty-cells-hide"&gt;
+  &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- cell border in this demo: td { border: 2px solid var(--color-teal-70); } --&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc"><code>.bg-pos-x-*</code> and <code>.bg-pos-y-*</code> set one axis of the background position and leave the other one alone. Without them the dot sits in the top-left corner.</p>
+          <oc-demo title="bg-pos-x-right, bg-pos-y-bottom, bg-pos-x-50 bg-pos-y-0"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-x-right</code><div class="oc-eg__note">Only the horizontal position: the dot moves to the right edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-dot bg-no-repeat bg-pos-x-right"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-y-bottom</code><div class="oc-eg__note">Only the vertical position: the dot moves to the bottom.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-dot bg-no-repeat bg-pos-y-bottom"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.bg-pos-x-50 .bg-pos-y-0</code><div class="oc-eg__note">Both axes with percentages: centred on the top edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-dot bg-no-repeat bg-pos-x-50 bg-pos-y-0"></div></div></div>
+</div></div><oc-code lang="html">&lt;style&gt;
+  .dot { height: 8rem; background-image: radial-gradient(circle, var(--color-vividblue-90) 0 45%, transparent 47%); background-size: 2.5rem 2.5rem; }
+&lt;/style&gt;
+&lt;div class="dot bg-no-repeat bg-pos-x-right"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-y-bottom"&gt;&lt;/div&gt;
+&lt;div class="dot bg-no-repeat bg-pos-x-50 bg-pos-y-0"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">No example for the other groups in this table, and why: the safe-area classes (<code>.p-safe</code>, <code>.mb-safe</code>, <code>.h-screen-safe</code> …) only add space on a phone with a notch or a home bar; on a desktop the value is 0. <code>.cq-card</code>, <code>.cq-main</code> and <code>.cq-sidebar</code> name a container; see <a href="../container-queries/index.html">Container Queries</a>. <code>.image-orientation-*</code> only matters for a photo with rotation data from a camera.</p>
 
           <h3 class="oc-section-content__title mt-10" id="mask-page">Mask shorthand, print pages &amp; SVG geometry</h3>
           <p class="oc-section-content__desc">Fade content out with a mask, print a section on a landscape page, and size SVG shapes with CSS geometry properties.</p>
@@ -150,11 +236,12 @@
               <tbody>
                 <tr><td><code>.mask-reset</code></td><td>mask: none</td></tr>
                 <tr><td><code>.mask-fade-{b|r|x}</code></td><td>mask: linear-gradient(…) — fade to transparent</td></tr>
+                <tr><td><code>.mask-ring</code></td><td>mask-image: radial-gradient(farthest-side, transparent calc(100% - w), black …): only an outer band of w = --oc-mask-ring (0.75rem) stays visible</td></tr>
                 <tr><td><code>.page-{auto|landscape}</code></td><td>page (with @page landscape { size: landscape })</td></tr>
                 <tr><td><code>.anchor-try-most-height-flip</code></td><td>position-try: most-height flip-block, flip-inline</td></tr>
                 <tr><td><code>.cx-{0|25|50|100} / .cy-* / .x-* / .y-*</code></td><td>cx / cy / x / y</td></tr>
                 <tr><td><code>.r-{25|50} / .rx-{0|4} / .ry-{0|4}</code></td><td>r / rx / ry</td></tr>
-                <tr><td><code>.d-none</code></td><td>d: none</td></tr>
+                <tr><td><code>.d-none</code></td><td>display: none</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -162,13 +249,58 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">Both boxes cut off the same long text at the same height. Without a mask the last line is chopped in half; <code>.mask-fade-b</code> fades the bottom 40% out, which tells the reader there is more.</p>
           <oc-demo title="mask-fade-b">
-            
-            <p class="mask-fade-b w-24 font-1 round-3 p-1 border-1 border-dashed border-stormblue-100">OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">no mask</code><div class="oc-eg__note">The text simply stops at the edge.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><p class="lx-text">Customer 1 ordered two boxes on Monday. Company 1 packed them on Tuesday and sent them the same day. The parcel arrived on Thursday, one day earlier than promised. Customer 1 then asked for a third box.</p></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.mask-fade-b</code><div class="oc-eg__note">The text fades out towards the bottom.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><p class="mask-fade-b lx-text">Customer 1 ordered two boxes on Monday. Company 1 packed them on Tuesday and sent them the same day. The parcel arrived on Thursday, one day earlier than promised. Customer 1 then asked for a third box.</p></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- the same text twice, cut off at the same height --&gt;
+&lt;p class="overflow-hidden" style="height: 7.4rem"&gt;Customer 1 ordered two boxes on Monday. Company 1 packed them on Tuesday …&lt;/p&gt;
+&lt;p class="overflow-hidden mask-fade-b" style="height: 7.4rem"&gt;Customer 1 ordered two boxes on Monday. Company 1 packed them on Tuesday …&lt;/p&gt;</oc-code></oc-demo>
 
-            
-            
-          <oc-code lang="html">&lt;p class="mask-fade-b"&gt;…&lt;/p&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.mask-fade-r</code> and <code>.mask-fade-x</code> fade a row out at the sides, for example a strip of chips that scrolls sideways. <code>.mask-reset</code> removes a mask again.</p>
+          <oc-demo title="mask-fade-r, mask-fade-x, mask-reset"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.mask-fade-r</code><div class="oc-eg__note">The row fades out on the right: there is more to see.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-strip mask-fade-r"><span>Orders</span><span>Customers</span><span>Products</span><span>Invoices</span><span>Reports</span><span>Settings</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mask-fade-x</code><div class="oc-eg__note">Both ends fade out.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-strip mask-fade-x"><span>Orders</span><span>Customers</span><span>Products</span><span>Invoices</span><span>Reports</span><span>Settings</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.mask-fade-x .md:mask-reset</code><div class="oc-eg__note">No mask from 50rem up: on a wide screen every chip is sharp.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lx-strip mask-fade-x md:mask-reset"><span>Orders</span><span>Customers</span><span>Products</span><span>Invoices</span><span>Reports</span><span>Settings</span></div></div></div>
+</div></div><oc-code lang="html">&lt;div class="flex gap-0.5 overflow-hidden mask-fade-r"&gt;
+  &lt;span&gt;Orders&lt;/span&gt;&lt;span&gt;Customers&lt;/span&gt;&lt;span&gt;Products&lt;/span&gt;&lt;span&gt;Invoices&lt;/span&gt;&lt;span&gt;Reports&lt;/span&gt;&lt;span&gt;Settings&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="flex gap-0.5 overflow-hidden mask-fade-x"&gt;
+  &lt;span&gt;Orders&lt;/span&gt;&lt;span&gt;Customers&lt;/span&gt;&lt;span&gt;Products&lt;/span&gt;&lt;span&gt;Invoices&lt;/span&gt;&lt;span&gt;Reports&lt;/span&gt;&lt;span&gt;Settings&lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- mask-reset undoes a mask, here from the md breakpoint (50rem) up --&gt;
+&lt;div class="flex gap-0.5 overflow-hidden mask-fade-x md:mask-reset"&gt;
+  &lt;span&gt;Orders&lt;/span&gt;&lt;span&gt;Customers&lt;/span&gt;&lt;span&gt;Products&lt;/span&gt;&lt;span&gt;Invoices&lt;/span&gt;&lt;span&gt;Reports&lt;/span&gt;&lt;span&gt;Settings&lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc"><code>.mask-ring</code> keeps only an outer band of the element visible, so any background becomes a ring: a conic gradient turns into a spinner (with <code>.animate-spin</code>), a flat color into a thin outline. <code>--oc-mask-ring</code> sets the width of the band (0.75rem).</p>
+          <oc-demo title="mask-ring"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.mask-ring .animate-spin</code><div class="oc-eg__note">A conic gradient cut into a ring, turning: a loader.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad grid place-items-center"><div class="w-6 h-6 round-full bg-conic from-transparent from-pos-10 to-teal mask-ring animate-spin" role="img" aria-label="Loading"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--oc-mask-ring: 0.3rem</code><div class="oc-eg__note">A thin band of a flat color: an outline ring.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad grid place-items-center"><div class="w-6 h-6 round-full bg-teal-70 mask-ring" style="--oc-mask-ring: 0.3rem"></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--oc-mask-ring: 1.5rem</code><div class="oc-eg__note">A wide band: a thick gradient donut.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad grid place-items-center"><div class="w-6 h-6 round-full bg-conic from-magenta to-indigo mask-ring" style="--oc-mask-ring: 1.5rem"></div></div></div>
+</div></div><oc-code lang="html">&lt;div class="w-6 h-6 round-full bg-conic from-transparent from-pos-10 to-teal mask-ring animate-spin" role="img" aria-label="Loading"&gt;&lt;/div&gt;
+&lt;div class="w-6 h-6 round-full bg-teal-70 mask-ring" style="--oc-mask-ring: 0.3rem"&gt;&lt;/div&gt;
+&lt;div class="w-6 h-6 round-full bg-conic from-magenta to-indigo mask-ring" style="--oc-mask-ring: 1.5rem"&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">The SVG geometry classes set the position and size of a shape from CSS, in percent of the SVG, so the shape follows the size of the SVG. <code>.d-none</code> hides a shape (<code>display: none</code>).</p>
+          <oc-demo title="cx-25, cx-50 with r-25, and x-25 y-25 rx-4"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.cx-25 .cy-50 .r-25</code><div class="oc-eg__note">The circle centre sits at 25% of the width.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><svg class="lx-svg" aria-hidden="true"><circle class="cx-25 cy-50 r-25"></circle></svg></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cx-50 .cy-50 .r-25</code><div class="oc-eg__note">At 50%: in the middle. The size follows the SVG.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><svg class="lx-svg" aria-hidden="true"><circle class="cx-50 cy-50 r-25"></circle></svg></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.x-25 .y-25 .rx-4</code><div class="oc-eg__note">A rect placed at 25% / 25% with 4px round corners.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><svg class="lx-svg" aria-hidden="true"><rect class="x-25 y-25 rx-4" width="50%" height="50%"></rect></svg></div></div>
+</div></div><oc-code lang="html">&lt;svg width="100%" height="128"&gt;
+  &lt;circle class="cx-25 cy-50 r-25"&gt;&lt;/circle&gt;
+&lt;/svg&gt;
+&lt;svg width="100%" height="128"&gt;
+  &lt;circle class="cx-50 cy-50 r-25"&gt;&lt;/circle&gt;
+&lt;/svg&gt;
+&lt;svg width="100%" height="128"&gt;
+  &lt;rect class="x-25 y-25 rx-4" width="50%" height="50%"&gt;&lt;/rect&gt;
+&lt;/svg&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">No example for the last two groups: <code>.page-landscape</code> only works when printing (the section prints on a landscape sheet), and <code>.anchor-try-most-height-flip</code> belongs with anchor positioning, where it picks the fallback position with the most room.</p>
+
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Inset, flex-flow, grid areas, logical properties and safe areas are broadly supported. <code>margin-trim</code> and <code>overflow-inline/block</code> are newer and ignored where unsupported.</p>

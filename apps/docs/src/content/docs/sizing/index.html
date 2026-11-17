@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Sizing", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Sizing", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    /* Overview panels: the title is a link to the page, the stage is a small live example of it. */\n    .ov-title { justify-self: start; font-size: 1rem; font-weight: 700; }\n    .ov .oc-eg__item { padding: 0.4rem 0.6rem; font-size: 0.8rem; }\n    .ov .oc-eg__item.ov-sq { min-inline-size: 0; padding: 0; }\n  /* A box like .oc-eg__item without its min-width, so .min-w-24 can show its own value. */\n    .ov-box { box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 0.4rem 0.6rem; border-radius: 6px; background: var(--eg-c, var(--eg-c1)); color: var(--color-white-50); font-size: 0.8rem; font-weight: 600; line-height: 1.25; }\n    .ov-box + .ov-box { --eg-c: var(--eg-c2); }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Sizing</h2>
@@ -12,31 +12,20 @@
           <p>
             The Sizing module provides a comprehensive set of utilities for defining dimensions 
             using rem-based scales, percentages, viewport units, and content-fit keywords.
+            Below is every page of this section with a small live example. Click a title to open the page.
           </p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-1.5">
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Width &amp; Height</h3>
-              <ul class="oc-docs-list">
-                <li><a href="width.html">Width</a></li>
-                <li><a href="height.html">Height</a></li>
-                <li><a href="size-icon.html">Icon Size (Square)</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Constraints &amp; Ratio</h3>
-              <ul class="oc-docs-list">
-                <li><a href="min-max-width.html">Min/Max Width</a></li>
-                <li><a href="min-max-height.html">Min/Max Height</a></li>
-                <li><a href="aspect.html">Aspect Ratio</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Structure</h3>
-              <ul class="oc-docs-list">
-                <li><a href="container.html">Container</a></li>
-              </ul>
-            </div>
+          <div class="oc-eg ov mt-1.5" style="--eg-h: 7.5rem">
+<div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the parent</span></div>
+<div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><strong class="ov-title"><a href="width.html">Width</a></strong><div class="oc-eg__note"><code>.w-perc-1/4</code>, <code>.w-perc-1/2</code> and <code>.w-full</code>: a share of the parent width.</div><div class="oc-eg__stage p-0.5 grid gap-0.3 align-content-center"><div class="oc-eg__item w-perc-1/4">1/4</div><div class="oc-eg__item w-perc-1/2">1/2</div><div class="oc-eg__item w-full">full</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="height.html">Height</a></strong><div class="oc-eg__note"><code>.h-2</code> and <code>.h-4</code> are 2rem and 4rem; <code>.h-full</code> fills the parent height.</div><div class="oc-eg__stage p-0.5 flex align-items-end gap-0.5" style="block-size: var(--eg-h)"><div class="oc-eg__item h-2">h-2</div><div class="oc-eg__item h-4">h-4</div><div class="oc-eg__item h-full">h-full</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="size-icon.html">Icon Size</a></strong><div class="oc-eg__note"><code>.size-6</code>, <code>.size-10</code> and <code>.size-16</code> set width and height at once: a square.</div><div class="oc-eg__stage p-0.5 flex align-items-end gap-0.7"><div class="oc-eg__item ov-sq size-6">6</div><div class="oc-eg__item ov-sq size-10">10</div><div class="oc-eg__item ov-sq size-16">16</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="min-max-width.html">Min/Max Width</a></strong><div class="oc-eg__note">Two buttons with the word OK. <code>.min-w-24</code> keeps the second one at least 6rem wide.</div><div class="oc-eg__stage p-0.5 flex align-items-center gap-0.5"><div class="ov-box">OK</div><div class="ov-box min-w-24">OK</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="min-max-height.html">Min/Max Height</a></strong><div class="oc-eg__note">The same short text twice. <code>.min-h-24</code> makes the second box at least 6rem high.</div><div class="oc-eg__stage p-0.5 flex align-items-start gap-0.5"><div class="oc-eg__item">Short</div><div class="oc-eg__item min-h-24">Short</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="aspect.html">Aspect Ratio</a></strong><div class="oc-eg__note">Both <code>.w-6</code>, different shape: <code>.aspect-16</code> is 16 : 9, <code>.aspect-1</code> is a square.</div><div class="oc-eg__stage p-0.5 flex gap-0.5 align-items-end"><div class="oc-eg__item w-6 aspect-16">16 : 9</div><div class="oc-eg__item w-6 aspect-1">1 : 1</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="container.html">Container</a></strong><div class="oc-eg__note">Diagram: <code>.container</code> centres the content (the colored block) and caps its width per screen size. The hatch is the free margin.</div><div class="oc-eg__stage p-0.5 grid"><div class="oc-eg__item mh-auto" style="inline-size: 70%">.container</div></div></div>
+</div>
           </div>
         </div>
       </section>

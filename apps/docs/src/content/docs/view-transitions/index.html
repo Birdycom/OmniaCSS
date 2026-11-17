@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - View Transitions", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - View Transitions", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n\n    /* Inside of the example-kit stages */\n    .vt-pad { display: grid; grid-template-columns: minmax(0, 1fr); padding: 1rem; }\n    .vt-wrap { display: grid; gap: 1rem; inline-size: 100%; }\n    .vt-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; }\n    .vt-btn { padding: 0.75rem 1.3rem; border: 0; border-radius: 10px; font: inherit; font-size: 1.05rem; font-weight: 600; background: var(--color-vividblue-90); color: var(--color-white-50); cursor: pointer; }\n    .vt-btn--quiet { background: var(--oc-card); color: var(--oc-foreground); box-shadow: inset 0 0 0 1px var(--oc-border-strong); }\n    .vt-stage { display: grid; min-block-size: 15rem; }\n    .vt-card { display: grid; align-content: center; gap: 0.35rem; justify-self: start; align-self: start; inline-size: min(100%, 12rem); min-block-size: 6rem; padding: 1rem 1.25rem; border-radius: 12px; background: var(--color-teal-70); color: var(--color-white-50); font-size: 1.05rem; }\n    .vt-card b { font-size: 1.2rem; }\n    .vt-card .vt-big, .vt-card.is-big .vt-small { display: none; }\n    .vt-card.is-big .vt-big { display: inline; }\n    .vt-card.is-big { justify-self: end; align-self: end; inline-size: min(100%, 26rem); min-block-size: 12.5rem; background: var(--color-purple-60); font-size: 1.15rem; }\n    .vt-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 7rem), 1fr)); grid-auto-rows: 1fr; gap: 1rem; margin: 0; padding: 0; list-style: none; }\n    .vt-list li { display: grid; place-content: center; text-align: center; min-block-size: 6.5rem; padding: 0.75rem; border-radius: 12px; color: var(--color-white-50); font-size: 1.15rem; font-weight: 700; }\n    .vt-list li small { font-size: 0.85rem; font-weight: 400; }\n    .vt-panel { display: grid; align-content: center; gap: 0.5rem; min-block-size: 11rem; padding: 1.5rem 1.75rem; border-radius: 14px; color: var(--color-white-50); font-size: 1.1rem; overflow: hidden; }\n    .vt-panel b { font-size: 1.4rem; }\n    .vt-panel small { font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase; }\n  </style>"]}-->
 <section class="oc-docs-section" id="view-transitions">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">View Transitions</h2>
@@ -32,47 +32,171 @@
             </div>
           </div>
 
-          <oc-demo title="Same-page view transition (one line of script starts it)">
-            <div class="grid gap-1 w-full">
-              <button class="oc-btn oc-btn--outline" style="justify-self: start;" onclick="const b=document.getElementById('oc-vt-box');const go=()=>b.classList.toggle('oc-vt-moved');document.startViewTransition?document.startViewTransition(go):go();">Move the card</button>
-              <div class="oc-race__track" style="block-size: auto; padding: 8px; border-radius: 14px;">
-                <div id="oc-vt-box" class="vt-name-hero oc-fx-card" style="inline-size: 9rem;"><strong>.vt-name-hero</strong><span>morphs smoothly</span></div>
-              </div>
-            </div>
-          <oc-code lang="html">&lt;div class="vt-name-hero"&gt;…&lt;/div&gt;
-&lt;script&gt;document.startViewTransition(() =&gt; card.classList.toggle("moved"));&lt;/script&gt;
+          <p class="oc-section-content__desc"><strong>This example needs a few lines of script.</strong> A view transition inside one page always starts from <code>document.startViewTransition()</code>: the script makes the change (a class on the card), the OmniaCSS class tells the browser what to morph. The script is in the sample below. Between two pages no script is needed (see <a href="#at-rule">Cross-document opt-in</a>).</p>
+          <oc-demo title="Same-page view transition: vt-name-hero">
+<div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.vt-name-hero</code><div class="oc-eg__note">Click Move the card: the browser morphs the card to its new corner, size and color instead of jumping.</div><div class="oc-eg__stage oc-eg__stage--plain vt-pad">
+<div class="vt-wrap">
+<div class="vt-btns"><button type="button" class="vt-btn" id="vt-move">Move the card</button></div>
+<div class="vt-stage">
+  <div id="vt-card" class="vt-card vt-name-hero"><b>Product 1</b><span class="vt-small">Small card in the corner.</span><span class="vt-big">Detail view: bigger, other corner, other color.</span></div>
+</div>
+<script>
+  {
+    // Same-page view transition: the browser takes a picture before and after the change and morphs between them.
+    const card = document.getElementById('vt-card');
+    document.getElementById('vt-move').addEventListener('click', () => {
+      const change = () => card.classList.toggle('is-big');
+      if (document.startViewTransition) document.startViewTransition(change);
+      else change(); // older browsers: the change happens at once
+    });
+  }
+</script>
+</div>
+</div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="vt-btns"&gt;&lt;button type="button" class="vt-btn" id="vt-move"&gt;Move the card&lt;/button&gt;&lt;/div&gt;
+&lt;div class="vt-stage"&gt;
+  &lt;div id="vt-card" class="vt-card vt-name-hero"&gt;&lt;b&gt;Product 1&lt;/b&gt;&lt;span class="vt-small"&gt;Small card in the corner.&lt;/span&gt;&lt;span class="vt-big"&gt;Detail view: bigger, other corner, other color.&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
 
-&lt;!-- Between pages no script is needed: --&gt;
-&lt;style&gt;@view-transition { navigation: auto; }&lt;/style&gt;</oc-code></oc-demo>
-          <oc-demo title="Reorder a list: vt-name-match-element (the items glide to their new place)">
-            <div class="grid gap-1 w-full">
-              <button type="button" class="oc-btn oc-btn--outline" style="justify-self: start;" onclick="const l=document.getElementById('oc-vt-list');const go=()=>{[...l.children].reverse().forEach(c=>l.append(c))};document.startViewTransition?document.startViewTransition(go):go();">Reverse order</button>
-              <ul id="oc-vt-list" class="oc-fx-grid list-none p-0 m-0">
-                <li class="vt-name-match-element oc-fx-card"><strong>Alpha</strong></li>
-                <li class="vt-name-match-element oc-fx-card"><strong>Beta</strong></li>
-                <li class="vt-name-match-element oc-fx-card"><strong>Gamma</strong></li>
-                <li class="vt-name-match-element oc-fx-card"><strong>Delta</strong></li>
-              </ul>
-            </div>
-          <oc-code lang="html">&lt;ul id="list"&gt;
-  &lt;li class="vt-name-match-element"&gt;Alpha&lt;/li&gt; …
-&lt;/ul&gt;
 &lt;script&gt;
-  document.startViewTransition(() =&gt; list.append(...[...list.children].reverse()));   // move the existing nodes, do not recreate them
+  {
+    // Same-page view transition: the browser takes a picture before and after the change and morphs between them.
+    const card = document.getElementById('vt-card');
+    document.getElementById('vt-move').addEventListener('click', () =&gt; {
+      const change = () =&gt; card.classList.toggle('is-big');
+      if (document.startViewTransition) document.startViewTransition(change);
+      else change(); // older browsers: the change happens at once
+    });
+  }
+&lt;/script&gt;
+
+&lt;style&gt;
+  /* Decoration of the two states (page CSS); .vt-name-hero gives the card its transition name */
+  .vt-stage { display: grid; min-block-size: 15rem; }
+  .vt-card { justify-self: start; align-self: start; inline-size: 12rem; background: var(--color-teal-70); }
+  .vt-card.is-big { justify-self: end; align-self: end; inline-size: 26rem; background: var(--color-purple-60); }
+  .vt-card .vt-big, .vt-card.is-big .vt-small { display: none; }
+  .vt-card.is-big .vt-big { display: inline; }
+&lt;/style&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><strong>This example needs a few lines of script.</strong> A view transition inside one page always starts from <code>document.startViewTransition()</code>: the script makes the change (the new order of the items), the OmniaCSS class tells the browser what to morph. The script is in the sample below. Between two pages no script is needed (see <a href="#at-rule">Cross-document opt-in</a>).</p>
+          <oc-demo title="Reorder a list: vt-name-match-element">
+<div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.vt-name-match-element</code><div class="oc-eg__note">Click Reverse order or Shuffle: every order glides to its new place, because each item gets its own transition name.</div><div class="oc-eg__stage oc-eg__stage--plain vt-pad">
+<div class="vt-wrap">
+<div class="vt-btns"><button type="button" class="vt-btn" id="vt-reverse">Reverse order</button><button type="button" class="vt-btn vt-btn--quiet" id="vt-shuffle">Shuffle</button></div>
+<ul id="vt-list" class="vt-list">
+  <li class="vt-name-match-element bg-vividblue-90">Order 1<small>Customer 1</small></li>
+  <li class="vt-name-match-element bg-teal-70">Order 2<small>Customer 2</small></li>
+  <li class="vt-name-match-element bg-orange-95">Order 3<small>Customer 3</small></li>
+  <li class="vt-name-match-element bg-purple-60">Order 4<small>Customer 4</small></li>
+  <li class="vt-name-match-element bg-forestgreen-60">Order 5<small>Customer 5</small></li>
+</ul>
+<script>
+  {
+    // Move the existing items (do not rebuild them), inside a view transition.
+    const list = document.getElementById('vt-list');
+    const reorder = (order) => {
+      const change = () => list.append(...order([...list.children]));
+      if (document.startViewTransition) document.startViewTransition(change);
+      else change();
+    };
+    document.getElementById('vt-reverse').addEventListener('click', () => reorder((items) => items.reverse()));
+    document.getElementById('vt-shuffle').addEventListener('click', () => reorder((items) => items.sort(() => Math.random() - 0.5)));
+  }
+</script>
+</div>
+</div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="vt-btns"&gt;&lt;button type="button" class="vt-btn" id="vt-reverse"&gt;Reverse order&lt;/button&gt;&lt;button type="button" class="vt-btn vt-btn--quiet" id="vt-shuffle"&gt;Shuffle&lt;/button&gt;&lt;/div&gt;
+&lt;ul id="vt-list" class="vt-list"&gt;
+  &lt;li class="vt-name-match-element bg-vividblue-90"&gt;Order 1&lt;small&gt;Customer 1&lt;/small&gt;&lt;/li&gt;
+  &lt;li class="vt-name-match-element bg-teal-70"&gt;Order 2&lt;small&gt;Customer 2&lt;/small&gt;&lt;/li&gt;
+  &lt;li class="vt-name-match-element bg-orange-95"&gt;Order 3&lt;small&gt;Customer 3&lt;/small&gt;&lt;/li&gt;
+  &lt;li class="vt-name-match-element bg-purple-60"&gt;Order 4&lt;small&gt;Customer 4&lt;/small&gt;&lt;/li&gt;
+  &lt;li class="vt-name-match-element bg-forestgreen-60"&gt;Order 5&lt;small&gt;Customer 5&lt;/small&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script&gt;
+  {
+    // Move the existing items (do not rebuild them), inside a view transition.
+    const list = document.getElementById('vt-list');
+    const reorder = (order) =&gt; {
+      const change = () =&gt; list.append(...order([...list.children]));
+      if (document.startViewTransition) document.startViewTransition(change);
+      else change();
+    };
+    document.getElementById('vt-reverse').addEventListener('click', () =&gt; reorder((items) =&gt; items.reverse()));
+    document.getElementById('vt-shuffle').addEventListener('click', () =&gt; reorder((items) =&gt; items.sort(() =&gt; Math.random() - 0.5)));
+  }
 &lt;/script&gt;</oc-code></oc-demo>
 
-          <p class="oc-section-content__desc">This documentation site itself uses cross-document view transitions: navigate between pages and the header and footer stay in place while the content cross-fades. Browsers without the API simply run the callback, as the demo buttons here do.</p>
+          <p class="oc-section-content__desc">This documentation site itself uses cross-document view transitions, without any script: go to another page in the menu and the header and menu stay in place while the content cross-fades. Browsers without the API simply run the change without animation, as the demo buttons here do.</p>
 
           <h3 class="oc-section-content__title mt-10" id="view-transition-class">View transition class</h3>
           <p class="oc-section-content__desc">Applies a shared animation to all named elements with the same class. <code>fade</code> shortens the cross-fade to 200ms; <code>slide</code> slides old content out and new content in. <strong>What:</strong> a class is to view transitions what a CSS class is to elements: one rule such as <code>::view-transition-old(*.slide)</code> styles every named element carrying <code>view-transition-class: slide</code>. <strong>When:</strong> many named elements (list items, cards) that should share one animation. <strong>Gotcha:</strong> the class only targets the pseudo-elements, it does not make the element unique: it still needs a <code>view-transition-name</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-class" target="_blank" rel="noopener">MDN: view-transition-class</a>.</p>
+          <p class="oc-section-content__desc"><strong>This example needs a few lines of script.</strong> A view transition inside one page always starts from <code>document.startViewTransition()</code>: the script makes the change (the next step in the panel), the OmniaCSS class tells the browser what to morph. The script is in the sample below. Between two pages no script is needed (see <a href="#at-rule">Cross-document opt-in</a>).</p>
           <oc-demo title="vt-name-media + vt-class-slide: content slides out and in">
-            <div class="grid gap-1 w-full">
-              <button type="button" class="oc-btn oc-btn--outline" style="justify-self: start;" onclick="const p=document.getElementById('oc-vt-panel');const go=()=>{const n=p.dataset.n==='b'?'a':'b';p.dataset.n=n;p.innerHTML=n==='b'?'<strong>Panel B</strong><span>slid in from the right</span>':'<strong>Panel A</strong><span>the first panel</span>'};document.startViewTransition?document.startViewTransition(go):go();">Next panel</button>
-              <div id="oc-vt-panel" class="vt-name-media vt-class-slide oc-fx-card" data-n="a" style="max-inline-size: 24rem;"><strong>Panel A</strong><span>the first panel</span></div>
-            </div>
-          <oc-code lang="html">&lt;div id="panel" class="vt-name-media vt-class-slide"&gt;Panel A&lt;/div&gt;
+<div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.vt-name-media .vt-class-slide</code><div class="oc-eg__note">Click Next step: the old step slides out to the left and the new one slides in from the right.</div><div class="oc-eg__stage oc-eg__stage--plain vt-pad">
+<div class="vt-wrap">
+<div class="vt-btns"><button type="button" class="vt-btn" id="vt-next">Next step</button></div>
+<div id="vt-panel" class="vt-panel vt-name-media vt-class-slide bg-teal-70"><small>Step 1 of 3</small><b>Cart</b><span>Product 1 and Product 2 are in your cart.</span></div>
+<span class="none bg-slateblue-70 bg-chocolate-80"></span>
+<script>
+  {
+    // Swap the content of the panel inside a view transition; .vt-class-slide slides the old out and the new in.
+    const panel = document.getElementById('vt-panel');
+    const steps = [
+      ['Step 1 of 3', 'Cart', 'Product 1 and Product 2 are in your cart.', 'bg-teal-70'],
+      ['Step 2 of 3', 'Address', 'Customer 1, delivery to the office address.', 'bg-slateblue-70'],
+      ['Step 3 of 3', 'Payment', 'Pay by card or bank transfer.', 'bg-chocolate-80'],
+    ];
+    let n = 0;
+    document.getElementById('vt-next').addEventListener('click', () => {
+      const change = () => {
+        n = (n + 1) % steps.length;
+        const [step, title, text, color] = steps[n];
+        panel.className = 'vt-panel vt-name-media vt-class-slide ' + color;
+        panel.querySelector('small').textContent = step;
+        panel.querySelector('b').textContent = title;
+        panel.querySelector('span').textContent = text;
+      };
+      if (document.startViewTransition) document.startViewTransition(change);
+      else change();
+    });
+  }
+</script>
+</div>
+</div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="vt-btns"&gt;&lt;button type="button" class="vt-btn" id="vt-next"&gt;Next step&lt;/button&gt;&lt;/div&gt;
+&lt;div id="vt-panel" class="vt-panel vt-name-media vt-class-slide bg-teal-70"&gt;&lt;small&gt;Step 1 of 3&lt;/small&gt;&lt;b&gt;Cart&lt;/b&gt;&lt;span&gt;Product 1 and Product 2 are in your cart.&lt;/span&gt;&lt;/div&gt;
+
 &lt;script&gt;
-  document.startViewTransition(() =&gt; { panel.textContent = "Panel B"; });
+  {
+    // Swap the content of the panel inside a view transition; .vt-class-slide slides the old out and the new in.
+    const panel = document.getElementById('vt-panel');
+    const steps = [
+      ['Step 1 of 3', 'Cart', 'Product 1 and Product 2 are in your cart.', 'bg-teal-70'],
+      ['Step 2 of 3', 'Address', 'Customer 1, delivery to the office address.', 'bg-slateblue-70'],
+      ['Step 3 of 3', 'Payment', 'Pay by card or bank transfer.', 'bg-chocolate-80'],
+    ];
+    let n = 0;
+    document.getElementById('vt-next').addEventListener('click', () =&gt; {
+      const change = () =&gt; {
+        n = (n + 1) % steps.length;
+        const [step, title, text, color] = steps[n];
+        panel.className = 'vt-panel vt-name-media vt-class-slide ' + color;
+        panel.querySelector('small').textContent = step;
+        panel.querySelector('b').textContent = title;
+        panel.querySelector('span').textContent = text;
+      };
+      if (document.startViewTransition) document.startViewTransition(change);
+      else change();
+    });
+  }
 &lt;/script&gt;</oc-code></oc-demo>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
@@ -120,14 +244,20 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title mt-10" id="usage">Usage example</h3>
-          <oc-code>&lt;img class="vt-name-hero vt-class-fade" src="photo.jpg" alt=""&gt;
-
+          <h3 class="oc-section-content__title mt-10" id="usage">Usage: within one page or between pages</h3>
+          <p class="oc-section-content__desc"><strong>Within one page</strong> (the examples above) the change happens in script, so one call to <code>document.startViewTransition()</code> is needed around it. <strong>Between pages</strong> of a multi-page site no script is needed at all: both pages opt in with <code>@view-transition</code>, and elements with the same <code>.vt-name-*</code> on both pages morph into each other.</p>
+          <oc-code>&lt;!-- Within one page: a few lines of script --&gt;
+&lt;img id="photo" class="vt-name-hero vt-class-fade" src="photo.jpg" alt="Product 1"&gt;
 &lt;script&gt;
-  document.startViewTransition(() =&gt; updateDOM());
+  document.startViewTransition(() =&gt; { photo.src = "photo-2.jpg"; });
 &lt;/script&gt;
 
-/* Cross-document (MPA) opt-in in your own SCSS */
+&lt;!-- Between pages: no script, only CSS on both pages --&gt;
+&lt;style&gt;
+  @view-transition { navigation: auto; }
+&lt;/style&gt;
+
+/* or the same opt-in from your own SCSS */
 @use 'omniacss/scss/utilities/view_transitions' as vt;
 @include vt.view-transition-navigation;</oc-code>
 

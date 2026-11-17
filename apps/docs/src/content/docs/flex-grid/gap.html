@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Gap","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Gap","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.6rem; align-self: start; min-inline-size: 0; }\n    .fx-head code { padding: 0.15rem 0.45rem; border-radius: 5px; background: var(--fx-soft); color: var(--oc-foreground); font-size: 0.85rem; font-weight: 600; }\n    .fx-cap { font-size: 0.85rem; line-height: 1.4; color: var(--oc-muted-foreground); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n    .fx-resize { box-sizing: border-box; display: grid; gap: 0.75rem; inline-size: var(--fx-rw, min(100%, 48rem)); min-inline-size: min(100%, var(--fx-rmin, 20rem)); max-inline-size: 100%; padding: 0.75rem 1.4rem 1.1rem 0.75rem; border: 1.5px dashed var(--oc-border-strong); border-radius: 12px; background: var(--eg-bg); }\n    .fx-hint { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--oc-muted-foreground); }\n    .fx-hint::before { content: \"\"; flex: none; inline-size: 0.75rem; block-size: 0.75rem; border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor; }\n    .fx-card { box-sizing: border-box; display: flex; flex-direction: column; gap: 0.35rem; min-inline-size: 0; padding: 0.75rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.9rem; line-height: 1.4; }\n    .fx-card strong { font-size: 0.95rem; }\n    .fx-card .fx-muted, .fx-muted { color: var(--oc-muted-foreground); font-size: 0.85rem; }\n    .fx-img { block-size: 4.5rem; border-radius: 7px; background: var(--fx-c, var(--color-teal-70)); }\n    .fx-box--c { padding-inline: 0.15rem; }\n    .fx-scale { display: grid; grid-template-columns: 11rem minmax(0, 1fr); align-items: center; gap: 0.75rem 1rem; padding: 0.75rem; }\n    .fx-scale > .fx-head { align-self: center; flex-direction: column; align-items: flex-start; }\n    @container (max-width: 34rem) { .fx-scale { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; } .fx-scale > .fx-stage { margin-block-end: 0.6rem; } }\n    .fx-hint code { font-size: 0.8rem; }\n    .fx-card.grid { display: grid; }\n  /* In a box the reader can drag, a row that does not fit scrolls inside its dashed frame: nothing pokes out of it. */\n    .fx-resize .fx-stage { overflow-x: auto; }\n  /* Outline buttons get a solid card background so the hatch (= the gap) does not show through them. */\n    .fx .oc-eg__stage .oc-btn--outline { background: var(--oc-card); }\n  </style>"]}-->
 <section class="oc-docs-section" id="gap">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Gap</h2>
@@ -8,38 +8,129 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>gap</code> adds space <em>between</em> items only (never at the outer edge), which removes the need for margin hacks on the first or last child. It works in grid, flexbox and multi-column layouts. <code>.gap-x-*</code> sets the column gap, <code>.gap-y-*</code> the row gap. The scale is rem based: <code>.gap-1</code> is 1rem, decimals such as <code>.gap-0.5</code> are half steps. Gotcha: in a wrapping flexbox the row gap only appears between lines. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap" target="_blank" rel="noopener">MDN: gap</a>.</p>
+          <p class="oc-section-content__desc"><code>gap</code> adds space <em>between</em> items only (never at the outer edge), which removes the need for margin hacks on the first or last child. It works in grid, flexbox and multi-column layouts. <code>.gap-x-*</code> sets the column gap, <code>.gap-y-*</code> the row gap. The scale is rem based: <code>.gap-1</code> is 1rem. The digit after the dot is not a decimal but a step of eighths and quarters: <code>.gap-0.3</code> is 0.375rem, <code>.gap-0.5</code> is 0.5rem and <code>.gap-1.2</code> is 1.25rem (see the table). Gotcha: in a wrapping flexbox the row gap only appears between lines. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap" target="_blank" rel="noopener">MDN: gap</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Axes Affected</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
               <tbody>
-                <tr><td><code>.gap-{n}</code></td><td>Both row and column</td></tr>
-                <tr><td><code>.gap-x-{n}</code></td><td>Column only (horizontal)</td></tr>
-                <tr><td><code>.gap-y-{n}</code></td><td>Row only (vertical)</td></tr>
-                <tr><td><code>.gap-0</code></td><td>Remove all gaps</td></tr>
-                <tr><td><code>.gap-0.5</code></td><td>0.5rem on both axes</td></tr>
+                <tr><td><code>.gap-{n}</code></td><td>gap: n (rows and columns)</td></tr>
+                <tr><td><code>.gap-x-{n}</code></td><td>column-gap: n (between columns)</td></tr>
+                <tr><td><code>.gap-y-{n}</code></td><td>row-gap: n (between rows)</td></tr>
+                <tr><td><code>.gap-0</code></td><td>0</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.gap-px</code></td><td>1px</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-0.1</code></td><td>0.125rem (2px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-0.2</code></td><td>0.25rem (4px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-0.3</code></td><td>0.375rem (6px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-0.5</code></td><td>0.5rem (8px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-0.6</code></td><td>0.625rem (10px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-0.7</code></td><td>0.75rem (12px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-0.8</code></td><td>0.875rem (14px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-1</code></td><td>1rem (16px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-1.2</code></td><td>1.25rem (20px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-1.5</code></td><td>1.5rem (24px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-1.7</code></td><td>1.75rem (28px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-2</code></td><td>2rem (32px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.gap-2.2 … .gap-25</code></td><td>2.25rem to 25rem, in the same steps: .2 = +0.25rem, .5 = +0.5rem, .7 = +0.75rem</td></tr>
               </tbody>
             </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
           </div>
 
-          <h3 class="oc-section-content__title mt-8">Gap scale and axes</h3>
+          <h3 class="oc-section-content__title mt-8">Gap scale</h3>
 
-          <oc-demo title="gap utilities in a grid"><div class="dm-grid" style="--dm-min:13rem">
-<div class="dm-tile"><code>.gap-0</code><div class="dm-area grid grid-cols-3 gap-0"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.gap-0.3</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.gap-0.5</code><div class="dm-area grid grid-cols-3 gap-0.5"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.gap-1</code><div class="dm-area grid grid-cols-3 gap-1"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.gap-x-1 .gap-y-0.3</code><div class="dm-area grid grid-cols-3 gap-x-1 gap-y-0.3"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.gap-x-0.3 .gap-y-1</code><div class="dm-area grid grid-cols-3 gap-x-0.3 gap-y-1"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-1"&gt;…&lt;/div&gt;
-&lt;div class="flex wrap gap-x-1 gap-y-0.5"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The same eight cards in a four column grid. Only the gap changes; the hatched lines between the cards are the gap.</p>
 
-          <h3 class="oc-section-content__title mt-8">Gap in flexbox</h3>
+          <oc-demo title="gap scale"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:100%"><div class="oc-eg__panel"><code class="oc-eg__name">.gap-*</code><div class="oc-eg__note">One row per gap class: the same eight cards, only the space between them changes.</div><div class="oc-eg__stage oc-eg__stage--plain fx-scale">
+<div class="fx-head"><code>.gap-0</code><span class="fx-cap">gap: 0</span></div><div class="oc-eg__stage fx-stage grid grid-cols-4 gap-0"><div class="fx-box fx-box--c">Card 1</div><div class="fx-box fx-box--c">Card 2</div><div class="fx-box fx-box--c">Card 3</div><div class="fx-box fx-box--c">Card 4</div><div class="fx-box fx-box--c">Card 5</div><div class="fx-box fx-box--c">Card 6</div><div class="fx-box fx-box--c">Card 7</div><div class="fx-box fx-box--c">Card 8</div></div>
+<div class="fx-head"><code>.gap-0.3</code><span class="fx-cap">gap: 0.375rem</span></div><div class="oc-eg__stage fx-stage grid grid-cols-4 gap-0.3"><div class="fx-box fx-box--c">Card 1</div><div class="fx-box fx-box--c">Card 2</div><div class="fx-box fx-box--c">Card 3</div><div class="fx-box fx-box--c">Card 4</div><div class="fx-box fx-box--c">Card 5</div><div class="fx-box fx-box--c">Card 6</div><div class="fx-box fx-box--c">Card 7</div><div class="fx-box fx-box--c">Card 8</div></div>
+<div class="fx-head"><code>.gap-1</code><span class="fx-cap">gap: 1rem</span></div><div class="oc-eg__stage fx-stage grid grid-cols-4 gap-1"><div class="fx-box fx-box--c">Card 1</div><div class="fx-box fx-box--c">Card 2</div><div class="fx-box fx-box--c">Card 3</div><div class="fx-box fx-box--c">Card 4</div><div class="fx-box fx-box--c">Card 5</div><div class="fx-box fx-box--c">Card 6</div><div class="fx-box fx-box--c">Card 7</div><div class="fx-box fx-box--c">Card 8</div></div>
+<div class="fx-head"><code>.gap-2</code><span class="fx-cap">gap: 2rem</span></div><div class="oc-eg__stage fx-stage grid grid-cols-4 gap-2"><div class="fx-box fx-box--c">Card 1</div><div class="fx-box fx-box--c">Card 2</div><div class="fx-box fx-box--c">Card 3</div><div class="fx-box fx-box--c">Card 4</div><div class="fx-box fx-box--c">Card 5</div><div class="fx-box fx-box--c">Card 6</div><div class="fx-box fx-box--c">Card 7</div><div class="fx-box fx-box--c">Card 8</div></div>
+</div></div></div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-4 gap-0"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;&lt;div&gt;Card 2&lt;/div&gt;&lt;div&gt;Card 3&lt;/div&gt;&lt;div&gt;Card 4&lt;/div&gt;&lt;div&gt;Card 5&lt;/div&gt;&lt;div&gt;Card 6&lt;/div&gt;&lt;div&gt;Card 7&lt;/div&gt;&lt;div&gt;Card 8&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="grid grid-cols-4 gap-0.3"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;&lt;div&gt;Card 2&lt;/div&gt;&lt;div&gt;Card 3&lt;/div&gt;&lt;div&gt;Card 4&lt;/div&gt;&lt;div&gt;Card 5&lt;/div&gt;&lt;div&gt;Card 6&lt;/div&gt;&lt;div&gt;Card 7&lt;/div&gt;&lt;div&gt;Card 8&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="grid grid-cols-4 gap-1"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;&lt;div&gt;Card 2&lt;/div&gt;&lt;div&gt;Card 3&lt;/div&gt;&lt;div&gt;Card 4&lt;/div&gt;&lt;div&gt;Card 5&lt;/div&gt;&lt;div&gt;Card 6&lt;/div&gt;&lt;div&gt;Card 7&lt;/div&gt;&lt;div&gt;Card 8&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="grid grid-cols-4 gap-2"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;&lt;div&gt;Card 2&lt;/div&gt;&lt;div&gt;Card 3&lt;/div&gt;&lt;div&gt;Card 4&lt;/div&gt;&lt;div&gt;Card 5&lt;/div&gt;&lt;div&gt;Card 6&lt;/div&gt;&lt;div&gt;Card 7&lt;/div&gt;&lt;div&gt;Card 8&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
-          <oc-demo title="gap in a wrapping flexbox"><div class="dm-grid" style="--dm-min:16rem">
-<div class="dm-tile"><code>.gap-0.5</code><div class="dm-area flex wrap gap-0.5"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div><div class="dm-box dm-w2 dm-h1">7</div></div></div>
-<div class="dm-tile"><code>.gap-x-1 .gap-y-0.3</code><div class="dm-area flex wrap gap-x-1 gap-y-0.3"><div class="dm-box dm-w2 dm-h1">1</div><div class="dm-box dm-w2 dm-h1">2</div><div class="dm-box dm-w2 dm-h1">3</div><div class="dm-box dm-w2 dm-h1">4</div><div class="dm-box dm-w2 dm-h1">5</div><div class="dm-box dm-w2 dm-h1">6</div><div class="dm-box dm-w2 dm-h1">7</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex wrap gap-0.5"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-8">Column gap and row gap apart</h3>
+
+          <p class="oc-section-content__desc"><code>.gap-x-*</code> and <code>.gap-y-*</code> set each direction on its own.</p>
+
+          <oc-demo title="column gap and row gap"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.gap-x-2 .gap-y-0.3</code><div class="oc-eg__note">Wide gaps between columns, narrow gaps between rows.</div><div class="oc-eg__stage fx-stage grid grid-cols-3 gap-x-2 gap-y-0.3"><div class="fx-box fx-box--c">Card 1</div><div class="fx-box fx-box--c">Card 2</div><div class="fx-box fx-box--c">Card 3</div><div class="fx-box fx-box--c">Card 4</div><div class="fx-box fx-box--c">Card 5</div><div class="fx-box fx-box--c">Card 6</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.gap-x-0.3 .gap-y-2</code><div class="oc-eg__note">Narrow gaps between columns, wide gaps between rows.</div><div class="oc-eg__stage fx-stage grid grid-cols-3 gap-x-0.3 gap-y-2"><div class="fx-box fx-box--c">Card 1</div><div class="fx-box fx-box--c">Card 2</div><div class="fx-box fx-box--c">Card 3</div><div class="fx-box fx-box--c">Card 4</div><div class="fx-box fx-box--c">Card 5</div><div class="fx-box fx-box--c">Card 6</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-x-2 gap-y-0.3"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;&lt;div&gt;Card 2&lt;/div&gt;&lt;div&gt;Card 3&lt;/div&gt;&lt;div&gt;Card 4&lt;/div&gt;&lt;div&gt;Card 5&lt;/div&gt;&lt;div&gt;Card 6&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-x-0.3 gap-y-2"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;&lt;div&gt;Card 2&lt;/div&gt;&lt;div&gt;Card 3&lt;/div&gt;&lt;div&gt;Card 4&lt;/div&gt;&lt;div&gt;Card 5&lt;/div&gt;&lt;div&gt;Card 6&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a product grid</h3>
+
+          <p class="oc-section-content__desc">A card grid needs one class for all spacing. Compare that with margins, where you would have to remove the margin on the last card of every row.</p>
+
+          <oc-demo title="product grid with gap"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-2 .md:grid-cols-3 .gap-1</code><div class="oc-eg__note">One class spaces all cards evenly, with no margin on the outer edge.</div><div class="oc-eg__stage fx-stage grid grid-cols-2 md:grid-cols-3 gap-1"><div class="fx-card"><div class="fx-img" style="--fx-c:var(--color-teal-70)"></div><strong>Product 1</strong><span class="fx-muted">€ 24.00</span></div><div class="fx-card"><div class="fx-img" style="--fx-c:var(--color-vividblue-90)"></div><strong>Product 2</strong><span class="fx-muted">€ 39.50</span></div><div class="fx-card"><div class="fx-img" style="--fx-c:var(--color-orange-95)"></div><strong>Product 3</strong><span class="fx-muted">€ 12.90</span></div><div class="fx-card"><div class="fx-img" style="--fx-c:var(--color-indigo-60)"></div><strong>Product 4</strong><span class="fx-muted">€ 89.00</span></div><div class="fx-card"><div class="fx-img" style="--fx-c:var(--color-magenta-90)"></div><strong>Product 5</strong><span class="fx-muted">€ 7.50</span></div><div class="fx-card"><div class="fx-img" style="--fx-c:var(--color-forestgreen-60)"></div><strong>Product 6</strong><span class="fx-muted">€ 54.00</span></div></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- .card and .image are your own styles (border, padding, a colored block) --&gt;
+&lt;div class="grid grid-cols-2 md:grid-cols-3 gap-1"&gt;
+  &lt;div class="card flex flex-col gap-0.3"&gt;&lt;div class="image"&gt;&lt;/div&gt;&lt;strong&gt;Product 1&lt;/strong&gt;&lt;span&gt;€ 24.00&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card flex flex-col gap-0.3"&gt;&lt;div class="image"&gt;&lt;/div&gt;&lt;strong&gt;Product 2&lt;/strong&gt;&lt;span&gt;€ 39.50&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card flex flex-col gap-0.3"&gt;&lt;div class="image"&gt;&lt;/div&gt;&lt;strong&gt;Product 3&lt;/strong&gt;&lt;span&gt;€ 12.90&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card flex flex-col gap-0.3"&gt;&lt;div class="image"&gt;&lt;/div&gt;&lt;strong&gt;Product 4&lt;/strong&gt;&lt;span&gt;€ 89.00&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card flex flex-col gap-0.3"&gt;&lt;div class="image"&gt;&lt;/div&gt;&lt;strong&gt;Product 5&lt;/strong&gt;&lt;span&gt;€ 7.50&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card flex flex-col gap-0.3"&gt;&lt;div class="image"&gt;&lt;/div&gt;&lt;strong&gt;Product 6&lt;/strong&gt;&lt;span&gt;€ 54.00&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a wrapping row with only a column gap</h3>
+
+          <p class="oc-section-content__desc">A row of filter buttons with <code>.gap-x-1</code> looks fine on one line. As soon as it wraps, the lines touch. Add a row gap as well, or use <code>.gap-*</code> for both.</p>
+
+          <oc-demo title="only a column gap"><div class="oc-eg fx">
+<div class="fx-resize resize-x overflow-auto" style="--fx-rw:28rem">
+<div class="fx-hint"><span>Drag the corner wider or narrower and look at the space between the lines of buttons.</span></div>
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-wrap .gap-x-1</code><div class="oc-eg__note">Space between the buttons, but none between the lines: they touch.</div><div class="oc-eg__stage fx-stage flex flex-wrap gap-x-1"><button type="button" class="oc-btn oc-btn--outline">All</button><button type="button" class="oc-btn oc-btn--outline">Open</button><button type="button" class="oc-btn oc-btn--outline">Paid</button><button type="button" class="oc-btn oc-btn--outline">Overdue</button><button type="button" class="oc-btn oc-btn--outline">Draft</button><button type="button" class="oc-btn oc-btn--outline">Cancelled</button><button type="button" class="oc-btn oc-btn--outline">This month</button><button type="button" class="oc-btn oc-btn--outline">Last month</button></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-wrap .gap-x-1 .gap-y-0.5</code><div class="oc-eg__note">A row gap separates the lines.</div><div class="oc-eg__stage fx-stage flex flex-wrap gap-x-1 gap-y-0.5"><button type="button" class="oc-btn oc-btn--outline">All</button><button type="button" class="oc-btn oc-btn--outline">Open</button><button type="button" class="oc-btn oc-btn--outline">Paid</button><button type="button" class="oc-btn oc-btn--outline">Overdue</button><button type="button" class="oc-btn oc-btn--outline">Draft</button><button type="button" class="oc-btn oc-btn--outline">Cancelled</button><button type="button" class="oc-btn oc-btn--outline">This month</button><button type="button" class="oc-btn oc-btn--outline">Last month</button></div></div>
+</div>
+</div>
+</div><oc-code lang="html">&lt;!-- Only a column gap: the lines touch --&gt;
+&lt;div class="flex flex-wrap gap-x-1"&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;All&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Open&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Paid&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Overdue&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Draft&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Cancelled&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;This month&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Last month&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Column gap and row gap --&gt;
+&lt;div class="flex flex-wrap gap-x-1 gap-y-0.5"&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;All&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Open&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Paid&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Overdue&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Draft&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Cancelled&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;This month&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--outline"&gt;Last month&lt;/button&gt;
+&lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>

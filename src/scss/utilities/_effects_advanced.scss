@@ -26,6 +26,31 @@
 .shadow-glow { box-shadow: 0 0 0 1px oklch(from var(--oc-shadow-color, var(--color-vividblue-80)) l c h / 0.35), 0 0 32px -4px oklch(from var(--oc-shadow-color, var(--color-vividblue-80)) l c h / 0.6); }
 .hover\:shadow-lg:hover { box-shadow: 0 10px 15px -3px oc-sh(0.18, 0.75), 0 4px 6px -4px oc-sh(0.14, 0.65) + $oc-shadow-edge-hi; }
 .hover\:shadow-glow:hover { box-shadow: 0 0 0 1px oklch(from var(--oc-shadow-color, var(--color-vividblue-80)) l c h / 0.35), 0 0 32px -4px oklch(from var(--oc-shadow-color, var(--color-vividblue-80)) l c h / 0.6); }
+/* Neon: three layers of light in the shadow color (default Omnia sky cyan; change it with .drop-shadow-{color}) */
+$_neon: var(--oc-shadow-color, var(--color-skycyan-50));
+.shadow-neon { box-shadow: 0 0 0.6rem $_neon, 0 0 2.5rem $_neon, 0 0 5rem oklch(from #{$_neon} l c h / 0.5); }
+
+/* Glow border: a conic gradient runs round the border, a blurred copy of it glows behind the element.
+   Round it with .round-*. Tune: --oc-conic-colors (color list, first = last for a seamless ring), --oc-conic-width (3px),
+   --oc-conic-blur (1.5rem), --oc-conic-opacity (0.75), --oc-conic-speed (4s per turn), --oc-conic-fill (the face, card color).
+   The angle is a registered property, so the gradient itself turns; prefers-reduced-motion stops it. */
+@property --oc-conic-angle { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
+@keyframes oc-conic-spin { to { --oc-conic-angle: 360deg; } }
+.border-conic-spin {
+  --oc-conic-ring: conic-gradient(from var(--oc-conic-angle), var(--oc-conic-colors, var(--color-vividblue-80), var(--color-magenta-50), var(--color-orange-50), var(--color-teal-50), var(--color-vividblue-80)));
+  position: relative;
+  isolation: isolate;
+  border: var(--oc-conic-width, 3px) solid transparent;
+  background: var(--oc-conic-ring) border-box;
+  animation: oc-conic-spin var(--oc-conic-speed, 4s) linear infinite;
+}
+.border-conic-spin::before,
+.border-conic-spin::after { content: ""; position: absolute; z-index: -1; inset: calc(-1 * var(--oc-conic-width, 3px)); border-radius: inherit; }
+.border-conic-spin::before { background: var(--oc-conic-ring); filter: blur(var(--oc-conic-blur, 1.5rem)); opacity: var(--oc-conic-opacity, 0.75); }
+.border-conic-spin::after { border: var(--oc-conic-width, 3px) solid transparent; background: var(--oc-conic-fill, var(--oc-card)) padding-box; }
+@media (prefers-reduced-motion: reduce) {
+  .border-conic-spin { animation: none; }
+}
 
 /* Text shadow */
 .text-shadow-none { text-shadow: none; }
@@ -33,6 +58,25 @@
 .text-shadow { text-shadow: 0 1px 2px oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h / 0.35); }
 .text-shadow-md { text-shadow: 0 2px 4px oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h / 0.4); }
 .text-shadow-lg { text-shadow: 0 4px 8px oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h / 0.45); }
+/* Neon text: the same three layers of light as .shadow-neon, around the letters */
+.text-shadow-neon { text-shadow: 0 0 0.3em $_neon, 0 0 1em $_neon, 0 0 2em oklch(from #{$_neon} l c h / 0.5); }
+/* 3D / retro text: seven solid layers, one --oc-3d-step apart (1px; .text-shadow-3d-2 doubles it, also as hover:),
+   plus a soft drop in the shadow color. Layer colors: --oc-3d-c1 … --oc-3d-c5 (orange to purple). */
+$_s: var(--oc-3d-step, 1px);
+$_c1: var(--oc-3d-c1, var(--color-orange-50));
+$_c3: var(--oc-3d-c3, var(--color-red-60));
+.text-shadow-3d {
+  text-shadow:
+    $_s $_s 0 $_c1,
+    calc(2 * #{$_s}) calc(2 * #{$_s}) 0 $_c1,
+    calc(3 * #{$_s}) calc(3 * #{$_s}) 0 var(--oc-3d-c2, var(--color-orange-60)),
+    calc(4 * #{$_s}) calc(4 * #{$_s}) 0 $_c3,
+    calc(5 * #{$_s}) calc(5 * #{$_s}) 0 $_c3,
+    calc(6 * #{$_s}) calc(6 * #{$_s}) 0 var(--oc-3d-c4, var(--color-magenta-60)),
+    calc(7 * #{$_s}) calc(7 * #{$_s}) 0 var(--oc-3d-c5, var(--color-purple-60)),
+    calc(8 * #{$_s}) calc(8 * #{$_s}) calc(0.5rem + 8 * #{$_s}) oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h / 0.6);
+}
+.text-shadow-3d-2 { --oc-3d-step: 2px; }
 
 /* Mix blend mode */
 .mix-blend-normal { mix-blend-mode: normal; }

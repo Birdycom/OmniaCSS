@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Justify Items","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Justify Items","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Alignment demos: frame from the shared example kit (.oc-eg); below only the page palette and what sits inside the stages. */\n    .oc-eg { --eg-c1: var(--color-steelblue-80); --eg-c2: var(--color-red-70); --eg-c3: var(--color-peru-80); --eg-c4: var(--color-steelblue-80); --eg-c5: var(--color-red-70); --eg-c6: var(--color-peru-80); }\n    /* Fixed stage height and clipping as before the kit; items stay on one line. */\n    .al-fixed { block-size: var(--eg-h, 3.75rem); overflow: hidden; white-space: nowrap; }\n    .al-fixed.al-scroll { overflow: auto; max-inline-size: 20rem; }\n    .oc-eg__item.al-wide { min-inline-size: 7.5rem; }\n    .al-cells { --al-cols: 3; --al-rows: 1; --al-gap: 0.5rem; gap: var(--al-gap);\n      background: linear-gradient(90deg, transparent calc(100% - var(--al-gap)), var(--oc-card) 0) 0 0 / calc((100% + var(--al-gap)) / var(--al-cols)) 100%,\n        linear-gradient(180deg, transparent calc(100% - var(--al-gap)), var(--oc-card) 0) 0 0 / 100% calc((100% + var(--al-gap)) / var(--al-rows)),\n        var(--eg-hatch), var(--eg-bg); }\n    .al-c2 { --al-cols: 2; }\n    .al-real { padding: 0.75rem; }\n    .al-steps { row-gap: 0.5rem; padding: 1rem 0.5rem; border: 1px dashed var(--oc-border-strong); border-radius: 10px; }\n    .al-dot { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 50%; border: 2px solid var(--eg-c1); color: var(--oc-foreground); font-weight: 700; }\n    .al-dot.is-done { background: var(--eg-c1); color: var(--color-white-50); }\n    .al-step { font-size: 0.85rem; font-weight: 600; }\n  </style>"]}-->
 <section class="oc-docs-section" id="justify-items">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Justify Items</h2>
@@ -8,21 +8,30 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>justify-items</code> sets the default <code>justify-self</code> of all items in a <em>grid</em> (and block layout). Each item is positioned inside its own cell, so the effect is only visible when the item is narrower than the cell. The default is <code>stretch</code>, which fills the cell. It is ignored by flex containers: use <code>.justify-content</code> or auto margins there. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items" target="_blank" rel="noopener">MDN: justify-items</a>.</p>
+          <p class="oc-section-content__desc"><strong>In one sentence:</strong> <code>justify-items</code> moves every grid item along the <strong>inline axis</strong> (left to right) inside <strong>its own cell</strong>; it works in grid, and flexbox ignores it.</p>
+          <p class="oc-section-content__desc">It sets the default <code>justify-self</code> of all items in a grid. Each item moves inside its own cell, so you only see an effect when the item is narrower than the cell. The default is <code>stretch</code>, which fills the cell. <code>left</code> and <code>right</code> ignore the writing direction, <code>start</code> and <code>end</code> follow it. In flexbox use <a href="justify-content.html"><code>.justify-content</code></a> or auto margins instead. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/justify-items" target="_blank" rel="noopener">MDN: justify-items</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Justify Value</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
                 <tr><td><code>.justify-items-start</code></td><td>justify-items: start</td></tr>
                 <tr><td><code>.justify-items-center</code></td><td>justify-items: center</td></tr>
                 <tr><td><code>.justify-items-end</code></td><td>justify-items: end</td></tr>
                 <tr><td><code>.justify-items-stretch</code></td><td>justify-items: stretch</td></tr>
                 <tr class="oc-expandable-table__row-dimmed"><td><code>.justify-items-baseline</code></td><td>justify-items: baseline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-baseline-first</code></td><td>justify-items: first baseline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-baseline-last</code></td><td>justify-items: last baseline</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.justify-items-left</code></td><td>justify-items: left</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.justify-items-right</code></td><td>justify-items: right</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-center-safe</code></td><td>justify-items: safe center</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.justify-items-normal</code></td><td>justify-items: normal</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-self-start</code></td><td>justify-items: self-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-self-end</code></td><td>justify-items: self-end</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-legacy-left</code></td><td>justify-items: legacy left</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-legacy-center</code></td><td>justify-items: legacy center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-legacy-right</code></td><td>justify-items: legacy right</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-center-safe</code></td><td>justify-items: safe center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.justify-items-center-unsafe</code></td><td>justify-items: unsafe center</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -30,20 +39,51 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title mt-8">Every value in a three column grid</h3>
+          <h3 class="oc-section-content__title mt-8">Every value in a three-column grid</h3>
+          <p class="oc-section-content__desc">Three cells, one item in each. The hatched blocks are the cells; the gaps between them are plain. Each value moves the item left or right inside its own cell, never into another cell.</p>
 
-          <p class="oc-section-content__desc"><code>left</code> and <code>right</code> ignore writing direction, <code>start</code> and <code>end</code> follow it. The <code>stretch</code> tile uses items without a fixed width.</p>
+          <oc-demo title="justify-items values"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = the part of each cell that the item leaves empty</span><span class="oc-eg__key oc-eg__key--strong">Inline axis &rarr; (left to right inside each cell)</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-items-start</code><div class="oc-eg__note">Each item sits at the left of its own cell.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-start"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-items-center</code><div class="oc-eg__note">Each item sits in the middle of its own cell.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-center"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-items-end</code><div class="oc-eg__note">Each item sits at the right of its own cell.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-end"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-items-stretch</code><div class="oc-eg__note">Items without a fixed width fill their cell. This is the default.</div><div class="oc-eg__stage al-fixed al-cells grid grid-cols-3 gap-0.5 justify-items-stretch"><div class="oc-eg__item">Item 1</div><div class="oc-eg__item">Item 2</div><div class="oc-eg__item">Item 3</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-0.5 justify-items-start"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-0.5 justify-items-center"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-0.5 justify-items-end"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-3 gap-0.5 justify-items-stretch"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
-          <oc-demo title="justify-items values"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.justify-items-start</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-start"><div class="dm-box dm-w1">A</div><div class="dm-box dm-w1">B</div><div class="dm-box dm-w1">C</div><div class="dm-box dm-w1">D</div><div class="dm-box dm-w1">E</div><div class="dm-box dm-w1">F</div></div></div>
-<div class="dm-tile"><code>.justify-items-center</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-center"><div class="dm-box dm-w1">A</div><div class="dm-box dm-w1">B</div><div class="dm-box dm-w1">C</div><div class="dm-box dm-w1">D</div><div class="dm-box dm-w1">E</div><div class="dm-box dm-w1">F</div></div></div>
-<div class="dm-tile"><code>.justify-items-end</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-end"><div class="dm-box dm-w1">A</div><div class="dm-box dm-w1">B</div><div class="dm-box dm-w1">C</div><div class="dm-box dm-w1">D</div><div class="dm-box dm-w1">E</div><div class="dm-box dm-w1">F</div></div></div>
-<div class="dm-tile"><code>.justify-items-stretch</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-stretch"><div class="dm-box">A</div><div class="dm-box">B</div><div class="dm-box">C</div><div class="dm-box">D</div><div class="dm-box">E</div><div class="dm-box">F</div></div></div>
-<div class="dm-tile"><code>.justify-items-baseline</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-baseline"><div class="dm-box dm-w1">A</div><div class="dm-box dm-w1">B</div><div class="dm-box dm-w1">C</div><div class="dm-box dm-w1">D</div><div class="dm-box dm-w1">E</div><div class="dm-box dm-w1">F</div></div></div>
-<div class="dm-tile"><code>.justify-items-left</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-left"><div class="dm-box dm-w1">A</div><div class="dm-box dm-w1">B</div><div class="dm-box dm-w1">C</div><div class="dm-box dm-w1">D</div><div class="dm-box dm-w1">E</div><div class="dm-box dm-w1">F</div></div></div>
-<div class="dm-tile"><code>.justify-items-right</code><div class="dm-area grid grid-cols-3 gap-0.3 justify-items-right"><div class="dm-box dm-w1">A</div><div class="dm-box dm-w1">B</div><div class="dm-box dm-w1">C</div><div class="dm-box dm-w1">D</div><div class="dm-box dm-w1">E</div><div class="dm-box dm-w1">F</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-3 justify-items-center"&gt;
-  &lt;div&gt;A&lt;/div&gt;&lt;div&gt;B&lt;/div&gt;&lt;div&gt;C&lt;/div&gt;
+          <h3 class="oc-section-content__title mt-8">Safe alignment when an item is too wide</h3>
+          <p class="oc-section-content__desc">A centred item that is wider than its cell sticks out on both sides. In the first column that means past the left edge of the grid, where it cannot be scrolled to. <code>safe</code> keeps the start visible.</p>
+
+          <oc-demo title="center vs center-safe"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Item 1 is wider than its cell</span><span class="oc-eg__key oc-eg__key--strong">Inline axis &rarr;</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-items-center</code><div class="oc-eg__note">Item 1 sticks out of both sides of its cell. Its start is cut off at the left edge of the grid and you cannot scroll to it.</div><div class="oc-eg__stage al-fixed al-scroll al-cells al-c2 grid grid-cols-2 gap-0.5 justify-items-center"><div class="oc-eg__item al-wide" style="min-inline-size: 13rem">Product 1 with a long name</div><div class="oc-eg__item">Item 2</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-items-center-safe</code><div class="oc-eg__note">Falls back to start when the item does not fit, so its start stays visible. It only sticks out on the right, over the next cell.</div><div class="oc-eg__stage al-fixed al-scroll al-cells al-c2 grid grid-cols-2 gap-0.5 justify-items-center-safe"><div class="oc-eg__item al-wide" style="min-inline-size: 13rem">Product 1 with a long name</div><div class="oc-eg__item">Item 2</div></div></div>
+</div></div><oc-code lang="html">&lt;!-- justify-items-center: the wide item sticks out of both sides of its cell --&gt;
+&lt;div class="grid grid-cols-2 gap-0.5 justify-items-center"&gt;
+  &lt;div&gt;Product 1 with a long name&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- justify-items-center-safe: falls back to start when the item does not fit --&gt;
+&lt;div class="grid grid-cols-2 gap-0.5 justify-items-center-safe"&gt;
+  &lt;div&gt;Product 1 with a long name&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a step indicator</h3>
+          <p class="oc-section-content__desc">A three-column grid with a circle and a label per step. <code>.justify-items-center</code> centres all six in their columns with one class on the grid.</p>
+
+          <oc-demo title="Step indicator"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">No justify-items class</code><div class="oc-eg__note">The circles have a fixed width, so the default <code>stretch</code> leaves them at the left of each column.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-steps grid grid-cols-3"><span class="al-dot is-done">1</span><span class="al-dot is-done">2</span><span class="al-dot">3</span><span class="al-step">Cart</span><span class="al-step">Details</span><span class="al-step">Payment</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.justify-items-center</code><div class="oc-eg__note">One class centres every circle and every label in its column.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-steps grid grid-cols-3 justify-items-center"><span class="al-dot is-done">1</span><span class="al-dot is-done">2</span><span class="al-dot">3</span><span class="al-step">Cart</span><span class="al-step">Details</span><span class="al-step">Payment</span></div></div></div>
+</div></div><oc-code lang="html">&lt;div class="grid grid-cols-3 justify-items-center"&gt;
+  &lt;span class="step-dot"&gt;1&lt;/span&gt;
+  &lt;span class="step-dot"&gt;2&lt;/span&gt;
+  &lt;span class="step-dot"&gt;3&lt;/span&gt;
+  &lt;span&gt;Cart&lt;/span&gt;
+  &lt;span&gt;Details&lt;/span&gt;
+  &lt;span&gt;Payment&lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
         </div>
       </section>

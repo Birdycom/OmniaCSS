@@ -210,7 +210,7 @@
 
 .oc-block-pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); /* three plans on one row from about 44rem */
   gap: 20px;
 }
 
@@ -270,7 +270,8 @@
 }
 
 .oc-block-pricing-features li::before {
-  content: "\002713 ";
+  content: "\002713"; /* the space after a CSS escape ends the escape, so the gap comes from the margin */
+  margin-inline-end: 0.4em;
   color: var(--oc-block-accent);
   font-weight: 600;
 }
@@ -300,7 +301,7 @@
 
 .oc-block-features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); /* four cards fit on one row from about 44rem, instead of three and a lone one */
   gap: 20px;
   text-align: left;
 }
@@ -402,7 +403,7 @@
 
 .oc-block-footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); /* four columns on one row from about 42rem */
   gap: 32px;
   margin-bottom: 32px;
 }
@@ -452,42 +453,86 @@
    =================================================================== */
 
 .oc-block-cta {
-  background: linear-gradient(135deg, oklch(from var(--color-vividblue-50) l c h / 0.12), oklch(from var(--color-indigo-10) l c h / 0.08));
-  border: 1px solid var(--oc-block-border);
-  border-radius: var(--oc-block-radius);
-  padding: 40px;
-  text-align: center;
+  /* A flat panel: the title and text on the left, the buttons on the right. Under 44rem everything stacks. */
+  display: grid;
+  gap: 0.5rem 2.5rem;
+  align-items: center;
+  box-sizing: border-box;
   max-width: var(--oc-block-max-width);
   margin: 48px auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid var(--oc-border-strong, var(--oc-block-border));
+  border-radius: var(--oc-block-radius);
+  background: var(--oc-card);
+  color: var(--oc-block-text);
+  text-align: start;
 }
 
 .oc-block-cta h2 {
-  margin: 0 0 10px;
-  font-size: 1.5rem;
-  color: var(--oc-block-text);
+  margin: 0;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: inherit;
 }
 
 .oc-block-cta p {
-  margin: 0 0 24px;
+  margin: 0;
+  max-width: 34rem;
   color: var(--oc-block-text-soft);
-  max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
+  text-wrap: pretty;
 }
 
-/* --glow: a panel with two soft lights (brand 1 top start, brand 3 bottom end), a larger title and a narrow text. */
+.oc-block-cta .oc-block-hero-actions { justify-content: flex-start; margin-block-start: 1rem; }
+
+@media (min-width: 44rem) {
+  .oc-block-cta:not(.oc-block-cta--center, .oc-block-cta--glow) { grid-template-columns: minmax(0, 1fr) auto; }
+  .oc-block-cta:not(.oc-block-cta--center, .oc-block-cta--glow) > :is(h2, p) { grid-column: 1; }
+  .oc-block-cta:not(.oc-block-cta--center, .oc-block-cta--glow) > .oc-block-hero-actions { grid-column: 2; grid-row: 1 / span 2; margin-block-start: 0; flex-direction: column; align-items: stretch; }
+  .oc-block-cta:not(.oc-block-cta--center, .oc-block-cta--glow) > .oc-block-hero-actions:only-child,
+  .oc-block-cta:not(.oc-block-cta--center, .oc-block-cta--glow) > h2:first-child:nth-last-child(2) ~ .oc-block-hero-actions { grid-row: 1; }
+}
+
+/* --center: everything in the middle, for a closing band at the end of a page. */
+.oc-block-cta--center { justify-items: center; text-align: center; }
+.oc-block-cta--center p { margin-inline: auto; }
+.oc-block-cta--center .oc-block-hero-actions { justify-content: center; }
+
+/* --solid: the panel in the brand color, with the buttons turned around (light button, brand text). */
+.oc-block-cta--solid {
+  border-color: transparent;
+  background: var(--oc-primary);
+  color: var(--oc-primary-foreground);
+}
+.oc-block-cta--solid p { color: color-mix(in oklch, var(--oc-primary-foreground) 88%, var(--oc-primary)); }
+.oc-block-cta--solid .oc-btn:not(.oc-btn--outline, .oc-btn--ghost) {
+  border-color: transparent;
+  background: var(--oc-primary-foreground);
+  color: var(--oc-primary);
+}
+.oc-block-cta--solid .oc-btn:not(.oc-btn--outline, .oc-btn--ghost):hover { background: color-mix(in oklch, var(--oc-primary-foreground) 90%, var(--oc-primary)); }
+.oc-block-cta--solid .oc-btn:is(.oc-btn--outline, .oc-btn--ghost) {
+  border-color: color-mix(in oklch, var(--oc-primary-foreground) 55%, transparent);
+  background: transparent;
+  color: var(--oc-primary-foreground);
+}
+.oc-block-cta--solid .oc-btn:is(.oc-btn--outline, .oc-btn--ghost):hover { background: color-mix(in oklch, var(--oc-primary-foreground) 14%, transparent); }
+.oc-block-cta--solid .oc-btn:focus-visible { outline: 2px solid var(--oc-primary-foreground); outline-offset: 2px; }
+
+/* --glow: one soft light in the brand color behind the title (no color wash), a larger centered title, narrow text.
+   --oc-cta-glow sets the color of the light. */
 .oc-block-cta--glow {
+  justify-items: center;
+  text-align: center;
   padding: clamp(2.5rem, 6vw, 4.5rem);
-  border-color: var(--oc-border-strong);
-  border-radius: calc(var(--oc-radius-lg, 1.25rem) * 1.6);
   background:
-    radial-gradient(40rem circle at 0% 0%, oklch(from var(--oc-brand-1) l c h / 0.18), transparent 55%),
-    radial-gradient(40rem circle at 100% 100%, oklch(from var(--oc-brand-3) l c h / 0.2), transparent 55%),
+    radial-gradient(60% 90% at 50% 0%, oklch(from var(--oc-cta-glow, var(--oc-primary)) l c h / 0.14), transparent 70%),
     var(--oc-card);
 }
 .oc-block-cta--glow h2 { margin-block-end: 1rem; font-size: clamp(1.8rem, 4vw, 2.75rem); line-height: 1.15; }
-.oc-block-cta--glow p { max-width: 36rem; color: var(--oc-muted-foreground); }
-.oc-block-cta--glow .oc-block-hero-actions { justify-content: center; }
+.oc-block-cta--glow p { max-width: 36rem; margin-inline: auto; color: var(--oc-muted-foreground); }
+.oc-block-cta--glow .oc-block-hero-actions { justify-content: center; margin-block-start: 1.5rem; }
 
 /* ===================================================================
    STATS BLOCK
@@ -921,9 +966,10 @@
 
 .oc-block-authcard-center { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
 
-.oc-block-authsocial { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: 0.5rem; }
+/* Flex, not a grid: a button that ends up alone on a row (three buttons in a narrow form) fills that row. */
+.oc-block-authsocial { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
-.oc-block-authsocial .oc-btn { inline-size: 100%; }
+.oc-block-authsocial .oc-btn { flex: 1 1 7.5rem; }
 
 /* Split: panel + form, switches to two columns by container width */
 
@@ -957,7 +1003,7 @@
   position: absolute;
   inset: 0;
   background:
-    repeating-linear-gradient(135deg, oklch(from var(--oc-primary-foreground) l c h / 0.07) 0 1px, transparent 1px 14px),
+    repeating-linear-gradient(135deg in srgb, oklch(from var(--oc-primary-foreground) l c h / 0.07) 0 1px, transparent 1px 14px),
     linear-gradient(to top, oklch(from var(--oc-primary) l c h / 0.7), transparent 60%);
   pointer-events: none;
 }
@@ -1132,6 +1178,469 @@
 
 .oc-block-dash-table { inline-size: 100%; }
 
+/* parts/app-block-picker.css */
+/* File: packages/blocks/src/parts/app-block-picker.css
+   Map: frame -> head -> tools (search + category chips) -> grid of type cards (radio, preview, name, hint)
+        -> mini previews (text, image, question, callout, link, countdown, tip, video, code) -> foot -> container sizes
+   Block picker: a gallery of the content types a user can add (to a page, a step, a lesson, a form). Each card is a
+   label around a radio, so picking works with a click, a tap or the arrow keys, without JavaScript. The small preview
+   in each card is real markup at a small size, not a grey skeleton. Search and category chips filter with a few
+   optional lines of script (or your framework's state). */
+
+.oc-block-picker {
+  container: oc-block-picker / inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) + 4px);
+  background: var(--oc-card);
+  color: var(--oc-foreground);
+}
+
+.oc-block-picker-head { display: grid; gap: 0.25rem; }
+.oc-block-picker-title { margin: 0; font-size: 1.125rem; font-weight: 650; line-height: 1.3; }
+.oc-block-picker-text { margin: 0; color: var(--oc-muted-foreground); font-size: 0.875rem; line-height: 1.5; }
+
+/* Search left, category chips right; stacked in a narrow container. */
+.oc-block-picker-tools { display: grid; gap: 0.6rem; grid-template-columns: minmax(0, 1fr); align-items: center; }
+.oc-block-picker-tools > .oc-input-group { min-inline-size: 0; }
+.oc-block-picker-tools .oc-chip-filter { margin: 0; }
+
+/* The cards: equal width and equal height in every row (golden rule). */
+.oc-block-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.25rem), 1fr));
+  grid-auto-rows: 1fr;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.oc-block-picker-group { display: contents; }
+.oc-block-picker-group-title {
+  grid-column: 1 / -1;
+  margin: 0.25rem 0 -0.25rem;
+  color: var(--oc-muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.oc-block-picker-group-title:first-child { margin-block-start: 0; }
+
+.oc-block-picker-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.35rem;
+  padding: 0.5rem 0.5rem 0.65rem;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+  background: var(--oc-card);
+  cursor: pointer;
+  transition: border-color var(--oc-transition-fast), background-color var(--oc-transition-fast);
+}
+.oc-block-picker-item[hidden] { display: none; }
+.oc-block-picker-item:hover { border-color: var(--oc-border-strong); background: var(--oc-hover, var(--oc-muted)); }
+/* The radio stays in the accessibility tree and takes the keyboard focus; the card shows the state. */
+.oc-block-picker-input {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.oc-block-picker-item:has(.oc-block-picker-input:checked) {
+  border-color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.07);
+  box-shadow: inset 0 0 0 1px var(--oc-primary);
+}
+.oc-block-picker-item:has(.oc-block-picker-input:focus-visible) {
+  outline: var(--oc-focus-width, 2px) solid var(--oc-ring);
+  outline-offset: 2px;
+}
+/* Disabled: the preview fades and the name turns muted; the hint stays readable, it says why. */
+.oc-block-picker-item:has(.oc-block-picker-input:disabled) { cursor: not-allowed; border-style: dashed; }
+.oc-block-picker-item:has(.oc-block-picker-input:disabled) .oc-block-picker-preview { opacity: 0.45; }
+.oc-block-picker-item:has(.oc-block-picker-input:disabled) .oc-block-picker-name { color: var(--oc-muted-foreground); }
+.oc-block-picker-item:has(.oc-block-picker-input:disabled):hover { border-color: var(--oc-border); background: var(--oc-card); }
+
+/* Check mark in the corner of the picked card (drawn in CSS). */
+.oc-block-picker-item::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.85rem;
+  inset-inline-end: 0.85rem;
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  border-radius: 50%;
+  background: var(--oc-primary) no-repeat center / 0.7rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke=%27white%27 stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.2 5 8.5l4.5-5'/%3E%3C/svg%3E");
+  scale: 0;
+  transition: scale var(--oc-transition-fast);
+  pointer-events: none;
+}
+.oc-block-picker-item:has(.oc-block-picker-input:checked)::after { scale: 1; }
+
+.oc-block-picker-name { font-size: 0.875rem; font-weight: 600; line-height: 1.3; padding-inline: 0.15rem; }
+.oc-block-picker-hint { color: var(--oc-muted-foreground); font-size: 0.75rem; line-height: 1.4; padding-inline: 0.15rem; }
+
+/* ---- Mini previews: real markup at a small size, never focusable (aria-hidden + inert in the markup). ---- */
+.oc-block-picker-preview {
+  display: grid;
+  align-content: center;
+  gap: 0.3rem;
+  aspect-ratio: 16 / 10;
+  padding: 0.55rem 0.65rem;
+  overflow: hidden;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: var(--oc-background);
+  color: var(--oc-foreground);
+  font-size: 0.625rem;
+  line-height: 1.35;
+  pointer-events: none;
+  user-select: none;
+}
+.oc-block-picker-preview > * { min-inline-size: 0; }
+.oc-block-picker-preview b { font-size: 0.75rem; font-weight: 650; }
+.oc-block-picker-preview p { margin: 0; color: var(--oc-muted-foreground); }
+.oc-block-picker-preview :is(iconify-icon, svg[data-icon]) { font-size: 0.9rem; }
+.oc-block-picker-art-video :is(iconify-icon, svg[data-icon]) { font-size: 2rem; }
+
+/* Image: a small landscape in flat palette colors. */
+.oc-block-picker-art-img { display: block; inline-size: 100%; block-size: 100%; border-radius: 0.3rem; }
+.oc-block-picker-preview:has(.oc-block-picker-art-img) { padding: 0.35rem; }
+
+/* Question: a line of text and three answer rows, one picked. */
+.oc-block-picker-art-option {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid var(--oc-border);
+  border-radius: 0.25rem;
+}
+.oc-block-picker-art-option::before {
+  content: "";
+  inline-size: 0.45rem;
+  block-size: 0.45rem;
+  border: 1px solid var(--oc-border-strong);
+  border-radius: 50%;
+  flex: none;
+}
+.oc-block-picker-art-option--on { border-color: var(--oc-primary); }
+.oc-block-picker-art-option--on::before { border-color: var(--oc-primary); background: var(--oc-primary); box-shadow: inset 0 0 0 1.5px var(--oc-background); }
+
+/* Callout: a tinted note with a bar on the left. */
+.oc-block-picker-art-note {
+  padding: 0.3rem 0.45rem;
+  border-inline-start: 3px solid var(--oc-warning);
+  border-radius: 0.25rem;
+  background: oklch(from var(--oc-warning) l c h / 0.14);
+}
+
+/* Link: a small outline button. */
+.oc-block-picker-art-btn {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--oc-border-strong);
+  border-radius: 0.3rem;
+  font-weight: 600;
+}
+
+/* Countdown: the time and a bar that shrinks. */
+.oc-block-picker-art-time { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.oc-block-picker-art-bar { block-size: 0.25rem; border-radius: 1rem; background: var(--oc-muted); overflow: hidden; }
+.oc-block-picker-art-bar::before { content: ""; display: block; inline-size: 60%; block-size: 100%; background: var(--oc-primary); }
+
+/* Tip: a closed row with a chevron. */
+.oc-block-picker-art-row { display: flex; align-items: center; justify-content: space-between; padding: 0.15rem 0.35rem; border: 1px solid var(--oc-border); border-radius: 0.25rem; font-weight: 600; }
+
+/* Video: a dark frame with a play button. */
+.oc-block-picker-art-video {
+  display: grid;
+  place-items: center;
+  block-size: 100%;
+  border-radius: 0.3rem;
+  background: oklch(from var(--oc-primary) 0.26 0.05 h);
+  color: var(--color-white-50);
+}
+.oc-block-picker-preview:has(.oc-block-picker-art-video) { padding: 0.35rem; align-content: stretch; }
+
+/* Code to scan: a QR-like pattern on a white plate (always dark on white, like a real code). */
+.oc-block-picker-art-code { justify-self: center; block-size: 100%; aspect-ratio: 1; padding: 0.2rem; border-radius: 0.2rem; background: var(--color-white-50); color: var(--color-black-50); }
+.oc-block-picker-preview:has(.oc-block-picker-art-code) { padding: 0.35rem; align-content: stretch; }
+.oc-block-picker-preview:has(.oc-block-picker-art-code) > svg { block-size: 100%; min-block-size: 0; }
+
+.oc-block-picker-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; padding-block-start: 0.25rem; border-block-start: 1px solid var(--oc-border); padding-block-start: 1rem; }
+
+.oc-block-picker-empty { grid-column: 1 / -1; margin: 0; padding: 1.5rem; color: var(--oc-muted-foreground); font-size: 0.875rem; text-align: center; }
+.oc-block-picker-empty[hidden] { display: none; }
+
+@container oc-block-picker (min-width: 40rem) {
+  .oc-block-picker { padding: 1.5rem; }
+  .oc-block-picker-tools { grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr); }
+  .oc-block-picker-tools .oc-chip-filter { justify-content: flex-end; }
+  .oc-block-picker-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 10.5rem), 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-block-picker-item, .oc-block-picker-item::after { transition: none; }
+}
+
+/* Sample picture colors, shared by the picker, route-steps and step-view demos (theme based, so light and dark both
+   work). Use them on the shapes of an inline SVG placeholder; a real photo needs none of this. */
+.oc-block-art-sky { fill: light-dark(oklch(from var(--oc-primary) 0.88 0.06 h), oklch(from var(--oc-primary) 0.36 0.07 h)); }
+.oc-block-art-sun { fill: var(--oc-warning); }
+.oc-block-art-land { fill: light-dark(oklch(from var(--oc-success) 0.56 0.12 h), oklch(from var(--oc-success) 0.46 0.1 h)); }
+.oc-block-art-wall { fill: light-dark(oklch(from var(--oc-warning) 0.74 0.09 60), oklch(from var(--oc-warning) 0.56 0.08 60)); }
+.oc-block-art-roof { fill: light-dark(oklch(from var(--oc-destructive) 0.5 0.12 35), oklch(from var(--oc-destructive) 0.42 0.1 35)); }
+
+/* parts/app-content-blocks.css */
+/* File: packages/blocks/src/parts/app-content-blocks.css
+   Map: frame -> top bar (prev/next, title, actions) -> list -> block card (details: head with grip, type, peek,
+        chevron; tools up/down/remove) -> body (fields, answer rows) -> add row -> drag and keyboard states
+        -> container sizes -> reduced motion
+   Content blocks: the editor column of a page, step or lesson. Every block is a card you can open and close
+   (native <details>), move up or down and remove. The up/down/remove buttons and dragging need the small optional
+   script of the snippet (or your framework's state); opening and closing work without it. */
+
+.oc-block-content-blocks {
+  container: oc-content-blocks / inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) + 4px);
+  background: color-mix(in oklab, var(--oc-muted) 45%, var(--oc-card));
+  color: var(--oc-foreground);
+  overflow: clip;
+}
+
+/* ---- Top bar ---- */
+.oc-block-content-blocks-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem 1rem;
+  border-block-end: 1px solid var(--oc-border);
+  background: var(--oc-card);
+}
+.oc-block-content-blocks-nav { display: inline-flex; gap: 0.25rem; flex: none; }
+.oc-block-content-blocks-heading { display: grid; gap: 0.1rem; flex: 1 1 12rem; min-inline-size: 0; line-height: 1.25; }
+.oc-block-content-blocks-title { margin: 0; font-size: 1.0625rem; font-weight: 650; overflow-wrap: anywhere; }
+.oc-block-content-blocks-meta { margin: 0; color: var(--oc-muted-foreground); font-size: 0.8125rem; }
+.oc-block-content-blocks-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+/* ---- List of blocks ---- */
+.oc-block-content-blocks-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 1rem;
+  list-style: none;
+  counter-reset: none;
+}
+.oc-block-content-blocks-item { position: relative; transition: opacity var(--oc-transition-fast); }
+
+.oc-block-content-blocks-card {
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+  background: var(--oc-card);
+  box-shadow: var(--oc-shadow-sm);
+}
+
+/* Head: room on the left for the grip and on the right for the tools (both sit outside the summary, so a click on
+   them never opens or closes the card). The chevron is the last thing on the right. */
+.oc-block-content-blocks-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-block-size: 3rem;
+  padding: 0.4rem 9.5rem 0.4rem 2.6rem;
+  border-radius: var(--oc-radius);
+  cursor: pointer;
+  list-style: none;
+}
+.oc-block-content-blocks-head::-webkit-details-marker { display: none; }
+.oc-block-content-blocks-head:focus-visible { outline: var(--oc-focus-width, 2px) solid var(--oc-ring); outline-offset: 2px; }
+/* Chevron, turned when open. */
+.oc-block-content-blocks-head::after {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(50% - 0.3rem);
+  inset-inline-end: 1.1rem;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-inline-end: 2px solid var(--oc-muted-foreground);
+  border-block-end: 2px solid var(--oc-muted-foreground);
+  rotate: 45deg;
+  translate: 0 -0.1rem;
+  transition: rotate var(--oc-transition-fast), translate var(--oc-transition-fast);
+}
+.oc-block-content-blocks-card[open] > .oc-block-content-blocks-head::after { rotate: 225deg; translate: 0 0.1rem; }
+.oc-block-content-blocks-card[open] > .oc-block-content-blocks-head { border-end-start-radius: 0; border-end-end-radius: 0; }
+
+/* Type label: icon + name, the same look for every block type. */
+.oc-block-content-blocks-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: none;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: var(--oc-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.oc-block-content-blocks-type :is(iconify-icon, svg[data-icon]) { font-size: 0.95rem; color: light-dark(var(--oc-block-type-color, var(--oc-primary)), oklch(from var(--oc-block-type-color, var(--oc-primary)) max(l, 0.74) c h)); }
+
+/* One line of the content, only while the card is closed. */
+.oc-block-content-blocks-peek {
+  min-inline-size: 0;
+  overflow: hidden;
+  color: var(--oc-muted-foreground);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.oc-block-content-blocks-card[open] .oc-block-content-blocks-peek { display: none; }
+
+/* Grip (the free .oc-sortable-row-grip) on the left, tools on the right, both on the head line. */
+.oc-block-content-blocks-item > .oc-sortable-row-grip {
+  position: absolute;
+  inset-block-start: 0.6rem;
+  inset-inline-start: 0.55rem;
+  z-index: 1;
+}
+.oc-block-content-blocks-tools {
+  position: absolute;
+  inset-block-start: 0.5rem;
+  inset-inline-end: 2.6rem;
+  z-index: 1;
+  display: inline-flex;
+  gap: 0.1rem;
+}
+.oc-block-content-blocks-tools .oc-btn:disabled { opacity: 0.35; }
+.oc-block-content-blocks-tools [data-action="remove"]:hover { color: var(--oc-destructive); }
+
+.oc-block-content-blocks-body {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem 1rem;
+  border-block-start: 1px solid var(--oc-border);
+}
+.oc-block-content-blocks-body > * { margin: 0; }
+.oc-block-content-blocks-row { display: grid; gap: 0.75rem; grid-template-columns: minmax(0, 1fr); }
+
+/* Answer rows of a question block: letter (marks the right answer), text field, remove. */
+.oc-block-content-blocks-answers { display: grid; gap: 0.4rem; margin: 0; padding: 0; border: 0; }
+.oc-block-content-blocks-answers > legend { float: inline-start; inline-size: 100%; margin-block-end: 0.4rem; padding: 0; }
+.oc-block-content-blocks-answer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: var(--oc-card);
+}
+.oc-block-content-blocks-answer .oc-input { border-color: transparent; box-shadow: none; background: transparent; }
+.oc-block-content-blocks-answer:focus-within { border-color: var(--oc-border-strong); }
+.oc-block-content-blocks-letter {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: var(--oc-muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.oc-block-content-blocks-letter input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: inherit; }
+.oc-block-content-blocks-letter:has(input:focus-visible) { outline: var(--oc-focus-width, 2px) solid var(--oc-ring); outline-offset: 2px; }
+.oc-block-content-blocks-answer:has(.oc-block-content-blocks-letter input:checked) {
+  border-color: oklch(from var(--oc-success) l c h / 0.6);
+  background: oklch(from var(--oc-success) l c h / 0.08);
+}
+.oc-block-content-blocks-answer:has(.oc-block-content-blocks-letter input:checked) .oc-block-content-blocks-letter {
+  border-color: transparent;
+  background: oklch(from var(--oc-success) min(l, 0.5) c h);
+  color: var(--color-white-50);
+}
+.oc-block-content-blocks-hint { color: var(--oc-muted-foreground); font-size: 0.8125rem; line-height: 1.45; }
+
+/* Add row under the list: a dashed button that opens the menu of block types. */
+.oc-block-content-blocks-foot { padding: 0 1rem 1rem; }
+.oc-block-content-blocks-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  inline-size: 100%;
+  min-block-size: 3rem;
+  border: 1px dashed var(--oc-border-strong);
+  border-radius: var(--oc-radius);
+  background: transparent;
+  color: var(--oc-foreground);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.oc-block-content-blocks-add:hover { border-color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.06); }
+.oc-block-content-blocks-add:focus-visible { outline: var(--oc-focus-width, 2px) solid var(--oc-ring); outline-offset: 2px; }
+
+/* ---- Drag and keyboard states (set by the script) ---- */
+.oc-block-content-blocks-item.is-dragging { opacity: 0.4; }
+.oc-block-content-blocks-item.is-drop-before::before,
+.oc-block-content-blocks-item.is-drop-after::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  block-size: 3px;
+  border-radius: 3px;
+  background: var(--oc-primary);
+}
+.oc-block-content-blocks-item.is-drop-before::before { inset-block-start: -0.45rem; }
+.oc-block-content-blocks-item.is-drop-after::after { inset-block-end: -0.45rem; }
+.oc-block-content-blocks-item:has(> .oc-sortable-row-grip[aria-pressed="true"]) .oc-block-content-blocks-card {
+  border-color: var(--oc-primary);
+  box-shadow: 0 0 0 1px var(--oc-primary), var(--oc-shadow-md);
+}
+
+/* Narrow column: no peek text next to the type, smaller side room. */
+@container oc-content-blocks (max-width: 30rem) {
+  .oc-block-content-blocks-list { padding: 0.75rem; }
+  .oc-block-content-blocks-foot { padding: 0 0.75rem 0.75rem; }
+  .oc-block-content-blocks-peek { display: none; }
+  .oc-block-content-blocks-bar { padding-inline: 0.75rem; }
+}
+@container oc-content-blocks (min-width: 36rem) {
+  .oc-block-content-blocks-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .oc-block-content-blocks-list { padding: 1.25rem; }
+  .oc-block-content-blocks-foot { padding: 0 1.25rem 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-block-content-blocks-item, .oc-block-content-blocks-head::after { transition: none; }
+}
+
 /* parts/app-data-table-look.css */
 /* File: packages/blocks/src/parts/app-data-table-look.css | Map: toolbar controls (2rem, pills) -> header row -> striped rows -> row actions -> footer and pager */
 /* The data table block (server-rendered, also the Livewire DataTable) in the look of the data table component
@@ -1175,6 +1684,475 @@
   .oc-block-datatable .oc-table-footer nav { justify-self: start; }
 }
 
+/* parts/app-route-progress.css */
+/* File: packages/blocks/src/parts/app-route-progress.css
+   Map: frame -> head (title, meta, score) -> progress line -> next-step card (+ finish / over tones) -> list of steps
+        (marker on a route line, name, sub line, distance or points) -> states (done, wrong, current, locked)
+        -> container sizes
+   Route progress: what a visitor or a team sees while walking a route, a tour or a course: how far they are, the next
+   step and every step with its state. No JavaScript: your app sets the states and the numbers. */
+
+.oc-block-route-progress {
+  container: oc-route-progress / inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) + 4px);
+  background: var(--oc-card);
+  color: var(--oc-foreground);
+}
+
+.oc-block-route-progress-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.oc-block-route-progress-title { margin: 0; font-size: 1.125rem; font-weight: 650; line-height: 1.3; }
+.oc-block-route-progress-meta { margin: 0.15rem 0 0; color: var(--oc-muted-foreground); font-size: 0.8125rem; }
+.oc-block-route-progress-score { display: grid; justify-items: end; flex: none; line-height: 1.1; }
+.oc-block-route-progress-score b { font-family: var(--oc-font-display, inherit); font-size: 1.75rem; font-weight: 300; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.oc-block-route-progress-score span { color: var(--oc-muted-foreground); font-size: 0.75rem; }
+
+.oc-block-route-progress-bar { display: grid; gap: 0.4rem; }
+.oc-block-route-progress-bar-label { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8125rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.oc-block-route-progress-bar-label span:last-child { color: var(--oc-muted-foreground); font-weight: 500; }
+
+/* ---- Next step: one calm card with a tinted icon, the text and the distance on the right. ---- */
+.oc-block-route-progress-next {
+  --oc-next-tone: var(--oc-primary);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.85rem;
+  inline-size: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid oklch(from var(--oc-next-tone) l c h / 0.45);
+  border-inline-start-width: 4px;
+  border-radius: var(--oc-radius);
+  background: oklch(from var(--oc-next-tone) l c h / 0.07);
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.oc-block-route-progress-next:hover { background: oklch(from var(--oc-next-tone) l c h / 0.12); }
+.oc-block-route-progress-next:focus-visible { outline: var(--oc-focus-width, 2px) solid var(--oc-ring); outline-offset: 2px; }
+.oc-block-route-progress-next--finish { --oc-next-tone: var(--oc-success); }
+.oc-block-route-progress-next--over { --oc-next-tone: var(--oc-destructive); }
+.oc-block-route-progress-next-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: 50%;
+  background: oklch(from var(--oc-next-tone) min(l, 0.5) c h);
+  color: var(--color-white-50);
+  font-size: 1.3rem;
+}
+.oc-block-route-progress-next-text { display: grid; gap: 0.1rem; min-inline-size: 0; }
+.oc-block-route-progress-next-label { color: light-dark(oklch(from var(--oc-next-tone) min(l, 0.42) c h), oklch(from var(--oc-next-tone) max(l, 0.75) c h)); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.oc-block-route-progress-next-title { font-size: 0.9375rem; font-weight: 650; line-height: 1.3; }
+.oc-block-route-progress-next-sub { color: var(--oc-muted-foreground); font-size: 0.8125rem; }
+.oc-block-route-progress-next-meta { font-size: 1.125rem; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ---- Steps: markers on one route line, a thin line between the rows. ---- */
+.oc-block-route-progress-list { margin: 0; padding: 0; list-style: none; }
+.oc-block-route-progress-item { position: relative; }
+.oc-block-route-progress-item + .oc-block-route-progress-item { border-block-start: 1px solid var(--oc-border); }
+/* The route line: through the marker column, from the first marker to the last. */
+.oc-block-route-progress-item::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(0.5rem + 0.9375rem - 1px);
+  inline-size: 2px;
+  background: var(--oc-border);
+}
+.oc-block-route-progress-item:first-child::before { inset-block-start: 50%; }
+.oc-block-route-progress-item:last-child::before { inset-block-end: 50%; }
+.oc-block-route-progress-item--done::before { background: oklch(from var(--oc-success) l c h / 0.55); }
+
+.oc-block-route-progress-link {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.85rem;
+  inline-size: 100%;
+  min-block-size: 3.5rem;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.oc-block-route-progress-link:hover { background: var(--oc-hover, var(--oc-muted)); }
+.oc-block-route-progress-link:focus-visible { outline: var(--oc-focus-width, 2px) solid var(--oc-ring); outline-offset: 1px; }
+
+.oc-block-route-progress-marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  inline-size: 1.875rem;
+  block-size: 1.875rem;
+  border: 2px solid var(--oc-border-strong);
+  border-radius: 50%;
+  background: var(--oc-card);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.oc-block-route-progress-marker :is(iconify-icon, svg[data-icon]) { font-size: 1rem; }
+.oc-block-route-progress-text { display: grid; gap: 0.1rem; min-inline-size: 0; }
+.oc-block-route-progress-name { overflow: hidden; font-size: 0.875rem; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+.oc-block-route-progress-sub { color: var(--oc-muted-foreground); font-size: 0.8125rem; }
+.oc-block-route-progress-value { color: var(--oc-muted-foreground); font-size: 0.875rem; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Done: filled marker; points in the success color. --wrong: done but without points. */
+.oc-block-route-progress-item--done .oc-block-route-progress-marker {
+  border-color: transparent;
+  background: oklch(from var(--oc-success) min(l, 0.5) c h);
+  color: var(--color-white-50);
+}
+.oc-block-route-progress-item--done .oc-block-route-progress-value { color: light-dark(oklch(from var(--oc-success) min(l, 0.42) c h), var(--oc-success)); }
+.oc-block-route-progress-item--wrong .oc-block-route-progress-marker { background: light-dark(var(--oc-muted-foreground), oklch(from var(--oc-muted-foreground) 0.45 c h)); }
+.oc-block-route-progress-item--wrong .oc-block-route-progress-value { color: var(--oc-muted-foreground); }
+
+/* Current: the step to go to now. */
+.oc-block-route-progress-item--current .oc-block-route-progress-link { background: oklch(from var(--oc-primary) l c h / 0.08); }
+.oc-block-route-progress-item--current .oc-block-route-progress-marker {
+  border-color: var(--oc-primary);
+  color: light-dark(oklch(from var(--oc-primary) min(l, 0.42) c h), var(--oc-primary));
+  box-shadow: 0 0 0 4px oklch(from var(--oc-primary) l c h / 0.18);
+}
+.oc-block-route-progress-item--current .oc-block-route-progress-value { color: var(--oc-foreground); }
+
+/* Locked: not open yet (a finish that opens after N steps). Text stays readable; the marker is dashed. */
+.oc-block-route-progress-item--locked .oc-block-route-progress-marker { border-style: dashed; color: var(--oc-muted-foreground); }
+
+@container oc-route-progress (max-width: 24rem) {
+  .oc-block-route-progress { padding: 1rem; }
+  .oc-block-route-progress-next { grid-template-columns: auto minmax(0, 1fr); }
+  .oc-block-route-progress-next-meta { grid-column: 2; font-size: 0.9375rem; }
+}
+@container oc-route-progress (min-width: 40rem) {
+  .oc-block-route-progress { padding: 1.5rem; }
+}
+
+/* parts/app-route-steps.css */
+/* File: packages/blocks/src/parts/app-route-steps.css
+   Map: frame -> head -> tools (search + kind chips) -> list (counter) -> row (grip, main button with thumb + name + tags,
+        status, menu) -> thumb kinds (number, icon, image) -> selected / drag / filtered states -> foot -> container sizes
+   Route steps: the ordered list of the steps (stops, stations, lessons, tasks) of a route or course in an editor.
+   The order numbers are a CSS counter, so they follow the order after a move by themselves; steps without a number
+   (intro, finish) show an icon and do not count. Moving and the menu actions need the small optional script. */
+
+.oc-block-route-steps {
+  container: oc-route-steps / inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) + 4px);
+  background: var(--oc-card);
+  color: var(--oc-foreground);
+}
+
+.oc-block-route-steps-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  padding: 1rem 1rem 0.5rem;
+}
+.oc-block-route-steps-title { margin: 0; font-size: 1.0625rem; font-weight: 650; }
+.oc-block-route-steps-count { color: var(--oc-muted-foreground); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+
+.oc-block-route-steps-tools { display: grid; gap: 0.6rem; grid-template-columns: minmax(0, 1fr); padding: 0.25rem 1rem 0.75rem; }
+.oc-block-route-steps-tools > .oc-input-group { min-inline-size: 0; }
+.oc-block-route-steps-tools .oc-chip-filter { margin: 0; }
+
+.oc-block-route-steps-list {
+  margin: 0;
+  padding: 0.5rem;
+  border-block: 1px solid var(--oc-border);
+  list-style: none;
+  counter-reset: oc-route-step;
+}
+
+/* Row: grip | main (thumb + text) | status | menu. */
+.oc-block-route-steps-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-areas: "grip main status menu";
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  min-block-size: 3.75rem;
+  margin-block-end: 0.25rem;
+  padding: 0.35rem 0.4rem 0.35rem 0.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--oc-radius);
+  transition: background-color var(--oc-transition-fast), border-color var(--oc-transition-fast), opacity var(--oc-transition-fast);
+}
+.oc-block-route-steps-item:last-child { margin-block-end: 0; }
+.oc-block-route-steps-item:hover { background: var(--oc-hover, var(--oc-muted)); }
+.oc-block-route-steps-item > .oc-sortable-row-grip { grid-area: grip; }
+.oc-block-route-steps-item:has(.oc-block-route-steps-thumb--num) { counter-increment: oc-route-step; }
+
+/* The main part is one button: click (or Enter) opens the step in the editor. */
+.oc-block-route-steps-main {
+  grid-area: main;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-inline-size: 0;
+  padding: 0.15rem;
+  border: 0;
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.oc-block-route-steps-main:focus-visible { outline: var(--oc-focus-width, 2px) solid var(--oc-ring); outline-offset: 2px; }
+.oc-block-route-steps-text { display: grid; gap: 0.2rem; min-inline-size: 0; }
+.oc-block-route-steps-name { overflow: hidden; font-size: 0.875rem; font-weight: 600; line-height: 1.3; white-space: nowrap; text-overflow: ellipsis; }
+.oc-block-route-steps-meta { display: flex; flex-wrap: wrap; gap: 0.1rem 0.4rem; color: var(--oc-muted-foreground); font-size: 0.75rem; line-height: 1.3; }
+.oc-block-route-steps-meta > * + *::before { content: "\00B7"; margin-inline-end: 0.4rem; }
+
+/* Selected step (aria-current on the main button). */
+.oc-block-route-steps-item:has(.oc-block-route-steps-main[aria-current="true"]) {
+  border-color: oklch(from var(--oc-primary) l c h / 0.4);
+  background: oklch(from var(--oc-primary) l c h / 0.08);
+}
+
+/* Thumb: the order number by default, an icon for steps that do not count, or a photo. */
+.oc-block-route-steps-thumb {
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  overflow: hidden;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) + 2px);
+  background: var(--oc-muted);
+  color: var(--oc-foreground);
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.oc-block-route-steps-thumb :is(iconify-icon, svg[data-icon]) {
+  font-size: 1.2rem;
+  /* The tint stays light enough on a dark theme. */
+  color: light-dark(var(--oc-step-color, var(--oc-muted-foreground)), oklch(from var(--oc-step-color, var(--oc-muted-foreground)) max(l, 0.74) c h));
+}
+.oc-block-route-steps-thumb--num {
+  border-color: transparent;
+  background: oklch(from var(--oc-primary) l c h / 0.12);
+  color: light-dark(oklch(from var(--oc-primary) min(l, 0.42) c h), var(--oc-primary));
+  font-family: var(--oc-font-display, inherit);
+}
+.oc-block-route-steps-thumb--num::before { content: counter(oc-route-step); }
+.oc-block-route-steps-thumb :is(img, svg:not([data-icon])) { inline-size: 100%; block-size: 100%; object-fit: cover; }
+/* A photo thumb still shows its number in a small corner tag. */
+.oc-block-route-steps-thumb--num:has(img, svg:not([data-icon])) { position: relative; }
+.oc-block-route-steps-thumb--num:has(img, svg:not([data-icon]))::before {
+  position: absolute;
+  inset-block-end: 0.1rem;
+  inset-inline-end: 0.1rem;
+  min-inline-size: 1rem;
+  padding: 0 0.2rem;
+  border-radius: 0.3rem;
+  background: var(--oc-card);
+  color: var(--oc-foreground);
+  font-size: 0.625rem;
+  line-height: 1rem;
+  text-align: center;
+}
+
+.oc-block-route-steps-status { grid-area: status; }
+.oc-block-route-steps-menu { grid-area: menu; }
+
+/* Filtered out (.is-filtered, set by the script): collapsed but still counted, so the numbers stay the real ones.
+   Not the hidden attribute: OmniaCSS makes [hidden] display: none, and a step with display: none is not counted. */
+.oc-block-route-steps-item.is-filtered {
+  visibility: hidden;
+  min-block-size: 0;
+  block-size: 0;
+  margin: 0;
+  padding-block: 0;
+  overflow: hidden;
+  border-width: 0;
+}
+.oc-block-route-steps-empty { margin: 0; padding: 1rem; color: var(--oc-muted-foreground); font-size: 0.875rem; text-align: center; }
+.oc-block-route-steps-empty[hidden] { display: none; }
+
+/* Drag and keyboard states (set by the script). */
+.oc-block-route-steps-item.is-dragging { opacity: 0.4; }
+.oc-block-route-steps-item.is-drop-before { box-shadow: 0 -2px 0 var(--oc-primary); }
+.oc-block-route-steps-item.is-drop-after { box-shadow: 0 2px 0 var(--oc-primary); }
+.oc-block-route-steps-item:has(> .oc-sortable-row-grip[aria-pressed="true"]) { border-color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.08); }
+
+.oc-block-route-steps-foot { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.75rem 1rem 1rem; }
+
+/* Narrow column: the status goes under the name. */
+@container oc-route-steps (max-width: 26rem) {
+  .oc-block-route-steps-item { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "grip main menu" ". status ."; }
+  .oc-block-route-steps-status { justify-self: start; margin-inline-start: 3.4rem; }
+}
+@container oc-route-steps (min-width: 34rem) {
+  .oc-block-route-steps-tools { grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr); align-items: center; }
+  .oc-block-route-steps-tools .oc-chip-filter { justify-content: flex-end; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-block-route-steps-item { transition: none; }
+}
+
+/* parts/app-step-view.css */
+/* File: packages/blocks/src/parts/app-step-view.css
+   Map: frame -> top row (back, distance) -> picture (photo or empty with a large number, badges on top) -> title,
+        place, text -> task line -> content blocks (tip, note, link, countdown) -> question (kicker, text, answers,
+        send, hint) -> container sizes -> reduced motion
+   Step view: one step of a route, tour or course as the visitor sees it, with the content blocks a writer added
+   (tip, note, link, countdown) and a question. Uses the free collapsible, alert, button and radio components; no
+   JavaScript (your app runs the countdown and sends the answer). */
+
+.oc-block-step-view {
+  container: oc-step-view / inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  /* A reading column: wide enough for a tablet, never a full desktop row (--oc-step-view-max). */
+  max-inline-size: var(--oc-step-view-max, 40rem);
+  margin-inline: auto;
+  padding: 1rem;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) + 4px);
+  background: var(--oc-card);
+  color: var(--oc-foreground);
+}
+.oc-block-step-view > * { margin: 0; }
+
+.oc-block-step-view-top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+
+/* Picture: a photo, or a flat surface with the step number when there is none. Badges sit on it, solid. */
+.oc-block-step-view-picture {
+  position: relative;
+  display: grid;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--oc-radius);
+  background: var(--oc-muted);
+}
+.oc-block-step-view-picture > :is(img, svg:not([data-icon])) { grid-area: 1 / 1; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.oc-block-step-view-picture--empty::before {
+  content: attr(data-number);
+  grid-area: 1 / 1;
+  place-self: center;
+  color: oklch(from var(--oc-foreground) l c h / 0.14);
+  font-family: var(--oc-font-display, inherit);
+  font-size: clamp(4rem, 30cqi, 9rem);
+  font-weight: 700;
+  line-height: 1;
+}
+.oc-block-step-view-badges {
+  grid-area: 1 / 1;
+  align-self: start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.6rem;
+}
+.oc-block-step-view-badges .oc-badge { box-shadow: var(--oc-shadow-sm); }
+/* On a photo the tinted badges get a solid card behind them, so they stay readable on any picture. */
+.oc-block-step-view-badges .oc-badge--info { background: color-mix(in oklab, var(--oc-primary) 12%, var(--oc-card)); }
+.oc-block-step-view-badges .oc-badge--success { background: color-mix(in oklab, var(--oc-success) 16%, var(--oc-card)); }
+.oc-block-step-view-badges .oc-badge--warning { background: color-mix(in oklab, var(--oc-warning) 16%, var(--oc-card)); }
+.oc-block-step-view-badges .oc-badge--outline { background: var(--oc-card); }
+
+.oc-block-step-view-title { font-size: 1.375rem; font-weight: 650; line-height: 1.25; text-wrap: balance; }
+.oc-block-step-view-place { display: flex; align-items: center; gap: 0.35rem; margin-block-start: -0.5rem; color: var(--oc-muted-foreground); font-size: 0.875rem; }
+.oc-block-step-view-place :is(iconify-icon, svg[data-icon]) { flex: none; font-size: 1.05rem; }
+.oc-block-step-view-text { font-size: 0.9375rem; line-height: 1.6; }
+.oc-block-step-view-text > * { margin: 0; }
+.oc-block-step-view-text > * + * { margin-block-start: 0.6rem; }
+
+/* Task: what to do at this step, on a line with an accent bar. */
+.oc-block-step-view-task {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  border-inline-start: 4px solid var(--oc-primary);
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: oklch(from var(--oc-primary) l c h / 0.08);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.oc-block-step-view-task :is(iconify-icon, svg[data-icon]) { flex: none; margin-block-start: 0.1rem; font-size: 1.15rem; color: light-dark(oklch(from var(--oc-primary) min(l, 0.42) c h), var(--oc-primary)); }
+
+/* Content blocks of the step, one under the other. */
+.oc-block-step-view-blocks { display: grid; gap: 0.75rem; }
+.oc-block-step-view-blocks > .oc-btn { justify-self: start; }
+.oc-block-step-view-blocks > .oc-alert { margin: 0; }
+
+/* Countdown: label left, time right, a bar along the bottom that shrinks (--oc-step-view-left, set by your app). */
+.oc-block-step-view-countdown {
+  --oc-countdown-tone: var(--oc-primary);
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 1rem 0.9rem;
+  overflow: hidden;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+}
+.oc-block-step-view-countdown::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  inline-size: var(--oc-step-view-left, 100%);
+  block-size: 0.25rem;
+  background: var(--oc-countdown-tone);
+  transition: inline-size 0.25s linear;
+}
+.oc-block-step-view-countdown-label { color: var(--oc-muted-foreground); font-size: 0.875rem; font-weight: 600; }
+.oc-block-step-view-countdown-time { font-size: 1.75rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1; }
+.oc-block-step-view-countdown--low { --oc-countdown-tone: var(--oc-warning); }
+.oc-block-step-view-countdown--low .oc-block-step-view-countdown-time { color: light-dark(oklch(from var(--oc-warning) min(l, 0.46) c h), var(--oc-warning)); }
+.oc-block-step-view-countdown--done { --oc-countdown-tone: var(--oc-destructive); }
+.oc-block-step-view-countdown--done .oc-block-step-view-countdown-time { color: light-dark(oklch(from var(--oc-destructive) min(l, 0.5) c h), oklch(from var(--oc-destructive) max(l, 0.72) c h)); font-size: 1.25rem; }
+
+/* Question. */
+.oc-block-step-view-question { display: grid; gap: 0.75rem; padding-block-start: 1rem; border-block-start: 1px solid var(--oc-border); }
+.oc-block-step-view-question > * { margin: 0; }
+.oc-block-step-view-kicker { color: var(--oc-muted-foreground); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.oc-block-step-view-ask { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; }
+.oc-block-step-view-answers { display: grid; gap: 0.5rem; grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr; margin: 0; padding: 0; border: 0; }
+.oc-block-step-view-answers .oc-radio-item--card { min-block-size: 3rem; }
+.oc-block-step-view-send { justify-self: stretch; }
+.oc-block-step-view-hint { color: var(--oc-muted-foreground); font-size: 0.8125rem; text-align: center; }
+
+@container oc-step-view (min-width: 34rem) {
+  .oc-block-step-view { padding: 1.25rem; gap: 1.1rem; }
+  .oc-block-step-view-answers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .oc-block-step-view-send { justify-self: start; min-inline-size: 12rem; }
+  .oc-block-step-view-hint { text-align: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-block-step-view-countdown::after { transition: none; }
+}
+
 /* parts/site-about-timeline.css */
 /* File: packages/blocks/src/parts/site-about-timeline.css
    Map: section -> split grid -> media placeholder + badge -> copy -> timeline spacing -> reverse variant
@@ -1188,13 +2166,13 @@
 }
 
 .oc-block-about-inner { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
-@container (min-width: 52rem) {
+@container (min-width: 44rem) {
   .oc-block-about-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   /* Reverse: picture on the right. */
   .oc-block-about--reverse .oc-block-about-media { order: 2; }
 }
 
-/* Picture: an <img> inside, or the accent gradient placeholder when empty. */
+/* Picture: an <img> inside, or a quiet placeholder when empty: a soft tint of the accent color with a faint weave. */
 .oc-block-about-media {
   position: relative;
   margin: 0;
@@ -1202,8 +2180,8 @@
   border: 1px solid var(--oc-border);
   border-radius: var(--oc-radius-lg, 1.25rem);
   background:
-    radial-gradient(circle at 25% 20%, color-mix(in oklch, var(--color-white-50) 28%, transparent), transparent 40%),
-    linear-gradient(140deg, var(--oc-accent-from), var(--oc-accent-to));
+    repeating-linear-gradient(135deg in srgb, oklch(from var(--oc-accent-from) l c h / 0.12) 0 1px, transparent 1px 14px),
+    color-mix(in oklch, var(--oc-accent-from) 18%, var(--oc-muted));
   overflow: hidden;
 }
 .oc-block-about-media > img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
@@ -1241,8 +2219,8 @@
 /* parts/site-contact-form.css */
 /* File: packages/blocks/src/parts/site-contact-form.css
    Map: section -> layout (form panel | card column) -> panel title + intro -> cards (tile, title, lines) -> narrow
-   Contact form block: the form in a panel with a glow (.oc-panel--glow + .oc-form--filled) next to a column of contact
-   cards (.oc-block-contact-card from the contact-grid block). Script: contact-form.js (optional). */
+   Contact form block: the form in a flat panel (.oc-panel + .oc-form--filled) next to a list of contact
+   details (.oc-block-contact-card from the contact-grid block). Script: contact-form.js (optional). */
 
 .oc-block-contact-form {
   max-inline-size: var(--oc-block-max-width, 1200px);
@@ -1271,23 +2249,53 @@
 }
 .oc-block-contact-form .oc-alert { margin: 0 0 1.25rem; }
 
+/* The form panel is flat: no glow, also when older markup still carries .oc-panel--glow. */
+.oc-block-contact-form .oc-panel { background: var(--oc-card); }
+
+/* The contact details: one quiet list next to the form. Each .oc-block-contact-card is a row (icon, title, lines)
+   with a thin line between rows, not a card of its own. */
 .oc-block-contact-form-cards {
   display: grid;
-  gap: 1.25rem;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius-lg, 1.25rem);
+  background: var(--oc-card);
 }
-.oc-block-contact-form-cards .oc-block-contact-card > .oc-icon-tile { margin-block-end: 0.75rem; }
-/* Lines stay muted; a link turns to the foreground color on hover. */
-.oc-block-contact-form-cards a.oc-block-contact-line {
+.oc-block-contact-form-cards .oc-block-contact-card {
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.875rem;
+  row-gap: 0.15rem;
+  padding: 1.1rem 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.oc-block-contact-form-cards .oc-block-contact-card + .oc-block-contact-card { border-block-start: 1px solid var(--oc-border); }
+.oc-block-contact-form-cards .oc-block-contact-card > * { grid-column: 2; }
+/* The icon: a plain glyph in the text color, no tile around it. */
+.oc-block-contact-form-cards .oc-block-contact-card > :is(.oc-icon-tile, .oc-product-mark) {
+  grid-column: 1;
+  grid-row: 1 / span 9;
+  align-self: start;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
   color: var(--oc-muted-foreground);
-  font-weight: 400;
+  font-size: 1.25rem;
 }
-.oc-block-contact-form-cards a.oc-block-contact-line:hover { color: var(--oc-foreground); }
+.oc-block-contact-form-cards .oc-block-contact-title { margin: 0; font-size: 0.95rem; font-weight: 600; }
+/* Lines stay muted; a link is in the text color and underlines on hover. */
+.oc-block-contact-form-cards a.oc-block-contact-line { color: var(--oc-foreground); font-weight: 500; }
+.oc-block-contact-form-cards a.oc-block-contact-line:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-/* When the block is narrower than 52rem (about a 960px screen) the cards move under the form, side by side as far as
-   they fit. A container query, so it also works in a sidebar layout or a narrow column. */
+/* When the block is narrower than 52rem (about a 960px screen) the contact details move under the form. A container query, so it also works in a sidebar layout or a narrow column. */
 @container (max-width: 52rem) {
   .oc-block-contact-form-layout { grid-template-columns: 1fr; }
-  .oc-block-contact-form-cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
 }
 
 /* parts/site-contact-grid.css */
@@ -1315,6 +2323,8 @@
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
   gap: 1.25rem;
 }
+/* Exactly three items: narrower minimum, so they share one row instead of two plus a lone one. */
+.oc-block-contact-grid:has(> :nth-child(3):last-child) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
 
 .oc-block-contact-card {
   display: grid;
@@ -1393,8 +2403,8 @@ a.oc-block-contact-line:hover { color: var(--oc-brand-1); }
   text-align: center;
 }
 
-/* Split: head on the left, questions on the right (from 48rem container width). */
-@container (min-width: 48rem) {
+/* Split: head on the left, questions on the right (from 44rem container width). */
+@container (min-width: 44rem) {
   .oc-block-faq--split .oc-block-faq-inner {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     align-items: start;
@@ -1516,18 +2526,19 @@ a.oc-block-contact-line:hover { color: var(--oc-brand-1); }
 
 .oc-block-portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--oc-portfolio-min, 18rem)), 1fr));
+  /* auto-fit: three cards fill one row of three, also in a 45rem column; empty tracks collapse on a wide page. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--oc-portfolio-min, 14rem)), 1fr));
   gap: 1.5rem;
 }
 
 /* Two columns: bigger cards (fewer, more important projects). */
-.oc-block-portfolio--two { --oc-portfolio-min: 26rem; }
+.oc-block-portfolio--two { --oc-portfolio-min: 20rem; }
 
 /* parts/site-profile-header.css */
 /* File: packages/blocks/src/parts/site-profile-header.css
    Map: section -> banner -> bar (overhanging avatar, info, actions) -> tab bar -> compact variant
    Profile header block: banner, an avatar that overlaps the banner edge, name + meta, actions and link tabs.
-   Banner image: style="--oc-profile-banner: url(...)" (default: an accent gradient). */
+   Banner image: style="--oc-profile-banner: url(...)" (default: a soft tint of the accent color). */
 
 .oc-block-profile {
   container-type: inline-size;
@@ -1536,12 +2547,13 @@ a.oc-block-contact-line:hover { color: var(--oc-brand-1); }
 }
 
 .oc-block-profile-banner {
-  aspect-ratio: 6 / 1;
-  min-block-size: 7rem;
+  /* 6:1 of the block width, at least 7rem. Not aspect-ratio + min-block-size: Chrome then widens the banner
+     to 6 x 7rem (672px) and it leaves the screen on a phone. */
+  block-size: max(7rem, 100cqi / 6);
   border-radius: var(--oc-block-radius, 16px);
   background:
-    var(--oc-profile-banner, radial-gradient(circle at 85% 30%, color-mix(in oklch, var(--color-white-50) 25%, transparent), transparent 40%)),
-    linear-gradient(120deg, var(--oc-accent-from), var(--oc-accent-to));
+    var(--oc-profile-banner, repeating-linear-gradient(135deg in srgb, oklch(from var(--oc-accent-from) l c h / 0.12) 0 1px, transparent 1px 14px)),
+    color-mix(in oklch, var(--oc-accent-from) 18%, var(--oc-muted));
   background-size: cover;
   background-position: center;
 }
@@ -1608,10 +2620,10 @@ label.oc-block-profile-tab { position: relative; cursor: pointer; }
 .oc-block-profile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
 .oc-block-profile-grid > li { display: grid; gap: 0.4rem; font-size: 0.875rem; }
 .oc-block-profile-grid small { color: var(--oc-muted-foreground); }
-.oc-block-profile-thumb { aspect-ratio: 16 / 9; border-radius: var(--oc-radius); background: linear-gradient(135deg, var(--oc-accent-from, var(--oc-primary)), var(--oc-accent-to, var(--oc-primary))); opacity: 0.85; }
+.oc-block-profile-thumb { aspect-ratio: 16 / 9; border-radius: var(--oc-radius); background: repeating-linear-gradient(135deg in srgb, oklch(from var(--oc-accent-from, var(--oc-primary)) l c h / 0.12) 0 1px, transparent 1px 14px), color-mix(in oklch, var(--oc-accent-from, var(--oc-primary)) 18%, var(--oc-muted)); opacity: 0.85; }
 
 /* Compact: low banner and a smaller avatar. */
-.oc-block-profile--compact .oc-block-profile-banner { aspect-ratio: 10 / 1; min-block-size: 4.5rem; }
+.oc-block-profile--compact .oc-block-profile-banner { block-size: max(4.5rem, 100cqi / 10); }
 .oc-block-profile--compact .oc-block-profile-avatar.oc-avatar { width: 4.5rem; height: 4.5rem; margin-block-start: -2.25rem; font-size: 1.4rem; }
 
 /* Narrow: the actions go below the info, full width. */

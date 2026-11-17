@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Selectors & Pseudo-classes","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .se-tabs { display: grid; gap: 0.75rem; inline-size: min(100%, 30rem); }\n    .se-tablist { display: flex; gap: 0.4rem; }\n    .se-tablist a { padding: 0.45rem 0.9rem; border-radius: 8px; background: var(--oc-muted); color: var(--oc-foreground); text-decoration: none; font-weight: 600; font-size: 0.85rem; }\n    .se-tabs:has(#se-p1:target) a[href=\"#se-p1\"], .se-tabs:has(#se-p2:target) a[href=\"#se-p2\"], .se-tabs:has(#se-p3:target) a[href=\"#se-p3\"], .se-tabs:not(:has(:target)) a[href=\"#se-p1\"] { background: var(--color-vividblue-80); color: var(--color-white-50); }\n    .se-panel { padding: 1rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); scroll-margin-top: 6rem; }\n    .se-tabs:not(:has(:target)) > .se-panel:first-of-type { display: block; }\n    .se-btn { padding: 0.5rem 1rem; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; font-weight: 600; }\n    .se-form { display: grid; gap: 0.4rem; inline-size: min(100%, 24rem); padding: 1rem; border: 2px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); transition: border-color 0.2s; }\n    .se-form label { font-size: 0.85rem; font-weight: 600; color: var(--oc-foreground); }\n    .se-form input { box-sizing: border-box; padding: 0.5rem 0.65rem; border-radius: 8px; background: var(--oc-background); color: var(--oc-foreground); font: inherit; }\n    .se-form small { font-size: 0.8rem; }\n    .se-pick { display: flex; flex-wrap: wrap; gap: 0.6rem; }\n    .se-pick label { display: grid; gap: 0.2rem; inline-size: 9rem; padding: 0.75rem; border: 2px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); cursor: pointer; font-size: 0.85rem; }\n    .se-pick input { accent-color: var(--color-vividblue-80); }\n    .se-drop { margin: 0; color: var(--oc-foreground); line-height: 1.5; }\n    .se-pe { display: grid; gap: 1rem; justify-items: start; }\n    .se-drop::first-letter { margin-inline-end: 0.08em; font-size: 3.2em; line-height: 0.8; font-weight: 800; }\n    .se-file::file-selector-button { margin-inline-end: 0.75rem; padding: 0.4rem 0.8rem; border: 0; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Selectors & Pseudo-classes","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head": ["<style>\n    .se-tabs { display: grid; gap: 0.75rem; inline-size: 100%; }\n    .se-tablist { display: flex; gap: 0.4rem; }\n    .se-tablist a { padding: 0.7rem 1.2rem; border-radius: 8px; background: var(--oc-muted); color: var(--oc-foreground); text-decoration: none; font-weight: 600; font-size: 1rem; }\n    .se-tabs:has(#se-p1:target) a[href=\"#se-p1\"], .se-tabs:has(#se-p2:target) a[href=\"#se-p2\"], .se-tabs:has(#se-p3:target) a[href=\"#se-p3\"], .se-tabs:not(:has(:target)) a[href=\"#se-p1\"] { background: var(--color-vividblue-90); color: var(--color-white-50); }\n    .se-panel { min-block-size: 7rem; padding: 1.25rem 1.5rem; font-size: 1.05rem; color: var(--oc-foreground); border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); scroll-margin-top: 6rem; }\n    .se-tabs:not(:has(:target)) > .se-panel:first-of-type { display: block; }\n    .se-btn { justify-self: start; padding: 0.8rem 1.4rem; font-size: 1.05rem !important; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; font-weight: 600; }\n    .se-form { display: grid; gap: 0.6rem; inline-size: 100%; padding: 1.5rem; font-size: 1.05rem; border: 2px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); transition: border-color 0.2s; }\n    .se-form label { font-size: 1rem; font-weight: 600; color: var(--oc-foreground); }\n    .se-form input { box-sizing: border-box; padding: 0.8rem 1rem; font-size: 1.05rem !important; border-radius: 8px; background: var(--oc-background); color: var(--oc-foreground); font: inherit; }\n    .se-form small { font-size: 0.95rem; font-weight: 600; }\n    .se-pick { display: flex; flex-wrap: wrap; gap: 0.75rem; inline-size: 100%; }\n    .se-pick input { justify-self: start; margin: 0 0 0.25rem; }\n    .se-pick label { display: grid; gap: 0.2rem; flex: 1 1 12rem; padding: 1rem; border: 2px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); cursor: pointer; font-size: 1rem; min-block-size: 7rem; align-content: start; }\n    .se-pick b { font-size: 1.2rem; }\n    .se-pick input { accent-color: var(--color-vividblue-80); }\n    .se-drop { margin: 0; color: var(--oc-foreground); line-height: 1.5; }\n    .se-drop::first-letter { margin-inline-end: 0.08em; line-height: 0.8; }\n    .se-file::file-selector-button { margin-inline-end: 0.75rem; padding: 0.4rem 0.8rem; border: 0; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; }\n  \n  \n    /* Inside the example stages: room around the sample. */\n    .se-stage { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; justify-items: start; padding: 1.25rem; }\n    .se-stage--center { justify-items: center; }\n    .se-stage--center > .se-btn { justify-self: center; }\n    .se-stage > .se-file { box-sizing: border-box; max-inline-size: 100%; }\n  </style>"]}-->
 <section class="oc-docs-section" id="selectors">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Selectors &amp; Pseudo-classes</h2>
@@ -38,45 +38,62 @@
           </div>
 
           <h3 class="oc-section-content__title mt-10" id="target">:target — tabs without JavaScript</h3>
-          <p class="oc-section-content__desc">A link to <code>#id</code> makes that element <code>:target</code>. The panels are <code>d-none target:block</code>; <code>:has()</code> highlights the active tab and shows the first panel when nothing is targeted. Use <code>scroll-margin-top</code> so a sticky header does not cover the target.</p>
-          <oc-demo title="d-none target:block">
-            <div class="se-tabs">
+          <p class="oc-section-content__desc">A link to <code>#id</code> makes that element <code>:target</code>, and <code>target:block</code> shows it. The catch: the browser also scrolls the target to the top of the window. In these tabs the links point to small markers that are fixed at the top of the window, so there is nothing to scroll; each panel follows its marker with <code>peer-target/name:block</code>. <code>:has()</code> highlights the active tab and shows the first panel when nothing is targeted. When the jump is welcome (a long page with sections), put <code>target:block</code> or a highlight right on the section and use <code>scroll-margin-top</code> so a sticky header does not cover it.</p>
+          <oc-demo title="d-none peer-target:block (tabs with :target that do not scroll the page)">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key oc-eg__key--strong">Click Overview, Details or Reviews</span></div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.d-none · peer-target/p2:block</code><div class="oc-eg__note">Click a tab: the address gets #se-p2 or #se-p3, that marker becomes :target, and only the panel after it is shown. The page does not move.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage"><div class="se-tabs">
+              <span id="se-p1" class="peer/p1 fixed top-0" aria-hidden="true"></span>
+              <span id="se-p2" class="peer/p2 fixed top-0" aria-hidden="true"></span>
+              <span id="se-p3" class="peer/p3 fixed top-0" aria-hidden="true"></span>
               <nav class="se-tablist" aria-label="Demo tabs"><a href="#se-p1">Overview</a><a href="#se-p2">Details</a><a href="#se-p3">Reviews</a></nav>
-              <div id="se-p1" class="se-panel d-none target:block">Panel 1: the URL now ends in <code>#se-p1</code>.</div>
-              <div id="se-p2" class="se-panel d-none target:block">Panel 2: shareable — the link opens this tab.</div>
-              <div id="se-p3" class="se-panel d-none target:block">Panel 3: the back button goes to the previous tab.</div>
-            </div>
-          <oc-code lang="html">&lt;div class="se-tabs"&gt;
-  &lt;nav&gt;&lt;a href="#se-p1"&gt;Overview&lt;/a&gt; &lt;a href="#se-p2"&gt;Details&lt;/a&gt; &lt;a href="#se-p3"&gt;Reviews&lt;/a&gt;&lt;/nav&gt;
-  &lt;div id="se-p1" class="d-none target:block"&gt;…&lt;/div&gt;
-  &lt;div id="se-p2" class="d-none target:block"&gt;…&lt;/div&gt;
-  &lt;div id="se-p3" class="d-none target:block"&gt;…&lt;/div&gt;
+              <div class="se-panel d-none peer-target/p1:block"><strong>Overview.</strong> Product 1 is a light chair for a small office. The address now ends in <code>#se-p1</code>.</div>
+              <div class="se-panel d-none peer-target/p2:block"><strong>Details.</strong> Width 48 cm, height 82 cm, weight 4 kg. Share the address and this tab opens.</div>
+              <div class="se-panel d-none peer-target/p3:block"><strong>Reviews.</strong> Customer 1: "Easy to set up." The back button of the browser goes to the previous tab.</div>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="tabs"&gt;
+  &lt;!-- the link targets a marker fixed at the top of the window: the browser has nothing to scroll --&gt;
+  &lt;span id="p1" class="peer/p1 fixed top-0"&gt;&lt;/span&gt;
+  &lt;span id="p2" class="peer/p2 fixed top-0"&gt;&lt;/span&gt;
+  &lt;span id="p3" class="peer/p3 fixed top-0"&gt;&lt;/span&gt;
+  &lt;nav&gt;&lt;a href="#p1"&gt;Overview&lt;/a&gt; &lt;a href="#p2"&gt;Details&lt;/a&gt; &lt;a href="#p3"&gt;Reviews&lt;/a&gt;&lt;/nav&gt;
+  &lt;div class="d-none peer-target/p1:block"&gt;Overview …&lt;/div&gt;
+  &lt;div class="d-none peer-target/p2:block"&gt;Details …&lt;/div&gt;
+  &lt;div class="d-none peer-target/p3:block"&gt;Reviews …&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
-  .se-tabs:not(:has(:target)) &gt; div:first-of-type { display: block; }
-  .se-tabs:has(#se-p2:target) a[href="#se-p2"] { background: var(--color-vividblue-80); }
+  /* first panel and first tab when nothing is targeted yet; the active tab */
+  .tabs:not(:has(:target)) &gt; div:first-of-type { display: block; }
+  .tabs:not(:has(:target)) a[href="#p1"],
+  .tabs:has(#p1:target) a[href="#p1"],
+  .tabs:has(#p2:target) a[href="#p2"],
+  .tabs:has(#p3:target) a[href="#p3"] { background: var(--color-vividblue-90); color: var(--color-white-50); }
 &lt;/style&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="focus-visible">:focus-visible — a focus ring for keyboard users only</h3>
           <p class="oc-section-content__desc"><code>:focus</code> also matches after a mouse click; <code>:focus-visible</code> only when the browser decides a ring helps (keyboard, programmatic focus). Click both buttons, then press Tab.</p>
           <oc-demo title="focus: versus focus-visible:">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <button type="button" class="se-btn outline-none focus:outline-solid focus:outline-2 focus:outline-orange-50 outline-offset-2">focus: (also on click)</button>
-              <button type="button" class="se-btn outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80 outline-offset-2">focus-visible: (keyboard)</button>
-            </div>
-          <oc-code lang="html">&lt;button class="outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80 outline-offset-2"&gt;
-  Save
-&lt;/button&gt;</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.focus:outline-orange-50</code><div class="oc-eg__note">Clicking with the mouse also shows the orange ring.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage se-stage--center"><button type="button" class="se-btn outline-none focus:outline-solid focus:outline-2 focus:outline-orange-50 outline-offset-2">Click me</button></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.focus-visible:outline-vividblue-80</code><div class="oc-eg__note">A mouse click shows no ring; the keyboard (Tab) does.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage se-stage--center"><button type="button" class="se-btn outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80 outline-offset-2">Click me, then press Tab</button></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- ring on every focus, also after a mouse click --&gt;
+&lt;button class="outline-none focus:outline-solid focus:outline-2 focus:outline-orange-50 outline-offset-2"&gt;Click me&lt;/button&gt;
+
+&lt;!-- ring only when the browser thinks it helps (keyboard) --&gt;
+&lt;button class="outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80 outline-offset-2"&gt;Click me, then press Tab&lt;/button&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="user-valid">:user-valid and :user-invalid — validation that waits for the user</h3>
           <p class="oc-section-content__desc"><code>:invalid</code> is red before anyone typed. <code>:user-invalid</code> waits until the user changed the field and left it (or submitted). The message uses <code>peer-user-invalid:block</code>, the form border reacts with <code>has-[:user-invalid]:</code>.</p>
           <oc-demo title="user-invalid:, user-valid:, peer-user-invalid:, has-[:user-invalid]:">
-            <form class="se-form has-[:user-invalid]:border-red-60 has-[:user-valid]:border-green-50" novalidate>
-              <label for="se-mail">E-mail</label>
-              <input id="se-mail" type="email" required placeholder="you@example.com" class="peer border-2 border-solid border-mistblue-20 user-invalid:border-red-60 user-valid:border-green-50 outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">user-invalid: · user-valid: · peer-user-invalid: · has-[:user-invalid]:</code><div class="oc-eg__note">Type something in the field, then click outside it: the borders and the message follow what you typed.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage"><form class="se-form has-[:user-invalid]:border-red-60 has-[:user-valid]:border-green-50" novalidate>
+              <label for="se-mail">E-mail (type something, then click outside the field)</label>
+              <input id="se-mail" type="email" required placeholder="info@company1.example" class="peer border-2 border-solid border-mistblue-20 user-invalid:border-red-60 user-valid:border-green-50 outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">
               <small class="d-none peer-user-invalid:block text-red-60">Please enter a valid e-mail address.</small>
               <small class="d-none peer-user-valid:block text-green-60">Looks good.</small>
-            </form>
+            </form></div></div>
+            </div></div>
           <oc-code lang="html">&lt;form class="has-[:user-invalid]:border-red-60 has-[:user-valid]:border-green-50"&gt;
   &lt;input type="email" required
          class="peer border-2 border-solid border-mistblue-20 user-invalid:border-red-60 user-valid:border-green-50"&gt;
@@ -86,14 +103,22 @@
 
           <h3 class="oc-section-content__title mt-10" id="has">:has() — style the parent</h3>
           <p class="oc-section-content__desc"><code>has-[input:checked]:</code> styles a card when the radio inside it is selected. The whole card is the label, so it is one click target.</p>
-          <oc-demo title="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20">
-            <div class="se-pick">
-              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20"><input type="radio" name="se-plan" checked> <b>Starter</b> Free</label>
-              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20"><input type="radio" name="se-plan"> <b>Pro</b> per month</label>
-              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20"><input type="radio" name="se-plan"> <b>Team</b> per seat</label>
-            </div>
-          <oc-code lang="html">&lt;label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-mistblue-20"&gt;
-  &lt;input type="radio" name="plan"&gt; &lt;b&gt;Pro&lt;/b&gt;
+          <oc-demo title="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-vividblue-mix-20">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">has-[input:checked]:border-vividblue-80 · has-[input:checked]:bg-vividblue-mix-20</code><div class="oc-eg__note">Click a card: the card that holds the checked radio button gets a blue border and background.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage"><div class="se-pick">
+              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-vividblue-mix-20"><input type="radio" name="se-plan" checked> <b>Starter</b> Free</label>
+              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-vividblue-mix-20"><input type="radio" name="se-plan"> <b>Pro</b> per month</label>
+              <label class="has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-vividblue-mix-20"><input type="radio" name="se-plan"> <b>Team</b> per seat</label>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;label class="border-2 border-solid border-mistblue-20 has-[input:checked]:border-vividblue-80 has-[input:checked]:bg-vividblue-mix-20"&gt;
+  &lt;input type="radio" name="plan" checked&gt; &lt;b&gt;Starter&lt;/b&gt; Free
+&lt;/label&gt;
+&lt;label class="(same classes)"&gt;
+  &lt;input type="radio" name="plan"&gt; &lt;b&gt;Pro&lt;/b&gt; per month
+&lt;/label&gt;
+&lt;label class="(same classes)"&gt;
+  &lt;input type="radio" name="plan"&gt; &lt;b&gt;Team&lt;/b&gt; per seat
 &lt;/label&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="pseudo-elements">Pseudo-element variants</h3>
@@ -112,14 +137,18 @@
             </div>
           </div>
           <oc-demo title="first-letter:, selection:, marker:, file:">
-            <div class="se-pe">
-            <p class="se-drop first-letter:float-left first-letter:text-vividblue-80 selection:bg-magenta-50 selection:text-white-50">Select some of this text: the selection is magenta. The first letter is a drop cap in vivid blue, floated so the next lines wrap around it — all with variants on one paragraph.</p>
-            <ul class="list-disc marker:text-magenta-50"><li>marker:text-magenta-50</li><li>colors only the bullets</li></ul>
-            <input type="file" class="se-file file:bg-vividblue-80 file:text-white-50" aria-label="Choose a file">
-            </div>
-          <oc-code lang="html">&lt;p class="first-letter:float-left first-letter:text-vividblue-80
-          selection:bg-magenta-50 selection:text-white-50"&gt;…&lt;/p&gt;
-&lt;ul class="list-disc marker:text-magenta-50"&gt;…&lt;/ul&gt;
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem; --eg-h: 13.5rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">first-letter:float-left · selection:bg-magenta-50</code><div class="oc-eg__note">Select some of the text: it turns magenta. The first letter is a blue drop cap.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage"><p class="se-drop first-letter:float-left first-letter:font-3 first-letter:font-extrabold first-letter:text-vividblue-80 selection:bg-magenta-50 selection:text-white-50">Select some of this text: the selection is magenta. The first letter is a drop cap in vivid blue, floated so the next lines wrap around it — all with variants on one paragraph.</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">marker:text-magenta-50</code><div class="oc-eg__note">Only the bullets turn magenta; the text keeps its own color.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage"><ul class="list-disc marker:text-magenta-50"><li>marker:text-magenta-50</li><li>colors only the bullets</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">file:bg-vividblue-80 file:text-white-50</code><div class="oc-eg__note">Styles the button inside a file field, not the file name next to it.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage"><input type="file" class="se-file file:bg-vividblue-80 file:text-white-50" aria-label="Choose a file"></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- page CSS for a tight drop cap: p::first-letter { line-height: 0.8; } --&gt;
+&lt;p class="first-letter:float-left first-letter:font-3 first-letter:font-extrabold first-letter:text-vividblue-80
+          selection:bg-magenta-50 selection:text-white-50"&gt;Select some of this text: the selection is magenta. …&lt;/p&gt;
+&lt;ul class="list-disc marker:text-magenta-50"&gt;
+  &lt;li&gt;marker:text-magenta-50&lt;/li&gt;
+  &lt;li&gt;colors only the bullets&lt;/li&gt;
+&lt;/ul&gt;
 &lt;input type="file" class="file:bg-vividblue-80 file:text-white-50"&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="attribute">Attribute selectors and combinators</h3>

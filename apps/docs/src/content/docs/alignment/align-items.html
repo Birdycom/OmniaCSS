@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Align Items","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Align Items","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Alignment demos: frame from the shared example kit (.oc-eg); below only the page palette and what sits inside the stages. */\n    .oc-eg { --eg-c1: var(--color-indigo-60); --eg-c2: var(--color-crimson-70); --eg-c3: var(--color-green-70); --eg-c4: var(--color-indigo-60); --eg-c5: var(--color-crimson-70); --eg-c6: var(--color-green-70); }\n    /* Fixed stage height and clipping as before the kit; items stay on one line. */\n    .al-fixed { block-size: var(--eg-h, 3.75rem); overflow: hidden; white-space: nowrap; }\n    .al-fixed.al-scroll { overflow: auto; max-inline-size: 20rem; }\n    .oc-eg__item.al-sm { font-size: 0.8rem; }\n    .oc-eg__item.al-lg { font-size: 1.5rem; padding-block: 0.35rem; }\n    .oc-eg__item.al-tall { flex-direction: column; justify-content: space-between; block-size: 10rem; min-inline-size: 13rem; }\n    .al-real { padding: 0.75rem; }\n    .al-avatar { flex: none; display: grid; place-items: center; inline-size: 3.5rem; block-size: 3.5rem; border-radius: 50%; background: var(--eg-c1); color: var(--color-white-50); font-weight: 700; font-size: 0.9rem; }\n    .al-who { font-weight: 600; }\n    .al-total { font-size: 0.85rem; color: var(--oc-muted-foreground); }\n    .al-amount { font-size: 2.75rem; font-weight: 700; line-height: 1.1; }\n    .al-ul { text-decoration: underline dashed 1.5px var(--eg-c2); text-underline-offset: 4px; text-decoration-skip-ink: none; }\n    .al-real-row { box-sizing: border-box; min-block-size: 4.5rem; padding: 0.75rem; border: 1.5px dashed var(--oc-border-strong); border-radius: 8px; }\n  </style>"]}-->
 <section class="oc-docs-section" id="align-items">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Align Items</h2>
@@ -8,11 +8,12 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>align-items</code> sets the default <code>align-self</code> of every child. In a row flexbox it controls the vertical position; the default is <code>stretch</code>, which is why flex children are equally tall. Use <code>.align-items-center</code> for icon + label rows and <code>.align-items-baseline</code> when text of different sizes must share one baseline. Items with a fixed height are not stretched. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-items" target="_blank" rel="noopener">MDN: align-items</a>.</p>
+          <p class="oc-section-content__desc"><strong>In one sentence:</strong> <code>align-items</code> moves every item along the <strong>cross axis</strong>: top to bottom in a flex row, left to right in <code>.flex-col</code>, and up or down inside each cell in a grid.</p>
+          <p class="oc-section-content__desc">It sets the default <code>align-self</code> of every child. The default is <code>stretch</code>, which is why flex children are equally tall. Use <code>.align-items-center</code> for icon + label rows and <code>.align-items-baseline</code> when text of different sizes must share one line. Items with a fixed height are not stretched. To move items along the main axis use <a href="justify-content.html"><code>.justify-*</code></a>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-items" target="_blank" rel="noopener">MDN: align-items</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Align Value</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
                 <tr><td><code>.align-items-start</code></td><td>align-items: start</td></tr>
                 <tr><td><code>.align-items-center</code></td><td>align-items: center</td></tr>
@@ -21,8 +22,13 @@
                 <tr class="oc-expandable-table__row-dimmed"><td><code>.align-items-baseline</code></td><td>align-items: baseline</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.align-items-baseline-first</code></td><td>align-items: first baseline</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.align-items-baseline-last</code></td><td>align-items: last baseline</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.align-items-center-safe</code></td><td>align-items: safe center</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.align-items-normal</code></td><td>align-items: normal</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-items-flex-start</code></td><td>align-items: flex-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-items-flex-end</code></td><td>align-items: flex-end</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-items-self-start</code></td><td>align-items: self-start</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-items-self-end</code></td><td>align-items: self-end</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-items-center-safe</code></td><td>align-items: safe center</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.align-items-center-unsafe</code></td><td>align-items: unsafe center</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -31,28 +37,77 @@
           </div>
 
           <h3 class="oc-section-content__title mt-8">Every value, items of different height</h3>
+          <p class="oc-section-content__desc">Three items in a flex row that is 8rem high: a small one, a large one and one with two lines. The hatched area shows the empty space; the items only move up and down.</p>
 
-          <oc-demo title="align-items values"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.align-items-start</code><div class="dm-area flex gap-0.3 align-items-start dm-h"><div class="dm-box dm-w1 dm-h1 ">1</div><div class="dm-box dm-w2 dm-h2 ">2</div><div class="dm-box dm-w1 dm-h3 ">3</div></div></div>
-<div class="dm-tile"><code>.align-items-center</code><div class="dm-area flex gap-0.3 align-items-center dm-h"><div class="dm-box dm-w1 dm-h1 ">1</div><div class="dm-box dm-w2 dm-h2 ">2</div><div class="dm-box dm-w1 dm-h3 ">3</div></div></div>
-<div class="dm-tile"><code>.align-items-end</code><div class="dm-area flex gap-0.3 align-items-end dm-h"><div class="dm-box dm-w1 dm-h1 ">1</div><div class="dm-box dm-w2 dm-h2 ">2</div><div class="dm-box dm-w1 dm-h3 ">3</div></div></div>
-<div class="dm-tile"><code>.align-items-stretch (no fixed height)</code><div class="dm-area flex gap-0.3 align-items-stretch dm-h"><div class="dm-box dm-w1">1</div><div class="dm-box dm-w1">2</div><div class="dm-box dm-w1">3</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex align-items-center"&gt;
-  &lt;img class="size-8" src="avatar.png" alt=""&gt;
-  &lt;span&gt;Jane Doe&lt;/span&gt;
+          <oc-demo title="align-items values"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the container</span><span class="oc-eg__key oc-eg__key--strong">Cross axis &darr; (top to bottom in a flex row)</span></div><div class="oc-eg__panels" style="--eg-min:14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-start</code><div class="oc-eg__note">Tops line up. The empty space is below the short items.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-start" style="--eg-h:8rem"><div class="oc-eg__item al-sm">Small</div><div class="oc-eg__item al-lg">Large</div><div class="oc-eg__item al-sm">Two<br>lines</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-center</code><div class="oc-eg__note">Every item sits in the middle of the row.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-center" style="--eg-h:8rem"><div class="oc-eg__item al-sm">Small</div><div class="oc-eg__item al-lg">Large</div><div class="oc-eg__item al-sm">Two<br>lines</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-end</code><div class="oc-eg__note">Bottoms line up. The empty space is above.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-end" style="--eg-h:8rem"><div class="oc-eg__item al-sm">Small</div><div class="oc-eg__item al-lg">Large</div><div class="oc-eg__item al-sm">Two<br>lines</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-stretch</code><div class="oc-eg__note">Items without a fixed height grow to the full row height. This is the default.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-stretch" style="--eg-h:8rem"><div class="oc-eg__item al-sm">Small</div><div class="oc-eg__item al-lg">Large</div><div class="oc-eg__item al-sm">Two<br>lines</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-baseline</code><div class="oc-eg__note">The first line of text in every item sits on one line, whatever the font size.</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-baseline" style="--eg-h:8rem"><div class="oc-eg__item al-sm">Small</div><div class="oc-eg__item al-lg">Large</div><div class="oc-eg__item al-sm">Two<br>lines</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-baseline-last</code><div class="oc-eg__note">The last line of text lines up instead: look at "lines".</div><div class="oc-eg__stage al-fixed flex gap-0.5 align-items-baseline-last" style="--eg-h:8rem"><div class="oc-eg__item al-sm">Small</div><div class="oc-eg__item al-lg">Large</div><div class="oc-eg__item al-sm">Two<br>lines</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="flex gap-0.5 align-items-start" style="height: 8rem"&gt;&lt;div style="font-size: 0.8rem"&gt;Small&lt;/div&gt;&lt;div style="font-size: 1.5rem"&gt;Large&lt;/div&gt;&lt;div style="font-size: 0.8rem"&gt;Two&lt;br&gt;lines&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-center" style="height: 8rem"&gt;&lt;div style="font-size: 0.8rem"&gt;Small&lt;/div&gt;&lt;div style="font-size: 1.5rem"&gt;Large&lt;/div&gt;&lt;div style="font-size: 0.8rem"&gt;Two&lt;br&gt;lines&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-end" style="height: 8rem"&gt;&lt;div style="font-size: 0.8rem"&gt;Small&lt;/div&gt;&lt;div style="font-size: 1.5rem"&gt;Large&lt;/div&gt;&lt;div style="font-size: 0.8rem"&gt;Two&lt;br&gt;lines&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-stretch" style="height: 8rem"&gt;&lt;div style="font-size: 0.8rem"&gt;Small&lt;/div&gt;&lt;div style="font-size: 1.5rem"&gt;Large&lt;/div&gt;&lt;div style="font-size: 0.8rem"&gt;Two&lt;br&gt;lines&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-baseline" style="height: 8rem"&gt;&lt;div style="font-size: 0.8rem"&gt;Small&lt;/div&gt;&lt;div style="font-size: 1.5rem"&gt;Large&lt;/div&gt;&lt;div style="font-size: 0.8rem"&gt;Two&lt;br&gt;lines&lt;/div&gt;&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-baseline-last" style="height: 8rem"&gt;&lt;div style="font-size: 0.8rem"&gt;Small&lt;/div&gt;&lt;div style="font-size: 1.5rem"&gt;Large&lt;/div&gt;&lt;div style="font-size: 0.8rem"&gt;Two&lt;br&gt;lines&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Safe alignment when an item is too tall</h3>
+          <p class="oc-section-content__desc">Plain <code>center</code> lets a tall item stick out above the container, where no scrollbar can reach it. <code>safe center</code> falls back to <code>start</code> in that case. Try to scroll both boxes to the top line.</p>
+
+          <oc-demo title="center vs center-safe"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>The item is taller than its box</span><span class="oc-eg__key oc-eg__key--strong">Cross axis &darr;</span></div><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-center</code><div class="oc-eg__note">The item sticks out at the top and bottom. The top line is cut off and you cannot scroll up to it.</div><div class="oc-eg__stage al-fixed al-scroll flex align-items-center" style="--eg-h:7rem"><div class="oc-eg__item al-tall"><span>Top: Customer 1</span><span>Middle</span><span>Bottom: Company 1</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-center-safe</code><div class="oc-eg__note">Falls back to start when it does not fit: the top stays visible, scroll down for the rest.</div><div class="oc-eg__stage al-fixed al-scroll flex align-items-center-safe" style="--eg-h:7rem"><div class="oc-eg__item al-tall"><span>Top: Customer 1</span><span>Middle</span><span>Bottom: Company 1</span></div></div></div>
+</div></div><oc-code lang="html">&lt;!-- center: the top of the tall item is cut off and cannot be scrolled to --&gt;
+&lt;div class="flex align-items-center" style="height: 7rem; overflow-y: auto"&gt;
+  &lt;div style="height: 10rem"&gt;
+    &lt;span&gt;Top: Customer 1&lt;/span&gt;
+    &lt;span&gt;Middle&lt;/span&gt;
+    &lt;span&gt;Bottom: Company 1&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- center-safe: falls back to start when the item does not fit --&gt;
+&lt;div class="flex align-items-center-safe" style="height: 7rem; overflow-y: auto"&gt;
+  &lt;div style="height: 10rem"&gt;
+    &lt;span&gt;Top: Customer 1&lt;/span&gt;
+    &lt;span&gt;Middle&lt;/span&gt;
+    &lt;span&gt;Bottom: Company 1&lt;/span&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8">Baseline alignment</h3>
+          <h3 class="oc-section-content__title mt-8">Real use: icon rows and prices</h3>
+          <p class="oc-section-content__desc">Two everyday rows, each shown wrong and right. Use <code>center</code> when the items are boxes (an avatar and a button), and <code>baseline</code> when they are words of different sizes.</p>
 
-          <p class="oc-section-content__desc">Baseline alignment lines up the first line of text of every item, regardless of padding or box height. <code>baseline-last</code> aligns the last line, which is useful for multi-line labels with a trailing amount.</p>
+          <oc-demo title="Contact row and price line"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min:20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-start</code><div class="oc-eg__note">The name and the button hang at the top, next to a big avatar. It looks broken.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-real-row flex gap-1 align-items-start"><span class="al-avatar" aria-hidden="true">C1</span><span class="al-who">Customer 1</span><button type="button" class="oc-btn oc-btn--outline oc-btn--sm ml-auto">Remove</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-center</code><div class="oc-eg__note">Avatar, name and button share one middle line. Use this for icon + text rows.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-real-row flex gap-1 align-items-center"><span class="al-avatar" aria-hidden="true">C1</span><span class="al-who">Customer 1</span><button type="button" class="oc-btn oc-btn--outline oc-btn--sm ml-auto">Remove</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-center</code><div class="oc-eg__note">The small words float halfway up the big number. The red dashed lines (the baseline of each text) do not meet.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-real-row flex gap-0.5 align-items-center"><span class="al-total al-ul">Total</span><span class="al-amount al-ul">&euro; 129</span><span class="al-total al-ul">per month</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.align-items-baseline</code><div class="oc-eg__note">All words stand on one line, like printed text: the dashed lines meet. Use this for prices and labels.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-real-row flex gap-0.5 align-items-baseline"><span class="al-total al-ul">Total</span><span class="al-amount al-ul">&euro; 129</span><span class="al-total al-ul">per month</span></div></div></div>
+</div></div><oc-code lang="html">&lt;!-- Contact row: .align-items-start (top) versus .align-items-center --&gt;
+&lt;div class="flex gap-1 align-items-start"&gt;
+  &lt;img src="avatar.png" alt="" width="48" height="48"&gt;
+  &lt;span&gt;Customer 1&lt;/span&gt;
+  &lt;button class="oc-btn oc-btn--outline oc-btn--sm ml-auto"&gt;Remove&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="flex gap-1 align-items-center"&gt;
+  &lt;img src="avatar.png" alt="" width="48" height="48"&gt;
+  &lt;span&gt;Customer 1&lt;/span&gt;
+  &lt;button class="oc-btn oc-btn--outline oc-btn--sm ml-auto"&gt;Remove&lt;/button&gt;
+&lt;/div&gt;
 
-          <oc-demo title="Baseline vs start vs center"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.align-items-start</code><div class="dm-area flex gap-0.3 align-items-start"><div class="dm-box dm-t1">Aa</div><div class="dm-box dm-t2">Aa</div><div class="dm-box dm-t3">Aa</div></div></div>
-<div class="dm-tile"><code>.align-items-baseline</code><div class="dm-area flex gap-0.3 align-items-baseline"><div class="dm-box dm-t1">Aa</div><div class="dm-box dm-t2">Aa</div><div class="dm-box dm-t3">Aa</div></div></div>
-<div class="dm-tile"><code>.align-items-center</code><div class="dm-area flex gap-0.3 align-items-center"><div class="dm-box dm-t1">Aa</div><div class="dm-box dm-t2">Aa</div><div class="dm-box dm-t3">Aa</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex align-items-baseline gap-1"&gt;
-  &lt;span class="text-sm"&gt;Total&lt;/span&gt;
-  &lt;strong class="text-xl"&gt;129&lt;/strong&gt;
+&lt;!-- Price line: .align-items-center versus .align-items-baseline --&gt;
+&lt;div class="flex gap-0.5 align-items-center"&gt;
+  &lt;span&gt;Total&lt;/span&gt;
+  &lt;span style="font-size: 2.75rem"&gt;€ 129&lt;/span&gt;
+  &lt;span&gt;per month&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="flex gap-0.5 align-items-baseline"&gt;
+  &lt;span&gt;Total&lt;/span&gt;
+  &lt;span style="font-size: 2.75rem"&gt;€ 129&lt;/span&gt;
+  &lt;span&gt;per month&lt;/span&gt;
 &lt;/div&gt;</oc-code></oc-demo>
+
         </div>
       </section>

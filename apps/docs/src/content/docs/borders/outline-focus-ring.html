@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Outline (focus ring)", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .fr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 28px 20px; inline-size: 100%; padding: 8px; }\n    .fr-cell { display: grid; gap: 10px; justify-items: start; font-size: 0.72rem; }\n    .fr-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; padding: 8px; }\n    .fr-btn { padding: 0.55rem 1rem; border: 1px solid var(--oc-border-strong); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; font-weight: 600; cursor: pointer; }\n    .fr-live:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }\n    .fr-live--inset:focus-visible { outline-offset: -4px; }\n    .fr-shape { display: grid; place-items: center; inline-size: 5.5rem; block-size: 5.5rem; background: var(--oc-muted); font-size: 0.75rem; font-weight: 600; }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Outline (focus ring)","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n.bd-sample { display: grid; place-content: center; gap: 0.15rem; min-block-size: var(--bd-h, 6.5rem); padding: 0.75rem; text-align: center; }\n.bd-sample b { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }\n.bd-sample small { font-size: 0.78rem; color: var(--oc-muted-foreground); }\n.fr-panel { display: flex; flex-direction: column; gap: 1rem; padding: 1.25rem; border-radius: 12px; background: var(--oc-background); border: 1px solid var(--oc-border); }\n.fr-panel h4 { display: flex; align-items: center; gap: 0.5rem; margin: 0; font-size: 0.95rem; color: var(--oc-foreground); }\n.fr-mark { inline-size: 0.75rem; block-size: 0.75rem; border-radius: 50%; flex: none; }\n.fr-panel > span { font-size: 0.85rem; color: var(--oc-muted-foreground); }\n.fr-ctls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1rem; }\n.fr-btn { white-space: nowrap; padding: 0.6rem 1.15rem; font: inherit; font-weight: 600; cursor: pointer; color: var(--color-white-50); background: var(--color-royalblue-70); border: 0; }\n.fr-btn--plain { color: var(--oc-foreground); background: var(--oc-card); border: 1px solid var(--oc-border); }\n.fr-link { color: var(--oc-foreground); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; border-radius: 3px; }\n.fr-input { inline-size: 100%; padding: 0.6rem 0.75rem; border-radius: 8px; font: inherit; color: var(--oc-foreground); background: var(--oc-card); border: 1px solid var(--oc-border); }\n.fr-shape { display: grid; place-items: center; min-block-size: 6.5rem; }\n.fr-icon { display: grid; place-items: center; inline-size: 3.25rem; block-size: 3.25rem; font-size: 1.4rem; font-weight: 700; color: var(--color-white-50); background: var(--color-royalblue-70); border: 0; cursor: pointer; }\n.fr-card { white-space: nowrap; display: grid; gap: 0.2rem; padding: 0.9rem 1.2rem; color: var(--oc-foreground); background: var(--oc-card); border: 1px solid var(--oc-border); text-decoration: none; }\n.fr-card span { font-size: 0.8rem; color: var(--oc-muted-foreground); }\n.bd-in { container-type: inline-size; display: grid; align-content: center; padding: var(--bd-pad, 0.875rem); }\n/* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (corner-shape: bevel) { .sup-note--corner { display: none; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="outline-focus-ring">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Outline &amp; focus ring</h2>
@@ -13,7 +13,7 @@
 
         <div class="oc-section-content">
           <h3 class="oc-section-content__title">Anatomy of a focus ring</h3>
-          <p class="oc-section-content__desc"><strong>What it does:</strong> a focus ring tells keyboard and switch users which element is active. It is made of four independent parts: a width (<code>.outline-2</code>), a style (<code>.outline-solid</code>), a color (<code>.outline-dodgerblue-50</code> or any Omnia color) and a gap (<code>.outline-offset-2</code>). <strong>When to use:</strong> on every interactive element, shown only for keyboard focus with <code>:focus-visible</code>. <strong>Gotchas:</strong> never remove the outline (<code>outline: none</code>) without a visible replacement; a 3:1 contrast against the surrounding background is the WCAG minimum for the indicator; the outline follows <code>border-radius</code> in current browsers but not in older ones; and because it takes no space, neighbouring elements may overlap it. The classes below are always on so you can see the result.</p>
+          <p class="oc-section-content__desc"><strong>What it does:</strong> a focus ring tells keyboard and switch users which element is active. It is made of four independent parts: a width (<code>.outline-2</code>, 4px), a style (<code>.outline-solid</code>), a color (<code>.outline-royalblue-50</code> or any Omnia color) and a gap (<code>.outline-offset-1</code>, 2px). <strong>When to use:</strong> on every interactive element, shown only for keyboard focus with <code>:focus-visible</code>. <strong>Gotchas:</strong> never remove the outline (<code>outline: none</code>) without a visible replacement; a 3:1 contrast against the surrounding background is the WCAG minimum for the indicator; the outline follows <code>border-radius</code> in current browsers but not in older ones; and because it takes no space, neighbouring elements may overlap it. Add the <code>focus-visible:</code> variant to each class so the ring only shows for keyboard focus.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Part</th><th>Classes</th></tr></thead>
@@ -27,45 +27,103 @@
             </table>
           </div>
 
-          <oc-demo title="Four ring recipes (always on)">
-            <div class="fr-grid">
-              <div class="fr-cell"><button type="button" class="fr-btn outline-2 outline-solid outline-dodgerblue-50 outline-offset-2">Offset ring</button><code>.outline-2 .outline-solid .outline-offset-2</code></div>
-              <div class="fr-cell"><button type="button" class="fr-btn outline-2 outline-solid outline-forestgreen-50 outline-offset-none">Hugging ring</button><code>.outline-2 .outline-offset-none</code></div>
-              <div class="fr-cell"><button type="button" class="fr-btn outline-4 outline-solid outline-magenta-50 outline-offset-4">Thick ring</button><code>.outline-4 .outline-offset-4</code></div>
-              <div class="fr-cell"><button type="button" class="fr-btn outline-2 outline-dashed outline-darkorange-50 outline-offset-2">Dashed ring</button><code>.outline-2 .outline-dashed</code></div>
-            </div>
-          <oc-code lang="html">&lt;button class="outline-2 outline-solid outline-dodgerblue-50 outline-offset-2"&gt;Offset ring&lt;/button&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title">Try it with the keyboard</h3>
+<p class="oc-section-content__desc">Click in the empty space above the left panel, then press <kbd>Tab</kbd> a few times (<kbd>Shift</kbd>+<kbd>Tab</kbd> goes back). In the left panel a blue ring shows where you are. In the right panel the ring is removed with <code>.outline-none</code>: the focus is still there, but you cannot see it. Never ship the right panel.</p>
 
-          <h3 class="oc-section-content__title mt-8">Show it only on keyboard focus</h3>
-          <p class="oc-section-content__desc"><code>:focus</code> also matches mouse clicks; <code>:focus-visible</code> only matches when the browser decides a ring helps (keyboard, programmatic focus on inputs). Press <kbd>Tab</kbd> to move through the buttons below and click one with the mouse to compare: only keyboard focus draws a ring. The rule behind it is plain CSS: <code>button:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }</code>.</p>
-          <oc-demo title=":focus-visible ring (Tab through the buttons)">
-            <div class="fr-row">
-              <button type="button" class="fr-btn fr-live">First</button>
-              <button type="button" class="fr-btn fr-live">Second</button>
-              <button type="button" class="fr-btn fr-live fr-live--inset">Inset ring</button>
-              <a href="#outline-focus-ring" class="fr-btn fr-live">A link</a>
-              <input class="fr-btn fr-live" type="text" placeholder="An input" aria-label="Example input">
-            </div>
-          <oc-code lang="html">button:focus-visible {
-  outline: 2px solid var(--oc-ring);
-  outline-offset: 2px;
-}
-/* inset ring: negative offset keeps it inside the box */
-.inset:focus-visible { outline-offset: -3px; }</oc-code></oc-demo>
+<oc-demo title="focus-visible ring vs outline-none">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 18rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.focus-visible:outline-2</code><div class="oc-eg__note">Press Tab: a blue ring shows which control you are on.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="fr-panel">
+      <h4><span class="fr-mark bg-forestgreen-60"></span>With a focus ring</h4>
+      <div class="fr-ctls">
+          <button type="button" class="fr-btn round-4 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1">Save</button>
+          <button type="button" class="fr-btn fr-btn--plain round-4 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1">Cancel</button>
+          <a class="fr-link focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1" tabindex="0">Read the terms</a>
+        </div>
+        <input class="fr-input focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1" type="search" placeholder="Search customers" aria-label="Search customers">
+      <span>You always see where you are.</span>
+    </div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-none</code><div class="oc-eg__note">The ring is removed: after the first Tab you cannot tell where you are.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="fr-panel">
+      <h4><span class="fr-mark bg-crimson-70"></span>Ring removed (do not do this)</h4>
+      <div class="fr-ctls">
+          <button type="button" class="fr-btn round-4 outline-none">Save</button>
+          <button type="button" class="fr-btn fr-btn--plain round-4 outline-none">Cancel</button>
+          <a class="fr-link outline-none" tabindex="0">Read the terms</a>
+        </div>
+        <input class="fr-input outline-none" type="search" placeholder="Search customers" aria-label="Search customers">
+      <span>After the first Tab you lose track.</span>
+    </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- good: a clear ring for keyboard users --&gt;
+&lt;button class="focus-visible:outline-2 focus-visible:outline-solid
+               focus-visible:outline-royalblue-50 focus-visible:outline-offset-1"&gt;Save&lt;/button&gt;
+&lt;a class="focus-visible:outline-2 focus-visible:outline-solid
+          focus-visible:outline-royalblue-50 focus-visible:outline-offset-1" href="…"&gt;Read the terms&lt;/a&gt;
+&lt;input class="focus-visible:outline-2 focus-visible:outline-solid
+              focus-visible:outline-royalblue-50 focus-visible:outline-offset-1" type="search"&gt;
 
-          <h3 class="oc-section-content__title mt-8">Ring that follows the shape</h3>
-          <p class="oc-section-content__desc">Outlines follow <code>border-radius</code>, so the same ring hugs a pill, a circle or a rounded card. With the newer <code>corner-shape</code> the ring follows the bevel, notch or squircle too in browsers that support it.</p>
-          <oc-demo title="outline + round-* + corner-*">
-            <div class="fr-row">
-              <div class="fr-shape round-2 outline-2 outline-solid outline-dodgerblue-50 outline-offset-2">round-2</div>
-              <div class="fr-shape round-full outline-2 outline-solid outline-forestgreen-50 outline-offset-2">full</div>
-              <div class="fr-shape round-6 corner-bevel outline-2 outline-solid outline-magenta-50 outline-offset-2">bevel</div>
-              <div class="fr-shape round-6 corner-squircle outline-2 outline-solid outline-darkorange-50 outline-offset-2">squircle</div>
-            </div>
-          <oc-code lang="html">&lt;div class="round-6 corner-bevel outline-2 outline-solid outline-magenta-50 outline-offset-2"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+&lt;!-- bad: focus is invisible --&gt;
+&lt;button class="outline-none"&gt;Save&lt;/button&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-8">focus vs focus-visible</h3>
+<p class="oc-section-content__desc"><code>focus:</code> shows the ring whenever the element has focus, also after a mouse click. <code>focus-visible:</code> lets the browser decide: a ring for the keyboard, none for a mouse click on a button (text inputs always get one, because you type in them). Click both buttons with the mouse, then Tab to them. Safari on macOS does not focus buttons on click at all, so there neither shows a ring after a click.</p>
+
+<oc-demo title="focus:outline-2 vs focus-visible:outline-2">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.focus:outline-2</code><div class="oc-eg__note">Click the button: the ring shows after a click and after Tab.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="fr-panel">
+      <h4>focus:</h4>
+      <div class="fr-ctls"><button type="button" class="fr-btn round-4 focus:outline-2 focus:outline-solid focus:outline-royalblue-50 focus:outline-offset-1">Click me</button></div>
+      <span>Ring after a click and after Tab</span>
+    </div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.focus-visible:outline-2</code><div class="oc-eg__note">Click the button: no ring. Press Tab: now it shows.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="fr-panel">
+      <h4>focus-visible:</h4>
+      <div class="fr-ctls"><button type="button" class="fr-btn round-4 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1">Click me</button></div>
+      <span>Ring after Tab only</span>
+    </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;button class="focus:outline-2 focus:outline-solid focus:outline-royalblue-50 focus:outline-offset-1"&gt;Click me&lt;/button&gt;
+&lt;button class="focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1"&gt;Click me&lt;/button&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-8">Ring recipes</h3>
+<p class="oc-section-content__desc">Six common rings, always on here so you can compare them. Every ring is built from the four parts in the table above: width, style, color and offset. The inset ring uses a negative offset (inline), which keeps it inside elements that sit against a clipping edge.</p>
+
+<oc-demo title="ring recipes">
+<div class="oc-eg" style="--bd-pad: 1.25rem"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-1 .outline-offset-1</code><div class="oc-eg__note">2px, 2px gap.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample"><button type="button" class="fr-btn fr-btn--plain round-4 outline-1 outline-solid outline-royalblue-50 outline-offset-1">Default</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-2 .outline-offset-2</code><div class="oc-eg__note">4px, 4px gap.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample"><button type="button" class="fr-btn fr-btn--plain round-4 outline-2 outline-solid outline-royalblue-50 outline-offset-2">Offset</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-offset-none</code><div class="oc-eg__note">No gap.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample"><button type="button" class="fr-btn fr-btn--plain round-4 outline-2 outline-solid outline-royalblue-50 outline-offset-none">Hugging</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">outline-offset: -5px</code><div class="oc-eg__note">Inside the button.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample"><button type="button" class="fr-btn round-4 outline-2 outline-solid outline-white-50" style="outline-offset: -5px">Inset</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-dashed</code><div class="oc-eg__note">Softer look.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample"><button type="button" class="fr-btn fr-btn--plain round-4 outline-2 outline-dashed outline-royalblue-50 outline-offset-2">Dashed</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.outline-3 .outline-double</code><div class="oc-eg__note">6px, two lines.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-sample"><button type="button" class="fr-btn fr-btn--plain round-4 outline-3 outline-double outline-royalblue-50 outline-offset-1">Double</button></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;button class="outline-1 outline-solid outline-royalblue-50 outline-offset-1"&gt;Default&lt;/button&gt;
+&lt;button class="outline-2 outline-solid outline-royalblue-50 outline-offset-2"&gt;Offset&lt;/button&gt;
+&lt;button class="outline-2 outline-solid outline-royalblue-50 outline-offset-none"&gt;Hugging&lt;/button&gt;
+&lt;button class="outline-2 outline-solid outline-white-50" style="outline-offset: -5px"&gt;Inset&lt;/button&gt;
+&lt;button class="outline-2 outline-dashed outline-royalblue-50 outline-offset-2"&gt;Dashed&lt;/button&gt;
+&lt;button class="outline-3 outline-double outline-royalblue-50 outline-offset-1"&gt;Double&lt;/button&gt;</oc-code></oc-demo>
+
+<h3 class="oc-section-content__title mt-8">A ring that follows the shape</h3>
+<p class="oc-section-content__desc">Outlines follow <code>border-radius</code>, so the same classes hug a pill, a circle and a card. With <code>corner-shape</code> (Chrome and Edge 139+) the ring follows a bevel too. These four are real controls: Tab to them to see the ring.</p>
+
+<oc-demo title="focus-visible ring on round-full, round-8 and corner-bevel">
+<div class="oc-eg"><div class="sup-note sup-note--corner"><b>Not in this browser yet.</b> Your browser does not support <code>corner-shape</code>: the last button keeps round corners, so its ring is round too.</div><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-full</code><div class="oc-eg__note">A pill button: the ring follows the round ends. Tab to it.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="fr-shape"><button type="button" class="fr-btn round-full focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1">Subscribe</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-full</code><div class="oc-eg__note">A round icon button: the ring is a circle. Tab to it.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="fr-shape"><button type="button" class="fr-icon round-full focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1" aria-label="Add">+</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-8</code><div class="oc-eg__note">A card that is a link: the ring follows its corners. Tab to it.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="fr-shape"><a class="fr-card round-8 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1" tabindex="0"><b>Invoice 014</b><span>Customer 1</span></a></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.corner-bevel</code><div class="oc-eg__note">A button with cut corners (corner-shape): the ring follows the cuts. Tab to it.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="fr-shape"><button type="button" class="fr-btn round-6 corner-bevel focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1">Bevel</button></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;button type="button" class="round-full focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1"&gt;Subscribe&lt;/button&gt;
+
+&lt;button type="button" class="round-full focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1" aria-label="Add"&gt;+&lt;/button&gt;
+
+&lt;a class="round-8 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1" href="/invoices/014"&gt;
+  &lt;b&gt;Invoice 014&lt;/b&gt; Customer 1
+&lt;/a&gt;
+
+&lt;button type="button" class="round-6 corner-bevel focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-royalblue-50 focus-visible:outline-offset-1"&gt;Bevel&lt;/button&gt;</oc-code></oc-demo>
         </div>
 
-        <div class="oc-section-footer">
+          <div class="oc-section-footer">
           <h2 class="oc-section-footer__title" id="source">Source &amp; Further Reading</h2>
           <p class="oc-section-footer__desc">
             The outline utilities come from <code>_borders_outlines.scss</code>. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline" target="_blank" rel="noopener">MDN: outline</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible" target="_blank" rel="noopener">MDN: :focus-visible</a>.

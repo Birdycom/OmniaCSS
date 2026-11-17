@@ -30,6 +30,10 @@
 .mask-radial-ellipse {
   mask-image: radial-gradient(ellipse, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }
+/* Ring: only an outer band of --oc-mask-ring (0.75rem) stays visible (spinners, progress rings, avatar rings) */
+.mask-ring {
+  mask-image: radial-gradient(farthest-side, transparent calc(100% - var(--oc-mask-ring, 0.75rem)), black calc(100% - var(--oc-mask-ring, 0.75rem) + 0.05rem));
+}
 .mask-conic {
   mask-image: conic-gradient(black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
 }

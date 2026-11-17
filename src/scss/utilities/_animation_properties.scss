@@ -76,6 +76,8 @@
 .ease-bounce {
   transition-timing-function: linear(0, 0.063, 0.25, 0.563, 1 36.4%, 0.812, 0.75, 0.813, 1 72.7%, 0.953, 0.938, 0.953, 1 90.9%, 0.984, 1);
 }
+/* Overshoot: shoots a little past the end and settles back (flip cards, switches) */
+.ease-overshoot { transition-timing-function: cubic-bezier(0.3, 1.4, 0.5, 1); }
 .ease-steps-4 { transition-timing-function: steps(4, end); }
 .ease-step-start { transition-timing-function: step-start; }
 .ease-step-end { transition-timing-function: step-end; }

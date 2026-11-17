@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Text Align", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Text Align","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .ta-p { font-size: 1rem; line-height: 1.55; }\n    .ta-rtl { margin-block-start: 1rem; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n</style>"]}-->
 <section class="oc-docs-section" id="text-align">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Text Align</h2>
@@ -20,33 +20,32 @@
                 <tr><td><code>.text-center</code></td><td>text-align: center</td></tr>
                 <tr><td><code>.text-right</code></td><td>text-align: right</td></tr>
                 <tr><td><code>.text-justify</code></td><td>text-align: justify</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.text-start</code></td><td>text-align: start</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.text-end</code></td><td>text-align: end</td></tr>
+                <tr><td><code>.text-start</code></td><td>text-align: start (left in English, right in Arabic or Hebrew)</td></tr>
+                <tr><td><code>.text-end</code></td><td>text-align: end</td></tr>
               </tbody>
             </table>
           </div>
-
-          <h3 class="oc-section-content__title mt-8">Alignment Demos</h3>
-          <oc-demo title="Alignment Demos"><div class="oc-preview oc-preview-col gap-4">
-            <div>
-              <p class="label-sm mb-2 opacity-60">Left Align (.text-left)</p>
-              <div class="align-demo-box text-left">The quick brown fox jumps over the lazy dog.</div>
-            </div>
-            <div>
-              <p class="label-sm mb-2 opacity-60">Center Align (.text-center)</p>
-              <div class="align-demo-box text-center">The quick brown fox jumps over the lazy dog.</div>
-            </div>
-            <div>
-              <p class="label-sm mb-2 opacity-60">Right Align (.text-right)</p>
-              <div class="align-demo-box text-right">The quick brown fox jumps over the lazy dog.</div>
-            </div>
-            <div>
-              <p class="label-sm mb-2 opacity-60">Justified (.text-justify)</p>
-              <div class="align-demo-box text-justify">The quick brown fox jumps over the lazy dog. This text is justified to fill the entire width of the container by adjusting word spacing.</div>
-            </div>
-          </div><oc-code lang="html">&lt;h2 class="text-center font-2"&gt;Centered Heading&lt;/h2&gt;
-&lt;p class="text-right text-sm italic"&gt;— Signature&lt;/p&gt;</oc-code></oc-demo>
-
-          
+          <h3 class="oc-section-content__title mt-8" id="align">Left, center, right and justify</h3>
+          <p class="oc-section-content__desc">The same paragraph four times. Look at the edges of the lines: they line up on the left, around the middle, on the right, or on both sides (justify stretches the spaces between words).</p>
+          <oc-demo title="text-left, text-center, text-right, text-justify">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 11rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-left</code><div class="oc-eg__note">Lines start at the left edge.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="ta-p text-left">Company 1 ships every order within 24 hours. You get an e-mail with a tracking link as soon as your parcel leaves.</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-center</code><div class="oc-eg__note">Every line is centered.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="ta-p text-center">Company 1 ships every order within 24 hours. You get an e-mail with a tracking link as soon as your parcel leaves.</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-right</code><div class="oc-eg__note">Lines end at the right edge.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="ta-p text-right">Company 1 ships every order within 24 hours. You get an e-mail with a tracking link as soon as your parcel leaves.</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-justify</code><div class="oc-eg__note">Lines fill the whole width; the last line stays at the start.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="ta-p text-justify">Company 1 ships every order within 24 hours. You get an e-mail with a tracking link as soon as your parcel leaves.</p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="text-left"&gt;Company 1 ships every order within 24 hours. You get an e-mail with a tracking link as soon as your parcel leaves.&lt;/p&gt;
+&lt;p class="text-center"&gt;Company 1 ships every order within 24 hours. You get an e-mail with a tracking link as soon as your parcel leaves.&lt;/p&gt;
+&lt;p class="text-right"&gt;Company 1 ships every order within 24 hours. You get an e-mail with a tracking link as soon as your parcel leaves.&lt;/p&gt;
+&lt;p class="text-justify"&gt;Company 1 ships every order within 24 hours. You get an e-mail with a tracking link as soon as your parcel leaves.&lt;/p&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-10" id="start-end">Start and end follow the writing direction</h3>
+          <p class="oc-section-content__desc"><code>.text-start</code> and <code>.text-end</code> mean "where lines begin" and "where they end". In a right-to-left page (<code>dir="rtl"</code>) they flip on their own, so you do not need separate classes for Arabic or Hebrew.</p>
+          <oc-demo title="text-end in ltr and rtl">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-end (dir="ltr")</code><div class="oc-eg__note">In left-to-right text the end is the right side.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="ta-p text-end" dir="ltr">Total: € 49.00</p></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-end (dir="rtl")</code><div class="oc-eg__note">In right-to-left text the end is the left side.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><p class="ta-p text-end" dir="rtl">Total: € 49.00</p></div></div>
+</div></div>
+          <oc-code lang="html">&lt;p class="text-end" dir="ltr"&gt;Total: € 49.00&lt;/p&gt;  &lt;!-- right --&gt;
+&lt;p class="text-end" dir="rtl"&gt;Total: € 49.00&lt;/p&gt;  &lt;!-- left --&gt;</oc-code></oc-demo>
         </div>
       </section>

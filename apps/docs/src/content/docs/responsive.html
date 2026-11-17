@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Responsive, Dark Mode & States", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Responsive, Dark Mode & States", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n\n    .rs-ruler { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }\n    .rs-seg { display: grid; gap: 0.15rem; padding: 0.6rem 0.75rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); font-size: 0.85rem; }\n    .rs-seg b { font-size: 1rem; }\n    .rs-seg.is-on { background: var(--color-vividblue-90); color: var(--color-white-50); }\n    .rs-seg.is-on::after { content: \"you are here\"; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }\n    .rs-cards { gap: 1rem; }\n    .rs-cards > div { display: grid; align-content: center; gap: 0.25rem; min-block-size: 7rem; padding: 1rem 1.25rem; border-radius: 12px; color: var(--color-white-50); font-size: 1.05rem; }\n    .rs-cards > div b { font-size: 1.25rem; }\n    .rs-mini { display: grid; gap: 0.3rem; align-content: start; }\n    .rs-mini i { block-size: 1.6rem; border-radius: 5px; }\n    .rs-mini i:nth-child(1) { background: var(--color-teal-70); } .rs-mini i:nth-child(2) { background: var(--color-slateblue-70); } .rs-mini i:nth-child(3) { background: var(--color-chocolate-80); } .rs-mini i:nth-child(4) { background: var(--color-purple-60); }\n    @media (max-width: 35.99rem) { .rs-seg[data-bp=\"base\"] { background: var(--color-vividblue-90); color: var(--color-white-50); } .rs-seg[data-bp=\"base\"]::after { content: \"you are here\"; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; } }\n    @media (min-width: 36rem) and (max-width: 49.99rem) { .rs-seg[data-bp=\"sm\"] { background: var(--color-vividblue-90); color: var(--color-white-50); } .rs-seg[data-bp=\"sm\"]::after { content: \"you are here\"; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; } }\n    @media (min-width: 50rem) and (max-width: 63.99rem) { .rs-seg[data-bp=\"md\"] { background: var(--color-vividblue-90); color: var(--color-white-50); } .rs-seg[data-bp=\"md\"]::after { content: \"you are here\"; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; } }\n    @media (min-width: 64rem) { .rs-seg[data-bp=\"lg\"] { background: var(--color-vividblue-90); color: var(--color-white-50); } .rs-seg[data-bp=\"lg\"]::after { content: \"you are here\"; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; } }\n    @media (max-width: 30rem) { .rs-ruler { grid-template-columns: repeat(2, minmax(0, 1fr)); } }\n    .rs-scope { display: grid; gap: 1rem; box-sizing: border-box; inline-size: 100%; padding: 1.25rem; border: 1px solid var(--oc-border); border-radius: 14px; background: var(--oc-background); color: var(--oc-foreground); }\n    .rs-scope .rs-card { display: grid; gap: 0.6rem; padding: 1.25rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .rs-scope .rs-card b { font-size: 1.2rem; }\n    .rs-scope .rs-card span { color: var(--oc-muted-foreground); }\n    .rs-scope .rs-card button { justify-self: start; padding: 0.6rem 1.1rem; border: 0; border-radius: 8px; font: inherit; font-weight: 600; background: var(--oc-primary); color: var(--oc-primary-foreground, var(--color-white-50)); }\n    .rs-tile { display: grid; place-content: center; text-align: center; gap: 0.3rem; min-block-size: 8rem; padding: 1rem; border-radius: 12px; color: var(--color-white-50); font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: scale 0.2s, rotate 0.2s, opacity 0.2s, box-shadow 0.2s; }\n  </style>"]}-->
 <section class="oc-hero" id="overview">
         <h1 class="oc-hero-title">Responsive, Dark Mode &amp; State Variants</h1>
         <p class="oc-hero-text">Use prefix-based modifiers to apply utilities conditionally. Responsive (sm:/md:/lg:), dark mode (dark:/auto-dark:), states (hover:/focus:/active:) and group hover (group-hover:).</p>
@@ -35,7 +35,7 @@
         <div class="oc-section-content">
           <h3 class="oc-section-content__title">Display</h3>
         <oc-code>&lt;!-- Hidden on mobile, flex on medium+ --&gt;
-&lt;div class="hidden md:flex"&gt;...&lt;/div&gt;
+&lt;div class="none md:flex"&gt;...&lt;/div&gt;
 
 &lt;!-- Block on mobile, grid on large --&gt;
 &lt;div class="block lg:grid lg:grid-cols-3"&gt;...&lt;/div&gt;</oc-code>
@@ -91,20 +91,38 @@
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Demo <span class="oc-section-header__badge-version oc-badge-version">v0.2.0</span></h2>
           
-        <p class="oc-section-header__desc">Resize your browser to see these change:</p>
+        <p class="oc-section-header__desc">Breakpoints follow the browser window. Make the window narrower or wider: the bar shows which breakpoint is active, and the cards change from four columns to two to one. The three small sketches below show every state at once.</p>
         </div>
         <div class="oc-section-content">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5">
-          <!-- inline: background, border – demo-specific color coding -->
-          <div class="demo-box" style="background:oklch(from var(--color-vividblue-70) l c h / 0.2); border:1px solid var(--color-vividblue-70);">1</div>
-          <!-- inline: background, border – demo-specific color coding -->
-          <div class="demo-box" style="background:oklch(from var(--color-green-10) l c h / 0.2); border:1px solid var(--color-green-10);">2</div>
-          <!-- inline: background, border – demo-specific color coding -->
-          <div class="demo-box" style="background:oklch(from var(--color-orange-60) l c h / 0.2); border:1px solid var(--color-orange-60);">3</div>
-          <!-- inline: background, border – demo-specific color coding -->
-          <div class="demo-box" style="background:oklch(from var(--color-red-50) l c h / 0.2); border:1px solid var(--color-red-50);">4</div>
-        </div>
-        <oc-code>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"&gt;...</oc-code>
+          <oc-demo title="Resize the window: grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div class="oc-eg">
+              <div class="rs-ruler">
+                <div class="rs-seg" data-bp="base"><b>base</b>below 36rem</div>
+                <div class="rs-seg" data-bp="sm"><b>sm:</b>36rem and up</div>
+                <div class="rs-seg" data-bp="md"><b>md:</b>50rem and up</div>
+                <div class="rs-seg" data-bp="lg"><b>lg:</b>64rem and up</div>
+              </div>
+<div class="oc-eg__panels" style="--eg-min: 40rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-1 .md:grid-cols-2 .lg:grid-cols-4</code><div class="oc-eg__note">Live: make the window narrower or wider and the four cards go from four columns to two to one.</div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="rs-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+              <div class="bg-teal-70"><b>Product 1</b>Card 1 of 4</div>
+              <div class="bg-slateblue-70"><b>Product 2</b>Card 2 of 4</div>
+              <div class="bg-chocolate-80"><b>Product 3</b>Card 3 of 4</div>
+              <div class="bg-purple-60"><b>Product 4</b>Card 4 of 4</div>
+              </div></div></div>
+</div>
+<div class="oc-eg__panels" style="--eg-min: 13rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-cols-1</code><div class="oc-eg__note">Below 50rem: one column, the cards stack.</div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="rs-mini" style="grid-template-columns: repeat(1, 1fr)"><i></i><i></i><i></i><i></i></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.md:grid-cols-2</code><div class="oc-eg__note">From 50rem: two columns.</div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="rs-mini" style="grid-template-columns: repeat(2, 1fr)"><i></i><i></i><i></i><i></i></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.lg:grid-cols-4</code><div class="oc-eg__note">From 64rem: four columns.</div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="rs-mini" style="grid-template-columns: repeat(4, 1fr)"><i></i><i></i><i></i><i></i></div></div></div>
+</div>
+            </div>
+          <oc-code lang="html">&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1"&gt;
+  &lt;div class="bg-teal-70"&gt;&lt;b&gt;Product 1&lt;/b&gt;Card 1 of 4&lt;/div&gt;
+  &lt;div class="bg-slateblue-70"&gt;&lt;b&gt;Product 2&lt;/b&gt;Card 2 of 4&lt;/div&gt;
+  &lt;div class="bg-chocolate-80"&gt;&lt;b&gt;Product 3&lt;/b&gt;Card 3 of 4&lt;/div&gt;
+  &lt;div class="bg-purple-60"&gt;&lt;b&gt;Product 4&lt;/b&gt;Card 4 of 4&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- The breakpoint ruler and the three small drawings only explain the steps; the grid above is all you need --&gt;</oc-code></oc-demo>
         </div>
       </section>
 
@@ -124,20 +142,22 @@
           .oc-theme-scope:has(input[value="light"]:checked) { color-scheme: light; }
           .oc-theme-scope:has(input[value="dark"]:checked) { color-scheme: dark; }
           .oc-theme-scope .oc-theme-pick { display: inline-flex; gap: 2px; padding: 3px; margin: 0; border: 1px solid var(--oc-border); border-radius: 999px; background: var(--oc-muted); }
-          .oc-theme-scope .oc-theme-pick label { position: relative; padding: 4px 10px; border-radius: 999px; font-size: 0.8rem; color: var(--oc-muted-foreground); cursor: pointer; }
+          .oc-theme-scope .oc-theme-pick label { position: relative; padding: 6px 14px; border-radius: 999px; font-size: 0.95rem; color: var(--oc-muted-foreground); cursor: pointer; }
           .oc-theme-scope .oc-theme-pick input { position: absolute; inset: 0; margin: 0; opacity: 0; pointer-events: none; }
           .oc-theme-scope .oc-theme-pick label:has(input:checked) { background: var(--oc-background); color: var(--oc-foreground); }
           .oc-theme-scope .oc-theme-pick label:has(input:focus-visible) { outline: 2px solid var(--oc-ring); }
         </style>
         <oc-demo title="Try it: this switch only themes this box">
-          <div class="oc-theme-scope">
+          <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 40rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.oc-theme-scope:has(input:checked)</code><div class="oc-eg__note">Pick Light or Dark in the box: the card, its text, border and button change theme, the rest of the page does not.</div><div class="oc-eg__stage oc-eg__stage--plain p-0.8"><div class="oc-theme-scope rs-scope">
             <fieldset class="oc-theme-pick" aria-label="Color theme (demo box only)">
               <label><input type="radio" name="oc-theme-demo" value="system" checked> System</label>
               <label><input type="radio" name="oc-theme-demo" value="light"> Light</label>
               <label><input type="radio" name="oc-theme-demo" value="dark"> Dark</label>
             </fieldset>
-            <p style="margin:0">This box follows the switch above; the rest of the page does not.</p>
-          </div>
+            <div class="rs-card"><b>Product 1</b><span>Card, text, border and button all use --oc-* tokens built with light-dark(). Pick Light or Dark above: only this box changes.</span><button type="button">Add to cart</button></div>
+          </div></div></div>
+</div></div>
         </oc-demo>
         <oc-code>&lt;fieldset class="oc-theme-switch" aria-label="Color theme"&gt;
   &lt;label&gt;&lt;input type="radio" name="oc-theme" value="system" checked&gt; System&lt;/label&gt;
@@ -173,6 +193,7 @@
 &lt;/div&gt;</oc-code>
 
         <h3 class="oc-section-content__title">Available dark mode classes</h3>
+        <p>The <code>dark:</code> classes follow the theme of the whole page, so the box above does not switch them. Use the theme switch at the top of this site to see them change on a page that uses them.</p>
         <div class="oc-expandable-table">
             <table class="oc-table-ref">
           <thead><tr><th>Category</th><th>Example classes</th></tr></thead>
@@ -209,14 +230,17 @@
 &lt;button class="hover:bg-gray-100 active:scale-95"&gt;Click me&lt;/button&gt;</oc-code>
 
         <h3 class="oc-section-content__title">Demo</h3>
-        <div class="flex gap-2.5 wrap mb-2.5">
-          <!-- inline: background, border, transition, cursor – demo-specific interactive styling -->
-          <div class="demo-box hover:scale-105 hover:shadow-lg" style="background:oklch(from var(--color-vividblue-50) l c h / 0.15); border:1px solid var(--color-vividblue-50); transition:all 0.15s; cursor:pointer;">Hover: scale + shadow</div>
-          <!-- inline: background, border, transition, cursor – demo-specific interactive styling -->
-          <div class="demo-box hover:opacity-50" style="background:oklch(from var(--color-green-10) l c h / 0.2); border:1px solid var(--color-green-10); transition:opacity 0.15s; cursor:pointer;">Hover: opacity-50</div>
-          <!-- inline: background, border, transition, cursor – demo-specific interactive styling -->
-          <div class="demo-box hover:rotate-3" style="background:oklch(from var(--color-orange-60) l c h / 0.2); border:1px solid var(--color-orange-60); transition:transform 0.15s; cursor:pointer;">Hover: rotate-3</div>
-        </div>
+        <p>Hover each tile (on a touch screen: tap it). One class per effect; the transition is set once on the tiles.</p>
+        <oc-demo title="hover:scale-105 hover:shadow-lg, hover:opacity-50, hover:rotate-3">
+          <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:scale-105 .hover:shadow-lg</code><div class="oc-eg__note">Hover the tile (on a touch screen: tap it): it grows and lifts.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-1.5"><div class="rs-tile bg-teal-70 hover:scale-105 hover:shadow-lg" tabindex="0">Grows and lifts</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:opacity-50</code><div class="oc-eg__note">Hover the tile: it fades to half its strength.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-1.5"><div class="rs-tile bg-slateblue-70 hover:opacity-50" tabindex="0">Fades to half</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.hover:rotate-3</code><div class="oc-eg__note">Hover the tile: it tilts a little.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-1.5"><div class="rs-tile bg-chocolate-80 hover:rotate-3" tabindex="0">Tilts a little</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;!-- .rs-tile: size, rounded corners, white text and a 0.2s transition (page CSS) --&gt;
+&lt;div class="rs-tile bg-teal-70 hover:scale-105 hover:shadow-lg" tabindex="0"&gt;Grows and lifts&lt;/div&gt;
+&lt;div class="rs-tile bg-slateblue-70 hover:opacity-50" tabindex="0"&gt;Fades to half&lt;/div&gt;
+&lt;div class="rs-tile bg-chocolate-80 hover:rotate-3" tabindex="0"&gt;Tilts a little&lt;/div&gt;</oc-code></oc-demo>
 
         <h3 class="oc-section-content__title">Group hover</h3>
         <p>Parent with class <code>.group</code> triggers child state changes on hover.</p>

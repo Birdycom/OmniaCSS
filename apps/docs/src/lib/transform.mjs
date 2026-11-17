@@ -379,7 +379,7 @@ export function transform(content, route = "") {
     const size = demo.getAttribute("size") ? ` oc-demo__preview--${demo.getAttribute("size")}` : "";
     const tab = (value, label, checked = false) => `<label class="oc-demo__tab"><input type="radio" name="oc-demo-${n}" value="${value}"${checked ? " checked" : ""}><span>${label}</span></label>`;
     const tabs = [tab("preview", "Preview", true), ...(pro ? [tab("code-1", "Code")] : codes.map((c, i) => tab(`code-${i + 1}`, DEMO_LANGS[c.lang] || c.lang.toUpperCase())))].join("");
-    const width = (value, label, icon, checked = false) => `<label class="oc-demo__width" title="${label}"><input type="radio" name="oc-demo-${n}-width" value="${value}" aria-label="${label}"${checked ? " checked" : ""}>${icon}</label>`;
+    const width = (value, label, icon, checked = false) => `<label class="oc-demo__width oc-tooltip" data-tooltip="${label}"><input type="radio" name="oc-demo-${n}-width" value="${value}" aria-label="${label}"${checked ? " checked" : ""}>${icon}</label>`;
     const widths = [width("full", "Full width", WIDTH_ICONS.desktop, true), width("tablet", "Tablet (48rem)", WIDTH_ICONS.tablet), width("phone", "Phone (24rem)", WIDTH_ICONS.phone)].join("");
     const panels = pro ? `<div class="oc-demo__code oc-demo__pro-lock" data-code="1">${PRO_LOCK}</div>`
       : codes.map((c, i) => `<div class="oc-demo__code" data-code="${i + 1}">${codeBlock(c.code, c.lang)}</div>`).join("");
@@ -572,9 +572,9 @@ export function transform(content, route = "") {
     const compatKeys = [...body.querySelectorAll("oc-compat")].flatMap((el) => (el.getAttribute("features") || "").split(/\s+/).filter(Boolean));
     const support = supportSummary([...new Set(compatKeys)]);
     const extra = [];
-    if (!/<script/i.test(demoMarkup)) extra.push(`<span class="oc-section-header__badge-js oc-badge-nojs" title="The demos on this page run without JavaScript">0 KB JavaScript</span>`);
-    if (support?.level === "baseline") extra.push(`<span class="oc-section-header__badge-support oc-badge-support oc-badge-support--baseline" title="Works in Chrome, Firefox and Safari, on desktop and mobile">Baseline</span>`);
-    if (support?.level === "newest") extra.push(`<span class="oc-section-header__badge-support oc-badge-support oc-badge-support--newest" title="${escAttr(`Not yet in every browser: ${support.missing.slice(0, 6).join(", ")}${support.missing.length > 6 ? " …" : ""}`)}">Newest CSS</span>`);
+    if (!/<script/i.test(demoMarkup)) extra.push(`<span class="oc-section-header__badge-js oc-badge-nojs oc-tooltip oc-tooltip--multiline" data-tooltip="The demos on this page run without JavaScript">0 KB JavaScript</span>`);
+    if (support?.level === "baseline") extra.push(`<span class="oc-section-header__badge-support oc-badge-support oc-badge-support--baseline oc-tooltip oc-tooltip--multiline" data-tooltip="Works in Chrome, Firefox and Safari, on desktop and mobile">Baseline</span>`);
+    if (support?.level === "newest") extra.push(`<span class="oc-section-header__badge-support oc-badge-support oc-badge-support--newest oc-tooltip oc-tooltip--multiline" data-tooltip="${escAttr(`Not yet in every browser: ${support.missing.slice(0, 6).join(", ")}${support.missing.length > 6 ? " …" : ""}`)}">Newest CSS</span>`);
     if (extra.length) {
       const badges = [...header.children].filter((c) => /badge/.test(c.className));
       const tpl = document.createElement("template");

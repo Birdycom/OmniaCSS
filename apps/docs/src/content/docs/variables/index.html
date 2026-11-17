@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Variables (Custom Properties)","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .va-card { display: grid; gap: 0.5rem; inline-size: min(100%, 15rem); padding: 1rem; border: 2px solid var(--va-accent, var(--oc-border)); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .va-card strong { color: var(--va-accent, var(--oc-foreground)); }\n    .va-card button { justify-self: start; padding: 0.4rem 0.9rem; border: 0; border-radius: 8px; background: var(--va-accent, var(--color-gray-50)); color: var(--color-white-50); font-weight: 600; }\n    .va-theme { display: grid; gap: 1rem; inline-size: min(100%, 22rem); padding: 1rem; border-radius: 14px; background: color-mix(in oklch, var(--va-brand) 10%, var(--oc-card)); --va-brand: var(--color-vividblue-80); transition: background 0.3s; }\n    .va-theme:has(input[value=\"magenta\"]:checked) { --va-brand: var(--color-magenta-50); }\n    .va-theme:has(input[value=\"green\"]:checked) { --va-brand: var(--color-green-50); }\n    .va-theme:has(input[value=\"orange\"]:checked) { --va-brand: var(--color-orange-50); }\n    .va-swatches { display: flex; gap: 0.6rem; }\n    .va-swatches label { display: grid; place-items: center; inline-size: 2rem; aspect-ratio: 1; border-radius: 50%; background: var(--sw); cursor: pointer; }\n    .va-swatches input { appearance: none; inline-size: 0.6rem; aspect-ratio: 1; margin: 0; border-radius: 50%; }\n    .va-swatches input:checked { background: var(--color-white-50); }\n    .va-swatches input:focus-visible { outline: 2px solid var(--color-white-50); outline-offset: 3px; }\n    .va-btn { justify-self: start; padding: 0.5rem 1rem; border: 0; border-radius: 999px; background: var(--va-brand); color: var(--color-white-50); font-weight: 700; transition: background 0.3s; }\n    .va-bar { block-size: 0.5rem; border-radius: 999px; background: linear-gradient(90deg, var(--va-brand), color-mix(in oklch, var(--va-brand), var(--oc-card) 60%)); }\n    @property --va-num { syntax: \"<integer>\"; inherits: false; initial-value: 0; }\n    .va-counter { --va-num: 0; counter-reset: va var(--va-num); font-size: 2.5rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--oc-foreground); transition: --va-num 2s ease-out; }\n    .va-counter::after { content: counter(va) \"+\"; }\n    .va-count-wrap:hover .va-counter { --va-num: 2500; }\n    .va-count-wrap { display: grid; justify-items: center; gap: 0.25rem; padding: 1rem 2rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    .va-count-wrap small { color: var(--oc-muted-foreground); }\n    @property --va-from { syntax: \"<color>\"; inherits: false; initial-value: transparent; }\n    .va-grad { --va-from: var(--color-blue-50); display: grid; place-items: center; inline-size: min(100%, 16rem); block-size: 6rem; border-radius: 14px; background: linear-gradient(135deg, var(--va-from), var(--color-magenta-50)); color: var(--color-white-50); font-weight: 700; transition: --va-from 0.6s; }\n    .va-grad:hover { --va-from: var(--color-orange-50); }\n    .va-toggle { --va-on: ; display: inline-block; align-self: center; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--oc-border); background: var(--va-on) var(--color-green-60); color: var(--va-on) var(--color-white-50); }\n    .va-toggle.is-off { --va-on: initial; }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Variables (Custom Properties)","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Inside the example stages. */\n    .va-stage { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; padding: 1rem; }\n    .va-stage--fill { align-self: stretch; align-content: stretch; }\n    .va-card { display: grid; gap: 0.5rem; align-content: start; padding: 1rem 1.1rem; border: 2px solid var(--va-accent, var(--oc-border)); border-block-start-width: 8px; border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .va-card strong { font-size: 1.05rem; }\n    .va-card span { color: var(--oc-muted-foreground); font-size: 0.85rem; }\n    .va-card button { justify-self: start; padding: 0.4rem 0.9rem; border: 0; border-radius: 8px; background: var(--va-accent, var(--color-gray-80)); color: var(--color-white-50); font-weight: 600; margin-block-start: 0.4rem; }\n    .va-theme { display: grid; gap: 1rem; inline-size: 100%; box-sizing: border-box; padding: 1.25rem; color: var(--oc-foreground); border-radius: 14px; background: color-mix(in oklch, var(--va-brand) 10%, var(--oc-card)); --va-brand: var(--color-vividblue-90); transition: background 0.3s; }\n    .va-theme p { margin: 0; color: var(--oc-muted-foreground); }\n    .va-theme strong { font-size: 1.1rem; }\n    .va-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }\n    .va-chip { padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid var(--va-brand); background: color-mix(in oklch, var(--va-brand) 15%, var(--oc-card)); color: var(--oc-foreground); font-weight: 600; font-size: 0.9rem; transition: background 0.3s, border-color 0.3s; }\n    .va-theme:has(input[value=\"magenta\"]:checked) { --va-brand: var(--color-magenta-90); }\n    .va-theme:has(input[value=\"green\"]:checked) { --va-brand: var(--color-forestgreen-60); }\n    .va-theme:has(input[value=\"orange\"]:checked) { --va-brand: var(--color-orange-95); }\n    .va-swatches { display: flex; gap: 0.6rem; }\n    .va-swatches label { display: grid; place-items: center; inline-size: 2.5rem; aspect-ratio: 1; border-radius: 50%; background: var(--sw); cursor: pointer; }\n    .va-swatches input { appearance: none; inline-size: 0.6rem; aspect-ratio: 1; margin: 0; border-radius: 50%; }\n    .va-swatches input:checked { background: var(--color-white-50); }\n    .va-swatches input:focus-visible { outline: 2px solid var(--color-white-50); outline-offset: 3px; }\n    .va-btn { justify-self: start; padding: 0.6rem 1.2rem; border: 0; border-radius: 999px; background: var(--va-brand); color: var(--color-white-50); font-weight: 700; transition: background 0.3s; }\n    .va-bar { block-size: 0.5rem; border-radius: 999px; background: var(--va-brand); transition: background 0.3s; }\n    @property --va-num { syntax: \"<integer>\"; inherits: false; initial-value: 0; }\n    .va-counter { --va-num: 0; counter-reset: va var(--va-num); font-size: 2.5rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--oc-foreground); transition: --va-num 2s ease-out; }\n    .va-counter::after { content: counter(va) \"+\"; }\n    .va-count-wrap:hover .va-counter { --va-num: 2500; }\n    .va-count-wrap { display: grid; place-content: center; justify-items: center; gap: 0.25rem; min-block-size: 8rem; padding: 1rem 2rem; border: 1px dashed var(--oc-border-strong); border-radius: 12px; }\n    .va-count-wrap small { color: var(--oc-muted-foreground); }\n    @property --va-from { syntax: \"<color>\"; inherits: false; initial-value: transparent; }\n    .va-grad { --va-from: var(--color-vividblue-90); display: grid; place-items: center; min-block-size: 8rem; border-radius: 14px; background: linear-gradient(135deg, var(--va-from), var(--color-magenta-90)); color: var(--color-white-50); font-weight: 700; transition: --va-from 0.6s; }\n    .va-grad:hover { --va-from: var(--color-orange-95); }\n    .va-toggle { --va-on: ; display: grid; place-content: center; text-align: center; min-block-size: 4.5rem; padding: 0.75rem 1rem; font-weight: 600; border-radius: 8px; border: 1px solid var(--oc-border); background: var(--va-on) var(--color-forestgreen-60); color: var(--va-on) var(--color-white-50); }\n    .va-toggle.is-off { --va-on: initial; }\n      /* Utilities that read a variable */\n    .va-hand { display: flex; justify-content: center; padding: 1.5rem 1rem 0.5rem; }\n    .va-hand > div { inline-size: 3.25rem; aspect-ratio: 5 / 7; margin-inline: -0.6rem; border: 2px solid var(--oc-card); border-radius: 10px; background: var(--color-vividblue-90); box-shadow: 0 6px 16px oklch(from var(--color-black-50) l c h / 0.2); }\n    .va-hand > div:nth-child(2) { background: var(--color-teal-70); } .va-hand > div:nth-child(3) { background: var(--color-purple-60); } .va-hand > div:nth-child(4) { background: var(--color-orange-95); } .va-hand > div:nth-child(5) { background: var(--color-red-70); }\n    .va-list { display: grid; gap: 0.45rem; inline-size: 100%; box-sizing: border-box; margin: 0; padding: 0 1rem 0 0; list-style: none; }\n    .va-list li { padding: 0.55rem 0.9rem; border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font-weight: 600; }\n  </style>"]}-->
 <section class="oc-docs-section" id="variables">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Variables (Custom Properties)</h2>
@@ -33,70 +33,127 @@
           <h3 class="oc-section-content__title mt-10" id="scope">Scope, inheritance and fallback</h3>
           <p class="oc-section-content__desc">A variable set on an element applies to that element and all its descendants. <code>var(--x, fallback)</code> uses the fallback when <code>--x</code> is not set. The same card component below gets three looks from one inline variable.</p>
           <oc-demo title="One component, three values of --va-accent">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="va-card"><strong>Default</strong><span>No variable: fallback colors.</span><button type="button">Action</button></div>
-              <div class="va-card" style="--va-accent: var(--color-vividblue-80)"><strong>Blue</strong><span>--va-accent set inline.</span><button type="button">Action</button></div>
-              <div class="va-card" style="--va-accent: var(--color-magenta-50)"><strong>Magenta</strong><span>Same component.</span><button type="button">Action</button></div>
-            </div>
-          <oc-code lang="css">.va-card        { border: 2px solid var(--va-accent, var(--oc-border)); }
-.va-card strong { color: var(--va-accent, var(--oc-foreground)); }
-.va-card button { background: var(--va-accent, var(--color-gray-50)); }
-
-/* &lt;div class="va-card" style="--va-accent: var(--color-magenta-50)"&gt; … &lt;/div&gt; */</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">--va-accent: (not set)</code><div class="oc-eg__note">No variable is set, so the border and button fall back to grey.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage va-stage--fill"><div class="va-card"><strong>Default</strong><span>No variable: fallback colors.</span><button type="button">Action</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--va-accent: vividblue-90</code><div class="oc-eg__note">The same card, with the variable set inline to blue.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage va-stage--fill"><div class="va-card" style="--va-accent: var(--color-vividblue-90)"><strong>Blue</strong><span>--va-accent set inline.</span><button type="button">Action</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--va-accent: magenta-90</code><div class="oc-eg__note">Another value, another color. The CSS of the card stays the same.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage va-stage--fill"><div class="va-card" style="--va-accent: var(--color-magenta-90)"><strong>Magenta</strong><span>Same component, another value.</span><button type="button">Action</button></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="va-card"&gt;
+  &lt;strong&gt;Default&lt;/strong&gt;&lt;span&gt;No variable: fallback colors.&lt;/span&gt;&lt;button type="button"&gt;Action&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="va-card" style="--va-accent: var(--color-vividblue-90)"&gt;
+  &lt;strong&gt;Blue&lt;/strong&gt;&lt;span&gt;--va-accent set inline.&lt;/span&gt;&lt;button type="button"&gt;Action&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="va-card" style="--va-accent: var(--color-magenta-90)"&gt;
+  &lt;strong&gt;Magenta&lt;/strong&gt;&lt;span&gt;Same component, another value.&lt;/span&gt;&lt;button type="button"&gt;Action&lt;/button&gt;
+&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.va-card        { display: grid; gap: 0.5rem; padding: 1rem; border: 2px solid var(--va-accent, var(--oc-border)); border-top-width: 8px; border-radius: 12px; }
+.va-card button { background: var(--va-accent, var(--color-gray-80)); color: var(--color-white-50); }</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="theme">Theming with :has() and one variable</h3>
           <p class="oc-section-content__desc">The radio buttons set <code>--va-brand</code> on the whole panel through <code>:has()</code>. The background, button and bar all derive from it with <code>color-mix()</code>. No JavaScript.</p>
           <oc-demo title="Pick a brand color">
-            <div class="va-theme">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">:has(input:checked) · --va-brand · color-mix()</code><div class="oc-eg__note">Click a color dot: the tint, the bar, the chip and the button all change with one variable.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage"><div class="va-theme">
               <div class="va-swatches" role="radiogroup" aria-label="Brand color">
-                <label style="--sw: var(--color-vividblue-80)"><input type="radio" name="va-brand" value="blue" checked aria-label="Blue"></label>
-                <label style="--sw: var(--color-magenta-50)"><input type="radio" name="va-brand" value="magenta" aria-label="Magenta"></label>
-                <label style="--sw: var(--color-green-50)"><input type="radio" name="va-brand" value="green" aria-label="Green"></label>
-                <label style="--sw: var(--color-orange-50)"><input type="radio" name="va-brand" value="orange" aria-label="Orange"></label>
+                <label style="--sw: var(--color-vividblue-90)"><input type="radio" name="va-brand" value="blue" checked aria-label="Blue"></label>
+                <label style="--sw: var(--color-magenta-90)"><input type="radio" name="va-brand" value="magenta" aria-label="Magenta"></label>
+                <label style="--sw: var(--color-forestgreen-60)"><input type="radio" name="va-brand" value="green" aria-label="Green"></label>
+                <label style="--sw: var(--color-orange-95)"><input type="radio" name="va-brand" value="orange" aria-label="Orange"></label>
               </div>
+              <strong>Company 1</strong>
+              <p>Pick a color above: the panel tint, the bar, the chip and the button all follow one variable.</p>
               <div class="va-bar"></div>
-              <button type="button" class="va-btn">Brand button</button>
-            </div>
-          <oc-code lang="css">.va-theme { --va-brand: var(--color-vividblue-80);
+              <div class="va-actions"><button type="button" class="va-btn">Brand button</button><span class="va-chip">Tint from color-mix()</span></div>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="va-theme"&gt;
+  &lt;div class="va-swatches" role="radiogroup" aria-label="Brand color"&gt;
+    &lt;label style="--sw: var(--color-vividblue-90)"&gt;&lt;input type="radio" name="va-brand" value="blue" checked aria-label="Blue"&gt;&lt;/label&gt;
+    &lt;label style="--sw: var(--color-magenta-90)"&gt;&lt;input type="radio" name="va-brand" value="magenta" aria-label="Magenta"&gt;&lt;/label&gt;
+    &lt;label style="--sw: var(--color-forestgreen-60)"&gt;&lt;input type="radio" name="va-brand" value="green" aria-label="Green"&gt;&lt;/label&gt;
+    &lt;label style="--sw: var(--color-orange-95)"&gt;&lt;input type="radio" name="va-brand" value="orange" aria-label="Orange"&gt;&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;strong&gt;Company 1&lt;/strong&gt;
+  &lt;p&gt;Pick a color above: the panel tint, the bar, the chip and the button all follow one variable.&lt;/p&gt;
+  &lt;div class="va-bar"&gt;&lt;/div&gt;
+  &lt;div class="va-actions"&gt;&lt;button type="button" class="va-btn"&gt;Brand button&lt;/button&gt;&lt;span class="va-chip"&gt;Tint from color-mix()&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</oc-code>
+          <oc-code lang="css">.va-theme { --va-brand: var(--color-vividblue-90);
             background: color-mix(in oklch, var(--va-brand) 10%, var(--oc-card)); }
-.va-theme:has(input[value="magenta"]:checked) { --va-brand: var(--color-magenta-50); }
-.va-theme:has(input[value="green"]:checked)   { --va-brand: var(--color-green-50); }
-.va-btn { background: var(--va-brand); }
-.va-bar { background: linear-gradient(90deg, var(--va-brand),
-                      color-mix(in oklch, var(--va-brand), var(--oc-card) 60%)); }</oc-code></oc-demo>
+.va-theme:has(input[value="magenta"]:checked) { --va-brand: var(--color-magenta-90); }
+.va-theme:has(input[value="green"]:checked)   { --va-brand: var(--color-forestgreen-60); }
+.va-theme:has(input[value="orange"]:checked)  { --va-brand: var(--color-orange-95); }
+.va-swatches label { inline-size: 2.5rem; aspect-ratio: 1; border-radius: 50%; background: var(--sw); }
+.va-swatches input { appearance: none; inline-size: 0.6rem; aspect-ratio: 1; border-radius: 50%; }
+.va-swatches input:checked { background: var(--color-white-50); }
+.va-btn, .va-bar { background: var(--va-brand); }
+.va-chip { background: color-mix(in oklch, var(--va-brand) 15%, var(--oc-card)); }</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="property">@property: typed variables you can animate</h3>
           <p class="oc-section-content__desc">An unregistered variable is just text and jumps from value to value. Register it with <code>@property</code> and the browser can interpolate it: an integer becomes a counter, a color becomes a gradient you can transition.</p>
           <oc-demo title="Hover: an integer counts up, a gradient color fades">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="va-count-wrap"><span class="va-counter"></span><small>hover me</small></div>
-              <div class="va-grad">hover me</div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">@property --va-num (integer)</code><div class="oc-eg__note">Hover the box: the number counts up to 2500 instead of jumping there.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage"><div class="va-count-wrap"><span class="va-counter"></span><small>hover me</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">@property --va-from (color)</code><div class="oc-eg__note">Hover the box: the start color of the gradient fades to orange.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage"><div class="va-grad">hover me</div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="va-count-wrap"&gt;&lt;span class="va-counter"&gt;&lt;/span&gt;&lt;small&gt;hover me&lt;/small&gt;&lt;/div&gt;
+&lt;div class="va-grad"&gt;hover me&lt;/div&gt;</oc-code>
           <oc-code lang="css">@property --va-num { syntax: "&lt;integer&gt;"; inherits: false; initial-value: 0; }
 .va-counter { counter-reset: va var(--va-num); transition: --va-num 2s ease-out; }
 .va-counter::after { content: counter(va) "+"; }
 .va-count-wrap:hover .va-counter { --va-num: 2500; }
 
 @property --va-from { syntax: "&lt;color&gt;"; inherits: false; initial-value: transparent; }
-.va-grad { --va-from: var(--color-blue-50);
-           background: linear-gradient(135deg, var(--va-from), var(--color-magenta-50));
+.va-grad { --va-from: var(--color-vividblue-90);
+           background: linear-gradient(135deg, var(--va-from), var(--color-magenta-90));
            transition: --va-from 0.6s; }
-.va-grad:hover { --va-from: var(--color-orange-50); }</oc-code></oc-demo>
+.va-grad:hover { --va-from: var(--color-orange-95); }</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="utilities">Variables in OmniaCSS utilities</h3>
           <p class="oc-section-content__desc">Utilities that read a variable can be tuned without new classes: set it inline, on a parent, or in a state.</p>
-          <oc-code lang="html">&lt;ul class="group" style="--oc-stagger: 80ms"&gt; &lt;li class="delay-stagger …"&gt;…&lt;/li&gt; &lt;/ul&gt;
-&lt;div class="fan" style="--oc-fan: 12deg"&gt;&lt;/div&gt;
-&lt;div style="--status: danger"&gt; … &lt;/div&gt;   &lt;!-- read by @container style(--status: danger) --&gt;</oc-code>
+          <oc-demo title="--oc-fan and --oc-stagger set inline">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.fan + style="--oc-fan: 12deg"</code><div class="oc-eg__note">The .fan class reads --oc-fan. Set inline on the hand, every card turns 12deg further than its neighbour (the default is 6deg).</div><div class="oc-eg__stage oc-eg__stage--plain va-stage">
+<div class="va-hand" style="--oc-fan: 12deg"><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div><div class="fan"></div></div>
+</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.delay-stagger + style="--oc-stagger: 250ms"</code><div class="oc-eg__note">Hover the list: with a step of 250ms the items move one by one, slow enough to follow.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage">
+<ul class="va-list group" style="--oc-stagger: 250ms">
+  <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">Invoice 1</li>
+  <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">Invoice 2</li>
+  <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">Invoice 3</li>
+  <li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger">Invoice 4</li>
+</ul>
+</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="va-hand" style="--oc-fan: 12deg"&gt;
+  &lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;&lt;div class="fan"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul class="group" style="--oc-stagger: 250ms"&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;Invoice 1&lt;/li&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;Invoice 2&lt;/li&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;Invoice 3&lt;/li&gt;
+  &lt;li class="group-hover:bg-teal-70 group-hover:text-white group-hover:translate-x-4 transition-all duration-300 delay-stagger"&gt;Invoice 4&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- The same works for your own variables, read by a style query: --&gt;
+&lt;div style="--status: danger"&gt; … &lt;/div&gt;   &lt;!-- @container style(--status: danger) { … } --&gt;</oc-code>
+          <oc-code lang="css">/* Card look of the hand (page CSS; .fan and its rotation come from OmniaCSS) */
+.va-hand { display: flex; justify-content: center; }
+.va-hand &gt; div { inline-size: 3.25rem; aspect-ratio: 5 / 7; margin-inline: -0.6rem; border-radius: 10px; }</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="space-toggle">Advanced: the space toggle</h3>
           <p class="oc-section-content__desc">A variable set to a single space is valid but empty; set to <code>initial</code> it is "guaranteed invalid", so <code>var()</code> falls back. That makes an on/off switch inside a single value.</p>
           <oc-demo title="--va-on: ; (on) versus --va-on: initial (off)">
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <span class="va-toggle">--va-on: ␠ (on)</span>
-              <span class="va-toggle is-off">--va-on: initial (off)</span>
-            </div>
-          <oc-code lang="css">.va-toggle        { --va-on: ; background: var(--va-on) var(--color-green-60); }
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">--va-on: ;</code><div class="oc-eg__note">A single space is a valid, empty value, so the green background applies.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage"><span class="va-toggle">On: green background</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">--va-on: initial</code><div class="oc-eg__note">Invalid on purpose: var() fails, so the background falls back to none.</div><div class="oc-eg__stage oc-eg__stage--plain va-stage"><span class="va-toggle is-off">Off: no background</span></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;span class="va-toggle"&gt;On: green background&lt;/span&gt;
+&lt;span class="va-toggle is-off"&gt;Off: no background&lt;/span&gt;</oc-code>
+          <oc-code lang="css">.va-toggle        { --va-on: ; background: var(--va-on) var(--color-forestgreen-60);
+                    color: var(--va-on) var(--color-white-50); }
 .va-toggle.is-off { --va-on: initial; }   /* var() invalid → background falls back to its initial value */</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>

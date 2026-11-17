@@ -50,29 +50,31 @@ $_states: (
   .#{$state}\:shadow-xl#{$pseudo} { box-shadow: #{$oc-shadow-xl}; }
 
   // -----------------------------------------------------------------------
-  // Scale (transform) state variants
+  // Scale state variants. These use the individual scale / translate / rotate properties, like the base classes and
+  // the generated hover: variants: with transform as well, both applied and hover:scale-125 became 1.5625 (fixed in 0.16.0).
   // -----------------------------------------------------------------------
-  .#{$state}\:scale-95#{$pseudo} { transform: scale(0.95); }
-  .#{$state}\:scale-100#{$pseudo} { transform: scale(1); }
-  .#{$state}\:scale-105#{$pseudo} { transform: scale(1.05); }
-  .#{$state}\:scale-110#{$pseudo} { transform: scale(1.1); }
-  .#{$state}\:scale-125#{$pseudo} { transform: scale(1.25); }
+  .#{$state}\:scale-95#{$pseudo} { scale: 0.95; }
+  .#{$state}\:scale-100#{$pseudo} { scale: 1; }
+  .#{$state}\:scale-105#{$pseudo} { scale: 1.05; }
+  .#{$state}\:scale-110#{$pseudo} { scale: 1.1; }
+  .#{$state}\:scale-125#{$pseudo} { scale: 1.25; }
 
   // Translate
-  .#{$state}\:translate-y-0#{$pseudo} { transform: translateY(0); }
-  .#{$state}\:translate-y-1#{$pseudo} { transform: translateY(-0.25rem); }
-  .#{$state}\:-translate-y-1#{$pseudo} { transform: translateY(-0.25rem); }
+  // translate-y-1 moves DOWN (it used to move up, the same as -translate-y-1).
+  .#{$state}\:translate-y-0#{$pseudo} { translate: var(--oc-translate-x, 0) 0; }
+  .#{$state}\:translate-y-1#{$pseudo} { translate: var(--oc-translate-x, 0) 0.25rem; }
+  .#{$state}\:-translate-y-1#{$pseudo} { translate: var(--oc-translate-x, 0) -0.25rem; }
 
   // Rotate
-  .#{$state}\:rotate-0#{$pseudo} { transform: rotate(0deg); }
-  .#{$state}\:rotate-1#{$pseudo} { transform: rotate(1deg); }
-  .#{$state}\:rotate-2#{$pseudo} { transform: rotate(2deg); }
-  .#{$state}\:rotate-3#{$pseudo} { transform: rotate(3deg); }
-  .#{$state}\:rotate-6#{$pseudo} { transform: rotate(6deg); }
-  .#{$state}\:rotate-12#{$pseudo} { transform: rotate(12deg); }
-  .#{$state}\:rotate-45#{$pseudo} { transform: rotate(45deg); }
-  .#{$state}\:rotate-90#{$pseudo} { transform: rotate(90deg); }
-  .#{$state}\:rotate-180#{$pseudo} { transform: rotate(180deg); }
+  .#{$state}\:rotate-0#{$pseudo} { rotate: 0deg; }
+  .#{$state}\:rotate-1#{$pseudo} { rotate: 1deg; }
+  .#{$state}\:rotate-2#{$pseudo} { rotate: 2deg; }
+  .#{$state}\:rotate-3#{$pseudo} { rotate: 3deg; }
+  .#{$state}\:rotate-6#{$pseudo} { rotate: 6deg; }
+  .#{$state}\:rotate-12#{$pseudo} { rotate: 12deg; }
+  .#{$state}\:rotate-45#{$pseudo} { rotate: 45deg; }
+  .#{$state}\:rotate-90#{$pseudo} { rotate: 90deg; }
+  .#{$state}\:rotate-180#{$pseudo} { rotate: 180deg; }
 
   // -----------------------------------------------------------------------
   // Border-color state variants (neutral palette)
@@ -187,8 +189,8 @@ $_states: (
 .group:hover .group-hover\:invisible { visibility: hidden; }
 .group:hover .group-hover\:block { display: block; }
 .group:hover .group-hover\:hidden { display: none; }
-.group:hover .group-hover\:scale-105 { transform: scale(1.05); }
-.group:hover .group-hover\:scale-110 { transform: scale(1.1); }
+.group:hover .group-hover\:scale-105 { scale: 1.05; }
+.group:hover .group-hover\:scale-110 { scale: 1.1; }
 .group:hover .group-hover\:text-white { color: var(--color-white-2); }
 .group:hover .group-hover\:underline { text-decoration-line: underline; }
 .group:hover .group-hover\:no-underline { text-decoration-line: none; }

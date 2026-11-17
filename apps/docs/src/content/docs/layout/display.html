@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Display", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n.lay-tile { padding: 8px 10px; border-radius: 8px; background: var(--color-dodgerblue-90); color: var(--color-white-50); font: 600 0.78rem/1.2 ui-monospace, monospace; }\n.lay-tile--b { background: var(--color-forestgreen-90); } .lay-tile--c { background: var(--color-darkorange-90); } .lay-tile--d { background: var(--color-magenta-90); }\n.lay-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 16px; inline-size: 100%; }\n.lay-cell { display: grid; gap: 6px; align-content: start; font-size: 0.75rem; }\n.lay-cell > code { justify-self: start; }\n.lay-note { font-size: 0.75rem; color: var(--oc-muted-foreground); }\n.lay-dispwrap { padding: 8px; border-radius: 10px; background: var(--oc-muted); min-block-size: 9rem; }\n.lay-dispbox { outline: 1.5px dashed var(--oc-border-strong); outline-offset: 2px; border-radius: 4px; }\n.lay-dispbox.list-item { margin-inline-start: 1.2rem; }\n.lay-frame { border: 2px solid var(--oc-border-strong); padding: 6px; border-radius: 8px; outline: none; min-block-size: 0; }\n</style>","<style>\n    .demo-container { background: var(--bg-soft); padding: 24px; border-radius: 12px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 24px; }\n    .demo-box { background: var(--accent); color: light-dark(var(--color-white-95), var(--color-white-2)); padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; text-align: center; }\n    .demo-box-alt { background: var(--bg-subtle); color: var(--text); border: 1px solid var(--border); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Display","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n.lay-tile { padding: 8px 10px; border-radius: 8px; background: var(--color-dodgerblue-90); color: var(--color-white-50); font: 600 0.78rem/1.2 ui-monospace, monospace; }\n    .lay-dispbox { outline: 1.5px dashed var(--oc-border-strong); outline-offset: 2px; border-radius: 4px; }\n.lay-dispbox.list-item { margin-inline-start: 1.2rem; }\n.lay-frame { border: 2px solid var(--oc-border-strong); padding: 6px; border-radius: 8px; outline: none; min-block-size: 0; }\n.lay-pad { padding: 0.75rem; }\n</style>","<style>\n/* Display demos: frame from the shared example kit (.oc-eg); flat palette boxes with white text */\n.dp-field { padding: 14px; color: var(--oc-foreground); font-size: 0.9rem; line-height: 1.7; }\n.dp-box { padding: 10px 14px; border-radius: 6px; background: var(--color-vividblue-90); color: var(--color-white-50); font-weight: 600; font-size: 0.85rem; line-height: 1.3; }\n.dp-box--b { background: var(--color-forestgreen-60); }\n.dp-box--c { background: var(--color-orange-95); }\n.dp-box.block + .dp-box.block { margin-block-start: 6px; }\n.dp-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; }\n.dp-row .dp-box { flex: 1 1 5rem; place-content: center; text-align: center; }\n.dp-row .dp-box:not(.none) { display: grid; }\n.dp-wrap { padding: 6px; border: 2px dashed var(--oc-border-strong); border-radius: 8px; flex: 1 1 5rem; }\n.dp-wrap:not(.contents) .dp-box + .dp-box { margin-block-start: 6px; }\n.dp-list { padding-inline-start: 1.8rem; }\n.dp-list > div { margin-block: 4px; }\n.dp-list > div::marker { color: var(--oc-foreground); }\n</style>"]}-->
 <section class="oc-docs-section" id="display">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Display</h2>
@@ -30,49 +30,99 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title">Display Demos</h3>
-          <oc-demo title="Display Demos"><div class="preview demo-container">
-            <div>
-              <p class="label-sm mb-2 opacity-60">Block (.block) — Stacked</p>
-              <div class="block demo-box mb-2">Item 1</div>
-              <div class="block demo-box">Item 2</div>
-            </div>
-            
-            <div>
-              <p class="label-sm mb-2 opacity-60">Inline Block (.inline-block) — Side by side</p>
-              <div class="inline-block demo-box mr-2">Item 1</div>
-              <div class="inline-block demo-box">Item 2</div>
-            </div>
-          </div><oc-code lang="html">&lt;div class="block"&gt;Full width item&lt;/div&gt;
-&lt;span class="inline-block"&gt;Content-aware width&lt;/span&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title">block, inline-block and inline</h3>
+          <p class="oc-section-content__desc">Each card holds the same line of text with two colored boxes in it; only the display class on the boxes changes. Look at where the boxes go and what their padding does to the lines of text around them.</p>
+          <oc-demo title="block, inline-block, inline"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+            <div class="oc-eg__panel"><code class="oc-eg__name">.block</code><div class="oc-eg__note">Each box starts on a new line and fills the full width.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field">Text before <span class="block dp-box">Box 1</span><span class="block dp-box dp-box--b">Box 2</span> text after the boxes.</div></div>
+            <div class="oc-eg__panel"><code class="oc-eg__name">.inline-block</code><div class="oc-eg__note">The boxes stay in the line of text. Their padding pushes the lines apart, and width and height work.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field">Text before <span class="inline-block dp-box">Box 1</span> <span class="inline-block dp-box dp-box--b">Box 2</span> text after the boxes.</div></div>
+            <div class="oc-eg__panel"><code class="oc-eg__name">.inline</code><div class="oc-eg__note">The boxes flow like words and can wrap. Vertical padding overlaps the lines; width and height are ignored.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field">Text before <span class="inline dp-box">Box 1</span> <span class="inline dp-box dp-box--b">Box 2 with longer text</span> text after the boxes.</div></div>
+          </div></div><oc-code lang="html">&lt;!-- The same text three times; only the class on the two boxes changes --&gt;
+&lt;p&gt;Text before &lt;span class="block"&gt;Box 1&lt;/span&gt;&lt;span class="block"&gt;Box 2&lt;/span&gt; text after the boxes.&lt;/p&gt;
+&lt;p&gt;Text before &lt;span class="inline-block"&gt;Box 1&lt;/span&gt; &lt;span class="inline-block"&gt;Box 2&lt;/span&gt; text after the boxes.&lt;/p&gt;
+&lt;p&gt;Text before &lt;span class="inline"&gt;Box 1&lt;/span&gt; &lt;span class="inline"&gt;Box 2 with longer text&lt;/span&gt; text after the boxes.&lt;/p&gt;
 
-          <h3 class="oc-section-content__title mt-8">All display values side by side</h3>
-          <p class="oc-section-content__desc">Each cell contains the same three tiles; only the class on the wrapper changes. The dashed outline shows the wrapper box (it disappears with <code>.contents</code>, and <code>.none</code> hides everything).</p>
+&lt;!-- Box look in this demo (page CSS): padding: 10px 14px; border-radius: 6px; a flat color with white text --&gt;</oc-code></oc-demo>
 
-          <oc-demo title="block, inline-block, inline, flow-root, contents, list-item, none">
-            <div class="lay-grid" style="grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr))">
-              <div class="lay-cell"><div class="lay-dispwrap"><div class="block lay-dispbox"><div class="lay-tile" style="margin-block:2px">A</div><div class="lay-tile lay-tile--b" style="margin-block:2px">B</div><div class="lay-tile lay-tile--c" style="margin-block:2px">C</div></div></div><code>.block</code><span class="lay-note">tiles stack, wrapper full width</span></div>
-              <div class="lay-cell"><div class="lay-dispwrap"><div class="inline-block lay-dispbox"><div class="lay-tile" style="margin-block:2px">A</div><div class="lay-tile lay-tile--b" style="margin-block:2px">B</div><div class="lay-tile lay-tile--c" style="margin-block:2px">C</div></div></div><code>.inline-block</code><span class="lay-note">wrapper shrinks to content</span></div>
-              <div class="lay-cell"><div class="lay-dispwrap"><div class="inline lay-dispbox"><div class="lay-tile" style="margin-block:2px">A</div><div class="lay-tile lay-tile--b" style="margin-block:2px">B</div><div class="lay-tile lay-tile--c" style="margin-block:2px">C</div></div></div><code>.inline</code><span class="lay-note">inline wrapper: block children break out of it</span></div>
-              <div class="lay-cell"><div class="lay-dispwrap"><div class="flow-root lay-dispbox"><div class="lay-tile" style="margin-block:2px">A</div><div class="lay-tile lay-tile--b" style="margin-block:2px">B</div><div class="lay-tile lay-tile--c" style="margin-block:2px">C</div></div></div><code>.flow-root</code><span class="lay-note">new formatting context (contains floats)</span></div>
-              <div class="lay-cell"><div class="lay-dispwrap"><div class="contents lay-dispbox"><div class="lay-tile" style="margin-block:2px">A</div><div class="lay-tile lay-tile--b" style="margin-block:2px">B</div><div class="lay-tile lay-tile--c" style="margin-block:2px">C</div></div></div><code>.contents</code><span class="lay-note">wrapper box disappears, children join the parent</span></div>
-              <div class="lay-cell"><div class="lay-dispwrap"><div class="list-item lay-dispbox"><div class="lay-tile" style="margin-block:2px">A</div><div class="lay-tile lay-tile--b" style="margin-block:2px">B</div><div class="lay-tile lay-tile--c" style="margin-block:2px">C</div></div></div><code>.list-item</code><span class="lay-note">adds a list marker</span></div>
-              <div class="lay-cell"><div class="lay-dispwrap"><div class="none lay-dispbox"><div class="lay-tile" style="margin-block:2px">A</div><div class="lay-tile lay-tile--b" style="margin-block:2px">B</div><div class="lay-tile lay-tile--c" style="margin-block:2px">C</div></div></div><code>.none</code><span class="lay-note">removed from layout</span></div>
-            </div>
-          <oc-code lang="html">&lt;div class="block"&gt;…&lt;/div&gt;
-&lt;div class="inline-block"&gt;…&lt;/div&gt;
-&lt;div class="contents"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-8">none versus invisible</h3>
+          <p class="oc-section-content__desc">Both rows hide <em>Card 2</em>. With <code>.none</code> the card is gone and the others close the gap; with <code>.invisible</code> the card is not drawn, but its space stays.</p>
+          <oc-demo title="none, invisible"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+            <div class="oc-eg__panel"><code class="oc-eg__name">.none</code><div class="oc-eg__note">Removed from the layout (and from screen readers).</div><div class="oc-eg__stage oc-eg__stage--plain dp-field dp-row"><div class="dp-box">Card 1</div><div class="none dp-box dp-box--b">Card 2</div><div class="dp-box dp-box--c">Card 3</div></div></div>
+            <div class="oc-eg__panel"><code class="oc-eg__name">.invisible</code><div class="oc-eg__note">Not visible, but it still takes its place.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field dp-row"><div class="dp-box">Card 1</div><div class="invisible dp-box dp-box--b">Card 2</div><div class="dp-box dp-box--c">Card 3</div></div></div>
+          </div></div><oc-code lang="html">&lt;!-- .none: Card 2 is removed, Card 3 moves up --&gt;
+&lt;div class="flex gap-1"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;
+  &lt;div class="none"&gt;Card 2&lt;/div&gt;
+  &lt;div&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- .invisible: Card 2 is not drawn, but its place stays empty --&gt;
+&lt;div class="flex gap-1"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;
+  &lt;div class="invisible"&gt;Card 2&lt;/div&gt;
+  &lt;div&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">contents</h3>
+          <p class="oc-section-content__desc">Both rows are flex rows. The dashed wrapper around <em>A</em> and <em>B</em> is normally one flex item (left). With <code>.contents</code> the wrapper box disappears and A and B become flex items next to C (right).</p>
+          <oc-demo title="contents"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+            <div class="oc-eg__panel"><code class="oc-eg__name">no class on the wrapper</code><div class="oc-eg__note">The wrapper is one item; A and B stack inside it.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field dp-row"><div class="dp-wrap"><div class="dp-box">A</div><div class="dp-box dp-box--b">B</div></div><div class="dp-box dp-box--c">C</div></div></div>
+            <div class="oc-eg__panel"><code class="oc-eg__name">.contents</code><div class="oc-eg__note">The wrapper has no box any more: no border, and A, B and C sit side by side.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field dp-row"><div class="contents dp-wrap"><div class="dp-box">A</div><div class="dp-box dp-box--b">B</div></div><div class="dp-box dp-box--c">C</div></div></div>
+          </div></div><oc-code lang="html">&lt;!-- No class: the wrapper is one flex item, A and B stack inside it --&gt;
+&lt;div class="flex gap-1"&gt;
+  &lt;div&gt;
+    &lt;div&gt;A&lt;/div&gt;
+    &lt;div&gt;B&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;C&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- .contents: the wrapper box disappears, A, B and C are three flex items --&gt;
+&lt;div class="flex gap-1"&gt;
+  &lt;div class="contents"&gt;
+    &lt;div&gt;A&lt;/div&gt;
+    &lt;div&gt;B&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;C&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">list-item</h3>
+          <p class="oc-section-content__desc"><code>.list-item</code> gives any element a list marker, like an <code>&lt;li&gt;</code>. Combine it with a marker class such as <code>.list-disc</code> or <code>.list-decimal</code>.</p>
+          <oc-demo title="list-item"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+            <div class="oc-eg__panel"><code class="oc-eg__name">.block</code><div class="oc-eg__note">Plain blocks: no markers.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field dp-list"><div class="block">Order received</div><div class="block">Payment checked</div><div class="block">Sent to Customer 1</div></div></div>
+            <div class="oc-eg__panel"><code class="oc-eg__name">.list-item .list-disc</code><div class="oc-eg__note">Each div gets a bullet.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field dp-list"><div class="list-item list-disc">Order received</div><div class="list-item list-disc">Payment checked</div><div class="list-item list-disc">Sent to Customer 1</div></div></div>
+            <div class="oc-eg__panel"><code class="oc-eg__name">.list-item .list-decimal</code><div class="oc-eg__note">The markers count up, like an ordered list.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field dp-list"><div class="list-item list-decimal">Order received</div><div class="list-item list-decimal">Payment checked</div><div class="list-item list-decimal">Sent to Customer 1</div></div></div>
+          </div></div><oc-code lang="html">&lt;!-- Plain blocks: no markers --&gt;
+&lt;div class="block"&gt;Order received&lt;/div&gt;
+&lt;div class="block"&gt;Payment checked&lt;/div&gt;
+&lt;div class="block"&gt;Sent to Customer 1&lt;/div&gt;
+
+&lt;!-- Bullets --&gt;
+&lt;div class="list-item list-disc"&gt;Order received&lt;/div&gt;
+&lt;div class="list-item list-disc"&gt;Payment checked&lt;/div&gt;
+&lt;div class="list-item list-disc"&gt;Sent to Customer 1&lt;/div&gt;
+
+&lt;!-- Numbers --&gt;
+&lt;div class="list-item list-decimal"&gt;Order received&lt;/div&gt;
+&lt;div class="list-item list-decimal"&gt;Payment checked&lt;/div&gt;
+&lt;div class="list-item list-decimal"&gt;Sent to Customer 1&lt;/div&gt;
+&lt;!-- Markers sit outside the box: give the parent some padding-left (here 1.8rem) --&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Why flow-root</h3>
           <p class="oc-section-content__desc">A floated child takes no height, so a parent with a border collapses around it (left). <code>.flow-root</code> makes the parent contain its floats (right) without clearfix hacks.</p>
 
           <oc-demo title="flow-root contains floats">
-            <div class="lay-grid">
-              <div class="lay-cell"><div class="lay-dispbox lay-frame"><div class="float-left lay-tile">float</div></div><code>no flow-root</code><span class="lay-note">frame collapses</span></div>
-              <div class="lay-cell"><div class="flow-root lay-dispbox lay-frame"><div class="float-left lay-tile">float</div></div><code>.flow-root</code><span class="lay-note">frame contains the float</span></div>
-            </div>
-          <oc-code lang="html">&lt;div class="flow-root"&gt;
-  &lt;img class="float-left" src="…"&gt;
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+              <div class="oc-eg__panel"><code class="oc-eg__name">no flow-root</code><div class="oc-eg__note">The float takes no height, so the frame collapses.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="lay-dispbox lay-frame"><div class="float-left lay-tile">float</div></div></div></div>
+              <div class="oc-eg__panel"><code class="oc-eg__name">.flow-root</code><div class="oc-eg__note">The frame grows around the float.</div><div class="oc-eg__stage oc-eg__stage--plain lay-pad"><div class="flow-root lay-dispbox lay-frame"><div class="float-left lay-tile">float</div></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- Without flow-root: the frame does not grow around the float --&gt;
+&lt;div class="border-2 border-solid p-0.5"&gt;
+  &lt;div class="float-left"&gt;float&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- With flow-root: the frame contains the float --&gt;
+&lt;div class="flow-root border-2 border-solid p-0.5"&gt;
+  &lt;div class="float-left"&gt;float&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
         </div>

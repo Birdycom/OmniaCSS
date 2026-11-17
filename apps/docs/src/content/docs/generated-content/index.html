@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Generated Content", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Generated Content", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n\n    /* Inside the example stages. */\n    .gc-stage { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.6rem; justify-items: start; align-content: center; padding: 1rem 1.15rem; }\n    .gc-stage > [class^=\"quotes\"] { font-size: 1.3rem; line-height: 1.4; }\n      .gc-q { font-size: 1.3rem; line-height: 1.4; }\n\n  </style>"]}-->
 <section class="oc-docs-section" id="generated-content">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Generated Content</h2>
@@ -32,16 +32,21 @@
 
           <oc-demo title="content-attr">
             
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.content-attr</span>
-                <span class="content-attr font-1 p-0.5 round-2 bg-darkorange-mix-30 text-darkorange-95 dark:text-darkorange-30" data-oc-content="★ ">Featured</span>
-              </div>
-            </div>
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key oc-eg__key--strong">Every badge has class="content-attr"; only its data-oc-content attribute differs</span></div><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">data-oc-content="★ "</code><div class="oc-eg__note">The star in front of Featured comes from the attribute; the HTML text only says Featured.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><strong>Product 1</strong><span class="content-attr font-semibold p-inline-0.8 p-block-0.3 round-full text-white bg-orange-95" style="justify-self: start" data-oc-content="★ ">Featured</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">data-oc-content="New · "</code><div class="oc-eg__note">The word New and the dot come from the attribute, the rest is the text.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><strong>Product 2</strong><span class="content-attr font-semibold p-inline-0.8 p-block-0.3 round-full text-white bg-vividblue-90" style="justify-self: start" data-oc-content="New · ">Just added</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">data-oc-content="−20% · "</code><div class="oc-eg__note">The −20% comes from the attribute; the HTML text only says Sale.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><strong>Product 3</strong><span class="content-attr font-semibold p-inline-0.8 p-block-0.3 round-full text-white bg-red-70" style="justify-self: start" data-oc-content="−20% · ">Sale</span></div></div>
+            </div></div>
 
             
             
-          <oc-code lang="html">&lt;span class="content-attr" data-oc-content="★ "&gt;Featured&lt;/span&gt;</oc-code></oc-demo>
+          <oc-code lang="html">&lt;!-- the text before "Featured", "Just added" and "Sale" comes from the attribute --&gt;
+&lt;strong&gt;Product 1&lt;/strong&gt;
+&lt;span class="content-attr font-semibold p-inline-0.8 p-block-0.3 round-full text-white bg-orange-95" data-oc-content="★ "&gt;Featured&lt;/span&gt;
+&lt;strong&gt;Product 2&lt;/strong&gt;
+&lt;span class="content-attr font-semibold p-inline-0.8 p-block-0.3 round-full text-white bg-vividblue-90" data-oc-content="New · "&gt;Just added&lt;/span&gt;
+&lt;strong&gt;Product 3&lt;/strong&gt;
+&lt;span class="content-attr font-semibold p-inline-0.8 p-block-0.3 round-full text-white bg-red-70" data-oc-content="−20% · "&gt;Sale&lt;/span&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="quotes">Quotes</h3>
           <p class="oc-section-content__desc">Quotation marks for <code>&lt;q&gt;</code> and nested quotes (outer pair, inner pair). <strong>What:</strong> <code>quotes</code> defines the outer and inner pair that <code>&lt;q&gt;</code> and <code>open-quote</code> / <code>close-quote</code> use. <strong>Gotcha:</strong> the browser picks quotes from the <code>lang</code> attribute by default, so set <code>lang</code> correctly first and override only when the design demands a house style. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/quotes" target="_blank" rel="noopener">MDN: quotes</a>.</p>
@@ -62,16 +67,29 @@
           </div>
 
           <oc-demo title="quotes-english, quotes-french, quotes-german">
-            
-            <div class="round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
-              <p class="quotes-english mb-1"><q>Design is <q>how it works</q>.</q></p>
-              <p class="quotes-french mb-1"><q>Design is <q>how it works</q>.</q></p>
-              <p class="quotes-german"><q>Design is <q>how it works</q>.</q></p>
-            </div>
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.quotes-english</code><div class="oc-eg__note">Curly double quotes outside, single quotes for the quote inside.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><div class="quotes-english"><q>Customer 1 said: <q>it arrived a day early</q>.</q></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.quotes-french</code><div class="oc-eg__note">Guillemets « » outside, single guillemets ‹ › inside.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><div class="quotes-french"><q>Customer 1 said: <q>it arrived a day early</q>.</q></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.quotes-german</code><div class="oc-eg__note">Low and high quotes „ “ outside, ‚ ‘ inside.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><div class="quotes-german"><q>Customer 1 said: <q>it arrived a day early</q>.</q></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- the q element adds the marks; the class picks which ones, also for the nested quote --&gt;
+&lt;div class="quotes-english"&gt;&lt;q&gt;Customer 1 said: &lt;q&gt;it arrived a day early&lt;/q&gt;.&lt;/q&gt;&lt;/div&gt;
+&lt;div class="quotes-french"&gt;&lt;q&gt;Customer 1 said: &lt;q&gt;it arrived a day early&lt;/q&gt;.&lt;/q&gt;&lt;/div&gt;
+&lt;div class="quotes-german"&gt;&lt;q&gt;Customer 1 said: &lt;q&gt;it arrived a day early&lt;/q&gt;.&lt;/q&gt;&lt;/div&gt;</oc-code></oc-demo>
 
-            
-            
-          <oc-code lang="html">&lt;p class="quotes-french"&gt;&lt;q&gt;Design is &lt;q&gt;how it works&lt;/q&gt;.&lt;/q&gt;&lt;/p&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">Four ways to control quotation marks. The first tile puts marks around a plain <code>div</code> (no <code>&lt;q&gt;</code>) with the content classes. The other three use a <code>&lt;q&gt;</code> element. <code>.content-empty</code> has no tile: it gives <code>::before</code> and <code>::after</code> an empty text so you can style them as shapes, and shows nothing on its own.</p>
+          <oc-demo title="content-open-quote, content-close-quote, quotes-none, quotes-auto, content-none">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 18rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.content-open-quote .content-close-quote</code><div class="oc-eg__note">A plain div gets quotation marks, for example around a customer review.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><div class="gc-q quotes-english content-open-quote content-close-quote">The bag is sturdy and it arrived a day early.</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">q.quotes-none</code><div class="oc-eg__note">The q element keeps its meaning, but shows no marks.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><div class="gc-q"><q class="quotes-none">it arrived a day early</q></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">q.quotes-auto + lang="fr"</code><div class="oc-eg__note">The marks follow the language of the text: French gets « ».</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><div class="gc-q" lang="fr"><q class="quotes-auto">it arrived a day early</q></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">q.content-none</code><div class="oc-eg__note">The pseudo-elements that hold the marks are switched off.</div><div class="oc-eg__stage oc-eg__stage--plain gc-stage"><div class="gc-q"><q class="content-none">it arrived a day early</q></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="quotes-english content-open-quote content-close-quote"&gt;The bag is sturdy and it arrived a day early.&lt;/div&gt;
+&lt;q class="quotes-none"&gt;it arrived a day early&lt;/q&gt;
+&lt;q class="quotes-auto" lang="fr"&gt;it arrived a day early&lt;/q&gt;
+&lt;q class="content-none"&gt;it arrived a day early&lt;/q&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Content and quotes are broadly supported.</p>

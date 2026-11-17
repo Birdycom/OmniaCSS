@@ -47,6 +47,7 @@ body {
 }
 /* Only the sidebar shell pages scroll inside their panels; plain pages (home) scroll normally. */
 body:has(> .ocd-shell, > .oc-docs-shell, > [class*="oc-docs-shell"]) {
+  display: flow-root; /* keeps the top margin of the shell inside the body: otherwise the document is taller than the window */
   height: 100vh;
   overflow: hidden;
 }
@@ -106,7 +107,9 @@ p, li { color: var(--text-soft); line-height: 1.55; }
   border-radius: 6px;
   padding: 10px 14px;
   font-size: 0.82rem;
-  color: var(--ocd-shell-accent);
+  /* The text color of the page: readable on the light tint in both themes. */
+  color: var(--oc-foreground);
+  font-weight: 600;
   text-align: center;
 }
 .demo-box-alt {
@@ -115,7 +118,8 @@ p, li { color: var(--text-soft); line-height: 1.55; }
   border-radius: 6px;
   padding: 10px 14px;
   font-size: 0.82rem;
-  color: light-dark(var(--color-stormblue-30), var(--color-mistblue-40));
+  color: var(--oc-foreground);
+  font-weight: 600;
   text-align: center;
 }
 .demo-box-sm {
@@ -124,7 +128,9 @@ p, li { color: var(--text-soft); line-height: 1.55; }
   border-radius: 6px;
   padding: 6px 10px;
   font-size: 0.75rem;
-  color: var(--ocd-shell-accent);
+  /* The text color of the page: readable on the light tint in both themes. */
+  color: var(--oc-foreground);
+  font-weight: 600;
   text-align: center;
   min-width: 30px;
 }
@@ -136,7 +142,8 @@ p, li { color: var(--text-soft); line-height: 1.55; }
   border-radius: 6px;
   padding: 6px 10px;
   font-size: 0.75rem;
-  color: light-dark(var(--color-stormblue-30), var(--color-mistblue-40));
+  color: var(--oc-foreground);
+  font-weight: 600;
   text-align: center;
   min-width: 30px;
 }
@@ -729,9 +736,10 @@ p, li { color: var(--text-soft); line-height: 1.55; }
   border-radius: 12px;
   background: var(--oc-card);
   color: var(--oc-foreground);
-  cursor: pointer;
   text-align: center;
 }
+/* A pointer only on cards that are links or buttons; :where() so a cursor-* class on a card always wins. */
+:where(a, button).oc-fx-card { cursor: pointer; }
 .oc-fx-card span { color: var(--oc-muted-foreground); font-size: 0.8rem; }
 .oc-fx-card--shadow:is(:hover, :focus-visible) { box-shadow: 0 18px 40px -12px oklch(from var(--color-vividblue-80) l c h / 0.55); }
 .oc-fx-card:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
@@ -742,7 +750,7 @@ p, li { color: var(--text-soft); line-height: 1.55; }
 .oc-race__lane { display: grid; grid-template-columns: minmax(7rem, 9rem) 1fr; align-items: center; gap: 12px; }
 .oc-race__lane code { font-size: 0.78rem; }
 .oc-race__track { container-type: inline-size; block-size: 26px; border-radius: 999px; background: var(--oc-muted); }
-.oc-race__dot { display: block; block-size: 26px; aspect-ratio: 1; border-radius: 50%; background: var(--oc-gradient-brand); box-shadow: 0 4px 12px -2px oklch(from var(--color-vividblue-80) l c h / 0.6); }
+.oc-race__dot { display: block; block-size: 26px; aspect-ratio: 1; border-radius: 50%; background: var(--color-vividblue-90); box-shadow: 0 4px 12px -2px oklch(from var(--color-vividblue-80) l c h / 0.6); }
 .oc-race:is(:hover, :focus-visible) .oc-race__dot { translate: calc(100cqi - 100%) 0; }
 .oc-demo-hint { margin: 0; color: var(--oc-muted-foreground); font-size: 0.8rem; }
 
@@ -761,7 +769,7 @@ p, li { color: var(--text-soft); line-height: 1.55; }
 
 /* Ghost: dashed outline = original position, the box inside shows the transform */
 .oc-ghost { inline-size: 5.5rem; aspect-ratio: 1; margin: 18px; border: 2px dashed var(--oc-border-strong); border-radius: 12px; }
-.oc-ghost__box { display: grid; place-items: center; inline-size: 100%; block-size: 100%; border-radius: 10px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-size: 0.8rem; font-weight: 700; cursor: default; }
+.oc-ghost__box { display: grid; place-items: center; inline-size: 100%; block-size: 100%; border-radius: 10px; background: var(--color-vividblue-90); color: var(--color-white-50); font-size: 0.8rem; font-weight: 700; cursor: default; }
 
 /* Box model (like the DevTools "Computed" diagram): margin = orange, border = yellow, padding = green, content = blue.
    The wrapper paints the margin area (its child's margin shows its background); the element paints padding + content. */
@@ -788,13 +796,18 @@ p, li { color: var(--text-soft); line-height: 1.55; }
 .oc-boxmodel-legend li::before { content: ""; display: inline-block; inline-size: 0.8rem; aspect-ratio: 1; margin-inline-end: 6px; vertical-align: -1px; border-radius: 3px; background: var(--swatch); }
 
 /* Interactivity demos */
-.oc-carousel { display: flex; gap: 12px; inline-size: 100%; padding-block-end: 6px; border-radius: 12px; }
-.oc-slide { flex: 0 0 min(80%, 22rem); display: grid; place-items: center; block-size: 9rem; border-radius: 12px; color: var(--color-white-50); font-weight: 700; font-size: 1.2rem; background: linear-gradient(135deg, var(--oc-slide-from), var(--oc-slide-to)); }
-.oc-slide:nth-child(5n+1) { --oc-slide-from: var(--color-vividblue-80); --oc-slide-to: var(--color-blue-40); }
-.oc-slide:nth-child(5n+2) { --oc-slide-from: var(--color-skycyan-95); --oc-slide-to: var(--color-teal-70); }
-.oc-slide:nth-child(5n+3) { --oc-slide-from: var(--color-purple-10); --oc-slide-to: var(--color-indigo-50); }
-.oc-slide:nth-child(5n+4) { --oc-slide-from: var(--color-green-40); --oc-slide-to: var(--color-teal-80); }
-.oc-slide:nth-child(5n+5) { --oc-slide-from: var(--color-orange-80); --oc-slide-to: var(--color-red-60); }
+/* Demo carousel. The visible field is exactly one slide wide, so every slide (also the last one) can snap; the wrap
+   leaves 3rem on each side for previous / next arrows next to the slides. Slides are flat color fields with a label. */
+.oc-carousel-wrap { box-sizing: border-box; inline-size: min(100%, 34rem); margin-inline: auto; padding-inline: 3rem; }
+.oc-carousel-wrap .oc-carousel { display: flex; gap: 12px; inline-size: 100%; border-radius: 12px; }
+.oc-slide { flex: 0 0 100%; box-sizing: border-box; display: grid; align-content: end; gap: 0.25rem; aspect-ratio: 16 / 9; padding: 1rem; border-radius: 12px; color: var(--color-white-50); background: var(--oc-slide-from); }
+.oc-slide b { font-size: 1.15rem; }
+.oc-slide span { font-size: 0.8rem; }
+.oc-slide:nth-child(5n+1) { --oc-slide-from: var(--color-vividblue-90); }
+.oc-slide:nth-child(5n+2) { --oc-slide-from: var(--color-purple-60); }
+.oc-slide:nth-child(5n+3) { --oc-slide-from: var(--color-orange-95); }
+.oc-slide:nth-child(5n+4) { --oc-slide-from: var(--color-teal-70); }
+.oc-slide:nth-child(5n+5) { --oc-slide-from: var(--color-royalblue-70); }
 .oc-demo-input { border: 1px solid var(--oc-border); background: var(--oc-card); color: var(--oc-foreground); font: inherit; }
 .oc-canvas { background: Canvas; color: CanvasText; }
 .oc-rich-select, .oc-rich-select::picker(select) { padding: 0.4rem 0.8rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); }
@@ -817,3 +830,61 @@ p, li { color: var(--text-soft); line-height: 1.55; }
 /* Tables demos (tables/*): visible borders in light and dark */
 .demo-table th, .demo-table td { border: 1px solid var(--oc-border-strong); padding: 0.375rem 0.625rem; color: var(--oc-foreground); }
 .demo-table th { background: var(--oc-muted); }
+
+/* ===================================================================
+   EXAMPLE KIT (.oc-eg) — the default way to present a docs example.
+   One panel per value: the class name, one plain sentence, and a stage that shows it. Hatched = empty space in the
+   stage; flat palette colors = the items. Panels in a row are equally high and stack on a phone.
+   <div class="oc-eg">
+     <div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch"></span>Hatched = empty space</span></div>
+     <div class="oc-eg__panels">
+       <div class="oc-eg__panel"><code class="oc-eg__name">.class</code><div class="oc-eg__note">One sentence.</div>
+         <div class="oc-eg__stage"> <div class="oc-eg__item">Item</div> … </div></div>
+     </div>
+   </div>
+   Tokens on .oc-eg or a panel: --eg-min (narrowest panel, 15rem), --eg-h (stage height), --eg-c1 … --eg-c6 (item colors).
+   =================================================================== */
+.oc-eg {
+  --eg-c1: var(--color-teal-70);
+  --eg-c2: var(--color-chocolate-80);
+  --eg-c3: var(--color-slateblue-70);
+  --eg-c4: var(--color-forestgreen-60);
+  --eg-c5: var(--color-crimson-70);
+  --eg-c6: var(--color-royalblue-70);
+  --eg-bg: color-mix(in oklch, var(--oc-muted) 60%, var(--oc-card));
+  --eg-line: color-mix(in oklch, var(--oc-foreground) 24%, transparent);
+  --eg-hatch: repeating-linear-gradient(135deg, var(--eg-line) 0 1.5px, transparent 1.5px 8px);
+  display: grid;
+  gap: 0.875rem;
+  inline-size: 100%;
+  min-inline-size: 0;
+  color: var(--oc-foreground);
+}
+.oc-eg__legend { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.5rem; font-size: 0.85rem; }
+.oc-eg__key { display: inline-flex; align-items: center; gap: 0.5rem; }
+.oc-eg__key--strong { font-weight: 700; }
+.oc-eg__swatch { inline-size: 2rem; block-size: 1.1rem; border: 1.5px solid var(--oc-border-strong); border-radius: 4px; background: var(--eg-hatch), var(--eg-bg); }
+.oc-eg__swatch--solid { background: var(--eg-c, var(--eg-c1)); border-color: transparent; }
+.oc-eg__panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--eg-min, 15rem)), 1fr)); grid-auto-rows: 1fr; gap: 1rem; min-inline-size: 0; }
+/* --rows: every row as tall as its own tallest panel, for a group where one panel is much taller than the rest.
+   On a phone (one column) panels always take their own height: equal heights would only add empty space there. */
+.oc-eg__panels--rows { grid-auto-rows: auto; }
+@media (max-width: 40rem) { .oc-eg__panels { grid-auto-rows: auto; } }
+.oc-eg__panel { display: grid; grid-template-rows: auto auto 1fr; grid-template-columns: minmax(0, 1fr); gap: 0.45rem; min-inline-size: 0; padding: 0.875rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }
+.oc-eg__name { justify-self: start; max-inline-size: 100%; font-size: 0.8rem; font-weight: 600; }
+.oc-eg__note { font-size: 0.8rem; line-height: 1.45; color: var(--oc-muted-foreground); }
+/* The stage sits at the bottom of its panel, so stages line up across a row whatever the length of the notes. */
+.oc-eg__stage { box-sizing: border-box; align-self: end; min-inline-size: 0; min-block-size: var(--eg-h, 3.75rem); margin-block-start: 0.35rem; border: 1.5px solid var(--oc-border-strong); border-radius: 8px; background: var(--eg-hatch), var(--eg-bg); }
+.oc-eg__stage--plain { background: var(--eg-bg); }
+.oc-eg__item { box-sizing: border-box; display: flex; align-items: center; justify-content: center; min-inline-size: 2.75rem; padding: 0.5rem 0.8rem; border-radius: 6px; background: var(--eg-c, var(--eg-c1)); color: var(--color-white-50); font-size: 0.85rem; font-weight: 600; line-height: 1.25; text-align: center; }
+.oc-eg__item:nth-child(6n+2) { --eg-c: var(--eg-c2); }
+.oc-eg__item:nth-child(6n+3) { --eg-c: var(--eg-c3); }
+.oc-eg__item:nth-child(6n+4) { --eg-c: var(--eg-c4); }
+.oc-eg__item:nth-child(6n+5) { --eg-c: var(--eg-c5); }
+.oc-eg__item:nth-child(6n+6) { --eg-c: var(--eg-c6); }
+.oc-eg__item--ghost { background: var(--oc-card); color: var(--oc-foreground); box-shadow: inset 0 0 0 1.5px var(--oc-border-strong); }
+
+/* The scrolling content column is the containing block of everything in it. Without this a visually hidden
+   control in an example (position: absolute, for instance .sr-only) is placed against the page instead, which
+   makes the document taller than the window and lets the whole shell scroll away. */
+main.oc-docs-content { position: relative; }

@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Lists & Counters", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title": "OmniaCSS Docs - Lists & Counters", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .li-box li { padding: 0.35rem 0.5rem; border-radius: 6px; background: color-mix(in oklch, var(--color-vividblue-90) 14%, transparent); outline: 1px dashed var(--color-vividblue-90); }\n    .li-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); grid-auto-rows: 1fr; gap: 1rem; inline-size: 100%; }\n    .li-step { display: grid; align-content: start; gap: 0.5rem; padding: 1.25rem; border-radius: 12px; color: var(--color-white-50); }\n    .li-step h4 { margin: 0; font-size: 1.25rem; color: inherit; }\n    .li-step h4::before { font-size: 1.6rem; margin-inline-end: 0.15rem; }\n    .li-toc { display: grid; gap: 0.5rem; box-sizing: border-box; inline-size: 100%; margin: 0; padding: 1.25rem 1.5rem; font-size: 1.1rem; }\n    ol.li-toc li { color: var(--oc-foreground); }\n    .li-toc ol { display: grid; gap: 0.35rem; margin: 0.4rem 0 0.2rem; padding-inline-start: 2rem; font-size: 1rem; }\n    .li-toc li::before { display: inline-block; min-inline-size: 2.5rem; font-weight: 700; color: var(--oc-foreground); }\n    @media (min-width: 40rem) { .li-toc { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; align-items: start; } }\n  /* Inside the example stages. */\n    .li-stage { padding: 0.85rem 1rem; }\n    .li-stage > ul { margin: 0; display: grid; gap: 0.5rem; font-size: 1.05rem; }\n    .li-stage li { color: var(--oc-foreground); }\n  /* Custom counter style demo (plain CSS, shown in the sample) */\n@counter-style li-steps { system: numeric; symbols: \"0\" \"1\" \"2\" \"3\" \"4\" \"5\" \"6\" \"7\" \"8\" \"9\"; suffix: \" - \"; }\n.li-cs { margin: 0; padding-inline-start: 2.5rem; list-style-type: li-steps; font-size: 1.05rem; line-height: 1.9; color: var(--oc-foreground); }\n.li-cs li::marker { color: var(--color-vividblue-90); font-weight: 700; }\n:root[data-theme=\"dark\"] .li-cs li::marker { color: var(--color-vividblue-40); }\n@media (prefers-color-scheme: dark) { :root:not([data-theme=\"light\"]) .li-cs li::marker { color: var(--color-vividblue-40); } }\n\n  </style>"]}-->
 <section class="oc-docs-section" id="lists">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Lists &amp; Counters</h2>
@@ -42,26 +42,39 @@
             </div>
           </div>
 
-          <oc-demo title="Every list-style-type"><div class="dm-grid" style="--dm-min:9rem">
-<div class="dm-tile"><code>.list-none</code><div class="dm-area "><ul class="list-none m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-disc</code><div class="dm-area "><ul class="list-disc m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-circle</code><div class="dm-area "><ul class="list-circle m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-square</code><div class="dm-area "><ul class="list-square m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-decimal</code><div class="dm-area "><ul class="list-decimal m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-decimal-zero</code><div class="dm-area "><ul class="list-decimal-zero m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-l-alpha</code><div class="dm-area "><ul class="list-l-alpha m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-u-alpha</code><div class="dm-area "><ul class="list-u-alpha m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-l-roman</code><div class="dm-area "><ul class="list-l-roman m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-u-roman</code><div class="dm-area "><ul class="list-u-roman m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-l-greek</code><div class="dm-area "><ul class="list-l-greek m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-l-latin</code><div class="dm-area "><ul class="list-l-latin m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-l-armenian</code><div class="dm-area "><ul class="list-l-armenian m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-cjk-decimal</code><div class="dm-area "><ul class="list-cjk-decimal m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-disclosure-open</code><div class="dm-area "><ul class="list-disclosure-open m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-disclosure-closed</code><div class="dm-area "><ul class="list-disclosure-closed m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-</div><oc-code lang="html">&lt;ul class="list-disc"&gt;…&lt;/ul&gt;
-&lt;ol class="list-u-roman"&gt;…&lt;/ol&gt;
-&lt;ul class="list-disclosure-closed"&gt;…&lt;/ul&gt;</oc-code></oc-demo>
+          <oc-demo title="Every list-style-type"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 9.5rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-none</code><div class="oc-eg__note">No marker at all.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-none m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-disc</code><div class="oc-eg__note">A filled dot: the default for a ul.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-disc m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-circle</code><div class="oc-eg__note">An open circle.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-circle m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-square</code><div class="oc-eg__note">A filled square.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-square m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-decimal</code><div class="oc-eg__note">1, 2, 3: the default for an ol.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-decimal m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-decimal-zero</code><div class="oc-eg__note">01, 02, 03: numbers with a leading zero.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-decimal-zero m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-l-alpha</code><div class="oc-eg__note">a, b, c in lower case.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-l-alpha m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-u-alpha</code><div class="oc-eg__note">A, B, C in upper case.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-u-alpha m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-l-roman</code><div class="oc-eg__note">i, ii, iii: lower-case Roman numbers.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-l-roman m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-u-roman</code><div class="oc-eg__note">I, II, III: upper-case Roman numbers.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-u-roman m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-l-greek</code><div class="oc-eg__note">Lower-case Greek letters.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-l-greek m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-l-latin</code><div class="oc-eg__note">a, b, c: the same as lower alpha.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-l-latin m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-l-armenian</code><div class="oc-eg__note">Armenian numbering.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-l-armenian m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-cjk-decimal</code><div class="oc-eg__note">Chinese, Japanese and Korean digits.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-cjk-decimal m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-disclosure-open</code><div class="oc-eg__note">A triangle that points down, as on an open details element.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-disclosure-open m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-disclosure-closed</code><div class="oc-eg__note">A triangle that points right, as on a closed details element.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-disclosure-closed m-0" style="padding-inline-start:1.5rem;"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
+            </div></div><oc-code lang="html">&lt;ul class="list-none"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-disc"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-circle"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-square"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-decimal"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-decimal-zero"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-l-alpha"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-u-alpha"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-l-roman"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-u-roman"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-l-greek"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-l-latin"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-l-armenian"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-cjk-decimal"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-disclosure-open"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="list-disclosure-closed"&gt;&lt;li&gt;First&lt;/li&gt;&lt;li&gt;Second&lt;/li&gt;&lt;li&gt;Third&lt;/li&gt;&lt;/ul&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="list-style-position">List style position &amp; image</h3>
           <p class="oc-section-content__desc">Position decides whether the marker sits outside the item's box (default, text lines align with each other) or inside it, where the marker is the first inline element of the text and wrapped lines go underneath it. <code>list-style-image</code> replaces the marker with an image; the highlighted background below shows each <code>&lt;li&gt;</code> box. For coloured or sized markers use the <code>::marker</code> pseudo-element instead of images. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position" target="_blank" rel="noopener">MDN: list-style-position</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image" target="_blank" rel="noopener">MDN: list-style-image</a>.</p>
@@ -81,17 +94,43 @@
             </div>
           </div>
 
-          <oc-demo title="list-style-position"><div class="dm-grid" style="--dm-min:14rem">
-<div class="dm-tile"><code>.list-outside (marker hangs outside the text box)</code><div class="dm-area "><ul class="list-disc list-outside m-0" style="padding-inline-start:1.5rem"><li style="background:oklch(from var(--oc-foreground) l c h / 0.12)">A longer item that wraps onto a second line to show the alignment</li><li style="background:oklch(from var(--oc-foreground) l c h / 0.12)">Second item</li></ul></div></div>
-<div class="dm-tile"><code>.list-inside (marker is part of the text)</code><div class="dm-area "><ul class="list-disc list-inside m-0" style="padding-inline-start:0"><li style="background:oklch(from var(--oc-foreground) l c h / 0.12)">A longer item that wraps onto a second line to show the alignment</li><li style="background:oklch(from var(--oc-foreground) l c h / 0.12)">Second item</li></ul></div></div>
-</div><oc-code lang="html">&lt;ul class="list-disc list-outside"&gt;…&lt;/ul&gt;
-&lt;ul class="list-disc list-inside"&gt;…&lt;/ul&gt;</oc-code></oc-demo>
-          <oc-demo title="list-style-image"><div class="dm-grid" style="--dm-min:10rem">
-<div class="dm-tile"><code>.list-image-check</code><div class="dm-area "><ul class="list-image-check list-inside m-0" style="padding-inline-start:1.5rem;padding-inline-start:0"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-image-dot</code><div class="dm-area "><ul class="list-image-dot list-inside m-0" style="padding-inline-start:1.5rem;padding-inline-start:0"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-<div class="dm-tile"><code>.list-image-none .list-disc</code><div class="dm-area "><ul class="list-image-none list-disc list-inside m-0" style="padding-inline-start:1.5rem;padding-inline-start:0"><li>First</li><li>Second</li><li>Third</li></ul></div></div>
-</div><oc-code lang="html">&lt;ul class="list-image-check list-inside"&gt;
-  &lt;li&gt;Done&lt;/li&gt;
+          <oc-demo title="list-style-position: the tinted area is the text box of each item">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-disc .list-outside</code><div class="oc-eg__note">The bullet hangs outside the tinted box, so a wrapped line lines up with the first.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="li-box list-disc list-outside" style="padding-inline-start: 1.5rem"><li>Customer 1 ordered two boxes on Monday; the parcel left on Tuesday.</li><li>Paid by card</li><li>Invoice sent</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-disc .list-inside</code><div class="oc-eg__note">The bullet sits inside the tinted box, and a wrapped line goes under it.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="li-box list-disc list-inside" style="padding-inline-start: 0"><li>Customer 1 ordered two boxes on Monday; the parcel left on Tuesday.</li><li>Paid by card</li><li>Invoice sent</li></ul></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- the bullet hangs outside, wrapped lines line up --&gt;
+&lt;ul class="list-disc list-outside"&gt;
+  &lt;li&gt;Customer 1 ordered two boxes on Monday; the parcel left on Tuesday.&lt;/li&gt;
+  &lt;li&gt;Paid by card&lt;/li&gt;
+  &lt;li&gt;Invoice sent&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- the bullet is part of the first line --&gt;
+&lt;ul class="list-disc list-inside"&gt;
+  &lt;li&gt;Customer 1 ordered two boxes on Monday; the parcel left on Tuesday.&lt;/li&gt;
+  &lt;li&gt;Paid by card&lt;/li&gt;
+  &lt;li&gt;Invoice sent&lt;/li&gt;
+&lt;/ul&gt;</oc-code></oc-demo>
+          <oc-demo title="list-style-image">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-image-check</code><div class="oc-eg__note">A check mark image as the marker.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-image-check" style="padding-inline-start: 1.5rem"><li>Order placed</li><li>Payment received</li><li>Parcel shipped</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-image-dot</code><div class="oc-eg__note">A small dot image as the marker.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-image-dot" style="padding-inline-start: 1.5rem"><li>Order placed</li><li>Payment received</li><li>Parcel shipped</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.list-image-none .list-disc</code><div class="oc-eg__note">No image, so the disc marker shows again.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ul class="list-image-none list-disc" style="padding-inline-start: 1.5rem"><li>Order placed</li><li>Payment received</li><li>Parcel shipped</li></ul></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;ul class="list-image-check"&gt;
+  &lt;li&gt;Order placed&lt;/li&gt;
+  &lt;li&gt;Payment received&lt;/li&gt;
+  &lt;li&gt;Parcel shipped&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul class="list-image-dot"&gt;
+  &lt;li&gt;Order placed&lt;/li&gt;
+  &lt;li&gt;Payment received&lt;/li&gt;
+  &lt;li&gt;Parcel shipped&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul class="list-image-none list-disc"&gt;
+  &lt;li&gt;Order placed&lt;/li&gt;
+  &lt;li&gt;Payment received&lt;/li&gt;
+  &lt;li&gt;Parcel shipped&lt;/li&gt;
 &lt;/ul&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="counters">CSS counters</h3>
@@ -115,46 +154,80 @@
           </div>
 
           <oc-demo title="counter-reset + counter-increment + content-counter">
-            
-            <div class="counter-reset round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
-              <h4 class="counter-increment content-counter mb-1 text-dodgerblue">Install the package</h4>
-              <h4 class="counter-increment content-counter mb-1 text-dodgerblue">Import omnia_main.css</h4>
-              <h4 class="counter-increment content-counter text-dodgerblue">Compose with utilities</h4>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="counter-reset"&gt;
-  &lt;h4 class="counter-increment content-counter"&gt;Install the package&lt;/h4&gt;
-  &lt;h4 class="counter-increment content-counter"&gt;Import omnia_main.css&lt;/h4&gt;
-  &lt;h4 class="counter-increment content-counter"&gt;Compose with utilities&lt;/h4&gt;
+<div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.counter-reset · .counter-increment · .content-counter</code><div class="oc-eg__note">The parent starts the counter at zero; each heading adds one and prints the number in front of its text.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><div class="li-steps counter-reset">
+              <div class="li-step bg-vividblue-90"><h4 class="counter-increment content-counter">Install the package</h4><span>npm install @birdycom/omniacss</span></div>
+              <div class="li-step bg-teal-70"><h4 class="counter-increment content-counter">Import the CSS</h4><span>Add omnia_main.css to your page.</span></div>
+              <div class="li-step bg-slateblue-70"><h4 class="counter-increment content-counter">Compose with utilities</h4><span>Write classes in your HTML.</span></div>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- The card look (padding, round corners, white text) is page CSS; the counter is all classes --&gt;
+&lt;div class="counter-reset"&gt;
+  &lt;div class="bg-vividblue-90"&gt;
+    &lt;h4 class="counter-increment content-counter"&gt;Install the package&lt;/h4&gt;   &lt;!-- 1. --&gt;
+    &lt;span&gt;npm install @birdycom/omniacss&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="bg-teal-70"&gt;
+    &lt;h4 class="counter-increment content-counter"&gt;Import the CSS&lt;/h4&gt;        &lt;!-- 2. --&gt;
+    &lt;span&gt;Add omnia_main.css to your page.&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="bg-slateblue-70"&gt;
+    &lt;h4 class="counter-increment content-counter"&gt;Compose with utilities&lt;/h4&gt; &lt;!-- 3. --&gt;
+    &lt;span&gt;Write classes in your HTML.&lt;/span&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <oc-demo title="Nested numbering with CSS counters (1, 1.1, 1.2 …)">
-            <ol class="list-none counter-reset m-0 p-0 grid gap-0.5">
-              <li class="counter-increment content-counters">Installation
-                <ol class="list-none counter-reset m-0 pl-1.5 grid gap-0.5"><li class="counter-increment content-counters">npm</li><li class="counter-increment content-counters">CLI</li></ol>
-              </li>
-              <li class="counter-increment content-counters">Usage</li>
-            </ol>
+<div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.counter-reset · .content-counters</code><div class="oc-eg__note">Each list starts its own counter; content-counters joins the levels with a dot: 1.1, 1.2.</div><div class="oc-eg__stage oc-eg__stage--plain"><ol class="li-toc list-none counter-reset">
+              <li class="counter-increment content-counters"><b>Installation</b><ol class="list-none counter-reset"><li class="counter-increment content-counters">npm</li><li class="counter-increment content-counters">CLI</li><li class="counter-increment content-counters">Starter kit</li></ol></li>
+              <li class="counter-increment content-counters"><b>Usage</b><ol class="list-none counter-reset"><li class="counter-increment content-counters">Colors</li><li class="counter-increment content-counters">Layout</li><li class="counter-increment content-counters">Dark mode</li></ol></li>
+              <li class="counter-increment content-counters"><b>Components</b><ol class="list-none counter-reset"><li class="counter-increment content-counters">Buttons</li><li class="counter-increment content-counters">Cards</li></ol></li>
+              <li class="counter-increment content-counters"><b>Release</b><ol class="list-none counter-reset"><li class="counter-increment content-counters">Versions</li><li class="counter-increment content-counters">Changelog</li></ol></li>
+            </ol></div></div>
+            </div></div>
           <oc-code lang="html">&lt;ol class="list-none counter-reset"&gt;
-  &lt;li class="counter-increment content-counters"&gt;Installation
+  &lt;li class="counter-increment content-counters"&gt;&lt;b&gt;Installation&lt;/b&gt;      &lt;!-- 1 --&gt;
     &lt;ol class="list-none counter-reset"&gt;
-      &lt;li class="counter-increment content-counters"&gt;npm&lt;/li&gt;
+      &lt;li class="counter-increment content-counters"&gt;npm&lt;/li&gt;            &lt;!-- 1.1 --&gt;
+      &lt;li class="counter-increment content-counters"&gt;CLI&lt;/li&gt;            &lt;!-- 1.2 --&gt;
+      &lt;li class="counter-increment content-counters"&gt;Starter kit&lt;/li&gt;    &lt;!-- 1.3 --&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
+  &lt;li class="counter-increment content-counters"&gt;&lt;b&gt;Usage&lt;/b&gt;             &lt;!-- 2 --&gt;
+    &lt;ol class="list-none counter-reset"&gt;
+      &lt;li class="counter-increment content-counters"&gt;Colors&lt;/li&gt;         &lt;!-- 2.1 --&gt;
+      &lt;li class="counter-increment content-counters"&gt;Layout&lt;/li&gt;         &lt;!-- 2.2 --&gt;
+      &lt;li class="counter-increment content-counters"&gt;Dark mode&lt;/li&gt;      &lt;!-- 2.3 --&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;!-- Components (3) and Release (4) follow the same pattern --&gt;
 &lt;/ol&gt;</oc-code></oc-demo>
 
                     <h3 class="oc-section-content__title mt-10" id="counter-style">Custom counter styles</h3>
           <p class="oc-section-content__desc"><code>@counter-style</code> defines your own marker system (symbols, suffix, range) and works with both <code>list-style-type</code> and <code>counter()</code>. It is plain CSS, so declare it next to your component; the style name is then usable as a value. Use <code>::marker</code> to colour or resize the marker without touching the text. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style" target="_blank" rel="noopener">MDN: @counter-style</a>.</p>
-          <oc-code lang="css">@counter-style steps {
+          <p class="oc-section-content__desc">The list below uses such a counter style. There is no OmniaCSS class for it, because the style is yours: the two CSS rules are in the sample.</p>
+          <oc-demo title="@counter-style with a colored ::marker">
+<div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">@counter-style steps · .steps</code><div class="oc-eg__note">Numbers followed by a dash instead of a dot, in blue and bold through <code>::marker</code>.</div><div class="oc-eg__stage oc-eg__stage--plain li-stage"><ol class="li-cs"><li>Choose Product 1</li><li>Add it to the cart</li><li>Pay and wait for the parcel</li></ol></div></div>
+</div></div>
+<oc-code lang="html">&lt;ol class="steps"&gt;
+  &lt;li&gt;Choose Product 1&lt;/li&gt;
+  &lt;li&gt;Add it to the cart&lt;/li&gt;
+  &lt;li&gt;Pay and wait for the parcel&lt;/li&gt;
+&lt;/ol&gt;</oc-code>
+<oc-code lang="css">@counter-style steps {
   system: numeric;
-  symbols: "1" "2" "3" "4" "5" "6" "7" "8" "9";
+  symbols: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9";
   suffix: " - ";
 }
 
 .steps { list-style-type: steps; }
-.steps li::marker { color: var(--color-vividblue-80); font-weight: 700; }</oc-code>
+.steps li::marker { color: var(--color-vividblue-90); font-weight: 700; }
+/* a lighter blue on a dark background */
+@media (prefers-color-scheme: dark) {
+  .steps li::marker { color: var(--color-vividblue-40); }
+}</oc-code></oc-demo>
 
 <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">List and counter utilities are broadly supported; unknown list-style types fall back to <code>decimal</code>/<code>disc</code>.</p>

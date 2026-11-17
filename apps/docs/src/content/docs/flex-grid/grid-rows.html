@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Grid Rows","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Grid Rows","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n    .fx-ghost { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.6rem; border: 2px solid var(--fx-line); border-radius: 7px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.85rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-card { box-sizing: border-box; display: flex; flex-direction: column; gap: 0.35rem; min-inline-size: 0; padding: 0.75rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.9rem; line-height: 1.4; }\n    .fx-card strong { font-size: 0.95rem; }\n    .fx-title { font-weight: 600; }\n    .fx-box--wrap { overflow-wrap: anywhere; }\n    @container (max-width: 34rem) { .fx-box--wrap small { display: none; } }\n    .fx-box--fit { min-block-size: 0; }\n    .fx-box--c { padding-inline: 0.15rem; }\n    .fx-card.grid { display: grid; }\n    .fx-photo { position: relative; overflow: hidden; border-radius: 8px; background: var(--color-skyblue-30, var(--color-vividblue-90)); }\n    .fx-photo::before { content: \"\"; position: absolute; inset-block-start: 1.25rem; inset-inline-end: 2rem; inline-size: 3rem; block-size: 3rem; border-radius: 50%; background: var(--color-orange-95); }\n    .fx-photo::after { content: \"\"; position: absolute; inset-inline: -10% 30%; inset-block-end: -40%; block-size: 80%; border-radius: 50%; background: var(--color-forestgreen-60); }\n    .fx-caption { position: relative; display: flex; flex-direction: column; align-self: end; margin: 0.75rem; padding: 0.5rem 0.8rem; border-radius: 6px; background: var(--color-indigo-60); color: var(--color-white-50); font-weight: 600; font-size: 0.95rem; }\n    .fx-caption small { font-size: 0.8rem; font-weight: 500; }\n  </style>"]}-->
 <section class="oc-docs-section" id="grid-rows">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Grid Rows</h2>
@@ -23,12 +23,32 @@
             </table>
           </div>
 
-          <oc-demo title="grid-rows values"><div class="dm-grid" style="--dm-min:12rem">
-<div class="dm-tile"><code>.grid-rows-1 .grid-flow-col</code><div class="dm-area grid grid-rows-1 grid-flow-col gap-0.3" style="block-size:9rem"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.grid-rows-2 .grid-flow-col</code><div class="dm-area grid grid-rows-2 grid-flow-col gap-0.3" style="block-size:9rem"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.grid-rows-3 .grid-flow-col</code><div class="dm-area grid grid-rows-3 grid-flow-col gap-0.3" style="block-size:9rem"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-<div class="dm-tile"><code>.grid-rows-4 .grid-flow-col</code><div class="dm-area grid grid-rows-4 grid-flow-col gap-0.3" style="block-size:9rem"><div class="dm-box dm-h1">1</div><div class="dm-box dm-h1">2</div><div class="dm-box dm-h1">3</div><div class="dm-box dm-h1">4</div><div class="dm-box dm-h1">5</div><div class="dm-box dm-h1">6</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-rows-3 grid-flow-col gap-1" style="height: 12rem"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Six items, a fixed height, and <code>.grid-flow-col</code> so the items fill each column from top to bottom before they start the next one.</p>
+
+          <oc-demo title="grid-rows values"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:13rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-rows-2 .grid-flow-col</code><div class="oc-eg__note">2 equal rows, filled top to bottom.</div><div class="oc-eg__stage fx-stage grid grid-rows-2 grid-flow-col gap-0.5" style="block-size:14rem"><div class="fx-box fx-box--fit fx-box--c">Item 1</div><div class="fx-box fx-box--fit fx-box--c">Item 2</div><div class="fx-box fx-box--fit fx-box--c">Item 3</div><div class="fx-box fx-box--fit fx-box--c">Item 4</div><div class="fx-box fx-box--fit fx-box--c">Item 5</div><div class="fx-box fx-box--fit fx-box--c">Item 6</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-rows-3 .grid-flow-col</code><div class="oc-eg__note">3 equal rows, filled top to bottom.</div><div class="oc-eg__stage fx-stage grid grid-rows-3 grid-flow-col gap-0.5" style="block-size:14rem"><div class="fx-box fx-box--fit fx-box--c">Item 1</div><div class="fx-box fx-box--fit fx-box--c">Item 2</div><div class="fx-box fx-box--fit fx-box--c">Item 3</div><div class="fx-box fx-box--fit fx-box--c">Item 4</div><div class="fx-box fx-box--fit fx-box--c">Item 5</div><div class="fx-box fx-box--fit fx-box--c">Item 6</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-rows-4 .grid-flow-col</code><div class="oc-eg__note">4 equal rows, filled top to bottom.</div><div class="oc-eg__stage fx-stage grid grid-rows-4 grid-flow-col gap-0.5" style="block-size:14rem"><div class="fx-box fx-box--fit fx-box--c">Item 1</div><div class="fx-box fx-box--fit fx-box--c">Item 2</div><div class="fx-box fx-box--fit fx-box--c">Item 3</div><div class="fx-box fx-box--fit fx-box--c">Item 4</div><div class="fx-box fx-box--fit fx-box--c">Item 5</div><div class="fx-box fx-box--fit fx-box--c">Item 6</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-rows-2 grid-flow-col gap-0.5" style="height: 14rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;div&gt;Item 5&lt;/div&gt;&lt;div&gt;Item 6&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-rows-3 grid-flow-col gap-0.5" style="height: 14rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;div&gt;Item 5&lt;/div&gt;&lt;div&gt;Item 6&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-rows-4 grid-flow-col gap-0.5" style="height: 14rem"&gt;&lt;div&gt;Item 1&lt;/div&gt;&lt;div&gt;Item 2&lt;/div&gt;&lt;div&gt;Item 3&lt;/div&gt;&lt;div&gt;Item 4&lt;/div&gt;&lt;div&gt;Item 5&lt;/div&gt;&lt;div&gt;Item 6&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a page shell</h3>
+
+          <p class="oc-section-content__desc">A layout with a side menu, header, content and footer in one grid. <code>.row-span-full</code> only works when the rows are defined, which <code>.grid-rows-6</code> does here.</p>
+
+          <oc-demo title="page shell with grid-rows-6"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-4 .grid-rows-6</code><div class="oc-eg__note">Six equal rows. The menu covers all of them, the content four.</div><div class="oc-eg__stage fx-stage grid grid-cols-4 grid-rows-6 gap-0.5" style="block-size:22rem"><div class="fx-box fx-box--wrap row-span-full" style="--fx-c:var(--color-indigo-60)">Menu<small>.row-span-full</small></div><div class="fx-box fx-box--wrap col-span-3" style="--fx-c:var(--color-teal-70)">Header<small>.col-span-3</small></div><div class="fx-box fx-box--wrap col-span-3 row-span-4" style="--fx-c:var(--color-vividblue-90)">Content<small>.col-span-3 .row-span-4</small></div><div class="fx-box fx-box--wrap col-span-3" style="--fx-c:var(--color-chocolate-80)">Footer<small>.col-span-3</small></div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-4 grid-rows-6 gap-0.5" style="height: 22rem"&gt;
+  &lt;nav class="row-span-full"&gt;Menu&lt;/nav&gt;
+  &lt;header class="col-span-3"&gt;Header&lt;/header&gt;
+  &lt;main class="col-span-3 row-span-4"&gt;Content&lt;/main&gt;
+  &lt;footer class="col-span-3"&gt;Footer&lt;/footer&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Row Spanning</h3>
 
@@ -38,32 +58,69 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>Span Amount</th></tr></thead>
               <tbody>
-                <tr><td><code>.row-span-1 … .row-span-6</code></td><td>Span 1 to 6 rows</td></tr>
-                <tr><td><code>.row-span-full</code></td><td>Span all available rows</td></tr>
+                <tr><td><code>.row-span-1 … .row-span-6</code></td><td>grid-row: span n / span n (1 to 6)</td></tr>
+                <tr><td><code>.row-span-full</code></td><td>grid-row: 1 / -1 (all rows defined with <code>.grid-rows-*</code>; without them it covers only one row)</td></tr>
               </tbody>
             </table>
           </div>
 
-          <oc-demo title="row-span values"><div class="dm-grid" style="--dm-min:13rem">
-<div class="dm-tile"><code>.row-span-2</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="dm-box row-span-2">span 2</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
-<div class="dm-tile"><code>.row-span-3</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="dm-box row-span-3">span 3</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
-<div class="dm-tile"><code>.row-span-full</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="dm-box row-span-full">full</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box dm-box--alt ">4</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-rows-3 grid-flow-col gap-1"&gt;
-  &lt;div class="row-span-3"&gt;Sidebar&lt;/div&gt;
-  &lt;div class="col-span-2"&gt;…&lt;/div&gt;
+          <oc-demo title="row-span values"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.row-span-2 and .row-span-3</code><div class="oc-eg__note">In a grid with three columns. The grey items take one cell each and flow around the tall ones.</div><div class="oc-eg__stage fx-stage grid grid-cols-3 gap-0.5"><div class="fx-box fx-box--wrap row-span-3" style="--fx-c:var(--color-magenta-90)">Tall<small>.row-span-3</small></div><div class="fx-box fx-box--wrap row-span-2" style="--fx-c:var(--color-forestgreen-60)">Medium<small>.row-span-2</small></div><div class="fx-ghost">1 row</div><div class="fx-ghost">1 row</div><div class="fx-ghost">1 row</div><div class="fx-ghost">1 row</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-0.5"&gt;
+  &lt;div class="row-span-3"&gt;Tall&lt;/div&gt;
+  &lt;div class="row-span-2"&gt;Medium&lt;/div&gt;
+  &lt;div&gt;1 row&lt;/div&gt; &lt;div&gt;1 row&lt;/div&gt; &lt;div&gt;1 row&lt;/div&gt; &lt;div&gt;1 row&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Subgrid rows</h3>
 
           <p class="oc-section-content__desc">Cards of different content length normally have misaligned headers and footers. Let each card span three parent rows and use <code>.grid-rows-subgrid</code>: the title, body and footer rows are then shared, so all footers line up. The cards keep the parent's row gap. Subgrid is supported in all current browsers; older ones show the cards without alignment. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-rows" target="_blank" rel="noopener">MDN: subgrid</a>.</p>
 
-          <oc-demo title="card alignment with subgrid"><div class="dm-grid" style="--dm-min:100%">
-<div class="dm-tile"><code>Parent: .grid .grid-cols-3, cards: .row-span-3 .grid .grid-rows-subgrid</code><div class="dm-area grid grid-cols-3 gap-x-0.3"><div class="grid grid-rows-subgrid row-span-3 gap-0.3 dm-ring" style="padding:0.3rem"><div class="dm-box dm-h1">A</div><div class="dm-box dm-box--alt" style="min-block-size:1rem">body</div><div class="dm-box dm-h1">footer</div></div><div class="grid grid-rows-subgrid row-span-3 gap-0.3 dm-ring" style="padding:0.3rem"><div class="dm-box dm-h1">B</div><div class="dm-box dm-box--alt" style="min-block-size:4rem">body</div><div class="dm-box dm-h1">footer</div></div><div class="grid grid-rows-subgrid row-span-3 gap-0.3 dm-ring" style="padding:0.3rem"><div class="dm-box dm-h1">C</div><div class="dm-box dm-box--alt" style="min-block-size:2rem">body</div><div class="dm-box dm-h1">footer</div></div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-x-1"&gt;
-  &lt;article class="grid row-span-3 grid-rows-subgrid"&gt;
-    &lt;h3&gt;Title&lt;/h3&gt;&lt;p&gt;Body&lt;/p&gt;&lt;footer&gt;Footer&lt;/footer&gt;
+          <oc-demo title="card alignment with subgrid"><div class="oc-eg fx">
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">Without subgrid</code><div class="oc-eg__note">Each card stacks its own content. Titles of two lines push the text and the price down.</div><div class="oc-eg__stage fx-stage grid grid-cols-1 md:grid-cols-3 gap-1"><article class="fx-card"><strong>Product 1</strong><span>Short text.</span><span class="flex gap-0.5 align-items-center justify-between"><span class="fx-title">€ 24.00</span><button type="button" class="oc-btn oc-btn--secondary">Add</button></span></article><article class="fx-card"><strong>Product 2 with a much longer name</strong><span>This one has a longer description that takes three or four lines in a narrow card.</span><span class="flex gap-0.5 align-items-center justify-between"><span class="fx-title">€ 39.50</span><button type="button" class="oc-btn oc-btn--secondary">Add</button></span></article><article class="fx-card"><strong>Product 3</strong><span>A description of medium length.</span><span class="flex gap-0.5 align-items-center justify-between"><span class="fx-title">€ 12.90</span><button type="button" class="oc-btn oc-btn--secondary">Add</button></span></article></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid-rows-subgrid .row-span-3 on each card</code><div class="oc-eg__note">The cards share three rows: titles, texts and prices line up across all cards.</div><div class="oc-eg__stage fx-stage grid grid-cols-1 md:grid-cols-3 gap-1"><article class="fx-card grid grid-rows-subgrid row-span-3"><strong>Product 1</strong><span>Short text.</span><span class="flex gap-0.5 align-items-center justify-between"><span class="fx-title">€ 24.00</span><button type="button" class="oc-btn oc-btn--secondary">Add</button></span></article><article class="fx-card grid grid-rows-subgrid row-span-3"><strong>Product 2 with a much longer name</strong><span>This one has a longer description that takes three or four lines in a narrow card.</span><span class="flex gap-0.5 align-items-center justify-between"><span class="fx-title">€ 39.50</span><button type="button" class="oc-btn oc-btn--secondary">Add</button></span></article><article class="fx-card grid grid-rows-subgrid row-span-3"><strong>Product 3</strong><span>A description of medium length.</span><span class="flex gap-0.5 align-items-center justify-between"><span class="fx-title">€ 12.90</span><button type="button" class="oc-btn oc-btn--secondary">Add</button></span></article></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- Without subgrid: each card stacks its own content --&gt;
+&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-1"&gt;
+  &lt;article class="card flex flex-col gap-0.5"&gt;
+    &lt;strong&gt;Product 1&lt;/strong&gt;
+    &lt;span&gt;Short text.&lt;/span&gt;
+    &lt;span class="flex gap-0.5 align-items-center justify-between"&gt;€ 24.00 &lt;button class="oc-btn"&gt;Add&lt;/button&gt;&lt;/span&gt;
   &lt;/article&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+  &lt;article class="card flex flex-col gap-0.5"&gt;
+    &lt;strong&gt;Product 2 with a much longer name&lt;/strong&gt;
+    &lt;span&gt;This one has a longer description that takes three or four lines in a narrow card.&lt;/span&gt;
+    &lt;span class="flex gap-0.5 align-items-center justify-between"&gt;€ 39.50 &lt;button class="oc-btn"&gt;Add&lt;/button&gt;&lt;/span&gt;
+  &lt;/article&gt;
+  &lt;article class="card flex flex-col gap-0.5"&gt;
+    &lt;strong&gt;Product 3&lt;/strong&gt;
+    &lt;span&gt;A description of medium length.&lt;/span&gt;
+    &lt;span class="flex gap-0.5 align-items-center justify-between"&gt;€ 12.90 &lt;button class="oc-btn"&gt;Add&lt;/button&gt;&lt;/span&gt;
+  &lt;/article&gt;
+&lt;/div&gt;
+
+&lt;!-- With subgrid: the three cards share three rows --&gt;
+&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-1"&gt;
+  &lt;article class="card grid grid-rows-subgrid row-span-3"&gt;
+    &lt;strong&gt;Product 1&lt;/strong&gt;
+    &lt;span&gt;Short text.&lt;/span&gt;
+    &lt;span class="flex gap-0.5 align-items-center justify-between"&gt;€ 24.00 &lt;button class="oc-btn"&gt;Add&lt;/button&gt;&lt;/span&gt;
+  &lt;/article&gt;
+  &lt;article class="card grid grid-rows-subgrid row-span-3"&gt;
+    &lt;strong&gt;Product 2 with a much longer name&lt;/strong&gt;
+    &lt;span&gt;This one has a longer description that takes three or four lines in a narrow card.&lt;/span&gt;
+    &lt;span class="flex gap-0.5 align-items-center justify-between"&gt;€ 39.50 &lt;button class="oc-btn"&gt;Add&lt;/button&gt;&lt;/span&gt;
+  &lt;/article&gt;
+  &lt;article class="card grid grid-rows-subgrid row-span-3"&gt;
+    &lt;strong&gt;Product 3&lt;/strong&gt;
+    &lt;span&gt;A description of medium length.&lt;/span&gt;
+    &lt;span class="flex gap-0.5 align-items-center justify-between"&gt;€ 12.90 &lt;button class="oc-btn"&gt;Add&lt;/button&gt;&lt;/span&gt;
+  &lt;/article&gt;
+&lt;/div&gt;
+&lt;!-- .card is your own style (border, padding, radius) --&gt;</oc-code></oc-demo>
         </div>
       </section>
 
@@ -80,17 +137,25 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
               <tbody>
-                <tr><td><code>.row-start-{n}</code></td><td>grid-row-start: n</td></tr>
-                <tr><td><code>.row-end-{n}</code></td><td>grid-row-end: n</td></tr>
+                <tr><td><code>.row-start-{n}</code></td><td>grid-row-start: n (1 to 7, or auto)</td></tr>
+                <tr><td><code>.row-end-{n}</code></td><td>grid-row-end: n (1 to 7, or auto)</td></tr>
               </tbody>
             </table>
           </div>
 
-          <oc-demo title="row-start and row-end"><div class="dm-grid" style="--dm-min:15rem">
-<div class="dm-tile"><code>.row-start-2 .row-end-4</code><div class="dm-area grid grid-cols-3 grid-rows-3 gap-0.3" style="block-size:9rem"><div class="dm-box row-start-2 row-end-4">2 to 4</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div></div></div>
-<div class="dm-tile"><code>.row-start-3 (col-start-3)</code><div class="dm-area grid grid-cols-3 grid-rows-3 gap-0.3" style="block-size:9rem"><div class="dm-box row-start-3 col-start-3">3</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-rows-3"&gt;
-  &lt;div class="row-start-2 row-end-4"&gt;…&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="row-start and row-end"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.row-start-2 .row-end-4</code><div class="oc-eg__note">In a 3 × 3 grid: the item starts at row line 2 and ends at line 4, so it covers rows 2 and 3.</div><div class="oc-eg__stage fx-stage grid grid-cols-3 grid-rows-3 gap-0.5" style="block-size:13rem"><div class="fx-box fx-box--wrap row-start-2 row-end-4" style="--fx-c:var(--color-royalblue-70)">Rows 2, 3<small>.row-start-2 .row-end-4</small></div><div class="fx-ghost">Cell</div><div class="fx-ghost">Cell</div><div class="fx-ghost">Cell</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Caption over an image</code><div class="oc-eg__note">Image and caption are placed in the same cells, so they overlap. The caption comes later in the HTML and sits on top.</div><div class="oc-eg__stage fx-stage grid grid-cols-1 grid-rows-3" style="block-size:13rem"><div class="fx-photo col-span-full row-span-full"></div><div class="fx-caption col-span-full row-start-3">Spring collection<small>.row-start-3</small></div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-3 grid-rows-3 gap-0.5"&gt;
+  &lt;div&gt;Cell&lt;/div&gt; &lt;div&gt;Cell&lt;/div&gt; &lt;div&gt;Cell&lt;/div&gt;
+  &lt;div class="row-start-2 row-end-4"&gt;Rows 2, 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;figure class="grid grid-rows-3"&gt;
+  &lt;img class="col-span-full row-span-full" src="spring.jpg" alt="Spring collection"&gt;
+  &lt;figcaption class="col-span-full row-start-3"&gt;Spring collection&lt;/figcaption&gt;
+&lt;/figure&gt;</oc-code></oc-demo>
         </div>
       </section>

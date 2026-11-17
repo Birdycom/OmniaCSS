@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Interactivity: Performance & accessibility", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Interactivity: Performance & accessibility","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Inside the example stages */\n    .pa-stage { display: grid; place-items: center; padding: 1.5rem 1rem; }\n    .pa-rf { padding: 1rem; }\n    .rf-demo { display: grid; gap: 1.5rem; inline-size: min(100%, 34rem); }\n    .rf-row { display: grid; gap: 0.6rem; }\n    .rf-row__head { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; justify-content: space-between; font-size: 0.9rem; }\n    .rf-buttons { gap: 0.75rem; justify-content: flex-end; }\n    .rf-item { display: grid; gap: 0.3rem; justify-items: center; padding: 0.35rem; border-radius: 10px; outline: 2px solid transparent; transition: outline-color 0.15s, background-color 0.15s; }\n    .rf-item small { color: var(--oc-muted-foreground); font-size: 0.75rem; font-weight: 600; font-variant-numeric: tabular-nums; }\n    .rf-item.is-now { outline-color: var(--oc-ring); background: oklch(from var(--oc-primary) l c h / 0.1); }\n    .rf-item.is-now small { color: var(--oc-primary); }\n    .rf-note { margin: 0; color: var(--oc-muted-foreground); font-size: 0.85rem; }\n  .rf-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; }\n    .rf-item:has(button:focus-visible) { outline-color: var(--color-orange-95); background: oklch(from var(--color-orange-95) l c h / 0.12); }\n    .rf-item button:focus-visible { outline: 3px solid var(--color-orange-95); outline-offset: 2px; }\n\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (reading-flow: flex-visual) { .sup-note--rflow { display: none; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="performance-a11y">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Performance &amp; accessibility</h2>
@@ -9,7 +9,8 @@
         <div class="oc-section-content">
 <!-- Will Change -->
           <h3 class="oc-section-content__title" id="will-change">Will Change</h3>
-          <p class="oc-section-content__desc"><strong>What:</strong> a hint that a property is about to change, so the browser can promote the element to its own layer beforehand. <strong>Gotchas:</strong> every hinted element costs memory, and <code>will-change: transform</code> creates a stacking context and a containing block for fixed children as a side effect; add it right before an animation and remove it after, or only on elements that animate constantly. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/will-change" target="_blank" rel="noopener">MDN: will-change</a>.</p>
+          <p class="oc-section-content__desc"><strong>In plain words:</strong> <code>will-change</code> is a note to the browser: "this element is going to move (or fade) soon". The browser then gets the element ready in advance, so the movement starts without a small hitch. <strong>You never see the class itself</strong>: the page looks exactly the same with or without it.</p>
+          <p class="oc-section-content__desc"><strong>Use it</strong> only when a movement visibly stutters at its start, for example a large panel that slides in. <strong>Do not use it</strong> everywhere "to be safe": every element with this note costs memory, and a page full of them gets slower, not faster. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/will-change" target="_blank" rel="noopener">MDN: will-change</a>.</p>
           <table class="oc-table-ref">
             <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
             <tbody>
@@ -22,10 +23,19 @@
           </table>
 
           <p class="oc-section-content__desc">A hint for the browser only - nothing changes visually. Use it sparingly, on elements that are about to animate.</p>
+          <oc-demo title="will-change: move the mouse over both boxes, they grow the same way">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">(no class)</code><div class="oc-eg__note">Hover the box: it grows a little.</div><div class="oc-eg__stage oc-eg__stage--plain pa-stage"><div class="transition-transform duration-300 hover:scale-110 bg-vividblue-90 text-white-50 round-2 p-2">Hover me</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.will-change-transform</code><div class="oc-eg__note">Hover this box: it grows exactly the same way. The browser only prepared it in advance.</div><div class="oc-eg__stage oc-eg__stage--plain pa-stage"><div class="transition-transform duration-300 hover:scale-110 will-change-transform bg-vividblue-90 text-white-50 round-2 p-2">Hover me</div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="transition-transform duration-300 hover:scale-110 bg-vividblue-90 text-white-50 round-2 p-2"&gt;Hover me&lt;/div&gt;
+&lt;div class="transition-transform duration-300 hover:scale-110 will-change-transform bg-vividblue-90 text-white-50 round-2 p-2"&gt;Hover me&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">You see no difference, and that is correct. The second box was prepared before your mouse arrived; on a small box like this the gain is too small to notice. The class exists for heavy movements on slow devices.</p>
 
           <!-- Reading Flow -->
           <h3 class="oc-section-content__title mt-10" id="reading-flow">Reading Flow</h3>
-          <p class="oc-section-content__desc">Makes keyboard focus and screen reader order follow the <em>visual</em> order of a flex or grid layout (e.g. after <code>.order-*</code> or <code>.flex-row-reverse</code>) instead of the DOM order. <strong>Gotcha:</strong> the DOM order is still the source of truth for browsers without support, so keep it sensible and treat <code>reading-flow</code> as an enhancement. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/reading-flow" target="_blank" rel="noopener">MDN: reading-flow</a>.</p>
+          <p class="oc-section-content__desc"><strong>In plain words:</strong> somebody who does not use a mouse walks through a page with the <kbd>Tab</kbd> key: every press goes to the next button or link. The browser follows the order in which the buttons are written in the HTML. With CSS you can <em>show</em> buttons in another order than they are written (for example with <code>.flex-row-reverse</code> or <code>.order-*</code>). Then <kbd>Tab</kbd> jumps back and forth across the screen, which is confusing. <code>reading-flow</code> tells the browser: follow the order people <em>see</em>.</p>
+          <p class="oc-section-content__desc"><strong>Gotcha:</strong> browsers without support keep following the HTML, so write the HTML in a sensible order anyway and see <code>reading-flow</code> as an extra. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/reading-flow" target="_blank" rel="noopener">MDN: reading-flow</a>.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
@@ -44,12 +54,38 @@
             </div>
           </div>
 
-          <oc-demo title="reading-flow: Tab follows the visual order (Chrome 137+)">
-            <div class="flex flex-row-reverse gap-1 reading-flow-flex-visual">
-              <button class="oc-btn oc-btn--outline">1 (first in the HTML)</button>
-              <button class="oc-btn oc-btn--outline">2</button>
-              <button class="oc-btn oc-btn--outline">3 (last in the HTML)</button>
-            </div>
-          <oc-code lang="html">&lt;div class="flex flex-row-reverse reading-flow-flex-visual"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><strong>The example:</strong> both rows hold the same three buttons. In the HTML they are written as Save, Cancel, Help, but CSS shows them the other way round. The small number under each button is the place it has for the <kbd>Tab</kbd> key. Read the numbers from left to right: in the first row they run 3, 2, 1 (backwards), in the second row 1, 2, 3 (as you read). Try it with the real keyboard: click <strong>Start here</strong> in a row and press <kbd>Tab</kbd> three times. The demo uses no JavaScript.</p>
+          <oc-demo title="reading-flow: Tab follows the order you see (Chrome 137+)">
+            <div class="oc-eg"><div class="sup-note sup-note--rflow"><b>Not in this browser yet.</b> Your browser does not support <code>reading-flow</code>: in both rows Tab follows the HTML order.</div><div class="oc-eg__legend"><span class="oc-eg__key oc-eg__key--strong">Click Start here, then press Tab three times</span></div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-row-reverse + .reading-flow-flex-visual</code><div class="oc-eg__note">The focused button gets an orange ring. In the first row it walks backwards (right to left), in the second row left to right.</div><div class="oc-eg__stage oc-eg__stage--plain pa-rf"><div class="rf-demo">
+              <div class="rf-row">
+                <div class="rf-row__head"><span>Without the class: <kbd>Tab</kbd> follows the HTML, so it runs backwards</span></div>
+                <div class="rf-line"><button class="oc-btn oc-btn--sm oc-btn--outline rf-start" type="button">Start here</button>
+                <div class="rf-buttons flex flex-row-reverse">
+                  <span class="rf-item"><button class="oc-btn oc-btn--secondary" type="button">Save</button><small>Tab 1</small></span>
+                  <span class="rf-item"><button class="oc-btn oc-btn--secondary" type="button">Cancel</button><small>Tab 2</small></span>
+                  <span class="rf-item"><button class="oc-btn oc-btn--secondary" type="button">Help</button><small>Tab 3</small></span>
+                </div></div>
+              </div>
+              <div class="rf-row">
+                <div class="rf-row__head"><span>With <code>.reading-flow-flex-visual</code>: <kbd>Tab</kbd> follows what you see</span></div>
+                <div class="rf-line"><button class="oc-btn oc-btn--sm oc-btn--outline rf-start" type="button">Start here</button>
+                <div class="rf-buttons flex flex-row-reverse reading-flow-flex-visual">
+                  <span class="rf-item"><button class="oc-btn oc-btn--secondary" type="button">Save</button><small>Tab 3</small></span>
+                  <span class="rf-item"><button class="oc-btn oc-btn--secondary" type="button">Cancel</button><small>Tab 2</small></span>
+                  <span class="rf-item"><button class="oc-btn oc-btn--secondary" type="button">Help</button><small>Tab 1</small></span>
+                </div></div>
+              </div>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- Written as Save, Cancel, Help; shown as Help, Cancel, Save --&gt;
+&lt;div class="flex flex-row-reverse"&gt;
+  &lt;button&gt;Save&lt;/button&gt; &lt;button&gt;Cancel&lt;/button&gt; &lt;button&gt;Help&lt;/button&gt;   &lt;!-- Tab: Save, Cancel, Help = right to left --&gt;
+&lt;/div&gt;
+
+&lt;div class="flex flex-row-reverse reading-flow-flex-visual"&gt;
+  &lt;button&gt;Save&lt;/button&gt; &lt;button&gt;Cancel&lt;/button&gt; &lt;button&gt;Help&lt;/button&gt;   &lt;!-- Tab: Help, Cancel, Save = left to right --&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">In a browser without <code>reading-flow</code> (Firefox, Safari) both rows behave like the first one, so the numbers in the second row only hold in Chrome 137+. The grid values (<code>.reading-flow-grid-rows</code>, <code>-grid-columns</code>, <code>-grid-order</code>) work the same way for items that a grid places in another order than the HTML; <code>.reading-flow-normal</code> and <code>.reading-flow-source-order</code> go back to the HTML order.</p>
         </div>
       </section>

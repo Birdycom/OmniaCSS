@@ -416395,6 +416395,19 @@ select {
   background-size: auto;
 }
 
+/* Full and empty sizes: transition between them for a fill that grows (bg-size-x-0 hover:bg-size-full transition-all) */
+.bg-size-full {
+  background-size: 100% 100%;
+}
+
+.bg-size-x-0 {
+  background-size: 0% 100%;
+}
+
+.bg-size-y-0 {
+  background-size: 100% 0%;
+}
+
 .bg-cover {
   background-size: cover;
 }
@@ -441338,6 +441351,59 @@ select {
   box-shadow: 0 0 0 1px oklch(from var(--oc-shadow-color, var(--color-vividblue-80)) l c h/0.35), 0 0 32px -4px oklch(from var(--oc-shadow-color, var(--color-vividblue-80)) l c h/0.6);
 }
 
+/* Neon: three layers of light in the shadow color (default Omnia sky cyan; change it with .drop-shadow-{color}) */
+.shadow-neon {
+  box-shadow: 0 0 0.6rem var(--oc-shadow-color, var(--color-skycyan-50)), 0 0 2.5rem var(--oc-shadow-color, var(--color-skycyan-50)), 0 0 5rem oklch(from var(--oc-shadow-color, var(--color-skycyan-50)) l c h/0.5);
+}
+
+/* Glow border: a conic gradient runs round the border, a blurred copy of it glows behind the element.
+   Round it with .round-*. Tune: --oc-conic-colors (color list, first = last for a seamless ring), --oc-conic-width (3px),
+   --oc-conic-blur (1.5rem), --oc-conic-opacity (0.75), --oc-conic-speed (4s per turn), --oc-conic-fill (the face, card color).
+   The angle is a registered property, so the gradient itself turns; prefers-reduced-motion stops it. */
+@property --oc-conic-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+@keyframes oc-conic-spin {
+  to {
+    --oc-conic-angle: 360deg;
+  }
+}
+.border-conic-spin {
+  --oc-conic-ring: conic-gradient(from var(--oc-conic-angle), var(--oc-conic-colors, var(--color-vividblue-80), var(--color-magenta-50), var(--color-orange-50), var(--color-teal-50), var(--color-vividblue-80)));
+  position: relative;
+  isolation: isolate;
+  border: var(--oc-conic-width, 3px) solid transparent;
+  background: var(--oc-conic-ring) border-box;
+  animation: oc-conic-spin var(--oc-conic-speed, 4s) linear infinite;
+}
+
+.border-conic-spin::before,
+.border-conic-spin::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: calc(-1 * var(--oc-conic-width, 3px));
+  border-radius: inherit;
+}
+
+.border-conic-spin::before {
+  background: var(--oc-conic-ring);
+  filter: blur(var(--oc-conic-blur, 1.5rem));
+  opacity: var(--oc-conic-opacity, 0.75);
+}
+
+.border-conic-spin::after {
+  border: var(--oc-conic-width, 3px) solid transparent;
+  background: var(--oc-conic-fill, var(--oc-card)) padding-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-conic-spin {
+    animation: none;
+  }
+}
 /* Text shadow */
 .text-shadow-none {
   text-shadow: none;
@@ -441357,6 +441423,21 @@ select {
 
 .text-shadow-lg {
   text-shadow: 0 4px 8px oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h/0.45);
+}
+
+/* Neon text: the same three layers of light as .shadow-neon, around the letters */
+.text-shadow-neon {
+  text-shadow: 0 0 0.3em var(--oc-shadow-color, var(--color-skycyan-50)), 0 0 1em var(--oc-shadow-color, var(--color-skycyan-50)), 0 0 2em oklch(from var(--oc-shadow-color, var(--color-skycyan-50)) l c h/0.5);
+}
+
+/* 3D / retro text: seven solid layers, one --oc-3d-step apart (1px; .text-shadow-3d-2 doubles it, also as hover:),
+   plus a soft drop in the shadow color. Layer colors: --oc-3d-c1 … --oc-3d-c5 (orange to purple). */
+.text-shadow-3d {
+  text-shadow: var(--oc-3d-step, 1px) var(--oc-3d-step, 1px) 0 var(--oc-3d-c1, var(--color-orange-50)), calc(2 * var(--oc-3d-step, 1px)) calc(2 * var(--oc-3d-step, 1px)) 0 var(--oc-3d-c1, var(--color-orange-50)), calc(3 * var(--oc-3d-step, 1px)) calc(3 * var(--oc-3d-step, 1px)) 0 var(--oc-3d-c2, var(--color-orange-60)), calc(4 * var(--oc-3d-step, 1px)) calc(4 * var(--oc-3d-step, 1px)) 0 var(--oc-3d-c3, var(--color-red-60)), calc(5 * var(--oc-3d-step, 1px)) calc(5 * var(--oc-3d-step, 1px)) 0 var(--oc-3d-c3, var(--color-red-60)), calc(6 * var(--oc-3d-step, 1px)) calc(6 * var(--oc-3d-step, 1px)) 0 var(--oc-3d-c4, var(--color-magenta-60)), calc(7 * var(--oc-3d-step, 1px)) calc(7 * var(--oc-3d-step, 1px)) 0 var(--oc-3d-c5, var(--color-purple-60)), calc(8 * var(--oc-3d-step, 1px)) calc(8 * var(--oc-3d-step, 1px)) calc(0.5rem + 8 * var(--oc-3d-step, 1px)) oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h/0.6);
+}
+
+.text-shadow-3d-2 {
+  --oc-3d-step: 2px;
 }
 
 /* Mix blend mode */
@@ -441887,6 +441968,16 @@ select {
   -webkit-backdrop-filter: sepia(1);
 }
 
+/* Glass (frosted glass): a translucent tint, a faint edge in the same tint and a blurred, more saturated backdrop.
+   Tune: --oc-glass-tint (white), --oc-glass-alpha (0.12), --oc-glass-backdrop (blur(14px) saturate(1.4)).
+   Needs something colorful behind it; without backdrop-filter support it stays a readable tinted panel. */
+.glass {
+  border: 1px solid oklch(from var(--oc-glass-tint, var(--color-white-50)) l c h/0.35);
+  background-color: oklch(from var(--oc-glass-tint, var(--color-white-50)) l c h/var(--oc-glass-alpha, 0.12));
+  backdrop-filter: var(--oc-glass-backdrop, blur(14px) saturate(1.4));
+  -webkit-backdrop-filter: var(--oc-glass-backdrop, blur(14px) saturate(1.4));
+}
+
 /* Transition property — with a default duration and easing as longhands, so .duration-*, .ease-* and .delay-* (below) override them */
 .transition-none {
   transition-property: none;
@@ -441912,7 +442003,11 @@ select {
   transition-property: transform, translate, scale, rotate;
 }
 
-:is(.transition-all, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform) {
+.transition-clip {
+  transition-property: clip-path;
+}
+
+:is(.transition-all, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform, .transition-clip) {
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -442043,6 +442138,80 @@ select {
   animation: oc-bounce 1s infinite;
 }
 
+/* Showcase presets. .animate-wave and .animate-beat are written as longhands, so they combine with
+   .animate-delay-stagger (one delay per child from sibling-index()) and with .animate-duration-* / .animate-ease-*. */
+@keyframes oc-float {
+  to {
+    translate: var(--oc-float-x, 2rem) var(--oc-float-y, -1.5rem);
+    scale: var(--oc-float-scale, 1.15);
+  }
+}
+@keyframes oc-typing {
+  from {
+    inline-size: 0;
+  }
+}
+@keyframes oc-caret {
+  50% {
+    border-color: transparent;
+  }
+}
+@keyframes oc-wave {
+  0%, 40%, 100% {
+    translate: 0 0;
+  }
+  20% {
+    translate: 0 var(--oc-wave-height, -0.35em);
+    color: var(--oc-wave-color, currentcolor);
+  }
+}
+@keyframes oc-beat {
+  0%, 100% {
+    scale: 0.5;
+    opacity: 0.4;
+  }
+  50% {
+    scale: 1.1;
+    opacity: 1;
+  }
+}
+/* Float: drift to --oc-float-x / -y and grow to --oc-float-scale, then back (--oc-float-duration, 6s) */
+.animate-float {
+  animation: oc-float var(--oc-float-duration, 6s) ease-in-out infinite alternate;
+}
+
+/* Typing: one step per character, then deletes again; the end border is the blinking caret. Set --oc-typing-chars
+   to the number of characters and use a monospace font (the width is counted in ch). */
+.animate-typing {
+  inline-size: calc(var(--oc-typing-chars, 20) * 1ch);
+  max-inline-size: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  border-inline-end: 0.6ch solid currentcolor;
+  animation: oc-typing var(--oc-typing-duration, 3.5s) steps(var(--oc-typing-chars, 20)) infinite alternate, oc-caret 0.6s step-end infinite;
+}
+
+/* Wave: a short jump that lights up in --oc-wave-color, then rests; put it on every letter with .animate-delay-stagger */
+.animate-wave {
+  animation-name: oc-wave;
+  animation-duration: 1.4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Beat: grow and fade in, shrink and fade out (loader dots; with .animate-delay-stagger they beat one after another) */
+.animate-beat {
+  animation-name: oc-beat;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-typing, .animate-wave, .animate-beat {
+    animation: none;
+  }
+}
 /* Transform core */
 /* Rotate, scale and translate use the individual transform properties (rotate / scale / translate),
    so every class works on its own and they combine freely. Skew has no own property: it uses transform. */
@@ -442941,6 +443110,17 @@ select {
 .scroll-buttons::scroll-button(inline-end) {
   content: "\00203a"/"Next";
   right: calc(anchor(right) + 0.5rem);
+}
+
+/* Outside: the arrows sit next to the scroll container instead of on it. Give the parent about 3rem of room on each side. */
+.scroll-buttons-outside::scroll-button(inline-start) {
+  left: auto;
+  right: calc(anchor(left) + 0.5rem);
+}
+
+.scroll-buttons-outside::scroll-button(inline-end) {
+  right: auto;
+  left: calc(anchor(right) + 0.5rem);
 }
 
 /* Overflow anchor — scroll anchoring */
@@ -444182,6 +444362,15 @@ select {
   clip-path: circle(50%);
 }
 
+/* Circle reveal: from nothing to a circle that covers the whole box (corners included); animate with .transition-clip */
+.clip-circle-0 {
+  clip-path: circle(0% at 50% 50%);
+}
+
+.clip-circle-cover {
+  clip-path: circle(75% at 50% 50%);
+}
+
 .clip-ellipse {
   clip-path: ellipse(50% 40%);
 }
@@ -444689,6 +444878,53 @@ select {
     animation: none !important;
   }
 }
+/* Presets — before the longhands below, so .timeline-* and .animate-range-* can retarget a preset
+   (class="animate-scroll-progress timeline-scroll": progress of the nearest scroll box instead of the page) */
+@keyframes oc-scroll-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes oc-view-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes oc-view-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  .animate-scroll-progress {
+    transform-origin: 0 50%;
+    animation: oc-scroll-progress linear both;
+    animation-timeline: scroll(root);
+  }
+  .animate-view-fade-in {
+    animation: oc-view-fade-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .animate-view-zoom-in {
+    animation: oc-view-zoom-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
 /* Animation timeline */
 .timeline-auto {
   animation-timeline: auto;
@@ -444773,52 +445009,6 @@ select {
   timeline-scope: none;
 }
 
-/* Presets */
-@keyframes oc-scroll-progress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-@keyframes oc-view-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(2rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes oc-view-zoom-in {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@supports (animation-timeline: scroll()) {
-  .animate-scroll-progress {
-    transform-origin: 0 50%;
-    animation: oc-scroll-progress linear both;
-    animation-timeline: scroll(root);
-  }
-  .animate-view-fade-in {
-    animation: oc-view-fade-in linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 30%;
-  }
-  .animate-view-zoom-in {
-    animation: oc-view-zoom-in linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 30%;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .animate-scroll-progress,
   .animate-view-fade-in,
@@ -445843,7 +446033,7 @@ select {
 
 .border-image-stripes {
   border-image-source: repeating-linear-gradient(45deg, var(--oc-gradient-from, currentcolor) 0 6px, var(--oc-gradient-to, transparent) 6px 12px);
-  border-image-slice: 1;
+  border-image-slice: 12;
 }
 
 .border-image-slice-1 {
@@ -446675,6 +446865,11 @@ select {
 
 .ease-bounce {
   transition-timing-function: linear(0, 0.063, 0.25, 0.563, 1 36.4%, 0.812, 0.75, 0.813, 1 72.7%, 0.953, 0.938, 0.953, 1 90.9%, 0.984, 1);
+}
+
+/* Overshoot: shoots a little past the end and settles back (flip cards, switches) */
+.ease-overshoot {
+  transition-timing-function: cubic-bezier(0.3, 1.4, 0.5, 1);
 }
 
 .ease-steps-4 {
@@ -450035,6 +450230,12 @@ select {
 .mask-radial-ellipse {
   -webkit-mask-image: radial-gradient(ellipse, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
           mask-image: radial-gradient(ellipse, black var(--oc-mask-from, 0%), transparent var(--oc-mask-to, 100%));
+}
+
+/* Ring: only an outer band of --oc-mask-ring (0.75rem) stays visible (spinners, progress rings, avatar rings) */
+.mask-ring {
+  -webkit-mask-image: radial-gradient(farthest-side, transparent calc(100% - var(--oc-mask-ring, 0.75rem)), black calc(100% - var(--oc-mask-ring, 0.75rem) + 0.05rem));
+          mask-image: radial-gradient(farthest-side, transparent calc(100% - var(--oc-mask-ring, 0.75rem)), black calc(100% - var(--oc-mask-ring, 0.75rem) + 0.05rem));
 }
 
 .mask-conic {
@@ -454222,71 +454423,71 @@ select {
 }
 
 .hover\:scale-95:hover {
-  transform: scale(0.95);
+  scale: 0.95;
 }
 
 .hover\:scale-100:hover {
-  transform: scale(1);
+  scale: 1;
 }
 
 .hover\:scale-105:hover {
-  transform: scale(1.05);
+  scale: 1.05;
 }
 
 .hover\:scale-110:hover {
-  transform: scale(1.1);
+  scale: 1.1;
 }
 
 .hover\:scale-125:hover {
-  transform: scale(1.25);
+  scale: 1.25;
 }
 
 .hover\:translate-y-0:hover {
-  transform: translateY(0);
+  translate: var(--oc-translate-x, 0) 0;
 }
 
 .hover\:translate-y-1:hover {
-  transform: translateY(-0.25rem);
+  translate: var(--oc-translate-x, 0) 0.25rem;
 }
 
 .hover\:-translate-y-1:hover {
-  transform: translateY(-0.25rem);
+  translate: var(--oc-translate-x, 0) -0.25rem;
 }
 
 .hover\:rotate-0:hover {
-  transform: rotate(0deg);
+  rotate: 0deg;
 }
 
 .hover\:rotate-1:hover {
-  transform: rotate(1deg);
+  rotate: 1deg;
 }
 
 .hover\:rotate-2:hover {
-  transform: rotate(2deg);
+  rotate: 2deg;
 }
 
 .hover\:rotate-3:hover {
-  transform: rotate(3deg);
+  rotate: 3deg;
 }
 
 .hover\:rotate-6:hover {
-  transform: rotate(6deg);
+  rotate: 6deg;
 }
 
 .hover\:rotate-12:hover {
-  transform: rotate(12deg);
+  rotate: 12deg;
 }
 
 .hover\:rotate-45:hover {
-  transform: rotate(45deg);
+  rotate: 45deg;
 }
 
 .hover\:rotate-90:hover {
-  transform: rotate(90deg);
+  rotate: 90deg;
 }
 
 .hover\:rotate-180:hover {
-  transform: rotate(180deg);
+  rotate: 180deg;
 }
 
 .hover\:border-transparent:hover {
@@ -454551,71 +454752,71 @@ select {
 }
 
 .focus\:scale-95:focus {
-  transform: scale(0.95);
+  scale: 0.95;
 }
 
 .focus\:scale-100:focus {
-  transform: scale(1);
+  scale: 1;
 }
 
 .focus\:scale-105:focus {
-  transform: scale(1.05);
+  scale: 1.05;
 }
 
 .focus\:scale-110:focus {
-  transform: scale(1.1);
+  scale: 1.1;
 }
 
 .focus\:scale-125:focus {
-  transform: scale(1.25);
+  scale: 1.25;
 }
 
 .focus\:translate-y-0:focus {
-  transform: translateY(0);
+  translate: var(--oc-translate-x, 0) 0;
 }
 
 .focus\:translate-y-1:focus {
-  transform: translateY(-0.25rem);
+  translate: var(--oc-translate-x, 0) 0.25rem;
 }
 
 .focus\:-translate-y-1:focus {
-  transform: translateY(-0.25rem);
+  translate: var(--oc-translate-x, 0) -0.25rem;
 }
 
 .focus\:rotate-0:focus {
-  transform: rotate(0deg);
+  rotate: 0deg;
 }
 
 .focus\:rotate-1:focus {
-  transform: rotate(1deg);
+  rotate: 1deg;
 }
 
 .focus\:rotate-2:focus {
-  transform: rotate(2deg);
+  rotate: 2deg;
 }
 
 .focus\:rotate-3:focus {
-  transform: rotate(3deg);
+  rotate: 3deg;
 }
 
 .focus\:rotate-6:focus {
-  transform: rotate(6deg);
+  rotate: 6deg;
 }
 
 .focus\:rotate-12:focus {
-  transform: rotate(12deg);
+  rotate: 12deg;
 }
 
 .focus\:rotate-45:focus {
-  transform: rotate(45deg);
+  rotate: 45deg;
 }
 
 .focus\:rotate-90:focus {
-  transform: rotate(90deg);
+  rotate: 90deg;
 }
 
 .focus\:rotate-180:focus {
-  transform: rotate(180deg);
+  rotate: 180deg;
 }
 
 .focus\:border-transparent:focus {
@@ -454880,71 +455081,71 @@ select {
 }
 
 .active\:scale-95:active {
-  transform: scale(0.95);
+  scale: 0.95;
 }
 
 .active\:scale-100:active {
-  transform: scale(1);
+  scale: 1;
 }
 
 .active\:scale-105:active {
-  transform: scale(1.05);
+  scale: 1.05;
 }
 
 .active\:scale-110:active {
-  transform: scale(1.1);
+  scale: 1.1;
 }
 
 .active\:scale-125:active {
-  transform: scale(1.25);
+  scale: 1.25;
 }
 
 .active\:translate-y-0:active {
-  transform: translateY(0);
+  translate: var(--oc-translate-x, 0) 0;
 }
 
 .active\:translate-y-1:active {
-  transform: translateY(-0.25rem);
+  translate: var(--oc-translate-x, 0) 0.25rem;
 }
 
 .active\:-translate-y-1:active {
-  transform: translateY(-0.25rem);
+  translate: var(--oc-translate-x, 0) -0.25rem;
 }
 
 .active\:rotate-0:active {
-  transform: rotate(0deg);
+  rotate: 0deg;
 }
 
 .active\:rotate-1:active {
-  transform: rotate(1deg);
+  rotate: 1deg;
 }
 
 .active\:rotate-2:active {
-  transform: rotate(2deg);
+  rotate: 2deg;
 }
 
 .active\:rotate-3:active {
-  transform: rotate(3deg);
+  rotate: 3deg;
 }
 
 .active\:rotate-6:active {
-  transform: rotate(6deg);
+  rotate: 6deg;
 }
 
 .active\:rotate-12:active {
-  transform: rotate(12deg);
+  rotate: 12deg;
 }
 
 .active\:rotate-45:active {
-  transform: rotate(45deg);
+  rotate: 45deg;
 }
 
 .active\:rotate-90:active {
-  transform: rotate(90deg);
+  rotate: 90deg;
 }
 
 .active\:rotate-180:active {
-  transform: rotate(180deg);
+  rotate: 180deg;
 }
 
 .active\:border-transparent:active {
@@ -455209,71 +455410,71 @@ select {
 }
 
 .focus-visible\:scale-95:focus-visible {
-  transform: scale(0.95);
+  scale: 0.95;
 }
 
 .focus-visible\:scale-100:focus-visible {
-  transform: scale(1);
+  scale: 1;
 }
 
 .focus-visible\:scale-105:focus-visible {
-  transform: scale(1.05);
+  scale: 1.05;
 }
 
 .focus-visible\:scale-110:focus-visible {
-  transform: scale(1.1);
+  scale: 1.1;
 }
 
 .focus-visible\:scale-125:focus-visible {
-  transform: scale(1.25);
+  scale: 1.25;
 }
 
 .focus-visible\:translate-y-0:focus-visible {
-  transform: translateY(0);
+  translate: var(--oc-translate-x, 0) 0;
 }
 
 .focus-visible\:translate-y-1:focus-visible {
-  transform: translateY(-0.25rem);
+  translate: var(--oc-translate-x, 0) 0.25rem;
 }
 
 .focus-visible\:-translate-y-1:focus-visible {
-  transform: translateY(-0.25rem);
+  translate: var(--oc-translate-x, 0) -0.25rem;
 }
 
 .focus-visible\:rotate-0:focus-visible {
-  transform: rotate(0deg);
+  rotate: 0deg;
 }
 
 .focus-visible\:rotate-1:focus-visible {
-  transform: rotate(1deg);
+  rotate: 1deg;
 }
 
 .focus-visible\:rotate-2:focus-visible {
-  transform: rotate(2deg);
+  rotate: 2deg;
 }
 
 .focus-visible\:rotate-3:focus-visible {
-  transform: rotate(3deg);
+  rotate: 3deg;
 }
 
 .focus-visible\:rotate-6:focus-visible {
-  transform: rotate(6deg);
+  rotate: 6deg;
 }
 
 .focus-visible\:rotate-12:focus-visible {
-  transform: rotate(12deg);
+  rotate: 12deg;
 }
 
 .focus-visible\:rotate-45:focus-visible {
-  transform: rotate(45deg);
+  rotate: 45deg;
 }
 
 .focus-visible\:rotate-90:focus-visible {
-  transform: rotate(90deg);
+  rotate: 90deg;
 }
 
 .focus-visible\:rotate-180:focus-visible {
-  transform: rotate(180deg);
+  rotate: 180deg;
 }
 
 .focus-visible\:border-transparent:focus-visible {
@@ -455505,11 +455706,11 @@ select {
 }
 
 .group:hover .group-hover\:scale-105 {
-  transform: scale(1.05);
+  scale: 1.05;
 }
 
 .group:hover .group-hover\:scale-110 {
-  transform: scale(1.1);
+  scale: 1.1;
 }
 
 .group:hover .group-hover\:text-white {

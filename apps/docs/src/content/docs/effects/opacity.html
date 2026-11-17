@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Opacity", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .demo-box { width: 80px; height: 80px; background: light-dark(oklch(from var(--color-vividblue-95) l c h / 0.125), oklch(from var(--color-vividblue-50) l c h / 0.25)); border: 1px solid light-dark(oklch(from var(--color-vividblue-95) l c h / 0.2), oklch(from var(--color-vividblue-50) l c h / 0.4)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--accent); }\n    .demo-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }\n    .demo-label { font-size: 0.72rem; color: var(--text-soft); text-align: center; margin-top: 4px; }\n    .demo-col { display: flex; flex-direction: column; align-items: center; }\n  \n    .op-stripes { display: grid; gap: 12px; padding: 16px; border-radius: 12px; inline-size: 100%; background: repeating-linear-gradient(45deg, var(--color-yellow-80) 0 14px, var(--color-dodgerblue-90) 14px 28px); }\n    .op-chip { padding: 14px 16px; border-radius: 8px; background: var(--color-black-50); color: var(--color-white-50); font-weight: 700; font-size: 0.85rem; }\n    .op-chip--alpha { background: oklch(from var(--color-black-50) l c h / 0.5); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Opacity","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Checkerboard behind the samples so transparency is visible (a pattern, not a fill). */\n    .op-check { background-color: var(--color-white-50); background-image: conic-gradient(var(--color-silver-60) 25%, transparent 0 50%, var(--color-silver-60) 0 75%, transparent 0); background-size: 20px 20px; }\n    .op-field { display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: 12px; border: 1px solid var(--oc-border); }\n    .op-box { inline-size: 64%; aspect-ratio: 3 / 2; border-radius: 10px; background: var(--color-vividblue-90); }\n    /* All values: one ramp, a cell per value. */\n    .op-ramp { display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 0 4px; inline-size: 100%; }\n    @media (max-width: 640px) { .op-ramp { grid-template-columns: repeat(7, minmax(0, 1fr)); row-gap: 14px; } }\n    .op-ramp figure { display: grid; gap: 6px; margin: 0; text-align: center; font-size: 0.78rem; color: var(--oc-foreground); }\n    .op-cell { block-size: 5.5rem; border-radius: 8px; border: 1px solid var(--oc-border); overflow: hidden; }\n    .op-cell div { block-size: 100%; background: var(--color-vividblue-90); }\n    /* Opacity vs translucent background */\n    .op-stripes { display: grid; padding: 22px; background: repeating-linear-gradient(45deg, var(--color-teal-70) 0 16px, var(--color-indigo-60) 16px 32px) var(--color-teal-70); }\n    .op-chip { display: grid; gap: 4px; padding: 20px 22px; border-radius: 10px; background: var(--color-shallowblue-90); color: var(--color-white-50); font-weight: 700; font-size: 1.05rem; }\n    .op-chip small { font-weight: 500; font-size: 0.85rem; }\n    .op-chip--alpha { background: oklch(from var(--color-shallowblue-90) l c h / 0.5); }\n    /* Real uses */\n    .op-list { display: grid; margin: 0; padding: 0; list-style: none; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); }\n    .op-list li { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; color: var(--oc-foreground); }\n    .op-list li + li { border-block-start: 1px solid var(--oc-border); }\n    .op-list li span { display: grid; font-size: 0.95rem; }\n    .op-list li small { color: var(--oc-muted-foreground); font-size: 0.8rem; }\n    .op-list li div { display: flex; gap: 6px; }\n    /* Docs rule: the row actions also appear when a button in the row has keyboard focus. */\n    .op-list li:focus-within .oc-btn { opacity: 1; }\n    .op-thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-content: start; }\n    .op-thumb { display: grid; place-items: center; aspect-ratio: 1; border-radius: 10px; color: var(--color-white-50); font-weight: 700; font-size: 0.9rem; cursor: pointer; }\n    .op-thumb:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 3px; }\n    .op-thumb:nth-child(1) { background: var(--color-teal-70); }\n    .op-thumb:nth-child(2) { background: var(--color-indigo-60); }\n    .op-thumb:nth-child(3) { background: var(--color-red-70); }\n    .op-btns { display: flex; flex-wrap: wrap; gap: 8px; }\n  .fx-in { display: grid; place-items: center; padding: 16px; }\n.fx-pic { display: grid; align-content: center; padding: 0.5rem; }\n</style>"]}-->
 <section class="oc-docs-section" id="opacity">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Opacity</h2>
@@ -17,11 +17,22 @@
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
               <tbody>
                 <tr><td><code>.opacity-0</code></td><td>opacity: 0</td></tr>
+                <tr><td><code>.opacity-5</code></td><td>opacity: 0.05</td></tr>
                 <tr><td><code>.opacity-10</code></td><td>opacity: 0.1</td></tr>
+                <tr><td><code>.opacity-20</code></td><td>opacity: 0.2</td></tr>
                 <tr><td><code>.opacity-25</code></td><td>opacity: 0.25</td></tr>
-                <tr><td><code>.opacity-50</code></td><td>opacity: 0.5</td></tr>
-                <tr><td><code>.opacity-75</code></td><td>opacity: 0.75</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.opacity-100</code></td><td>opacity: 1</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.opacity-30</code></td><td>opacity: 0.3</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.opacity-40</code></td><td>opacity: 0.4</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.opacity-50</code></td><td>opacity: 0.5</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.opacity-60</code></td><td>opacity: 0.6</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.opacity-70</code></td><td>opacity: 0.7</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.opacity-75</code></td><td>opacity: 0.75</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.opacity-80</code></td><td>opacity: 0.8</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.opacity-90</code></td><td>opacity: 0.9</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.opacity-100</code></td><td>opacity: 1</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.hover:opacity-{n}</code> · <code>.focus-visible:opacity-{n}</code></td><td>the same values on :hover / :focus-visible</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.group-hover:opacity-{50,75,100}</code></td><td>applied when a parent with <code>.group</code> is hovered</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.sm:opacity-{n}</code> … <code>.lg:opacity-{n}</code></td><td>responsive variants (0, 25, 50, 75, 100)</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -29,48 +40,115 @@
             </div>
           </div>
 
-          <h3 class="oc-section-content__title">Visual Demo</h3>
-          <oc-demo title="Visual Demo"><div class="preview">
-            <div class="demo-row">
-              <div class="demo-col"><div class="demo-box opacity-10">A</div><div class="demo-label">.opacity-10</div></div>
-              <div class="demo-col"><div class="demo-box opacity-25">A</div><div class="demo-label">.opacity-25</div></div>
-              <div class="demo-col"><div class="demo-box opacity-50">A</div><div class="demo-label">.opacity-50</div></div>
-              <div class="demo-col"><div class="demo-box opacity-75">A</div><div class="demo-label">.opacity-75</div></div>
-              <div class="demo-col"><div class="demo-box opacity-100">A</div><div class="demo-label">100%</div></div>
-            </div>
-          </div><oc-code lang="html">&lt;div class="opacity-10"&gt;...&lt;/div&gt;
-&lt;div class="opacity-50"&gt;...&lt;/div&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title">Opacity over a checkerboard</h3>
+          <p class="oc-section-content__desc">The same solid blue box at six opacities. The checkerboard behind it shows how much of the background shines through: at <code>.opacity-25</code> you see the squares clearly, at <code>.opacity-100</code> not at all.</p>
+          <oc-demo title="opacity-10 … opacity-100">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-10</code><div class="oc-eg__note">Opacity 0.1: 10% of the box shows, the checkerboard shines through.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="op-field op-check"><div class="op-box opacity-10"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-25</code><div class="oc-eg__note">Opacity 0.25: 25% of the box shows, the checkerboard shines through.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="op-field op-check"><div class="op-box opacity-25"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-50</code><div class="oc-eg__note">Opacity 0.5: 50% of the box shows, the checkerboard shines through.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="op-field op-check"><div class="op-box opacity-50"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-75</code><div class="oc-eg__note">Opacity 0.75: 75% of the box shows, the checkerboard shines through.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="op-field op-check"><div class="op-box opacity-75"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-90</code><div class="oc-eg__note">Opacity 0.9: 90% of the box shows, the checkerboard shines through.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="op-field op-check"><div class="op-box opacity-90"></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-100</code><div class="oc-eg__note">Fully opaque: nothing shows through.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="op-field op-check"><div class="op-box opacity-100"></div></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .op-field, .op-check, .op-box: shapes and sizes from page CSS (decoration only); the OmniaCSS classes carry the effect --&gt;
+&lt;div class="op-field op-check"&gt;&lt;div class="op-box opacity-10"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="op-field op-check"&gt;&lt;div class="op-box opacity-25"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="op-field op-check"&gt;&lt;div class="op-box opacity-50"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="op-field op-check"&gt;&lt;div class="op-box opacity-75"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="op-field op-check"&gt;&lt;div class="op-box opacity-90"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class="op-field op-check"&gt;&lt;div class="op-box opacity-100"&gt;&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">All values side by side</h3>
+          <p class="oc-section-content__desc">All fourteen steps as one ramp, from <code>.opacity-0</code> (invisible, but still taking up its space) to <code>.opacity-100</code>.</p>
           <oc-demo title="opacity-0 … opacity-100">
-            <div class="demo-row">
-              <div class="demo-col"><div class="demo-box opacity-0">A</div><div class="demo-label">.opacity-0</div></div>
-              <div class="demo-col"><div class="demo-box opacity-10">A</div><div class="demo-label">.opacity-10</div></div>
-              <div class="demo-col"><div class="demo-box opacity-25">A</div><div class="demo-label">.opacity-25</div></div>
-              <div class="demo-col"><div class="demo-box opacity-50">A</div><div class="demo-label">.opacity-50</div></div>
-              <div class="demo-col"><div class="demo-box opacity-75">A</div><div class="demo-label">.opacity-75</div></div>
-              <div class="demo-col"><div class="demo-box opacity-100">A</div><div class="demo-label">.opacity-100</div></div>
-            </div>
-          <oc-code lang="html">&lt;div class="opacity-0"&gt;…&lt;/div&gt;   &lt;!-- invisible but still in the layout --&gt;
-&lt;div class="opacity-100"&gt;…&lt;/div&gt;</oc-code></oc-demo>
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-0 … .opacity-100</code><div class="oc-eg__note">Every step of the scale on the same blue bar, from invisible to solid.</div><div class="oc-eg__stage oc-eg__stage--plain fx-in"><div class="op-ramp">
+              <figure><div class="op-cell op-check"><div class="opacity-0"></div></div>0</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-5"></div></div>5</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-10"></div></div>10</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-20"></div></div>20</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-25"></div></div>25</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-30"></div></div>30</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-40"></div></div>40</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-50"></div></div>50</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-60"></div></div>60</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-70"></div></div>70</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-75"></div></div>75</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-80"></div></div>80</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-90"></div></div>90</figure>
+              <figure><div class="op-cell op-check"><div class="opacity-100"></div></div>100</figure>
+            </div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- .op-cell: a checkered cell (page CSS); the blue bar inside gets the opacity class --&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-0"&gt;&lt;/div&gt;&lt;/div&gt;0&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-5"&gt;&lt;/div&gt;&lt;/div&gt;5&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-10"&gt;&lt;/div&gt;&lt;/div&gt;10&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-20"&gt;&lt;/div&gt;&lt;/div&gt;20&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-25"&gt;&lt;/div&gt;&lt;/div&gt;25&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-30"&gt;&lt;/div&gt;&lt;/div&gt;30&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-40"&gt;&lt;/div&gt;&lt;/div&gt;40&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-50"&gt;&lt;/div&gt;&lt;/div&gt;50&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-60"&gt;&lt;/div&gt;&lt;/div&gt;60&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-70"&gt;&lt;/div&gt;&lt;/div&gt;70&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-75"&gt;&lt;/div&gt;&lt;/div&gt;75&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-80"&gt;&lt;/div&gt;&lt;/div&gt;80&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-90"&gt;&lt;/div&gt;&lt;/div&gt;90&lt;/figure&gt;
+&lt;figure&gt;&lt;div class="op-cell"&gt;&lt;div class="opacity-100"&gt;&lt;/div&gt;&lt;/div&gt;100&lt;/figure&gt;
+
+&lt;!-- .opacity-0 is invisible but still takes its place in the layout --&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Opacity vs a translucent color</h3>
-          <p class="oc-section-content__desc">Left: <code>.opacity-50</code> fades the whole box, including its text. Right: only the background color is made translucent with relative color syntax, so the text stays fully readable. Both sit on a striped backdrop.</p>
+          <p class="oc-section-content__desc">Left: <code>.opacity-50</code> fades the whole box, including its text (faint on purpose). Right: only the background color is made translucent with relative color syntax, so the stripes shine through while the text stays fully readable. Both boxes sit on the same striped backdrop.</p>
           <oc-demo title="opacity-50 vs oklch(from … / 0.5)">
-            <div class="op-stripes">
-              <div class="op-chip opacity-50">opacity-50: text fades too</div>
-              <div class="op-chip op-chip--alpha">background alpha 0.5: text stays crisp</div>
-            </div>
-          <oc-code lang="html">&lt;div class="opacity-50"&gt;whole element&lt;/div&gt;
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 17rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-50</code><div class="oc-eg__note">The whole element fades, its text too.</div><div class="oc-eg__stage oc-eg__stage--plain op-stripes"><div class="op-chip opacity-50">Invoice 1 is paid<small>opacity-50: the text fades too</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">oklch(from … / 0.5)</code><div class="oc-eg__note">Only the background is see-through; the text stays crisp.</div><div class="oc-eg__stage oc-eg__stage--plain op-stripes"><div class="op-chip op-chip--alpha">Invoice 1 is paid<small>background alpha 0.5: the text stays crisp</small></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;div class="opacity-50"&gt;whole element&lt;/div&gt;
 &lt;div style="background: oklch(from var(--oc-primary) l c h / 0.5)"&gt;background only&lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8">Hover and focus fade</h3>
-          <p class="oc-section-content__desc">Combine <code>.transition-opacity</code> with the <code>hover:</code> variant for a smooth fade. Hover or focus the tiles.</p>
-          <oc-demo title="transition-opacity + hover:opacity-100">
-            <div class="demo-row">
-              <div class="demo-col"><div class="demo-box opacity-50 transition-opacity duration-300 hover:opacity-100" tabindex="0">A</div><div class="demo-label">.opacity-50 .hover:opacity-100</div></div>
-              <div class="demo-col"><div class="demo-box opacity-100 transition-opacity duration-300 hover:opacity-50" tabindex="0">A</div><div class="demo-label">.hover:opacity-50</div></div>
-            </div>
-          <oc-code lang="html">&lt;img class="opacity-50 transition-opacity duration-300 hover:opacity-100" src="…"&gt;</oc-code></oc-demo>
+          <h3 class="oc-section-content__title mt-8">In practice: hover, focus and disabled</h3>
+          <p class="oc-section-content__desc">Left: the Edit and Delete buttons of a row stay at <code>.opacity-0</code> until you hover the row (<code>.group</code> + <code>.group-hover:opacity-100</code>). Because <code>group-hover</code> only reacts to the mouse, one extra rule shows them as soon as a button in the row gets keyboard focus: press Tab to try it. Right: thumbnails rest at <code>.opacity-60</code> and turn solid on hover or focus, and a disabled button uses <code>.opacity-50</code>.</p>
+          <oc-demo title="group-hover:opacity-100, hover:opacity-100, focus-visible:opacity-100">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.group-hover:opacity-100</code><div class="oc-eg__note">Hover a row or Tab into it: its Edit and Delete buttons fade in.</div><div class="oc-eg__stage oc-eg__stage--plain fx-in"><ul class="op-list">
+                <li class="group"><span>Invoice 1<small>Customer 1 · € 1,280</small></span><div><button type="button" class="oc-btn oc-btn--secondary oc-btn--sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">Edit</button><button type="button" class="oc-btn oc-btn--secondary oc-btn--sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">Delete</button></div></li>
+                <li class="group"><span>Invoice 2<small>Customer 2 · € 420</small></span><div><button type="button" class="oc-btn oc-btn--secondary oc-btn--sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">Edit</button><button type="button" class="oc-btn oc-btn--secondary oc-btn--sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">Delete</button></div></li>
+                <li class="group"><span>Invoice 3<small>Customer 3 · € 96</small></span><div><button type="button" class="oc-btn oc-btn--secondary oc-btn--sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">Edit</button><button type="button" class="oc-btn oc-btn--secondary oc-btn--sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">Delete</button></div></li>
+              </ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-60 .hover:opacity-100</code><div class="oc-eg__note">Hover a photo or Tab to it: it turns fully visible.</div><div class="oc-eg__stage oc-eg__stage--plain fx-pic"><div class="op-thumbs">
+                  <div class="op-thumb opacity-60 hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-300" tabindex="0" role="img" aria-label="Photo 1"></div>
+                  <div class="op-thumb opacity-60 hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-300" tabindex="0" role="img" aria-label="Photo 2"></div>
+                  <div class="op-thumb opacity-60 hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-300" tabindex="0" role="img" aria-label="Photo 3"></div>
+                </div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.opacity-50</code><div class="oc-eg__note">A disabled button at half strength next to a normal one.</div><div class="oc-eg__stage oc-eg__stage--plain fx-in"><div class="op-btns"><button type="button" class="oc-btn">Save</button><button type="button" class="oc-btn opacity-50" disabled>Save (disabled)</button></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- Row actions that appear when you point at the row --&gt;
+&lt;ul class="list"&gt;
+  &lt;li class="group"&gt;
+    &lt;span&gt;Invoice 1&lt;small&gt;Customer 1 · € 1,280&lt;/small&gt;&lt;/span&gt;
+    &lt;div&gt;
+      &lt;button type="button" class="oc-btn oc-btn--secondary oc-btn--sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"&gt;Edit&lt;/button&gt;
+      &lt;button type="button" class="oc-btn oc-btn--secondary oc-btn--sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"&gt;Delete&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;!-- Invoice 2 and Invoice 3: the same markup --&gt;
+&lt;/ul&gt;
+
+&lt;!-- Thumbnails that light up on hover and keyboard focus --&gt;
+&lt;div class="thumbs"&gt;
+  &lt;img class="opacity-60 hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-300" tabindex="0" src="photo-1.jpg" alt="Photo 1"&gt;
+  &lt;img class="opacity-60 hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-300" tabindex="0" src="photo-2.jpg" alt="Photo 2"&gt;
+  &lt;img class="opacity-60 hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-300" tabindex="0" src="photo-3.jpg" alt="Photo 3"&gt;
+&lt;/div&gt;
+
+&lt;!-- A disabled button --&gt;
+&lt;button type="button" class="oc-btn"&gt;Save&lt;/button&gt;
+&lt;button type="button" class="oc-btn opacity-50" disabled&gt;Save (disabled)&lt;/button&gt;
+
+&lt;style&gt;
+  .list li:focus-within button { opacity: 1; }   /* keyboard users see the buttons too */
+&lt;/style&gt;</oc-code></oc-demo>
         </div>
       </section>

@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Multi-column Layout", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>.bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: 18px; inline-size: 100%; }\n.bd-cell { display: grid; gap: 8px; justify-items: start; font-size: 0.72rem; }\n.bd-box { display: grid; place-items: center; inline-size: 100%; aspect-ratio: 4 / 3; background-color: var(--oc-card); color: var(--oc-foreground); font-weight: 600; font-size: 0.78rem; }\n</style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Multi-column Layout","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Page-local demo helpers (cl-*). */\n    .cl-article { inline-size: 100%; box-sizing: border-box; padding: 1.25rem 1.5rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.95rem; line-height: 1.6; column-gap: 2rem; column-rule-color: var(--oc-border-strong); overflow-wrap: anywhere; }\n    .cl-article > div { margin: 0 0 0.75rem; color: var(--oc-foreground); }\n    .cl-article > div:last-child { margin-block-end: 0; }\n    .cl-article h4 { margin: 0 0 0.25rem; font-size: 1.35rem; line-height: 1.25; color: var(--oc-foreground); }\n    .cl-kicker { margin-block-end: 1rem !important; padding-block-end: 0.75rem; border-block-end: 1px solid var(--oc-border); color: var(--oc-muted-foreground) !important; font-size: 0.9rem; }\n    .cl-resize { resize: horizontal; overflow: auto; min-inline-size: 12rem; max-inline-size: 100%; }\n    /* Inside the kit stage: a little room around the article or list. */\n    .cl-stage { align-self: stretch; padding: 0.85rem 1rem; }\n    .cl-stage > .cl-article:not(.cl-resize) { padding: 0.25rem; border: 0; background: none; }\n    .cl-list { margin: 0; padding: 0; list-style: none; column-gap: 1.25rem; column-rule-color: var(--oc-muted-foreground); }\n    .cl-list li { margin: 0; padding: 0.15rem 0; color: var(--oc-foreground); font-size: 0.92rem; line-height: 1.5; break-inside: avoid; white-space: nowrap; }\n    .cl-list li::before { content: \"\"; display: inline-block; inline-size: 0.45rem; block-size: 0.45rem; margin-inline-end: 0.5rem; border-radius: 2px; background: var(--color-teal-70); vertical-align: 0.1em; }\n    .cl-fixed { block-size: 9.5rem; padding: 0.5rem 0.75rem; box-sizing: border-box; border: 2px dashed var(--oc-border-strong); border-radius: 8px; }\n    @media (max-width: 30rem) { .cl-article { padding: 1rem; } .cl-stage { padding: 0.75rem; } .cl-cols .cl-list { column-gap: 0.5rem; } .cl-cols .cl-list li { font-size: 0.8rem; } .cl-cols .cl-list li::before { display: none; } }\n    .cl-key { inline-size: 2rem; block-size: 1.1rem; border: 2px dashed var(--oc-border-strong); border-radius: 4px; }\n  </style>"]}-->
 <section class="oc-docs-section" id="columns">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Multi-column Layout</h2>
@@ -74,12 +74,35 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">One short article in three columns with a thin rule between them. The text runs down the first column, then continues at the top of the next. On a phone three columns get too narrow; the next example shows the better choice there.</p>
           <oc-demo title="Newspaper columns with a rule">
-            <p class="cols-3 col-rule-solid col-rule-1 m-0" style="column-gap: 2rem; column-rule-color: var(--oc-border-strong);">OmniaCSS turns modern CSS into utility classes. Multi-column layout flows text from one column into the next, like a newspaper, without any wrapper elements. Combine a column count with a rule between the columns and a gap. The browser balances the columns automatically, and headings can span all columns with .col-span-all. Resize the window to see the text reflow while the number of columns stays the same.</p>
-          <oc-code lang="html">&lt;p class="cols-3 col-rule-solid col-rule-1"&gt;…&lt;/p&gt;</oc-code></oc-demo>
-          <oc-demo title="Column width instead of count">
-            <p class="col-w-16 m-0">With .col-w-16 every column is about 16rem wide; the browser decides how many fit. This is responsive without media queries: wide screens get more columns, phones get one. Text keeps a comfortable line length in every situation, which is good for reading long documentation pages.</p>
-          </oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.cols-3 .col-rule-solid .col-rule-1</code><div class="oc-eg__note">Three columns with a thin line between them. The text runs down the first column, then goes on at the top of the next.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><div class="cl-article cols-3 col-rule-solid col-rule-1">
+              <div>Company 1 opens a second office this spring. The new building is close to the station, so most visitors can come by train. There is room for twelve desks, two meeting rooms and a small kitchen.</div>
+              <div>Customers can visit from Monday to Friday, between nine and five. Please book a meeting room at least one day ahead. The old office stays open as well.</div>
+              <div>Both offices share one phone number and one email address: info@company1.example. If you are not sure which office to visit, ask us first and we will tell you which team works where.</div>
+              <div>Parking is limited, so we suggest the train or a bike. There are bike racks next to the main door. Coffee and tea are free for every visitor.</div>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="cols-3 col-rule-solid col-rule-1" style="column-gap: 2rem"&gt;
+  &lt;p&gt;Company 1 opens a second office this spring. …&lt;/p&gt;
+  &lt;p&gt;Customers can visit from Monday to Friday, …&lt;/p&gt;
+  &lt;p&gt;…&lt;/p&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">With <code>.col-w-16</code> you ask for columns of about 16rem and the browser decides how many fit. Drag the handle in the bottom-right corner of the box to make it narrower: at about 34rem the two columns become one. On a wide screen there would be three or more. No media queries needed.</p>
+          <oc-demo title="Column width instead of count (drag the corner)">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.col-w-16</code><div class="oc-eg__note">Columns of about 16rem; the browser decides how many fit. Drag the bottom-right corner of the box to resize it.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><div class="cl-article col-w-16 cl-resize">
+                <div>Every column here is about 16rem wide. When the box gets narrower, a column drops off and the text reflows into the ones that are left.</div>
+                <div>This keeps the lines at a comfortable length on every screen. Wide screens get more columns, a phone gets one.</div>
+                <div>That is why a width is usually a better choice than a fixed count. The count only works well when you know how wide the box will be.</div>
+              </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="col-w-16"&gt;
+  &lt;p&gt;Every column here is about 16rem wide. …&lt;/p&gt;
+  &lt;p&gt;…&lt;/p&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="column-span">Column span &amp; fill</h3>
           <p class="oc-section-content__desc">Let a heading span all columns, and choose whether content is balanced across columns.</p>
@@ -98,56 +121,64 @@
             </div>
           </div>
 
+          <p class="oc-section-content__desc">The heading and the line under it carry <code>.col-span-all</code>, so they run across all three columns. The text after them starts a new set of columns below.</p>
           <oc-demo title="cols-3 + col-rule-solid + col-span-all">
-            
-            <div class="cols-3 col-rule-solid col-rule-1 gap-2 round-3 p-1 border-1 border-dashed border-stormblue-100 font-1">
-              <h4 class="col-span-all mb-1">Heading spanning all columns</h4>
-              <p>OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
-              <p>OmniaCSS generates utility classes from SCSS source files. Each class does one thing, so you compose layouts directly in your markup without writing custom CSS for every component.</p>
-            </div>
-
-            
-            
-          <oc-code lang="html">&lt;div class="cols-3 col-rule-solid col-rule-1 gap-2"&gt;
-  &lt;h4 class="col-span-all"&gt;Heading spanning all columns&lt;/h4&gt;
-  &lt;p&gt;…&lt;/p&gt;
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.cols-3 .col-rule-solid .col-span-all</code><div class="oc-eg__note">The heading and the line under it span all three columns; the text after them starts new columns below.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><div class="cl-article cols-3 col-rule-solid col-rule-1">
+              <h4 class="col-span-all">New opening hours from 1 March</h4>
+              <div class="col-span-all cl-kicker">The heading and this line span all three columns.</div>
+              <div>From 1 March the shop opens one hour earlier, at eight. Many customers asked for this, so they can drop by on their way to work.</div>
+              <div>On Saturday we now close at four instead of five. The help desk keeps its usual hours and still answers the phone until six.</div>
+              <div>Orders placed before noon still leave the same day. Questions? Mail info@company1.example and we reply within one working day.</div>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="cols-3 col-rule-solid col-rule-1"&gt;
+  &lt;h4 class="col-span-all"&gt;New opening hours from 1 March&lt;/h4&gt;
+  &lt;p&gt;From 1 March the shop opens one hour earlier, …&lt;/p&gt;
   &lt;p&gt;…&lt;/p&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
-          <h3 class="oc-section-content__title mt-8">Column count: 1 to 6</h3>
-          <p class="oc-section-content__desc">The same paragraph with each <code>.cols-*</code> class.</p>
+          <h3 class="oc-section-content__title mt-8">Column count: 2 to 6</h3>
+          <p class="oc-section-content__desc">Lists are where columns shine. The same shopping list of twelve items, in alphabetical order, with a different <code>.cols-*</code> class on each row. Read it top to bottom: A to C in the first column, and so on. <code>.cols-1</code> is a normal single list.</p>
 
-          <oc-demo title="cols-1 … cols-6">
-            <div class="bd-grid" style="grid-template-columns: 1fr; gap: 20px">
-              <div class="bd-cell"><p class="cols-1 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-1</code></div>
-              <div class="bd-cell"><p class="cols-2 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-2</code></div>
-              <div class="bd-cell"><p class="cols-3 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-3</code></div>
-              <div class="bd-cell"><p class="cols-4 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-4</code></div>
-              <div class="bd-cell"><p class="cols-6 m-0" style="column-gap: 1.5rem; font-size: 0.8rem; line-height: 1.55; column-rule: 1px solid var(--oc-border)">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.cols-6</code></div>
-            </div>
-          <oc-code lang="html">&lt;p class="cols-3"&gt;…&lt;/p&gt;</oc-code></oc-demo>
+          <oc-demo title="cols-2, cols-3, cols-4, cols-5 and cols-6 on one list">
+            <div class="oc-eg cl-cols"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.cols-2</code><div class="oc-eg__note">The same twelve items in two columns, read top to bottom.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-2"><li>Apples</li><li>Bread</li><li>Cheese</li><li>Dates</li><li>Eggs</li><li>Flour</li><li>Grapes</li><li>Honey</li><li>Jam</li><li>Kiwis</li><li>Lemons</li><li>Milk</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cols-3</code><div class="oc-eg__note">The same twelve items in three columns, read top to bottom.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-3"><li>Apples</li><li>Bread</li><li>Cheese</li><li>Dates</li><li>Eggs</li><li>Flour</li><li>Grapes</li><li>Honey</li><li>Jam</li><li>Kiwis</li><li>Lemons</li><li>Milk</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cols-4</code><div class="oc-eg__note">The same twelve items in four columns, read top to bottom.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-4"><li>Apples</li><li>Bread</li><li>Cheese</li><li>Dates</li><li>Eggs</li><li>Flour</li><li>Grapes</li><li>Honey</li><li>Jam</li><li>Kiwis</li><li>Lemons</li><li>Milk</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cols-5</code><div class="oc-eg__note">Five columns, but twelve items need only three rows: they fill four columns and the fifth stays empty.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-5"><li>Apples</li><li>Bread</li><li>Cheese</li><li>Dates</li><li>Eggs</li><li>Flour</li><li>Grapes</li><li>Honey</li><li>Jam</li><li>Kiwis</li><li>Lemons</li><li>Milk</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cols-6</code><div class="oc-eg__note">The same twelve items in six columns, read top to bottom.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-6"><li>Apples</li><li>Bread</li><li>Cheese</li><li>Dates</li><li>Eggs</li><li>Flour</li><li>Grapes</li><li>Honey</li><li>Jam</li><li>Kiwis</li><li>Lemons</li><li>Milk</li></ul></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- the same twelve items in each list, Apples to Milk --&gt;
+&lt;ul class="cols-2"&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Bread&lt;/li&gt; … &lt;li&gt;Milk&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="cols-3"&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Bread&lt;/li&gt; … &lt;li&gt;Milk&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="cols-4"&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Bread&lt;/li&gt; … &lt;li&gt;Milk&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="cols-5"&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Bread&lt;/li&gt; … &lt;li&gt;Milk&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="cols-6"&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Bread&lt;/li&gt; … &lt;li&gt;Milk&lt;/li&gt;&lt;/ul&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Rule styles and widths</h3>
-          <p class="oc-section-content__desc"><code>.col-rule-*</code> classes combine a style and a width; the color is set with a custom value (here an Omnia theme token).</p>
+          <p class="oc-section-content__desc"><code>.col-rule-*</code> classes combine a style and a width. The color follows the text color unless you set <code>column-rule-color</code> (here a muted theme color).</p>
 
-          <oc-demo title="column rules">
-            <div class="bd-grid" style="grid-template-columns: 1fr; gap: 20px">
-              <div class="bd-cell"><p class="cols-3 col-rule-solid col-rule-1 m-0" style="column-gap: 2rem; column-rule-color: var(--oc-border-strong); font-size: 0.8rem; line-height: 1.55">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.col-rule-solid.col-rule-1</code></div>
-              <div class="bd-cell"><p class="cols-3 col-rule-dashed col-rule-2 m-0" style="column-gap: 2rem; column-rule-color: var(--oc-border-strong); font-size: 0.8rem; line-height: 1.55">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.col-rule-dashed.col-rule-2</code></div>
-              <div class="bd-cell"><p class="cols-3 col-rule-dotted col-rule-4 m-0" style="column-gap: 2rem; column-rule-color: var(--oc-border-strong); font-size: 0.8rem; line-height: 1.55">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scroll up and down. </p><code>.col-rule-dotted.col-rule-4</code></div>
-            </div>
-          <oc-code lang="html">&lt;p class="cols-3 col-rule-dashed col-rule-2"&gt;…&lt;/p&gt;</oc-code></oc-demo>
+          <oc-demo title="Solid, dashed and dotted column rules">
+            <div class="oc-eg cl-cols"><div class="oc-eg__panels" style="--eg-min: 100%;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.col-rule-solid .col-rule-1</code><div class="oc-eg__note">A solid line of 1px between the columns.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-3 col-rule-solid col-rule-1"><li>Apples</li><li>Bread</li><li>Cheese</li><li>Dates</li><li>Eggs</li><li>Flour</li><li>Grapes</li><li>Honey</li><li>Jam</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.col-rule-dashed .col-rule-2</code><div class="oc-eg__note">A dashed line of 2px.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-3 col-rule-dashed col-rule-2"><li>Apples</li><li>Bread</li><li>Cheese</li><li>Dates</li><li>Eggs</li><li>Flour</li><li>Grapes</li><li>Honey</li><li>Jam</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.col-rule-dotted .col-rule-4</code><div class="oc-eg__note">A dotted line of 4px.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-3 col-rule-dotted col-rule-4"><li>Apples</li><li>Bread</li><li>Cheese</li><li>Dates</li><li>Eggs</li><li>Flour</li><li>Grapes</li><li>Honey</li><li>Jam</li></ul></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;ul class="cols-3 col-rule-solid col-rule-1"&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Bread&lt;/li&gt; … &lt;li&gt;Jam&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="cols-3 col-rule-dashed col-rule-2"&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Bread&lt;/li&gt; … &lt;li&gt;Jam&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="cols-3 col-rule-dotted col-rule-4"&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Bread&lt;/li&gt; … &lt;li&gt;Jam&lt;/li&gt;&lt;/ul&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Fill: balance vs auto in a fixed-height box</h3>
-          <p class="oc-section-content__desc">In a 7rem tall box, <code>.col-fill-balance</code> evens out the column heights; <code>.col-fill-auto</code> fills each column to the full height before starting the next one.</p>
+          <p class="oc-section-content__desc">Both dashed boxes are 9.5rem tall and hold the same seven steps in three columns. <code>.col-fill-balance</code> spreads the steps evenly; <code>.col-fill-auto</code> fills the first column to the bottom before it starts the next, so the third column stays empty.</p>
 
           <oc-demo title="col-fill-balance vs col-fill-auto">
-            <div class="bd-grid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr))">
-              <div class="bd-cell"><div class="cols-3 col-fill-balance" style="block-size: 7rem; column-gap: 1rem; font-size: 0.75rem; line-height: 1.5; border: 1px dashed var(--oc-border-strong); padding: 6px">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scr</div><code>.col-fill-balance</code></div>
-              <div class="bd-cell"><div class="cols-3 col-fill-auto" style="block-size: 7rem; column-gap: 1rem; font-size: 0.75rem; line-height: 1.5; border: 1px dashed var(--oc-border-strong); padding: 6px">Multi-column layout flows text from one column into the next. Short paragraphs, lists and cards read well; very long runs of text force readers to scr</div><code>.col-fill-auto</code></div>
-            </div>
-          <oc-code lang="html">&lt;div class="cols-3 col-fill-auto" style="height: 7rem"&gt;…&lt;/div&gt;</oc-code></oc-demo>
-
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="cl-key" aria-hidden="true"></span>Dashed line = the box, 9.5rem tall</span></div><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.col-fill-balance</code><div class="oc-eg__note">The seven steps are spread evenly over the three columns.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-3 col-fill-balance cl-fixed"><li>Step 1</li><li>Step 2</li><li>Step 3</li><li>Step 4</li><li>Step 5</li><li>Step 6</li><li>Step 7</li></ul></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.col-fill-auto</code><div class="oc-eg__note">The first column fills to the bottom before the next starts, so the third stays empty.</div><div class="oc-eg__stage oc-eg__stage--plain cl-stage"><ul class="cl-list cols-3 col-fill-auto cl-fixed"><li>Step 1</li><li>Step 2</li><li>Step 3</li><li>Step 4</li><li>Step 5</li><li>Step 6</li><li>Step 7</li></ul></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;ul class="cols-3 col-fill-balance" style="height: 9.5rem"&gt;&lt;li&gt;Step 1&lt;/li&gt; … &lt;li&gt;Step 7&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class="cols-3 col-fill-auto" style="height: 9.5rem"&gt;&lt;li&gt;Step 1&lt;/li&gt; … &lt;li&gt;Step 7&lt;/li&gt;&lt;/ul&gt;</oc-code></oc-demo>
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">Multi-column layout is broadly supported; without support content simply flows in a single column.</p>
           <oc-compat features="css.properties.column-count css.properties.column-width css.properties.column-rule css.properties.column-span css.properties.column-fill"></oc-compat>

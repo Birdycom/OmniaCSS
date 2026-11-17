@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Layout Module", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Layout Module", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n\n    .lm-page { display: grid; grid-template-rows: 60px minmax(16rem, auto) 36px; inline-size: 100%; overflow: hidden; border: 2px solid var(--oc-border); border-radius: 14px; background: var(--oc-background); color: var(--oc-foreground); }\n    .lm-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding-inline: 1rem; color: var(--color-white-50); font-size: 0.95rem; }\n    .lm-cls { font-family: var(--oc-font-mono, monospace); font-size: 0.8rem; }\n    .lm-bar code, .lm-body code { background: oklch(from var(--color-black-50) l c h / 0.25); color: inherit; font-size: 0.8rem; padding: 0.05rem 0.4rem; border-radius: 4px; }\n    .lm-body { display: grid; grid-template-columns: minmax(7rem, 12rem) minmax(0, 1fr); }\n    .lm-body > div { display: grid; align-content: start; gap: 0.5rem; padding: 1rem; font-size: 0.95rem; }\n    .lm-side { border-inline-end: 1px solid var(--oc-border); background: var(--oc-muted); }\n    .lm-body code { background: var(--oc-muted); }\n      @media (max-width: 30rem) { .lm-body { grid-template-columns: 6rem minmax(0, 1fr); } .lm-body > div { padding: 0.75rem; } .lm-cls { overflow-wrap: anywhere; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Layout Module: Header + Footer</h2>
@@ -50,6 +50,29 @@
           <li><code>--ocm-text</code>, <code>--ocm-text-soft</code>, <code>--ocm-accent</code>, <code>--ocm-font</code></li>
         </ul>
         
+<h3 class="oc-section-content__title mt-10" id="skeleton">The page skeleton</h3>
+          <p class="oc-section-content__desc">Header and footer keep their fixed heights; the content area gets the rest, and the sidebar and content scroll inside it.</p>
+          <oc-demo title="--ocm-header-height (60px) + content + --ocm-footer-height (36px)">
+            <div class="lm-page">
+              <div class="lm-bar bg-vividblue-90"><b>Header</b><span class="lm-cls">--ocm-header-height: 60px</span></div>
+              <div class="lm-body">
+                <div class="lm-side"><b>Sidebar</b><span>Scrolls on its own.</span></div>
+                <div><b>Content</b><span>Height: <span class="lm-cls">calc(100vh - var(--ocm-header-height) - var(--ocm-footer-height))</span></span><span>Long pages scroll here, not on body, so header and footer stay in place.</span></div>
+              </div>
+              <div class="lm-bar bg-slateblue-70"><span>Footer</span><span class="lm-cls">--ocm-footer-height: 36px</span></div>
+            </div>
+          <oc-code lang="css">.content {
+  height: calc(100vh - var(--ocm-header-height) - var(--ocm-footer-height));
+  overflow: auto;   /* scroll here, not on body */
+}</oc-code>
+          <oc-code lang="html">&lt;!-- The preview is a drawing of the page; the real structure is: --&gt;
+&lt;header class="header"&gt;Header&lt;/header&gt;           &lt;!-- height: var(--ocm-header-height) --&gt;
+&lt;div class="body"&gt;
+  &lt;aside class="sidebar"&gt;Sidebar&lt;/aside&gt;         &lt;!-- scrolls on its own --&gt;
+  &lt;main class="content"&gt;Content&lt;/main&gt;
+&lt;/div&gt;
+&lt;footer class="footer"&gt;Footer&lt;/footer&gt;           &lt;!-- height: var(--ocm-footer-height) --&gt;</oc-code></oc-demo>
+
 <h3 class="oc-section-content__title mt-10" id="notes">Notes</h3>
 
           <ul>

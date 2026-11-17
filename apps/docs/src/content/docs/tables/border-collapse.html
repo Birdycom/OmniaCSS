@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Border Collapse","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Border Collapse","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Comparison cards: equal height per row, full width of the preview */\n    .tb-scroll { min-inline-size: 0; max-inline-size: 100%; overflow-x: auto; }\n    /* A plain data table: padding and a clear border on every cell */\n    .tb-data { inline-size: 100%; font-size: 0.875rem; color: var(--oc-foreground); }\n    .tb-data th, .tb-data td { padding: 0.5rem 0.75rem; text-align: start; border: 1px solid var(--oc-border-strong); background: var(--oc-card); }\n    .tb-data thead th { background: var(--oc-muted); font-weight: 600; }\n    .tb-data tfoot td { background: var(--oc-muted); font-weight: 600; }\n    .tb-data .tb-num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }\n    /* Thick, colored cell borders so you can count the lines */\n    .tb-bc th, .tb-bc td { border: 3px solid var(--color-vividblue-80); }\n    .tb-bc.tb-round th, .tb-bc.tb-round td { border-radius: 8px; }\n  .tb-in { display: grid; align-content: center; gap: 0.75rem; padding: 0.75rem; color: var(--oc-foreground); }\n</style>"]}-->
 <section class="oc-docs-section" id="border-collapse">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Border Collapse</h2>
@@ -22,12 +22,43 @@
 
           <h3 class="oc-section-content__title mt-8">Collapse versus separate</h3>
 
-          <oc-demo title="border-collapse values"><div class="dm-grid" style="--dm-min:14rem">
-<div class="dm-tile"><code>.border-collapse</code><div class="dm-area "><table class="dm-tbl border-collapse"><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table></div></div>
-<div class="dm-tile"><code>.border-separate (default spacing 2px)</code><div class="dm-area "><table class="dm-tbl border-separate" style="border-spacing:2px"><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table></div></div>
-<div class="dm-tile"><code>.border-separate with radius on cells</code><div class="dm-area "><table class="dm-tbl border-separate" style="border-spacing:6px"><tr><td style="border-radius:8px">A</td><td style="border-radius:8px">B</td></tr><tr><td style="border-radius:8px">C</td><td style="border-radius:8px">D</td></tr></table></div></div>
-</div><oc-code lang="html">&lt;table class="border-collapse"&gt;
-  &lt;tr&gt;&lt;td class="border border-solid"&gt;Content&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Three copies of the same order table, each cell with a thick 3px border. Count the lines between two cells: one in the first table, two in the others.</p>
+
+          <oc-demo title="border-collapse values">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 14rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-collapse</code><div class="oc-eg__note">Neighbouring cells share one line. This is the classic data table.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><table class="tb-data tb-bc border-collapse"><thead><tr><th>Product</th><th class="tb-num">Price</th></tr></thead><tbody><tr><td>Product 1</td><td class="tb-num">€24.00</td></tr><tr><td>Product 2</td><td class="tb-num">€8.50</td></tr><tr><td>Product 3</td><td class="tb-num">€96.00</td></tr></tbody></table></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-separate</code><div class="oc-eg__note">With .border-spacing-1. Every cell draws its own border, so you see two lines with a gap between them.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><table class="tb-data tb-bc border-separate border-spacing-1"><thead><tr><th>Product</th><th class="tb-num">Price</th></tr></thead><tbody><tr><td>Product 1</td><td class="tb-num">€24.00</td></tr><tr><td>Product 2</td><td class="tb-num">€8.50</td></tr><tr><td>Product 3</td><td class="tb-num">€96.00</td></tr></tbody></table></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-separate + .round-4 on the cells</code><div class="oc-eg__note">Plus rounded cells. border-radius on cells only works in separate mode.</div><div class="oc-eg__stage oc-eg__stage--plain tb-in"><div class="tb-scroll"><table class="tb-data tb-bc border-separate border-spacing-1"><thead><tr><th class="round-4">Product</th><th class="tb-num round-4">Price</th></tr></thead><tbody><tr><td class="round-4">Product 1</td><td class="tb-num round-4">€24.00</td></tr><tr><td class="round-4">Product 2</td><td class="tb-num round-4">€8.50</td></tr><tr><td class="round-4">Product 3</td><td class="tb-num round-4">€96.00</td></tr></tbody></table></div></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- One shared line between cells --&gt;
+&lt;table class="border-collapse"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Product 1&lt;/td&gt;&lt;td&gt;€24.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Product 2&lt;/td&gt;&lt;td&gt;€8.50&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Product 3&lt;/td&gt;&lt;td&gt;€96.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;!-- Every cell has its own border, with a 4px gap --&gt;
+&lt;table class="border-separate border-spacing-1"&gt;
+  …the same rows…
+&lt;/table&gt;
+
+&lt;!-- Separate cells can be rounded: .round-4 on every th and td --&gt;
+&lt;table class="border-separate border-spacing-1"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th class="round-4"&gt;Product&lt;/th&gt;&lt;th class="round-4"&gt;Price&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td class="round-4"&gt;Product 1&lt;/td&gt;&lt;td class="round-4"&gt;€24.00&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="round-4"&gt;Product 2&lt;/td&gt;&lt;td class="round-4"&gt;€8.50&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="round-4"&gt;Product 3&lt;/td&gt;&lt;td class="round-4"&gt;€96.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;!-- The 3px blue cell lines are from this demo: th, td { border: 3px solid var(--color-vividblue-80); } --&gt;</oc-code></oc-demo>
         </div>
       </section>

@@ -188,3 +188,27 @@ test("the package CSS never points at a file it does not ship (no root /fonts/â€
     assert.doesNotMatch(css, /url\(\s*["']?\//, `${file} has a root url()`);
   }
 });
+
+test('showcase utilities build on demand with their keyframes, registered angle and variants', async () => {
+  const dir = await project({ 'index.html': '<div class="border-conic-spin glass animate-typing animate-wave animate-delay-stagger animate-beat animate-float mask-ring clip-circle-0 group-hover:clip-circle-cover transition-clip bg-size-x-0 hover:bg-size-full shadow-neon hover:shadow-neon text-shadow-3d hover:text-shadow-3d-2 ease-overshoot"></div>' });
+  run(dir, 'build', '-o', 'out.css');
+  const css = await fs.readFile(path.join(dir, 'out.css'), 'utf8');
+  for (const name of ['oc-conic-spin', 'oc-typing', 'oc-caret', 'oc-wave', 'oc-beat', 'oc-float']) assert.match(css, new RegExp('@keyframes ' + name + ' '), name + ' keyframes');
+  assert.match(css, /@property --oc-conic-angle/);
+  assert.ok(css.includes('.border-conic-spin::before'));
+  assert.ok(css.includes('.group-hover\\:clip-circle-cover'));
+  assert.match(css, /\.hover\\:text-shadow-3d-2:hover\s*\{\s*--oc-3d-step: 2px/);
+  assert.ok(css.includes('.hover\\:bg-size-full:hover'));
+  assert.match(css, /transition-property: clip-path/);
+  // .animate-wave / .animate-beat are longhands: they must not reset the stagger delay.
+  for (const cls of ['.animate-wave {', '.animate-beat {']) {
+    const at = css.indexOf(cls);
+    assert.ok(at >= 0, cls);
+    assert.doesNotMatch(css.slice(at, css.indexOf('}', at)), /animation:/);
+  }
+  // the scroll presets come before the timeline longhands, so .timeline-scroll can retarget them
+  const dist = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../core/dist");
+  const full = await fs.readFile(path.join(dist, 'omnia.css'), 'utf8');
+  assert.ok(full.indexOf('.animate-scroll-progress {') < full.indexOf('.timeline-scroll {'));
+});
+

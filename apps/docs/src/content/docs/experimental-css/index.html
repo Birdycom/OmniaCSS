@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Newest CSS", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    .ex-carousel { display: flex; gap: 1rem; inline-size: 100%; margin: 0; padding: 0.5rem; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-background); }\n    .ex-slide { flex: 0 0 min(100%, 24rem); display: grid; place-items: center; block-size: 8rem; border-radius: 12px; scroll-snap-align: center; color: var(--color-white-50); font-weight: 700; background: var(--oc-gradient-brand); }\n    .ex-carousel::scroll-button(inline-end), .ex-carousel::scroll-button(inline-start) { content: \"\u203a\" / \"Next\"; display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border: 1px solid var(--oc-border); border-radius: 50%; background: var(--oc-card); color: var(--oc-foreground); font-size: 1.25rem; cursor: pointer; }\n    .ex-carousel::scroll-button(inline-start) { content: \"\u2039\" / \"Previous\"; }\n    .ex-carousel::scroll-button(inline-end):disabled, .ex-carousel::scroll-button(inline-start):disabled { opacity: 0.35; cursor: default; }\n    .ex-fs { inline-size: 100%; max-inline-size: 22rem; padding: 0.5rem 0.75rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; resize: none; }\n    .ex-gap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; padding: 1rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-background); color: var(--oc-foreground); }\n  </style>"]}-->
+<!--oc-page {"title": "OmniaCSS Docs - Newest CSS", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    /* One slide wide, so every slide (also the last one) can snap. */\n    .ex-carousel { display: flex; gap: 1rem; box-sizing: border-box; inline-size: min(calc(100% - 6.5rem), 40rem); margin: 0 auto; padding: 0.5rem; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-background); }\n    .ex-slide { flex: 0 0 100%; box-sizing: border-box; display: grid; align-content: end; min-block-size: 12rem; gap: 0.35rem; padding: 1.5rem; border-radius: 12px; scroll-snap-align: center; color: var(--color-white-50); font-size: 1.1rem; background: var(--a); }\n    .ex-slide b { font-size: 1.6rem; }\n    .ex-slide:nth-child(5n+1) { --a: var(--color-vividblue-90); }\n    .ex-slide:nth-child(5n+2) { --a: var(--color-teal-70); }\n    .ex-slide:nth-child(5n+3) { --a: var(--color-chocolate-80); }\n    .ex-slide:nth-child(5n+4) { --a: var(--color-purple-60); }\n    .ex-slide:nth-child(5n+5) { --a: var(--color-forestgreen-60); }\n    .ex-carousel::scroll-button(inline-end), .ex-carousel::scroll-button(inline-start) { content: \"›\" / \"Next\"; display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border: 1px solid var(--oc-border); border-radius: 50%; background: var(--oc-card); color: var(--oc-foreground); font-size: 1.5rem; cursor: pointer; }\n    .ex-carousel::scroll-button(inline-start) { content: \"‹\" / \"Previous\"; }\n    .ex-carousel::scroll-button(inline-end):disabled, .ex-carousel::scroll-button(inline-start):disabled { opacity: 0.35; cursor: default; }\n    .ex-fs { inline-size: 100%; max-inline-size: 22rem; padding: 0.5rem 0.75rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; resize: none; }\n    .ex-gap { inline-size: 100%; box-sizing: border-box; padding: 1.5rem; color: var(--oc-foreground); }\n  /* The arrows sit next to the carousel, at half its height (anchor positioning), not on the slides. */\n    .ex-carousel { anchor-name: --ex-carousel; }\n    .ex-carousel::scroll-button(inline-start), .ex-carousel::scroll-button(inline-end) { position: absolute; position-anchor: --ex-carousel; top: anchor(center); translate: 0 -50%; }\n    .ex-carousel::scroll-button(inline-start) { right: calc(anchor(left) + 0.6rem); }\n    .ex-carousel::scroll-button(inline-end) { left: calc(anchor(right) + 0.6rem); }\n  \n  \n    .ex-gap > div { display: grid; gap: 0.2rem; text-align: center; padding-block: 0.5rem; }\n    .ex-gap b { font-size: clamp(1.6rem, 5vw, 2.4rem); line-height: 1.1; }\n    .ex-gap span { font-size: 0.95rem; }\n    .ex-input { box-sizing: border-box; inline-size: 100%; padding: 0.9rem 1rem; border: 2px solid var(--oc-border); border-radius: 10px; background: var(--oc-background); color: var(--oc-foreground); font-family: var(--oc-font-mono, monospace); font-size: 1.1rem; caret-color: var(--color-red-70); }\n    .ex-shape { display: grid; place-content: center; text-align: center; min-block-size: 9rem; box-sizing: border-box; block-size: 100%; padding: 1rem; color: var(--color-white-50); font-size: 1.15rem; font-weight: 700; }\n    .ex-shape small { font-weight: 400; font-size: 0.85rem; }\n    .ex-under { display: grid; align-content: center; gap: 1rem; min-block-size: 9rem; font-size: 1.6rem; font-weight: 600; text-decoration-thickness: 3px; text-decoration-color: var(--color-red-70); }\n  \n    /* The carousel sits in its own block wrapper, so the row of dots (a box the browser adds after the scroller) lands under it. */\n    .ex-wrap { inline-size: 100%; }\n    .ex-carousel::scroll-marker-group { display: flex; gap: 0.6rem; justify-content: center; padding: 0.9rem; }\n    .ex-slide::scroll-marker { content: \"\"; display: block; inline-size: 0.85rem; block-size: 0.85rem; border-radius: 50%; background: var(--oc-muted-foreground); cursor: pointer; }\n    .ex-slide::scroll-marker:target-current { background: var(--color-vividblue-90); }\n      /* Gap decoration variants */\n    .ex-mini { color: var(--oc-foreground); }\n    .ex-mini > div { display: grid; place-items: center; min-block-size: 3rem; font-weight: 700; font-size: 1.1rem; }\n    .ex-cols { column-gap: 1.5rem; color: var(--oc-foreground); font-size: 0.9rem; line-height: 1.5; }\n    /* interactivity + interest */\n    .ex-form { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }\n    .ex-form .ex-input { flex: 1 1 10rem; inline-size: auto; }\n    .ex-tipstage { display: grid; place-items: center; min-block-size: 7rem; }\n    .ex-tip { position-area: top; margin: 0 0 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.9rem; }\n    /* scroll-initial-target */\n    .ex-days { display: flex; gap: 0.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-block-end: 0.5rem; }\n    .ex-day { flex: 0 0 7rem; display: grid; place-items: center; min-block-size: 4.5rem; border-radius: 10px; background: var(--oc-card); border: 1px solid var(--oc-border); color: var(--oc-foreground); font-weight: 600; scroll-snap-align: start; }\n    .ex-day.scroll-initial-target-nearest { background: var(--color-teal-70); border-color: transparent; color: var(--color-white-50); }\n    /* text-fit, decoration-inset, object-view-box */\n    .ex-fit { box-sizing: border-box; inline-size: 100%; padding: 0.5rem 0.75rem; border: 2px dashed var(--oc-border-strong); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font-weight: 800; line-height: 1.15; }\n    .ex-fit-big { font-size: 2.25rem; }\n    .ex-ulstage { display: grid; place-items: center; min-block-size: 7rem; }\n    .ex-ul { font-size: 2.75rem; font-weight: 600; color: var(--oc-foreground); text-decoration-thickness: 4px; text-decoration-color: var(--color-red-70); text-underline-offset: 0.15em; }\n    .ex-imgstage { display: grid; place-items: center; }\n    .ex-img { display: block; inline-size: 100%; max-inline-size: 16rem; block-size: auto; aspect-ratio: 1; border-radius: 10px; }\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports (rule: 1px solid) { .sup-note--rule { display: none; } }\n    @supports (caret-shape: block) { .sup-note--caret { display: none; } }\n    @supports (interactivity: inert) { .sup-note--interactivity { display: none; } }\n    @supports selector(:interest-source) { .sup-note--interest { display: none; } }\n    @supports selector(::scroll-marker) { .sup-note--marker { display: none; } }\n    @supports (scroll-initial-target: nearest) { .sup-note--initial { display: none; } }\n    @supports (corner-shape: bevel) { .sup-note--corner { display: none; } }\n    @supports (text-fit: grow) { .sup-note--fit { display: none; } }\n    @supports (object-view-box: inset(10%)) { .sup-note--ovb { display: none; } }\n    /* Without text-fit the 2.25rem lines would run out of the box: let them wrap at a smaller size instead. */\n    @supports not (text-fit: grow) { .ex-fit .ex-fit-big { font-size: 1.5rem; white-space: normal; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="experimental-css">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Newest CSS</h2>
@@ -35,18 +35,42 @@
             </div>
           </div>
 
-          <oc-demo title="grid + rule-line">
-            
-            <div class="grid grid-cols-3 gap-2 rule-line ex-gap">
-              <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
-            </div>
-
-            
-            
+          <oc-demo title="grid + rule-line (Chromium)">
+<div class="oc-eg"><div class="sup-note sup-note--rule"><b>Not in this browser yet.</b> Your browser does not draw gap decorations (<code>rule</code>), so the gaps stay empty. The grid itself is the same.</div><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.rule-line</code><div class="oc-eg__note">Six figures in a grid of three columns. The lines between them are drawn in the gaps by rule-line: no borders. Browsers without support (outside recent Chromium) show no lines.</div><div class="oc-eg__stage oc-eg__stage--plain"><div class="ex-gap grid grid-cols-3 gap-2 rule-line">
+              <div><b>128</b><span>Orders</span></div><div><b>46</b><span>Customers</span></div><div><b>12</b><span>Products</span></div>
+              <div><b>9</b><span>Open invoices</span></div><div><b>3</b><span>Returns</span></div><div><b>98%</b><span>On time</span></div>
+            </div></div></div>
+</div></div>
           <oc-code lang="html">&lt;div class="grid grid-cols-3 gap-2 rule-line"&gt;
-  &lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;
-  &lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;&lt;div&gt;6&lt;/div&gt;
-&lt;/div&gt;</oc-code></oc-demo>
+  &lt;div&gt;&lt;b&gt;128&lt;/b&gt;&lt;span&gt;Orders&lt;/span&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;b&gt;46&lt;/b&gt;&lt;span&gt;Customers&lt;/span&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;b&gt;12&lt;/b&gt;&lt;span&gt;Products&lt;/span&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;b&gt;9&lt;/b&gt;&lt;span&gt;Open invoices&lt;/span&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;b&gt;3&lt;/b&gt;&lt;span&gt;Returns&lt;/span&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;b&gt;98%&lt;/b&gt;&lt;span&gt;On time&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- the lines sit in the gaps: no borders, no :last-child tricks --&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The other gap classes change the style, width and reach of the lines. Every panel below is the same grid of three columns; only the classes differ.</p>
+          <oc-demo title="Rule style, width, inset, break and visibility (Chromium)">
+<div class="oc-eg"><div class="sup-note sup-note--rule"><b>Not in this browser yet.</b> Your browser does not draw gap decorations, so no panel shows lines. The grids themselves are the same.</div><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.rule-dashed .rule-1 .rule-current</code><div class="oc-eg__note">Style, width and color one by one: dashed 1px lines in the text color.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-mini grid grid-cols-3 gap-1 rule-dashed rule-1 rule-current"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rule-dotted .rule-2 .rule-current</code><div class="oc-eg__note">Dotted lines, 2px wide.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-mini grid grid-cols-3 gap-1 rule-dotted rule-2 rule-current"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.row-rule-line</code><div class="oc-eg__note">Only the gaps between rows get a line.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-mini grid grid-cols-3 gap-1 row-rule-line"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rule-line .rule-inset-2 .rule-break-intersection</code><div class="oc-eg__note">The lines break at every crossing and rule-inset-2 shortens each piece by 0.5rem, so each cell gets its own short lines.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-mini grid grid-cols-3 gap-1 rule-line rule-inset-2 rule-break-intersection"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.rule-line .rule-visibility-around</code><div class="oc-eg__note">Five items, one empty cell: lines are drawn only next to items.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-mini grid grid-cols-3 gap-1 rule-line rule-visibility-around"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.columns-2 .column-rule-solid-1</code><div class="oc-eg__note">In multi-column text the same kind of line sits between the columns.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-cols columns-2 column-rule-solid-1">Customer 1 ordered Product 1 on Monday. The parcel left the same day and arrived on Thursday.</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;div class="ex-mini grid grid-cols-3 gap-1 rule-dashed rule-1 rule-current"&gt;&lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;&lt;div&gt;6&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ex-mini grid grid-cols-3 gap-1 rule-dotted rule-2 rule-current"&gt;&lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;&lt;div&gt;6&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ex-mini grid grid-cols-3 gap-1 row-rule-line"&gt;&lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;&lt;div&gt;6&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ex-mini grid grid-cols-3 gap-1 rule-line rule-inset-2 rule-break-intersection"&gt;&lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;&lt;div&gt;6&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ex-mini grid grid-cols-3 gap-1 rule-line rule-visibility-around"&gt;&lt;div&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;div&gt;5&lt;/div&gt;&lt;/div&gt;
+&lt;div class="columns-2 column-rule-solid-1"&gt;Customer 1 ordered Product 1 on Monday. The parcel left the same day and arrived on Thursday.&lt;/div&gt;</oc-code>
+          <oc-code lang="css">/* Cell look only (page CSS); the lines come from the rule classes */
+.ex-mini &gt; div { display: grid; place-items: center; min-block-size: 3rem; font-weight: 700; }</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.rule-overlap-{row|column}</code> decides which lines lie on top where rows and columns cross; with lines of one color you cannot see it, so there is no separate example. <code>.column-wrap-wrap</code> and <code>.column-height-sm</code> let multi-column text continue in a new row of columns; they are still very new and are left out of the examples for now.</p>
+
 
           <h3 class="oc-section-content__title mt-10" id="caret">Caret &amp; interactivity</h3>
           <p class="oc-section-content__desc">Shape and blink behaviour of the text cursor, and making a subtree inert from CSS. <strong>What:</strong> <code>caret-shape</code> switches the text cursor between bar, block and underscore (useful for code editors and terminals); <code>interactivity: inert</code> does what the <code>inert</code> attribute does, but from a stylesheet. <strong>Gotchas:</strong> <code>caret-color</code> still decides the colour; <code>interactivity: inert</code> hides the subtree from assistive technology and blocks focus, so use it only for content that really is unavailable. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/caret-shape" target="_blank" rel="noopener">MDN: caret-shape</a>.</p>
@@ -66,36 +90,67 @@
             </div>
           </div>
 
-          <oc-demo title="caret-shape-block, caret-shape-underscore">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.caret-shape-block</span>
-                <input class="caret-shape-block oc-demo-input p-0.5 round-2 font-1" value="Click to type" aria-label="caret-shape block">
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.caret-shape-underscore</span>
-                <input class="caret-shape-underscore oc-demo-input p-0.5 round-2 font-1" value="Click to type" aria-label="caret-shape underscore">
-              </div>
-            </div>
+          <oc-demo title="caret-shape-bar, -block, -underscore and caret-animation-manual">
+<div class="oc-eg"><div class="sup-note sup-note--caret"><b>Not in this browser yet.</b> Your browser does not support <code>caret-shape</code> or <code>caret-animation</code>: all four fields show the normal thin, blinking cursor.</div><div class="oc-eg__panels" style="--eg-min: 18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.caret-shape-bar</code><div class="oc-eg__note">Click in the field: the text cursor is a thin line between two letters, the usual cursor.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><input class="ex-input caret-shape-bar" value="npm run build" aria-label="caret-shape bar"></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.caret-shape-block</code><div class="oc-eg__note">Click in the field: the cursor is a block over one letter, as in a terminal.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><input class="ex-input caret-shape-block" value="npm run build" aria-label="caret-shape block"></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.caret-shape-underscore</code><div class="oc-eg__note">Click in the field: the cursor is a line under one letter.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><input class="ex-input caret-shape-underscore" value="npm run build" aria-label="caret-shape underscore"></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.caret-animation-manual</code><div class="oc-eg__note">Click in the field: the cursor stays on and does not blink. Use it when your own animation takes over.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><input class="ex-input caret-animation-manual" value="npm run build" aria-label="caret-animation manual"></div></div>
+</div></div>
+          <oc-code lang="html">&lt;input class="caret-shape-bar" value="npm run build"&gt;
+&lt;input class="caret-shape-block" value="npm run build"&gt;
+&lt;input class="caret-shape-underscore" value="npm run build"&gt;
+&lt;input class="caret-animation-manual" value="npm run build"&gt;</oc-code>
+          <oc-code lang="css">/* Field look (page CSS); the red caret makes the shape easy to see */
+.ex-input { padding: 0.9rem 1rem; border: 2px solid var(--oc-border); border-radius: 10px; font-family: monospace; font-size: 1.1rem; caret-color: var(--color-red-70); }</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.interactivity-inert</code> switches a whole part of the page off from CSS. Try to click the button or type in the field in both panels.</p>
+          <oc-demo title="interactivity-auto versus interactivity-inert (Chromium)">
+<div class="oc-eg"><div class="sup-note sup-note--interactivity"><b>Not in this browser yet.</b> Your browser does not support <code>interactivity</code>, so the inert panel still works like the normal one.</div><div class="oc-eg__panels" style="--eg-min: 18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.interactivity-auto</code><div class="oc-eg__note">The default: you can type in the field and press the button.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-form interactivity-auto"><input class="ex-input" value="Customer 1" aria-label="Name, editable"><button type="button" class="oc-btn">Save</button></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.interactivity-inert</code><div class="oc-eg__note">The same markup, now inert: no click, no focus, no typing, and screen readers skip it.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-form interactivity-inert"><input class="ex-input" value="Customer 1" aria-label="Name, inert"><button type="button" class="oc-btn">Save</button></div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;div class="ex-form interactivity-auto"&gt;&lt;input class="ex-input" value="Customer 1" aria-label="Name, editable"&gt;&lt;button type="button" class="oc-btn"&gt;Save&lt;/button&gt;&lt;/div&gt;
+&lt;div class="ex-form interactivity-inert"&gt;&lt;input class="ex-input" value="Customer 1" aria-label="Name, inert"&gt;&lt;button type="button" class="oc-btn"&gt;Save&lt;/button&gt;&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">A button with <code>interestfor</code> shows a <code>popover="hint"</code> when you hover or focus it, without JavaScript. The <code>.interest-delay-*</code> classes set how long the browser waits first. Hover each button and compare.</p>
+          <oc-demo title="interestfor + interest-delay-0, -short and -normal (Chromium)">
+<div class="oc-eg"><div class="sup-note sup-note--interest"><b>Not in this browser yet.</b> Your browser does not support <code>interestfor</code>: hovering the buttons does nothing here.</div><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.interest-delay-0</code><div class="oc-eg__note">The hint shows at once.</div><div class="oc-eg__stage oc-eg__stage--plain p-1 ex-tipstage"><button type="button" class="oc-btn oc-btn--secondary interest-delay-0" interestfor="ex-tip-0">Hover me</button><div class="ex-tip" id="ex-tip-0" popover="hint">Customer 1 · 3 open orders</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.interest-delay-short</code><div class="oc-eg__note">A short wait (0.2s) before the hint shows.</div><div class="oc-eg__stage oc-eg__stage--plain p-1 ex-tipstage"><button type="button" class="oc-btn oc-btn--secondary interest-delay-short" interestfor="ex-tip-1">Hover me</button><div class="ex-tip" id="ex-tip-1" popover="hint">Customer 1 · 3 open orders</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.interest-delay-normal</code><div class="oc-eg__note">The browser default: a short pause (about 0.3s in Chrome).</div><div class="oc-eg__stage oc-eg__stage--plain p-1 ex-tipstage"><button type="button" class="oc-btn oc-btn--secondary interest-delay-normal" interestfor="ex-tip-2">Hover me</button><div class="ex-tip" id="ex-tip-2" popover="hint">Customer 1 · 3 open orders</div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;button type="button" class="oc-btn oc-btn--secondary interest-delay-0" interestfor="tip-0"&gt;Hover me&lt;/button&gt;&lt;div class="ex-tip" id="tip-0" popover="hint"&gt;Customer 1 · 3 open orders&lt;/div&gt;
+&lt;button type="button" class="oc-btn oc-btn--secondary interest-delay-short" interestfor="tip-1"&gt;Hover me&lt;/button&gt;&lt;div class="ex-tip" id="tip-1" popover="hint"&gt;Customer 1 · 3 open orders&lt;/div&gt;
+&lt;button type="button" class="oc-btn oc-btn--secondary interest-delay-normal" interestfor="tip-2"&gt;Hover me&lt;/button&gt;&lt;div class="ex-tip" id="tip-2" popover="hint"&gt;Customer 1 · 3 open orders&lt;/div&gt;</oc-code>
+          <oc-code lang="css">/* The hint sits above its button (the button is its anchor) */
+.ex-tip { position-area: top; margin: 0 0 0.5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--oc-border); border-radius: 8px; }</oc-code></oc-demo>
 
-            
-            
-          <oc-code lang="html">&lt;input class="caret-shape-block oc-demo-input p-0.5 round-2 font-1" value="Click to type" aria-label="caret-shape block"&gt;
-&lt;input class="caret-shape-underscore oc-demo-input p-0.5 round-2 font-1" value="Click to type" aria-label="caret-shape underscore"&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="scroll-reading">Scroll targets, reading order &amp; overlay</h3>
           <p class="oc-section-content__desc">Start a scroller at a given item, build scroll-spy navigation, reorder items for assistive technology and animate the top layer. <strong>What:</strong> <code>scroll-initial-target</code> chooses where a scroller starts, <code>scroll-target-group</code> turns a list of in-page links into a scroll-spy (the link of the visible section matches <code>:target-current</code>), <code>reading-order</code> tweaks the focus and reading sequence. <strong>Gotcha:</strong> reordering visually without matching the DOM order is an accessibility risk: change <code>reading-flow</code> or <code>reading-order</code> instead of faking order with <code>order</code>. More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-target-group" target="_blank" rel="noopener">MDN: scroll-target-group</a>.</p>
           <oc-demo title="::scroll-marker + ::scroll-button: a carousel without JavaScript (Chromium)">
-            <ul class="ex-carousel scroll-markers-after" tabindex="0" aria-label="Carousel with scroll markers">
-              <li class="ex-slide">Slide 1</li><li class="ex-slide">Slide 2</li><li class="ex-slide">Slide 3</li><li class="ex-slide">Slide 4</li>
-            </ul>
-          <oc-code lang="html">.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-marker-group: after; }   /* = .scroll-markers-after */
+<div class="oc-eg"><div class="sup-note sup-note--marker"><b>Not in this browser yet.</b> Your browser does not draw scroll markers or scroll buttons: there are no dots or arrows, but you can still scroll or swipe the slides.</div><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.scroll-markers-after ::scroll-marker ::scroll-button</code><div class="oc-eg__note">Click the arrows next to the carousel or the dots under it, or swipe. Each slide snaps into place, the last one too. Dots and arrows show in Chromium only.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-wrap"><ul class="ex-carousel scroll-markers-after" tabindex="0" aria-label="Carousel with scroll markers">
+              <li class="ex-slide"><b>Product 1</b><span>24 euro a month</span></li><li class="ex-slide"><b>Product 2</b><span>39 euro a month</span></li><li class="ex-slide"><b>Product 3</b><span>12 euro, one-off</span></li><li class="ex-slide"><b>Product 4</b><span>Free for Customer 1</span></li><li class="ex-slide"><b>Product 5</b><span>Coming soon</span></li>
+            </ul></div></div></div>
+</div></div>
+          <oc-code lang="css">.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-marker-group: after; }   /* = .scroll-markers-after */
 .carousel::scroll-marker-group { display: flex; justify-content: center; gap: .5rem; }
 .slide::scroll-marker { content: ""; width: .7rem; height: .7rem; border-radius: 50%; background: var(--oc-muted-foreground); }
 .slide::scroll-marker:target-current { background: var(--oc-primary); }
 .carousel::scroll-button(inline-end) { content: "›" / "Next"; }
-.carousel::scroll-button(inline-start) { content: "‹" / "Previous"; }</oc-code></oc-demo>
+.carousel::scroll-button(inline-start) { content: "‹" / "Previous"; }
+/* In this example the arrows sit next to the carousel with anchor positioning:
+   .carousel { anchor-name: --carousel; }
+   .carousel::scroll-button(*) { position: absolute; position-anchor: --carousel; top: anchor(center); } */</oc-code>
+          <oc-code lang="html">&lt;div&gt;
+  &lt;ul class="carousel scroll-markers-after" tabindex="0" aria-label="Carousel with scroll markers"&gt;
+    &lt;li class="slide"&gt;&lt;b&gt;Product 1&lt;/b&gt;&lt;span&gt;24 euro a month&lt;/span&gt;&lt;/li&gt;
+    &lt;li class="slide"&gt;&lt;b&gt;Product 2&lt;/b&gt;&lt;span&gt;39 euro a month&lt;/span&gt;&lt;/li&gt;
+    &lt;li class="slide"&gt;&lt;b&gt;Product 3&lt;/b&gt;&lt;span&gt;12 euro, one-off&lt;/span&gt;&lt;/li&gt;
+    &lt;li class="slide"&gt;&lt;b&gt;Product 4&lt;/b&gt;&lt;span&gt;Free for Customer 1&lt;/span&gt;&lt;/li&gt;
+    &lt;li class="slide"&gt;&lt;b&gt;Product 5&lt;/b&gt;&lt;span&gt;Coming soon&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</oc-code></oc-demo>
           <p class="oc-section-content__desc">Where scroll markers are not supported the list is still a normal scroll-snap carousel you can swipe or scroll; the dots and arrows are an enhancement. Always keep an accessible alternative for the pointer-free case (<code>tabindex="0"</code> on the scroller).</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
@@ -113,6 +168,29 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+
+          <p class="oc-section-content__desc"><code>.scroll-initial-target-nearest</code> on one item makes the scroller start at that item instead of at the beginning. Below, a strip of fourteen days opens at "Today"; scroll left to see the days before.</p>
+          <oc-demo title="scroll-initial-target-nearest: start the strip at today (Chromium)">
+<div class="oc-eg"><div class="sup-note sup-note--initial"><b>Not in this browser yet.</b> Your browser does not support <code>scroll-initial-target</code>: the strip starts at Day 1 instead of Today.</div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">.scroll-initial-target-nearest</code><div class="oc-eg__note">The strip opened at Today, without JavaScript. Scroll it to the left: the earlier days are there.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-days" tabindex="0" aria-label="Days"><span class="ex-day">Day 1</span><span class="ex-day">Day 2</span><span class="ex-day">Day 3</span><span class="ex-day">Day 4</span><span class="ex-day">Day 5</span><span class="ex-day">Day 6</span><span class="ex-day">Day 7</span><span class="ex-day">Day 8</span><span class="ex-day">Day 9</span><span class="ex-day scroll-initial-target-nearest">Today</span><span class="ex-day">Day 11</span><span class="ex-day">Day 12</span><span class="ex-day">Day 13</span><span class="ex-day">Day 14</span></div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;div class="ex-days" tabindex="0"&gt;     &lt;!-- display: flex; overflow-x: auto; scroll-snap-type: x mandatory --&gt;
+  &lt;span class="ex-day"&gt;Day 1&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 2&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 3&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 4&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 5&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 6&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 7&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 8&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 9&lt;/span&gt;
+  &lt;span class="ex-day scroll-initial-target-nearest"&gt;Today&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 11&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 12&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 13&lt;/span&gt;
+  &lt;span class="ex-day"&gt;Day 14&lt;/span&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">The other classes in this table have no example: <code>.scroll-target-group-*</code> needs in-page links that would also move this docs page, <code>.reading-order-*</code> only changes the order of the Tab key and screen readers, and <code>.overlay-*</code> and <code>.vt-group-*</code> / <code>.vt-scope-all</code> only act while a dialog or a view transition animates, which needs a script.</p>
 
           <h3 class="oc-section-content__title mt-10" id="text-newest">Text, images &amp; shapes</h3>
           <p class="oc-section-content__desc">Mobile text inflation, auto-fitting text, underline insets, cropping images and per-corner shapes. <strong>What:</strong> <code>corner-shape</code> changes how a <code>border-radius</code> is drawn (bevel, scoop, notch, squircle) without clip-path or SVG; <code>text-decoration-inset</code> shortens underlines; <code>text-fit</code> scales a line to fill its container. <strong>Gotchas:</strong> <code>corner-shape</code> only does something where a <code>border-radius</code> is set, and borders and shadows follow the new shape; pair experimental features with <code>@supports</code> or accept the plain fallback (round corners, full underline). More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape" target="_blank" rel="noopener">MDN: corner-shape</a>.</p>
@@ -142,23 +220,49 @@
             </div>
           </div>
 
-          <oc-demo title="corner-tl-notch + corner-br-squircle">
-            
-            <div class="oc-preview oc-preview-row gap-3.5">
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.corner-tl-notch .corner-br-squircle</span>
-                <div class="round-6 corner-tl-notch corner-br-squircle bg-dodgerblue-mix-30 border-1 border-solid border-dodgerblue-50 size-24"></div>
-              </div>
-              <div class="oc-preview__item">
-                <span class="oc-preview__label">.decoration-inset-2</span>
-                <span class="underline decoration-inset-2 font-2">Inset underline</span>
-              </div>
-            </div>
+          <oc-demo title="corner-tl-notch + corner-br-squircle, corner-t-bevel, corner-l-scoop">
+<div class="oc-eg"><div class="sup-note sup-note--corner"><b>Not in this browser yet.</b> Your browser does not support <code>corner-shape</code>: all corners stay round.</div><div class="oc-eg__panels" style="--eg-min: 14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-12 .corner-tl-notch .corner-br-squircle</code><div class="oc-eg__note">Two corners, two shapes: a notch at the top left, a soft squircle at the bottom right.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-1"><div class="ex-shape round-12 corner-tl-notch corner-br-squircle bg-teal-70">Ticket<small>two corners, two shapes</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-12 .corner-t-bevel</code><div class="oc-eg__note">Both top corners are cut off straight, like a label.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-1"><div class="ex-shape round-12 corner-t-bevel bg-slateblue-70">Label<small>top corners cut off</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-12 .corner-l-scoop</code><div class="oc-eg__note">Both left corners are scooped inwards, like a coupon.</div><div class="oc-eg__stage oc-eg__stage--plain grid p-1"><div class="ex-shape round-12 corner-l-scoop bg-chocolate-80">Coupon<small>left corners scooped in</small></div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;div class="round-12 corner-tl-notch corner-br-squircle bg-teal-70"&gt;Ticket&lt;/div&gt;
+&lt;div class="round-12 corner-t-bevel bg-slateblue-70"&gt;Label&lt;/div&gt;
+&lt;div class="round-12 corner-l-scoop bg-chocolate-80"&gt;Coupon&lt;/div&gt;
+&lt;!-- without support: plain round corners --&gt;</oc-code></oc-demo>
 
-            
-            
-          <oc-code lang="html">&lt;div class="round-6 corner-tl-notch corner-br-squircle bg-dodgerblue-mix-30 border-1 border-solid border-dodgerblue-50 size-24"&gt;&lt;/div&gt;
-&lt;span class="underline decoration-inset-2 font-2"&gt;Inset underline&lt;/span&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.text-fit-grow</code> makes each line just as wide as its box; <code>.text-fit-shrink</code> only makes a line smaller when it is too wide. The dashed line is the edge of the box.</p>
+          <oc-demo title="text-fit-grow and text-fit-shrink (Chromium)">
+<div class="oc-eg"><div class="sup-note sup-note--fit"><b>Not in this browser yet.</b> Your browser does not support <code>text-fit</code>: the lines keep a normal size, and the long name wraps instead of shrinking.</div><div class="oc-eg__panels" style="--eg-min: 20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-fit-grow</code><div class="oc-eg__note">Two short lines grow until each one fills the width of the box.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-fit"><div class="whitespace-nowrap text-fit-grow">Company 1</div><div class="whitespace-nowrap text-fit-grow">Spring sale</div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.text-fit-shrink</code><div class="oc-eg__note">The long name shrinks to fit; the short word keeps its size.</div><div class="oc-eg__stage oc-eg__stage--plain p-1"><div class="ex-fit"><div class="whitespace-nowrap text-fit-shrink ex-fit-big">A long product name for Product 1</div><div class="whitespace-nowrap text-fit-shrink ex-fit-big">Product 1</div></div></div></div>
+</div></div>
+          <oc-code lang="html">&lt;div class="ex-fit"&gt;&lt;div class="whitespace-nowrap text-fit-grow"&gt;Company 1&lt;/div&gt;&lt;div class="whitespace-nowrap text-fit-grow"&gt;Spring sale&lt;/div&gt;&lt;/div&gt;
+&lt;div class="ex-fit"&gt;&lt;div class="whitespace-nowrap text-fit-shrink"&gt;A long product name for Product 1&lt;/div&gt;&lt;div class="whitespace-nowrap text-fit-shrink"&gt;Product 1&lt;/div&gt;&lt;/div&gt;   &lt;!-- these lines start at font-size: 2.25rem --&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.decoration-inset-*</code> shortens the underline at both ends, so it does not stick out past the letters. Look at the start and the end of each red line.</p>
+          <oc-demo title="decoration-inset-0, -2 and -auto (Chromium)">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.decoration-inset-0</code><div class="oc-eg__note">The usual underline: from the first to the last pixel of the text.</div><div class="oc-eg__stage oc-eg__stage--plain p-1 ex-ulstage"><span class="ex-ul underline decoration-inset-0">Invoices</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.decoration-inset-2</code><div class="oc-eg__note">The line is 0.125em shorter on each side.</div><div class="oc-eg__stage oc-eg__stage--plain p-1 ex-ulstage"><span class="ex-ul underline decoration-inset-2">Invoices</span></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.decoration-inset-auto</code><div class="oc-eg__note">The browser picks the inset that matches the letters.</div><div class="oc-eg__stage oc-eg__stage--plain p-1 ex-ulstage"><span class="ex-ul underline decoration-inset-auto">Invoices</span></div></div>
+</div></div>
+          <oc-code lang="html">&lt;span class="underline decoration-inset-0"&gt;Invoices&lt;/span&gt;
+&lt;span class="underline decoration-inset-2"&gt;Invoices&lt;/span&gt;
+&lt;span class="underline decoration-inset-auto"&gt;Invoices&lt;/span&gt;</oc-code>
+          <oc-code lang="css">/* Size and color of the line (page CSS) */
+.ex-ul { font-size: 2.75rem; font-weight: 600; text-decoration-thickness: 4px; text-decoration-color: var(--color-red-70); }</oc-code></oc-demo>
+          <p class="oc-section-content__desc"><code>.object-view-box-center</code> crops an image to its middle part, like a zoom, without editing the file. Both pictures below are the same file in the same frame.</p>
+          <oc-demo title="object-view-box-none versus object-view-box-center (Chromium)">
+<div class="oc-eg"><div class="sup-note sup-note--ovb"><b>Not in this browser yet.</b> Your browser does not support <code>object-view-box</code>: both pictures show the whole flower.</div><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.object-view-box-none</code><div class="oc-eg__note">The whole picture, scaled to cover the frame.</div><div class="oc-eg__stage oc-eg__stage--plain p-1 ex-imgstage"><img class="ex-img object-cover object-view-box-none" src="/image/plumeria.jpg" alt="A red flower" width="466" height="640"></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.object-view-box-center</code><div class="oc-eg__note">Only the middle half of the picture, zoomed in to fill the same frame.</div><div class="oc-eg__stage oc-eg__stage--plain p-1 ex-imgstage"><img class="ex-img object-cover object-view-box-center" src="/image/plumeria.jpg" alt="The middle of the same red flower" width="466" height="640"></div></div>
+</div></div>
+          <oc-code lang="html">&lt;img class="object-cover object-view-box-none" src="/image/plumeria.jpg" alt="A red flower"&gt;
+&lt;img class="object-cover object-view-box-center" src="/image/plumeria.jpg" alt="The middle of the same red flower"&gt;</oc-code>
+          <oc-code lang="css">/* Frame size (page CSS); object-view-box-center = object-view-box: inset(25%) */
+.ex-img { inline-size: 100%; max-inline-size: 16rem; aspect-ratio: 1; block-size: auto; border-radius: 10px; }</oc-code></oc-demo>
+
+          <p class="oc-section-content__desc">The rest of this table has no example on purpose. <code>.text-size-adjust-*</code> only acts on phone browsers; <code>.contain-intrinsic-*-auto-md</code> only matters for off-screen parts with <code>content-visibility: auto</code>; <code>.shape-image-threshold-*</code> needs a float with an image shape. <code>.decoration-skip-spaces-*</code>, <code>.font-synthesis-position-none</code>, <code>.font-width-*</code>, <code>.speak-as-*</code>, <code>.mask-border-*</code> and <code>.stroke-color-current</code> do not work in Chrome yet, so an example would show nothing.</p>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
           <p class="oc-section-content__desc">These features are new; see per row which browsers already ship them. Unsupported browsers simply keep the default rendering.</p>

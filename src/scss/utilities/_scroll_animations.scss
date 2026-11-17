@@ -9,37 +9,10 @@
 //          and ready-to-use .animate-scroll-* / .animate-view-* presets.
 // Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations
 // Note: presets are wrapped in @supports so browsers without support keep the element fully visible.
-// Map: animation-timeline -> animation-range -> named timelines -> timeline-scope -> presets
+// Map: presets -> animation-timeline -> animation-range -> named timelines -> timeline-scope -> reduced motion
 
-/* Animation timeline */
-.timeline-auto { animation-timeline: auto; }
-.timeline-none { animation-timeline: none; }
-.timeline-scroll { animation-timeline: scroll(); }
-.timeline-scroll-x { animation-timeline: scroll(x); }
-.timeline-scroll-root { animation-timeline: scroll(root); }
-.timeline-view { animation-timeline: view(); }
-.timeline-view-x { animation-timeline: view(x); }
-.timeline-oc { animation-timeline: --oc-timeline; }
-
-/* Animation range */
-.animate-range-normal { animation-range: normal; }
-.animate-range-cover { animation-range: cover; }
-.animate-range-contain { animation-range: contain; }
-.animate-range-entry { animation-range: entry; }
-.animate-range-exit { animation-range: exit; }
-.animate-range-entry-half { animation-range: entry 0% entry 50%; }
-
-/* Named scroll and view timelines */
-.scroll-timeline-oc { scroll-timeline: --oc-timeline block; }
-.scroll-timeline-oc-x { scroll-timeline: --oc-timeline inline; }
-.view-timeline-oc { view-timeline: --oc-timeline block; }
-.view-timeline-oc-x { view-timeline: --oc-timeline inline; }
-
-/* Timeline scope — expose a named timeline to siblings/descendants */
-.timeline-scope-oc { timeline-scope: --oc-timeline; }
-.timeline-scope-none { timeline-scope: none; }
-
-/* Presets */
+/* Presets — before the longhands below, so .timeline-* and .animate-range-* can retarget a preset
+   (class="animate-scroll-progress timeline-scroll": progress of the nearest scroll box instead of the page) */
 @keyframes oc-scroll-progress {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
@@ -70,6 +43,34 @@
     animation-range: entry 0% cover 30%;
   }
 }
+
+/* Animation timeline */
+.timeline-auto { animation-timeline: auto; }
+.timeline-none { animation-timeline: none; }
+.timeline-scroll { animation-timeline: scroll(); }
+.timeline-scroll-x { animation-timeline: scroll(x); }
+.timeline-scroll-root { animation-timeline: scroll(root); }
+.timeline-view { animation-timeline: view(); }
+.timeline-view-x { animation-timeline: view(x); }
+.timeline-oc { animation-timeline: --oc-timeline; }
+
+/* Animation range */
+.animate-range-normal { animation-range: normal; }
+.animate-range-cover { animation-range: cover; }
+.animate-range-contain { animation-range: contain; }
+.animate-range-entry { animation-range: entry; }
+.animate-range-exit { animation-range: exit; }
+.animate-range-entry-half { animation-range: entry 0% entry 50%; }
+
+/* Named scroll and view timelines */
+.scroll-timeline-oc { scroll-timeline: --oc-timeline block; }
+.scroll-timeline-oc-x { scroll-timeline: --oc-timeline inline; }
+.view-timeline-oc { view-timeline: --oc-timeline block; }
+.view-timeline-oc-x { view-timeline: --oc-timeline inline; }
+
+/* Timeline scope — expose a named timeline to siblings/descendants */
+.timeline-scope-oc { timeline-scope: --oc-timeline; }
+.timeline-scope-none { timeline-scope: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-scroll-progress,

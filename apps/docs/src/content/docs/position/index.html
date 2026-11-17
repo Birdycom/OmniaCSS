@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Position", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Position","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n\n/* Overview: one panel per page of this section, with a small live example (frame from the example kit) */\n.ov-link { font-family: inherit; font-size: 1rem; font-weight: 700; color: var(--oc-primary); text-decoration: underline; text-underline-offset: 3px; }\n.ov-link:hover { text-decoration-thickness: 2px; }\n.ov-stage { display: grid; align-content: center; gap: 0.5rem; padding: 0.875rem; min-block-size: 8.5rem; color: var(--oc-foreground); font-size: 0.85rem; line-height: 1.5; }\n.ov-chip { padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--color-teal-70); color: var(--color-white-50); font-weight: 600; font-size: 0.8rem; line-height: 1.3; }\n.ov-chip--b { background: var(--color-slateblue-70); } .ov-chip--c { background: var(--color-chocolate-80); } .ov-chip--d { background: var(--color-crimson-70); }\n.ov-card { position: relative; padding: 0.75rem 0.9rem; border: 1px solid var(--oc-border-strong); border-radius: 10px; background: var(--oc-card); }\n.ov-card strong { display: block; margin-block-end: 0.25rem; }\n.ov-badge { padding: 0.2rem 0.55rem; border-radius: 999px; background: var(--color-crimson-70); color: var(--color-white-50); font-weight: 700; font-size: 0.75rem; }\n.ov-frame { position: relative; block-size: 7rem; border: 2px dashed var(--oc-border-strong); border-radius: 8px; background: var(--oc-card); }\n.ov-frame > div { display: grid; place-content: center; border-radius: 6px; color: var(--color-white-50); font-weight: 700; font-size: 0.78rem; }\n.ov-stack { position: relative; block-size: 7rem; }\n.ov-stack > div { position: absolute; inline-size: 45%; block-size: 3.6rem; display: grid; place-content: end; padding: 0.3rem 0.5rem; border-radius: 8px; color: var(--color-white-50); font-weight: 700; font-size: 0.8rem; box-shadow: 0 0 0 2px var(--oc-card); }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Position</h2>
@@ -9,27 +9,13 @@
         </div>
         
         <div class="oc-section-content">
-          <p>
-            The Position module includes classes for defining an element's position type 
-            (relative, absolute, etc.), its displacement (top, right, bottom, left), 
-            and its stacking order (z-index).
-          </p>
+          <p class="oc-section-content__desc">The Position section places a box outside the normal flow: how it is positioned, how far from the edges, and which box paints on top. Below is every page of the section with a small live example; click a title to open the page.</p>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 mt-1.5">
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Core Positioning</h3>
-              <ul class="oc-docs-list">
-                <li><a href="types.html">Position Types</a></li>
-                <li><a href="inset.html">Inset (Top/Right/Bottom/Left)</a></li>
-              </ul>
-            </div>
-            <div class="oc-card p-1.2 border border-subtle">
-              <h3 class="font-bold mb-0.5">Stacking</h3>
-              <ul class="oc-docs-list">
-                <li><a href="z-index.html">Z-Index</a></li>
-              </ul>
-            </div>
-          </div>
+          <div class="oc-eg mt-1.5"><div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="types.html">Position Types</a><div class="oc-eg__note"><code>.static</code>, <code>.relative</code>, <code>.absolute</code>, <code>.fixed</code> and <code>.sticky</code>. Here a badge is <code>.absolute</code> inside a <code>.relative</code> card.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="ov-card"><span class="ov-badge absolute top-2 right-2">New</span><strong>Product 1</strong>The badge takes no space in the card.</div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="inset.html">Inset</a><div class="oc-eg__note">How far a positioned box sits from the edges: <code>.top-0</code>, <code>.inset-x-0</code>, <code>.inset-4</code> …</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="ov-frame"><div class="absolute inset-x-0 top-0" style="block-size: 1.8rem; background: var(--color-teal-70)">.inset-x-0 .top-0</div><div class="absolute bottom-2 right-2" style="padding: 0.4rem 0.6rem; background: var(--color-slateblue-70)">.bottom-2 .right-2</div></div></div></div>
+<div class="oc-eg__panel"><a class="oc-eg__name ov-link" href="z-index.html">Z-Index</a><div class="oc-eg__note">Which box paints on top, from <code>.z-0</code> to <code>.z-50</code>, and why a z-index cannot escape its parent.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage "><div class="ov-stack"><div class="z-30" style="inset: 0.3rem auto auto 4%; background: var(--color-teal-70)">.z-30</div><div class="z-20" style="inset: 1.6rem auto auto 28%; background: var(--color-slateblue-70)">.z-20</div><div class="z-10" style="inset: 2.9rem auto auto 52%; background: var(--color-chocolate-80)">.z-10</div></div></div></div>
+</div></div>
         </div>
       </section>
 

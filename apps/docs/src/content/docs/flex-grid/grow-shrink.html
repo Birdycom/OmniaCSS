@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Flex Grow & Shrink","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Flex Grow & Shrink","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-scroll { overflow-x: auto; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n    .fx-w { inline-size: var(--fx-iw, 5.5rem); flex-shrink: 0; }\n    .fx-resize { box-sizing: border-box; display: grid; gap: 0.75rem; inline-size: var(--fx-rw, min(100%, 48rem)); min-inline-size: min(100%, var(--fx-rmin, 20rem)); max-inline-size: 100%; padding: 0.75rem 1.4rem 1.1rem 0.75rem; border: 1.5px dashed var(--oc-border-strong); border-radius: 12px; background: var(--eg-bg); }\n    .fx-hint { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--oc-muted-foreground); }\n    .fx-hint::before { content: \"\"; flex: none; inline-size: 0.75rem; block-size: 0.75rem; border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor; }\n    .fx-card .fx-muted, .fx-muted { color: var(--oc-muted-foreground); font-size: 0.85rem; }\n    .fx-dot { flex: none; display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border-radius: 50%; background: var(--fx-c, var(--color-indigo-60)); color: var(--color-white-50); font-weight: 700; font-size: 0.9rem; }\n    .fx-line { box-sizing: border-box; display: flex; align-items: center; gap: 0.75rem; min-inline-size: 0; padding: 0.6rem 0.75rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.9rem; }\n    .fx-title { font-weight: 600; }\n    .fx-date { flex: none; padding: 0.2rem 0.55rem; border-radius: 5px; background: var(--fx-soft); color: var(--oc-foreground); font-size: 0.8rem; font-weight: 600; white-space: nowrap; }\n    .fx-input { box-sizing: border-box; inline-size: 8rem; padding: 0.5rem 0.75rem; border: 1px solid var(--oc-border-strong, var(--oc-border)); border-radius: 7px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; font-size: 0.9rem; }\n    .fx-hint code { font-size: 0.8rem; }\n  \n  \n    .fx-box > span.fx-long { display: contents; }\n    ul.fx-legend { display: none; gap: 0.4rem; margin: 0.25rem 0 0; padding: 0; list-style: none; font-size: 0.9rem; }\n    ul.fx-legend li { display: block; }\n    ul.fx-legend li:has(b) { display: flex; align-items: center; gap: 0.6rem; color: var(--oc-foreground); }\n    ul.fx-legend b { flex: none; display: grid; place-items: center; inline-size: 1.6rem; block-size: 1.6rem; border-radius: 5px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.85rem; }\n    ul.fx-legend code { font-size: 0.8rem; }\n    @container (max-width: 34rem) { .fx-long, .fx-box > span.fx-long { display: none; } .fx-short { display: inline; } ul.fx-legend { display: grid; } }\n  /* In a box the reader can drag, a row that does not fit scrolls inside its dashed frame: nothing pokes out of it. */\n    .fx-resize .fx-stage { overflow-x: auto; }\n  /* A shrunk item keeps its label inside: what does not fit is cut with an ellipsis. */\n    .fx-box { min-inline-size: 0; overflow: hidden; }\n    .fx-box .fx-long { display: block; max-inline-size: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }\n  </style>"]}-->
 <section class="oc-docs-section" id="grow-shrink">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Grow &amp; Shrink</h2>
@@ -24,28 +24,128 @@
 
           <h3 class="oc-section-content__title mt-8">Grow in action</h3>
 
-          <oc-demo title="flex-grow"><div class="dm-grid" style="--dm-min:14rem">
-<div class="dm-tile"><code>no grow (default)</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2">1</div><div class="dm-box dm-w2">2</div><div class="dm-box dm-w2">3</div></div></div>
-<div class="dm-tile"><code>.flex-grow on item 2</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2">1</div><div class="dm-box dm-w2 flex-grow">2</div><div class="dm-box dm-w2">3</div></div></div>
-<div class="dm-tile"><code>.flex-grow on all</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2 flex-grow">1</div><div class="dm-box dm-w2 flex-grow">2</div><div class="dm-box dm-w2 flex-grow">3</div></div></div>
-<div class="dm-tile"><code>.flex-grow-0 (explicit)</code><div class="dm-area flex gap-0.3"><div class="dm-box dm-w2 flex-grow-0">1</div><div class="dm-box dm-w2 flex-grow-0">2</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex"&gt;
-  &lt;div&gt;Fixed&lt;/div&gt;
-  &lt;div class="flex-grow"&gt;Fills the rest&lt;/div&gt;
+          <p class="oc-section-content__desc">Three items with the same width in a wide container. The hatched area is free space; watch who takes it.</p>
+
+          <oc-demo title="flex-grow"><div class="oc-eg fx">
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">No grow (default)</code><div class="oc-eg__note">The items keep their own width. The free space stays empty. <code>.flex-grow-0</code> sets this back.</div><div class="oc-eg__stage fx-stage flex gap-0.5"><div class="fx-box fx-w ">Item 1</div><div class="fx-box fx-w ">Item 2</div><div class="fx-box fx-w ">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-grow on Item 2</code><div class="oc-eg__note">Item 2 takes all the free space.</div><div class="oc-eg__stage fx-stage flex gap-0.5"><div class="fx-box fx-w ">Item 1</div><div class="fx-box fx-w flex-grow">Item 2<small>.flex-grow</small></div><div class="fx-box fx-w ">Item 3</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-grow on all three</code><div class="oc-eg__note">The free space is shared equally between them.</div><div class="oc-eg__stage fx-stage flex gap-0.5"><div class="fx-box fx-w flex-grow">Item 1<small>.flex-grow</small></div><div class="fx-box fx-w flex-grow">Item 2<small>.flex-grow</small></div><div class="fx-box fx-w flex-grow">Item 3<small>.flex-grow</small></div></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- No grow (default) --&gt;
+&lt;div class="flex gap-0.5"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- .flex-grow on Item 2 --&gt;
+&lt;div class="flex gap-0.5"&gt;
+  &lt;div&gt;Item 1&lt;/div&gt;
+  &lt;div class="flex-grow"&gt;Item 2&lt;/div&gt;
+  &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- .flex-grow on all three --&gt;
+&lt;div class="flex gap-0.5"&gt;
+  &lt;div class="flex-grow"&gt;Item 1&lt;/div&gt;
+  &lt;div class="flex-grow"&gt;Item 2&lt;/div&gt;
+  &lt;div class="flex-grow"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a search field that fills the toolbar</h3>
+
+          <p class="oc-section-content__desc">Put <code>.flex-grow</code> on the one element that should absorb the free space, here the search field next to two buttons.</p>
+
+          <oc-demo title="search field that fills the row"><div class="oc-eg fx">
+<div class="fx-resize resize-x overflow-auto">
+<div class="fx-hint"><span>Drag the bottom-right corner to make the toolbar narrower or wider.</span></div>
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">No grow</code><div class="oc-eg__note">The search field keeps its own width (8rem here).</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage flex gap-0.5 align-items-center"><input class="fx-input" type="search" aria-label="Search customers" placeholder="Search customers"><button type="button" class="oc-btn oc-btn--secondary">Filter</button><button type="button" class="oc-btn oc-btn--default">New</button></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-grow .min-w-0 on the field</code><div class="oc-eg__note">The field takes all free space. <code>.min-w-0</code> lets it shrink further when the row gets narrow.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage flex gap-0.5 align-items-center"><input class="fx-input flex-grow min-w-0" type="search" aria-label="Search customers" placeholder="Search customers"><button type="button" class="oc-btn oc-btn--secondary">Filter</button><button type="button" class="oc-btn oc-btn--default">New</button></div></div>
+</div>
+</div>
+</div><oc-code lang="html">&lt;!-- No grow: the field keeps its own width --&gt;
+&lt;div class="flex gap-0.5 align-items-center"&gt;
+  &lt;input type="search" placeholder="Search customers"&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;Filter&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--default"&gt;New&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- The field takes all free space --&gt;
+&lt;div class="flex gap-0.5 align-items-center"&gt;
+  &lt;input class="flex-grow min-w-0" type="search" placeholder="Search customers"&gt;
+  &lt;button class="oc-btn oc-btn--secondary"&gt;Filter&lt;/button&gt;
+  &lt;button class="oc-btn oc-btn--default"&gt;New&lt;/button&gt;
 &lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Shrink in action</h3>
 
-          <p class="oc-section-content__desc">Three items request 6rem each in a container that only has about 12rem. Shrinking items squeeze evenly; items with <code>.flex-shrink-0</code> keep their size and overflow.</p>
+          <p class="oc-section-content__desc">Shrinking only happens when the items do not fit. Three items ask for 12rem each in a box of about 30rem.</p>
 
-          <oc-demo title="flex-shrink"><div class="dm-grid" style="--dm-min:14rem">
-<div class="dm-tile"><code>.flex-shrink (default)</code><div class="dm-area flex gap-0.3" style="inline-size:12rem"><div class="dm-box dm-w3 flex-shrink">1</div><div class="dm-box dm-w3 flex-shrink">2</div><div class="dm-box dm-w3 flex-shrink">3</div></div></div>
-<div class="dm-tile"><code>.flex-shrink-0 on item 1</code><div class="dm-area flex gap-0.3" style="inline-size:12rem"><div class="dm-box dm-w3 flex-shrink-0">1</div><div class="dm-box dm-w3 flex-shrink">2</div><div class="dm-box dm-w3 flex-shrink">3</div></div></div>
-<div class="dm-tile"><code>.flex-shrink-0 on all</code><div class="dm-area flex gap-0.3" style="inline-size:12rem"><div class="dm-box dm-w3 flex-shrink-0">1</div><div class="dm-box dm-w3 flex-shrink-0">2</div><div class="dm-box dm-w3 flex-shrink-0">3</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex"&gt;
-  &lt;img class="flex-shrink-0 size-8" src="avatar.png" alt=""&gt;
-  &lt;p&gt;Long text that may shrink…&lt;/p&gt;
+          <oc-demo title="flex-shrink"><div class="oc-eg fx">
+<div class="fx-resize resize-x overflow-auto" style="--fx-rw:30rem">
+<div class="fx-hint"><span>Each item asks for 12rem, but the box is narrower. Drag the corner to make it wider or narrower.</span></div>
+<ul class="fx-legend"><li>On a narrow screen the boxes show only their number: 1, 2 and 3 are Item 1, Item 2 and Item 3, each with <code>.basis-12</code>.</li></ul>
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-shrink (default)</code><div class="oc-eg__note">All three give up the same amount.</div><div class="oc-eg__stage fx-stage flex gap-0.5"><div class="fx-box basis-12 "><span class="fx-long">Item </span>1<small class="fx-long">.basis-12</small></div><div class="fx-box basis-12 "><span class="fx-long">Item </span>2<small class="fx-long">.basis-12</small></div><div class="fx-box basis-12 "><span class="fx-long">Item </span>3<small class="fx-long">.basis-12</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-shrink-0 on Item 1</code><div class="oc-eg__note">Item 1 keeps 12rem, the other two shrink more.</div><div class="oc-eg__stage fx-stage flex gap-0.5"><div class="fx-box basis-12 flex-shrink-0"><span class="fx-long">Item </span>1<small class="fx-long">.flex-shrink-0</small></div><div class="fx-box basis-12 "><span class="fx-long">Item </span>2<small class="fx-long">.basis-12</small></div><div class="fx-box basis-12 "><span class="fx-long">Item </span>3<small class="fx-long">.basis-12</small></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-shrink-0 on all three</code><div class="oc-eg__note">Nobody shrinks, so the row overflows. Scroll it sideways.</div><div class="oc-eg__stage fx-stage flex gap-0.5 fx-scroll"><div class="fx-box basis-12 flex-shrink-0"><span class="fx-long">Item </span>1<small class="fx-long">.flex-shrink-0</small></div><div class="fx-box basis-12 flex-shrink-0"><span class="fx-long">Item </span>2<small class="fx-long">.flex-shrink-0</small></div><div class="fx-box basis-12 flex-shrink-0"><span class="fx-long">Item </span>3<small class="fx-long">.flex-shrink-0</small></div></div></div>
+</div>
+</div>
+</div><oc-code lang="html">&lt;!-- .flex-shrink (default): all three shrink --&gt;
+&lt;div class="flex gap-0.5"&gt;
+  &lt;div class="basis-12"&gt;Item 1&lt;/div&gt;
+  &lt;div class="basis-12"&gt;Item 2&lt;/div&gt;
+  &lt;div class="basis-12"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Item 1 keeps 12rem --&gt;
+&lt;div class="flex gap-0.5"&gt;
+  &lt;div class="basis-12 flex-shrink-0"&gt;Item 1&lt;/div&gt;
+  &lt;div class="basis-12"&gt;Item 2&lt;/div&gt;
+  &lt;div class="basis-12"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Nobody shrinks: the row overflows (overflow-x-auto lets it scroll) --&gt;
+&lt;div class="flex gap-0.5 overflow-x-auto"&gt;
+  &lt;div class="basis-12 flex-shrink-0"&gt;Item 1&lt;/div&gt;
+  &lt;div class="basis-12 flex-shrink-0"&gt;Item 2&lt;/div&gt;
+  &lt;div class="basis-12 flex-shrink-0"&gt;Item 3&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a long title that truncates</h3>
+
+          <p class="oc-section-content__desc">The most common flexbox surprise: a flex item never gets narrower than its content. <code>.min-w-0</code> allows it, and then <code>.truncate</code> can do its work.</p>
+
+          <oc-demo title="long title that truncates"><div class="oc-eg fx">
+<div class="fx-resize resize-x overflow-auto" style="--fx-rw:34rem">
+<div class="fx-hint"><span>Drag the corner: in the second row the title gets an ellipsis, the date stays inside the card.</span></div>
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-1 without .min-w-0</code><div class="oc-eg__note">The text block refuses to get narrower than its text, so the date is pushed out of the card.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-line"><div class="fx-dot flex-shrink-0">P1</div><div class="flex-1"><div class="fx-title truncate">Invoice 2026-0142 for Company 1: spring collection with express delivery</div><div class="fx-muted truncate">Customer 1, info@company1.example</div></div><span class="fx-date flex-shrink-0">3 March</span></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-1 .min-w-0</code><div class="oc-eg__note">The text block may shrink, <code>.truncate</code> cuts the title with an ellipsis.</div><div class="oc-eg__stage oc-eg__stage--plain fx-stage"><div class="fx-line"><div class="fx-dot flex-shrink-0">P1</div><div class="flex-1 min-w-0"><div class="fx-title truncate">Invoice 2026-0142 for Company 1: spring collection with express delivery</div><div class="fx-muted truncate">Customer 1, info@company1.example</div></div><span class="fx-date flex-shrink-0">3 March</span></div></div></div>
+</div>
+</div>
+</div><oc-code lang="html">&lt;!-- Without .min-w-0: the date is pushed out of the card --&gt;
+&lt;div class="flex align-items-center gap-0.7"&gt;
+  &lt;div class="avatar flex-shrink-0"&gt;P1&lt;/div&gt;
+  &lt;div class="flex-1"&gt;
+    &lt;div class="truncate"&gt;Invoice 2026-0142 for Company 1: spring collection with express delivery&lt;/div&gt;
+    &lt;div class="truncate"&gt;Customer 1, info@company1.example&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="flex-shrink-0"&gt;3 March&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- With .min-w-0: the title gets an ellipsis --&gt;
+&lt;div class="flex align-items-center gap-0.7"&gt;
+  &lt;div class="avatar flex-shrink-0"&gt;P1&lt;/div&gt;
+  &lt;div class="flex-1 min-w-0"&gt;
+    &lt;div class="truncate"&gt;Invoice 2026-0142 for Company 1: spring collection with express delivery&lt;/div&gt;
+    &lt;div class="truncate"&gt;Customer 1, info@company1.example&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class="flex-shrink-0"&gt;3 March&lt;/span&gt;
+&lt;/div&gt;
+&lt;!-- .avatar is your own style (round badge) --&gt;</oc-code></oc-demo>
         </div>
       </section>
 
@@ -56,7 +156,7 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc">The shorthand sets grow, shrink and basis at once. <code>.flex-1</code> (<code>1 1 0%</code>) ignores content size, so siblings become equally wide: ideal for equal columns. <code>.flex-auto</code> (<code>1 1 auto</code>) starts from the content width and then shares the rest. <code>.flex-initial</code> is the default behaviour, <code>.flex-none</code> freezes the item. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex" target="_blank" rel="noopener">MDN: flex</a>.</p>
+          <p class="oc-section-content__desc">Three items request 6rem each in a container that only has about 12rem. Shrinking items squeeze evenly; items with <code>.flex-shrink-0</code> keep their size and overflow.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
@@ -70,14 +170,37 @@
             </table>
           </div>
 
-          <oc-demo title="flex shorthand with different content"><div class="dm-grid" style="--dm-min:15rem">
-<div class="dm-tile"><code>.flex-1</code><div class="dm-area flex gap-0.3"><div class="dm-box flex-1">short</div><div class="dm-box flex-1">a much longer label</div><div class="dm-box flex-1">mid size</div></div></div>
-<div class="dm-tile"><code>.flex-auto</code><div class="dm-area flex gap-0.3"><div class="dm-box flex-auto">short</div><div class="dm-box flex-auto">a much longer label</div><div class="dm-box flex-auto">mid size</div></div></div>
-<div class="dm-tile"><code>.flex-initial</code><div class="dm-area flex gap-0.3"><div class="dm-box flex-initial">short</div><div class="dm-box flex-initial">a much longer label</div><div class="dm-box flex-initial">mid size</div></div></div>
-<div class="dm-tile"><code>.flex-none</code><div class="dm-area flex gap-0.3"><div class="dm-box flex-none">short</div><div class="dm-box flex-none">a much longer label</div><div class="dm-box flex-none">mid size</div></div></div>
-</div><oc-code lang="html">&lt;div class="flex gap-1"&gt;
-  &lt;div class="flex-1"&gt;Equal&lt;/div&gt;
-  &lt;div class="flex-1"&gt;Equal&lt;/div&gt;
+          <p class="oc-section-content__desc">Three items with different text lengths, the same shorthand class on all three.</p>
+
+          <oc-demo title="flex shorthand with different content"><div class="oc-eg fx">
+<div class="fx-resize resize-x overflow-auto">
+<div class="fx-hint"><span>Drag the corner narrower: <code>.flex-initial</code> items shrink and wrap their text, <code>.flex-none</code> items keep their width and overflow.</span></div>
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-1</code><div class="oc-eg__note">Equal widths, whatever the content.</div><div class="oc-eg__stage fx-stage flex gap-0.5"><div class="fx-box flex-1">Short</div><div class="fx-box flex-1">A much longer label</div><div class="fx-box flex-1">Mid size</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-auto</code><div class="oc-eg__note">Start from the content width, then share the free space.</div><div class="oc-eg__stage fx-stage flex gap-0.5"><div class="fx-box flex-auto">Short</div><div class="fx-box flex-auto">A much longer label</div><div class="fx-box flex-auto">Mid size</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-initial</code><div class="oc-eg__note">Content width, may shrink, never grows (the default).</div><div class="oc-eg__stage fx-stage flex gap-0.5"><div class="fx-box flex-initial">Short</div><div class="fx-box flex-initial">A much longer label</div><div class="fx-box flex-initial">Mid size</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex-none</code><div class="oc-eg__note">Content width, never grows and never shrinks.</div><div class="oc-eg__stage fx-stage flex gap-0.5 fx-scroll"><div class="fx-box flex-none">Short</div><div class="fx-box flex-none">A much longer label</div><div class="fx-box flex-none">Mid size</div></div></div>
+</div>
+</div>
+</div><oc-code lang="html">&lt;div class="flex gap-0.5"&gt;
+  &lt;div class="flex-1"&gt;Short&lt;/div&gt;
+  &lt;div class="flex-1"&gt;A much longer label&lt;/div&gt;
+  &lt;div class="flex-1"&gt;Mid size&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="flex gap-0.5"&gt;
+  &lt;div class="flex-auto"&gt;Short&lt;/div&gt;
+  &lt;div class="flex-auto"&gt;A much longer label&lt;/div&gt;
+  &lt;div class="flex-auto"&gt;Mid size&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="flex gap-0.5"&gt;
+  &lt;div class="flex-initial"&gt;Short&lt;/div&gt;
+  &lt;div class="flex-initial"&gt;A much longer label&lt;/div&gt;
+  &lt;div class="flex-initial"&gt;Mid size&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="flex gap-0.5"&gt;
+  &lt;div class="flex-none"&gt;Short&lt;/div&gt;
+  &lt;div class="flex-none"&gt;A much longer label&lt;/div&gt;
+  &lt;div class="flex-none"&gt;Mid size&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>

@@ -110,6 +110,15 @@ export async function wrapperSources(texts, cwd = process.cwd()) {
       if (out.has(file)) continue;
       out.add(file);
       const text = await fs.readFile(file, "utf8");
+      // A wrapper that imports a script of @birdycom/omniaui (`../../../ui/src/data-table.js`): that script writes
+      // class names at runtime (the card view of the data table), so scan the installed copy of it too.
+      for (const m of text.matchAll(/(?:from|import)\s*['"](?:\.{1,2}\/)+ui\/src\/([\w-]+\.js)['"]/g)) {
+        try {
+          const script = path.join(path.dirname(require.resolve("@birdycom/omniaui/package.json")), "dist", m[1]);
+          await fs.access(script);
+          out.add(script);
+        } catch { /* @birdycom/omniaui is not installed, or the script is not shipped */ }
+      }
       for (const m of text.matchAll(/(?:from|import)\s*['"](\.{1,2}\/[^'"]+)['"]/g)) {
         const base = path.resolve(path.dirname(file), m[1]);
         const hit = [base, ...SOURCE_EXT.map((e) => base + e), ...SOURCE_EXT.map((e) => path.join(base, "index" + e))].find((p) => all.includes(p));

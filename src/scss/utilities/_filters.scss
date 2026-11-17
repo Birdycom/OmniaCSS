@@ -87,3 +87,13 @@
 
 .backdrop-sepia-0 { backdrop-filter: sepia(0); -webkit-backdrop-filter: sepia(0); }
 .backdrop-sepia { backdrop-filter: sepia(1); -webkit-backdrop-filter: sepia(1); }
+
+/* Glass (frosted glass): a translucent tint, a faint edge in the same tint and a blurred, more saturated backdrop.
+   Tune: --oc-glass-tint (white), --oc-glass-alpha (0.12), --oc-glass-backdrop (blur(14px) saturate(1.4)).
+   Needs something colorful behind it; without backdrop-filter support it stays a readable tinted panel. */
+.glass {
+  border: 1px solid oklch(from var(--oc-glass-tint, var(--color-white-50)) l c h / 0.35);
+  background-color: oklch(from var(--oc-glass-tint, var(--color-white-50)) l c h / var(--oc-glass-alpha, 0.12));
+  backdrop-filter: var(--oc-glass-backdrop, blur(14px) saturate(1.4));
+  -webkit-backdrop-filter: var(--oc-glass-backdrop, blur(14px) saturate(1.4));
+}

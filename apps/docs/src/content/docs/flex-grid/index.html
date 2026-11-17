@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Flex & Grid", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Flex & Grid","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n  /* Overview panels: the title is a link to the page, the stage is a small live example of it. */\n    .ov-title { justify-self: start; font-size: 1rem; font-weight: 700; }\n    .ov .oc-eg__item { padding: 0.4rem 0.6rem; font-size: 0.8rem; }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Flexbox &amp; Grid</h2>
@@ -12,7 +12,7 @@
           <p>
             Build responsive, one-dimensional (flex) or two-dimensional (grid) layouts
             without writing custom CSS. Every class is generated from SCSS variables and 
-            compiled into <code>omnia_main.css</code>.
+            compiled into <code>omnia.css</code> (<code>@birdycom/omniacss</code>).
           </p>
           <div class="oc-expandable-table mt-4">
             <table class="oc-table-ref">
@@ -27,30 +27,51 @@
               <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
             </div>
           </div>
+
+          <h3 class="oc-section-content__title mt-8">Flex or grid?</h3>
+
+          <p class="oc-section-content__desc">The same eight items in a wrapping flex container and in a grid. Use flex for a row of things that may have their own size (buttons, tags, a toolbar). Use grid when items must line up in columns (cards, forms, dashboards).</p>
+
+          <oc-demo title="flex or grid"><div class="oc-eg fx">
+<div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.flex .flex-wrap .gap-0.5</code><div class="oc-eg__note">One direction. Every item is as wide as its text, each line is filled on its own, so the lines do not form columns.</div><div class="oc-eg__stage fx-stage flex flex-wrap gap-0.5"><div class="fx-box ">Home</div><div class="fx-box ">Customers</div><div class="fx-box ">Orders</div><div class="fx-box ">Invoices</div><div class="fx-box ">Products and stock</div><div class="fx-box ">Reports</div><div class="fx-box ">Settings</div><div class="fx-box ">Help</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-2 .md:grid-cols-4 .gap-0.5</code><div class="oc-eg__note">Two directions. The grid defines the columns first and the items fill them, so they line up in rows and columns.</div><div class="oc-eg__stage fx-stage grid grid-cols-2 md:grid-cols-4 gap-0.5"><div class="fx-box ">Home</div><div class="fx-box ">Customers</div><div class="fx-box ">Orders</div><div class="fx-box ">Invoices</div><div class="fx-box ">Products and stock</div><div class="fx-box ">Reports</div><div class="fx-box ">Settings</div><div class="fx-box ">Help</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- Flex: one direction, items size themselves --&gt;
+&lt;div class="flex flex-wrap gap-0.5"&gt;
+  &lt;div&gt;Home&lt;/div&gt;&lt;div&gt;Customers&lt;/div&gt;&lt;div&gt;Orders&lt;/div&gt;&lt;div&gt;Invoices&lt;/div&gt;
+  &lt;div&gt;Products and stock&lt;/div&gt;&lt;div&gt;Reports&lt;/div&gt;&lt;div&gt;Settings&lt;/div&gt;&lt;div&gt;Help&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Grid: rows and columns, the container sizes the items --&gt;
+&lt;div class="grid grid-cols-2 md:grid-cols-4 gap-0.5"&gt;
+  &lt;div&gt;Home&lt;/div&gt;&lt;div&gt;Customers&lt;/div&gt;&lt;div&gt;Orders&lt;/div&gt;&lt;div&gt;Invoices&lt;/div&gt;
+  &lt;div&gt;Products and stock&lt;/div&gt;&lt;div&gt;Reports&lt;/div&gt;&lt;div&gt;Settings&lt;/div&gt;&lt;div&gt;Help&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>
 
       <section class="oc-docs-section" id="pages">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">All pages in this section</h2>
-          <p class="oc-section-header__desc">Every page of the Flex &amp; Grid module.</p>
+          <p class="oc-section-header__desc">Every page of the Flex &amp; Grid module, each with a small live example. Click a title to open the page.</p>
         </div>
         <div class="oc-section-content">
-          <table class="oc-table-ref">
-            <thead><tr><th class="w-perc-1/3">Page</th><th>Covers</th></tr></thead>
-            <tbody>
-                <tr><td><a href="display.html">Display</a></td><td>Block-level or inline-level flex and grid containers.</td></tr>
-                <tr><td><a href="direction.html">Flex Direction</a></td><td>Main axis with <code>.flex-row</code> / <code>.flex-col</code> and reverse variants.</td></tr>
-                <tr><td><a href="wrap.html">Flex Wrap</a></td><td>Single line or wrapping flex items.</td></tr>
-                <tr><td><a href="grow-shrink.html">Grow &amp; Shrink</a></td><td>How flex items share or give up space.</td></tr>
-                <tr><td><a href="basis.html">Flex Basis</a></td><td>Initial main size of a flex item.</td></tr>
-                <tr><td><a href="gap.html">Gap</a></td><td>Space between rows and columns of flex and grid containers.</td></tr>
-                <tr><td><a href="grid-cols.html">Grid Columns</a></td><td>Column tracks with <code>.grid-cols-{n}</code>.</td></tr>
-                <tr><td><a href="grid-col-span.html">Column Span</a></td><td>Items covering more than one column with <code>.col-span-{n}</code>.</td></tr>
-                <tr><td><a href="grid-rows.html">Grid Rows</a></td><td>Row tracks with <code>.grid-rows-{n}</code> and <code>.row-span-{n}</code>.</td></tr>
-                <tr><td><a href="grid-flow.html">Grid Auto Flow</a></td><td>Auto-placement algorithm with <code>.grid-flow-{type}</code>.</td></tr>
-            </tbody>
-          </table>
+          <div class="oc-eg ov" style="--eg-h: 7.5rem">
+<div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = empty space in the container</span></div>
+<div class="oc-eg__panels" style="--eg-min: 15rem">
+<div class="oc-eg__panel"><strong class="ov-title"><a href="display.html">Display</a></strong><div class="oc-eg__note"><code>.flex</code>, <code>.grid</code> and their <code>inline-*</code> versions turn an element into a container.</div><div class="oc-eg__stage p-0.5 flex align-items-center gap-0.5"><div class="oc-eg__item">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="direction.html">Flex Direction</a></strong><div class="oc-eg__note"><code>.flex-row-reverse</code>: the same items 1, 2, 3 now run from right to left.</div><div class="oc-eg__stage p-0.5 flex flex-row-reverse align-items-center gap-0.5"><div class="oc-eg__item">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="wrap.html">Flex Wrap</a></strong><div class="oc-eg__note"><code>.flex-wrap</code>: items that do not fit move to a new line.</div><div class="oc-eg__stage p-0.5 flex flex-wrap gap-0.5"><div class="oc-eg__item">Home</div><div class="oc-eg__item">Customers</div><div class="oc-eg__item">Orders</div><div class="oc-eg__item">Invoices</div><div class="oc-eg__item">Help</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="grow-shrink.html">Grow &amp; Shrink</a></strong><div class="oc-eg__note"><code>.flex-grow</code> on the middle item: it takes all the room that is left.</div><div class="oc-eg__stage p-0.5 flex align-items-center gap-0.5"><div class="oc-eg__item">A</div><div class="oc-eg__item flex-grow">.flex-grow</div><div class="oc-eg__item">C</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="basis.html">Flex Basis</a></strong><div class="oc-eg__note"><code>.basis-perc-1/3</code> and <code>.basis-perc-2/3</code> set the start size of each item.</div><div class="oc-eg__stage p-0.5 flex align-items-center"><div class="oc-eg__item basis-perc-1/3">1/3</div><div class="oc-eg__item basis-perc-2/3">2/3</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="gap.html">Gap</a></strong><div class="oc-eg__note"><code>.gap-1</code>: 1rem between every row and column. The hatch between the items is the gap.</div><div class="oc-eg__stage p-0.5 grid grid-cols-3 gap-1"><div class="oc-eg__item">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div><div class="oc-eg__item">4</div><div class="oc-eg__item">5</div><div class="oc-eg__item">6</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="grid-cols.html">Grid Columns</a></strong><div class="oc-eg__note"><code>.grid-cols-4</code>: four equal columns, filled row by row.</div><div class="oc-eg__stage p-0.5 grid grid-cols-4 gap-0.3"><div class="oc-eg__item">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div><div class="oc-eg__item">4</div><div class="oc-eg__item">5</div><div class="oc-eg__item">6</div><div class="oc-eg__item">7</div><div class="oc-eg__item">8</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="grid-col-span.html">Column Span</a></strong><div class="oc-eg__note"><code>.col-span-2</code> makes an item cover two of the three columns.</div><div class="oc-eg__stage p-0.5 grid grid-cols-3 gap-0.3"><div class="oc-eg__item col-span-2">.col-span-2</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div><div class="oc-eg__item col-span-2">.col-span-2</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="grid-rows.html">Grid Rows</a></strong><div class="oc-eg__note"><code>.grid-rows-2</code> sets two rows; <code>.row-span-2</code> lets item 1 cover both.</div><div class="oc-eg__stage p-0.5 grid grid-cols-3 grid-rows-2 gap-0.3"><div class="oc-eg__item row-span-2">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div><div class="oc-eg__item">4</div><div class="oc-eg__item">5</div></div></div>
+<div class="oc-eg__panel"><strong class="ov-title"><a href="grid-flow.html">Grid Auto Flow</a></strong><div class="oc-eg__note"><code>.grid-flow-col</code>: items fill each column top to bottom, then the next column.</div><div class="oc-eg__stage p-0.5 grid grid-rows-2 grid-flow-col grid-cols-fr gap-0.3"><div class="oc-eg__item">1</div><div class="oc-eg__item">2</div><div class="oc-eg__item">3</div><div class="oc-eg__item">4</div><div class="oc-eg__item">5</div><div class="oc-eg__item">6</div></div></div>
+</div>
+          </div>
         </div>
       </section>
 

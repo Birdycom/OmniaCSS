@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Place Self","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Place Self","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Alignment demos: frame from the shared example kit (.oc-eg); below only the page palette and what sits inside the stages. */\n    .oc-eg { --eg-c1: var(--color-red-80); --eg-c2: var(--color-red-80); --eg-c3: var(--color-red-80); --eg-c4: var(--color-red-80); --eg-c5: var(--color-red-80); --eg-c6: var(--color-red-80); }\n    /* Fixed stage height and clipping as before the kit; items stay on one line. */\n    .al-fixed { block-size: var(--eg-h, 3.75rem); overflow: hidden; white-space: nowrap; }\n    .oc-eg .oc-eg__item.al-hi { --eg-c: var(--eg-c1); }\n    .al-cells { --al-cols: 3; --al-rows: 1; --al-gap: 0.5rem; gap: var(--al-gap);\n      background: linear-gradient(90deg, transparent calc(100% - var(--al-gap)), var(--oc-card) 0) 0 0 / calc((100% + var(--al-gap)) / var(--al-cols)) 100%,\n        linear-gradient(180deg, transparent calc(100% - var(--al-gap)), var(--oc-card) 0) 0 0 / 100% calc((100% + var(--al-gap)) / var(--al-rows)),\n        var(--eg-hatch), var(--eg-bg); }\n    .al-2x2 { --al-cols: 2; --al-rows: 2; }\n    .al-real { padding: 0.75rem; }\n    .al-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); grid-auto-rows: 1fr; gap: 1rem; }\n    .al-card { display: grid; grid-template-rows: 9rem auto; overflow: hidden; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .al-img { border-radius: 0; background: var(--color-teal-70); }\n    .al-card:nth-child(2) .al-img { background: var(--color-indigo-60); }\n    .al-card:nth-child(3) .al-img { background: var(--color-peru-80); }\n    .al-badge { margin: 0.6rem; padding: 0.25rem 0.6rem; border-radius: 999px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.8rem; font-weight: 700; }\n    .al-badge.is-hot { background: var(--eg-c1); color: var(--color-white-50); }\n    .al-body { display: grid; gap: 0.25rem; padding: 0.875rem 1rem 1rem; }\n    .al-body code { justify-self: start; font-size: 0.75rem; }\n    .al-title { font-weight: 700; }\n  </style>"]}-->
 <section class="oc-docs-section" id="place-self">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Place Self</h2>
@@ -8,34 +8,58 @@
         </div>
 
         <div class="oc-section-content">
-          <p class="oc-section-content__desc"><code>place-self</code> is set on a single child of a grid and positions it within its own cell on both axes. It is the quickest way to pin one element to a corner of its cell (<code>.place-self-end</code>) or to centre a lone badge. For flex items only the align part is used. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/place-self" target="_blank" rel="noopener">MDN: place-self</a>.</p>
+          <p class="oc-section-content__desc"><strong>In one sentence:</strong> <code>place-self</code> moves <strong>one</strong> grid item on both axes (top to bottom and left to right) inside its own cell; put it on the child.</p>
+          <p class="oc-section-content__desc">It sets <code>align-self</code> and <code>justify-self</code> in one class. It is the quickest way to pin one element to a corner of its cell (<code>.place-self-end</code>) or to centre a lone badge. For flex items only the top-to-bottom part is used. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/place-self" target="_blank" rel="noopener">MDN: place-self</a>.</p>
 
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
-              <thead><tr><th class="w-perc-1/3">Class</th><th>Align + Justify</th></tr></thead>
+              <thead><tr><th class="w-perc-1/3">Class</th><th>CSS</th></tr></thead>
               <tbody>
-                <tr><td><code>.place-self-auto</code></td><td>auto auto</td></tr>
-                <tr><td><code>.place-self-start</code></td><td>start start</td></tr>
-                <tr><td><code>.place-self-center</code></td><td>center center</td></tr>
-                <tr><td><code>.place-self-end</code></td><td>end end</td></tr>
-                <tr><td><code>.place-self-stretch</code></td><td>stretch stretch</td></tr>
+                <tr><td><code>.place-self-auto</code></td><td>place-self: auto</td></tr>
+                <tr><td><code>.place-self-start</code></td><td>place-self: start</td></tr>
+                <tr><td><code>.place-self-center</code></td><td>place-self: center</td></tr>
+                <tr><td><code>.place-self-end</code></td><td>place-self: end</td></tr>
+                <tr><td><code>.place-self-stretch</code></td><td>place-self: stretch</td></tr>
               </tbody>
             </table>
           </div>
 
           <h3 class="oc-section-content__title mt-8">Every value on the first cell</h3>
+          <p class="oc-section-content__desc">A 2 x 2 grid with <code>.place-items-start</code>, so items 2, 3 and 4 wait in the top-left corner of their cells. Only the red item 1 carries the class in the label.</p>
 
-          <p class="oc-section-content__desc">The container is a 2 x 2 grid whose cells are bigger than the items. Only cell 1 carries the class.</p>
+          <oc-demo title="place-self values"><div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key"><span class="oc-eg__swatch" aria-hidden="true"></span>Hatched = the part of each cell that the item leaves empty</span><span class="oc-eg__key oc-eg__key--strong">Both axes, inside one cell</span></div><div class="oc-eg__panels" style="--eg-min:14rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-self-auto</code><div class="oc-eg__note">Follows the grid (<code>.place-items-start</code>): top-left, like the others.</div><div class="oc-eg__stage al-fixed al-cells al-2x2 grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="--eg-h:9rem"><div class="oc-eg__item al-hi place-self-auto">1</div><div class="oc-eg__item oc-eg__item--ghost">2</div><div class="oc-eg__item oc-eg__item--ghost">3</div><div class="oc-eg__item oc-eg__item--ghost">4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-self-start</code><div class="oc-eg__note">Item 1 in the top-left corner of its cell.</div><div class="oc-eg__stage al-fixed al-cells al-2x2 grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="--eg-h:9rem"><div class="oc-eg__item al-hi place-self-start">1</div><div class="oc-eg__item oc-eg__item--ghost">2</div><div class="oc-eg__item oc-eg__item--ghost">3</div><div class="oc-eg__item oc-eg__item--ghost">4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-self-center</code><div class="oc-eg__note">Item 1 in the middle of its cell.</div><div class="oc-eg__stage al-fixed al-cells al-2x2 grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="--eg-h:9rem"><div class="oc-eg__item al-hi place-self-center">1</div><div class="oc-eg__item oc-eg__item--ghost">2</div><div class="oc-eg__item oc-eg__item--ghost">3</div><div class="oc-eg__item oc-eg__item--ghost">4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-self-end</code><div class="oc-eg__note">Item 1 in the bottom-right corner of its cell.</div><div class="oc-eg__stage al-fixed al-cells al-2x2 grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="--eg-h:9rem"><div class="oc-eg__item al-hi place-self-end">1</div><div class="oc-eg__item oc-eg__item--ghost">2</div><div class="oc-eg__item oc-eg__item--ghost">3</div><div class="oc-eg__item oc-eg__item--ghost">4</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.place-self-stretch</code><div class="oc-eg__note">Item 1 fills its whole cell.</div><div class="oc-eg__stage al-fixed al-cells al-2x2 grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="--eg-h:9rem"><div class="oc-eg__item al-hi place-self-stretch">1</div><div class="oc-eg__item oc-eg__item--ghost">2</div><div class="oc-eg__item oc-eg__item--ghost">3</div><div class="oc-eg__item oc-eg__item--ghost">4</div></div></div>
+</div></div><oc-code lang="html">&lt;div class="grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="height: 9rem"&gt;&lt;div class="place-self-auto"&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="height: 9rem"&gt;&lt;div class="place-self-start"&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="height: 9rem"&gt;&lt;div class="place-self-center"&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="height: 9rem"&gt;&lt;div class="place-self-end"&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;/div&gt;
+&lt;div class="grid grid-cols-2 grid-rows-2 gap-0.5 place-items-start" style="height: 9rem"&gt;&lt;div class="place-self-stretch"&gt;1&lt;/div&gt;&lt;div&gt;2&lt;/div&gt;&lt;div&gt;3&lt;/div&gt;&lt;div&gt;4&lt;/div&gt;&lt;/div&gt;</oc-code></oc-demo>
 
-          <oc-demo title="place-self values"><div class="dm-grid" style="--dm-min:11rem">
-<div class="dm-tile"><code>.place-self-auto</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-start" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box dm-w1 place-self-auto">1</div><div class="dm-box dm-box--alt dm-w1">2</div><div class="dm-box dm-box--alt dm-w1">3</div><div class="dm-box dm-box--alt dm-w1">4</div></div></div>
-<div class="dm-tile"><code>.place-self-start</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-start" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box dm-w1 place-self-start">1</div><div class="dm-box dm-box--alt dm-w1">2</div><div class="dm-box dm-box--alt dm-w1">3</div><div class="dm-box dm-box--alt dm-w1">4</div></div></div>
-<div class="dm-tile"><code>.place-self-center</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-start" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box dm-w1 place-self-center">1</div><div class="dm-box dm-box--alt dm-w1">2</div><div class="dm-box dm-box--alt dm-w1">3</div><div class="dm-box dm-box--alt dm-w1">4</div></div></div>
-<div class="dm-tile"><code>.place-self-end</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-start" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box dm-w1 place-self-end">1</div><div class="dm-box dm-box--alt dm-w1">2</div><div class="dm-box dm-box--alt dm-w1">3</div><div class="dm-box dm-box--alt dm-w1">4</div></div></div>
-<div class="dm-tile"><code>.place-self-stretch</code><div class="dm-area grid grid-cols-2 gap-0.3 place-items-start" style="block-size:9rem; grid-template-rows:1fr 1fr;"><div class="dm-box place-self-stretch">1</div><div class="dm-box dm-box--alt dm-w1">2</div><div class="dm-box dm-box--alt dm-w1">3</div><div class="dm-box dm-box--alt dm-w1">4</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-2"&gt;
-  &lt;div class="place-self-end"&gt;1&lt;/div&gt;
-  &lt;div&gt;2&lt;/div&gt;
+          <h3 class="oc-section-content__title mt-8">Real use: a badge on a product image</h3>
+          <p class="oc-section-content__desc">The image and the badge share one grid cell (<code>.col-start-1.row-start-1</code> on both). The image stretches to fill the cell; <code>place-self</code> pins the badge to a corner or the middle, without <code>position: absolute</code>.</p>
+
+          <oc-demo title="Badges on product images"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min:100%"><div class="oc-eg__panel"><code class="oc-eg__name">.col-start-1 .row-start-1 &middot; .place-self-*</code><div class="oc-eg__note">Image and badge share one grid cell. Each card pins its badge to another spot.</div><div class="oc-eg__stage oc-eg__stage--plain al-real"><div class="al-cards">
+<div class="al-card"><div class="grid"><div class="al-img col-start-1 row-start-1" aria-hidden="true"></div><span class="al-badge is-hot col-start-1 row-start-1 place-self-start">New</span></div><div class="al-body"><div class="al-title">Product 1</div><code>.place-self-start</code></div></div>
+<div class="al-card"><div class="grid"><div class="al-img col-start-1 row-start-1" aria-hidden="true"></div><span class="al-badge col-start-1 row-start-1 place-self-end">&euro; 24.00</span></div><div class="al-body"><div class="al-title">Product 2</div><code>.place-self-end</code></div></div>
+<div class="al-card"><div class="grid"><div class="al-img col-start-1 row-start-1" aria-hidden="true"></div><span class="al-badge is-hot col-start-1 row-start-1 place-self-center">Sold out</span></div><div class="al-body"><div class="al-title">Product 3</div><code>.place-self-center</code></div></div>
+</div></div></div></div></div><oc-code lang="html">&lt;div class="grid"&gt;
+  &lt;img class="col-start-1 row-start-1" src="product-1.jpg" alt=""&gt;
+  &lt;span class="badge col-start-1 row-start-1 place-self-start"&gt;New&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="grid"&gt;
+  &lt;img class="col-start-1 row-start-1" src="product-2.jpg" alt=""&gt;
+  &lt;span class="badge col-start-1 row-start-1 place-self-end"&gt;€ 24.00&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="grid"&gt;
+  &lt;img class="col-start-1 row-start-1" src="product-3.jpg" alt=""&gt;
+  &lt;span class="badge col-start-1 row-start-1 place-self-center"&gt;Sold out&lt;/span&gt;
 &lt;/div&gt;</oc-code></oc-demo>
+
         </div>
       </section>

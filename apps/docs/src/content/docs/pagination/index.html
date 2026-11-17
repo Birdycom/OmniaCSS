@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Pagination","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .pg { display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 0; padding: 0; list-style: none; }\n    .pg a, .pg span { display: inline-grid; place-items: center; min-inline-size: 2.4rem; block-size: 2.4rem; padding-inline: 0.6rem; box-sizing: border-box; color: var(--oc-foreground); font-weight: 600; font-size: 0.9rem; text-decoration: none; }\n    .pg [aria-disabled=\"true\"] { opacity: 0.4; pointer-events: none; }\n    .pg-joined { gap: 0; }\n    .pg-joined li + li a { margin-inline-start: -1px; }\n    .pg-joined li:first-child a { border-start-start-radius: 10px; border-end-start-radius: 10px; }\n    .pg-joined li:last-child a { border-start-end-radius: 10px; border-end-end-radius: 10px; }\n    .pg-under a { border-block-end: 3px solid transparent; }\n    .crumbs { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font-size: 0.9rem; }\n    .crumbs li:not(:last-child)::after { content: \"/\"; margin-inline: 0.6rem; color: var(--oc-muted-foreground); }\n    .crumbs a { color: var(--color-vividblue-95); text-decoration: none; }\n    .crumbs a:hover { text-decoration: underline; }\n    .crumbs [aria-current=\"page\"] { color: var(--oc-muted-foreground); }\n    .pg-gen-wrap { display: block; inline-size: 100%; padding-block-end: 3.25rem; }\n    .pg-stack { display: grid; gap: 1.25rem; }\n    .pg-gen { display: flex; gap: 1rem; inline-size: 100%; scroll-marker-group: after; }\n    .pg-gen::scroll-marker-group { display: flex; justify-content: center; gap: 0.3rem; padding-block-start: 0.75rem; }\n    .pg-gen > article { flex: none; inline-size: 100%; display: grid; gap: 0.4rem; align-content: start; min-block-size: 9rem; padding: 1.25rem; box-sizing: border-box; border: 1px solid var(--oc-border); border-radius: 14px; background: var(--oc-card); color: var(--oc-foreground); }\n    .pg-gen > article h4 { margin: 0; font-size: 1.1rem; }\n    .pg-gen > article p { margin: 0; color: var(--oc-muted-foreground); }\n    .pg-gen > article::scroll-marker { content: attr(data-page); display: inline-grid; place-items: center; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 8px; border: 1px solid var(--oc-border); color: var(--oc-foreground); font-weight: 600; font-size: 0.85rem; text-decoration: none; }\n    .pg-gen > article::scroll-marker:target-current { background: var(--color-vividblue-80); border-color: var(--color-vividblue-80); color: var(--color-white-50); }\n    .pg-gen > article::scroll-marker:focus-visible { outline: 2px solid var(--color-vividblue-80); outline-offset: 2px; }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Pagination","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .pg { display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 0; padding: 0; list-style: none; }\n    .pg a { cursor: pointer; }\n    .pg a, .pg span { display: inline-grid; place-items: center; min-inline-size: 2.4rem; block-size: 2.4rem; padding-inline: 0.6rem; box-sizing: border-box; color: var(--oc-foreground); font-weight: 600; font-size: 0.9rem; text-decoration: none; }\n    .pg [aria-disabled=\"true\"] { opacity: 0.4; pointer-events: none; }\n    .pg-joined { gap: 0; }\n    .pg-joined li + li a { margin-inline-start: -1px; }\n    .pg-joined li:first-child a { border-start-start-radius: 10px; border-end-start-radius: 10px; }\n    .pg-joined li:last-child a { border-start-end-radius: 10px; border-end-end-radius: 10px; }\n    .pg-under a { border-block-end: 3px solid transparent; }\n    .crumbs { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font-size: 0.9rem; }\n    .crumbs li:not(:last-child)::after { content: \"/\"; margin-inline: 0.6rem; color: var(--oc-muted-foreground); }\n    .crumbs a { color: light-dark(var(--color-vividblue-95), var(--color-vividblue-40)); text-decoration: none; cursor: pointer; }\n    .crumbs a:hover { text-decoration: underline; }\n    .crumbs [aria-current=\"page\"] { color: var(--oc-muted-foreground); }\n    .pg-gen-wrap { display: block; inline-size: 100%; padding: 1rem 1rem 3.25rem; box-sizing: border-box; }\n    .pg-st { display: flex; align-items: center; justify-content: center; padding: 1.25rem 1rem; }\n    .pg-gen { display: flex; gap: 1rem; inline-size: 100%; scroll-marker-group: after; }\n    .pg-gen::scroll-marker-group { display: flex; justify-content: center; gap: 0.3rem; padding-block-start: 0.75rem; }\n    .pg-gen > article { flex: none; inline-size: 100%; display: grid; gap: 0.4rem; align-content: start; min-block-size: 9rem; padding: 1.25rem; box-sizing: border-box; border: 1px solid var(--oc-border); border-radius: 14px; background: var(--oc-card); color: var(--oc-foreground); }\n    .pg-gen > article h4 { margin: 0; font-size: 1.1rem; }\n    .pg-gen > article p { margin: 0; color: var(--oc-muted-foreground); }\n    .pg-gen > article::scroll-marker { content: attr(data-page); display: inline-grid; place-items: center; inline-size: 2.2rem; block-size: 2.2rem; border-radius: 8px; border: 1px solid var(--oc-border); color: var(--oc-foreground); font-weight: 600; font-size: 0.85rem; text-decoration: none; }\n    .pg-gen > article::scroll-marker:target-current { background: var(--color-vividblue-90); border-color: var(--color-vividblue-90); color: var(--color-white-50); }\n    .pg-gen > article::scroll-marker:focus-visible { outline: 2px solid var(--color-vividblue-80); outline-offset: 2px; }\n  /* Support note: shown only where the browser lacks the feature of the example (hidden by @supports below). */\n    .sup-note { display: block; padding: 0.6rem 0.85rem; border: 1px dashed var(--oc-border-strong, var(--oc-border)); border-radius: 8px; background: var(--oc-card); color: var(--oc-muted-foreground); font-size: 0.85rem; line-height: 1.45; }\n    .sup-note b { color: var(--oc-foreground); font-weight: 600; }\n  @supports selector(::scroll-marker) { .sup-note--marker { display: none; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="pagination">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Pagination</h2>
@@ -18,7 +18,7 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>Role</th></tr></thead>
               <tbody>
-                <tr><td><code>aria-[current=page]:bg-vividblue-80 aria-[current=page]:text-white-50</code></td><td>Active page</td></tr>
+                <tr><td><code>aria-[current=page]:bg-vividblue-90 aria-[current=page]:text-white-50</code></td><td>Active page</td></tr>
                 <tr><td><code>hover:bg-mistblue-20 transition-colors duration-200</code></td><td>Hover with a transition</td></tr>
                 <tr><td><code>focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80</code></td><td>Keyboard focus ring</td></tr>
                 <tr><td><code>aria-disabled:opacity-40 aria-disabled:pointer-events-none</code></td><td>Disabled previous/next</td></tr>
@@ -31,84 +31,141 @@
           </div>
 
           <h3 class="oc-section-content__title mt-10" id="styles">Pagination styles</h3>
+          <p class="oc-section-content__desc">Hover a number, or press Tab to move the focus ring along the links. Every link carries the same classes; only the current one has <code>aria-current="page"</code>, and the <code>aria-[current=page]:</code> classes color it. In your own project the server sets that attribute on each page, so the links in this demo do not go anywhere.</p>
           <oc-demo title="Rounded, pills, joined border and underline">
-            <div class="pg-stack">
-              <nav aria-label="Pagination rounded"><ul class="pg">
-                <li><a aria-disabled="true" class="round-2">«</a></li>
-                <li><a href="#styles" class="round-2 hover:bg-mistblue-20 transition-colors duration-200">1</a></li>
-                <li><a href="#styles" aria-current="page" class="round-2 aria-[current=page]:bg-vividblue-80 aria-[current=page]:text-white-50">2</a></li>
-                <li><a href="#styles" class="round-2 hover:bg-mistblue-20 transition-colors duration-200">3</a></li>
-                <li><a href="#styles" class="round-2 hover:bg-mistblue-20 transition-colors duration-200">4</a></li>
-                <li><a href="#styles" class="round-2 hover:bg-mistblue-20 transition-colors duration-200">»</a></li>
-              </ul></nav>
-              <nav aria-label="Pagination pills"><ul class="pg">
-                <li><a href="#styles" class="round-full hover:bg-mistblue-20">1</a></li>
-                <li><a href="#styles" class="round-full hover:bg-mistblue-20">2</a></li>
-                <li><a href="#styles" aria-current="page" class="round-full aria-[current=page]:bg-magenta-50 aria-[current=page]:text-white-50">3</a></li>
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-2 · aria-[current=page]:bg-vividblue-90</code><div class="oc-eg__note">Rounded squares. The current page is filled blue; « and » go one page back or forward.</div><div class="oc-eg__stage oc-eg__stage--plain pg-st"><nav aria-label="Pagination rounded"><ul class="pg">
+                <li><a tabindex="0" class="round-2 hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-vividblue-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">«</a></li>
+                <li><a tabindex="0" class="round-2 hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-vividblue-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">1</a></li>
+                <li><a tabindex="0" aria-current="page" class="round-2 hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-vividblue-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">2</a></li>
+                <li><a tabindex="0" class="round-2 hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-vividblue-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">3</a></li>
+                <li><a tabindex="0" class="round-2 hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-vividblue-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">4</a></li>
+                <li><a tabindex="0" class="round-2 hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-vividblue-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">»</a></li>
+              </ul></nav></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.round-full · aria-[current=page]:bg-magenta-90</code><div class="oc-eg__note">Round pills. The … stands for the pages in between that are not shown.</div><div class="oc-eg__stage oc-eg__stage--plain pg-st"><nav aria-label="Pagination pills"><ul class="pg">
+                <li><a tabindex="0" class="round-full hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-magenta-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">1</a></li>
+                <li><a tabindex="0" class="round-full hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-magenta-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">2</a></li>
+                <li><a tabindex="0" aria-current="page" class="round-full hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-magenta-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">3</a></li>
                 <li><span>…</span></li>
-                <li><a href="#styles" class="round-full hover:bg-mistblue-20">12</a></li>
-              </ul></nav>
-              <nav aria-label="Pagination bordered"><ul class="pg pg-joined">
-                <li><a href="#styles" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20">Previous</a></li>
-                <li><a href="#styles" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20">1</a></li>
-                <li><a href="#styles" aria-current="page" class="border-1 border-solid border-mistblue-30 aria-[current=page]:bg-vividblue-80 aria-[current=page]:border-vividblue-80 aria-[current=page]:text-white-50">2</a></li>
-                <li><a href="#styles" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20">3</a></li>
-                <li><a href="#styles" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20">Next</a></li>
-              </ul></nav>
-              <nav aria-label="Pagination underline"><ul class="pg pg-under">
-                <li><a href="#styles" class="hover:border-mistblue-30">1</a></li>
-                <li><a href="#styles" aria-current="page" class="aria-[current=page]:border-vividblue-80 aria-[current=page]:text-vividblue-80">2</a></li>
-                <li><a href="#styles" class="hover:border-mistblue-30">3</a></li>
-                <li><a href="#styles" class="hover:border-mistblue-30">4</a></li>
-              </ul></nav>
-            </div>
-          <oc-code lang="html">&lt;nav aria-label="Pagination"&gt;
-  &lt;ul class="flex gap-1 list-none p-0 m-0"&gt;
-    &lt;li&gt;&lt;a aria-disabled="true" class="round-2 aria-disabled:opacity-40"&gt;«&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="?page=1" class="round-2 hover:bg-mistblue-20 transition-colors duration-200"&gt;1&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="?page=2" aria-current="page"
-           class="round-2 aria-[current=page]:bg-vividblue-80 aria-[current=page]:text-white-50"&gt;2&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="?page=3" class="round-2 hover:bg-mistblue-20 transition-colors duration-200"&gt;3&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="?page=3" class="round-2 hover:bg-mistblue-20"&gt;»&lt;/a&gt;&lt;/li&gt;
+                <li><a tabindex="0" class="round-full hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-magenta-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">12</a></li>
+              </ul></nav></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.border-1 · aria-disabled:opacity-40</code><div class="oc-eg__note">Joined borders read as one bar. On page 1, Previous has aria-disabled="true" and fades out.</div><div class="oc-eg__stage oc-eg__stage--plain pg-st"><nav aria-label="Pagination bordered"><ul class="pg pg-joined">
+                <li><a aria-disabled="true" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20 aria-[current=page]:bg-vividblue-90 aria-[current=page]:border-vividblue-90 aria-[current=page]:text-white-50 aria-disabled:opacity-40 aria-disabled:pointer-events-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">Previous</a></li>
+                <li><a tabindex="0" aria-current="page" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20 aria-[current=page]:bg-vividblue-90 aria-[current=page]:border-vividblue-90 aria-[current=page]:text-white-50 aria-disabled:opacity-40 aria-disabled:pointer-events-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">1</a></li>
+                <li><a tabindex="0" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20 aria-[current=page]:bg-vividblue-90 aria-[current=page]:border-vividblue-90 aria-[current=page]:text-white-50 aria-disabled:opacity-40 aria-disabled:pointer-events-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">2</a></li>
+                <li><a tabindex="0" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20 aria-[current=page]:bg-vividblue-90 aria-[current=page]:border-vividblue-90 aria-[current=page]:text-white-50 aria-disabled:opacity-40 aria-disabled:pointer-events-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">3</a></li>
+                <li><a tabindex="0" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20 aria-[current=page]:bg-vividblue-90 aria-[current=page]:border-vividblue-90 aria-[current=page]:text-white-50 aria-disabled:opacity-40 aria-disabled:pointer-events-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">Next</a></li>
+              </ul></nav></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.pg-under · aria-[current=page]:border-vividblue-90</code><div class="oc-eg__note">Only a line under the current page. Hover a number to see a lighter line.</div><div class="oc-eg__stage oc-eg__stage--plain pg-st"><nav aria-label="Pagination underline"><ul class="pg pg-under">
+                <li><a tabindex="0" class="hover:border-mistblue-30 aria-[current=page]:border-vividblue-90 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">1</a></li>
+                <li><a tabindex="0" aria-current="page" class="hover:border-mistblue-30 aria-[current=page]:border-vividblue-90 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">2</a></li>
+                <li><a tabindex="0" class="hover:border-mistblue-30 aria-[current=page]:border-vividblue-90 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">3</a></li>
+                <li><a tabindex="0" class="hover:border-mistblue-30 aria-[current=page]:border-vividblue-90 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80">4</a></li>
+              </ul></nav></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- page CSS for the size of the links (not an OmniaCSS class):
+  .pg a { display: inline-grid; place-items: center; min-inline-size: 2.4rem; block-size: 2.4rem; padding-inline: 0.6rem; }
+  .pg-joined { gap: 0; } .pg-joined li + li a { margin-inline-start: -1px; }   (+ round outer corners)
+  .pg-under a { border-block-end: 3px solid transparent; } --&gt;
+
+&lt;!-- 1. rounded squares: every link has the same classes, the server puts aria-current on the current one --&gt;
+&lt;nav aria-label="Pagination"&gt;
+  &lt;ul class="pg flex gap-1 list-none p-0 m-0"&gt;
+    &lt;li&gt;&lt;a href="?page=1" class="round-2 hover:bg-mistblue-20 transition-colors duration-200 aria-[current=page]:bg-vividblue-90 aria-[current=page]:text-white-50 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-vividblue-80"&gt;«&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=1" class="(same classes)"&gt;1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=2" aria-current="page" class="(same classes)"&gt;2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=3" class="(same classes)"&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=4" class="(same classes)"&gt;4&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=3" class="(same classes)"&gt;»&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
-&lt;/nav&gt;</oc-code></oc-demo>
+&lt;/nav&gt;
+
+&lt;!-- 2. pills --&gt;
+&lt;ul class="pg flex gap-1 list-none p-0 m-0"&gt;
+  &lt;li&gt;&lt;a href="?page=1" class="round-full hover:bg-mistblue-20 aria-[current=page]:bg-magenta-90 aria-[current=page]:text-white-50"&gt;1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=2" class="(same classes)"&gt;2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=3" aria-current="page" class="(same classes)"&gt;3&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span&gt;…&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=12" class="(same classes)"&gt;12&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 3. joined borders, on page 1: Previous is disabled (no href) --&gt;
+&lt;ul class="pg pg-joined flex list-none p-0 m-0"&gt;
+  &lt;li&gt;&lt;a aria-disabled="true" class="border-1 border-solid border-mistblue-30 hover:bg-mistblue-20 aria-[current=page]:bg-vividblue-90 aria-[current=page]:border-vividblue-90 aria-[current=page]:text-white-50 aria-disabled:opacity-40 aria-disabled:pointer-events-none"&gt;Previous&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=1" aria-current="page" class="(same classes)"&gt;1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=2" class="(same classes)"&gt;2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=3" class="(same classes)"&gt;3&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=2" class="(same classes)"&gt;Next&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 4. underline --&gt;
+&lt;ul class="pg pg-under flex gap-1 list-none p-0 m-0"&gt;
+  &lt;li&gt;&lt;a href="?page=1" class="hover:border-mistblue-30 aria-[current=page]:border-vividblue-90"&gt;1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=2" aria-current="page" class="(same classes)"&gt;2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=3" class="(same classes)"&gt;3&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="?page=4" class="(same classes)"&gt;4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="breadcrumbs">Breadcrumbs</h3>
           <p class="oc-section-content__desc">The separators are generated with <code>::after</code>, so screen readers only read the links; the last item is the current page.</p>
           <oc-demo title="Breadcrumb with ::after separators">
-            <nav aria-label="Breadcrumb"><ol class="crumbs">
-              <li><a href="../index.html">Docs</a></li>
-              <li><a href="../selectors/">Selectors</a></li>
-              <li><span aria-current="page">Pagination</span></li>
-            </ol></nav>
-          <oc-code lang="css">.crumbs li:not(:last-child)::after { content: "/"; margin-inline: 0.6rem; }
-/* &lt;nav aria-label="Breadcrumb"&gt;&lt;ol class="crumbs flex list-none"&gt; … &lt;li&gt;&lt;span aria-current="page"&gt;Pagination&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/nav&gt; */</oc-code></oc-demo>
+            <div class="oc-eg"><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.crumbs li:not(:last-child)::after</code><div class="oc-eg__note">Each slash is drawn by CSS after a link, not typed in the HTML. The last item is the page you are on. The links in this demo stay on this page; hover them to see the underline.</div><div class="oc-eg__stage oc-eg__stage--plain pg-st"><nav aria-label="Breadcrumb"><ol class="crumbs">
+              <li><a tabindex="0">Home</a></li>
+              <li><a tabindex="0">Products</a></li>
+              <li><a tabindex="0">Product 1</a></li>
+              <li><span aria-current="page">Reviews</span></li>
+            </ol></nav></div></div></div></div>
+          <oc-code lang="html">&lt;style&gt;
+  .crumbs { display: flex; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+  .crumbs li:not(:last-child)::after { content: "/"; margin-inline: 0.6rem; color: var(--oc-muted-foreground); }
+  .crumbs a { text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  .crumbs [aria-current="page"] { color: var(--oc-muted-foreground); }
+&lt;/style&gt;
+
+&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol class="crumbs"&gt;
+    &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/products"&gt;Products&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/products/product-1"&gt;Product 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span aria-current="page"&gt;Reviews&lt;/span&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="generated">Page buttons generated by CSS: ::scroll-marker</h3>
           <p class="oc-section-content__desc">Put the pages in a horizontal snap container and let CSS create one marker per page. <code>content: attr(data-page)</code> turns the markers into numbered buttons, <code>:target-current</code> highlights the visible page. The browser handles clicks, keyboard arrows and the accessible tab roles — no JavaScript.</p>
           <oc-demo title="scroll-marker-group: after + ::scroll-marker { content: attr(data-page) }">
-            <div class="pg-gen-wrap">
+            <div class="oc-eg"><div class="sup-note sup-note--marker"><b>Not in this browser yet.</b> Your browser does not draw scroll markers: the numbers are missing, but you can still scroll or swipe from page to page.</div><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">scroll-marker-group: after · ::scroll-marker</code><div class="oc-eg__note">Click a number under the card, or swipe the card. The numbers are made by CSS and the current one turns blue.</div><div class="oc-eg__stage oc-eg__stage--plain"><div class="pg-gen-wrap">
             <div class="pg-gen overflow-x-auto snap-x scroll-smooth scrollbar-none">
               <article class="snap-start" data-page="1"><h4>Page 1</h4><p>Click the numbers below: they are ::scroll-marker pseudo-elements.</p></article>
               <article class="snap-start" data-page="2"><h4>Page 2</h4><p>The active number follows scrolling and swiping, too.</p></article>
               <article class="snap-start" data-page="3"><h4>Page 3</h4><p>Use the arrow keys when a number has focus.</p></article>
               <article class="snap-start" data-page="4"><h4>Page 4</h4><p>Browsers without support show a swipeable row.</p></article>
             </div>
-            </div>
-          <oc-code lang="css">.pg-gen { display: flex; scroll-marker-group: after; }       /* + class="overflow-x-auto snap-x" */
-.pg-gen::scroll-marker-group { display: flex; justify-content: center; gap: 0.3rem; }
-.pg-gen &gt; article { flex: none; inline-size: 100%; }
-.pg-gen &gt; article::scroll-marker {
-  content: attr(data-page);
-  inline-size: 2.2rem; block-size: 2.2rem; border-radius: 8px;
-  border: 1px solid var(--oc-border);
-}
-.pg-gen &gt; article::scroll-marker:target-current {
-  background: var(--color-vividblue-80); color: var(--color-white-50);
-}</oc-code></oc-demo>
+            </div></div></div></div></div>
+          <oc-code lang="html">&lt;style&gt;
+  .pg-gen { display: flex; scroll-marker-group: after; }
+  .pg-gen::scroll-marker-group { display: flex; justify-content: center; gap: 0.3rem; }
+  .pg-gen &gt; article { flex: none; inline-size: 100%; }
+  .pg-gen &gt; article::scroll-marker {
+    content: attr(data-page);
+    inline-size: 2.2rem; block-size: 2.2rem; border-radius: 8px;
+    border: 1px solid var(--oc-border);
+  }
+  .pg-gen &gt; article::scroll-marker:target-current {
+    background: var(--color-vividblue-90); color: var(--color-white-50);
+  }
+&lt;/style&gt;
+
+&lt;div class="pg-gen overflow-x-auto snap-x scroll-smooth scrollbar-none"&gt;
+  &lt;article class="snap-start" data-page="1"&gt;&lt;h4&gt;Page 1&lt;/h4&gt;&lt;p&gt;Click the numbers below …&lt;/p&gt;&lt;/article&gt;
+  &lt;article class="snap-start" data-page="2"&gt;&lt;h4&gt;Page 2&lt;/h4&gt;&lt;p&gt;The active number follows scrolling and swiping, too.&lt;/p&gt;&lt;/article&gt;
+  &lt;article class="snap-start" data-page="3"&gt;&lt;h4&gt;Page 3&lt;/h4&gt;&lt;p&gt;Use the arrow keys when a number has focus.&lt;/p&gt;&lt;/article&gt;
+  &lt;article class="snap-start" data-page="4"&gt;&lt;h4&gt;Page 4&lt;/h4&gt;&lt;p&gt;Browsers without support show a swipeable row.&lt;/p&gt;&lt;/article&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-10" id="print">Print pagination: @page and page breaks</h3>
-          <p class="oc-section-content__desc">For printed pages, <code>@page</code> margin boxes add page numbers and <code>.break-*</code> utilities decide where a new page starts. Use the <code>print:</code> variant to hide navigation when printing.</p>
+          <p class="oc-section-content__desc">For printed pages, <code>@page</code> margin boxes add page numbers and <code>.break-*</code> utilities decide where a new page starts. Use the <code>print:</code> variant to hide navigation when printing. These rules only show in a print preview (Ctrl+P), not on screen, so this part has a code sample and no live demo.</p>
           <oc-code lang="css">@page {
   size: A4;
   margin: 2cm;

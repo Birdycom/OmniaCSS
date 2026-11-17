@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Interactivity: Cursor, selection & pointer", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title":"OmniaCSS Docs - Interactivity: Cursor, selection & pointer","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Inside the example stages (cs-*) */\n    .cs-target { display: grid; place-items: center; padding: 1rem; font-size: 0.9rem; font-weight: 600; color: var(--oc-foreground); }\n    .cs-text { padding: 1rem; font-size: 0.95rem; line-height: 1.5; color: var(--oc-foreground); }\n  .cs-check { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.7rem 1rem; border: 2px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font-weight: 600; cursor: pointer; }\n    .cs-check input { inline-size: 1.2rem; block-size: 1.2rem; accent-color: var(--color-teal-70); }\n    .cs-check:has(:checked) { border-color: var(--color-teal-70); }\n    .cs-group { display: grid; gap: 0.5rem; padding: 0.6rem; border: 2px dashed var(--oc-border); border-radius: 12px; }\n\n  </style>"]}-->
 <section class="oc-docs-section" id="cursor-selection">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Cursor, selection &amp; pointer</h2>
@@ -32,18 +32,25 @@
             </div>
           </div>
 
-          <oc-demo title="Hover each card to see the cursor">
-            <div class="oc-fx-grid">
-              <div class="oc-fx-card cursor-pointer" tabindex="0"><strong>.cursor-pointer</strong><span>link / button</span></div>
-              <div class="oc-fx-card cursor-help" tabindex="0"><strong>.cursor-help</strong><span>help</span></div>
-              <div class="oc-fx-card cursor-wait" tabindex="0"><strong>.cursor-wait</strong><span>busy</span></div>
-              <div class="oc-fx-card cursor-text" tabindex="0"><strong>.cursor-text</strong><span>text</span></div>
-              <div class="oc-fx-card cursor-move" tabindex="0"><strong>.cursor-move</strong><span>move</span></div>
-              <div class="oc-fx-card cursor-not-allowed" tabindex="0"><strong>.cursor-not-allowed</strong><span>disabled</span></div>
-              <div class="oc-fx-card cursor-grab" tabindex="0"><strong>.cursor-grab</strong><span>grab</span></div>
-              <div class="oc-fx-card cursor-crosshair" tabindex="0"><strong>.cursor-crosshair</strong><span>crosshair</span></div>
-            </div>
-          </oc-demo>
+          <oc-demo title="Move the mouse over each card: the pointer changes">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 13rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-pointer</code><div class="oc-eg__note">For links and buttons: this can be clicked.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target cursor-pointer" tabindex="0">Point here</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-help</code><div class="oc-eg__note">There is help or more information here.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target cursor-help" tabindex="0">Point here</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-wait</code><div class="oc-eg__note">The page is busy; wait a moment.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target cursor-wait" tabindex="0">Point here</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-text</code><div class="oc-eg__note">Text that can be selected.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target cursor-text" tabindex="0">Point here</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-move</code><div class="oc-eg__note">Something that can be moved.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target cursor-move" tabindex="0">Point here</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-not-allowed</code><div class="oc-eg__note">This action is not possible right now.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target cursor-not-allowed" tabindex="0">Point here</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-grab</code><div class="oc-eg__note">Something you can grab and drag.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target cursor-grab" tabindex="0">Point here</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.cursor-crosshair</code><div class="oc-eg__note">Precise picking, as in a drawing tool.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target cursor-crosshair" tabindex="0">Point here</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="cursor-pointer"&gt;Point here&lt;/div&gt;
+&lt;div class="cursor-help"&gt;Point here&lt;/div&gt;
+&lt;div class="cursor-wait"&gt;Point here&lt;/div&gt;
+&lt;div class="cursor-text"&gt;Point here&lt;/div&gt;
+&lt;div class="cursor-move"&gt;Point here&lt;/div&gt;
+&lt;div class="cursor-not-allowed"&gt;Point here&lt;/div&gt;
+&lt;div class="cursor-grab"&gt;Point here&lt;/div&gt;
+&lt;div class="cursor-crosshair"&gt;Point here&lt;/div&gt;</oc-code></oc-demo>
 
           <!-- User Select -->
           <h3 class="oc-section-content__title" id="user-select">User Select</h3>
@@ -60,13 +67,19 @@
             </table>
           </div>
 
-          <oc-demo title="Try to select the text">
-            <div class="oc-fx-grid">
-              <div class="oc-fx-card select-none"><strong>.select-none</strong><span>This text cannot be selected.</span></div>
-              <div class="oc-fx-card select-all"><strong>.select-all</strong><span>One click selects everything.</span></div>
-              <div class="oc-fx-card select-text"><strong>.select-text</strong><span>Normal text selection.</span></div>
-            </div>
-          </oc-demo>
+          <oc-demo title="Try to select the text in each box">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">.select-none</code><div class="oc-eg__note">Selection is switched off.</div><div class="oc-eg__stage oc-eg__stage--plain cs-text cursor-default select-none">Drag over this sentence: nothing gets selected.</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.select-all</code><div class="oc-eg__note">One click selects everything.</div><div class="oc-eg__stage oc-eg__stage--plain cs-text cursor-default select-all">Click once on this sentence: the whole box is selected.</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.select-text</code><div class="oc-eg__note">Normal text selection, also inside a parent that has select-none.</div><div class="oc-eg__stage oc-eg__stage--plain cs-text cursor-default select-none"><span class="select-text cursor-text">Drag to select a part of this sentence; double-click selects one word.</span> This part is in the parent with select-none.</div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.select-auto</code><div class="oc-eg__note">The default: text behaves like its parent, here normal text.</div><div class="oc-eg__stage oc-eg__stage--plain cs-text cursor-text select-auto">Drag over this sentence: you can select any part of it.</div></div>
+            </div></div>
+          <oc-code lang="html">&lt;div class="select-none"&gt;Drag over this sentence: nothing gets selected.&lt;/div&gt;
+&lt;div class="select-all"&gt;Click once on this sentence: the whole box is selected.&lt;/div&gt;
+&lt;div class="select-none"&gt;
+  &lt;span class="select-text"&gt;Drag to select a part of this sentence …&lt;/span&gt; This part is in the parent with select-none.
+&lt;/div&gt;
+&lt;div class="select-auto"&gt;Drag over this sentence: you can select any part of it.&lt;/div&gt;</oc-code></oc-demo>
 
           <!-- Pointer Events -->
           <h3 class="oc-section-content__title" id="pointer-events">Pointer Events</h3>
@@ -80,10 +93,18 @@
           </table>
 
           <oc-demo title="pointer-events-none: the element ignores the mouse">
-            <div class="oc-fx-grid">
-              <a class="oc-fx-card" href="#pointer-events"><strong>normal link</strong><span>hover: pointer, clickable</span></a>
-              <a class="oc-fx-card pointer-events-none" href="#pointer-events"><strong>.pointer-events-none</strong><span>no hover, not clickable</span></a>
-            </div>
-          </oc-demo>
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key oc-eg__key--strong">Click each check box with the mouse</span></div><div class="oc-eg__panels" style="--eg-min: 15rem; --eg-h: 9.5rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">no class</code><div class="oc-eg__note">A normal label: a click ticks or clears the box.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target"><label class="cs-check"><input type="checkbox"> Mark as read</label></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.pointer-events-none</code><div class="oc-eg__note">The mouse goes straight through: a click does nothing. The Tab key and Space still work.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target"><label class="cs-check pointer-events-none"><input type="checkbox"> Mark as read</label></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">none on the parent, .pointer-events-auto on one child</code><div class="oc-eg__note">The group ignores the mouse, except the one child that turns it back on.</div><div class="oc-eg__stage oc-eg__stage--plain cs-target"><div class="cs-group pointer-events-none"><label class="cs-check"><input type="checkbox"> Archive</label><label class="cs-check pointer-events-auto"><input type="checkbox"> Mark as read</label></div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;label&gt;&lt;input type="checkbox"&gt; Mark as read&lt;/label&gt;
+
+&lt;label class="pointer-events-none"&gt;&lt;input type="checkbox"&gt; Mark as read&lt;/label&gt;
+
+&lt;div class="pointer-events-none"&gt;
+  &lt;label&gt;&lt;input type="checkbox"&gt; Archive&lt;/label&gt;                         &lt;!-- ignores the mouse --&gt;
+  &lt;label class="pointer-events-auto"&gt;&lt;input type="checkbox"&gt; Mark as read&lt;/label&gt;  &lt;!-- clickable again --&gt;
+&lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>

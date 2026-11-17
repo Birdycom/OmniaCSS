@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Width","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Width","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Sizing demos: neutral rulers and tracks, the sized element on top in one flat palette color. */\n    .sz-eg { \u002d\u002dsz-c: var(\u002d\u002dcolor-teal-70); \u002d\u002dsz-tick: oklch(from var(\u002d\u002doc-foreground) l c h / 0.16); \u002d\u002dsz-tick-strong: oklch(from var(\u002d\u002doc-foreground) l c h / 0.42); }\n    /* .sz = the inside of a kit stage: rulers and rows */\n    .sz { position: relative; container-type: inline-size; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.55rem; padding: 0.75rem; overflow-x: clip; font-size: 0.8rem; color: var(\u002d\u002doc-foreground); }\n    .sz code { justify-self: start; padding: 0; background: none; font-size: 0.78rem; font-weight: 600; color: var(\u002d\u002doc-foreground); }\n    .sz-val { font-size: 0.75rem; color: var(\u002d\u002doc-muted-foreground); white-space: nowrap; font-variant-numeric: tabular-nums; }\n    .sz-head { font-size: 0.75rem; font-weight: 600; color: var(\u002d\u002doc-muted-foreground); }\n\n    /* Rows: a label column and a measuring track. Below 34rem the label goes above the track. */\n    .sz-row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); align-items: center; gap: 0.2rem 1rem; }\n    .sz-row > :first-child { display: grid; gap: 0.1rem; min-inline-size: 0; }\n    @container (max-width: 34rem) { .sz-row { grid-template-columns: minmax(0, 1fr); } .sz-row\u002d\u002dscale > :first-child { display: none; } }\n\n    /* Horizontal ruler: a long tick every 4rem, a short tick every 1rem. The bar starts at tick 0. */\n    .sz-track { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.6rem; min-inline-size: 0; padding-block: 0.3rem 0.75rem; border-radius: 4px; background-color: var(\u002d\u002doc-muted); background-image: repeating-linear-gradient(to right, var(\u002d\u002dsz-tick-strong) 0 1px, transparent 1px 4rem), repeating-linear-gradient(to right, var(\u002d\u002dsz-tick-strong) 0 1px, transparent 1px 1rem); background-size: 100% 0.6rem, 100% 0.3rem; background-position: left bottom; background-repeat: no-repeat; }\n    .sz-scale { position: relative; block-size: 1rem; overflow: hidden; }\n    .sz-scale > span { position: absolute; inset-block: 0; inset-inline-start: calc(var(\u002d\u002dat) * 1rem); padding-inline-start: 0.25rem; border-inline-start: 1px solid var(\u002d\u002dsz-tick-strong); font-size: 0.7rem; line-height: 1rem; color: var(\u002d\u002doc-muted-foreground); white-space: nowrap; }\n    .sz-scale\u002d\u002dpct > span { inset-inline-start: var(\u002d\u002dat); }\n    .sz-scale\u002d\u002dpct > span:last-child { translate: -100%; padding-inline: 0 0.25rem; border-inline-start: 0; border-inline-end: 1px solid var(\u002d\u002dsz-tick-strong); }\n    .sz-bar { position: relative; z-index: 1; flex: none; box-sizing: border-box; display: flex; align-items: center; block-size: 1.75rem; padding-inline: 0.5rem; border-radius: 0 4px 4px 0; background: var(\u002d\u002dsz-c); color: var(\u002d\u002dcolor-white-50); font-size: 0.75rem; font-weight: 600; white-space: nowrap; overflow: hidden; }\n    .sz-bar\u002d\u002dbare { padding-inline: 0; }\n\n    /* Fractions: the track is the parent (100%), quarter lines in the background, the part that is left is striped. */\n    .sz-frac { display: flex; min-inline-size: 0; block-size: 2rem; border-radius: 4px; overflow: hidden; background-color: var(\u002d\u002doc-muted); background-image: repeating-linear-gradient(to right, transparent 0 calc(25% - 1px), var(\u002d\u002dsz-tick-strong) calc(25% - 1px) 25%); }\n    .sz-frac > .sz-bar { block-size: auto; border-radius: 0; }\n    .sz-rest { flex: 1; display: flex; align-items: center; justify-content: flex-end; min-inline-size: 0; padding-inline: 0.6rem; background-image: repeating-linear-gradient(135deg, var(\u002d\u002dsz-tick) 0 1px, transparent 1px 7px); font-size: 0.75rem; color: var(\u002d\u002doc-muted-foreground); white-space: nowrap; }\n\n    /* Keyword widths: short and long text side by side, stacked on a phone. */\n    .sz-pair { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); align-items: start; gap: 0.75rem 1.5rem; }\n    .sz-pair > div { display: grid; gap: 0.35rem; min-inline-size: 0; }\n    .sz-frame { box-sizing: border-box; inline-size: min(16rem, 100%); padding: 0.4rem; border: 2px dashed var(\u002d\u002dsz-tick-strong); border-radius: 6px; }\n    .sz-chip { box-sizing: border-box; padding: 0.35rem 0.55rem; border-radius: 4px; background: var(\u002d\u002dsz-c); color: var(\u002d\u002dcolor-white-50); font-size: 0.75rem; font-weight: 600; line-height: 1.3; }\n\n    /* Vertical plot: bars stand on one baseline, a line every 1rem, a stronger line every 4rem. */\n    .sz-vlabels .sz-val { white-space: normal; }\n    @container (max-width: 34rem) { .sz-vplot, .sz-vlabels { column-gap: 0.3rem; padding-inline: 2.4rem 0.3rem; } .sz-vlabels code { font-size: 0.6rem; white-space: nowrap; } .sz-vlabels .sz-val { font-size: 0.62rem; } }\n\n    /* Area stages: a positioned box, so the limit lines can be drawn on it. */\n    .sz-tiles .sz-val { white-space: normal; }\n  </style>"]}-->
 <section class="oc-docs-section" id="width">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Width</h2>
@@ -18,12 +18,12 @@
               <tbody>
                 <tr><td><code>.w-0</code></td><td>0px</td></tr>
                 <tr><td><code>.w-1</code></td><td>1rem (16px)</td></tr>
-                <tr><td><code>.w-2</code></td><td>2rem</td></tr>
-                <tr><td><code>.w-4</code></td><td>4rem</td></tr>
-                <tr class="oc-expandable-table__row-dimmed"><td><code>.w-8</code></td><td>8rem</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.w-12</code></td><td>12rem</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.w-16</code></td><td>16rem</td></tr>
-                <tr class="oc-expandable-table__row-more"><td><code>.w-20</code></td><td>20rem</td></tr>
+                <tr><td><code>.w-2</code></td><td>2rem (32px)</td></tr>
+                <tr><td><code>.w-4</code></td><td>4rem (64px)</td></tr>
+                <tr class="oc-expandable-table__row-dimmed"><td><code>.w-8</code></td><td>8rem (128px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.w-12</code></td><td>12rem (192px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.w-16</code></td><td>16rem (256px)</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.w-20</code></td><td>20rem (320px)</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.w-full</code></td><td>100%</td></tr>
               </tbody>
             </table>
@@ -32,15 +32,27 @@
             </div>
           </div>
 
-          <oc-demo title="Width scale"><div class="dm-grid" style="--dm-min:100%">
-<div class="dm-tile"><code>.w-1</code><div class="dm-area "><div class="w-1"><span class="dm-bar ">w-1</span></div></div></div>
-<div class="dm-tile"><code>.w-2</code><div class="dm-area "><div class="w-2"><span class="dm-bar ">w-2</span></div></div></div>
-<div class="dm-tile"><code>.w-4</code><div class="dm-area "><div class="w-4"><span class="dm-bar ">w-4</span></div></div></div>
-<div class="dm-tile"><code>.w-8</code><div class="dm-area "><div class="w-8"><span class="dm-bar ">w-8</span></div></div></div>
-<div class="dm-tile"><code>.w-12</code><div class="dm-area "><div class="w-12"><span class="dm-bar ">w-12</span></div></div></div>
-<div class="dm-tile"><code>.w-16</code><div class="dm-area "><div class="w-16"><span class="dm-bar ">w-16</span></div></div></div>
-<div class="dm-tile"><code>.w-full</code><div class="dm-area "><div class="w-full"><span class="dm-bar ">w-full</span></div></div></div>
-</div><oc-code lang="html">&lt;div class="w-8"&gt;8rem wide&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Every bar starts at the same left edge on a ruler: a short tick is 1rem (16px), a long tick 4rem (64px). The number in the class is the width in rem, so <code>.w-8</code> ends exactly at the 8rem mark.</p>
+
+          <oc-demo title="Width scale on a ruler"><div class="oc-eg sz-eg" style="--sz-c: var(--color-teal-70)"><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.w-1 … .w-20 · .w-full</code><div class="oc-eg__note">The number in the class is the width in rem. A short tick is 1rem, a long tick 4rem.</div><div class="oc-eg__stage oc-eg__stage--plain sz">
+<div class="sz-row sz-row--scale"><span></span><div class="sz-scale"><span style="--at:0">0</span><span style="--at:4">4rem</span><span style="--at:8">8rem</span><span style="--at:12">12rem</span><span style="--at:16">16rem</span><span style="--at:20">20rem</span></div></div>
+<div class="sz-row"><div><code>.w-1</code></div><div class="sz-track"><span class="sz-bar sz-bar--bare w-1"></span><span class="sz-val">1rem = 16px</span></div></div>
+<div class="sz-row"><div><code>.w-2</code></div><div class="sz-track"><span class="sz-bar sz-bar--bare w-2"></span><span class="sz-val">2rem = 32px</span></div></div>
+<div class="sz-row"><div><code>.w-4</code></div><div class="sz-track"><span class="sz-bar sz-bar--bare w-4"></span><span class="sz-val">4rem = 64px</span></div></div>
+<div class="sz-row"><div><code>.w-8</code></div><div class="sz-track"><span class="sz-bar sz-bar--bare w-8"></span><span class="sz-val">8rem = 128px</span></div></div>
+<div class="sz-row"><div><code>.w-12</code></div><div class="sz-track"><span class="sz-bar sz-bar--bare w-12"></span><span class="sz-val">12rem = 192px</span></div></div>
+<div class="sz-row"><div><code>.w-16</code></div><div class="sz-track"><span class="sz-bar sz-bar--bare w-16"></span><span class="sz-val">16rem = 256px</span></div></div>
+<div class="sz-row"><div><code>.w-20</code></div><div class="sz-track"><span class="sz-bar sz-bar--bare w-20"></span><span class="sz-val">20rem = 320px</span></div></div>
+<div class="sz-row"><div><code>.w-full</code></div><div class="sz-track"><span class="sz-bar w-full">100% of the parent</span></div></div>
+</div></div></div></div><oc-code lang="html">&lt;!-- bars on a ruler (the ruler is decoration); only the width class differs --&gt;
+&lt;div class="w-1"&gt;&lt;/div&gt;  &lt;!-- 1rem = 16px --&gt;
+&lt;div class="w-2"&gt;&lt;/div&gt;  &lt;!-- 2rem = 32px --&gt;
+&lt;div class="w-4"&gt;&lt;/div&gt;  &lt;!-- 4rem = 64px --&gt;
+&lt;div class="w-8"&gt;&lt;/div&gt;  &lt;!-- 8rem = 128px --&gt;
+&lt;div class="w-12"&gt;&lt;/div&gt; &lt;!-- 12rem = 192px --&gt;
+&lt;div class="w-16"&gt;&lt;/div&gt; &lt;!-- 16rem = 256px --&gt;
+&lt;div class="w-20"&gt;&lt;/div&gt; &lt;!-- 20rem = 320px --&gt;
+&lt;div class="w-full"&gt;100% of the parent&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Percentage Fractions</h3>
 
@@ -61,14 +73,28 @@
             </div>
           </div>
 
-          <oc-demo title="Fractions of the parent"><div class="dm-grid" style="--dm-min:100%">
-<div class="dm-tile"><code>.w-perc-1/4</code><div class="dm-area "><div class="w-perc-1/4"><span class="dm-bar ">w-perc-1/4</span></div></div></div>
-<div class="dm-tile"><code>.w-perc-1/3</code><div class="dm-area "><div class="w-perc-1/3"><span class="dm-bar ">w-perc-1/3</span></div></div></div>
-<div class="dm-tile"><code>.w-perc-1/2</code><div class="dm-area "><div class="w-perc-1/2"><span class="dm-bar ">w-perc-1/2</span></div></div></div>
-<div class="dm-tile"><code>.w-perc-2/3</code><div class="dm-area "><div class="w-perc-2/3"><span class="dm-bar ">w-perc-2/3</span></div></div></div>
-<div class="dm-tile"><code>.w-perc-3/4</code><div class="dm-area "><div class="w-perc-3/4"><span class="dm-bar ">w-perc-3/4</span></div></div></div>
-<div class="dm-tile"><code>.w-full</code><div class="dm-area "><div class="w-full"><span class="dm-bar ">w-full</span></div></div></div>
-</div><oc-code lang="html">&lt;div class="w-perc-1/3"&gt;One third&lt;/div&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc">Each grey track is the parent (100%). The colored part is the fraction, the striped part is what is left. The thin lines mark every quarter.</p>
+
+          <oc-demo title="Fractions of the parent"><div class="oc-eg sz-eg" style="--sz-c: var(--color-slateblue-70)"><div class="oc-eg__panels"><div class="oc-eg__panel"><code class="oc-eg__name">.w-perc-1/4 … .w-full</code><div class="oc-eg__note">The grey track is the parent (100%). The colored part is the fraction, the striped part is what is left.</div><div class="oc-eg__stage oc-eg__stage--plain sz">
+<div class="sz-row sz-row--scale"><span></span><div class="sz-scale sz-scale--pct"><span style="--at:0%">0</span><span style="--at:25%">25%</span><span style="--at:50%">50%</span><span style="--at:75%">75%</span><span style="--at:100%">100%</span></div></div>
+<div class="sz-row"><div><code>.w-perc-1/4</code></div><div class="sz-frac"><span class="sz-bar w-perc-1/4">25%</span><span class="sz-rest">75% left</span></div></div>
+<div class="sz-row"><div><code>.w-perc-1/3</code></div><div class="sz-frac"><span class="sz-bar w-perc-1/3">33.33%</span><span class="sz-rest">66.67% left</span></div></div>
+<div class="sz-row"><div><code>.w-perc-1/2</code></div><div class="sz-frac"><span class="sz-bar w-perc-1/2">50%</span><span class="sz-rest">50% left</span></div></div>
+<div class="sz-row"><div><code>.w-perc-2/3</code></div><div class="sz-frac"><span class="sz-bar w-perc-2/3">66.67%</span><span class="sz-rest">33.33% left</span></div></div>
+<div class="sz-row"><div><code>.w-perc-3/4</code></div><div class="sz-frac"><span class="sz-bar w-perc-3/4">75%</span><span class="sz-rest">25% left</span></div></div>
+<div class="sz-row"><div><code>.w-full</code></div><div class="sz-frac"><span class="sz-bar w-full">100%</span></div></div>
+</div></div></div></div><oc-code lang="html">&lt;div class="w-perc-1/4"&gt;25%&lt;/div&gt;
+&lt;div class="w-perc-1/3"&gt;33.33%&lt;/div&gt;
+&lt;div class="w-perc-1/2"&gt;50%&lt;/div&gt;
+&lt;div class="w-perc-2/3"&gt;66.67%&lt;/div&gt;
+&lt;div class="w-perc-3/4"&gt;75%&lt;/div&gt;
+&lt;div class="w-full"&gt;100%&lt;/div&gt;
+
+&lt;!-- In a layout: a sidebar and content side by side --&gt;
+&lt;div class="flex"&gt;
+  &lt;aside class="w-perc-1/3"&gt;Sidebar&lt;/aside&gt;
+  &lt;main class="w-perc-2/3"&gt;Content&lt;/main&gt;
+&lt;/div&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Keyword Classes</h3>
 
@@ -90,16 +116,28 @@
             </div>
           </div>
 
-          <p class="oc-section-content__desc">The parent in each tile is only about as wide as the page column. <code>w-min</code> wraps every word, <code>w-max</code> stays on one line even when it overflows.</p>
+          <p class="oc-section-content__desc">The dashed frame is the parent (16rem wide). Each keyword gets a short text and a long text, so you can see what the content does to the width. Look at <code>.w-max</code>: the long text stays on one line and runs out of its parent.</p>
 
-          <oc-demo title="Keyword widths"><div class="dm-grid" style="--dm-min:13rem">
-<div class="dm-tile"><code>.w-auto</code><div class="dm-area "><div class="w-auto dm-box" style="margin-inline:0.5rem">Some longer label text</div></div></div>
-<div class="dm-tile"><code>.w-min</code><div class="dm-area "><div class="w-min dm-box" style="margin-inline:0.5rem">Some longer label text</div></div></div>
-<div class="dm-tile"><code>.w-max</code><div class="dm-area "><div class="w-max dm-box" style="margin-inline:0.5rem">Some longer label text</div></div></div>
-<div class="dm-tile"><code>.w-fit</code><div class="dm-area "><div class="w-fit dm-box" style="margin-inline:0.5rem">Some longer label text</div></div></div>
-<div class="dm-tile"><code>.w-stretch</code><div class="dm-area "><div class="w-stretch dm-box" style="margin-inline:0.5rem">Some longer label text</div></div></div>
-</div><oc-code lang="html">&lt;div class="w-fit"&gt;Shrink-wrapped&lt;/div&gt;
-&lt;div class="w-stretch mx-1"&gt;Fills the parent minus margins&lt;/div&gt;</oc-code></oc-demo>
+          <oc-demo title="Keyword widths with short and long content"><div class="oc-eg sz-eg" style="--sz-c: var(--color-mediumvioletred-70)"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 20rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.w-auto</code><div class="oc-eg__note">Fills the parent.</div><div class="oc-eg__stage oc-eg__stage--plain sz sz-pair"><div><span class="sz-head">Short text</span><div class="sz-frame"><div class="w-auto sz-chip">Customer 1</div></div></div><div><span class="sz-head">Long text</span><div class="sz-frame"><div class="w-auto sz-chip">Monthly invoice for Customer 1, Product 1 and Product 2</div></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.w-fit</code><div class="oc-eg__note">As wide as the text, never wider than the parent.</div><div class="oc-eg__stage oc-eg__stage--plain sz sz-pair"><div><span class="sz-head">Short text</span><div class="sz-frame"><div class="w-fit sz-chip">Customer 1</div></div></div><div><span class="sz-head">Long text</span><div class="sz-frame"><div class="w-fit sz-chip">Monthly invoice for Customer 1, Product 1 and Product 2</div></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.w-min</code><div class="oc-eg__note">As narrow as the longest word.</div><div class="oc-eg__stage oc-eg__stage--plain sz sz-pair"><div><span class="sz-head">Short text</span><div class="sz-frame"><div class="w-min sz-chip">Customer 1</div></div></div><div><span class="sz-head">Long text</span><div class="sz-frame"><div class="w-min sz-chip">Monthly invoice for Customer 1, Product 1 and Product 2</div></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.w-max</code><div class="oc-eg__note">One line, even if it overflows.</div><div class="oc-eg__stage oc-eg__stage--plain sz sz-pair"><div><span class="sz-head">Short text</span><div class="sz-frame"><div class="w-max sz-chip">Customer 1</div></div></div><div><span class="sz-head">Long text</span><div class="sz-frame"><div class="w-max sz-chip">Monthly invoice for Customer 1, Product 1 and Product 2</div></div></div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.w-stretch .mh-1</code><div class="oc-eg__note">Fills the parent and keeps its 1rem margins inside.</div><div class="oc-eg__stage oc-eg__stage--plain sz sz-pair"><div><span class="sz-head">Short text</span><div class="sz-frame"><div class="w-stretch mh-1 sz-chip">Customer 1</div></div></div><div><span class="sz-head">Long text</span><div class="sz-frame"><div class="w-stretch mh-1 sz-chip">Monthly invoice for Customer 1, Product 1 and Product 2</div></div></div></div></div>
+</div></div><oc-code lang="html">&lt;div class="w-auto"&gt;Customer 1&lt;/div&gt;
+&lt;div class="w-auto"&gt;Monthly invoice for Customer 1, Product 1 and Product 2&lt;/div&gt;
+
+&lt;div class="w-fit"&gt;Customer 1&lt;/div&gt;
+&lt;div class="w-fit"&gt;Monthly invoice for Customer 1, Product 1 and Product 2&lt;/div&gt;
+
+&lt;div class="w-min"&gt;Customer 1&lt;/div&gt;
+&lt;div class="w-min"&gt;Monthly invoice for Customer 1, Product 1 and Product 2&lt;/div&gt;
+
+&lt;div class="w-max"&gt;Customer 1&lt;/div&gt;
+&lt;div class="w-max"&gt;Monthly invoice for Customer 1, Product 1 and Product 2&lt;/div&gt;
+
+&lt;div class="w-stretch mh-1"&gt;Customer 1&lt;/div&gt;
+&lt;div class="w-stretch mh-1"&gt;Monthly invoice for Customer 1, Product 1 and Product 2&lt;/div&gt;</oc-code></oc-demo>
 
           <p class="oc-section-content__desc">Viewport widths: <code>.w-screen</code> is <code>100vw</code> and includes the scrollbar, which causes horizontal scrolling on desktop; prefer <code>.w-full</code> for page-wide boxes. <code>.w-dvw</code> uses the dynamic viewport and is mainly useful on mobile.</p>
 

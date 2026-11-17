@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Column Span","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    .dm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--dm-min, 11rem), 1fr)); gap: 1.1rem 1rem; inline-size: 100%; }\n    .dm-grid--1 { grid-template-columns: 1fr; }\n    .dm-tile { display: grid; gap: 0.4rem; align-content: start; min-inline-size: 0; }\n    .dm-tile > code { justify-self: start; padding: 0; background: none; font-size: 0.75rem; color: var(--oc-muted-foreground); }\n    .dm-area { box-sizing: border-box; min-inline-size: 0; padding: 0.5rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); overflow-x: auto; }\n    .dm-h { block-size: var(--dm-h, 6rem); }\n    .dm-box { box-sizing: border-box; display: grid; place-items: center; min-inline-size: 2rem; min-block-size: 2rem; padding: 0.15rem 0.5rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; line-height: 1.2; text-align: center; }\n    .dm-box--alt { background: oklch(from var(--oc-foreground) l c h / 0.2); color: var(--oc-foreground); }\n    .dm-box.table-cell { display: table-cell; vertical-align: middle; }\n    .dm-box--tiny { min-inline-size: 0; padding-inline: 0; }\n    .dm-h1 { block-size: 1.5rem; min-block-size: 0; } .dm-h2 { block-size: 3rem; } .dm-h3 { block-size: 4.5rem; }\n    .dm-w1 { inline-size: 2rem; } .dm-w2 { inline-size: 3.5rem; } .dm-w3 { inline-size: 5rem; }\n    .dm-t1 { font-size: 0.7rem; } .dm-t2 { font-size: 1.1rem; } .dm-t3 { font-size: 1.6rem; }\n    .dm-text { margin: 0; font-size: 0.85rem; }\n    .dm-note { margin: 0; font-size: 0.8rem; color: var(--oc-muted-foreground); }\n    .dm-bar { display: block; box-sizing: border-box; padding: 0.35rem 0.6rem; border-radius: 6px; background: var(--oc-gradient-brand); color: var(--color-white-50); font-weight: 600; font-size: 0.75rem; white-space: nowrap; overflow: hidden; }\n    .dm-ring { outline: 2px dashed oklch(from var(--oc-foreground) l c h / 0.45); outline-offset: -2px; }\n    .dm-tbl { inline-size: 100%; font-size: 0.85rem; }\n    .dm-tbl th, .dm-tbl td { padding: 0.5rem 0.75rem; background: var(--oc-card); color: var(--oc-foreground); text-align: start; border: 2px solid var(--oc-border-strong); }\n    .dm-tbl caption { padding: 0.4rem 0.2rem; font-size: 0.8rem; font-weight: 600; color: var(--oc-muted-foreground); }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Column Span","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Flex & grid demos inside the .oc-eg example kit: the kit stage is the container (hatched = free space); items are flat palette colors with white text. */\n    .fx { --fx-line: oklch(from var(--oc-foreground) l c h / 0.42); --fx-soft: oklch(from var(--oc-foreground) l c h / 0.07); container-type: inline-size; grid-template-columns: minmax(0, 1fr); }\n    .fx-stage { padding: 0.6rem; }\n    .fx-box { --fx-c: var(--color-vividblue-90); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.85rem; border-radius: 7px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.9rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-box:nth-child(8n+2) { --fx-c: var(--color-teal-70); }\n    .fx-box:nth-child(8n+3) { --fx-c: var(--color-orange-95); }\n    .fx-box:nth-child(8n+4) { --fx-c: var(--color-magenta-90); }\n    .fx-box:nth-child(8n+5) { --fx-c: var(--color-forestgreen-60); }\n    .fx-box:nth-child(8n+6) { --fx-c: var(--color-indigo-60); }\n    .fx-box:nth-child(8n+7) { --fx-c: var(--color-crimson-70); }\n    .fx-box:nth-child(8n+8) { --fx-c: var(--color-purple-60); }\n    .fx-box small { font-size: 0.8rem; font-weight: 500; }\n    .fx-ghost { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; min-block-size: 3rem; min-inline-size: 0; padding: 0.4rem 0.6rem; border: 2px solid var(--fx-line); border-radius: 7px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.85rem; font-weight: 600; line-height: 1.25; text-align: center; }\n    .fx-card { box-sizing: border-box; display: flex; flex-direction: column; gap: 0.35rem; min-inline-size: 0; padding: 0.75rem; border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); font-size: 0.9rem; line-height: 1.4; }\n    .fx-card strong { font-size: 0.95rem; }\n    .fx-card .fx-muted, .fx-muted { color: var(--oc-muted-foreground); font-size: 0.85rem; }\n    .fx-num { font-size: 1.5rem; font-weight: 700; line-height: 1.1; }\n    .fx-box--wrap { overflow-wrap: anywhere; }\n    @container (max-width: 34rem) { .fx-box--wrap small { display: none; } }\n    .fx-ruler { display: grid; column-gap: 0.5rem; padding: 0.5rem 0.6rem 0.6rem; border-block-end: 1px solid var(--oc-border); background: var(--oc-card); }\n    .fx-ruler > span { position: relative; block-size: 2.2rem; border-block-end: 2px solid var(--oc-foreground); }\n    .fx-ruler > span::before, .fx-ruler > span:last-child::after { position: absolute; inset-block-end: -2px; inline-size: 2px; block-size: 0.6rem; background: var(--oc-foreground); content: \"\"; }\n    .fx-ruler > span::before { inset-inline-start: -0.25rem; }\n    .fx-ruler > span:first-child::before { inset-inline-start: 0; }\n    .fx-ruler > span:last-child::after { inset-inline-end: 0; }\n    .fx-ruler b { position: absolute; inset-block-start: 0; inset-inline-start: -0.25rem; translate: -50% 0; display: grid; place-items: center; box-sizing: border-box; min-inline-size: 1.5rem; block-size: 1.5rem; padding-inline: 0.35rem; border-radius: 999px; background: var(--oc-foreground); color: var(--oc-background); font-size: 0.85rem; font-weight: 700; line-height: 1; }\n    .fx-ruler > span:first-child b { inset-inline-start: 0; translate: 0 0; }\n    .fx-ruler b + b { inset-inline-start: auto; inset-inline-end: 0; translate: 0 0; }\n    .fx-bars { display: flex; align-items: flex-end; gap: 0.35rem; block-size: 4rem; }\n    .fx-bars > span { flex: 1; border-radius: 3px 3px 0 0; background: var(--color-vividblue-90); }\n    .fx-bars > span:nth-child(even) { background: var(--color-teal-70); }\n    .fx-tile { justify-content: space-between; }\n    .fx-tile code { align-self: flex-start; padding: 0.1rem 0.4rem; border-radius: 4px; background: var(--fx-soft); color: var(--oc-foreground); font-size: 0.8rem; }\n    .fx-card.grid { display: grid; }\n  \n  \n    .fx-short { display: none; }\n    .fx-box > span.fx-long { display: contents; }\n    ul.fx-legend { display: none; gap: 0.4rem; margin: 0.25rem 0 0; padding: 0; list-style: none; font-size: 0.9rem; }\n    ul.fx-legend li { display: block; }\n    ul.fx-legend li:has(b) { display: flex; align-items: center; gap: 0.6rem; color: var(--oc-foreground); }\n    ul.fx-legend b { flex: none; display: grid; place-items: center; inline-size: 1.6rem; block-size: 1.6rem; border-radius: 5px; background: var(--fx-c); color: var(--color-white-50); font-size: 0.85rem; }\n    ul.fx-legend code { font-size: 0.8rem; }\n    @container (max-width: 34rem) { .fx-long, .fx-box > span.fx-long { display: none; } .fx-short { display: inline; } ul.fx-legend { display: grid; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="col-span">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Column Span</h2>
@@ -14,26 +14,70 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>Span Amount</th></tr></thead>
               <tbody>
-                <tr><td><code>.col-span-1 … .col-span-12</code></td><td>Span 1 to 12 columns</td></tr>
-                <tr><td><code>.col-span-full</code></td><td>Span all available columns (1 / -1)</td></tr>
-                <tr><td><code>.col-span-auto</code></td><td>Automatic spanning</td></tr>
+                <tr><td><code>.col-span-1 … .col-span-12</code></td><td>grid-column: span n / span n (1 to 12)</td></tr>
+                <tr><td><code>.col-span-full</code></td><td>grid-column: 1 / -1 (all columns)</td></tr>
+                <tr><td><code>.col-span-auto</code></td><td>grid-column: auto (back to one auto-placed column)</td></tr>
+                <tr><td><code>.col-span-all</code> / <code>.col-span-none</code></td><td>column-span: all / none (for multi-column text, not for grid)</td></tr>
               </tbody>
             </table>
           </div>
 
           <h3 class="oc-section-content__title mt-8">Spans in a four column grid</h3>
 
-          <oc-demo title="col-span values"><div class="dm-grid" style="--dm-min:15rem">
-<div class="dm-tile"><code>.col-span-1</code><div class="dm-area grid grid-cols-4 gap-0.3"><div class="dm-box col-span-1">span 1</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div></div></div>
-<div class="dm-tile"><code>.col-span-2</code><div class="dm-area grid grid-cols-4 gap-0.3"><div class="dm-box col-span-2">span 2</div><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div></div></div>
-<div class="dm-tile"><code>.col-span-3</code><div class="dm-area grid grid-cols-4 gap-0.3"><div class="dm-box col-span-3">span 3</div><div class="dm-box dm-box--alt ">1</div></div></div>
-<div class="dm-tile"><code>.col-span-4</code><div class="dm-area grid grid-cols-4 gap-0.3"><div class="dm-box col-span-4">span 4</div></div></div>
-<div class="dm-tile"><code>.col-span-full</code><div class="dm-area grid grid-cols-4 gap-0.3"><div class="dm-box col-span-full">span full</div></div></div>
-<div class="dm-tile"><code>.col-span-full in a 3-col grid</code><div class="dm-area grid grid-cols-3 gap-0.3"><div class="dm-box dm-box--alt ">1</div><div class="dm-box dm-box--alt ">2</div><div class="dm-box dm-box--alt ">3</div><div class="dm-box col-span-full">full row</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-4 gap-1"&gt;
-  &lt;div class="col-span-2"&gt;Wide&lt;/div&gt;
-  &lt;div&gt;1&lt;/div&gt;
-  &lt;div&gt;2&lt;/div&gt;
+          <p class="oc-section-content__desc">One grid with four columns. Each colored item spans a number of columns; the grey items fill the rest of its row.</p>
+
+          <oc-demo title="col-span values"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-4</code><div class="oc-eg__note">Four rows in one grid. The colored item spans, the grey items take one column each.</div><div class="oc-eg__stage fx-stage grid grid-cols-4 gap-0.5"><div class="fx-box fx-box--wrap col-span-1" style="--fx-c:var(--color-vividblue-90)">.col-span-1</div><div class="fx-ghost">1 column</div><div class="fx-ghost">1 column</div><div class="fx-ghost">1 column</div><div class="fx-box fx-box--wrap col-span-2" style="--fx-c:var(--color-teal-70)">.col-span-2</div><div class="fx-ghost">1 column</div><div class="fx-ghost">1 column</div><div class="fx-box fx-box--wrap col-span-3" style="--fx-c:var(--color-orange-95)">.col-span-3</div><div class="fx-ghost">1 column</div><div class="fx-box fx-box--wrap col-span-4" style="--fx-c:var(--color-magenta-90)">.col-span-4</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-4 gap-0.5"&gt;
+  &lt;div class="col-span-1"&gt;.col-span-1&lt;/div&gt; &lt;div&gt;1 column&lt;/div&gt; &lt;div&gt;1 column&lt;/div&gt; &lt;div&gt;1 column&lt;/div&gt;
+  &lt;div class="col-span-2"&gt;.col-span-2&lt;/div&gt; &lt;div&gt;1 column&lt;/div&gt; &lt;div&gt;1 column&lt;/div&gt;
+  &lt;div class="col-span-3"&gt;.col-span-3&lt;/div&gt; &lt;div&gt;1 column&lt;/div&gt;
+  &lt;div class="col-span-4"&gt;.col-span-4&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">col-span-full</h3>
+
+          <p class="oc-section-content__desc"><code>.col-span-full</code> does not need to know the number of columns, which makes it the safe choice for headings or a row of buttons inside a grid.</p>
+
+          <oc-demo title="col-span-full"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:18rem">
+<div class="oc-eg__panel"><code class="oc-eg__name">.col-span-full in .grid-cols-3</code><div class="oc-eg__note">Covers all three columns.</div><div class="oc-eg__stage fx-stage grid grid-cols-3 gap-0.5"><div class="fx-ghost">1 column</div><div class="fx-ghost">1 column</div><div class="fx-ghost">1 column</div><div class="fx-box fx-box--wrap col-span-full" style="--fx-c:var(--color-forestgreen-60)">.col-span-full</div></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">.col-span-full in .grid-cols-5</code><div class="oc-eg__note">The same class covers all five columns.</div><div class="oc-eg__stage fx-stage grid grid-cols-5 gap-0.5"><div class="fx-ghost">1 col</div><div class="fx-ghost">1 col</div><div class="fx-ghost">1 col</div><div class="fx-ghost">1 col</div><div class="fx-ghost">1 col</div><div class="fx-box fx-box--wrap col-span-full" style="--fx-c:var(--color-indigo-60)">.col-span-full</div></div></div>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-3 gap-0.5"&gt;
+  &lt;div&gt;1 column&lt;/div&gt; &lt;div&gt;1 column&lt;/div&gt; &lt;div&gt;1 column&lt;/div&gt;
+  &lt;div class="col-span-full"&gt;.col-span-full&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="grid grid-cols-5 gap-0.5"&gt;
+  &lt;div&gt;1 col&lt;/div&gt; &lt;div&gt;1 col&lt;/div&gt; &lt;div&gt;1 col&lt;/div&gt; &lt;div&gt;1 col&lt;/div&gt; &lt;div&gt;1 col&lt;/div&gt;
+  &lt;div class="col-span-full"&gt;.col-span-full&lt;/div&gt;
+&lt;/div&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8">Real use: a dashboard</h3>
+
+          <p class="oc-section-content__desc">Important numbers get a wide tile, the others one column. Every tile shows its own class at the bottom.</p>
+
+          <oc-demo title="dashboard with wide tiles"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">.grid .grid-cols-2 .md:grid-cols-4 .grid-rows-fr</code><div class="oc-eg__note">Two columns on small screens, four from md up. <code>.grid-rows-fr</code> makes every row equally high.</div><div class="oc-eg__stage fx-stage grid grid-cols-2 md:grid-cols-4 grid-rows-fr gap-1"><div class="fx-card fx-tile col-span-2"><span class="fx-muted">Revenue this month</span><span class="fx-num">€ 48,200</span><code>.col-span-2</code></div><div class="fx-card fx-tile "><span class="fx-muted">Orders</span><span class="fx-num">312</span><code>no span class</code></div><div class="fx-card fx-tile "><span class="fx-muted">Customers</span><span class="fx-num">1,204</span><code>no span class</code></div><div class="fx-card fx-tile col-span-2"><span class="fx-muted">Sales per day</span><div class="fx-bars"><span style="block-size:40%"></span><span style="block-size:65%"></span><span style="block-size:50%"></span><span style="block-size:80%"></span><span style="block-size:72%"></span><span style="block-size:95%"></span><span style="block-size:60%"></span></div><code>.col-span-2</code></div><div class="fx-card fx-tile "><span class="fx-muted">Open invoices</span><span class="fx-num">18</span><code>no span class</code></div><div class="fx-card fx-tile "><span class="fx-muted">Returns</span><span class="fx-num">4</span><code>no span class</code></div></div></div>
+</div>
+</div><oc-code lang="html">&lt;!-- .card, .number and .bars are your own styles --&gt;
+&lt;div class="grid grid-cols-2 md:grid-cols-4 grid-rows-fr gap-1"&gt;
+  &lt;div class="card col-span-2"&gt;&lt;span&gt;Revenue this month&lt;/span&gt;&lt;span class="number"&gt;€ 48,200&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card"&gt;&lt;span&gt;Orders&lt;/span&gt;&lt;span class="number"&gt;312&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card"&gt;&lt;span&gt;Customers&lt;/span&gt;&lt;span class="number"&gt;1,204&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card col-span-2"&gt;
+    &lt;span&gt;Sales per day&lt;/span&gt;
+    &lt;div class="bars flex align-items-end gap-0.5"&gt;
+      &lt;span style="height: 40%"&gt;&lt;/span&gt;&lt;span style="height: 65%"&gt;&lt;/span&gt;&lt;span style="height: 50%"&gt;&lt;/span&gt;&lt;span style="height: 80%"&gt;&lt;/span&gt;
+      &lt;span style="height: 72%"&gt;&lt;/span&gt;&lt;span style="height: 95%"&gt;&lt;/span&gt;&lt;span style="height: 60%"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;&lt;span&gt;Open invoices&lt;/span&gt;&lt;span class="number"&gt;18&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="card"&gt;&lt;span&gt;Returns&lt;/span&gt;&lt;span class="number"&gt;4&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>
@@ -51,20 +95,29 @@
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Class</th><th>CSS Output</th></tr></thead>
               <tbody>
-                <tr><td><code>.col-start-{n}</code></td><td>grid-column-start: n</td></tr>
-                <tr><td><code>.col-end-{n}</code></td><td>grid-column-end: n</td></tr>
+                <tr><td><code>.col-start-{n}</code></td><td>grid-column-start: n (1 to 13)</td></tr>
+                <tr><td><code>.col-end-{n}</code></td><td>grid-column-end: n (1 to 13)</td></tr>
                 <tr><td><code>.col-start-auto</code></td><td>auto</td></tr>
                 <tr><td><code>.col-end-auto</code></td><td>auto</td></tr>
               </tbody>
             </table>
           </div>
 
-          <oc-demo title="col-start and col-end"><div class="dm-grid" style="--dm-min:15rem">
-<div class="dm-tile"><code>.col-start-2 .col-end-4</code><div class="dm-area grid grid-cols-4 gap-0.3"><div class="dm-box col-start-2 col-end-4">2 to 4</div><div class="dm-box dm-box--alt ">x</div></div></div>
-<div class="dm-tile"><code>.col-start-3</code><div class="dm-area grid grid-cols-4 gap-0.3"><div class="dm-box col-start-3">3</div><div class="dm-box dm-box--alt ">x</div></div></div>
-<div class="dm-tile"><code>.col-start-1 .col-span-2 + .col-start-4</code><div class="dm-area grid grid-cols-4 gap-0.3"><div class="dm-box col-start-1 col-span-2">1-2</div><div class="dm-box col-start-4">4</div></div></div>
-</div><oc-code lang="html">&lt;div class="grid grid-cols-4"&gt;
-  &lt;div class="col-start-2 col-end-4"&gt;…&lt;/div&gt;
+          <p class="oc-section-content__desc">The numbers on top are the grid lines. The end line is not included: <code>.col-start-2 .col-end-4</code> covers columns 2 and 3.</p>
+
+          <oc-demo title="col-start and col-end"><div class="oc-eg fx">
+<div class="oc-eg__panels" style="--eg-min:100%">
+<div class="oc-eg__panel"><code class="oc-eg__name">Grid lines 1 to 5</code><div class="oc-eg__note">Three separate four-column grids under the same line numbers. The hatched cells stay empty.</div><div class="oc-eg__stage fx-stage fx-ruled"><div class="fx-ruler grid-cols-4" style="display:grid; grid-template-columns: repeat(4, minmax(0, 1fr))"><span><b>1</b></span><span><b>2</b></span><span><b>3</b></span><span><b>4</b><b>5</b></span></div><div class="grid gap-0.5" style="padding:0.6rem"><div class="grid grid-cols-4 gap-0.5"><div class="fx-box fx-box--wrap col-start-2 col-end-4" style="--fx-c:var(--color-royalblue-70)"><span class="fx-long">.col-start-2 .col-end-4<small>line 2 to line 4</small></span><span class="fx-short">A</span></div></div><div class="grid grid-cols-4 gap-0.5"><div class="fx-box fx-box--wrap col-start-3" style="--fx-c:var(--color-crimson-70)"><span class="fx-long">.col-start-3<small>starts at line 3</small></span><span class="fx-short">B</span></div></div><div class="grid grid-cols-4 gap-0.5"><div class="fx-box fx-box--wrap col-span-2" style="--fx-c:var(--color-teal-70)"><span class="fx-long">.col-span-2<small>lines 1 to 3</small></span><span class="fx-short">C</span></div><div class="fx-box fx-box--wrap col-start-4" style="--fx-c:var(--color-purple-60)"><span class="fx-long">.col-start-4<small>line 4 to 5</small></span><span class="fx-short">D</span></div></div></div></div></div><ul class="fx-legend"><li><b style="--fx-c:var(--color-royalblue-70)">A</b><code>.col-start-2 .col-end-4</code><span>line 2 to line 4</span></li><li><b style="--fx-c:var(--color-crimson-70)">B</b><code>.col-start-3</code><span>starts at line 3</span></li><li><b style="--fx-c:var(--color-teal-70)">C</b><code>.col-span-2</code><span>lines 1 to 3</span></li><li><b style="--fx-c:var(--color-purple-60)">D</b><code>.col-start-4</code><span>line 4 to 5</span></li></ul>
+</div>
+</div><oc-code lang="html">&lt;div class="grid grid-cols-4 gap-0.5"&gt;
+  &lt;div class="col-start-2 col-end-4"&gt;covers columns 2 and 3&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="grid grid-cols-4 gap-0.5"&gt;
+  &lt;div class="col-start-3"&gt;column 3&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="grid grid-cols-4 gap-0.5"&gt;
+  &lt;div class="col-span-2"&gt;columns 1 and 2&lt;/div&gt;
+  &lt;div class="col-start-4"&gt;column 4&lt;/div&gt;
 &lt;/div&gt;</oc-code></oc-demo>
         </div>
       </section>

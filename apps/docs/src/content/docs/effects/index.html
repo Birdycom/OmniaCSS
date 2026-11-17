@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Effects Overview", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Effects Overview", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    /* Effects overview: one small, real example per page. Only the shapes inside the stages are page CSS. */\n    .ov-stage { display: flex; flex-wrap: wrap; align-items: end; justify-content: center; gap: 1rem; padding: 1.25rem 0.75rem; min-block-size: 10.5rem; }\n    .ov-fig { display: grid; justify-items: center; gap: 0.5rem; margin: 0; font-size: 0.75rem; }\n    .ov-fig code { font-size: 0.75rem; }\n    .ov-sq { inline-size: 3.75rem; aspect-ratio: 1; border-radius: 10px; background: var(--color-teal-70); }\n    .ov-card { display: grid; place-items: center; inline-size: 5.5rem; aspect-ratio: 1; border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); font-weight: 700; }\n    /* A tiny flat picture: sky, sun, hill and a strip of three colors */\n    .ov-pic { position: relative; inline-size: 5rem; aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden;\n      background:\n        radial-gradient(14% 18% at 74% 28%, var(--color-yellow-60) 96%, transparent 100%),\n        radial-gradient(70% 45% at 30% 85%, var(--color-forestgreen-60) 99%, transparent 100%),\n        linear-gradient(to right, var(--color-red-60) 0 33.3%, var(--color-blue-60) 0 66.6%, var(--color-purple-60) 0) bottom / 100% 22% no-repeat,\n        var(--color-skycyan-20); }\n    .ov-blend { position: relative; isolation: isolate; display: flex; justify-content: space-around; align-items: center; inline-size: 100%; max-inline-size: 15rem; block-size: 7rem; border-radius: 10px;\n      background: linear-gradient(to right, var(--color-yellow-60) 0 50%, var(--color-skycyan-20) 0); }\n    .ov-dot { inline-size: 4.5rem; aspect-ratio: 1; border-radius: 50%; background: var(--color-magenta-90); }\n    .ov-hover { display: grid; place-items: center; inline-size: 8rem; block-size: 5.5rem; border-radius: 12px; background: var(--color-indigo-60); color: var(--color-white-50); font-weight: 700; cursor: pointer; }\n    .ov-ghost { position: relative; display: grid; place-items: center; inline-size: 3.75rem; aspect-ratio: 1; border: 2px dashed var(--oc-muted-foreground); border-radius: 10px; }\n    .ov-ghost > .ov-sq { position: absolute; inset: -2px; inline-size: auto; aspect-ratio: auto; }\n    .ov-spinner { inline-size: 3rem; aspect-ratio: 1; border-radius: 50%; border: 6px solid var(--oc-border); border-top-color: var(--color-teal-70); }\n    .ov-ball { inline-size: 2.5rem; aspect-ratio: 1; border-radius: 50%; background: var(--color-orange-95); }\n    .ov-path { position: relative; inline-size: 8rem; block-size: 8rem; }\n    .ov-ring { position: absolute; inset: 50% auto auto 50%; inline-size: 6.4rem; aspect-ratio: 1; translate: -50% -50%; border: 2px dashed var(--oc-muted-foreground); border-radius: 50%; }\n    .ov-arrow { position: absolute; inset: 0 auto auto 0; inline-size: 24px; block-size: 16px; background: var(--color-chocolate-80); clip-path: polygon(0 0, 100% 50%, 0 100%, 25% 50%); }\n  </style>"]}-->
 <section class="oc-docs-section" id="overview">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Effects &amp; Motion</h2>
@@ -11,7 +11,51 @@
         </div>
         
         <div class="oc-section-content">
-          <p>All effects classes are generated from SCSS maps and available in <code>omnia_main.css</code>.</p>
+          <p class="oc-section-content__desc">One small, real example of every page in this section. The animations run on their own; hover the Transitions tile. The links to the pages are in the table below the example.</p>
+          <oc-demo title="Every effects page at a glance">
+<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 20rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">Opacity</code><div class="oc-eg__note">See-through with .opacity-*: the hatch behind shows through.</div><div class="oc-eg__stage ov-stage"><figure class="ov-fig"><div class="ov-sq opacity-100"></div><code>.opacity-100</code></figure><figure class="ov-fig"><div class="ov-sq opacity-60"></div><code>.opacity-60</code></figure><figure class="ov-fig"><div class="ov-sq opacity-30"></div><code>.opacity-30</code></figure></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Box shadows</code><div class="oc-eg__note">Depth with .shadow-*: a small and a large shadow.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><figure class="ov-fig"><div class="ov-card shadow-sm">Card</div><code>.shadow-sm</code></figure><figure class="ov-fig"><div class="ov-card shadow-xl">Card</div><code>.shadow-xl</code></figure></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Filters</code><div class="oc-eg__note">Change a picture with .grayscale, .blur-* and more.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><figure class="ov-fig"><div class="ov-pic"></div><code>original</code></figure><figure class="ov-fig"><div class="ov-pic grayscale"></div><code>.grayscale</code></figure><figure class="ov-fig"><div class="ov-pic blur-sm"></div><code>.blur-sm</code></figure></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Blend modes</code><div class="oc-eg__note">Mix with what is behind: the right circle has .mix-blend-multiply.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><figure class="ov-fig"><div class="ov-blend"><div class="ov-dot"></div><div class="ov-dot mix-blend-multiply"></div></div><code>normal · .mix-blend-multiply</code></figure></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Transitions</code><div class="oc-eg__note">Hover the tile: .transition-transform .duration-500 make the change smooth.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><figure class="ov-fig"><div class="ov-hover transition-transform duration-500 ease-spring hover:scale-110">Hover me</div><code>.hover:scale-110</code></figure></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Transforms</code><div class="oc-eg__note">Turn, slant or move a box; the dashed line is where it was.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><figure class="ov-fig"><div class="ov-ghost"><div class="ov-sq rotate-45"></div></div><code>.rotate-45</code></figure><figure class="ov-fig"><div class="ov-ghost"><div class="ov-sq skew-x-12"></div></div><code>.skew-x-12</code></figure><figure class="ov-fig"><div class="ov-ghost"><div class="ov-sq translate-x-4"></div></div><code>.translate-x-4</code></figure></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Animations</code><div class="oc-eg__note">Ready-made keyframes for loaders and hints.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><figure class="ov-fig"><div class="ov-spinner animate-spin"></div><code>.animate-spin</code></figure><figure class="ov-fig"><div class="ov-sq animate-pulse"></div><code>.animate-pulse</code></figure><figure class="ov-fig"><div class="ov-ball animate-bounce"></div><code>.animate-bounce</code></figure></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">Animation properties</code><div class="oc-eg__note">Duration, delay, easing, and motion along a path.</div><div class="oc-eg__stage oc-eg__stage--plain ov-stage"><figure class="ov-fig"><div class="ov-path"><span class="ov-ring"></span><span class="ov-arrow offset-path-circle offset-rotate-auto offset-anchor-center animate-follow-path"></span></div><code>.offset-path-circle .animate-follow-path</code></figure></div></div>
+</div></div>
+<oc-code lang="html">&lt;!-- Opacity --&gt;
+&lt;div class="opacity-100"&gt;&lt;/div&gt; &lt;div class="opacity-60"&gt;&lt;/div&gt; &lt;div class="opacity-30"&gt;&lt;/div&gt;
+
+&lt;!-- Box shadows --&gt;
+&lt;div class="shadow-sm"&gt;Card&lt;/div&gt; &lt;div class="shadow-xl"&gt;Card&lt;/div&gt;
+
+&lt;!-- Filters (on an image or any element) --&gt;
+&lt;img src="landscape.png" alt="Landscape"&gt; &lt;img class="grayscale" src="landscape.png" alt="Landscape"&gt; &lt;img class="blur-sm" src="landscape.png" alt="Landscape"&gt;
+
+&lt;!-- Blend modes: the circles sit on a yellow and blue background --&gt;
+&lt;div class="isolate"&gt;&lt;div class="round-full"&gt;&lt;/div&gt; &lt;div class="round-full mix-blend-multiply"&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;!-- Transitions --&gt;
+&lt;div class="transition-transform duration-500 ease-spring hover:scale-110"&gt;Hover me&lt;/div&gt;
+
+&lt;!-- Transforms --&gt;
+&lt;div class="rotate-45"&gt;&lt;/div&gt; &lt;div class="skew-x-12"&gt;&lt;/div&gt; &lt;div class="translate-x-4"&gt;&lt;/div&gt;
+
+&lt;!-- Animations --&gt;
+&lt;div class="spinner animate-spin"&gt;&lt;/div&gt; &lt;div class="animate-pulse"&gt;&lt;/div&gt; &lt;div class="ball animate-bounce"&gt;&lt;/div&gt;
+
+&lt;!-- Animation properties: an arrow that follows a circle --&gt;
+&lt;div class="relative" style="inline-size: 8rem; block-size: 8rem"&gt;
+  &lt;span class="arrow absolute top-0 left-0 offset-path-circle offset-rotate-auto offset-anchor-center animate-follow-path"&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Sizes and colors of the shapes are page CSS, for example: --&gt;
+&lt;style&gt;
+  .spinner { inline-size: 3.25rem; aspect-ratio: 1; border-radius: 50%; border: 6px solid var(--oc-border); border-top-color: var(--color-teal-70); }
+  .ball { inline-size: 2.5rem; aspect-ratio: 1; border-radius: 50%; background: var(--color-orange-95); }
+  .arrow { inline-size: 24px; block-size: 16px; background: var(--color-chocolate-80); clip-path: polygon(0 0, 100% 50%, 0 100%, 25% 50%); }
+&lt;/style&gt;</oc-code></oc-demo>
+          <p class="oc-section-content__desc mt-6">All effects classes are generated from SCSS maps and available in <code>omnia_main.css</code>.</p>
           <div class="oc-expandable-table mt-4">
             <table class="oc-table-ref">
               <thead><tr><th class="w-perc-1/3">Source File</th><th>Utilities Provided</th></tr></thead>
@@ -46,6 +90,9 @@
                 <tr><td><a href="transforms.html">Transforms</a></td><td>Scale, rotate and translate with the individual transform properties.</td></tr>
                 <tr><td><a href="animations.html">Animations</a></td><td>Ready-made keyframe animations such as <code>.animate-spin</code> and <code>.animate-pulse</code>.</td></tr>
                 <tr><td><a href="animation-properties.html">Animation Properties &amp; Motion Path</a></td><td>Animation longhands, <code>linear()</code> easing, motion path and timeline longhands.</td></tr>
+                <tr><td><a href="../starting-style/">Entry Animations</a></td><td>Animate popovers, dialogs and new rows when they appear, with <code>.starting-*</code>.</td></tr>
+                <tr><td><a href="../view-transitions/">View Transitions</a></td><td>Morph elements between two states or two pages with <code>.vt-name-*</code>.</td></tr>
+                <tr><td><a href="../scroll-animations/">Scroll Animations</a></td><td>Drive an animation by scrolling instead of time with <code>.timeline-*</code>.</td></tr>
             </tbody>
           </table>
         </div>
