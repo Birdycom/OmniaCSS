@@ -443143,6 +443143,22 @@ select {
           print-color-adjust: economy;
 }
 
+/* Print visibility and colors (0.17.0): .print-only appears only on paper (a letterhead, a page footer),
+   .print-hidden leaves an element off the paper (toolbars, buttons, the app frame), .print-light prints an element in
+   the light colors also when the screen is dark (the theme tokens are light-dark(), so color-scheme decides). */
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+  .print-light {
+    color-scheme: light;
+  }
+}
 /* Will change — opacity */
 .will-change-opacity {
   will-change: opacity;
@@ -447960,6 +447976,15 @@ select {
 
 @page landscape {
   size: landscape;
+}
+/* A4 portrait with a 15mm margin, for a report or a letter (0.17.0). */
+.page-a4 {
+  page: a4;
+}
+
+@page a4 {
+  size: A4 portrait;
+  margin: 15mm;
 }
 /* position-try shorthand (order + fallbacks) */
 .anchor-try-most-height-flip {

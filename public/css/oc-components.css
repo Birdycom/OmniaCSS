@@ -1568,13 +1568,23 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 /* Rich content only: no empty ::after bubble. */
 .oc-tooltip:not([data-tooltip])::after { content: none; }
 
-/* Also on keyboard focus of the element inside (Tab), not only on mouse hover. */
+/* Also on keyboard focus of the element inside (Tab), not only on mouse hover. :focus-visible, not :focus-within:
+   after a mouse click the button keeps focus, and the tooltip must not stay on once the pointer has left. */
 .oc-tooltip:hover::after,
-.oc-tooltip:focus-within::after,
+.oc-tooltip:focus-visible::after,
+.oc-tooltip:has(:focus-visible)::after,
 .oc-tooltip:hover > .oc-tooltip__content,
-.oc-tooltip:focus-within > .oc-tooltip__content {
+.oc-tooltip:focus-visible > .oc-tooltip__content,
+.oc-tooltip:has(:focus-visible) > .oc-tooltip__content {
   opacity: 1;
   scale: 1;
+}
+
+/* A menu, popover or dialog opened from inside the tooltip goes first: the bubble would cover it. */
+.oc-tooltip:has(:popover-open, [aria-expanded="true"], details[open], dialog[open])::after,
+.oc-tooltip:has(:popover-open, [aria-expanded="true"], details[open], dialog[open]) > .oc-tooltip__content {
+  opacity: 0;
+  scale: 0.96;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1993,6 +2003,19 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 .oc-table-wrap > .oc-table :is(th, td):last-child { border-inline-end: 0; }
 .oc-table-wrap > .oc-table > :first-child > tr:first-child > * { border-block-start: 0; }
 .oc-table-wrap > .oc-table > :last-child > tr:last-child > * { border-block-end: 0; }
+
+/* 0.17.0: .oc-table--auto sizes the columns by their content (the action column stays narrow, a name gets the room).
+   data-hide-below="sm | md | lg" on a th and its tds hides that column when the table area is narrower than 24, 32 or
+   48rem; the wrap becomes the size reference only when a table uses it (so a table in a flex row keeps its width), and
+   such a table drops the 32rem minimum width of the wrap: it gets narrower instead of scrolling.
+   .oc-table-action-label: the text next to an action icon, hidden (still read out) in a narrow table or in
+   .oc-table-actions--compact; the button keeps its title as tooltip. */
+.oc-table.oc-table--auto { table-layout: auto; }
+.oc-table-wrap:has([data-hide-below], .oc-table-action-label) { container: oc-table / inline-size; }
+.oc-table-wrap:has([data-hide-below]) > .oc-table { min-inline-size: 0; }
+@container oc-table (max-width: 48rem) { .oc-table :is(th, td)[data-hide-below~="lg"] { display: none; } }
+@container oc-table (max-width: 32rem) { .oc-table :is(th, td)[data-hide-below~="md"] { display: none; } }
+@container oc-table (max-width: 24rem) { .oc-table :is(th, td)[data-hide-below~="sm"] { display: none; } }
 
 /* ===================================================================
    Shared docs utility table styles (dark theme)
@@ -3580,7 +3603,8 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 
 /* ===================================================================
    OTP — one-time code: ONE real <input> drawn as separate cells (paste, autofill and password managers work).
-   Cells: set --oc-otp-length (default 6) to the input's maxlength.
+   Cells: set --oc-otp-length (default 6) to the input's maxlength. --fit: cells shrink with the parent; --group: a
+   divider after every --oc-otp-group cells (0.17.0).
    =================================================================== */
 .oc-otp {
   --oc-otp-length: 6;
@@ -3609,6 +3633,31 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-otp:focus { box-shadow: 0 0 0 2px oklch(from var(--oc-ring) l c h / 0.35); }
 .oc-otp[aria-invalid="true"] { border-block-color: var(--oc-destructive); }
 .oc-otp:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* --fit (0.17.0): the cells shrink with the room the parent gives (a phone with an 8-character code). The parent
+   becomes the size reference (container-type: inline-size), at most the normal 1.5rem. */
+:where(*:has(> .oc-otp--fit)) { container-type: inline-size; }
+.oc-otp.oc-otp--fit { font-size: min(1.5rem, calc(100cqi / (var(--oc-otp-length) * 1.75))); }
+/* --group (0.17.0): a darker divider after every --oc-otp-group cells (default 4: "ABCD EFGH"), so a long code reads
+   in parts. Still one input: paste, autofill and the caret work as before. */
+.oc-otp.oc-otp--group {
+  --oc-otp-group: 4;
+  background-image:
+    repeating-linear-gradient(
+      90deg in srgb,
+      transparent 0 calc(var(--oc-otp-group) * var(--oc-otp-cell) - 2px),
+      var(--oc-muted-foreground) calc(var(--oc-otp-group) * var(--oc-otp-cell) - 2px) calc(var(--oc-otp-group) * var(--oc-otp-cell))
+    ),
+    repeating-linear-gradient(
+      90deg in srgb,
+      var(--oc-input) 0 1px,
+      transparent 1px calc(var(--oc-otp-cell) - 1px),
+      var(--oc-input) calc(var(--oc-otp-cell) - 1px) var(--oc-otp-cell)
+    );
+  /* the divider layer stops half a cell before the end: no heavy line on the right edge */
+  background-size: calc((var(--oc-otp-length) - 0.5) * var(--oc-otp-cell)) 100%, auto;
+  background-repeat: no-repeat, repeat;
+}
 
 /* ===================================================================
    REVEAL — password field with a show/hide button. A script flips input.type (see snippet).
@@ -3678,6 +3727,35 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-copy-field-button.is-copied { color: var(--oc-success); }
 /* Keyboard focus on the value (to select it by hand): ring around the whole field. */
 .oc-copy-field:has(.oc-copy-field-value:focus-visible) { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+
+/* --display (0.17.0): a code people read and type over (a join code under a QR, a voucher): large, centred, spaced
+   monospace. Show it in groups ("K7QM 2XPA") and put the raw code in data-copy on the button: that is what gets copied.
+   .oc-copy-field-caption is a short explanation in the frame under the code (also on paper; the button is not printed).
+   --lg for a code that is read from a distance. The size shrinks to fit a narrow field: set --oc-copy-chars to the
+   number of characters shown (the components do). */
+.oc-copy-field--display { container-type: inline-size; flex-wrap: wrap; background: var(--oc-card); }
+.oc-copy-field--display .oc-copy-field-value {
+  padding: 0.75rem 1rem;
+  font-size: min(1.5rem, calc((100cqi - 6rem) / (var(--oc-copy-chars, 9) * 0.75)));
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-overflow: clip;
+}
+.oc-copy-field--display.oc-copy-field--lg .oc-copy-field-value { padding-block: 1rem; font-size: min(2.25rem, calc((100cqi - 6rem) / (var(--oc-copy-chars, 9) * 0.75))); }
+.oc-copy-field--display .oc-copy-field-button { padding-inline: 1rem; font-size: 0.8125rem; }
+.oc-copy-field-caption {
+  flex-basis: 100%;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--oc-muted-foreground);
+  border-block-start: 1px solid var(--oc-border);
+}
+@media print {
+  .oc-copy-field--display .oc-copy-field-button { display: none; }
+}
 
 /* ===================================================================
    COLOR FIELD — native <input type="color"> next to a text value
@@ -6558,6 +6636,18 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   .oc-data-table .oc-table tbody tr { transition: none; }
 }
 
+/* Print (0.17.0): only the table. The toolbar, tabs, filters, selection bar, pager, checkbox, grip and action columns
+   stay off the paper, the scroll area grows, and a row never breaks over two pages. Use pagination={false} (all rows)
+   for a report. */
+@media print {
+  .oc-data-table :is(.oc-data-table-toolbar, .oc-data-table-tabs, .oc-data-table-filters, .oc-data-table-bulk, .oc-data-table-per-page, .oc-data-table-pager, .oc-data-table-grid),
+  .oc-data-table :is(th, td):is([data-oc-col="select"], [data-oc-col="order"], [data-oc-col="actions"]) { display: none !important; }
+  .oc-data-table--grid .oc-data-table-scroll { display: block !important; }
+  .oc-data-table-scroll { overflow: visible !important; max-block-size: none !important; }
+  .oc-data-table .oc-table tr { break-inside: avoid; }
+  .oc-data-table .oc-table thead { display: table-header-group; }
+}
+
 /* parts/app-greeting.css */
 /* File: packages/ui/src/parts/app-greeting.css | Map: header row -> icon tile -> text (eyebrow, title, date) -> actions -> time-of-day modifiers -> size modifier */
 /* Greeting: dashboard header with a time-of-day greeting ("Good morning, Ada") and today's date.
@@ -6808,6 +6898,18 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-card-band__title small { display: block; font-size: 0.8125rem; font-weight: 400; color: var(--oc-muted-foreground); }
 .oc-card--accent[data-active="false"] { border-style: dashed; }
 .oc-card--accent[data-active="false"] .oc-card-band { background: var(--oc-surface); }
+
+/* .oc-card-grid--bands (0.17.0): the cards in the grid share their rows (subgrid). The bands of cards side by side are
+   as high as the highest band, with a longer translation or larger text too, so the content below starts on one line;
+   no height to guess with --oc-card-band-min-h. Works for every card with a band, content and an optional footer. */
+.oc-card-grid--bands > .oc-card {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 0; /* the gap of the grid stays between the cards, not between band and content */
+}
+.oc-card-grid--bands > .oc-card:has(> .oc-card-footer) { grid-row: span 3; }
+.oc-card-grid--bands > .oc-card > .oc-card-band { --oc-card-band-min-h: 0; }
 
 /* Code plate: a QR code or barcode on its own white plate, always light (scans in any theme and on paper), with an
    optional caption ON the plate, so the label is on a photo or a print too. data-mode / data-tone colors the caption. */
@@ -7224,6 +7326,7 @@ details.oc-collapsible--plain .oc-collapsible-content { padding: 0.25rem 0.5rem 
 /* parts/app-sidebar-meta.css */
 /* File: packages/ui/src/parts/app-sidebar-meta.css
    Map: meta line (brand, version, copyright) -> collapsed sidebar (only the version, the full line as a tooltip)
+        -> --wrap (copyright on its own line) -> --collapsed (the collapsed look outside .oc-sidebar)
    Sidebar meta: a ready-made small line at the foot of an app sidebar: "App 1 2.4.0 · (c) 2026 Company 1". The brand
    never shortens, the copyright part ends in an ellipsis when the sidebar is narrow. In a collapsed sidebar
    (.oc-sidebar--collapsed) only the version stays, and the whole line shows as a tooltip (data-tooltip) on hover and on
@@ -7250,11 +7353,14 @@ details.oc-collapsible--plain .oc-collapsible-content { padding: 0.25rem 0.5rem 
 .oc-sidebar-meta__copy::before { content: "\00b7"; margin-inline-end: 0.35rem; }
 .oc-sidebar-meta:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
 /* Open sidebar: the whole line is visible, so no tooltip. */
-.oc-sidebar:not(.oc-sidebar--collapsed) .oc-sidebar-meta.oc-tooltip::after { content: none; }
+.oc-sidebar:not(.oc-sidebar--collapsed) .oc-sidebar-meta.oc-tooltip:not(.oc-sidebar-meta--collapsed)::after { content: none; }
 
 /* Collapsed: only the version, centred. */
-.oc-sidebar--collapsed .oc-sidebar-meta { justify-content: center; padding-inline: 0; }
-.oc-sidebar--collapsed .oc-sidebar-meta :is(.oc-sidebar-meta__brand, .oc-sidebar-meta__copy) {
+/* --collapsed (0.17.0): the same look for a rail that is not an .oc-sidebar (set it from your own state). */
+.oc-sidebar--collapsed .oc-sidebar-meta,
+.oc-sidebar-meta.oc-sidebar-meta--collapsed { justify-content: center; padding-inline: 0; }
+.oc-sidebar--collapsed .oc-sidebar-meta :is(.oc-sidebar-meta__brand, .oc-sidebar-meta__copy),
+.oc-sidebar-meta--collapsed :is(.oc-sidebar-meta__brand, .oc-sidebar-meta__copy) {
   position: absolute;
   inline-size: 1px;
   block-size: 1px;
@@ -7262,6 +7368,13 @@ details.oc-collapsible--plain .oc-collapsible-content { padding: 0.25rem 0.5rem 
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/* --wrap (0.17.0): for a narrow rail. Brand and version on the first line, the copyright on its own second line, whole
+   (no dot, no ellipsis). Everything is visible, so no tooltip unless the line is collapsed. */
+.oc-sidebar-meta--wrap { flex-wrap: wrap; row-gap: 0; }
+.oc-sidebar-meta--wrap .oc-sidebar-meta__copy { flex-basis: 100%; overflow: visible; white-space: normal; }
+.oc-sidebar-meta--wrap .oc-sidebar-meta__copy::before { content: none; }
+.oc-sidebar-meta--wrap.oc-tooltip:not(.oc-sidebar-meta--collapsed, .oc-sidebar--collapsed *)::after { content: none; }
 
 /* parts/app-sortable-row.css */
 /* File: packages/ui/src/parts/app-sortable-row.css | Map: grip cell -> grip button (dots) -> row states (dragging, drop before / after) -> reduced motion */
@@ -7485,6 +7598,22 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-table-actions-icon:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
 .oc-table-actions-icon:disabled,
 .oc-table-actions-icon[aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
+
+
+/* An icon action with its text (0.17.0, showLabel): wide tables show both, narrow ones (or --compact) only the icon. */
+.oc-table-actions-icon:has(> .oc-table-action-label) {
+  grid-auto-flow: column;
+  gap: 0.35rem;
+  inline-size: auto;
+  padding-inline: 0.5rem;
+}
+.oc-table-action-label { font-size: 0.8125rem; }
+.oc-table-actions--compact .oc-table-action-label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.oc-table-actions--compact .oc-table-actions-icon:has(> .oc-table-action-label) { inline-size: 1.75rem; padding-inline: 0; }
+@container oc-table (max-width: 32rem) {
+  .oc-table-action-label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .oc-table-actions-icon:has(> .oc-table-action-label) { inline-size: 1.75rem; padding-inline: 0; }
+}
 
 /* Tone modifiers: the hover tint shows what the action does. */
 .oc-table-actions-icon--primary:hover { color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.1); }
@@ -7864,6 +7993,280 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 @media (prefers-reduced-motion: reduce) {
   .oc-tree-row::before { transition: none; }
 }
+
+/* parts/app-type-picker.css */
+/* File: packages/ui/src/parts/app-type-picker.css (in the components CSS since 0.17.0, so an editor that does not load
+   the blocks CSS can use it too)
+   Map: frame -> head -> tools (search + category chips) -> grid of type cards (radio, preview, name, hint)
+        -> action mode (buttons: a click adds, cards can be dragged, a reason on a card that is not available)
+        -> mini previews (text, image, question, callout, link, countdown, tip, video, code) -> foot -> container sizes
+   Type picker: a gallery of the content types a user can add (to a page, a step, a lesson, a form). Each card is a
+   label around a radio, so picking works with a click, a tap or the arrow keys, without JavaScript. The small preview
+   in each card is real markup at a small size, not a grey skeleton. Search and category chips filter with a few
+   optional lines of script (or your framework's state). */
+
+.oc-block-type-picker {
+  container: oc-block-type-picker / inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) + 4px);
+  background: var(--oc-card);
+  color: var(--oc-foreground);
+}
+
+.oc-block-type-picker-head { display: grid; gap: 0.25rem; }
+.oc-block-type-picker-title { margin: 0; font-size: 1.125rem; font-weight: 650; line-height: 1.3; }
+.oc-block-type-picker-text { margin: 0; color: var(--oc-muted-foreground); font-size: 0.875rem; line-height: 1.5; }
+
+/* Search left, category chips right; stacked in a narrow container. */
+.oc-block-type-picker-tools { display: grid; gap: 0.6rem; grid-template-columns: minmax(0, 1fr); align-items: center; }
+.oc-block-type-picker-tools > .oc-input-group { min-inline-size: 0; }
+.oc-block-type-picker-tools .oc-chip-filter { margin: 0; }
+
+/* The cards: equal width and equal height in every row (golden rule). */
+.oc-block-type-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.25rem), 1fr));
+  grid-auto-rows: 1fr;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.oc-block-type-picker-group { display: contents; }
+.oc-block-type-picker-group-title {
+  grid-column: 1 / -1;
+  margin: 0.25rem 0 -0.25rem;
+  color: var(--oc-muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.oc-block-type-picker-group-title:first-child { margin-block-start: 0; }
+
+.oc-block-type-picker-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.35rem;
+  padding: 0.5rem 0.5rem 0.65rem;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+  background: var(--oc-card);
+  cursor: pointer;
+  transition: border-color var(--oc-transition-fast), background-color var(--oc-transition-fast);
+}
+.oc-block-type-picker-item[hidden] { display: none; }
+.oc-block-type-picker-item:hover { border-color: var(--oc-border-strong); background: var(--oc-hover, var(--oc-muted)); }
+/* The radio stays in the accessibility tree and takes the keyboard focus; the card shows the state. */
+.oc-block-type-picker-input {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:checked) {
+  border-color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.07);
+  box-shadow: inset 0 0 0 1px var(--oc-primary);
+}
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:focus-visible) {
+  outline: var(--oc-focus-width, 2px) solid var(--oc-ring);
+  outline-offset: 2px;
+}
+/* Disabled: the preview fades and the name turns muted; the hint stays readable, it says why. */
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:disabled) { cursor: not-allowed; border-style: dashed; }
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:disabled) .oc-block-type-picker-preview { opacity: 0.45; }
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:disabled) .oc-block-type-picker-name { color: var(--oc-muted-foreground); }
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:disabled):hover { border-color: var(--oc-border); background: var(--oc-card); }
+
+/* Check mark in the corner of the picked card (drawn in CSS). */
+.oc-block-type-picker-item::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.85rem;
+  inset-inline-end: 0.85rem;
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  border-radius: 50%;
+  background: var(--oc-primary) no-repeat center / 0.7rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke=%27white%27 stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.2 5 8.5l4.5-5'/%3E%3C/svg%3E");
+  scale: 0;
+  transition: scale var(--oc-transition-fast);
+  pointer-events: none;
+}
+.oc-block-type-picker-item:has(.oc-block-type-picker-input:checked)::after { scale: 1; }
+
+.oc-block-type-picker-name { font-size: 0.875rem; font-weight: 600; line-height: 1.3; padding-inline: 0.15rem; }
+.oc-block-type-picker-hint { color: var(--oc-muted-foreground); font-size: 0.75rem; line-height: 1.4; padding-inline: 0.15rem; }
+
+/* ---- Mini previews: real markup at a small size, never focusable (aria-hidden + inert in the markup). ---- */
+.oc-block-type-picker-preview {
+  display: grid;
+  align-content: center;
+  gap: 0.3rem;
+  aspect-ratio: 16 / 10;
+  padding: 0.55rem 0.65rem;
+  overflow: hidden;
+  border: 1px solid var(--oc-border);
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: var(--oc-background);
+  color: var(--oc-foreground);
+  font-size: 0.625rem;
+  line-height: 1.35;
+  pointer-events: none;
+  user-select: none;
+}
+.oc-block-type-picker-preview > * { min-inline-size: 0; }
+.oc-block-type-picker-preview b { font-size: 0.75rem; font-weight: 650; }
+.oc-block-type-picker-preview p { margin: 0; color: var(--oc-muted-foreground); }
+.oc-block-type-picker-preview :is(iconify-icon, svg[data-icon]) { font-size: 0.9rem; }
+.oc-block-type-picker-art-video :is(iconify-icon, svg[data-icon]) { font-size: 2rem; }
+
+/* Image: a small landscape in flat palette colors. */
+.oc-block-type-picker-art-img { display: block; inline-size: 100%; block-size: 100%; border-radius: 0.3rem; }
+.oc-block-type-picker-preview:has(.oc-block-type-picker-art-img) { padding: 0.35rem; }
+
+/* Question: a line of text and three answer rows, one picked. */
+.oc-block-type-picker-art-option {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid var(--oc-border);
+  border-radius: 0.25rem;
+}
+.oc-block-type-picker-art-option::before {
+  content: "";
+  inline-size: 0.45rem;
+  block-size: 0.45rem;
+  border: 1px solid var(--oc-border-strong);
+  border-radius: 50%;
+  flex: none;
+}
+.oc-block-type-picker-art-option--on { border-color: var(--oc-primary); }
+.oc-block-type-picker-art-option--on::before { border-color: var(--oc-primary); background: var(--oc-primary); box-shadow: inset 0 0 0 1.5px var(--oc-background); }
+
+/* Callout: a tinted note with a bar on the left. */
+.oc-block-type-picker-art-note {
+  padding: 0.3rem 0.45rem;
+  border-inline-start: 3px solid var(--oc-warning);
+  border-radius: 0.25rem;
+  background: oklch(from var(--oc-warning) l c h / 0.14);
+}
+
+/* Link: a small outline button. */
+.oc-block-type-picker-art-btn {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--oc-border-strong);
+  border-radius: 0.3rem;
+  font-weight: 600;
+}
+
+/* Countdown: the time and a bar that shrinks. */
+.oc-block-type-picker-art-time { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.oc-block-type-picker-art-bar { block-size: 0.25rem; border-radius: 1rem; background: var(--oc-muted); overflow: hidden; }
+.oc-block-type-picker-art-bar::before { content: ""; display: block; inline-size: 60%; block-size: 100%; background: var(--oc-primary); }
+
+/* Tip: a closed row with a chevron. */
+.oc-block-type-picker-art-row { display: flex; align-items: center; justify-content: space-between; padding: 0.15rem 0.35rem; border: 1px solid var(--oc-border); border-radius: 0.25rem; font-weight: 600; }
+
+/* Video: a dark frame with a play button. */
+.oc-block-type-picker-art-video {
+  display: grid;
+  place-items: center;
+  block-size: 100%;
+  border-radius: 0.3rem;
+  background: oklch(from var(--oc-primary) 0.26 0.05 h);
+  color: var(--color-white-50);
+}
+.oc-block-type-picker-preview:has(.oc-block-type-picker-art-video) { padding: 0.35rem; align-content: stretch; }
+
+/* Code to scan: a QR-like pattern on a white plate (always dark on white, like a real code). */
+.oc-block-type-picker-art-code { justify-self: center; block-size: 100%; aspect-ratio: 1; padding: 0.2rem; border-radius: 0.2rem; background: var(--color-white-50); color: var(--color-black-50); }
+.oc-block-type-picker-preview:has(.oc-block-type-picker-art-code) { padding: 0.35rem; align-content: stretch; }
+.oc-block-type-picker-preview:has(.oc-block-type-picker-art-code) > svg { block-size: 100%; min-block-size: 0; }
+
+.oc-block-type-picker-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; padding-block-start: 0.25rem; border-block-start: 1px solid var(--oc-border); padding-block-start: 1rem; }
+
+.oc-block-type-picker-empty { grid-column: 1 / -1; margin: 0; padding: 1.5rem; color: var(--oc-muted-foreground); font-size: 0.875rem; text-align: center; }
+.oc-block-type-picker-empty[hidden] { display: none; }
+
+@container oc-block-type-picker (min-width: 40rem) {
+  .oc-block-type-picker { padding: 1.5rem; }
+  .oc-block-type-picker-tools { grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr); }
+  .oc-block-type-picker-tools .oc-chip-filter { justify-content: flex-end; }
+  .oc-block-type-picker-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 10.5rem), 1fr)); }
+}
+
+/* Action mode (0.17.0): .oc-block-type-picker--action, every card a <button>: a click or Enter adds that type at once,
+   nothing is "selected", the arrow keys only move the focus. A card that cannot be used now keeps the focus
+   (aria-disabled="true", not disabled) and says why in .oc-block-type-picker-reason. [draggable="true"] shows a grab
+   cursor. */
+button.oc-block-type-picker-item {
+  inline-size: 100%;
+  font: inherit;
+  text-align: start;
+  color: inherit;
+  align-content: start;
+}
+.oc-block-type-picker--action .oc-block-type-picker-item::after { content: none; }
+.oc-block-type-picker--action .oc-block-type-picker-item:focus-visible {
+  outline: var(--oc-focus-width, 2px) solid var(--oc-ring);
+  outline-offset: 2px;
+}
+.oc-block-type-picker--action .oc-block-type-picker-item:active:not([aria-disabled="true"]) {
+  border-color: var(--oc-primary);
+  background: oklch(from var(--oc-primary) l c h / 0.07);
+}
+.oc-block-type-picker-item[draggable="true"]:not([aria-disabled="true"]) { cursor: grab; }
+.oc-block-type-picker-item[draggable="true"]:active { cursor: grabbing; }
+.oc-block-type-picker-item[aria-disabled="true"] { cursor: not-allowed; border-style: dashed; }
+.oc-block-type-picker-item[aria-disabled="true"] .oc-block-type-picker-preview { opacity: 0.45; }
+.oc-block-type-picker-item[aria-disabled="true"] .oc-block-type-picker-name { color: var(--oc-muted-foreground); }
+.oc-block-type-picker-item[aria-disabled="true"]:hover { border-color: var(--oc-border); background: var(--oc-card); }
+.oc-block-type-picker-reason {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding-inline: 0.15rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--oc-foreground);
+}
+.oc-block-type-picker-reason::before {
+  content: "";
+  flex: none;
+  inline-size: 0.8rem;
+  block-size: 0.8rem;
+  margin-block-start: 0.1rem;
+  background: var(--oc-warning);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m1 15h-2v-2h2zm0-4h-2V7h2z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m1 15h-2v-2h2zm0-4h-2V7h2z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-block-type-picker-item, .oc-block-type-picker-item::after { transition: none; }
+}
+
+/* Sample picture colors, shared by the picker, route-steps and step-view demos (theme based, so light and dark both
+   work). Use them on the shapes of an inline SVG placeholder; a real photo needs none of this. */
+.oc-block-art-sky { fill: light-dark(oklch(from var(--oc-primary) 0.88 0.06 h), oklch(from var(--oc-primary) 0.36 0.07 h)); }
+.oc-block-art-sun { fill: var(--oc-warning); }
+.oc-block-art-land { fill: light-dark(oklch(from var(--oc-success) 0.56 0.12 h), oklch(from var(--oc-success) 0.46 0.1 h)); }
+.oc-block-art-wall { fill: light-dark(oklch(from var(--oc-warning) 0.74 0.09 60), oklch(from var(--oc-warning) 0.56 0.08 60)); }
+.oc-block-art-roof { fill: light-dark(oklch(from var(--oc-destructive) 0.5 0.12 35), oklch(from var(--oc-destructive) 0.42 0.1 35)); }
 
 /* parts/app-upgrade-banner.css */
 /* File: packages/ui/src/parts/app-upgrade-banner.css | Map: callout -> icon -> body (title + plan badge, text) -> usage meter -> actions + dismiss -> modifiers (premium, compact) */
@@ -9221,6 +9624,43 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
   padding-inline-start: calc(10px + 1rem + 8px);
 }
 
+/* Two-line item (0.17.0): the label with a muted description under it (.oc-dropdown-text > .oc-dropdown-desc), for a
+   menu that explains each choice ("New stop": the kind and what it does). The description may wrap. */
+.oc-dropdown-text {
+  display: grid;
+  flex: 1 1 auto;
+  gap: 1px;
+  min-inline-size: 0;
+  text-align: start;
+}
+.oc-dropdown-desc {
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--oc-muted-foreground);
+  white-space: normal;
+}
+.oc-dropdown-menu:has(.oc-dropdown-desc) { max-inline-size: min(22rem, calc(100vw - 2rem)); }
+.oc-dropdown-item:has(> .oc-dropdown-text > .oc-dropdown-desc) { padding-block: 7px; }
+/* Icon in a soft tinted square (iconTone): one quiet color per kind of item, no gradient and no glow. */
+.oc-dropdown-icon:is(.oc-dropdown-icon--primary, .oc-dropdown-icon--success, .oc-dropdown-icon--warning, .oc-dropdown-icon--destructive, .oc-dropdown-icon--muted) {
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  padding: 0.375rem;
+  border-radius: calc(var(--oc-radius) - 2px);
+  background: color-mix(in oklch, var(--oc-dropdown-tone, var(--oc-muted-foreground)) 14%, transparent);
+  color: var(--oc-dropdown-tone, var(--oc-muted-foreground));
+}
+.oc-dropdown-icon--primary { --oc-dropdown-tone: var(--oc-primary); }
+.oc-dropdown-icon--success { --oc-dropdown-tone: var(--oc-success); }
+.oc-dropdown-icon--warning { --oc-dropdown-tone: var(--oc-warning); }
+.oc-dropdown-icon--destructive { --oc-dropdown-tone: var(--oc-destructive); }
+.oc-dropdown-item:is(:hover, :focus-visible) > .oc-dropdown-icon:is(.oc-dropdown-icon--primary, .oc-dropdown-icon--success, .oc-dropdown-icon--warning, .oc-dropdown-icon--destructive, .oc-dropdown-icon--muted) { color: var(--oc-dropdown-tone, var(--oc-muted-foreground)); }
+/* Plain items in a menu with tinted icons: the label starts where the other labels start. */
+.oc-dropdown-menu:has(> .oc-dropdown-item > [class*="oc-dropdown-icon--"])
+  > .oc-dropdown-item:not(:has(> .oc-dropdown-icon), :has(> .oc-dropdown-check), [role="menuitemcheckbox"], [role="menuitemradio"]) {
+  padding-inline-start: calc(10px + 1.75rem + 8px);
+}
+
 @media (forced-colors: active) {
   .oc-combobox-option-icon,
   .oc-combobox-icon,
@@ -9507,6 +9947,36 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
   color: var(--oc-destructive);
   background: oklch(from var(--oc-destructive) l c h / 0.1);
 }
+
+/* Set by the app (0.17.0): data-issue="error" | "warning" marks the section (also while closed) when your own checks
+   found something, not only the browser's validity. .oc-form-section__count is the number in the header. The same
+   data-issue edge works on .oc-card. */
+.oc-form-section[data-issue="error"],
+.oc-card[data-issue="error"] { border-color: var(--oc-destructive); }
+.oc-form-section[data-issue="warning"],
+.oc-card[data-issue="warning"] { border-color: var(--oc-warning); }
+.oc-form-section[data-issue] .oc-form-section__icon {
+  color: var(--oc-form-section-issue);
+  background: oklch(from var(--oc-form-section-issue) l c h / 0.1);
+}
+.oc-form-section[data-issue="error"] { --oc-form-section-issue: var(--oc-destructive); }
+.oc-form-section[data-issue="warning"] { --oc-form-section-issue: var(--oc-warning); }
+.oc-form-section__status:has(> .oc-form-section__count) { display: inline-flex; align-items: center; gap: 0.5rem; }
+.oc-form-section__count {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 1.25rem;
+  block-size: 1.25rem;
+  padding-inline: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--oc-destructive-foreground);
+  background: var(--oc-form-section-issue, var(--oc-destructive));
+  border-radius: 999px;
+}
+.oc-form-section[data-issue="warning"] .oc-form-section__count { color: var(--oc-warning-foreground); }
 
 @media (prefers-reduced-motion: reduce) {
   .oc-form-section__summary::after { transition: none; }
