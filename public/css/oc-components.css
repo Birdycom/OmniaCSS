@@ -1568,13 +1568,23 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 /* Rich content only: no empty ::after bubble. */
 .oc-tooltip:not([data-tooltip])::after { content: none; }
 
-/* Also on keyboard focus of the element inside (Tab), not only on mouse hover. */
+/* Also on keyboard focus of the element inside (Tab), not only on mouse hover. :focus-visible, not :focus-within:
+   after a mouse click the button keeps focus, and the tooltip must not stay on once the pointer has left. */
 .oc-tooltip:hover::after,
-.oc-tooltip:focus-within::after,
+.oc-tooltip:focus-visible::after,
+.oc-tooltip:has(:focus-visible)::after,
 .oc-tooltip:hover > .oc-tooltip__content,
-.oc-tooltip:focus-within > .oc-tooltip__content {
+.oc-tooltip:focus-visible > .oc-tooltip__content,
+.oc-tooltip:has(:focus-visible) > .oc-tooltip__content {
   opacity: 1;
   scale: 1;
+}
+
+/* A menu, popover or dialog opened from inside the tooltip goes first: the bubble would cover it. */
+.oc-tooltip:has(:popover-open, [aria-expanded="true"], details[open], dialog[open])::after,
+.oc-tooltip:has(:popover-open, [aria-expanded="true"], details[open], dialog[open]) > .oc-tooltip__content {
+  opacity: 0;
+  scale: 0.96;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -7709,6 +7719,9 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   padding: 0;
   border: 0;
   appearance: none;
+  /* Firefox clips a progress element (overflow: clip in its own style sheet): the glow at the end of the bar would be
+     cut off there. */
+  overflow: visible;
   color: var(--oc-top-progress-color);
   background: transparent;
   pointer-events: none;
