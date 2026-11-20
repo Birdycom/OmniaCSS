@@ -5,7 +5,7 @@
 // - Clean URLs: "/docs/colors/palettes" serves palettes.html (links have no .html, scripts/clean-urls.mjs).
 // - Old "/ui/*" URLs: 301 redirect to the OmniaUI site.
 // - Route "/src/scss/json/*.json" to the color JSON used by js/colors.js (palette playground).
-// - Anything else: 404.
+// - Anything else: 404 with public/404.html.
 
 declare(strict_types=1);
 
@@ -56,5 +56,11 @@ if (str_starts_with($normalizedPath, "/src/scss/json/")) {
     }
 }
 
+// The "not found" page, as on the live site (ErrorDocument 404 in the .htaccess from scripts/deploy.mjs).
 http_response_code(404);
+if (is_file(__DIR__ . "/404.html")) {
+    header("Content-Type: text/html; charset=UTF-8");
+    readfile(__DIR__ . "/404.html");
+    exit;
+}
 echo "Not Found";

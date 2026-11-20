@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- File: scripts/og/og-image.html
+     Source of the share images (og:image, 1200 x 630) for omniacss.eu and omniaui.eu. scripts/og/build-og.mjs opens
+     this page in headless Chrome with ?site=omniacss or ?site=omniaui and saves a screenshot.
+     Map: tokens -> wordmark + tagline -> palette strip -> address. Flat colors only: no gradients, glow or icons. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>OG image</title>
+  <link rel="stylesheet" href="../../public/fonts/docs/docs-fonts.css">
+  <style>
+    :root { --ink: #16161d; --muted: #5b5b6b; --paper: #f7f6f2; --line: #dddbd3; --accent: #6366f1; }
+    :root[data-site="omniaui"] { --accent: #3b82f6; }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { inline-size: 1200px; block-size: 630px; overflow: hidden; }
+    body { display: grid; grid-template-rows: auto 1fr auto; padding: 72px 88px 64px; background: var(--paper); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif; }
+    .bar { inline-size: 96px; block-size: 10px; border-radius: 5px; background: var(--accent); }
+    .copy { align-self: center; }
+    h1 { font-family: "Bricolage Grotesque", system-ui, sans-serif; font-size: 132px; font-weight: 700; line-height: 1; letter-spacing: -0.035em; }
+    p { margin-block-start: 28px; max-inline-size: 900px; color: var(--muted); font-size: 40px; line-height: 1.25; }
+    footer { display: flex; align-items: center; justify-content: space-between; padding-block-start: 32px; border-block-start: 2px solid var(--line); font-size: 28px; }
+    footer b { font-weight: 600; }
+    .strip { display: flex; gap: 10px; }
+    .strip i { inline-size: 34px; block-size: 34px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="bar"></div>
+  <div class="copy">
+    <h1 id="name">OmniaCSS</h1>
+    <p id="tagline">Modern CSS as utility classes: OKLCH colors, container queries and an on-demand build.</p>
+  </div>
+  <footer>
+    <b id="host">omniacss.eu</b>
+    <span class="strip" aria-hidden="true"><i style="background:#6366f1"></i><i style="background:#0ea5e9"></i><i style="background:#14b8a6"></i><i style="background:#f59e0b"></i><i style="background:#ef4444"></i></span>
+  </footer>
+  <script>
+    const sites = {
+      omniacss: { name: "OmniaCSS", host: "omniacss.eu", tagline: "Modern CSS as utility classes: OKLCH colors, container queries and an on-demand build." },
+      omniaui: { name: "OmniaUI", host: "omniaui.eu", tagline: "CSS-first components and blocks that are just HTML, with React, Vue and Blade versions." },
+    };
+    const key = new URLSearchParams(location.search).get("site") || "omniacss";
+    const s = sites[key];
+    document.documentElement.dataset.site = key;
+    for (const id of ["name", "host", "tagline"]) document.getElementById(id).textContent = s[id];
+  </script>
+</body>
+</html>

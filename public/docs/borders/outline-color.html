@@ -4,13 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <title>OmniaCSS Docs - Outline-color</title>
   <meta name="description" content="Outline color sets the colour of the outline. Use .outline-transparent or .outline-current for neutrals; the full palette is available as…">
-  <meta property="og:type" content="website">
+  
+  <link rel="canonical" href="https://omniacss.eu/docs/borders/outline-color">
+  <meta property="og:type" content="article">
   <meta property="og:site_name" content="OmniaCSS">
   <meta property="og:title" content="OmniaCSS Docs - Outline-color">
   <meta property="og:description" content="Outline color sets the colour of the outline. Use .outline-transparent or .outline-current for neutrals; the full palette is available as…">
+  <meta property="og:url" content="https://omniacss.eu/docs/borders/outline-color">
+  <meta property="og:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OmniaCSS Docs - Outline-color">
+  <meta name="twitter:description" content="Outline color sets the colour of the outline. Use .outline-transparent or .outline-current for neutrals; the full palette is available as…">
+  <meta name="twitter:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta name="twitter:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"OmniaCSS","item":"https://omniacss.eu/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://omniacss.eu/docs/"},{"@type":"ListItem","position":3,"name":"Borders","item":"https://omniacss.eu/docs/borders/"},{"@type":"ListItem","position":4,"name":"Outline-color","item":"https://omniacss.eu/docs/borders/outline-color"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Outline-color","description":"Outline color sets the colour of the outline. Use .outline-transparent or .outline-current for neutrals; the full palette is available as…","url":"https://omniacss.eu/docs/borders/outline-color","mainEntityOfPage":"https://omniacss.eu/docs/borders/outline-color","inLanguage":"en","image":"https://omniacss.eu/img/og-omniacss.png","isPartOf":{"@type":"WebSite","name":"OmniaCSS","url":"https://omniacss.eu/","inLanguage":"en","publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"}},"publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"},"about":{"@type":"SoftwareApplication","name":"OmniaCSS","applicationCategory":"DeveloperApplication"}}</script>
   <meta name="generator" content="OmniaCSS 0.16.2">
-  <title>OmniaCSS Docs - Outline-color</title>
   <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -19,7 +33,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=503aeff35d"><link rel="stylesheet" href="/css/oc-components.css?v=2e795385ff"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=c0261298b3"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=ba4a613daf"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=cc3f90f5ba"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=424f3a8516">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=503aeff35d"><link rel="stylesheet" href="/css/oc-components.css?v=ca945cb9d3"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=c0261298b3"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=ba4a613daf"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=cc3f90f5ba"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=5c10f805d7">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -32,7 +46,9 @@
     const syncDemos = () => { const t = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); for (const sw of document.querySelectorAll(".oc-theme-scope .oc-theme-switch")) { const r = sw.querySelector('input[value="system"]') || sw.querySelector(`input[value="${t}"]`); if (r) r.checked = true; } };
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (!document.documentElement.dataset.theme) syncDemos(); });
     addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; syncDemos(); });
-  </script><script src="/js/oc-docs-v2.js?v=fbcfca188b" defer></script><style>
+  </script>
+  <script src="/js/oc-docs-v2.js?v=fbcfca188b" defer></script>
+  <style>
 .bd-sample { display: grid; place-content: center; gap: 0.15rem; min-block-size: var(--bd-h, 6.5rem); padding: 0.75rem; text-align: center; }
 .bd-sample b { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
 .bd-sample small { font-size: 0.78rem; color: var(--oc-muted-foreground); }

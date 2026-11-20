@@ -5,6 +5,7 @@
 import { transform } from "../lib/transform.mjs";
 import { leftSidebar, tocSidebar } from "../lib/nav.mjs";
 import { VERSION, HEADER_LINKS, GITHUB, OMNIAUI_URL, sectionOf, crossLinks } from "../lib/site.mjs";
+import { SITE, SITE_URL, plainText, canonicalUrl, jsonLd, ldScript } from "../lib/seo.mjs";
 
 interface Props { source: string; route: string }
 const { source, route } = Astro.props;
@@ -18,8 +19,15 @@ const page = transform(raw, route);
 // Old /ui/... links in the content point to the OmniaUI site now (base URL: OMNIAUI_URL in lib/site.mjs).
 const html = crossLinks(page.html);
 const toc = page.toc;
-// Description: the meta of the page, else its intro (lib/transform.mjs). The canonical URL is added at deploy (scripts/deploy.mjs).
-const description = (meta.description || page.description || "Modern CSS as utility classes: OKLCH colors, container queries, :has() and an on-demand build.").replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
+// Description: the meta of the page, else its intro (lib/transform.mjs). Decoded once: Astro escapes the attribute itself.
+const description = plainText(meta.description || page.description || SITE.description);
+// Search engines and share previews (lib/seo.mjs): canonical + og:url on the production address, one share image per
+// site, JSON-LD. "robots": "noindex" in the page meta (404 page) drops the canonical and the structured data.
+const title = plainText(meta.title) || SITE.name;
+const noindex = /noindex/.test(meta.robots || "");
+const canonical = noindex ? null : canonicalUrl(route);
+const shareImage = SITE_URL + SITE.image.path;
+const structured = noindex ? [] : jsonLd({ route, title, description });
 const section = sectionOf(route);
 const isSidebar = meta.layout === "sidebar";
 
@@ -42,13 +50,27 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <title>{title}</title>
   <meta name="description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="OmniaCSS" />
-  <meta property="og:title" content={meta.title || "OmniaCSS"} />
+  {noindex && <meta name="robots" content={meta.robots} />}
+  {canonical && <link rel="canonical" href={canonical} />}
+  <meta property="og:type" content={SITE.docs(route) ? "article" : "website"} />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
+  {canonical && <meta property="og:url" content={canonical} />}
+  <meta property="og:image" content={shareImage} />
+  <meta property="og:image:width" content={String(SITE.image.width)} />
+  <meta property="og:image:height" content={String(SITE.image.height)} />
+  <meta property="og:image:alt" content={SITE.image.alt} />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={shareImage} />
+  <meta name="twitter:image:alt" content={SITE.image.alt} />
+  {structured.map((data) => <script is:inline type="application/ld+json" set:html={ldScript(data)} />)}
   <meta name="generator" content={`OmniaCSS ${VERSION}`}>
-  <title>{meta.title || "OmniaCSS"}</title>
   <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
