@@ -40,6 +40,10 @@ $_responsive-breakpoints: (
     .#{$prefix}\:table-cell { display: table-cell; }
     .#{$prefix}\:table-row { display: table-row; }
     .#{$prefix}\:contents { display: contents; }
+    // d-* aliases (0.17.0): sm:d-none, md:d-block, lg:d-flex ...
+    @each $d-name, $d-value in ('none': none, 'block': block, 'inline': inline, 'inline-block': inline-block, 'flex': flex, 'inline-flex': inline-flex, 'grid': grid, 'inline-grid': inline-grid, 'flow-root': flow-root, 'contents': contents) {
+      .#{$prefix}\:d-#{$d-name} { display: $d-value; }
+    }
 
     // -----------------------------------------------------------------------
     // Flex direction

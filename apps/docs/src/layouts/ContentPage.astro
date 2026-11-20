@@ -98,8 +98,10 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
 </head>
 <body class={meta.bodyClass || undefined}>
   <header class:list={["oc-topbar", { "oc-topbar--fixed": isSidebar }]}>
-    {isSidebar && <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu" />}
-    {isSidebar && <label class="ocd-nav-button" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></label>}
+    {/* Every page has the menu button: docs pages open the left menu with it (from 900px down), pages without a sidebar
+        only the site links (.ocd-nav-button--site); from 1020px down the site links open with it on every page. */}
+    <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu" />
+    <label class:list={["ocd-nav-button", { "ocd-nav-button--site": !isSidebar }]} for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></label>
     <a class="oc-topbar-brand" href="/index.html">OmniaCSS<span class="oc-badge-version ml-1">v{VERSION}</span></a>
     <nav class="oc-topbar-nav" aria-label="Main">
       <ul class="oc-navmenu oc-navmenu--site">

@@ -23,6 +23,17 @@
                 <tr class="oc-expandable-table__row-dimmed"><td><code>.flow-root</code></td><td>flow-root</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.contents</code></td><td>contents</td></tr>
                 <tr class="oc-expandable-table__row-more"><td><code>.list-item</code></td><td>list-item</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-none</code></td><td>none</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-block</code></td><td>block</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-inline</code></td><td>inline</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-inline-block</code></td><td>inline-block</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-flex</code></td><td>flex</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-inline-flex</code></td><td>inline-flex</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-grid</code></td><td>grid</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-inline-grid</code></td><td>inline-grid</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-flow-root</code></td><td>flow-root</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.d-contents</code></td><td>contents</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>.sm:d-* / .md:d-* / .lg:d-*</code></td><td>the d- classes from 36rem / 50rem / 64rem</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -106,6 +117,20 @@
 &lt;div class="list-item list-decimal"&gt;Payment checked&lt;/div&gt;
 &lt;div class="list-item list-decimal"&gt;Sent to Customer 1&lt;/div&gt;
 &lt;!-- Markers sit outside the box: give the parent some padding-left (here 1.8rem) --&gt;</oc-code></oc-demo>
+
+          <h3 class="oc-section-content__title mt-8" id="d-aliases">d-none, d-block, d-flex <span class="oc-badge-version">v0.17.0</span></h3>
+          <p class="oc-section-content__desc">Every display value also has a <code>d-</code> name (<code>.d-none</code>, <code>.d-block</code>, <code>.d-inline</code>, <code>.d-inline-block</code>, <code>.d-flex</code>, <code>.d-inline-flex</code>, <code>.d-grid</code>, <code>.d-inline-grid</code>, <code>.d-flow-root</code>, <code>.d-contents</code>), with <code>sm:</code>, <code>md:</code> and <code>lg:</code> versions. Handy for markup that already uses <code>d-none</code> and <code>d-block</code>. Below, the row is hidden on a phone and shows up as a flex row from 50rem; the note does the opposite.</p>
+          <oc-demo title="d- classes"><div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 15rem">
+            <div class="oc-eg__panel"><code class="oc-eg__name">.d-none .md:d-flex / .md:d-none</code><div class="oc-eg__note">Make the window narrower than 50rem to see the switch.</div><div class="oc-eg__stage oc-eg__stage--plain dp-field"><div class="d-none md:d-flex flex-wrap gap-2"><div class="dp-box">Card 1</div><div class="dp-box dp-box--b">Card 2</div><div class="dp-box dp-box--c">Card 3</div></div><div class="d-block md:d-none dp-box">Small screen: the cards are hidden</div></div></div>
+          </div></div><oc-code lang="html">&lt;!-- Hidden on a phone, a flex row from 50rem --&gt;
+&lt;div class="d-none md:d-flex gap-1"&gt;
+  &lt;div&gt;Card 1&lt;/div&gt;
+  &lt;div&gt;Card 2&lt;/div&gt;
+  &lt;div&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Shown on a phone only --&gt;
+&lt;p class="d-block md:d-none"&gt;Small screen: the cards are hidden&lt;/p&gt;</oc-code></oc-demo>
 
           <h3 class="oc-section-content__title mt-8">Why flow-root</h3>
           <p class="oc-section-content__desc">A floated child takes no height, so a parent with a border collapses around it (left). <code>.flow-root</code> makes the parent contain its floats (right) without clearfix hacks.</p>
