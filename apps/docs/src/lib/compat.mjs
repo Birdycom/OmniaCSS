@@ -81,7 +81,9 @@ export function compatTable(keys) {
   }).join("");
   const legend = `<ul class="oc-compat__legend">${Object.entries(STATES).map(([k, v]) => `<li class="is-${k}"><span aria-hidden="true">${v.icon}</span> ${v.label.replace(" since", "")}</li>`).join("")}</ul>`;
   const source = `<p class="oc-compat__source">Version = first release with support. Hover a cell for notes. Data: <a href="https://github.com/mdn/browser-compat-data" target="_blank" rel="noopener">MDN browser-compat-data</a> ${esc(data.source.version)} (${esc(String(data.source.timestamp).slice(0, 10))}).</p>`;
-  return `<div class="oc-compat"><div class="oc-compat__scroll"><table class="oc-compat__table"><thead>${head}</thead><tbody>${rows}</tbody></table></div>${legend}${source}</div>`;
+  // On a phone the table is wider than the screen: say so above it (hidden from 50rem, where it fits).
+  const hint = `<p class="oc-compat__source md:hidden">Swipe the table sideways to see every browser.</p>`;
+  return `<div class="oc-compat">${hint}<div class="oc-compat__scroll"><table class="oc-compat__table"><thead>${head}</thead><tbody>${rows}</tbody></table></div>${legend}${source}</div>`;
 }
 
 /**

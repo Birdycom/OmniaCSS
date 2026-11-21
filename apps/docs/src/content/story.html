@@ -1,0 +1,78 @@
+<!--oc-page {"title":"Our story — OmniaCSS from 2022 to today","description":"How OmniaCSS grew from a folder of HTML documentation pages in April 2022 into a CSS framework with OKLCH colors, an on-demand build and OmniaUI.","layout":"plain","shell":null,"shellClass":null,"bodyClass":"oc-home oc-home--css","footer":"site","head":["<link rel=\"stylesheet\" href=\"/css/oc-home.css\">","<link rel=\"stylesheet\" href=\"/css/oc-story.css\">"]}-->
+<!-- File: apps/docs/src/content/story.html | "Our story" page of omniacss.eu (menu item in src/lib/site.mjs, also on omniaui.eu).
+     Drawn like the home (/css/oc-home.css, hm-*) with the story parts of /css/oc-story.css (st-*). The 2022 page and the steps
+     are shared with section 08 of the home: src/partials/story-2022.html and story-steps.html (oc-include, see ContentPage.astro).
+     Map: 00 intro -> 01 the April 2022 docs page, rebuilt -> 02 the steps to now (old and new side by side) -> 03 what stood
+     in the way -> 04 next step. -->
+<main class="hm" id="top">
+
+  <!-- 00 Intro -->
+  <section class="hm-band hm-band--grid st-hero" aria-labelledby="st-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">00</span> Our story <span class="hm-ref" aria-hidden="true">April 2022 → today</span></p>
+      <div class="hm-head">
+        <h1 id="st-title">From a folder of HTML pages <span class="hm-mark">to a framework</span>.</h1>
+        <p class="hm-lead">OmniaCSS started in April 2022 as one developer's set of plain HTML documents with a stylesheet behind them. It stopped, it started again, and it was rebuilt more than once. Below is the documentation page it began with, rebuilt as it looked, and every step from there to the framework of today.</p>
+        <ul class="hm-specs" aria-label="At a glance"><li>First commit · 21 April 2022</li><li>Rest · 2023 – 2025</li><li>Restart · February 2026</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 The documentation page of April 2022, rebuilt (shared with the home) -->
+  <section class="hm-band" id="april-2022" aria-labelledby="st-2022-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">01</span> 2022, as it was <span class="hm-ref" aria-hidden="true">Sass · PostCSS · px</span></p>
+      <div class="hm-head">
+        <h2 id="st-2022-title">A sidebar, an example and the code under it.</h2>
+        <p class="hm-lead">The first documentation was a style guide generated from comments in the Sass source: a sidebar with the sections, and for every class a live example with its code right below. Flat class names, hex colors and pixel values. Click through the sidebar: this is how it looked.</p>
+      </div>
+<!--oc-include story-2022-->
+    </div>
+  </section>
+
+  <!-- 02 The steps to now (shared with the home) -->
+  <section class="hm-band hm-band--grid" id="steps" aria-labelledby="st-steps-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">02</span> The steps to now <span class="hm-ref" aria-hidden="true">2022 → today</span></p>
+      <div class="hm-head">
+        <h2 id="st-steps-title">Six steps, the same idea.</h2>
+        <p class="hm-lead">The rule has not changed since that first folder: it has to be fast, it has to be CSS, and it has to work. What changed is everything around it.</p>
+      </div>
+<!--oc-include story-steps-->
+    </div>
+  </section>
+
+  <!-- 03 What stood in the way (moved here from the home) -->
+  <section class="hm-band" aria-labelledby="st-hurdles-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">03</span> What stood in the way <span class="hm-ref" aria-hidden="true">3.1 – 3.5</span></p>
+      <div class="hm-head">
+        <h2 id="st-hurdles-title">Five things that slowed it down.</h2>
+      </div>
+      <div class="hm-figs st-figs">
+        <div class="hm-fig"><div class="hm-fig-cap"><b>Tooling</b><span aria-hidden="true">3.1</span></div><div class="hm-fig-body st-fig-body"><p>The Sass compiler of 2022 was deprecated and the documentation theme broke on every Sass update. The restart moved to modern Sass modules and our own docs site, built from the same source as the CSS.</p></div></div>
+        <div class="hm-fig"><div class="hm-fig-cap"><b>Size</b><span aria-hidden="true">3.2</span></div><div class="hm-fig-body st-fig-body"><p>Every utility in every color made a 12 MB stylesheet. The answer was an on-demand build: your project gets the classes it uses, a few KB.</p></div></div>
+        <div class="hm-fig"><div class="hm-fig-cap"><b>Too much in one place</b><span aria-hidden="true">3.3</span></div><div class="hm-fig-body st-fig-body"><p>Utilities, components, blocks and four frameworks in one package made every change slow. Splitting OmniaCSS and OmniaUI gave each its own pace.</p></div></div>
+        <div class="hm-fig"><div class="hm-fig-cap"><b>New CSS, uneven support</b><span aria-hidden="true">3.4</span></div><div class="hm-fig-body st-fig-body"><p>Anchor positioning, scroll-driven animations and <code>:has()</code> do not land in every browser at once. Every docs page shows the support data from MDN, and the demos keep a fallback.</p></div></div>
+        <div class="hm-fig"><div class="hm-fig-cap"><b>Time</b><span aria-hidden="true">3.5</span></div><div class="hm-fig-body st-fig-body"><p>Built next to customer projects, by one developer. That is also why it stays small and why everything has a test.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Next step -->
+  <section class="hm-band" aria-labelledby="st-close-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">04</span> Next step <span class="hm-ref" aria-hidden="true">/docs/index.html</span></p>
+      <div class="hm-close hm-corners">
+        <h2 id="st-close-title">See where it stands today.</h2>
+        <p>The utilities and the color system in the docs, the components and blocks on the OmniaUI site.</p>
+        <div class="hm-cta">
+          <a class="oc-btn oc-btn--lg" href="/docs/index.html">Read the docs</a>
+          <a class="oc-btn oc-btn--lg oc-btn--outline" href="https://omniaui.test/index.html">Explore OmniaUI</a>
+          <a class="oc-btn oc-btn--lg oc-btn--outline" href="/index.html">Back to the home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="/js/oc-story.js" defer></script>

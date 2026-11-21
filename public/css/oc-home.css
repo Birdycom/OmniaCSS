@@ -1,0 +1,422 @@
+/* File: public/css/oc-home.css (source in the OmniaUI repo; OmniaCSS copies it with "npm run sync:omniaui")
+   The home pages of omniacss.eu and omniaui.eu, drawn like a technical drawing: full-width bands, dashed guides at the
+   container edges, crosses where the lines meet, grid paper, rulers, dimension lines, corner brackets and small
+   annotations that name real OmniaCSS classes and tokens. One color (--hm-accent) for the main button, the marked
+   words and the measuring marks; everything else is lines. No color fields, no glow.
+   Map: tokens -> bands + frame (guides, crosses) -> grid paper -> section label -> measuring parts (ruler, dimension,
+        corners, note, cross) -> type + buttons -> hero -> shared sections (cards, numbers, spec grid, split, tabs,
+        closing) -> OmniaCSS parts (playground, palette, editor, story) -> OmniaUI parts (wall, shots) -> site footer
+        -> responsive -> reduced motion.
+   Every decoration is a pseudo-element or aria-hidden markup. Colors: Omnia tokens only. */
+
+/* ---- Tokens ------------------------------------------------------------------------------------- */
+.oc-home {
+  --oc-container: 1440px; /* site width of omniacss.eu and omniaui.eu (the library default of .oc-container stays 1200px) */
+  --hm-pad-x: clamp(1rem, 3vw, 3rem);
+  --hm-pad-y: clamp(4rem, 8vw, 7rem);
+  --hm-mono: var(--ocd-mono);
+  --hm-display: var(--ocd-display);
+  /* Lines: the drawing itself */
+  --hm-rule: oklch(from var(--oc-foreground) l c h / 0.16);
+  --hm-guide: oklch(from var(--oc-foreground) l c h / 0.2);
+  --hm-grid-major: oklch(from var(--oc-foreground) l c h / 0.07);
+  --hm-grid-minor: oklch(from var(--oc-foreground) l c h / 0.03);
+  --hm-tick: oklch(from var(--oc-foreground) l c h / 0.32);
+  --hm-cross: oklch(from var(--oc-foreground) l c h / 0.55);
+  /* One accent per site (OmniaCSS blue, OmniaUI magenta) */
+  --hm-accent: var(--oc-primary);
+  --hm-accent-fg: var(--oc-primary-foreground);
+  --hm-note: var(--oc-muted-foreground);
+  margin: 0;
+  background: var(--oc-background);
+  color: var(--oc-foreground);
+}
+.oc-home--ui {
+  --hm-accent: light-dark(var(--color-magenta-95), var(--color-magenta-30));
+  --hm-accent-fg: light-dark(var(--color-white-50), var(--color-shallowblue-95));
+}
+
+/* ---- Page, bands and frame ------------------------------------------------------------------------ */
+.hm { overflow-x: clip; }
+.hm :is(h1, h2, h3) { margin: 0; font-family: var(--hm-display); letter-spacing: -0.025em; text-wrap: balance; }
+.hm p { margin: 0; text-wrap: pretty; }
+.hm code { font-family: var(--hm-mono); font-size: 0.86em; }
+
+/* A band spans the full width; its top border is a measuring line over the whole page. */
+.hm-band { position: relative; border-block-start: 1px solid var(--hm-rule); }
+.hm-band:first-child { border-block-start: 0; }
+/* Grid paper: 8px minor and 64px major lines, aligned to the left edge of the frame on wide screens. */
+.hm-band--grid {
+  --hm-x: calc(50% - var(--oc-container) / 2);
+  background-image:
+    linear-gradient(var(--hm-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hm-grid-major) 1px, transparent 1px),
+    linear-gradient(var(--hm-grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hm-grid-minor) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px, 8px 8px, 8px 8px;
+  background-position: 0 0, calc(var(--hm-x) + 32px) 0, 0 0, calc(var(--hm-x) + 4px) 0;
+}
+/* The frame is the content column (.oc-container); its dashed sides are the guides that run through every band. */
+.hm-frame {
+  position: relative;
+  box-sizing: border-box;
+  padding: var(--hm-pad-y) var(--hm-pad-x);
+  border-inline: 1px dashed var(--hm-guide);
+}
+.hm-frame > *, .hm-frame .oc-tabset, .hm-frame .oc-tab-panel { min-inline-size: 0; }
+/* Crosses where a guide meets the band line. */
+.hm-frame::before, .hm-frame::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -6px;
+  inline-size: 11px;
+  block-size: 11px;
+  background: linear-gradient(var(--hm-cross) 0 0) center / 100% 1px no-repeat, linear-gradient(var(--hm-cross) 0 0) center / 1px 100% no-repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+.hm-frame::before { inset-inline-start: -6px; }
+.hm-frame::after { inset-inline-end: -6px; }
+
+/* ---- Section label: "01  Native first ------------- grid-cols-4" ---------------------------------- */
+.hm-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-block-end: 2rem !important;
+  font: 500 0.75rem/1.2 var(--hm-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hm-note);
+}
+.hm-label::after { content: ""; flex: 1 1 2rem; order: 2; border-block-start: 1px dashed var(--hm-guide); }
+.hm-num { color: var(--hm-accent); font-weight: 600; }
+.hm-ref { order: 3; text-transform: none; letter-spacing: 0; }
+
+/* ---- Measuring parts --------------------------------------------------------------------------- */
+/* Ruler along the top of the hero frame: a tick every 8px, a long tick every 64px, a label every 128px. */
+.hm-ruler {
+  position: absolute;
+  inset: 0 0 auto;
+  block-size: 2rem;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--hm-tick) 1px, transparent 1px) 0 0 / 64px 12px repeat-x,
+    linear-gradient(90deg, var(--hm-tick) 1px, transparent 1px) 0 0 / 8px 5px repeat-x;
+}
+.hm-ruler span { position: absolute; inset-block-start: 13px; inset-inline-start: calc(var(--x) * 1px + 4px); font: 500 0.66rem/1 var(--hm-mono); color: var(--hm-note); }
+.hm-ruler .hm-ruler-end { inset-inline: auto 4px; color: var(--hm-accent); }
+/* Vertical ruler in the left margin (only where the margin is wide enough). */
+.hm-vruler {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: calc(100% + 1px);
+  inline-size: 2.75rem;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--hm-tick) 1px, transparent 1px) 100% 0 / 12px 64px repeat-y,
+    linear-gradient(var(--hm-tick) 1px, transparent 1px) 100% 0 / 5px 8px repeat-y;
+}
+.hm-vruler span { position: absolute; inset-inline-end: 15px; inset-block-start: calc(var(--y) * 1px + 3px); font: 500 0.66rem/1 var(--hm-mono); color: var(--hm-note); }
+
+/* Dimension line: |<-- 35rem · 560px -->|  (.hm-dim--v stands upright). Place it with inset/size in the page. */
+.hm-dim {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: 11px;
+  color: var(--hm-accent);
+  font: 500 0.7rem/1 var(--hm-mono);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.hm-dim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(currentColor 0 0) left center / 1px 100% no-repeat,
+    linear-gradient(currentColor 0 0) right center / 1px 100% no-repeat,
+    linear-gradient(currentColor 0 0) center / 100% 1px no-repeat;
+}
+.hm-dim::after {
+  content: "";
+  position: absolute;
+  inset: 0 1px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 8'%3E%3Cpath d='M0 4 6 0v8z'/%3E%3C/svg%3E") left center / 6px 8px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 8'%3E%3Cpath d='M6 4 0 0v8z'/%3E%3C/svg%3E") right center / 6px 8px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 8'%3E%3Cpath d='M0 4 6 0v8z'/%3E%3C/svg%3E") left center / 6px 8px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 8'%3E%3Cpath d='M6 4 0 0v8z'/%3E%3C/svg%3E") right center / 6px 8px no-repeat;
+}
+.hm-dim span { position: relative; z-index: 1; padding: 0.15rem 0.4rem; background: var(--oc-background); }
+.hm-dim--v { inline-size: 11px; block-size: auto; }
+.hm-dim--v::before {
+  background:
+    linear-gradient(currentColor 0 0) center top / 100% 1px no-repeat,
+    linear-gradient(currentColor 0 0) center bottom / 100% 1px no-repeat,
+    linear-gradient(currentColor 0 0) center / 1px 100% no-repeat;
+}
+.hm-dim--v::after {
+  inset: 1px 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 6'%3E%3Cpath d='M4 0 8 6H0z'/%3E%3C/svg%3E") center top / 8px 6px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 6'%3E%3Cpath d='M4 6 8 0H0z'/%3E%3C/svg%3E") center bottom / 8px 6px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 6'%3E%3Cpath d='M4 0 8 6H0z'/%3E%3C/svg%3E") center top / 8px 6px no-repeat, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 6'%3E%3Cpath d='M4 6 8 0H0z'/%3E%3C/svg%3E") center bottom / 8px 6px no-repeat;
+}
+.hm-dim--v span { writing-mode: vertical-rl; padding: 0.4rem 0.15rem; }
+
+/* A dimension line over a whole grid ("grid-cols-4 · 100% / 4"); the grid gets position: relative. */
+.hm-figs, .hm-numbers, .hm-spec, .hm-shots, .hm-story { position: relative; }
+.hm-dim--above { inset-inline: 0; inset-block-end: calc(100% + 0.85rem); }
+/* Small scale under a code window: a tick every 1rem, a label every 8rem. */
+.hm-scale {
+  position: relative;
+  block-size: 1.5rem;
+  margin-block-start: 0.75rem;
+  overflow: hidden;
+  border-block-start: 1px solid var(--hm-tick);
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--hm-tick) 1px, transparent 1px) 0 0 / 128px 10px repeat-x,
+    linear-gradient(90deg, var(--hm-tick) 1px, transparent 1px) 0 0 / 16px 4px repeat-x;
+}
+.hm-scale span { position: absolute; inset-block-start: 11px; inset-inline-start: calc(var(--x) * 1px + 4px); font: 500 0.66rem/1 var(--hm-mono); color: var(--hm-note); }
+
+/* Corner brackets around an important block. */
+.hm-corners { position: relative; }
+.hm-corners::after {
+  --c: var(--hm-accent);
+  --l: 16px;
+  content: "";
+  position: absolute;
+  inset: -9px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--c) 0 0) top left / var(--l) 1.5px, linear-gradient(var(--c) 0 0) top left / 1.5px var(--l),
+    linear-gradient(var(--c) 0 0) top right / var(--l) 1.5px, linear-gradient(var(--c) 0 0) top right / 1.5px var(--l),
+    linear-gradient(var(--c) 0 0) bottom left / var(--l) 1.5px, linear-gradient(var(--c) 0 0) bottom left / 1.5px var(--l),
+    linear-gradient(var(--c) 0 0) bottom right / var(--l) 1.5px, linear-gradient(var(--c) 0 0) bottom right / 1.5px var(--l);
+  background-repeat: no-repeat;
+}
+
+/* Annotation: small mono text with a leader line, naming the class or token. */
+.hm-note {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: 500 0.7rem/1.3 var(--hm-mono);
+  color: var(--hm-note);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.hm-note::before { content: ""; inline-size: 1.75rem; border-block-start: 1px solid var(--hm-tick); }
+.hm-note--end { flex-direction: row-reverse; }
+.hm-note b { font-weight: 600; color: var(--hm-accent); }
+/* A loose cross on the drawing. */
+.hm-plus { position: absolute; inline-size: 11px; block-size: 11px; pointer-events: none; background: linear-gradient(var(--hm-cross) 0 0) center / 100% 1px no-repeat, linear-gradient(var(--hm-cross) 0 0) center / 1px 100% no-repeat; }
+
+/* ---- Type and buttons ------------------------------------------------------------------------------ */
+.hm-lead { font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.65; color: var(--oc-muted-foreground); max-inline-size: 40rem; }
+.hm-head { display: grid; gap: 1rem; max-inline-size: 48rem; margin-block-end: 3rem; }
+.hm-head h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 800; line-height: 1.04; }
+/* The one marked phrase on a page: accent color with a measured underline (ticks at both ends). */
+.hm-mark {
+  position: relative;
+  color: var(--hm-accent);
+  background:
+    linear-gradient(currentColor 0 0) left bottom / 100% 2px,
+    linear-gradient(currentColor 0 0) left bottom / 2px 0.32em,
+    linear-gradient(currentColor 0 0) right bottom / 2px 0.32em;
+  background-repeat: no-repeat;
+  padding-block-end: 0.06em;
+}
+.hm-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.hm-cta .oc-btn { --oc-primary: var(--hm-accent); --oc-primary-foreground: var(--hm-accent-fg); font-weight: 600; }
+.hm-cta .oc-btn--outline { background: var(--oc-background); }
+.hm-link { color: var(--hm-accent); font-weight: 600; text-underline-offset: 0.2em; }
+
+/* ---- Hero ------------------------------------------------------------------------------------------ */
+.hm-hero .hm-frame { padding-block: clamp(4.5rem, 8vw, 7rem) clamp(4rem, 7vw, 6rem); }
+.hm-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 35rem); align-items: center; }
+.hm-hero-copy { display: grid; gap: 1.6rem; align-content: start; }
+.hm-hero h1 { font-size: clamp(2.7rem, 6.2vw, 5.6rem); font-weight: 800; line-height: 0.98; letter-spacing: -0.04em; }
+.hm-specs { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin: 0; padding: 0; list-style: none; font: 500 0.75rem var(--hm-mono); color: var(--hm-note); }
+.hm-specs li { display: inline-flex; align-items: center; gap: 0.45rem; }
+.hm-specs li::before { content: ""; inline-size: 7px; block-size: 7px; border: 1px solid var(--hm-accent); }
+.hm-install { justify-self: start; display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.3rem 0.3rem 0.3rem 0.9rem; border: 1px solid var(--hm-rule); border-radius: var(--oc-radius); background: var(--oc-background); font: 500 0.88rem var(--hm-mono); }
+.hm-install b { color: var(--hm-accent); font-weight: 600; }
+.hm-install button { padding: 0.4rem 0.7rem; border: 1px solid var(--hm-rule); border-radius: calc(var(--oc-radius) - 2px); background: var(--oc-background); color: var(--oc-muted-foreground); font: 500 0.75rem var(--ocd-text); cursor: pointer; }
+.hm-install button:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+.hm-trust { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.86rem; color: var(--oc-muted-foreground); }
+.hm-trust b { color: var(--oc-foreground); font-weight: 600; }
+.hm-hero-media { position: relative; }
+/* Hero dimension marks (wide screens only, see Responsive). */
+.hm-hero .hm-dim--top { inset-inline: 0; inset-block-end: calc(100% + 1.5rem); }
+.hm-hero .hm-dim--gap { inset-inline-end: 100%; inline-size: 4rem; inset-block-start: 22%; }
+.hm-hero .hm-dim--side { inset-inline-start: calc(100% + 1.25rem); inset-block: 0; }
+.hm-hero .hm-note--h1 { inset-block-end: calc(100% + 0.6rem); inset-inline-start: 0; }
+.hm-hero .hm-note--below { inset-block-start: calc(100% + 1.5rem); inset-inline-end: 0; }
+
+/* ---- Shared sections -------------------------------------------------------------------------------- */
+/* Figure panels (equal height in their grid): a mono caption strip on top, like a figure in a drawing. */
+.hm-figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+.hm-fig { display: grid; grid-template-rows: auto auto 1fr; border: 1px solid var(--hm-rule); border-radius: var(--oc-radius); background: var(--oc-background); }
+.hm-fig-cap { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.55rem 0.9rem; border-block-end: 1px dashed var(--hm-rule); font: 500 0.7rem var(--hm-mono); color: var(--hm-note); }
+.hm-fig-cap b { font-weight: 600; color: var(--hm-accent); }
+.hm-fig-body { display: grid; gap: 0.5rem; padding: 1rem 1.1rem 0; }
+.hm-fig h3 { font-size: 1.15rem; font-weight: 700; }
+.hm-fig p { font-size: 0.92rem; line-height: 1.6; color: var(--oc-muted-foreground); }
+.hm-fig p code { padding: 0.05em 0.3em; border-radius: 4px; background: oklch(from var(--oc-foreground) l c h / 0.06); }
+.hm-try { align-self: end; min-block-size: 6.5rem; display: grid; align-content: center; justify-items: start; margin: 1rem 1.1rem 1.1rem; padding: 1rem; border: 1px dashed var(--hm-rule); border-radius: calc(var(--oc-radius) - 2px); background-image: radial-gradient(circle at 1px 1px, var(--hm-grid-major) 1px, transparent 0); background-size: 8px 8px; }
+
+/* Numbers: one row of cells, lines between them, a mono caption. */
+.hm-numbers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--hm-rule); background: var(--oc-background); }
+.hm-numbers > div { position: relative; display: grid; gap: 0.4rem; padding: 2rem 1.5rem 1.6rem; }
+.hm-numbers > div + div { border-inline-start: 1px solid var(--hm-rule); }
+.hm-numbers b { font: 800 clamp(2.4rem, 4.4vw, 3.6rem)/1 var(--hm-display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.hm-numbers > div > span { font-size: 0.9rem; color: var(--oc-muted-foreground); }
+.hm-numbers small { position: absolute; inset: 0.6rem 0.75rem auto auto; font: 500 0.66rem var(--hm-mono); color: var(--hm-note); }
+
+/* Spec grid: links in cells that share their lines (a table in a drawing, not loose cards). */
+.hm-spec { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); border-block-start: 1px solid var(--hm-rule); border-inline-start: 1px solid var(--hm-rule); background: var(--oc-background); }
+.hm-spec a { position: relative; display: grid; gap: 0.45rem; align-content: start; padding: 1.4rem 1.5rem 1.5rem; border-inline-end: 1px solid var(--hm-rule); border-block-end: 1px solid var(--hm-rule); color: inherit; text-decoration: none; transition: background-color 0.2s; }
+.hm-spec a::after { content: "\2192"; position: absolute; inset: 1.3rem 1.4rem auto auto; color: var(--hm-note); transition: translate 0.2s, color 0.2s; }
+.hm-spec a:hover { background: oklch(from var(--hm-accent) l c h / 0.05); }
+.hm-spec a:hover::after { translate: 4px 0; color: var(--hm-accent); }
+.hm-spec a:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
+.hm-spec code { justify-self: start; font: 600 0.76rem var(--hm-mono); color: var(--hm-accent); }
+.hm-spec b { font: 700 1.15rem var(--hm-display); }
+.hm-spec span { font-size: 0.9rem; line-height: 1.55; color: var(--oc-muted-foreground); }
+
+/* Text left, example right. */
+.hm-split { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 4rem; align-items: start; }
+.hm-split .hm-head { margin: 0; }
+.hm-split .oc-tab-panel { padding-block-start: 0.75rem; }
+.hm-checks { display: grid; gap: 0.6rem; margin: 0.5rem 0 0; padding: 0; list-style: none; }
+.hm-checks li { display: flex; gap: 0.6rem; color: var(--oc-muted-foreground); }
+.hm-checks li::before { content: "\2713"; color: var(--hm-accent); font-weight: 700; }
+.hm-checks a { color: var(--hm-accent); }
+
+/* Closing: centered, framed by corner brackets; no colored panel. */
+.hm-close { display: grid; justify-items: center; gap: 1.5rem; padding: clamp(2.5rem, 6vw, 4.5rem) 1rem; text-align: center; }
+.hm-close h2 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.02; max-inline-size: 22ch; }
+.hm-close p { max-inline-size: 40rem; color: var(--oc-muted-foreground); font-size: 1.1rem; }
+.hm-close .hm-cta { justify-content: center; }
+
+/* ---- OmniaCSS parts --------------------------------------------------------------------------------- */
+.hm-play { position: relative; border: 1px solid var(--hm-rule); border-radius: var(--oc-radius); background: var(--oc-background); overflow: hidden; }
+.hm-play-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.6rem 1rem; border-block-end: 1px solid var(--hm-rule); font: 500 0.74rem var(--hm-mono); color: var(--hm-note); }
+.hm-play-field { display: grid; gap: 0.5rem; padding: 1rem 1rem 0.75rem; }
+.hm-play-field label { font: 600 0.68rem var(--hm-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--oc-muted-foreground); }
+.hm-play-field input { inline-size: 100%; box-sizing: border-box; padding: 0.65rem 0.8rem; border: 1px solid var(--oc-border-strong); border-radius: calc(var(--oc-radius) - 2px); background: var(--oc-background); color: var(--oc-foreground); font: 500 0.88rem var(--hm-mono); }
+.hm-play-field input:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
+.hm-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0 1rem 1rem; }
+.hm-chips button { padding: 0.26rem 0.55rem; border: 1px dashed var(--oc-border-strong); border-radius: 4px; background: none; color: var(--oc-muted-foreground); font: 500 0.72rem var(--hm-mono); cursor: pointer; }
+.hm-chips button:hover { color: var(--hm-accent); border-color: var(--hm-accent); }
+.hm-chips button[aria-pressed="true"] { border-style: solid; color: var(--hm-accent); background: oklch(from var(--hm-accent) l c h / 0.08); }
+.hm-chips button:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
+.hm-stage { position: relative; display: grid; place-items: center; block-size: 13rem; box-sizing: border-box; padding: 1rem; border-block: 1px solid var(--hm-rule); background-image: linear-gradient(var(--hm-grid-major) 1px, transparent 1px), linear-gradient(90deg, var(--hm-grid-major) 1px, transparent 1px); background-size: 16px 16px; background-position: center; }
+.hm-stage > div { font-family: var(--hm-display); font-weight: 700; font-size: 1.15rem; transition: all 0.3s ease; }
+.hm-css { margin: 0; min-block-size: 7.5rem; max-block-size: 11rem; overflow: auto; padding: 0.9rem 1rem; background: light-dark(var(--color-shallowblue-95), var(--color-black-40)); color: var(--color-white-60); font: 400 0.76rem/1.65 var(--hm-mono); white-space: pre-wrap; }
+.hm-css .p { color: var(--color-skycyan-50); } .hm-css .v { color: var(--color-magenta-40); } .hm-css .c { color: var(--color-mistblue-70); }
+.hm-snap { display: flex; gap: 0.6rem; inline-size: 100%; padding-block-end: 0.25rem; }
+.hm-snap > div { flex: none; box-sizing: border-box; display: grid; place-items: center; inline-size: 100%; block-size: 4.2rem; border: 1px solid var(--hm-rule); border-radius: calc(var(--oc-radius) - 2px); background: var(--oc-background); font: 600 0.85rem var(--hm-mono); color: var(--hm-accent); }
+
+/* Palette with a tone axis on the left and a hue axis on top. */
+.hm-palette-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.25rem 0.6rem; }
+.hm-axis { font: 500 0.66rem/1 var(--hm-mono); color: var(--hm-note); }
+.hm-axis--x { grid-column: 2; display: grid; grid-template-columns: repeat(var(--cols, 24), minmax(0, 1fr)); gap: 3px; padding-block-end: 0.35rem; border-block-end: 1px solid var(--hm-tick); }
+.hm-axis--x span { grid-row: 1; grid-column: var(--c); white-space: nowrap; }
+.hm-axis--x span:last-child { justify-self: end; }
+.hm-axis--y { display: grid; grid-template-rows: repeat(10, 1fr); gap: 3px; text-align: end; }
+.hm-axis--y span { display: grid; align-items: center; }
+.hm-palette { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 3px; }
+.hm-palette i { display: block; block-size: clamp(1.4rem, 2.8vw, 2.4rem); background: var(--c); transition: scale 0.2s; }
+.hm-palette i:hover { scale: 1.15; z-index: 1; outline: 1px solid var(--oc-background); }
+.hm-palette-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; margin-block-start: 1.25rem !important; font-size: 0.86rem; color: var(--oc-muted-foreground); }
+.hm-palette-note code { color: var(--oc-foreground); }
+
+/* Editor screenshot with its size as a dimension. */
+.hm-shot-fig { position: relative; margin: 0; }
+.hm-shot-fig img { display: block; inline-size: 100%; block-size: auto; border: 1px solid var(--hm-rule); border-radius: var(--oc-radius); }
+.hm-shot-fig .hm-dim { inset-inline: 0; inset-block-start: calc(100% + 1rem); }
+
+/* Story: timeline (oc-timeline) and the hurdles as figures. */
+.hm-story { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 4rem; align-items: start; }
+.hm-story .oc-timeline__title { font-size: 1.15rem; }
+.hm-story .oc-timeline__text { max-inline-size: 38rem; line-height: 1.6; }
+.hm-hurdles { display: grid; gap: 0.75rem; }
+.hm-hurdles h3 { font-size: 1.15rem; margin-block-end: 0.25rem; }
+.hm-hurdles .hm-fig { grid-template-rows: auto auto; }
+.hm-hurdles .hm-fig-body { padding-block-end: 1rem; }
+
+/* ---- OmniaUI parts ---------------------------------------------------------------------------------- */
+.hm-wall { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.75rem; }
+.hm-tile { display: grid; gap: 0.75rem; align-content: start; padding: 0.9rem 1rem 1rem; border: 1px solid var(--hm-rule); border-radius: var(--oc-radius); background: var(--oc-background); min-inline-size: 0; }
+.hm-tile--w2 { grid-column: span 2; } .hm-tile--w3 { grid-column: span 3; } .hm-tile--w4 { grid-column: span 4; } .hm-tile--w6 { grid-column: span 6; }
+.hm-tile-label { display: flex; justify-content: space-between; gap: 0.5rem; font: 500 0.68rem var(--hm-mono); color: var(--hm-note); }
+.hm-tile-label b { font-weight: 600; color: var(--hm-accent); }
+.hm-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.hm-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 1.5rem; }
+.hm-shot { display: grid; gap: 0.75rem; align-content: start; color: inherit; text-decoration: none; }
+.hm-shot figure { position: relative; margin: 0; overflow: hidden; border: 1px solid var(--hm-rule); border-radius: var(--oc-radius); background: var(--oc-muted); aspect-ratio: 16 / 10; transition: border-color 0.2s; }
+.hm-shot img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: top left; }
+.hm-shot picture { display: contents; }
+.hm-shot:hover figure { border-color: var(--hm-accent); }
+.hm-shot:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 4px; border-radius: var(--oc-radius); }
+.hm-shot div { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.hm-shot b { font: 700 1.1rem var(--hm-display); }
+.hm-shot span { font-size: 0.88rem; color: var(--oc-muted-foreground); }
+.hm-shot .hm-from { font: 500 0.7rem var(--hm-mono); color: var(--hm-note); }
+
+/* ---- Site footer (oc-site-footer from OmniaUI, drawn in the same system) -------------------------------- */
+.hm-footer.oc-site-footer { margin: 0; padding: 0; border-block-start: 1px solid var(--hm-rule); background: var(--oc-background); --oc-footer-cols: 1.5fr repeat(5, minmax(0, 1fr)); --oc-footer-cols-md: 3; }
+.hm-footer .hm-frame { padding-block: 4rem 0; }
+.hm-footer .oc-site-footer__grid { gap: 2rem; }
+.hm-footer .oc-site-footer__title { margin-block-end: 1rem; font: 600 0.7rem/1.2 var(--hm-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--hm-note); }
+.hm-footer .oc-site-footer__list { gap: 0.55rem; font-size: 0.92rem; }
+.hm-footer .oc-site-footer__list a { color: var(--oc-foreground); }
+.hm-footer .oc-site-footer__list a:hover { color: var(--hm-accent); }
+.hm-footer-brand { display: inline-flex; align-items: center; gap: 0.6rem; font: 800 1.35rem var(--hm-display); letter-spacing: -0.02em; color: var(--oc-foreground) !important; }
+.hm-footer-brand::before { content: ""; inline-size: 1.65rem; aspect-ratio: 1; background: url("/favicon.svg") center / contain no-repeat; }
+.hm-footer .oc-site-footer__about p { font-size: 0.92rem; line-height: 1.6; }
+.hm-footer .oc-pill { font: 500 0.72rem var(--hm-mono); }
+.hm-footer .oc-site-footer__bottom { margin-block-start: 3.5rem; padding-block: 1.25rem 1.5rem; border-block-start: 1px dashed var(--hm-guide); font: 500 0.75rem/1.5 var(--hm-mono); }
+.hm-footer .oc-site-footer__bottom a { color: var(--oc-foreground); }
+.hm-footer .oc-site-footer__bottom a:hover { color: var(--hm-accent); }
+
+/* ---- Responsive --------------------------------------------------------------------------------------- */
+/* Rulers in the margin and the hero marks only where they have room. */
+/* The end label of the ruler names the full width, so it shows only when the frame is 1440px wide (1440 + gutters). */
+@media (max-width: 97.5rem) { .hm-vruler { display: none; } }
+@media (max-width: 94rem) { .hm-ruler .hm-ruler-end { display: none; } }
+@media (max-width: 75rem) {
+  .hm-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 4rem; }
+  .hm-hero :is(.hm-dim, .hm-note) { display: none; }
+  .hm-split, .hm-story { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+}
+@media (max-width: 62rem) {
+  .hm-numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hm-numbers > div:nth-child(3) { border-inline-start: 0; }
+  .hm-numbers > div:nth-child(n + 3) { border-block-start: 1px solid var(--hm-rule); }
+  .hm-wall, .hm-shots { grid-template-columns: minmax(0, 1fr); }
+  .hm-tile { grid-column: auto !important; }
+}
+@media (max-width: 40rem) {
+  .oc-home { --oc-container-gutter: 0.75rem; --hm-pad-x: 1rem; }
+  .hm-band--grid { background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px; }
+  .hm-ruler { background-size: 64px 12px, 16px 5px; }
+  .hm-ruler span:nth-child(even) { display: none; }
+  .hm-label { margin-block-end: 1.5rem !important; }
+  .hm-ref, .hm-shot-fig .hm-dim, .hm-numbers small, .hm-dim--above, .hm-scale { display: none; }
+  .hm-numbers > div { padding: 1.4rem 1rem 1.2rem; }
+  .hm-palette-wrap { grid-template-columns: minmax(0, 1fr); }
+  .hm-axis--y { display: none; }
+  .hm-axis--x { grid-column: 1; }
+  .hm-axis--x span:is(:nth-child(2), :nth-child(3)) { display: none; }
+  .hm-footer.oc-site-footer { --oc-footer-cols-md: 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hm-spec a, .hm-spec a::after, .hm-stage > div, .hm-palette i, .hm-shot figure { transition: none; }
+}

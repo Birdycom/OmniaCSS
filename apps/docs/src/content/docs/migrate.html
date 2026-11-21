@@ -1,4 +1,4 @@
-<!--oc-page {"title": "OmniaCSS Docs - Migrate", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": []}-->
+<!--oc-page {"title": "OmniaCSS Docs - Migrate", "layout": "sidebar", "shell": "docs", "shellClass": "oc-docs-shell", "bodyClass": "", "head": ["<style>\n    /* Tailwind table: each class name stays on one line where there is room; a phone may break it after a hyphen. */\n    @media (min-width: 40rem) { #tailwind-names td code { white-space: nowrap; } }\n  </style>"]}-->
 <section class="oc-hero" id="overview">
         <h1 class="oc-hero-title">Migrate</h1>
         <p class="oc-hero-text">Move from Tailwind CSS to OmniaCSS and keep your class names. Switch a Laravel, Vue or React project from Tailwind CSS to OmniaCSS in three steps: your markup stays exactly as it is.</p>
@@ -69,6 +69,43 @@ export default { plugins: [omniaMigrate({ content: ["resources/views/**/*.blade.
           <oc-code>npx @birdycom/omniacss-migrate codemod resources           # report only
 npx @birdycom/omniacss-migrate codemod resources --write   # apply</oc-code>
           <p>Classes without a 1:1 native equivalent are left alone and listed; they keep working through the compat layer. The codemod writes <code>omniacss-migrate.manifest.json</code> so a native <code>p-1</code> (Omnia, 1rem) is never mixed up with a Tailwind-style <code>p-1</code> (0.25rem). Run it over the whole project.</p>
+        </div>
+      </section>
+
+      <section class="oc-docs-section" id="tailwind-names">
+        <div class="oc-section-header">
+          <h2 class="oc-section-header__title">Coming from Tailwind: the same class in OmniaCSS</h2>
+          <p class="oc-section-header__desc">The compat layer keeps your Tailwind names working, so you never have to rename. When you write new markup, or run the codemod, these are the native OmniaCSS names. OmniaCSS does not add Tailwind aliases: one name per class.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Tailwind</th><th class="w-perc-1/3">OmniaCSS</th><th>Note</th></tr></thead>
+              <tbody>
+                <tr><td><code>flex</code>, <code>grid</code>, <code>block</code>, <code>inline-flex</code></td><td><code>flex</code>, <code>grid</code>, <code>block</code>, <code>inline-flex</code></td><td>Same name</td></tr>
+                <tr><td><code>hidden</code></td><td><code>none</code> or <code>d-none</code></td><td>display: none</td></tr>
+                <tr><td><code>items-center</code>, <code>items-start</code>, <code>items-end</code></td><td><code>align-items-center</code>, <code>align-items-flex-start</code>, <code>align-items-flex-end</code></td><td>OmniaCSS spells out the CSS property</td></tr>
+                <tr><td><code>justify-between</code>, <code>justify-center</code>, <code>justify-end</code></td><td><code>justify-between</code>, <code>justify-center</code>, <code>justify-flex-end</code></td><td></td></tr>
+                <tr><td><code>self-center</code>, <code>self-start</code></td><td><code>align-self-center</code>, <code>align-self-flex-start</code></td><td></td></tr>
+                <tr><td><code>shrink-0</code>, <code>grow-0</code></td><td><code>noshrink</code> (or <code>flex-shrink-0</code>), <code>nogrow</code></td><td></td></tr>
+                <tr><td><code>p-4</code>, <code>px-4</code>, <code>py-2</code></td><td><code>p-1</code>, <code>p-inline-1</code>, <code>p-block-0.5</code></td><td>OmniaCSS numbers are rem: divide the Tailwind number by 4</td></tr>
+                <tr><td><code>mt-8</code>, <code>mx-auto</code>, <code>gap-4</code>, <code>gap-6</code></td><td><code>mt-2</code>, <code>m-inline-auto</code>, <code>gap-1</code>, <code>gap-1.5</code></td><td></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>w-1/2</code>, <code>basis-1/2</code></td><td><code>w-perc-1/2</code>, <code>basis-perc-1/2</code></td><td>Fractions carry <code>perc</code></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>w-full</code>, <code>h-screen</code>, <code>max-w-md</code>, <code>max-w-prose</code></td><td><code>w-full</code>, <code>h-screen</code>, <code>max-w-md</code>, <code>max-w-prose</code></td><td>Same name</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>text-sm</code></td><td><code>font-0.8</code> (0.875rem)</td><td>Font size only; Tailwind also sets a line height</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>leading-tight</code>, <code>tracking-wide</code></td><td><code>lineheight-tight</code>, <code>letterspacing-8</code></td><td></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>italic</code>, <code>break-words</code></td><td><code>font-italic</code>, <code>wrap-break-word</code></td><td></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>rounded</code>, <code>rounded-md</code>, <code>rounded-xl</code>, <code>rounded-full</code></td><td><code>round-2</code>, <code>round-3</code>, <code>round-6</code>, <code>round-full</code></td><td></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>rotate-45</code></td><td><code>rotate-prop-45</code></td><td>The <code>rotate</code> property, not <code>transform</code></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>md:grid-cols-3</code>, <code>hover:opacity-100</code>, <code>group-hover:opacity-100</code></td><td><code>md:grid-cols-3</code>, <code>hover:opacity-100</code>, <code>group-hover:opacity-100</code></td><td>Same prefixes for breakpoints and states</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>p-1</code>, <code>m-2</code>, <code>border</code>, <code>shadow</code>, <code>duration-300</code>, <code>col-span-full</code> …</td><td>Same name, other CSS</td><td>OmniaCSS has these classes too, with its own values. The compat layer keeps the Tailwind meaning; the codemod leaves them alone</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <button type="button" class="oc-btn oc-btn--secondary oc-expandable-table__trigger" aria-expanded="false">Show more</button>
+            </div>
+          </div>
+          <p>The codemod finds these pairs by comparing the CSS of both classes, so the list above is what <code>npx @birdycom/omniacss-migrate codemod</code> writes. Colors map to the nearest OmniaCSS palette token; see <a href="colors/">Colors</a>.</p>
         </div>
       </section>
 

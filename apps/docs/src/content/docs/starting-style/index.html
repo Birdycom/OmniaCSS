@@ -12,7 +12,7 @@
         </div>
 
         <div class="oc-section-content">
-          <h3 class="oc-section-content__title" id="starting-style">Starting style</h3>
+          <h3 class="oc-section-content__title" id="starting-style-classes">Starting style</h3>
           <p class="oc-section-content__desc">Initial values the element transitions <em>from</em> when it is first rendered or goes from <code>display: none</code> to visible. <strong>What:</strong> a normal CSS transition needs a "before" style, but a freshly inserted element has none. <code>@starting-style</code> supplies it, so the element animates to its real style on first render. <strong>When:</strong> popovers, dialogs, toasts, list items added from JavaScript, anything that appears. <strong>Gotchas:</strong> you still need a <code>transition</code> on the element (for example <code>.transition-all .duration-300</code>); these utilities animate the <em>entry</em> only, for the exit you also need <code>.transition-discrete</code> and a closed-state style (see the dialog demo). More: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style" target="_blank" rel="noopener">MDN: @starting-style</a>.</p>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">

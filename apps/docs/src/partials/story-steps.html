@@ -1,0 +1,131 @@
+<!-- Partial: apps/docs/src/partials/story-steps.html | The steps from 2022 to now; three of them show the same part in its
+     2022 and its current form (.st-compare, one row = equal height). Included on the home (section 08) and /story.html with an
+     "oc-include story-steps" comment (src/layouts/ContentPage.astro). Styles: /css/oc-story.css. -->
+<ol class="st-steps" id="st-steps">
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <time datetime="2022-04-21">April 2022</time>
+      <h3>A folder of HTML documents</h3>
+    </div>
+    <div class="st-step-head">
+      <p>The first commit says it plainly: "Starting to build my CSS framework". A reset, a settings file and a few HTML pages (colors, spacing, position, sizing) to test every class, with Sass and PostCSS behind them. The page above is what that documentation looked like.</p>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2022-05">May 2022</time>
+      <h3>The RAL colors</h3>
+      <p>Color lists in JSON became Sass and then classes: the RAL colors, the HTML named colors and the first Omnia palette. Still rare in a CSS framework. In 2022 a RAL color was a fixed hex value; today it is an OKLCH token you can mix.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>ral-colors.json → .scss</span></figcaption>
+        <div class="st-side-body">
+          <table class="st-old-table">
+            <thead><tr><th scope="col">Class</th><th scope="col">Name</th><th scope="col">Hex</th></tr></thead>
+            <tbody>
+              <tr><td><i style="background: #cc0605"></i>.bg-ral-3020</td><td>Traffic red</td><td>#CC0605</td></tr>
+              <tr><td><i style="background: #2271b3"></i>.bg-ral-5015</td><td>Sky blue</td><td>#2271B3</td></tr>
+              <tr><td><i style="background: #57a639"></i>.bg-ral-6018</td><td>Yellow green</td><td>#57A639</td></tr>
+              <tr><td><i style="background: #f9a800"></i>.bg-ral-1003</td><td>Signal yellow</td><td>#F9A800</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre class="st-code">.bg-ral-3020 { background-color: #CC0605; }</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>--color-ral* · oklch()</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-ral">
+            <figure><i class="bg-ral3020"></i><b>3020</b>traffic red</figure>
+            <figure><i class="bg-ral5015"></i><b>5015</b>sky blue</figure>
+            <figure><i class="bg-ral6018"></i><b>6018</b>yellow green</figure>
+            <figure><i class="bg-ral1003"></i><b>1003</b>signal yellow</figure>
+          </div>
+          <div class="st-mix" role="img" aria-label="RAL 5015 mixed with white, from 100% to 0%"><i style="--p: 100%"></i><i style="--p: 80%"></i><i style="--p: 60%"></i><i style="--p: 40%"></i><i style="--p: 20%"></i><i style="--p: 0%"></i></div>
+        </div>
+        <pre class="st-code">.bg-ral3020 { background-color: var(--color-ral3020); }
+<span class="c">/* --color-ral3020: oklch(50.96% 0.192 30.04) */</span>
+color-mix(in oklch, var(--color-ral5015) 40%, white)</pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <time datetime="2023">2023 – 2025</time>
+      <h3>The quiet years</h3>
+    </div>
+    <div class="st-step-head">
+      <p>The documentation generator kept failing on Sass maps (and every color list was a Sass map), and customer work came first. After April 2023 the project rested for almost three years.</p>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2026-02">February 2026</time>
+      <h3>The restart</h3>
+      <p>Modern Sass modules, OKLCH as the color model, the <code>oc-</code> prefix and automatic tests. Version 0.1.0 followed in March, 0.2.0 in April with the first components and the icon catalog. One hex value per color became ten tones per color, each a token.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>_settings.scss · hex</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-old-swatches">
+            <figure><i style="background: #d32f2f"></i>red</figure>
+            <figure><i style="background: #388e3c"></i>green</figure>
+            <figure><i style="background: #1976d2"></i>blue</figure>
+            <figure><i style="background: #7b1fa2"></i>purple</figure>
+          </div>
+        </div>
+        <pre class="st-code">$blue: #1976d2;
+.bg-blue { background-color: $blue; }</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>vividblue · 2 → 95</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-tones" role="img" aria-label="Vividblue in ten tones, from 2 to 95"><i class="bg-vividblue-2"></i><i class="bg-vividblue-10"></i><i class="bg-vividblue-20"></i><i class="bg-vividblue-30"></i><i class="bg-vividblue-40"></i><i class="bg-vividblue-50"></i><i class="bg-vividblue-60"></i><i class="bg-vividblue-70"></i><i class="bg-vividblue-80"></i><i class="bg-vividblue-95"></i></div>
+          <div class="st-tone-axis" aria-hidden="true"><span>2</span><span>50</span><span>95</span></div>
+        </div>
+        <pre class="st-code">.bg-vividblue-50 { background-color: var(--color-vividblue-50); }
+<span class="c">/* one token per tone, light and dark */</span></pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2026-10-12">October 2026</time>
+      <h3>From 12 MB to a few KB</h3>
+      <p>npm packages, a CLI and a PostCSS plugin that build only the classes you use. Days later the components, blocks and framework wrappers moved to their own project, OmniaUI, so the CSS core stays small. The editor extension, the migration tool and the AI server followed the same month. The button shows the change best.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>.btn · .btn-blue</span></figcaption>
+        <div class="st-side-body">
+          <div class="hm-row"><button type="button" class="st-old-btn">Save</button><button type="button" class="st-old-btn st-old-btn--gray">Cancel</button></div>
+        </div>
+        <pre class="st-code">&lt;a class="btn btn-blue" href="#"&gt;Save&lt;/a&gt;</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>OmniaUI · .oc-btn</span></figcaption>
+        <div class="st-side-body">
+          <div class="hm-row"><button type="button" class="oc-btn">Save</button><button type="button" class="oc-btn oc-btn--outline">Cancel</button><button type="button" class="oc-btn oc-btn--ghost">More</button></div>
+        </div>
+        <pre class="st-code">&lt;button class="oc-btn"&gt;Save&lt;/button&gt;
+&lt;button class="oc-btn oc-btn--outline"&gt;Cancel&lt;/button&gt;</pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <span class="st-when">Today · v0.17</span>
+      <h3>CSS first, still</h3>
+    </div>
+    <div class="st-step-head">
+      <p>Modern CSS as utilities, OmniaUI components for HTML, React, Vue and Laravel, starter kits and Pro blocks. Every docs page still shows an example with its code under it, the idea of that first page in 2022.</p>
+    </div>
+  </li>
+</ol>

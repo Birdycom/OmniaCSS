@@ -78,6 +78,8 @@
 /* Hero — split (text left, image/visual right) */
 
 .oc-block-hero-split {
+  /* Measures its own width: in a narrow column (a docs preview, a sidebar layout) it stacks like on a phone. */
+  container-type: inline-size;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
@@ -89,6 +91,7 @@
 
 .oc-block-hero-split :is(h1, h2) {
   font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-size: clamp(1.6rem, 6cqi, 2.8rem); /* follows the block width, not the window: no six-line title in a half column */
   line-height: 1.15;
   margin: 0 0 14px;
   color: var(--oc-block-text);
@@ -112,13 +115,20 @@
   justify-content: center;
   color: var(--oc-block-text-soft);
   font-size: 0.9rem;
+  overflow: hidden;
 }
+/* A screenshot or photo fills the frame. */
+.oc-block-hero-visual > :is(img, picture, video) { display: block; inline-size: 100%; block-size: 100%; min-block-size: inherit; object-fit: cover; object-position: left top; }
+.oc-block-hero-visual > picture > img { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: left top; }
 
 @media (max-width: 50rem) {
   .oc-block-hero-split {
     grid-template-columns: 1fr;
     text-align: center;
   }
+}
+@container (max-width: 40rem) {
+  .oc-block-hero-split > * { grid-column: 1 / -1; }
 }
 
 /* ===================================================================
@@ -211,6 +221,7 @@
 .oc-block-pricing-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); /* three plans on one row from about 44rem */
+  grid-auto-rows: 1fr; /* every card as tall as the tallest, also on the next row */
   gap: 20px;
 }
 
@@ -299,44 +310,72 @@
   margin: 0 0 32px;
 }
 
+.oc-block-features { container-type: inline-size; }
+
 .oc-block-features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); /* four cards fit on one row from about 44rem, instead of three and a lone one */
+  grid-auto-rows: 1fr; /* every card as tall as the tallest, also on the next row */
   gap: 20px;
   text-align: left;
 }
+/* Exactly four cards: two by two, or four in a row from 44rem, never three and a lone one. */
+.oc-block-features-grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@container (min-width: 44rem) { .oc-block-features-grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@container (max-width: 26rem) { .oc-block-features-grid:has(> :nth-child(4):last-child) { grid-template-columns: minmax(0, 1fr); } }
 
+/* The card: title and text on the left, the icon large and faint in the bottom-right corner, partly clipped by the card
+   (no icon tile). On hover the border and the icon take a little more accent, with a short delay and a soft curve. */
 .oc-block-feature-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background: var(--oc-block-surface);
   border: 1px solid var(--oc-block-border);
   border-radius: var(--oc-block-radius);
-  padding: 24px;
+  padding: 24px 24px 28px;
+  transition: border-color 0.3s ease 0.08s;
 }
+.oc-block-feature-card:hover { border-color: color-mix(in oklch, var(--oc-block-accent) 40%, var(--oc-block-border)); }
 
 .oc-block-feature-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: oklch(from var(--color-vividblue-50) l c h / 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 14px;
-  font-size: 1.2rem;
-  color: var(--oc-block-accent);
+  position: absolute;
+  inset-block-end: -1rem;
+  inset-inline-end: -0.75rem;
+  z-index: -1;
+  display: block;
+  font-size: 5rem;
+  line-height: 1;
+  color: light-dark(color-mix(in oklch, var(--oc-block-accent) 10%, transparent), color-mix(in oklch, var(--oc-block-accent) 16%, transparent));
+  pointer-events: none;
+  transition: color 0.3s ease 0.08s, translate 0.3s ease 0.08s;
+}
+.oc-block-feature-icon > :is(svg, img, iconify-icon) { display: block; inline-size: 1em; block-size: 1em; }
+.oc-block-feature-card:hover .oc-block-feature-icon {
+  color: light-dark(color-mix(in oklch, var(--oc-block-accent) 18%, transparent), color-mix(in oklch, var(--oc-block-accent) 26%, transparent));
+  translate: -0.25rem -0.25rem;
 }
 
 .oc-block-feature-card h3 {
   margin: 0 0 8px;
-  font-size: 1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
   color: var(--oc-block-text);
 }
 
 .oc-block-feature-card p {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--oc-block-text-soft);
   line-height: 1.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-block-feature-card,
+  .oc-block-feature-icon { transition: none; }
+  .oc-block-feature-card:hover .oc-block-feature-icon { translate: none; }
 }
 
 /* ===================================================================
@@ -394,6 +433,7 @@
    =================================================================== */
 
 .oc-block-footer {
+  container-type: inline-size;
   inline-size: 100%;
   border-top: 1px solid var(--oc-block-border);
   padding: 40px var(--oc-block-gap) 24px;
@@ -401,11 +441,20 @@
   margin: 48px auto 0;
 }
 
+/* First thing in its box (a preview, a card): no gap above the line. */
+.oc-block-footer:first-child { margin-block-start: 0; }
+
 .oc-block-footer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); /* four columns on one row from about 42rem */
   gap: 32px;
   margin-bottom: 32px;
+}
+
+/* Exactly four columns: four on one row, or two by two in a narrow footer, never three and a lone one. */
+.oc-block-footer-grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+@container (max-width: 36rem) {
+  .oc-block-footer-grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .oc-block-footer-col h4 {
@@ -549,6 +598,12 @@
   text-align: center;
 }
 
+/* Exactly four figures: four on one row when they fit (about 40rem), otherwise two by two, never three and a lone one.
+   The minimum width switches between a quarter and a half of the row at 620px. */
+.oc-block-stats:has(> :nth-child(4):last-child) {
+  grid-template-columns: repeat(auto-fit, minmax(max(calc((100% - 60px) / 4), min(calc((100% - 20px) / 2), (620px - 100%) * 999)), 1fr));
+}
+
 .oc-block-stat {
   padding: 20px;
 }
@@ -594,12 +649,15 @@
 
 .oc-block-shell {
   --oc-block-shell-height: 100dvh;
+  /* Named container: in a narrow frame (a docs preview, a split screen) the sidebar folds to icons by itself. */
+  container: oc-block-shell / inline-size;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   block-size: var(--oc-block-shell-height);
   background: var(--oc-background);
   color: var(--oc-foreground);
   overflow: hidden;
+  position: relative;
 }
 
 .oc-block-shell-toggle {
@@ -608,20 +666,27 @@
   pointer-events: none;
 }
 
-/* CSS-only collapse: <label for="toggle"> flips the checkbox, :has() collapses the sidebar */
+/* CSS-only toggle: <label for="toggle"> flips the checkbox, :has() reacts.
+   Wide shell: checked folds the full sidebar to an icon rail.
+   Narrow shell (container <= 44rem): the sidebar already is a rail; checked opens it full width as an overlay.
+   Small screen (< 48rem): the sidebar is hidden; checked shows it as an overlay over the page. */
 
-.oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar {
-  inline-size: var(--oc-sidebar-width-icon);
+@media (min-width: 48rem) {
+  @container oc-block-shell (min-width: 44.01rem) {
+    .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar {
+      inline-size: var(--oc-sidebar-width-icon);
+    }
+
+    .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-label,
+    .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-badge,
+    .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-sub,
+    .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-group-label,
+    .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar .oc-user-text,
+    .oc-block-shell:has(.oc-block-shell-toggle:checked) details.oc-sidebar-collapsible > summary::after { display: none; }
+
+    .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-button { justify-content: center; padding-inline: 0; }
+  }
 }
-
-.oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-label,
-.oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-badge,
-.oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-sub,
-.oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-group-label,
-.oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar .oc-user-text,
-.oc-block-shell:has(.oc-block-shell-toggle:checked) details.oc-sidebar-collapsible > summary::after { display: none; }
-
-.oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-sidebar-menu-button { justify-content: center; padding-inline: 0; }
 
 .oc-block-shell-main { display: flex; flex-direction: column; min-inline-size: 0; min-block-size: 0; }
 
@@ -643,15 +708,61 @@
 
 .oc-block-shell-menu-button { display: none; }
 
+/* Narrow shell on a wide screen: the sidebar is an icon rail, so the header keeps room for its links.
+   The toggle opens it full width over the content (the layout keeps the rail width via a negative margin). */
+@container oc-block-shell (max-width: 44rem) {
+  .oc-block-shell:not(:has(.oc-block-shell-toggle:checked)) > .oc-sidebar { inline-size: var(--oc-sidebar-width-icon); }
+  .oc-block-shell:not(:has(.oc-block-shell-toggle:checked)) > .oc-sidebar :is(.oc-sidebar-menu-label, .oc-sidebar-menu-badge, .oc-sidebar-menu-sub, .oc-sidebar-group-label, .oc-user-text),
+  .oc-block-shell:not(:has(.oc-block-shell-toggle:checked)) > .oc-sidebar details.oc-sidebar-collapsible > summary::after { display: none; }
+  .oc-block-shell:not(:has(.oc-block-shell-toggle:checked)) > .oc-sidebar .oc-sidebar-menu-button { justify-content: center; padding-inline: 0; }
+  .oc-block-shell:has(.oc-block-shell-toggle:checked) > .oc-sidebar {
+    position: relative;
+    z-index: 60;
+    margin-inline-end: calc(var(--oc-sidebar-width-icon) - var(--oc-sidebar-width));
+    box-shadow: 0 0 0 100vmax oklch(from var(--color-black-60) l c h / 0.32), 0 0 40px -12px oklch(from var(--color-black-60) l c h / 0.45);
+  }
+  /* Click outside closes it: the header's toggle label stretches an invisible layer over the shell, under the sidebar. */
+  /* No press scale while open: a transform would make the label the containing block of its ::before layer. */
+  .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-block-appbar > label[for] { transform: none; }
+  .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-block-appbar > label[for]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 59;
+    cursor: default;
+  }
+}
+
 @media (max-width: 47.99rem) {
   .oc-block-shell { grid-template-columns: minmax(0, 1fr); }
   .oc-block-shell > .oc-sidebar { display: none; }
   .oc-block-shell-menu-button { display: inline-flex; }
+  /* Small screen: the toggle shows the hidden sidebar as an overlay over the page. */
+  .oc-block-shell:has(.oc-block-shell-toggle:checked) > .oc-sidebar {
+    display: flex;
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    z-index: 60;
+    inline-size: min(var(--oc-sidebar-width), 85%);
+    margin: 0;
+    box-shadow: 0 0 0 100vmax oklch(from var(--color-black-60) l c h / 0.32), 0 0 40px -12px oklch(from var(--color-black-60) l c h / 0.45);
+  }
+  /* No press scale while open: a transform would make the label the containing block of its ::before layer. */
+  .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-block-appbar > label[for] { transform: none; }
+  .oc-block-shell:has(.oc-block-shell-toggle:checked) .oc-block-appbar > label[for]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 59;
+    cursor: default;
+  }
 }
 
 /* ---- App header bar ---- */
 
 .oc-block-appbar {
+  container: oc-block-appbar / inline-size;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -668,6 +779,12 @@
 .oc-block-appbar-nav .oc-navmenu-link { white-space: nowrap; }
 
 .oc-block-appbar-actions { display: flex; align-items: center; gap: 0.5rem; margin-inline-start: auto; }
+
+/* Narrow header (a phone): tighter gaps and a smaller theme switch, so the links (or at least More) keep their room. */
+@container oc-block-appbar (max-width: 26rem) {
+  .oc-block-appbar-actions { gap: 0.25rem; }
+  .oc-block-appbar-actions .oc-theme-switch label { padding: 0.2rem 0.45rem; font-size: 0.75rem; }
+}
 
 .oc-block-appbar-title { font-size: 1rem; font-weight: 600; white-space: nowrap; }
 
@@ -741,7 +858,8 @@
 
 .oc-block-datatable .oc-table tbody tr:last-child td { border-block-end: 0; }
 
-.oc-block-datatable .oc-table-wrap > .oc-table { min-inline-size: 40rem; }
+/* The columns decide the width (cells do not wrap): the table only scrolls when they really do not fit. */
+.oc-block-datatable .oc-table-wrap > .oc-table { min-inline-size: 0; }
 
 .oc-block-datatable-bulk {
   display: flex;
@@ -867,6 +985,11 @@
 .oc-block-team-row .oc-user { flex: 1; }
 
 .oc-block-team-meta { display: flex; align-items: center; gap: 0.5rem; }
+
+/* When one member has a menu button, every row keeps that slot: the role badges line up in one column. */
+.oc-block-team:has(.oc-block-team-meta > .oc-btn) .oc-block-team-meta { display: grid; grid-template-columns: auto 2rem; justify-items: end; }
+.oc-block-team:has(.oc-block-team-meta > .oc-btn) .oc-block-team-meta > :not(.oc-btn, [popover]) { grid-column: 1; }
+.oc-block-team:has(.oc-block-team-meta > .oc-btn) .oc-block-team-meta > .oc-btn { grid-column: 2; }
 
 /* ---- Form page: collapsible sections + sticky action bar ---- */
 
@@ -1054,9 +1177,12 @@
 
 .oc-block-sb {
   --oc-block-sb-height: 26rem;
+  /* Named container: variants (both sidebars, the CMS frame) fold their sidebars by the width of the frame, not the window. */
+  container: oc-block-sb / inline-size;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  block-size: var(--oc-block-sb-height);
+  /* At least the frame height, taller when the menu (or the page) needs it: no menu item half under the user card. */
+  min-block-size: var(--oc-block-sb-height);
   color: var(--oc-foreground);
   background: var(--oc-background);
   border: 1px solid var(--oc-border);
@@ -1065,6 +1191,10 @@
 }
 
 .oc-block-sb--floating { background: var(--oc-muted); }
+
+/* The menu scrolls above the footer: a line marks where it ends, so a half-visible item reads as "scroll" instead of
+   being cut off by the user card. */
+.oc-block-sb > .oc-sidebar > .oc-sidebar-footer { border-block-start: 1px solid var(--oc-border); padding-block-start: 0.5rem; }
 
 .oc-block-sb-main { display: flex; flex-direction: column; min-inline-size: 0; min-block-size: 0; }
 
@@ -1268,6 +1398,7 @@
 /* ---- List of blocks ---- */
 .oc-block-content-blocks-list {
   display: grid;
+  grid-template-columns: minmax(0, 1fr); /* a card never grows past the list (it overflowed by a few px on a phone) */
   gap: 0.75rem;
   margin: 0;
   padding: 1rem;
@@ -1501,6 +1632,13 @@
   .oc-block-content-blocks-peek { display: none; }
   .oc-block-content-blocks-bar { padding-inline: 0.75rem; }
 }
+/* Phone: the type label and the four tools do not fit on one line ("Countdown" ran under the up arrow). The tools
+   move to a second line in the head, under the label; the chevron stays on the right of the first line. */
+@container oc-content-blocks (max-width: 24rem) {
+  .oc-block-content-blocks-head { align-items: flex-start; padding-inline-end: 2.6rem; padding-block: 0.65rem 2.75rem; }
+  .oc-block-content-blocks-head::after { inset-block-start: 1.05rem; }
+  .oc-block-content-blocks-tools { inset-block-start: 2.65rem; inset-inline-end: auto; inset-inline-start: 2.3rem; }
+}
 @container oc-content-blocks (min-width: 36rem) {
   .oc-block-content-blocks-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .oc-block-content-blocks-list { padding: 1.25rem; }
@@ -1552,6 +1690,33 @@
 @media (max-width: 40rem) {
   .oc-block-datatable .oc-table-footer { grid-template-columns: 1fr; }
   .oc-block-datatable .oc-table-footer nav { justify-self: start; }
+}
+/* The card measures itself: in a narrow column (a docs preview, a sidebar layout) the footer and the table adapt too,
+   not only on a narrow screen. */
+.oc-block-datatable { container: oc-datatable / inline-size; }
+/* The pager keeps its buttons on one row (it never breaks into two short rows). */
+.oc-block-datatable .oc-data-table-pager { flex-wrap: nowrap; }
+/* Medium card: entries + pager on the first row, rows-per-page under the entries. */
+@container oc-datatable (max-width: 48rem) {
+  .oc-block-datatable .oc-table-footer { grid-template-columns: minmax(0, 1fr) auto; }
+  .oc-block-datatable .oc-table-footer > :first-child { grid-column: 1; grid-row: 1; }
+  .oc-block-datatable .oc-table-footer label { grid-column: 1; grid-row: 2; }
+  .oc-block-datatable .oc-table-footer nav { grid-column: 2; grid-row: 1 / span 2; justify-self: end; }
+}
+/* Narrow card: one column, everything aligned at the start. */
+@container oc-datatable (max-width: 28rem) {
+  .oc-block-datatable .oc-table-footer { grid-template-columns: 1fr; }
+  .oc-block-datatable .oc-table-footer > :is(:first-child, label, nav) { grid-column: 1; grid-row: auto; justify-self: start; }
+}
+/* Scroll hint: when the table is wider than the card, its right edge fades out until it is scrolled to the end, so a cut
+   column reads as "scroll for more" instead of as a broken layout. Without scroll-driven animations: plain scroll. */
+@supports (animation-timeline: scroll()) {
+  .oc-block-datatable .oc-table-wrap { animation: oc-datatable-scroll-hint linear both; animation-timeline: scroll(self inline); }
+}
+@keyframes oc-datatable-scroll-hint {
+  0%, 3% { mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent); }
+  4%, 96% { mask-image: linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 3rem), transparent); }
+  97%, 100% { mask-image: linear-gradient(to right, transparent, #000 2rem); }
 }
 
 /* parts/app-modulehead-module.css */
@@ -2235,10 +2400,19 @@
 @container (max-width: 52rem) {
   .oc-block-contact-form-layout { grid-template-columns: 1fr; }
 }
+/* Phone: less side room around the block and in the list, so an e-mail address fits on one line instead of
+   breaking inside the word. */
+@container (max-width: 30rem) {
+  .oc-block-contact-form-cards { padding-inline: 1rem; }
+  .oc-block-contact-form-cards .oc-block-contact-card { column-gap: 0.75rem; }
+}
+@media (max-width: 30rem) {
+  .oc-block-contact-form { padding-inline: 0.5rem; }
+}
 
 /* parts/site-contact-grid.css */
 /* File: packages/blocks/src/parts/site-contact-grid.css
-   Map: section -> head -> card grid -> card (mark, title, lines) -> plain variant
+   Map: section -> head -> card grid -> card (icon + title on one line, lines) -> plain variant
    Contact grid block: contact info cards (e-mail, phone, address, hours). */
 
 .oc-block-contact {
@@ -2259,6 +2433,7 @@
 .oc-block-contact-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  grid-auto-rows: 1fr; /* every card as tall as the tallest, also on the next row */
   gap: 1.25rem;
 }
 /* Exactly three items: narrower minimum, so they share one row instead of two plus a lone one. */
@@ -2274,7 +2449,25 @@
   background: var(--oc-surface);
   font-style: normal; /* the address card is an <address> */
 }
-.oc-block-contact-card > .oc-product-mark { margin-block-end: 0.75rem; }
+/* The icon stands in front of the title, on the same line: a plain glyph in the accent color, no tile.
+   The card markup keeps the soft product mark (.oc-product-mark), so React, Vue and Blade need no change. */
+.oc-block-contact-card:has(> .oc-product-mark) { grid-template-columns: auto minmax(0, 1fr); column-gap: 0.6rem; }
+.oc-block-contact-card:has(> .oc-product-mark) > :not(.oc-product-mark, .oc-block-contact-title) { grid-column: 1 / -1; }
+.oc-block-contact-card > .oc-product-mark {
+  --oc-mark-size: 1.35rem;
+  align-self: center;
+  margin: 0 0 0.25rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+  color: light-dark(oklch(from var(--oc-accent-from) min(l, 0.52) c h), oklch(from var(--oc-accent-from) max(l, 0.72) c h));
+  font-size: 1.15rem;
+}
+.oc-block-contact-card > .oc-product-mark > :is(img, svg) { inline-size: 100%; block-size: 100%; }
+.oc-block-contact-card > .oc-product-mark::before,
+.oc-block-contact-card > .oc-product-mark::after { content: none; }
 .oc-block-contact-title { margin: 0 0 0.25rem; font-size: 1.05rem; font-weight: 700; }
 
 /* A line of info. As a link it turns to the foreground color on hover. */
@@ -2408,6 +2601,15 @@ a.oc-block-contact-line:hover { color: var(--oc-brand-1); }
   inline-size: min(100%, 72cqi);
 }
 .oc-block-orbit-center.oc-code-window .oc-code-window__body { font-size: clamp(0.7rem, 2.6cqi, 0.9rem); }
+/* The code never runs past the window: long lines wrap (indent kept) instead of being cut at the right edge. */
+.oc-block-orbit-center.oc-code-window .oc-code-window__body { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* With floating marks the window needs room: in a narrow section (a docs preview, a tablet) text and visual stack. */
+.oc-block-orbit:has(.oc-block-orbit-visual--float) { container-type: inline-size; }
+@container (max-width: 46rem) {
+  .oc-block-orbit .oc-split:has(> .oc-block-orbit-visual--float) { --oc-split-cols: 1fr; --oc-split-cols-wide: 1fr; }
+  .oc-block-orbit-visual--float .oc-block-orbit-center { inline-size: min(100%, 26rem); }
+}
 
 @keyframes oc-orbit-spin { to { rotate: 360deg; } }
 
@@ -2558,6 +2760,8 @@ label.oc-block-profile-tab { position: relative; cursor: pointer; }
 .oc-block-profile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
 .oc-block-profile-grid > li { display: grid; gap: 0.4rem; font-size: 0.875rem; }
 .oc-block-profile-grid small { color: var(--oc-muted-foreground); }
+/* A thumbnail is an <img> (cover) or an empty span (accent placeholder). */
+img.oc-block-profile-thumb { display: block; inline-size: 100%; block-size: auto; object-fit: cover; object-position: top; opacity: 1; }
 .oc-block-profile-thumb { aspect-ratio: 16 / 9; border-radius: var(--oc-radius); background: repeating-linear-gradient(135deg in srgb, oklch(from var(--oc-accent-from, var(--oc-primary)) l c h / 0.12) 0 1px, transparent 1px 14px), color-mix(in oklch, var(--oc-accent-from, var(--oc-primary)) 18%, var(--oc-muted)); opacity: 0.85; }
 
 /* Compact: low banner and a smaller avatar. */

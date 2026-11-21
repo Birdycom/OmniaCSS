@@ -59,7 +59,7 @@
 <p class="oc-section-content__desc"><code>.border-current</code> takes the text color, so one color class sets the text and the border together, and a <code>dark:</code> text color switches both. <code>.border-transparent</code> keeps the space of a border without showing it: the plan cards below all have a 2px border, so picking one only changes its color and nothing moves. Click a plan or use the arrow keys.</p>
 
 <oc-demo title="border-current, border-transparent">
-<div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 36rem;">
+<div class="oc-eg"><div class="oc-eg__panels oc-eg__panels--rows" style="--eg-min: 36rem;">
 <div class="oc-eg__panel"><code class="oc-eg__name">.border-current</code><div class="oc-eg__note">The border takes the text color, so one color class sets both. Here: paid, due soon and overdue.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><div class="bd-status"><div class="bd-alert border-2 border-solid border-current text-forestgreen-70 dark:text-forestgreen-30"><b>Paid</b>Invoice 2026-014 for Customer 1.</div><div class="bd-alert border-2 border-solid border-current text-darkorange-95 dark:text-darkorange-30"><b>Due soon</b>Invoice 2026-015, due in 3 days.</div><div class="bd-alert border-2 border-solid border-current text-crimson-70 dark:text-crimson-30"><b>Overdue</b>Invoice 2026-011, 12 days late.</div></div></div></div>
 <div class="oc-eg__panel"><code class="oc-eg__name">.border-transparent has-[:checked]:border-teal-50</code><div class="oc-eg__note">Every plan keeps a 2px border; only the picked one shows it, so nothing moves. Click a plan or use the arrow keys.</div><div class="oc-eg__stage oc-eg__stage--plain bd-in"><fieldset class="bd-plans">
     <legend>Choose a plan</legend>

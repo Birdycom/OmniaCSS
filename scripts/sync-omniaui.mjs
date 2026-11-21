@@ -15,7 +15,7 @@ const target = path.join(root, "public/css");
 
 // Built site stylesheets of OmniaUI (components incl. docs-ui, blocks, code-block colors) and the site sheets both
 // sites share (docs shell, layout, site styles): OmniaUI is their only source, so the two sites never drift apart.
-const FILES = ["oc-components.css", "oc-blocks.css", "oc-code-syntax.css", "oc-docs-shell.css", "oc-docs-v2.css", "oc-layout-module.css", "omnia_site.css"];
+const FILES = ["oc-components.css", "oc-blocks.css", "oc-code-syntax.css", "oc-docs-shell.css", "oc-docs-v2.css", "oc-layout-module.css", "omnia_site.css", "oc-home.css"];
 
 const exists = (p) => fs.stat(p).then(() => true, () => false);
 

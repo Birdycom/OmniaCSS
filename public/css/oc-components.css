@@ -1142,15 +1142,13 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
    =================================================================== */
 
 .oc-section-header {
-  display: grid;
-  grid-template-columns: auto auto auto auto 1fr auto;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    "title source scss file . version"
-    "desc desc desc desc desc desc";
+  /* Flex with wrap (not a fixed grid): the badges sit next to the title when there is room and wrap below it
+     otherwise, so they never overlap a title that breaks over two lines in a narrow column. */
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding: 1rem;
-  gap: 0 8px;
+  gap: 0.375rem 0.5rem;
   border-bottom: 1px solid var(--oc-border);
 }
 /* A header without content below it closes the card: no second line on top of the card border. */
@@ -1158,43 +1156,37 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* Section header */
 .oc-section-header__title {
-  grid-area: title;
+  flex: 0 1 auto;
   min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
   margin: var(--oc-section-header-title-margin);
+  margin-inline-end: 0.25rem;
   font-size: var(--oc-section-header-title-font-size);
 }
 
-.oc-section-header__badge-source {
-  grid-area: source;
-  margin-left: 0;
-}
-
-.oc-section-header__badge-scss {
-  grid-area: scss;
-  margin-left: 0;
-}
-
+.oc-section-header__badge-source,
+.oc-section-header__badge-scss,
 .oc-section-header__badge-file {
-  grid-area: file;
+  flex: none;
   margin-left: 0;
 }
 
+/* The version badge sits at the far right of its row. */
 .oc-section-header__badge-version {
-  grid-area: version;
+  flex: none;
+  margin-inline-start: auto;
 }
 
 .oc-section-header__desc {
-  grid-area: desc;
+  flex: 1 0 100%;
   margin: var(--oc-section-header-desc-margin);
   font-size: var(--oc-section-header-desc-font-size);
 }
 
-/* Phone: the title and the badges no longer fit on one row, so the row wraps (title first, badges below it in
-   source order, description last) instead of pushing the card wider than the screen. */
+/* Phone: title on its own row, the badges below it in source order, description last. */
 @media (max-width: 40rem) {
-  .oc-section-header { display: flex; flex-wrap: wrap; gap: 0.375rem 0.5rem; }
   .oc-section-header__title { flex: 1 0 100%; }
-  .oc-section-header__desc { flex: 1 0 100%; }
 }
 
 /* Section content */
@@ -1212,6 +1204,12 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
   padding: var(--oc-section-content-padding);
   background: var(--oc-section-content-background);
   border-radius: var(--oc-section-content-border-radius);
+}
+/* The last part of a section card follows the card's rounded bottom corners, so its own background never covers the
+   card border there (a smaller radius left the corners square and the bottom edge looked cut off). */
+:is(.oc-section, .oc-docs-section) > :last-child:is(.oc-section-content, .oc-section-footer) {
+  border-end-start-radius: calc(var(--oc-section-border-radius) - 1px);
+  border-end-end-radius: calc(var(--oc-section-border-radius) - 1px);
 }
 
 /* Section footer */
@@ -2045,6 +2043,8 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
   font-weight: 600;
   color: var(--oc-foreground);
 }
+/* Inside the framed scroll box the caption sits inside the border, so it gets the cell padding. */
+.oc-table-wrap:has(> .oc-table) > .oc-table > caption { padding: 0.75rem 0.75rem 0.5rem; }
 .oc-table-wrap {
   /* position: containing block for visually hidden labels in cells, else they escape the scroll clip and widen the page */
   position: relative;
@@ -2069,6 +2069,8 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 .oc-table.oc-table--auto { table-layout: auto; }
 .oc-table-wrap:has([data-hide-below], .oc-table-action-label) { container: oc-table / inline-size; }
 .oc-table-wrap:has([data-hide-below]) > .oc-table { min-inline-size: 0; }
+/* The same switch in the data table component (hideBelow on a column): its scroll box is the size reference. */
+.oc-data-table-scroll:has([data-hide-below]) { container: oc-table / inline-size; }
 @container oc-table (max-width: 48rem) { .oc-table :is(th, td)[data-hide-below~="lg"] { display: none; } }
 @container oc-table (max-width: 32rem) { .oc-table :is(th, td)[data-hide-below~="md"] { display: none; } }
 @container oc-table (max-width: 24rem) { .oc-table :is(th, td)[data-hide-below~="sm"] { display: none; } }
@@ -2105,8 +2107,10 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 .oc-expandable-table {
   margin-bottom: 2rem;
  }
-.oc-expandable-table__row-dimmed {
-  opacity: 0.6;
+/* The last visible row is a hint that more rows follow. It is dimmed with the muted text color (code included),
+   not with opacity: that kept the text below the AA contrast of 4.5:1 in light and dark. */
+.oc-expandable-table:not(.is-expanded):not(:has(.oc-expandable-table__toggle:checked)):has(.oc-expandable-table__row-more) .oc-expandable-table__row-dimmed :is(td, th, code) {
+  color: var(--oc-muted-foreground);
 }
 .oc-expandable-table .oc-expandable-table__row-more {
   display: none;
@@ -2114,9 +2118,6 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 /* CSS-only toggle: <label class="oc-expandable-table__trigger"><input type="checkbox" class="oc-expandable-table__toggle"> … */
 .oc-expandable-table:has(.oc-expandable-table__toggle:checked) .oc-expandable-table__row-more {
   display: table-row;
-}
-.oc-expandable-table:has(.oc-expandable-table__toggle:checked) .oc-expandable-table__row-dimmed {
-  opacity: 1;
 }
 /* The label is the containing block, so the hidden checkbox stays inside it and cannot stretch the page */
 .oc-expandable-table__trigger:has(.oc-expandable-table__toggle) {
@@ -2142,13 +2143,6 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .oc-expandable-table.is-expanded .oc-expandable-table__row-more {
   display: table-row;
-}
-.oc-expandable-table.is-expanded .oc-expandable-table__row-dimmed {
-  opacity: 1;
-}
-/* Nothing hidden below it: the row is simply the last one, so it is not dimmed */
-.oc-expandable-table:not(:has(.oc-expandable-table__row-more)) .oc-expandable-table__row-dimmed {
-  opacity: 1;
 }
 /* Hide trigger when there are no hidden rows */
 .oc-expandable-table:not(:has(.oc-expandable-table__row-more)) .oc-expandable-table__wrap {
@@ -2663,7 +2657,8 @@ details.oc-accordion-item[open]::details-content {
 }
 .oc-tabset > .oc-tab-list--vertical { grid-row: 1 / span 6; }
 .oc-tabset .oc-tab-list--vertical .oc-tab-trigger { justify-content: flex-start; }
-.oc-tabset:has(> .oc-tab-list--vertical) > .oc-tab-panel { grid-column: 2; grid-row: 1; padding-block: 0.25rem; }
+/* The panel's first line sits level with the label of the first tab (same top padding as a tab trigger). */
+.oc-tabset:has(> .oc-tab-list--vertical) > .oc-tab-panel { grid-column: 2; grid-row: 1; padding-block: 0.5rem 0.25rem; }
 .oc-tabset .oc-tab-list--vertical .oc-tab-trigger:has(input:checked) {
   border-bottom-color: transparent;
   border-right-color: var(--oc-foreground);
@@ -3427,6 +3422,8 @@ dialog.oc-sheet--bottom .oc-sheet-content { border-block-start: 1px solid var(--
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  /* Full width of its column, also as a flex or grid item (it does not shrink to the longest label). */
+  inline-size: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -4325,7 +4322,10 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
    Your own ratio: set --oc-split-cols in a class (and to 1fr in a media query for small screens). */
 .oc-split--lead { --oc-split-cols: 1.25fr 1fr; }
 .oc-split--media { --oc-split-cols: 1fr 1.15fr; }
-.oc-split__media { display: grid; place-items: center; }
+.oc-split__media { display: grid; place-items: center; container-type: inline-size; }
+/* A large product mark never grows wider than its column: in a narrow box (a card, a docs preview) the text keeps its
+   share of the split instead of being squeezed to a few words per line. */
+.oc-split__media .oc-icon-tile--xl { --oc-tile-size: min(clamp(7rem, 22vw, 15rem), 100cqi); }
 /* Columns aligned at the top (a fact list next to a long text). */
 .oc-split--top { align-items: start; }
 /* --oc-split-cols-wide: your own ratio that only applies above 960px, so the split still stacks on a phone. */
@@ -4398,7 +4398,10 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-browser-frame__bar > i { inline-size: 0.6rem; aspect-ratio: 1; border-radius: 50%; background: var(--oc-border-strong); }
 .oc-browser-frame__bar > i:first-child { background: var(--oc-accent-from); }
 .oc-browser-frame > img,
-.oc-browser-frame__body { display: block; inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.oc-browser-frame__body { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+/* block-size: auto above: an <img> with width/height attributes keeps the 16 / 10 box instead of its attribute height
+   (which cropped the sides). An <img> inside the body (the React, Vue and Blade showcase render it so) fills that box too. */
+.oc-browser-frame__body > img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; object-position: top; }
 
 /* Icon tile: rounded square with an accent gradient (product logo, feature icon) */
 .oc-icon-tile {
@@ -4424,7 +4427,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-icon-tile--float { animation: oc-float 6s ease-in-out infinite; }
 @keyframes oc-float { 50% { translate: 0 -12px; } }
 
-/* Product / feature card with hover lift and accent glow */
+/* Product / feature card with a soft hover lift and an accent border (no glow) */
 .oc-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--oc-card-min, 17rem)), 1fr)); gap: var(--oc-card-gap, 1.25rem); }
 /* Wide cards (projects, case studies): from 32rem, three in a row on a wide screen. */
 .oc-card-grid--wide { --oc-card-min: 32rem; --oc-card-gap: 1.5rem; }
@@ -4439,30 +4442,24 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   padding: 1.6rem;
   border: 1px solid var(--oc-border);
   border-radius: var(--oc-radius-lg);
-  background:
-    radial-gradient(22rem circle at 50% 0%, oklch(from var(--oc-accent-from) l c h / var(--oc-glow, 0)), transparent 60%),
-    var(--oc-surface);
+  background: var(--oc-surface);
   color: var(--oc-foreground);
   text-decoration: none;
-  transition: translate 0.35s var(--oc-ease-out), border-color 0.35s, --oc-glow 0.35s;
-}
-@property --oc-glow {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 0;
+  /* Timing lives in parts/utility-hover.css: 0.3s ease after a 0.08s delay, so the lift eases in instead of jumping. */
+  transition: translate 0.3s ease 0.08s, border-color 0.3s ease 0.08s;
 }
 .oc-product-card:hover {
-  --oc-glow: 0.22;
   /* The lift uses translate; a fly-in (.oc-reveal--fly) animates the transform, so both keep working. */
   translate: 0 calc(-1 * var(--oc-hover-lift, 6px));
-  border-color: oklch(from var(--oc-accent-from) l c h / 0.55);
+  border-color: oklch(from var(--oc-accent-from) l c h / 0.45);
 }
 .oc-product-card__top { display: flex; justify-content: space-between; align-items: flex-start; margin-block-end: 0.75rem; }
 .oc-product-card__name { margin: 0; font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; }
 .oc-product-card__tagline { margin: 0; color: light-dark(oklch(from var(--oc-accent-from) min(l, 0.52) c h), oklch(from var(--oc-accent-from) max(l, 0.72) c h)); font-weight: 600; font-size: 0.95rem; }
 .oc-product-card__summary { margin: 0; color: var(--oc-muted-foreground); font-size: 0.95rem; flex-grow: 1; }
 .oc-product-card__more { display: inline-flex; align-items: center; gap: 0.4rem; margin-block-start: 0.75rem; font-weight: 600; font-size: 0.92rem; }
-.oc-product-card__more::after { content: "\002192"; transition: translate 0.25s var(--oc-ease-out); }
+.oc-product-card__more::after { content: "\002192"; transition: translate 0.3s ease 0.08s; }
+@media (prefers-reduced-motion: reduce) { .oc-product-card__more::after { transition: none; } .oc-product-card:hover .oc-product-card__more::after { translate: none; } }
 .oc-product-card:hover .oc-product-card__more::after { translate: 5px 0; }
 
 /* Pill badge (neutral) and accent pill + pulsing status dot */
@@ -4520,11 +4517,13 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-stat-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  overflow: hidden;
   border-block: 1px solid var(--oc-border);
   background: var(--oc-surface);
 }
-.oc-stat-strip__item { padding: 2rem 1.5rem; border-inline-start: 1px solid var(--oc-border); }
-.oc-stat-strip__item:first-child { border-inline-start: 0; }
+/* Cell lines as a 1px shadow on the start and top side of every figure; the strip clips the ones on its outer edge.
+   So the lines stay even for any number of columns (4, 2 + 2, 1 per row) and container width. */
+.oc-stat-strip__item { padding: 2rem 1.5rem; box-shadow: -1px 0 0 var(--oc-border), 0 -1px 0 var(--oc-border); }
 .oc-stat-strip__value { font-family: var(--oc-font-display, inherit); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; }
 .oc-stat-strip__suffix { color: var(--oc-brand-1); }
 .oc-stat-strip__label { display: block; color: var(--oc-muted-foreground); font-size: 0.92rem; }
@@ -4533,8 +4532,6 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 /* Four figures on a narrower screen: two rows of two instead of three and one. */
 @media (max-width: 960px) {
   .oc-stat-strip:has(> .oc-stat-strip__item:nth-child(4):last-child) { grid-template-columns: 1fr 1fr; }
-  .oc-stat-strip:has(> .oc-stat-strip__item:nth-child(4):last-child) > .oc-stat-strip__item:nth-child(3) { border-inline-start: 0; }
-  .oc-stat-strip:has(> .oc-stat-strip__item:nth-child(4):last-child) > .oc-stat-strip__item:nth-child(n + 3) { border-block-start: 1px solid var(--oc-border); }
 }
 
 /* Spotlight: large highlighted panel with copy + module list */
@@ -4567,7 +4564,7 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-steps > li { position: relative; padding: 1.75rem 1.5rem; border-block-start: 2px solid var(--oc-border-strong); counter-increment: oc-step; }
 .oc-steps > li::before { content: ""; position: absolute; inset-block-start: -2px; inset-inline-start: 0; inline-size: 3rem; block-size: 2px; background: var(--oc-gradient-brand); }
 .oc-steps > li::after { content: counter(oc-step, decimal-leading-zero); position: absolute; inset-block-start: 1.75rem; inset-inline-end: 1.5rem; color: var(--oc-brand-1); font-family: var(--oc-font-mono); font-size: 0.85rem; }
-.oc-steps h3 { margin: 0 0 0.5rem; font-size: 1.3rem; }
+.oc-steps h3 { margin: 0 0 0.5rem; font-size: 1.3rem; color: var(--oc-foreground); }
 .oc-steps p { margin: 0; color: var(--oc-muted-foreground); font-size: 0.95rem; }
 
 /* Marquee: endless scrolling row (repeat the items once; pauses on hover) */
@@ -4936,8 +4933,18 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
 .oc-topbar-toggle:focus-visible + .oc-topbar-burger { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
 @media (max-width: 760px) {
   .oc-topbar { padding-block: 8px; }
-  .oc-topbar--collapsible .oc-topbar-burger { display: inline-flex; }
+  .oc-topbar--collapsible .oc-topbar-burger { display: inline-flex; order: 2; }
+  .oc-topbar--collapsible .oc-topbar-actions { margin-inline-start: auto; }
   .oc-topbar--collapsible .oc-topbar-nav { display: none; order: 3; inline-size: 100%; }
+  .oc-topbar--collapsible:has(.oc-topbar-toggle:checked) .oc-topbar-nav { display: block; }
+}
+/* The collapsible header also folds when its own box is narrower than 47.5rem (a sidebar layout, a content column,
+   a demo preview), not only on a narrow screen: brand, burger and actions then stay on one row. */
+.oc-topbar--collapsible { container: oc-topbar / inline-size; }
+@container oc-topbar (max-width: 47.5rem) {
+  .oc-topbar--collapsible .oc-topbar-burger { display: inline-flex; order: 2; }
+  .oc-topbar--collapsible .oc-topbar-actions { margin-inline-start: auto; }
+  .oc-topbar--collapsible .oc-topbar-nav { display: none; order: 3; inline-size: 100%; grid-column: 1 / -1; }
   .oc-topbar--collapsible:has(.oc-topbar-toggle:checked) .oc-topbar-nav { display: block; }
 }
 
@@ -5290,6 +5297,8 @@ a.oc-item:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px
 .oc-item-title { margin: 0; font-weight: 500; line-height: 1.35; color: var(--oc-foreground); }
 .oc-item-description { margin: 0; font-size: 0.8125rem; line-height: 1.45; color: var(--oc-muted-foreground); text-wrap: balance; }
 .oc-item-actions { display: flex; flex: none; align-items: center; gap: 0.5rem; }
+/* Small rows (links with a chevron) keep media, text and the trailing icon on one line in a narrow column. */
+.oc-item--sm > .oc-item-content { flex-basis: 8rem; }
 .oc-item-header,
 .oc-item-footer { flex-basis: 100%; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
 .oc-item-group { display: flex; flex-direction: column; }
@@ -5898,7 +5907,8 @@ dialog.oc-drawer[open] .oc-drawer-content {
 .oc-calendar-day:hover { background: var(--oc-accent); }
 .oc-calendar-day:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: -2px; }
 .oc-calendar-day--today { background: var(--oc-muted); font-weight: 600; }
-.oc-calendar-day--outside { color: var(--oc-muted-foreground); opacity: 0.55; }
+/* Days of the previous/next month: muted text only (no opacity), so the numbers still reach AA contrast. */
+.oc-calendar-day--outside { color: var(--oc-muted-foreground); }
 .oc-calendar-day:disabled { opacity: 0.35; pointer-events: none; }
 .oc-calendar-day[aria-selected="true"],
 .oc-calendar-day--range-start,
@@ -6421,6 +6431,8 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
    placement by data-side / data-align, and the tooltip delay and controlled state. */
 
 /* ---- Tabs: compound root (.oc-tabs) ---- */
+/* Horizontal: the tab list on top, the panel below it over the full width (not in the flex row of the pill-tab .oc-tabs). */
+.oc-tabs:has(> .oc-tab-list) { display: block; inline-size: 100%; }
 .oc-tabs:has(> .oc-tab-list--vertical) {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
@@ -6428,7 +6440,7 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   align-items: start;
 }
 .oc-tabs > .oc-tab-list--vertical { grid-row: 1 / span 99; }
-.oc-tabs:has(> .oc-tab-list--vertical) > .oc-tab-panel { grid-column: 2; padding-block: 0.25rem; }
+.oc-tabs:has(> .oc-tab-list--vertical) > .oc-tab-panel { grid-column: 2; padding-block: 0.5rem 0.25rem; }
 .oc-tabs .oc-tab-list--vertical .oc-tab-trigger { justify-content: flex-start; }
 .oc-tabs > .oc-tab-panel:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; border-radius: var(--oc-radius); }
 
@@ -6679,9 +6691,12 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 
 /* Footer: count on the left, rows-per-page in the middle, pager on the right. */
 .oc-data-table-footer {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* Flex with wrap: the three parts share one row when they fit (the pager never breaks over two rows while there is
+     room), otherwise the pager moves to its own row as a whole. */
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
 }
 .oc-data-table-summary { margin: 0; font-size: 0.8125rem; color: var(--oc-muted-foreground); }
@@ -6709,7 +6724,7 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-data-table-ellipsis { padding-inline: 0.25rem; color: var(--oc-muted-foreground); }
 
 @media (max-width: 40rem) {
-  .oc-data-table-footer { grid-template-columns: 1fr; }
+  .oc-data-table-footer { flex-direction: column; align-items: flex-start; }
   .oc-data-table-pager { justify-content: flex-start; }
 }
 
@@ -7017,9 +7032,23 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   inset-inline-end: 0;
   z-index: 2;
   background: var(--oc-card);
-  box-shadow: -1px 0 0 var(--oc-border);
+  /* A line plus a short soft edge: columns that scroll under it read as "more to the side", not as cut-off text. */
+  box-shadow: -1px 0 0 var(--oc-border), -10px 0 8px -8px oklch(from var(--oc-foreground) l c h / 0.14);
 }
 .oc-data-table .oc-table thead th[data-oc-col="actions"] { z-index: 3; background: var(--oc-card); }
+/* Scroll hint: where scroll-driven animations work, the soft edge is clearly visible only while columns are hidden
+   under the actions column (a table that fits, or one scrolled to the end, keeps just the line). */
+@supports (animation-timeline: scroll()) {
+  .oc-data-table .oc-table :is(th, td)[data-oc-col="actions"] {
+    box-shadow: -1px 0 0 var(--oc-border);
+    animation: oc-data-table-edge linear both;
+    animation-timeline: scroll(nearest inline);
+  }
+  @keyframes oc-data-table-edge {
+    0%, 96% { box-shadow: -1px 0 0 var(--oc-border), -16px 0 14px -10px light-dark(oklch(from var(--oc-foreground) l c h / 0.3), oklch(0% 0 0deg / 0.7)); }
+    100% { box-shadow: -1px 0 0 var(--oc-border); }
+  }
+}
 .oc-data-table .oc-table tbody tr:is(:nth-child(even of :not([hidden])), :hover) > td[data-oc-col="actions"] { background: inherit; }
 
 /* Trash and archive rows stay readable but quieter than active rows. */
@@ -7634,6 +7663,11 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   .oc-name-card__title { flex: 1 1 0; } /* takes the free space and shrinks first (ellipsis), so nothing else wraps */
   .oc-name-card__body { padding-inline-start: 0.75rem; }
 }
+/* Very narrow (a phone, nested cards): the amount moves to its own line under the name, so the name keeps room. */
+@container (max-width: 22rem) {
+  .oc-name-card__amount { order: 8; flex-basis: 100%; padding-inline-start: 1.5rem; margin-block-start: -0.25rem; font-size: 0.875rem; }
+  .oc-name-card__actions { margin-inline-start: 0; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .oc-name-card__head::before { transition: none; }
@@ -7655,7 +7689,7 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 
 /* Optional back link row (use .oc-back-link inside, or any link). */
 .oc-page-header-back { display: flex; }
-.oc-page-header-back .oc-back-link { margin-inline-start: -0.75rem; }
+/* The back link is a framed chip: its edge lines up with the title (no negative margin, that was for a bare link). */
 
 /* Main row: text block + actions. Stacks by default. */
 .oc-page-header-main { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -8697,6 +8731,12 @@ a.oc-tree-label:focus-visible { outline: 2px solid var(--oc-ring); outline-offse
 /* Hide actions until hover or focus (optional): .oc-tree--quiet */
 .oc-tree--quiet .oc-tree-actions { opacity: 0; }
 .oc-tree--quiet .oc-tree-row:is(:hover, :focus-within) > .oc-tree-actions { opacity: 1; }
+/* Long names end in an ellipsis instead of scrolling sideways (optional): .oc-tree--ellipsis. Put the full name in a
+   title on the label (the components do this for you). */
+.oc-tree--ellipsis { overflow-x: hidden; }
+.oc-tree--ellipsis .oc-tree-list { min-inline-size: 0; }
+.oc-tree--ellipsis .oc-tree-label { flex: 1 1 auto; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; }
+.oc-tree--ellipsis .oc-tree-actions { box-shadow: none; }
 
 /* Selected row: tinted with the primary token. */
 .oc-tree-row:is([aria-current="true"], .is-selected, :has(> .oc-tree-label[aria-current="true"])) { color: var(--oc-primary); font-weight: 500; background: oklch(from var(--oc-primary) l c h / 0.1); }
@@ -9455,11 +9495,18 @@ button.oc-block-type-picker-item {
   dominant-baseline: central;
   pointer-events: none;
 }
+/* Labels in the foreground color, large enough to read at the usual size, with a halo in the background color
+   (--oc-graph-bg) so a line passing under a label never cuts through its letters. */
 .oc-graph__label {
-  fill: var(--oc-muted-foreground);
+  fill: var(--oc-foreground);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 8.5px;
+  font-size: 10.5px;
+  font-weight: 500;
   text-anchor: middle;
+  paint-order: stroke;
+  stroke: var(--oc-graph-bg, var(--oc-background));
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
   pointer-events: none;
 }
 .oc-graph__node:focus-visible .oc-graph__dot { stroke: var(--oc-ring); stroke-width: 2.5; }
@@ -9493,8 +9540,9 @@ button.oc-block-type-picker-item {
 }
 
 /* Focus: .is-focused on the graph and .is-active on one node light that node and its edge; the rest dims. */
-.oc-graph.is-focused .oc-graph__node:not(.is-active, .oc-graph__node--center) { opacity: 0.15; }
-.oc-graph.is-focused .oc-graph__edge { stroke-opacity: 0.08; stroke-width: 1; }
+/* Dimmed, not gone: the other nodes stay readable as context (also on the dark background). --oc-graph-dim tunes it. */
+.oc-graph.is-focused .oc-graph__node:not(.is-active, .oc-graph__node--center) { opacity: var(--oc-graph-dim, 0.4); }
+.oc-graph.is-focused .oc-graph__edge { stroke-opacity: 0.22; stroke-width: 1; }
 .oc-graph.is-focused .oc-graph__edge.is-active { stroke-opacity: 0.8; stroke-width: 3; }
 .oc-graph__node.is-active .oc-graph__dot { fill-opacity: 1; scale: 1.55; }
 .oc-graph__node.is-active .oc-graph__halo { stroke-opacity: 0.6; stroke-width: 14; }
@@ -10355,12 +10403,16 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
 img.oc-combobox-option-image {
   border-radius: calc(var(--oc-radius) - 4px);
   object-fit: cover;
+  /* A wide logo (mark + name) shows its mark on the left instead of a cropped middle. */
+  object-position: left center;
 }
 .oc-combobox-option-emoji { font-size: 1rem; }
 .oc-combobox-option:has(> :is(.oc-combobox-option-image, .oc-combobox-option-emoji)) { justify-content: flex-start; }
 .oc-combobox-option:has(> :is(.oc-combobox-option-image, .oc-combobox-option-emoji))[aria-selected="true"]::after { margin-inline-start: auto; }
 .oc-combobox-icon > .oc-combobox-option-image,
 .oc-combobox-icon > .oc-combobox-option-emoji { inline-size: 100%; block-size: 100%; }
+/* The selected logo in the field: the icon square, cropped from the left like in the list (not a tiny contained wordmark). */
+.oc-combobox-icon > img.oc-combobox-option-image { inline-size: var(--oc-combobox-icon, 1.125rem); block-size: var(--oc-combobox-icon, 1.125rem); object-fit: cover; object-position: left center; }
 .oc-combobox-icon > .oc-combobox-option-emoji { inline-size: auto; block-size: auto; }
 .oc-combobox-icon:has(> .oc-combobox-option-emoji) { color: inherit; }
 
@@ -10469,7 +10521,8 @@ img.oc-combobox-option-image {
 }
 
 /* The icon of the chosen value inside the field, at the same start as the option icons in the list (list border 1px +
-   padding 4px + option padding 0.625rem), and the text of the field at the start of the option labels. */
+   padding 4px + option padding 0.625rem), and the text of the field at the start of the option labels. An icon slot that is
+   still empty (nothing chosen yet, or a value without an icon) takes no room, so the placeholder starts at the edge. */
 .oc-combobox-icon {
   position: absolute;
   inset-block: 0;
@@ -10477,7 +10530,7 @@ img.oc-combobox-option-image {
   block-size: auto;
   pointer-events: none;
 }
-.oc-combobox:has(> .oc-combobox-icon) > .oc-combobox-input {
+.oc-combobox:has(> .oc-combobox-icon:not(:empty)) > .oc-combobox-input {
   padding-inline-start: calc(4px + 0.625rem + var(--oc-combobox-icon) + 0.5rem);
 }
 
@@ -11365,10 +11418,13 @@ textarea.oc-textarea--ledger,
 /* Combobox: the field is a ledger input; the chevron sits a little closer to the end. */
 .oc-combobox--ledger .oc-combobox-input { padding-inline-end: 1.75rem; }
 .oc-combobox--ledger::after {
-  inset-block-start: calc(var(--oc-ledger-height) / 2 - 0.3rem);
+  /* Whole pixels and a slightly thinner stroke: a small chevron that stays sharp and symmetric. */
+  inset-block-start: calc(var(--oc-ledger-height) / 2 - 6px);
   inset-inline-end: 0.7rem;
-  inline-size: 0.32rem;
-  block-size: 0.32rem;
+  inline-size: 6px;
+  block-size: 6px;
+  border-inline-end-width: 1.5px;
+  border-block-end-width: 1.5px;
 }
 .oc-combobox--ledger .oc-combobox-list { font-size: 0.8125rem; }
 
@@ -12469,6 +12525,8 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
   justify-content: space-between;
   gap: 0.5rem;
   min-inline-size: 0;
+  /* As tall as the expand button, with or without one: frames side by side start at the same height. */
+  min-block-size: 2rem;
 }
 .oc-doc-viewer__label {
   flex: 1 1 auto;
@@ -12739,6 +12797,11 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 @container (max-width: 22rem) {
   .oc-entity-card__grid { grid-template-columns: minmax(0, 1fr); }
 }
+/* A small card in a very narrow column: a smaller frame, so the title keeps its room. */
+@container (max-width: 16rem) {
+  .oc-entity-card--sm .oc-entity-card__grid { grid-template-columns: 3.5rem minmax(0, 1fr); gap: 0.75rem; padding: 0.75rem; }
+  .oc-entity-card--sm .oc-entity-card__glyph { font-size: 1.75rem; }
+}
 
 /* parts/media-flip-card.css */
 /* File: packages/ui/src/parts/media-flip-card.css | Map: card (perspective) -> hidden checkbox -> inner (3D) -> faces
@@ -12935,8 +12998,12 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
   pointer-events: none;
 }
 
-/* Menu bar: a pill of items, each an icon over a short label. */
+/* Menu bar: a pill of items, each an icon over a short label. Small labels need a calmer backdrop than a sheet with
+   large text: in light mode the bar takes a denser white tint and a stronger blur, so icons and labels stay readable
+   over a busy photo (the dark tint is unchanged: light text on a darkened photo already reads well). */
 .oc-glass-bar {
+  --oc-liquid-tint: light-dark(oklch(100% 0 0deg / 0.5), oklch(100% 0 0deg / 0.05));
+  --oc-liquid-blur: 10px;
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
@@ -14015,6 +14082,59 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
   .oc-media-row-list--numbered > .oc-media-row { grid-template-columns: 1.25rem 6.5rem minmax(0, 1fr) auto; }
 }
 
+/* parts/media-scrim.css */
+/* File: packages/ui/src/parts/media-scrim.css | Map: child layer (.oc-scrim) and host pseudo (.oc-has-scrim::after)
+   -> sides (bottom default, top, start, end, full) -> dark -> content above the scrim -> rtl */
+/* Scrim (0.17.0): a calm fade over a picture, so text on top of it stays readable. From the scrim color at one edge to
+   transparent. Two ways, same modifiers:
+   - a child element: <span class="oc-scrim oc-scrim--bottom" aria-hidden="true"></span> inside a positioned element
+     with an image (the element needs position: relative);
+   - no extra element: .oc-has-scrim on that element draws the scrim as ::after.
+   Text that sits on the scrim gets .oc-scrim-content (position: relative; z-index 2).
+   Tokens (set them on the element, a parent or :root): --oc-scrim-color (default the page background,
+   .oc-scrim--dark = near black), --oc-scrim-strength (opacity at the edge, 0 to 1, default 0.85), --oc-scrim-size (how
+   far the fade reaches, default 60%). Hero media uses the same tokens for its own scrim. No glow, no color blend. */
+
+.oc-scrim,
+.oc-has-scrim::after {
+  --_oc-scrim-c: var(--oc-scrim-color, var(--oc-background));
+  --_oc-scrim-s: var(--oc-scrim-strength, 0.85);
+  --_oc-scrim-l: var(--oc-scrim-size, 60%);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    var(--_oc-scrim-dir, to top),
+    color-mix(in oklab, var(--_oc-scrim-c) calc(var(--_oc-scrim-s) * 100%), transparent) 0%,
+    color-mix(in oklab, var(--_oc-scrim-c) calc(var(--_oc-scrim-s) * 55%), transparent) calc(var(--_oc-scrim-l) * 0.55),
+    transparent var(--_oc-scrim-l)
+  );
+}
+.oc-has-scrim { position: relative; isolation: isolate; }
+.oc-has-scrim::after { content: ""; }
+
+/* Dark: a near-black scrim for light text, in light and dark mode. */
+.oc-scrim--dark { --oc-scrim-color: oklch(14% 0.01 260deg); }
+
+/* Sides: where the scrim is strongest. Bottom is the default. */
+.oc-scrim--top { --_oc-scrim-dir: to bottom; }
+.oc-scrim--start { --_oc-scrim-dir: to right; }
+.oc-scrim--end { --_oc-scrim-dir: to left; }
+.oc-scrim--start:dir(rtl) { --_oc-scrim-dir: to left; }
+.oc-scrim--end:dir(rtl) { --_oc-scrim-dir: to right; }
+
+/* Full: one even layer over the whole picture. */
+.oc-scrim.oc-scrim--full,
+.oc-has-scrim.oc-scrim--full::after {
+  background: color-mix(in oklab, var(--_oc-scrim-c) calc(var(--_oc-scrim-s) * 75%), transparent);
+}
+
+/* Text on top of the scrim. Position relative by default; a position utility (absolute) on the same element wins. */
+:where(.oc-scrim-content) { position: relative; }
+.oc-scrim-content { z-index: 2; }
+
 /* parts/media-stack-card.css */
 /* File: packages/ui/src/parts/media-stack-card.css | Map: card -> deck (two layers behind via ::before / ::after)
    -> count badge -> panel modifier -> body (title link + meta) -> hover spread -> motion
@@ -14424,11 +14544,17 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-topbar-nav { min-inline-size: 0; }
 .oc-topbar-actions .oc-btn { white-space: nowrap; }
 
-/* Centred menu: brand left, menu in the middle, actions right (from 761px; smaller screens keep the burger). */
+/* Centred menu: brand left, menu in the middle, actions right (from 761px; smaller screens keep the burger).
+   Brand and actions share the free room equally (flex: 1 1 0), so the menu sits in the true middle. A --collapsible bar
+   follows its own width (container oc-topbar, docs-ui.css) instead of the screen: in a narrow card or preview it folds
+   into the burger like any other bar, with the button at the end. */
 @media (min-width: 761px) {
-  .oc-topbar--center { display: grid; grid-template-columns: 1fr auto 1fr; }
-  .oc-topbar--center .oc-topbar-brand { justify-self: start; }
-  .oc-topbar--center .oc-topbar-actions { justify-self: end; }
+  .oc-topbar--center:not(.oc-topbar--collapsible) > :is(.oc-topbar-brand, .oc-topbar-actions) { flex: 1 1 0; }
+  .oc-topbar--center:not(.oc-topbar--collapsible) > .oc-topbar-actions { justify-content: flex-end; }
+}
+@container oc-topbar (min-width: 47.5625rem) {
+  .oc-topbar--center > :is(.oc-topbar-brand, .oc-topbar-actions) { flex: 1 1 0; }
+  .oc-topbar--center > .oc-topbar-actions { justify-content: flex-end; }
 }
 
 /* Plain links: no pill frames, the current page underlined. */
@@ -14496,6 +14622,8 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 .oc-footerbar-links a { color: var(--oc-muted-foreground); text-decoration: none; }
 .oc-footerbar-links a:hover { color: var(--oc-foreground); }
 .oc-footerbar.oc-footerbar--dark { color: oklch(from var(--color-white-50) l c h / 0.7); background: var(--oc-dark-band, var(--color-duskblue-95)); border-block-start-color: transparent; }
+/* On a dark page the dark band is about as dark as the page: a light hairline on top marks where the footer starts. */
+.oc-footerbar.oc-footerbar--dark { border-block-start-color: light-dark(transparent, oklch(from var(--color-white-50) l c h / 0.16)); }
 .oc-footerbar--dark :is(a, .oc-footerbar-links a) { color: oklch(from var(--color-white-50) l c h / 0.85); }
 .oc-footerbar--dark .oc-footerbar-links a:hover { color: var(--color-white-50); }
 
@@ -15018,6 +15146,32 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
 .oc-site-header__brand { white-space: nowrap; flex: none; }
 .oc-site-header__nav > :is(a, button):not(.oc-btn) { white-space: nowrap; }
 
+/* Folded menu with an actions slot: the actions sit right, next to the menu button (button last), instead of the button
+   in the middle and the actions pushed out of a pill. On a phone the bar gets tighter and the brand drops its tile,
+   so a call to action such as "Get started" stays visible. */
+@media (max-width: 860px) {
+  .oc-site-header:where(:not(.oc-site-header--container)) .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__actions { margin-inline-start: auto; }
+  .oc-site-header:where(:not(.oc-site-header--container)) .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__toggle { order: 2; }
+}
+@container oc-site-header (max-width: 53.75rem) {
+  .oc-site-header--container .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__actions { margin-inline-start: auto; }
+  .oc-site-header--container .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__toggle { order: 2; }
+}
+@media (max-width: 28rem) {
+  .oc-site-header:where(:not(.oc-site-header--container)) .oc-site-header__inner:has(> .oc-site-header__actions) { gap: 0.3rem; }
+  .oc-site-header:where(:not(.oc-site-header--container)) .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__brand { gap: 0.45rem; font-size: 1.05rem; }
+  .oc-site-header:where(:not(.oc-site-header--container)) .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__brand > .oc-icon-tile { display: none; }
+  .oc-site-header:where(:not(.oc-site-header--container)) .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__toggle { padding: 0.4rem 0.55rem; }
+  .oc-site-header--glass:not(.oc-site-header--container) .oc-site-header__inner { padding-inline: 0.9rem 0.45rem; }
+}
+@container oc-site-header (max-width: 26rem) {
+  .oc-site-header--container .oc-site-header__inner:has(> .oc-site-header__actions) { gap: 0.3rem; }
+  .oc-site-header--container .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__brand { gap: 0.45rem; font-size: 1.05rem; }
+  .oc-site-header--container .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__brand > .oc-icon-tile { display: none; }
+  .oc-site-header--container .oc-site-header__inner:has(> .oc-site-header__actions) > .oc-site-header__toggle { padding: 0.4rem 0.55rem; }
+  .oc-site-header--glass.oc-site-header--container .oc-site-header__inner { padding-inline: 0.9rem 0.45rem; }
+}
+
 /* Centred menu: brand left, menu in the middle, actions right. */
 @media (min-width: 861px) {
   .oc-site-header--center:where(:not(.oc-site-header--container)) .oc-site-header__inner { display: grid; grid-template-columns: 1fr auto 1fr; }
@@ -15031,16 +15185,19 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
   .oc-site-header--center.oc-site-header--container .oc-site-header__actions { justify-self: end; }
 }
 
-/* Dark: a solid dark bar with light text. */
+/* Dark: a solid dark bar with light text. The faint edge keeps the bar visible on a dark page. */
 .oc-site-header--dark {
   --oc-header-glass: 0;
   animation: none;
   backdrop-filter: none;
   color: var(--color-white-50);
   background: var(--oc-dark-band, var(--color-duskblue-95));
+  border: 1px solid oklch(from var(--color-white-50) l c h / 0.12);
 }
 .oc-site-header--dark :is(.oc-site-header__brand, .oc-site-header__nav a[aria-current="page"], .oc-site-header__nav a:not(.oc-btn):hover) { color: var(--color-white-50); }
 .oc-site-header--dark .oc-site-header__nav a:not(.oc-btn) { color: oklch(from var(--color-white-50) l c h / 0.72); }
+/* The menu button is light on the dark bar (also in the light theme). */
+.oc-site-header--dark .oc-site-header__toggle { color: var(--color-white-50); background: oklch(from var(--color-white-50) l c h / 0.08); border-color: oklch(from var(--color-white-50) l c h / 0.24); }
 
 /* Floating: the bar as a rounded card with room around it. */
 /* No backdrop-filter on the bar itself: it would cut the backdrop of the glass inside it. */
@@ -15090,6 +15247,7 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
 .oc-site-footer__signup { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 1.25rem; max-inline-size: 24rem; }
 .oc-site-footer__signup .oc-input { flex: 1 1 12rem; min-inline-size: 0; }
 .oc-site-footer--dark .oc-site-footer__signup .oc-input { color: var(--color-white-50); background: oklch(from var(--color-white-50) l c h / 0.08); border-color: oklch(from var(--color-white-50) l c h / 0.2); }
+.oc-site-footer--dark .oc-site-footer__signup .oc-input::placeholder { color: oklch(from var(--color-white-50) l c h / 0.62); opacity: 1; }
 
 /* parts/site-hero-media.css */
 /* File: packages/ui/src/parts/site-hero-media.css */
@@ -15105,8 +15263,14 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
    then and only the poster shows. The components do this for you. */
 
 .oc-hero-media {
-  --oc-hero-media-scrim: oklch(14% 0.01 260deg / 0.78);
-  --oc-hero-media-scrim-soft: oklch(14% 0.01 260deg / 0.5);
+  /* Same strength and fade tokens as the scrim component (media-scrim.css): --oc-scrim-strength and --oc-scrim-size tune
+     this scrim too. The color stays dark (the text on it is light): --oc-hero-media-scrim-color. */
+  --oc-hero-media-scrim: color-mix(in oklab, var(--oc-hero-media-scrim-color, oklch(14% 0.01 260deg)) calc(var(--oc-scrim-strength, 0.82) * 100%), transparent);
+  --oc-hero-media-scrim-soft: color-mix(in oklab, var(--oc-hero-media-scrim-color, oklch(14% 0.01 260deg)) calc(var(--oc-scrim-strength, 0.82) * 62%), transparent);
+  /* Where the text column starts and how wide it is, measured on the gradient line (100% = the width of the hero).
+     The start / end scrim stays solid under the text and only then fades out, also when the hero is narrow. */
+  --_oc-hero-media-x: max(var(--oc-container-gutter, 1.25rem), (100% - var(--oc-container, 1200px)) / 2);
+  --_oc-hero-media-w: min(var(--oc-hero-media-measure, 40rem), 100% - 2 * var(--oc-container-gutter, 1.25rem));
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -15115,6 +15279,9 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
   min-block-size: var(--oc-hero-media-min, clamp(26rem, 72vh, 46rem));
   color-scheme: dark;
   background: var(--oc-hero-media-bg, oklch(22% 0.02 260deg));
+  /* Secondary text (the lead) sits on a photo, not on a dark surface: the dark-mode muted tone (a soft lavender) drops
+     under AA on a warm, mid-dark picture. A near-white grey keeps it at AA or better over the scrim. */
+  --oc-muted-foreground: var(--oc-hero-media-muted, oklch(90% 0.01 260deg));
   color: var(--oc-foreground);
 }
 .oc-hero-media__media {
@@ -15135,18 +15302,18 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
   z-index: 1;
   pointer-events: none;
 }
-.oc-hero-media--scrim::before { background: var(--oc-hero-media-scrim-full, oklch(14% 0.01 260deg / 0.62)); }
+.oc-hero-media--scrim::before { background: var(--oc-hero-media-scrim-full, color-mix(in oklab, var(--oc-hero-media-scrim-color, oklch(14% 0.01 260deg)) calc(var(--oc-scrim-strength, 0.82) * 78%), transparent)); }
 .oc-hero-media--scrim-start::before {
-  background: linear-gradient(to right, var(--oc-hero-media-scrim) 0%, var(--oc-hero-media-scrim) 40%, var(--oc-hero-media-scrim-soft) 62%, transparent 88%);
+  background: linear-gradient(to right, var(--oc-hero-media-scrim) 0%, var(--oc-hero-media-scrim) calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) * 0.85), var(--oc-hero-media-scrim-soft) calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) + 4rem), transparent calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) + var(--oc-scrim-size, 14rem)));
 }
 .oc-hero-media--scrim-end::before {
-  background: linear-gradient(to left, var(--oc-hero-media-scrim) 0%, var(--oc-hero-media-scrim) 40%, var(--oc-hero-media-scrim-soft) 62%, transparent 88%);
+  background: linear-gradient(to left, var(--oc-hero-media-scrim) 0%, var(--oc-hero-media-scrim) calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) * 0.85), var(--oc-hero-media-scrim-soft) calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) + 4rem), transparent calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) + var(--oc-scrim-size, 14rem)));
 }
 .oc-hero-media--scrim-start:dir(rtl)::before {
-  background: linear-gradient(to left, var(--oc-hero-media-scrim) 0%, var(--oc-hero-media-scrim) 40%, var(--oc-hero-media-scrim-soft) 62%, transparent 88%);
+  background: linear-gradient(to left, var(--oc-hero-media-scrim) 0%, var(--oc-hero-media-scrim) calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) * 0.85), var(--oc-hero-media-scrim-soft) calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) + 4rem), transparent calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) + var(--oc-scrim-size, 14rem)));
 }
 .oc-hero-media--scrim-end:dir(rtl)::before {
-  background: linear-gradient(to right, var(--oc-hero-media-scrim) 0%, var(--oc-hero-media-scrim) 40%, var(--oc-hero-media-scrim-soft) 62%, transparent 88%);
+  background: linear-gradient(to right, var(--oc-hero-media-scrim) 0%, var(--oc-hero-media-scrim) calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) * 0.85), var(--oc-hero-media-scrim-soft) calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) + 4rem), transparent calc(var(--_oc-hero-media-x) + var(--_oc-hero-media-w) + var(--oc-scrim-size, 14rem)));
 }
 .oc-hero-media__content {
   position: relative;
@@ -15166,7 +15333,7 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
 /* Phone: the text spans the width, so the whole picture gets the scrim. */
 @media (max-width: 48rem) {
   .oc-hero-media:is(.oc-hero-media--scrim-start, .oc-hero-media--scrim-end)::before {
-    background: var(--oc-hero-media-scrim-full, oklch(14% 0.01 260deg / 0.62));
+    background: var(--oc-hero-media-scrim-full, color-mix(in oklab, var(--oc-hero-media-scrim-color, oklch(14% 0.01 260deg)) calc(var(--oc-scrim-strength, 0.82) * 78%), transparent));
   }
   .oc-hero-media--end .oc-hero-media__content { justify-items: start; }
 }
@@ -15788,7 +15955,9 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
 .oc-price-card:has(.oc-price-card__toggle input:is([value="yearly"], [value="lifetime"]):checked) .oc-price-card__price--monthly,
 .oc-price-card:has(.oc-price-card__toggle input[value="lifetime"]:checked) .oc-price-card__price--yearly { display: none; }
 
-.oc-price-card__amount { font-size: 2.5rem; font-weight: 700; line-height: 1; letter-spacing: -0.03em; }
+/* The amount always in the foreground color: it is the main fact of the card (a muted paragraph color around it, from
+   a docs or prose style, would make it the weakest text on the card). */
+.oc-price-card__amount { color: var(--oc-foreground); font-size: 2.5rem; font-weight: 700; line-height: 1; letter-spacing: -0.03em; }
 .oc-price-card__period { color: var(--oc-muted-foreground); font-size: 0.9rem; }
 /* Old price, struck through. */
 .oc-price-card__was { color: var(--oc-muted-foreground); font-size: 0.95rem; }
@@ -16411,12 +16580,13 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
   100% { translate: 0 0; opacity: 1; }
 }
 
-/* Corner art: a large outline webicon (mdi-light or material-symbols ...-outline), half outside the bottom corner.
+/* Corner art: a large outline webicon (mdi-light or material-symbols ...-outline) in the bottom corner, only its edge
+   tucked under the card border (most of the shape stays readable).
    It drifts slowly (transform); hover tilts and grows it (rotate, scale), so the two never fight. */
 .oc-tint-card__art {
   position: absolute;
-  inset-block-end: -1rem;
-  inset-inline-end: -0.75rem;
+  inset-block-end: -0.35rem;
+  inset-inline-end: -0.25rem;
   z-index: -1;
   display: block;
   color: var(--oc-tint);
@@ -16470,7 +16640,7 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
 
 /* On a phone the cards are low and wide: the icon stays small there and only grows from 40rem (in a card of 16rem+). */
 @media (min-width: 40rem) {
-  .oc-tint-card__art { inset-block-end: -1.5rem; inset-inline-end: -1.5rem; font-size: 7rem; }
+  .oc-tint-card__art { inset-block-end: -0.75rem; inset-inline-end: -0.75rem; font-size: 7rem; }
   @container (min-width: 16rem) {
     .oc-tint-card__art { font-size: 9rem; }
   }
@@ -16526,7 +16696,9 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
      .oc-hover-grow   grows a little in place (--oc-hover-scale, 1.02)
      .oc-hover-glow   stays in place, with a glow in the accent color
      .oc-hover-none   no movement (also turns off the default lift of a product or price card)
-   They share one smooth curve: --oc-hover-duration (0.45s) and --oc-hover-ease. This file loads after the cards, so the class wins. */
+   They share one smooth curve: --oc-hover-duration (0.45s), --oc-hover-ease and --oc-hover-delay (0s). A product card
+   starts its lift a moment later and more gently (0.3s ease after 0.08s), so it never jumps up the instant the mouse
+   passes. This file loads after the cards, so the class wins. */
 
 :is(.oc-hover-lift, .oc-hover-grow, .oc-hover-glow, .oc-product-card) {
   transition:
@@ -16535,9 +16707,10 @@ html.oc-fly-ready .oc-reveal--fly:not(.is-visible) {
     box-shadow var(--oc-hover-duration, 0.45s) var(--oc-hover-ease, cubic-bezier(0.22, 1, 0.36, 1)),
     /* The colors follow the same curve as the lift, so the glow and the border do not lag behind the movement. */
     border-color var(--oc-hover-duration, 0.45s) var(--oc-hover-ease, cubic-bezier(0.22, 1, 0.36, 1)),
-    background-color var(--oc-hover-duration, 0.45s) var(--oc-hover-ease, cubic-bezier(0.22, 1, 0.36, 1)),
-    --oc-glow var(--oc-hover-duration, 0.45s) var(--oc-hover-ease, cubic-bezier(0.22, 1, 0.36, 1));
+    background-color var(--oc-hover-duration, 0.45s) var(--oc-hover-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  transition-delay: var(--oc-hover-delay, 0s);
 }
+:where(.oc-product-card) { --oc-hover-duration: 0.3s; --oc-hover-ease: ease; --oc-hover-delay: 0.08s; }
 .oc-product-card:hover { translate: 0 calc(-1 * var(--oc-hover-lift, 6px)); }
 .oc-hover-lift:hover {
   translate: 0 calc(-1 * var(--oc-hover-lift, 6px));

@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Font Size","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    .ty-area p { color: var(--oc-foreground); }\n    .ty-area { box-sizing: border-box; min-inline-size: 0; padding: 1rem 1.15rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); }\n    .ty-area > p { margin: 0; }\n    .ty-note, .ty-in .ty-note { margin: 0.35rem 0 0; font-size: 0.8rem; line-height: 1.45; color: var(--oc-muted-foreground); }\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .fs-row > p { line-height: 1.15; overflow-wrap: anywhere; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n.ty-rows { display: grid; inline-size: 100%; }\n.ty-row { display: grid; grid-template-columns: minmax(8rem, 13rem) minmax(0, 1fr); gap: 0.35rem 1.5rem; align-items: baseline; padding-block: 0.8rem; border-block-end: 1px solid var(--oc-border); }\n.ty-row:first-child { padding-block-start: 0; }\n.ty-row:last-child { padding-block-end: 0; border-block-end: 0; }\n.ty-lbl { justify-self: start; padding: 0; background: none; font-size: 0.82rem; color: var(--oc-muted-foreground); overflow-wrap: anywhere; }\n.ty-row > p { margin: 0; min-inline-size: 0; color: var(--oc-foreground); }\n@media (max-width: 40rem) { .ty-row { grid-template-columns: minmax(0, 1fr); } }\n</style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Font Size","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head":["<style>\n    /* Typography demo kit: labelled rows (class | sample) and equal-height tiles. */\n    .ty-area p { color: var(--oc-foreground); }\n    .ty-area { box-sizing: border-box; min-inline-size: 0; padding: 1rem 1.15rem; border-radius: 10px; background: var(--oc-muted); color: var(--oc-foreground); }\n    .ty-area > p { margin: 0; }\n    .ty-note, .ty-in .ty-note { margin: 0.35rem 0 0; font-size: 0.8rem; line-height: 1.45; color: var(--oc-muted-foreground); }\n    /* Three or four tiles stay on one row while there is room, then go to 2 (four tiles) and 1 column: no lone tile on a row. */\n    .fs-row > p { line-height: 1.15; overflow-wrap: break-word; }\n  .ty-in { display: grid; align-content: center; gap: 0.35rem; min-inline-size: 0; padding: 1rem 1.15rem; color: var(--oc-foreground); }\n.ty-in > p, .ty-in > div > p { margin: 0; color: var(--oc-foreground); }\n.ty-rows { display: grid; inline-size: 100%; container-type: inline-size; }\n.ty-row { display: grid; grid-template-columns: minmax(8rem, 13rem) minmax(0, 1fr); gap: 0.35rem 1.5rem; align-items: baseline; padding-block: 0.8rem; border-block-end: 1px solid var(--oc-border); }\n.ty-row:first-child { padding-block-start: 0; }\n.ty-row:last-child { padding-block-end: 0; border-block-end: 0; }\n.ty-lbl { justify-self: start; padding: 0; background: none; font-size: 0.82rem; color: var(--oc-muted-foreground); overflow-wrap: anywhere; }\n.ty-row > p { margin: 0; min-inline-size: 0; color: var(--oc-foreground); }\n@media (max-width: 40rem) { .ty-row { grid-template-columns: minmax(0, 1fr); } } @container (max-width: 36rem) { .fs-row { grid-template-columns: minmax(0, 1fr); } }\n</style>"]}-->
 <section class="oc-docs-section" id="font-size">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Font Size</h2>
@@ -45,24 +45,24 @@
           <oc-demo title="font-0.7 … font-4">
 <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 100%;">
 <div class="oc-eg__panel"><code class="oc-eg__name">.font-0.7 … .font-4</code><div class="oc-eg__note">The whole size scale on the same words, from 12px to 64px.</div><div class="oc-eg__stage oc-eg__stage--plain ty-in"><div class="ty-rows">
-              <div class="ty-row fs-row"><code class="ty-lbl">.font-0.7 · 12px</code><p class="font-0.7">Company 1</p></div>
-              <div class="ty-row fs-row"><code class="ty-lbl">.font-0.8 · 14px</code><p class="font-0.8">Company 1</p></div>
-              <div class="ty-row fs-row"><code class="ty-lbl">.font-1 · 16px</code><p class="font-1">Company 1</p></div>
-              <div class="ty-row fs-row"><code class="ty-lbl">.font-1.2 · 20px</code><p class="font-1.2">Company 1</p></div>
-              <div class="ty-row fs-row"><code class="ty-lbl">.font-1.5 · 24px</code><p class="font-1.5">Company 1</p></div>
-              <div class="ty-row fs-row"><code class="ty-lbl">.font-2 · 32px</code><p class="font-2">Company 1</p></div>
-              <div class="ty-row fs-row"><code class="ty-lbl">.font-3 · 48px</code><p class="font-3">Company 1</p></div>
-              <div class="ty-row fs-row"><code class="ty-lbl">.font-4 · 64px</code><p class="font-4">Company 1</p></div>
+              <div class="ty-row fs-row"><code class="ty-lbl">.font-0.7 · 12px</code><p class="font-0.7">Order 1</p></div>
+              <div class="ty-row fs-row"><code class="ty-lbl">.font-0.8 · 14px</code><p class="font-0.8">Order 1</p></div>
+              <div class="ty-row fs-row"><code class="ty-lbl">.font-1 · 16px</code><p class="font-1">Order 1</p></div>
+              <div class="ty-row fs-row"><code class="ty-lbl">.font-1.2 · 20px</code><p class="font-1.2">Order 1</p></div>
+              <div class="ty-row fs-row"><code class="ty-lbl">.font-1.5 · 24px</code><p class="font-1.5">Order 1</p></div>
+              <div class="ty-row fs-row"><code class="ty-lbl">.font-2 · 32px</code><p class="font-2">Order 1</p></div>
+              <div class="ty-row fs-row"><code class="ty-lbl">.font-3 · 48px</code><p class="font-3">Order 1</p></div>
+              <div class="ty-row fs-row"><code class="ty-lbl">.font-4 · 64px</code><p class="font-4">Order 1</p></div>
             </div></div></div>
 </div></div>
-<oc-code lang="html">&lt;p class="font-0.7"&gt;Company 1&lt;/p&gt;
-&lt;p class="font-0.8"&gt;Company 1&lt;/p&gt;
-&lt;p class="font-1"&gt;Company 1&lt;/p&gt;
-&lt;p class="font-1.2"&gt;Company 1&lt;/p&gt;
-&lt;p class="font-1.5"&gt;Company 1&lt;/p&gt;
-&lt;p class="font-2"&gt;Company 1&lt;/p&gt;
-&lt;p class="font-3"&gt;Company 1&lt;/p&gt;
-&lt;p class="font-4"&gt;Company 1&lt;/p&gt;</oc-code></oc-demo>
+<oc-code lang="html">&lt;p class="font-0.7"&gt;Order 1&lt;/p&gt;
+&lt;p class="font-0.8"&gt;Order 1&lt;/p&gt;
+&lt;p class="font-1"&gt;Order 1&lt;/p&gt;
+&lt;p class="font-1.2"&gt;Order 1&lt;/p&gt;
+&lt;p class="font-1.5"&gt;Order 1&lt;/p&gt;
+&lt;p class="font-2"&gt;Order 1&lt;/p&gt;
+&lt;p class="font-3"&gt;Order 1&lt;/p&gt;
+&lt;p class="font-4"&gt;Order 1&lt;/p&gt;</oc-code></oc-demo>
           <h3 class="oc-section-content__title mt-10" id="in-use">Sizes in a real block</h3>
           <p class="oc-section-content__desc">A heading, a text and a caption: three sizes that work well together.</p>
           <oc-demo title="Heading, body and caption">

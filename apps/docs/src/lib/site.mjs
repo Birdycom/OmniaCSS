@@ -35,6 +35,7 @@ export const HEADER_LINKS = [
   { id: "blocks", label: "Blocks", href: `${OMNIAUI_URL}/ui/blocks.html` },
   { id: "starter-kits", label: "Starter kits", href: `${OMNIAUI_URL}/ui/starter-kits.html` },
   { id: "webicons", label: "Webicons", href: `${OMNIAUI_URL}/ui/webicons.html` },
+  { id: "story", label: "Our story", href: "/story.html" },
 ];
 
 export const GITHUB = "https://github.com/Birdycom/OmniaCSS";
@@ -50,5 +51,6 @@ export function crossLinks(html) {
 /** Which top-level section a page belongs to (used for the header active state and the sidebar). */
 export function sectionOf(route) {
   if (route.startsWith("docs/")) return "docs";
+  if (route === "story.html") return "story";
   return "home";
 }

@@ -249,7 +249,7 @@ body.oc-page {
 /* Sticky header: step labels (0, 5, 10, …) stay visible when scrolling down the palette. */
 .oc-palette-scale {
   display: grid;
-  grid-template-columns: 180px repeat(var(--oc-palette-count, 10), minmax(44px, 1fr));
+  grid-template-columns: 180px repeat(var(--oc-palette-count, 10), minmax(30px, 1fr));
   gap: 6px;
   margin-bottom: 8px;
   align-items: center;
@@ -282,7 +282,7 @@ body.oc-page {
 
 .oc-palette-row {
   display: grid;
-  grid-template-columns: 180px repeat(var(--oc-palette-count, 10), minmax(44px, 1fr));
+  grid-template-columns: 180px repeat(var(--oc-palette-count, 10), minmax(30px, 1fr));
   gap: 6px;
   margin-bottom: 6px;
   align-items: center;

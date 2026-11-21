@@ -1,0 +1,159 @@
+/* File: public/css/oc-story.css | The "Our story" parts (st-*): the rebuilt April 2022 docs page and the steps to now with
+   old and new side by side. Used by the home (section 08) and /story.html, on top of /css/oc-home.css (hm-*).
+   Map: intro (story page) -> browser frame -> the 2022 look (.st-old, always light) -> steps -> old/new compare -> responsive. */
+/* ---- Intro ---- */
+.st-hero h1 { font-size: clamp(2.4rem, 6.4vw, 4.6rem); font-weight: 800; line-height: 1.02; max-inline-size: 16ch; }
+.st-hero .hm-head { margin-block-end: 0; gap: 1.5rem; }
+
+/* ---- What stood in the way (story page): one row height for every card, also across rows ---- */
+.st-figs { grid-auto-rows: 1fr; }
+.st-fig-body { padding-block-end: 1.1rem !important; }
+
+/* ---- Browser frame around the 2022 page ---- */
+.st-browser { position: relative; border: 1px solid var(--hm-rule); border-radius: var(--oc-radius); background: var(--oc-background); overflow: hidden; }
+.st-browser-bar { display: flex; align-items: center; gap: 0.75rem; padding: 0.55rem 0.9rem; border-block-end: 1px solid var(--hm-rule); font: 500 0.72rem/1.2 var(--hm-mono); color: var(--hm-note); }
+.st-dots { display: flex; gap: 0.35rem; flex: none; }
+.st-dots i { inline-size: 0.6rem; block-size: 0.6rem; border: 1px solid var(--hm-tick); border-radius: 50%; }
+.st-address { flex: 1 1 auto; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0.3rem 0.65rem; border: 1px solid var(--hm-rule); border-radius: calc(var(--oc-radius) - 2px); }
+.st-stamp { flex: none; padding: 0.2rem 0.55rem; border: 1px solid var(--hm-accent); border-radius: calc(var(--oc-radius) - 2px); color: var(--hm-accent); font-weight: 600; }
+.st-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; margin-block-start: 1rem !important; font-size: 0.86rem; color: var(--oc-muted-foreground); }
+
+/* ---- The 2022 look: the generated style guide of that time (centered title, a colored band with a notch, a solid
+   sidebar, wide light headings, an example block with its code block under it). Own colors and code; always light. ---- */
+.st-old {
+  color-scheme: light;
+  --st-ink: #2b2f31; --st-head: #3a3f42; --st-soft: #6b7276; --st-side: #1f5f8b; --st-accent: #c2461b;
+  --st-line: #d3e1ea; --st-code: #f6f9fb; --st-sans: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif; --st-mono: Consolas, Menlo, Monaco, "Courier New", monospace;
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
+  block-size: 44rem;
+  background: #fff;
+  color: var(--st-ink);
+  font: 400 16px/1.5 var(--st-sans);
+  letter-spacing: 0;
+}
+.st-old :is(h3, h4) { font-family: var(--st-sans); letter-spacing: 0; text-wrap: wrap; }
+.st-old-top { grid-column: 1 / -1; padding: 12px 16px 10px; text-align: center; font: 700 30px/1.2 var(--st-sans); color: var(--st-accent); }
+.st-old-top small { margin-inline-start: 6px; font: 400 16px var(--st-sans); color: var(--st-soft); }
+.st-old-band { grid-column: 1 / -1; position: relative; z-index: 1; block-size: 7px; background: var(--st-side); }
+.st-old-band::after { content: ""; position: absolute; inset-block-start: 100%; inset-inline-start: 50%; translate: -50% 0; border: 11px solid transparent; border-block-start: 9px solid var(--st-side); border-block-end: 0; }
+.st-old-side { display: flex; flex-direction: column; overflow-y: auto; padding: 20px 20px 16px; background: var(--st-side); color: #fff; }
+.st-old-search { padding: 3px 8px; border: 1px solid rgba(255, 255, 255, 0.75); color: rgba(255, 255, 255, 0.7); font-size: 14px; }
+.st-old-brand { margin-block: 22px 4px; }
+.st-old-brand b { display: inline-block; padding-block-end: 1px; border-block-end: 3px solid #fff; font-size: 21px; line-height: 1.2; }
+.st-old-brand small { display: block; margin-block-start: 4px; font-size: 15px; }
+.st-old-nav { margin: 0; padding: 0; list-style: none; }
+.st-old-nav > li { margin-block-start: 22px; padding-block-start: 10px; border-block-start: 1px solid rgba(255, 255, 255, 0.6); }
+.st-old-nav > li > span { display: block; margin-block-end: 6px; color: #fff; font-size: 15px; font-weight: 700; }
+.st-old-nav ul { margin: 0; padding: 0; list-style: none; }
+.st-old-nav ul a { display: block; padding: 2px 0; color: #fff !important; font-size: 15px; text-decoration: none; }
+.st-old-nav ul a:hover { text-decoration: underline; }
+.st-old-nav ul a[aria-current] { font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.st-old-nav a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.st-old-foot { margin: auto 0 0 !important; padding-block-start: 22px; font-size: 12px; line-height: 1.35; color: rgba(255, 255, 255, 0.85); }
+.st-old-foot::before { content: ""; display: block; margin-block-end: 10px; border-block-start: 1px solid rgba(255, 255, 255, 0.6); }
+.st-old-main { overflow-y: auto; padding: 24px 40px 40px; }
+.st-old-actions { display: flex; justify-content: flex-end; gap: 10px; margin-block-end: 4px; }
+.st-old-actions span { padding: 3px 16px; border: 1px solid var(--st-accent); border-radius: 999px; color: var(--st-accent); font-size: 15px; }
+.st-old-main > section + section { margin-block-start: 40px; }
+.st-old.is-paged .st-old-main > section { margin: 0; }
+.st-old-main h3 { margin: 0 0 12px; font-size: 36px; font-weight: 700; line-height: 1.15; color: var(--st-head); }
+.st-old-main h3:focus { outline: none; }
+.st-old-main h4 { margin: 28px 0 8px; font-size: 23px; font-weight: 300; line-height: 1.25; color: var(--st-head); }
+.st-old-main p { max-inline-size: 42rem; margin: 0 0 12px; color: var(--st-ink); }
+.st-old-main p code { font: 700 15px var(--st-mono); color: #000; }
+.st-old-label { display: block; max-inline-size: 44rem; margin: 14px 0 0; padding: 2px 10px; border: 1px solid var(--st-line); border-block-end: 0; background: var(--st-code); font: 400 12px var(--st-mono); color: var(--st-soft); box-sizing: border-box; }
+.st-old-ex { max-inline-size: 44rem; padding: 16px; border: 1px solid var(--st-line); background: #fff; box-sizing: border-box; }
+.st-old-code { max-inline-size: 44rem; margin: 0; padding: 10px 14px; border: 1px solid var(--st-line); border-block-start: 0; background: var(--st-code); color: var(--st-side); font: 14px/1.5 var(--st-mono); white-space: pre-wrap; overflow-wrap: anywhere; box-sizing: border-box; }
+.st-old a { color: var(--st-accent); }
+/* The 2022 classes themselves (flat names, hex, px) */
+.st-old-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 10px; }
+.st-old-swatches figure { margin: 0; font-size: 12px; }
+.st-old-swatches i { display: block; block-size: 48px; border: 1px solid rgba(0, 0, 0, 0.1); margin-block-end: 4px; }
+.st-old-swatches code { display: block; font: 12px Consolas, Menlo, monospace; }
+.st-old-swatches span { color: #6b7276; }
+.st-old-text { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 !important; font: 700 15px var(--st-mono); }
+.st-old-box { padding: 10px; border: 1px dashed #9db3c2; background: #f6f9fb; font: 13px var(--st-mono); }
+.st-old-box > div { padding: 20px; background: #dcebf4; border: 1px solid #a9c6d8; }
+.st-old-margin { font: 13px var(--st-mono); }
+.st-old-margin > div { margin-block-end: 10px; padding: 6px 10px; background: #dcebf4; border: 1px solid #a9c6d8; }
+.st-old-margin > div:last-child { margin: 0 auto; inline-size: 50%; text-align: center; }
+.st-old-pos { position: relative; block-size: 90px; border: 1px dashed #9db3c2; background: #f6f9fb; font: 13px var(--st-mono); padding: 8px; }
+.st-old-pos span { position: absolute; inset-block-start: 0; inset-inline-end: 0; padding: 4px 8px; background: var(--st-accent); color: #fff; font-size: 12px; }
+.st-old-z { position: relative; block-size: 110px; font: 13px var(--st-mono); }
+.st-old-z div { position: absolute; inline-size: 130px; block-size: 60px; padding: 6px 8px; box-sizing: border-box; border: 1px solid #7f9fb5; background: #dcebf4; }
+.st-old-z div:nth-child(2) { inset: 22px auto auto 50px; background: #bcd6e6; }
+.st-old-z div:nth-child(3) { inset: 44px auto auto 100px; background: #9cc1d8; }
+.st-old-bars { display: grid; gap: 6px; }
+.st-old-bars div { padding: 4px 8px; background: #dcebf4; border: 1px solid #a9c6d8; font: 12px Consolas, Menlo, monospace; box-sizing: border-box; }
+.st-old-heights { display: flex; align-items: flex-end; gap: 10px; font: 12px var(--st-mono); }
+.st-old-heights div { flex: 1; padding: 4px 8px; background: #dcebf4; border: 1px solid #a9c6d8; box-sizing: border-box; }
+.st-old-btn { display: inline-block; padding: 8px 16px; border: 1px solid #174a6d; border-radius: 3px; background: #1f5f8b; color: #fff !important; font: 600 14px/1.2 "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif; text-decoration: none; cursor: pointer; }
+.st-old-btn:hover { background: #174a6d; }
+.st-old-btn--gray { border-color: #aab4ba; background: #eef1f3; color: #333 !important; }
+.st-old-btn--gray:hover { background: #dde3e7; }
+.st-old-btn--red { border-color: #9c3714; background: #c2461b; }
+.st-old-btn--red:hover { background: #9c3714; }
+.st-old-btn--small { padding: 4px 10px; font-size: 12px; }
+.st-old-btn--large { padding: 12px 24px; font-size: 18px; }
+.st-old-table { inline-size: 100%; border-collapse: collapse; font-size: 13px; }
+.st-old-table :is(th, td) { padding: 5px 8px; border: 1px solid #d3e1ea; text-align: start; }
+.st-old-table th { background: #f6f9fb; font-weight: 600; }
+.st-old-table i { display: inline-block; inline-size: 14px; block-size: 14px; vertical-align: -2px; border: 1px solid rgba(0, 0, 0, 0.15); margin-inline-end: 6px; }
+
+/* ---- The steps ---- */
+.st-steps { margin: 0; padding: 0; list-style: none; border-block-start: 1px solid var(--hm-rule); }
+.st-step { display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); gap: 1.5rem 3.5rem; padding-block: 2.5rem; border-block-end: 1px dashed var(--hm-guide); }
+.st-step:last-child { border-block-end: 0; padding-block-end: 0; }
+.st-step--text { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); }
+.st-step-head { display: grid; gap: 0.6rem; align-content: start; }
+.st-step-head time, .st-step-head .st-when { font: 600 0.78rem var(--hm-mono); color: var(--hm-accent); letter-spacing: 0.04em; }
+.st-step-head h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); font-weight: 700; line-height: 1.15; }
+.st-step-head p { color: var(--oc-muted-foreground); line-height: 1.65; }
+
+/* ---- Old and new side by side (one row: equal height) ---- */
+.st-compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: stretch; }
+.st-side { display: grid; grid-template-rows: auto 1fr auto; margin: 0; min-inline-size: 0; border: 1px solid var(--hm-rule); border-radius: var(--oc-radius); background: var(--oc-background); overflow: hidden; }
+.st-side .hm-fig-cap b { color: var(--oc-foreground); font-weight: 600; }
+.st-side--now .hm-fig-cap b { color: var(--hm-accent); }
+.st-side-body { display: grid; align-content: center; gap: 0.75rem; padding: 1.1rem; min-inline-size: 0; }
+.st-side--old .st-side-body { color-scheme: light; background: #fff; color: #2b2f31; font: 400 14px/1.5 "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.st-side--old .st-side-body .st-old-swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.st-side--old .st-side-body .st-old-swatches i { block-size: 36px; }
+.st-code { margin: 0; padding: 0.75rem 1rem; border-block-start: 1px solid var(--hm-rule); background: light-dark(var(--color-shallowblue-95), var(--color-black-40)); color: var(--color-white-60); font: 400 0.74rem/1.6 var(--hm-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+.st-code .c { color: var(--color-gray-60); }
+.st-side--old .st-code { background: #f6f9fb; color: #1f5f8b; border-block-start-color: #d3e1ea; font-family: Consolas, Menlo, Monaco, monospace; }
+.st-tones { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 3px; }
+.st-tones i { block-size: 2.25rem; border-radius: 3px; }
+.st-tone-axis { display: flex; justify-content: space-between; font: 500 0.66rem var(--hm-mono); color: var(--hm-note); }
+.st-ral { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.st-ral figure { display: grid; align-content: start; gap: 0.3rem; margin: 0; min-inline-size: 0; font: 500 0.68rem/1.3 var(--hm-mono); color: var(--hm-note); }
+.st-ral i { block-size: 2.25rem; border-radius: 3px; }
+.st-ral b { color: var(--oc-foreground); font-weight: 600; }
+.st-mix { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 3px; }
+.st-mix i { block-size: 1rem; border-radius: 2px; background: color-mix(in oklch, var(--color-ral5015) var(--p), var(--color-white-50)); }
+
+@media (max-width: 1020px) {
+  .st-step { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+}
+@media (max-width: 760px) {
+  .st-old { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; block-size: auto; }
+  .st-old-top { font-size: 24px; }
+  .st-old-side { padding: 16px 12px 10px; overflow: visible; }
+  .st-old-search, .st-old-foot, .st-old-actions { display: none; }
+  .st-old-brand { margin: 0 0 4px; padding-inline: 6px; }
+  .st-old-nav { display: flex; flex-wrap: wrap; }
+  .st-old-nav > li { margin: 0; padding: 0; border: 0; }
+  .st-old-nav > li > span { display: none; }
+  .st-old-nav ul { display: flex; flex-wrap: wrap; }
+  .st-old-nav ul a { padding: 4px 6px; }
+  .st-old-main { overflow: visible; padding: 20px 16px 24px; }
+  .st-old-main h3 { font-size: 28px; }
+  .st-compare { grid-template-columns: minmax(0, 1fr); }
+  .st-address { display: none; }
+  .st-browser-bar { justify-content: space-between; }
+}
+
+/* ---- Home section 08: the steps sit under the 2022 page ---- */
+.st-home-steps { margin-block-start: clamp(3rem, 6vw, 5rem); }
