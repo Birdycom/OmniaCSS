@@ -1,6 +1,6 @@
 {
   "name": "@birdycom/omniacss-docs",
-  "version": "0.16.2",
+  "version": "0.17.0",
   "private": true,
   "type": "module",
   "description": "OmniaCSS documentation site (Astro, static output without client JavaScript).",

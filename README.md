@@ -17,7 +17,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 > part: utilities, tokens, SCSS, the on-demand engine, the CLI (`init` / `build` / `migrate` / `tokens`),
 > `@birdycom/omniacss-migrate` and the CSS docs. Both repositories share the **same version number**.
 
-**Version:** `0.16.2` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
+**Version:** `0.17.0` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
 
 ## Why OmniaCSS
 
@@ -229,6 +229,7 @@ Newest first.
 
 | Version | Date | Changes |
 |--------|-------|-----|
+| `0.17.0` | 2026-11-23 | Nieuwe homepage en Our story, module-kleur, ledger, compound-componenten, liquid glass, wrappers voor React, Vue, Blade en Livewire, tooltip op het kleurenpalet, vele QA-fixes |
 | `0.16.2` | 2026-11-17 | Tooltip blijft niet staan na een klik en verdwijnt bij een open menu, webicons-scan zonder valse melding, top-progress-gloed in Firefox, Pro-megamenu blijft in het venster |
 | `0.16.1` | 2026-11-17 | Webicon (iconen op naam zonder iconify-runtime) en de OmniaUI-fixes van 0.16.1 in de editor-extensie en de MCP |
 | `0.16.0` | 2026-11-17 | Nieuwe utilities (border-conic-spin, shadow-neon, text-shadow-3d, glass, animate-typing/wave/float, clip-circle, mask-ring, ease-overshoot); hover-varianten voor scale/rotate/translate tellen niet meer dubbel; border-image-stripes hersteld; docs: alle voorbeelden in een vaste opmaak met volledige code, getest in Chrome, Firefox en Opera |
