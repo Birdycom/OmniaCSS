@@ -1364,7 +1364,9 @@
    Map: collapsible search of the app header (0.17.1): narrow bar -> magnifier only -> open over the bar on focus
    .oc-block-appbar-search--collapse: on a narrow app header (container below 40rem) the search field shrinks to a
    magnifier button; a tap or Tab opens it over the whole bar, leaving the field closes it again. No script: the field
-   is the button (:focus-within). Wrappers: searchCollapse (React, Vue), search-collapse (Blade). */
+   is the button (:focus-within). Wrappers: searchCollapse (React, Vue), search-collapse (Blade).
+   0.17.2: the field may also be a Combobox (.oc-combobox), your own input[type=search] or any [role=combobox] field:
+   they get the same magnifier; the combobox chevron and value icon hide while the field is a magnifier. */
 
 /* The bar holds the open field (absolute), also when it is not positioned itself. */
 .oc-block-appbar:has(> .oc-block-appbar-search--collapse) { position: relative; }
@@ -1390,13 +1392,21 @@
     -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5'/%3E%3C/svg%3E") center / contain no-repeat;
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5'/%3E%3C/svg%3E") center / contain no-repeat;
   }
-  .oc-block-appbar-search--collapse .oc-input {
+  .oc-block-appbar-search--collapse :is(.oc-input, input[type="search"], [role="combobox"]) {
+    box-sizing: border-box;
+    inline-size: 100%;
     padding-inline: 2.1rem 0.5rem;
     color: transparent;
     cursor: pointer;
   }
-  .oc-block-appbar-search--collapse .oc-input::placeholder { color: transparent; }
-  .oc-block-appbar-search--collapse .oc-input::-webkit-search-cancel-button { display: none; }
+  .oc-block-appbar-search--collapse :is(.oc-input, input[type="search"], [role="combobox"])::placeholder { color: transparent; }
+  .oc-block-appbar-search--collapse :is(.oc-input, input[type="search"], [role="combobox"])::-webkit-search-cancel-button { display: none; }
+
+  /* A Combobox (or another wrapper) in the slot fills the field box; its chevron and value icon give way to the magnifier. */
+  .oc-block-appbar-search--collapse > :not(input) { inline-size: 100%; }
+  .oc-block-appbar-search--collapse .oc-combobox::after,
+  .oc-block-appbar-search--collapse .oc-combobox > .oc-combobox-icon { display: none; }
+  .oc-block-appbar-search--collapse .oc-combobox:has(> .oc-combobox-icon:not(:empty)) > .oc-combobox-input { padding-inline: 2.1rem 0.5rem; }
 
   /* Open: over the whole bar (the bar is the container, so the absolute box stays inside it). */
   .oc-block-appbar-search--collapse:focus-within {
@@ -1409,9 +1419,9 @@
     background: var(--oc-background);
   }
   .oc-block-appbar-search--collapse:focus-within::before { inset-inline-start: 0.6rem; }
-  .oc-block-appbar-search--collapse:focus-within .oc-input { color: var(--oc-foreground); cursor: text; }
-  .oc-block-appbar-search--collapse:focus-within .oc-input::placeholder { color: var(--oc-muted-foreground); }
-  .oc-block-appbar-search--collapse:focus-within .oc-input::-webkit-search-cancel-button { display: revert; }
+  .oc-block-appbar-search--collapse:focus-within :is(.oc-input, input[type="search"], [role="combobox"]) { color: var(--oc-foreground); cursor: text; }
+  .oc-block-appbar-search--collapse:focus-within :is(.oc-input, input[type="search"], [role="combobox"])::placeholder { color: var(--oc-muted-foreground); }
+  .oc-block-appbar-search--collapse:focus-within :is(.oc-input, input[type="search"], [role="combobox"])::-webkit-search-cancel-button { display: revert; }
 }
 
 @media (forced-colors: active) {
