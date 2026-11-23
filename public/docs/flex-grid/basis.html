@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>OmniaCSS Docs - Flex Basis</title>
-  <meta name="description" content="Set the initial main-size of a flex item before free space is distributed.">
+  <meta name="description" content="Set the initial main size of a flex item before free space is distributed, with .basis-{value} utilities for rem steps, full width and auto sizing.">
   
   <link rel="canonical" href="https://omniacss.eu/docs/flex-grid/basis">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="OmniaCSS">
   <meta property="og:title" content="OmniaCSS Docs - Flex Basis">
-  <meta property="og:description" content="Set the initial main-size of a flex item before free space is distributed.">
+  <meta property="og:description" content="Set the initial main size of a flex item before free space is distributed, with .basis-{value} utilities for rem steps, full width and auto sizing.">
   <meta property="og:url" content="https://omniacss.eu/docs/flex-grid/basis">
   <meta property="og:image" content="https://omniacss.eu/img/og-omniacss.png">
   <meta property="og:image:width" content="1200">
@@ -20,10 +20,10 @@
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="OmniaCSS Docs - Flex Basis">
-  <meta name="twitter:description" content="Set the initial main-size of a flex item before free space is distributed.">
+  <meta name="twitter:description" content="Set the initial main size of a flex item before free space is distributed, with .basis-{value} utilities for rem steps, full width and auto sizing.">
   <meta name="twitter:image" content="https://omniacss.eu/img/og-omniacss.png">
   <meta name="twitter:image:alt" content="OmniaCSS: modern CSS as utility classes">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"OmniaCSS","item":"https://omniacss.eu/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://omniacss.eu/docs/"},{"@type":"ListItem","position":3,"name":"Flex & Grid","item":"https://omniacss.eu/docs/flex-grid/"},{"@type":"ListItem","position":4,"name":"Flex Basis","item":"https://omniacss.eu/docs/flex-grid/basis"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Flex Basis","description":"Set the initial main-size of a flex item before free space is distributed.","url":"https://omniacss.eu/docs/flex-grid/basis","mainEntityOfPage":"https://omniacss.eu/docs/flex-grid/basis","inLanguage":"en","image":"https://omniacss.eu/img/og-omniacss.png","isPartOf":{"@type":"WebSite","name":"OmniaCSS","url":"https://omniacss.eu/","inLanguage":"en","publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"}},"publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"},"about":{"@type":"SoftwareApplication","name":"OmniaCSS","applicationCategory":"DeveloperApplication"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"OmniaCSS","item":"https://omniacss.eu/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://omniacss.eu/docs/"},{"@type":"ListItem","position":3,"name":"Flex & Grid","item":"https://omniacss.eu/docs/flex-grid/"},{"@type":"ListItem","position":4,"name":"Flex Basis","item":"https://omniacss.eu/docs/flex-grid/basis"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Flex Basis","description":"Set the initial main size of a flex item before free space is distributed, with .basis-{value} utilities for rem steps, full width and auto sizing.","url":"https://omniacss.eu/docs/flex-grid/basis","mainEntityOfPage":"https://omniacss.eu/docs/flex-grid/basis","inLanguage":"en","image":"https://omniacss.eu/img/og-omniacss.png","isPartOf":{"@type":"WebSite","name":"OmniaCSS","url":"https://omniacss.eu/","inLanguage":"en","publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"}},"publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"},"about":{"@type":"SoftwareApplication","name":"OmniaCSS","applicationCategory":"DeveloperApplication"}}</script>
   <meta name="generator" content="OmniaCSS 0.17.0">
   <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -33,7 +33,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=9d9ead7dab"><link rel="stylesheet" href="/css/oc-components.css?v=154c1730cc"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=700e13dcc1"><link rel="stylesheet" href="/css/oc-blocks.css?v=5e6198b6bd"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=58ef7397a9"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=31a269ac36"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=062726757b">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=9d9ead7dab"><link rel="stylesheet" href="/css/oc-components.css?v=ba84635787"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=700e13dcc1"><link rel="stylesheet" href="/css/oc-blocks.css?v=415d1c5e1e"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=58ef7397a9"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=31a269ac36"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=062726757b">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.

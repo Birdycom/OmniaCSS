@@ -1,7 +1,29 @@
 {
-  "summary": "",
-  "new": [],
-  "improved": [],
-  "changed": [],
-  "fixed": []
+  "summary": "A release notes page, status badges with icons, a compound Breadcrumb, currency and percent fields, theming tokens for buttons and fixes for dark mode with a .dark class.",
+  "new": [
+    "A “Release notes” page (/release-notes.html) with every release, newest first, and its own item in the menu of omniacss.eu and omniaui.eu.",
+    "Status badges with an icon: `status=\"paid\"`, `\"overdue\"`, `\"in-progress\"` … (`.oc-badge--status` + `data-status`), and a read-only value chip (`variant=\"readonly\"`).",
+    "Compound Breadcrumb (BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis) and `maxItems`, which folds the middle of a long trail into a “…” menu.",
+    "DecimalInput presets: `currency=\"EUR\"` shows the symbol where the locale writes it, `percent` adds “%” after the value.",
+    "Button theming tokens: `--oc-btn-radius`, `--oc-btn-hover-mix`, `--oc-btn-hover-tint`, `--oc-btn-hover-opacity`, `--oc-btn-outline-mix` and `--oc-btn-disabled-opacity`, all unset by default.",
+    "`.oc-btn--inherit` and the `inherit` prop: an outline or ghost button on a dark or colored band follows the text color around it.",
+    "DataTable `onReorder` (React) and the `reorder` event (Vue): the new row order after a drag (the drag itself is OmniaUI Pro).",
+    "AppHeader `searchCollapse`: on a narrow bar the search shrinks to a magnifier and opens over the bar on focus."
+  ],
+  "improved": [
+    "Both sites keep the header in view while you scroll and end every page with one full-width footer bar: copyright, version and the same links on omniacss.eu and omniaui.eu.",
+    "“Our story” has its place in the main menu of both sites.",
+    "Barcode: `fallback=\"code128\"` draws an EAN or UPC value with a wrong check digit as Code 128 instead of an error.",
+    "OtpInput marks the cell the caret is in, and `onComplete` also fires when the full code arrives from outside.",
+    "Webicons: 18 more built-in icons, among them those of the status badges and the breadcrumb ellipsis.",
+    "Meta descriptions of 55 docs pages now have 120 to 160 characters for search engines."
+  ],
+  "changed": [
+    "The `--oc-info` token is sky blue: info badges, alerts and toasts now differ from the primary color."
+  ],
+  "fixed": [
+    "Dark mode with a `.dark` or `.light` class on `<html>` (Tailwind, shadcn) also sets `color-scheme`, so form fields and scrollbars follow.",
+    "The Pro blocks shop product and status page no longer scroll sideways on a 360px screen.",
+    "The avatar example in the docs."
+  ]
 }

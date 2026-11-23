@@ -1361,7 +1361,7 @@
 
 /* parts/app-appbar-search-collapse.css */
 /* File: packages/blocks/src/parts/app-appbar-search-collapse.css
-   Map: collapsible search of the app header (0.18.0): narrow bar -> magnifier only -> open over the bar on focus
+   Map: collapsible search of the app header (0.17.1): narrow bar -> magnifier only -> open over the bar on focus
    .oc-block-appbar-search--collapse: on a narrow app header (container below 40rem) the search field shrinks to a
    magnifier button; a tap or Tab opens it over the whole bar, leaving the field closes it again. No script: the field
    is the button (:focus-within). Wrappers: searchCollapse (React, Vue), search-collapse (Blade). */
