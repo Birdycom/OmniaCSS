@@ -3,6 +3,12 @@
 // Flags: --dry-run (write nothing, only show + verify), --no-verify (skip build + pack dry-run).
 // Usage: npm run release -- <patch|minor|major|x.y.z> "Short summary of the change" [--dry-run]
 // Map: parse args -> next version -> package.json files -> README (Version + Recent changes) -> docs/release-history.json
+//      (+ the English notes from docs/release-notes-next.json) -> verify
+//
+// The release notes page (omniacss.eu/release-notes.html, apps/docs/src/lib/release-notes.mjs) reads docs/release-history.json.
+// Collect the English notes of the coming release in docs/release-notes-next.json ({ summary, new, improved, changed,
+// fixed }); this script moves them into the new release and empties the file again. Without notes the page shows the
+// summary given here, so write that in English when there are no notes.
 //
 // Rules (same workflow as OmniaDesk, but npm needs 3-part semver):
 //   patch  +0.0.1  bugfix, polish, typo, small UI tweak
@@ -68,11 +74,29 @@ readme = readme.replace(/(\*\*Version:\*\* `)[^`]+(`)/, `$1${version}$2`);
 readme = readme.replace(/(\| Version \| Date \| Changes \|\r?\n\|[-| ]+\|\r?\n)/, `$1| \`${version}\` | ${date} | ${summary.replace(/\|/g, "\\|")} |\n`);
 await write(readmePath, readme);
 
-// 3. docs/release-history.json (read by the docs site)
+// 3. docs/release-history.json (read by the docs site: docs home + /release-notes.html), with the English notes
+//    collected in docs/release-notes-next.json. Re-running the same version keeps the notes it already has.
 const historyPath = "docs/release-history.json";
+const nextNotesPath = "docs/release-notes-next.json";
+const NOTE_LISTS = ["new", "improved", "changed", "fixed"];
+const emptyNotes = { summary: "", new: [], improved: [], changed: [], fixed: [] };
 const history = await readJson(historyPath).catch(() => ({ releases: [] }));
-history.releases = [{ version, date, summary }, ...history.releases.filter((r) => r.version !== version)];
+const nextNotes = await readJson(nextNotesPath).catch(() => ({}));
+const notes = {};
+if (typeof nextNotes.summary === "string" && nextNotes.summary.trim()) notes.summary = nextNotes.summary.trim();
+for (const key of NOTE_LISTS) {
+  const items = (Array.isArray(nextNotes[key]) ? nextNotes[key] : []).map((item) => String(item).trim()).filter(Boolean);
+  if (items.length) notes[key] = items;
+}
+const hasNotes = Object.keys(notes).length > 0;
+const previous = history.releases.find((r) => r.version === version);
+const entry = { version, date, summary };
+if (hasNotes) entry.notes = notes;
+else if (previous?.notes) entry.notes = previous.notes;
+history.releases = [entry, ...history.releases.filter((r) => r.version !== version)];
 await write(historyPath, JSON.stringify(history, null, 2) + "\n");
+if (hasNotes) await write(nextNotesPath, JSON.stringify(emptyNotes, null, 2) + "\n");
+else if (!entry.notes) console.warn(`[release] ${nextNotesPath} is empty: the release notes page shows only the summary of v${version}.`);
 
 // 4. Verify: refresh lockfile, build the packages and dry-run the npm tarballs (nothing is published).
 if (!skipVerify) {

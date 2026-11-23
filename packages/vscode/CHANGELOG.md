@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.17.1
+
+- Completions and hover CSS for the OmniaUI additions of 0.17.1: `oc-btn--inherit` (an outline or ghost button that
+  follows the text color around it) and the button theming tokens `--oc-btn-radius`, `--oc-btn-hover-mix`,
+  `--oc-btn-hover-tint`, `--oc-btn-hover-opacity`, `--oc-btn-outline-mix` and `--oc-btn-disabled-opacity`.
+- The status badges (`oc-badge--status` with `data-status`), the read-only badge, the compound breadcrumb parts
+  (`oc-breadcrumb-item`, `oc-breadcrumb-separator`, `oc-breadcrumb-ellipsis`), the active cell of the one-time code
+  (`data-otp-active` on `oc-otp`) and the collapsible search of the app header (`oc-block-appbar-search--collapse`).
+- The `--oc-info` token is sky blue, and `.dark` / `.light` on `<html>` also set `color-scheme`.
+
 ## 0.16.1
 
 - Completions and hover CSS for the OmniaUI additions of 0.16.1: `oc-icon--xs` … `oc-icon--xl` (Webicon sizes),

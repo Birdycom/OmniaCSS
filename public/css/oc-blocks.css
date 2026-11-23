@@ -1359,6 +1359,65 @@
   .oc-block-appbar-search { flex: 0 1 12rem; }
 }
 
+/* parts/app-appbar-search-collapse.css */
+/* File: packages/blocks/src/parts/app-appbar-search-collapse.css
+   Map: collapsible search of the app header (0.17.1): narrow bar -> magnifier only -> open over the bar on focus
+   .oc-block-appbar-search--collapse: on a narrow app header (container below 40rem) the search field shrinks to a
+   magnifier button; a tap or Tab opens it over the whole bar, leaving the field closes it again. No script: the field
+   is the button (:focus-within). Wrappers: searchCollapse (React, Vue), search-collapse (Blade). */
+
+/* The bar holds the open field (absolute), also when it is not positioned itself. */
+.oc-block-appbar:has(> .oc-block-appbar-search--collapse) { position: relative; }
+
+@container oc-block-appbar (max-width: 40rem) {
+  .oc-block-appbar-search--collapse {
+    position: relative;
+    flex: 0 0 2.25rem;
+    margin-inline-start: auto; /* the magnifier sits next to the actions, at the end of the bar */
+  }
+  /* The magnifier (mdi:magnify) on the start of the field; the field keeps the icon room on both states. */
+  .oc-block-appbar-search--collapse::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 50%;
+    inset-inline-start: 0.6rem;
+    inline-size: 1.1rem;
+    block-size: 1.1rem;
+    translate: 0 -50%;
+    background: var(--oc-muted-foreground);
+    pointer-events: none;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .oc-block-appbar-search--collapse .oc-input {
+    padding-inline: 2.1rem 0.5rem;
+    color: transparent;
+    cursor: pointer;
+  }
+  .oc-block-appbar-search--collapse .oc-input::placeholder { color: transparent; }
+  .oc-block-appbar-search--collapse .oc-input::-webkit-search-cancel-button { display: none; }
+
+  /* Open: over the whole bar (the bar is the container, so the absolute box stays inside it). */
+  .oc-block-appbar-search--collapse:focus-within {
+    position: absolute;
+    z-index: 2;
+    inset-block: 0;
+    inset-inline: 0.75rem;
+    display: flex;
+    align-items: center;
+    background: var(--oc-background);
+  }
+  .oc-block-appbar-search--collapse:focus-within::before { inset-inline-start: 0.6rem; }
+  .oc-block-appbar-search--collapse:focus-within .oc-input { color: var(--oc-foreground); cursor: text; }
+  .oc-block-appbar-search--collapse:focus-within .oc-input::placeholder { color: var(--oc-muted-foreground); }
+  .oc-block-appbar-search--collapse:focus-within .oc-input::-webkit-search-cancel-button { display: revert; }
+}
+
+@media (forced-colors: active) {
+  .oc-block-appbar-search--collapse::before { background: CanvasText; }
+}
+
 /* parts/app-content-blocks.css */
 /* File: packages/blocks/src/parts/app-content-blocks.css
    Map: frame -> top bar (prev/next, title, actions) -> list -> block card (details: head with grip, type, peek,

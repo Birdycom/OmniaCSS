@@ -28,6 +28,8 @@
     "success-foreground": { "group": "Semantic accents", "value": { "light": "white-50", "dark": "shallowblue-95" } },
     "warning": { "group": "Semantic accents", "value": { "light": "orange-95", "dark": "orange-50" } },
     "warning-foreground": { "group": "Semantic accents", "value": { "light": "white-50", "dark": "shallowblue-95" } },
+    "info": { "group": "Semantic accents", "value": { "light": "deepskyblue-70", "dark": "skyblue-50" }, "use": "info badge, alert, toast, soft button" },
+    "info-foreground": { "group": "Semantic accents", "value": "shallowblue-95", "use": "text on info (dark ink: the info tone is light in both modes)" },
 
     "border": { "group": "Borders and inputs", "value": { "light": "frostblue-80", "dark": "duskblue-30" } },
     "border-strong": { "group": "Borders and inputs", "value": { "light": "mistblue-80", "dark": "stormblue-30" } },

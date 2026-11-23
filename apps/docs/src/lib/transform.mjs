@@ -24,6 +24,7 @@ import path from "node:path";
 import { compatTable, hasCompat, mdnLink, supportSummary } from "./compat.mjs";
 import { REPO, CONTENT } from "./site.mjs";
 import { whatsNewHtml } from "./whats-new.mjs";
+import { releaseNotesHtml } from "./release-notes.mjs";
 import { countOf } from "./counts.mjs";
 
 const slug = (s) => s.toLowerCase().replace(/&amp;|&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
@@ -356,6 +357,8 @@ export function transform(content, route = "") {
 
   // 0. <oc-whats-new>: the latest release and the new OmniaUI components and blocks (lib/whats-new.mjs).
   for (const el of [...body.querySelectorAll("oc-whats-new")]) replaceWithHtml(document, el, whatsNewHtml());
+  // 0a. <oc-release-notes>: every release from docs/release-history.json (lib/release-notes.mjs, /release-notes.html).
+  for (const el of [...body.querySelectorAll("oc-release-notes")]) replaceWithHtml(document, el, releaseNotesHtml());
   // 0b. <oc-count of="components">: totals of OmniaUI (lib/counts.mjs).
   for (const el of [...body.querySelectorAll("oc-count")]) el.replaceWith(document.createTextNode(countOf(el.getAttribute("of"))));
 

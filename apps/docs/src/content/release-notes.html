@@ -1,0 +1,49 @@
+<!--oc-page {"title":"Release notes — OmniaCSS and OmniaUI","description":"Every release of OmniaCSS and OmniaUI, newest first: what is new, what improved and what was fixed in each version, with the date and the version number.","layout":"plain","shell":null,"shellClass":null,"bodyClass":"oc-home oc-home--css","footer":"site","head":["<link rel=\"stylesheet\" href=\"/css/oc-home.css\">","<link rel=\"stylesheet\" href=\"/css/oc-release-notes.css\">"]}-->
+<!-- File: apps/docs/src/content/release-notes.html | "Release notes" page of omniacss.eu (menu item in src/lib/site.mjs, also on
+     omniaui.eu, which links here: both packages share one version number). Drawn like the home (/css/oc-home.css, hm-*)
+     with the release parts of /css/oc-release-notes.css (rn-*). The releases come from docs/release-history.json
+     (<oc-release-notes>, src/lib/release-notes.mjs); "npm run release" adds the next one.
+     Map: 00 intro -> 01 filter + jump list + every release, newest first. -->
+<main class="hm" id="top">
+
+  <!-- 00 Intro -->
+  <section class="hm-band hm-band--grid rn-hero" aria-labelledby="rn-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">00</span> Release notes <span class="hm-ref" aria-hidden="true">OmniaCSS · OmniaUI</span></p>
+      <div class="hm-head">
+        <h1 id="rn-title">What changed, <span class="hm-mark">version by version</span>.</h1>
+        <p class="hm-lead">OmniaCSS and OmniaUI share one version number. Each release below lists what is new, what improved and what was fixed, newest first. Every version has its own link, so you can point to it.</p>
+        <ul class="hm-specs" aria-label="At a glance"><li>Semantic versions · MAJOR.MINOR.PATCH</li><li>Packages on npm and Packagist</li><li>Newest first</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 Every release (generated) -->
+  <section class="hm-band" aria-labelledby="rn-all-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">01</span> <span id="rn-all-title">All releases</span> <span class="hm-ref" aria-hidden="true">v0.1.0 → today</span></p>
+      <label class="rn-filter">
+        <span>Filter the release notes</span>
+        <input type="search" placeholder="A class, a component or a version, e.g. glass or 0.16" autocomplete="off" spellcheck="false" data-rn-filter>
+      </label>
+      <oc-release-notes></oc-release-notes>
+    </div>
+  </section>
+
+</main>
+<script>
+  // Filter: hides the releases whose text does not contain every word typed. Without JavaScript every release shows.
+  (() => {
+    const input = document.querySelector("[data-rn-filter]");
+    const releases = [...document.querySelectorAll(".rn-release")];
+    const empty = document.querySelector("[data-rn-empty]");
+    if (!input || !releases.length) return;
+    const texts = releases.map((r) => r.textContent.toLowerCase());
+    input.addEventListener("input", () => {
+      const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+      let shown = 0;
+      releases.forEach((r, i) => { const hit = words.every((w) => texts[i].includes(w)); r.hidden = !hit; if (hit) shown++; });
+      if (empty) empty.hidden = shown > 0;
+    });
+  })();
+</script>

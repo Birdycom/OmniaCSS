@@ -37,5 +37,5 @@ export function whatsNewHtml() {
   // Only one line on the docs home: the release and where to see what it brings.
   if (!latest) return "";
   const what = links ? ` What is new${since ? ` in v${esc(since)}` : ""}: ${links}.` : ` <a href="${OMNIAUI_URL}/ui/components.html">All components</a> · <a href="${OMNIAUI_URL}/ui/blocks.html">All blocks</a>`;
-  return `<p class="dx-release">Latest release <b>v${esc(latest.version)}</b> on ${esc(date(latest.date))}.${what}</p>`;
+  return `<p class="dx-release">Latest release <a href="/release-notes.html#v${esc(latest.version.replace(/\./g, "-"))}"><b>v${esc(latest.version)}</b></a> on ${esc(date(latest.date))}.${what}</p>`;
 }

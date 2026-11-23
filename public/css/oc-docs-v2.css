@@ -20,8 +20,8 @@
   --ocd-radius: 14px;
   --ocm-header-height: 64px;
   --ocm-footer-height: 36px;
-  /* Phone menu panel with the site links (small screens): 4 rows of 2.3rem + 3 gaps + padding + borders. */
-  --ocd-sitenav-height: calc(4 * 2.3rem + 3 * 0.15rem + 1rem + 2px);
+  /* Phone menu panel with the site links (small screens): 5 rows of 2.3rem + 4 gaps + padding + borders. */
+  --ocd-sitenav-height: calc(5 * 2.3rem + 4 * 0.15rem + 1rem + 2px);
 }
 
 /* ---- Type ---------------------------------------------------------------------------------------- */
@@ -37,6 +37,13 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   backdrop-filter: blur(12px) saturate(1.4);
   border-block-end-color: var(--ocd-rule);
 }
+/* Pages without the docs shell (the home pages, /story, legal, 404): the same bar stays at the top while the page
+   scrolls (sticky: it keeps its place in the flow, so nothing needs a top padding). The docs shell pages use
+   .oc-topbar--fixed. Same height, background, blur, border and z-index on every page of both sites. */
+body > .oc-topbar:not(.oc-topbar--fixed) { position: sticky; inset-block-start: 0; z-index: 1100; }
+/* Anchor links on those pages land under the header and above the footer bar, not behind them (scroll padding of the
+   page scroller: the same offset as a scroll-margin-top on every target). */
+html { scroll-padding-block: calc(var(--ocm-header-height) + 1rem) calc(var(--ocm-footer-height) + 0.5rem); }
 .oc-topbar-brand:not(.oc-theme-scope *) {
   display: inline-flex;
   align-items: center;
@@ -449,6 +456,22 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .oc-footerbar:not(.oc-theme-scope *) { font-size: 0.78rem; background: oklch(from var(--oc-background) l c h / 0.92); }
 .oc-footerbar:not(.oc-theme-scope *) a { color: var(--oc-muted-foreground); text-decoration: none; }
 .oc-footerbar:not(.oc-theme-scope *) a:hover { color: var(--oc-foreground); text-decoration: underline; }
+/* The one bottom bar of both sites (.ocd-footer, layouts/ContentPage.astro, links in lib/site.mjs): copyright and
+   version on the left, the site links on the right, full width and fixed on every page. The home pages keep their big
+   column footer above it. One line at every width: the tagline gives way first, then the links scroll sideways. */
+.ocd-footer:not(.oc-theme-scope *) { gap: 1.5rem; white-space: nowrap; }
+.ocd-footer-copy { flex: none; color: var(--oc-muted-foreground); }
+.ocd-footer:not(.oc-theme-scope *) .oc-footerbar-links { flex-wrap: nowrap; gap: 0 1rem; min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
+.ocd-footer:not(.oc-theme-scope *) .oc-footerbar-links::-webkit-scrollbar { display: none; }
+/* Pages without the docs shell keep their end free for the fixed bar. */
+body:has(> .ocd-footer):not(:has(> .oc-docs-shell, > .ocd-shell, > [class*="oc-docs-shell"])) { padding-block-end: var(--ocm-footer-height); }
+@media (max-width: 1280px) { .ocd-footer-tag { display: none; } }
+@media (max-width: 760px) {
+  .ocd-footer:not(.oc-theme-scope *) { gap: 1rem; font-size: 0.72rem; }
+  .ocd-footer-years, .ocd-footer-name { display: none; }
+  /* More links wait to the side: the end of the row fades out. */
+  .ocd-footer:not(.oc-theme-scope *) .oc-footerbar-links { mask-image: linear-gradient(to left, transparent, #000 2rem); padding-inline-end: 1.5rem; }
+}
 
 /* ---- Search dialog (Ctrl K) --------------------------------------------------------------------- */
 .ocd-search-dialog {
@@ -487,13 +510,13 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   .ocd-search-trigger span, .ocd-search-trigger kbd { display: none; }
   .ocd-search-trigger { inline-size: auto; padding: 0.45rem; }
 }
-/* The top bar stays one line at every width: from 1100px down the links and the theme switch get a little less
+/* The top bar stays one line at every width: from 1380px down (eight links since "Release notes") the links and the theme switch get a little less
    room and the menu scrolls sideways instead of pushing the buttons to a second line. */
-@media (max-width: 1100px) {
+@media (max-width: 1380px) {
   .oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link { padding-inline: 0.45rem; }
   .oc-topbar:not(.oc-theme-scope *) .oc-theme-switch label { padding-inline: 0.4rem; }
 }
-@media (max-width: 1100px) {
+@media (max-width: 1380px) {
   .oc-topbar:not(.oc-theme-scope *) { flex-wrap: nowrap; }
   .oc-topbar-nav:not(.oc-theme-scope *) { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
   .oc-navmenu--site:not(.oc-theme-scope *) { flex-wrap: nowrap; }
@@ -516,7 +539,7 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   :is(.oc-docs-sidebar-right, .ocd-sidebar-right) { display: none; }
 }
 /* Small laptops: the version badge next to the brand gives way to the links. */
-@media (max-width: 1160px) {
+@media (max-width: 1380px) {
   .oc-topbar-brand:not(.oc-theme-scope *) .oc-badge-version { display: none; }
   .oc-topbar-brand:not(.oc-theme-scope *) { inline-size: 8.5rem; }
 }
@@ -545,14 +568,12 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   /* The free place for the menu button follows the smaller gap. */
   .oc-topbar:not(.oc-theme-scope *):not(:has(.ocd-nav-button)) .oc-topbar-brand:not(.oc-theme-scope *) { margin-inline-start: calc(2.15rem + 0.6rem); }
   .oc-topbar-brand:not(.oc-theme-scope *) .oc-badge-version { display: none; }
-  :root { --ocm-footer-height: 0px; }
-  .oc-footerbar--fixed { display: none; }
 }
-/* Tablets and phones (below 1020px the six links, GitHub and the actions no longer fit on one line): the site links
+/* Tablets, small laptops and phones (below 1200px the eight links, GitHub and the actions no longer fit on one line): the site links
    (OmniaCSS/OmniaUI · Docs · Components · Blocks · Starter kits · Webicons · GitHub) leave the top bar and open with
    the menu button on every page, as a panel of two columns under the header. On docs pages the left menu (a drawer
    from 900px down) opens right under that panel. Same order and items as on desktop; nothing is cut off. */
-@media (max-width: 1020px) {
+@media (max-width: 1200px) {
   .ocd-nav-button { display: grid; }
   .oc-topbar:not(.oc-theme-scope *):has(.ocd-nav-button--site) .oc-topbar-brand:not(.oc-theme-scope *) { margin-inline-start: 0; }
   .oc-topbar:not(.oc-theme-scope *):has(.ocd-nav-toggle:checked) { z-index: 1100; }
