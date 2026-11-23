@@ -34,17 +34,20 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 
 ## Showcase
 
-A short tour: the homepage, the docs overview, a docs page (classes, live demo, code, browser support), the color
-palettes with their values on hover, and the search dialog (<kbd>Ctrl</kbd> <kbd>K</kbd>).
+A short tour: the homepage playground (click a class chip and the preview and its CSS change), the docs overview,
+a docs page with a live anchor-positioning tooltip, the color palette with its values on hover, the OmniaUI
+components and blocks, and the switch to the dark theme.
 
-![Tour of omniacss.eu: homepage, docs, color palettes and search](docs/readme/omniacss-tour.gif)
+![Tour of omniacss.eu: homepage playground, docs, anchor positioning, color palette tooltip, components, blocks and dark mode](docs/readme/omniacss-tour.gif)
 
 | | |
 |---|---|
-| ![OmniaCSS homepage](docs/readme/omniacss-home.png) | ![Docs overview](docs/readme/omniacss-docs.png) |
-| Homepage | Docs overview: every CSS family with its pages |
-| ![Anchor positioning docs in dark mode](docs/readme/omniacss-docs-dark.png) | ![Color palettes with a tooltip](docs/readme/omniacss-palettes.png) |
-| A docs page in dark mode | Color palettes: hover a swatch for HEX, RGB, HSL, OKLCH and OKLAB |
+| ![OmniaCSS homepage with the class playground](docs/readme/omniacss-home.png) | ![OmniaCSS homepage in dark mode](docs/readme/omniacss-home-dark.png) |
+| Homepage: type or click classes in the playground and see the CSS they produce | The homepage in dark mode |
+| ![Docs overview with the Install, Colors, Modern CSS and Creative CSS entry points](docs/readme/omniacss-docs.png) | ![Glass docs page in dark mode with a live backdrop-filter demo](docs/readme/omniacss-docs-dark.png) |
+| Docs overview: every CSS family with its pages | A docs page in dark mode: `.glass` and backdrop filters with a live demo |
+| ![Color palette with a tooltip showing HEX, RGB, HSL, OKLCH and OKLAB](docs/readme/omniacss-palettes.png) | ![Release notes for v0.17.0](docs/readme/omniacss-release-notes.png) |
+| Color palette: hover a swatch for HEX, RGB, HSL, OKLCH and OKLAB | Release notes: what is new, improved and fixed per version |
 
 Components and blocks are shown in the [OmniaUI README](https://github.com/Birdycom/OmniaUI#showcase).
 

@@ -3,42 +3,134 @@
     {
       "version": "0.17.0",
       "date": "2026-11-23",
-      "summary": "Nieuwe homepage en Our story, module-kleur, ledger, compound-componenten, liquid glass, wrappers voor React, Vue, Blade en Livewire, tooltip op het kleurenpalet, vele QA-fixes"
+      "summary": "Nieuwe homepage en Our story, module-kleur, ledger, compound-componenten, liquid glass, wrappers voor React, Vue, Blade en Livewire, tooltip op het kleurenpalet, vele QA-fixes",
+      "notes": {
+        "summary": "New websites for OmniaCSS and OmniaUI, React, Vue, Blade and Livewire code for every component and block, module colors, the ledger variant, compound components and liquid glass.",
+        "new": [
+          "New home pages for omniacss.eu and omniaui.eu, drawn like a technical drawing, with a new site footer and the “Our story” page (/story.html).",
+          "Every component and block demo shows HTML, React, Vue, Blade and Livewire code. A code-tabs check runs with the tests.",
+          "Module colors: `data-module`, the `--oc-module`, `--oc-module-soft` and `--oc-module-fg` tokens and a `module` prop.",
+          "`variant=\"ledger\"`, a Combobox catalog, FormField, input masks and validation.",
+          "Compound Tabs, Dialog, Popover and Tooltip; AppHeader overflow, a Sidebar provider and a server-side DataTable (free); reorder and ColumnMenu in Pro.",
+          "Liquid glass with a refracting lens and dragging (Chromium, a frosted look elsewhere), the `.oc-btn--float` heart button, HeroMedia, `split--reverse`, `aspect--flush`, `dl--numbered` and a scrim.",
+          "`d-*` display aliases (`d-block`, `d-flex` …) with responsive variants.",
+          "Print utilities for printable reports: `print-hidden`, `print-only`, `print-light` and `page-a4`.",
+          "New components: Calendar (a day or a range), Countdown, SaveStatus, HeaderSettings with ThemeToggle, answer tiles (correct or wrong) and a locked EmptyState.",
+          "A tooltip on the color palette, playground chips and “What is new” at the top of the components and blocks overviews."
+        ],
+        "improved": [
+          "Redesigned blocks: product grid, hub launcher, features, contact grid and the Pro CMS dashboard.",
+          "DataTable: translatable labels; view, pagination and bulk actions can be turned off; a print style.",
+          "Tables with columns sized to their content (`--auto`), columns that hide in a narrow table and action labels that give way on small screens.",
+          "Alerts with an icon, buttons and an alarm state; ColorField checks contrast; a collapsed sidebar shows its labels as tooltips; the sidebar opens over the content on tablets.",
+          "Icon props of the Blade components render as inline SVG through `x-oc::webicon`.",
+          "Search engines and share previews on both sites: canonical URLs, Open Graph, Twitter cards, JSON-LD, a 404 page, a sitemap, robots.txt and llms.txt.",
+          "Syntax colors in every code tab."
+        ],
+        "fixed": [
+          "Blade slots: run `php artisan view:clear` after you update a Laravel app.",
+          "Demo data is neutral everywhere (Company 1, Customer 1).",
+          "Many small fixes on both sites, in light and dark mode and on phones."
+        ]
+      }
     },
     {
       "version": "0.16.2",
       "date": "2026-11-17",
-      "summary": "Tooltip blijft niet staan na een klik en verdwijnt bij een open menu, webicons-scan zonder valse melding, top-progress-gloed in Firefox, Pro-megamenu blijft in het venster"
+      "summary": "Tooltip blijft niet staan na een klik en verdwijnt bij een open menu, webicons-scan zonder valse melding, top-progress-gloed in Firefox, Pro-megamenu blijft in het venster",
+      "notes": {
+        "summary": "Fixes for tooltips, the webicons scan, the top progress bar in Firefox and the Pro mega menu.",
+        "fixed": [
+          "A tooltip no longer stays visible after a click and hides when a menu opens.",
+          "The webicons scan no longer reports icons that are fine.",
+          "The glow of the top progress bar works in Firefox.",
+          "The Pro mega menu stays inside the window.",
+          "The published packages pass the npm audit again (Astro is a dev dependency of the private docs site)."
+        ]
+      }
     },
     {
       "version": "0.16.1",
       "date": "2026-11-17",
-      "summary": "Webicon (iconen op naam zonder iconify-runtime) en de OmniaUI-fixes van 0.16.1 in de editor-extensie en de MCP"
+      "summary": "Webicon (iconen op naam zonder iconify-runtime) en de OmniaUI-fixes van 0.16.1 in de editor-extensie en de MCP",
+      "notes": {
+        "summary": "Webicon: icons by name without the Iconify runtime, plus the OmniaUI 0.16.1 fixes in the editor extension and the MCP server.",
+        "new": [
+          "Webicon: show an icon by its name (`mdi:…`), bundled locally, without the Iconify runtime."
+        ],
+        "improved": [
+          "The editor extension and the MCP server know the OmniaUI 0.16.1 changes."
+        ]
+      }
     },
     {
       "version": "0.16.0",
       "date": "2026-11-17",
-      "summary": "Nieuwe utilities (border-conic-spin, shadow-neon, text-shadow-3d, glass, animate-typing/wave/float, clip-circle, mask-ring, ease-overshoot); hover-varianten voor scale/rotate/translate tellen niet meer dubbel; border-image-stripes hersteld; docs: alle voorbeelden in een vaste opmaak met volledige code, getest in Chrome, Firefox en Opera"
+      "summary": "Nieuwe utilities (border-conic-spin, shadow-neon, text-shadow-3d, glass, animate-typing/wave/float, clip-circle, mask-ring, ease-overshoot); hover-varianten voor scale/rotate/translate tellen niet meer dubbel; border-image-stripes hersteld; docs: alle voorbeelden in een vaste opmaak met volledige code, getest in Chrome, Firefox en Opera",
+      "notes": {
+        "summary": "Creative utilities, new components and free blocks, every docs example in one fixed layout with its full code, tested in Chrome, Firefox and Opera.",
+        "new": [
+          "Utilities for creative effects: `border-conic-spin`, `shadow-neon`, `text-shadow-neon`, `text-shadow-3d`, `glass`, `animate-float`, `animate-typing`, `animate-wave`, `animate-beat`, `transition-clip`, `clip-circle-0`, `clip-circle-cover`, `mask-ring`, `bg-size-full`, `ease-overshoot` and more.",
+          "`scroll-buttons-outside`: the arrows of a carousel sit next to the slides.",
+          "Components: Paper (grain, lines, squares, edges), a combobox with icons, a language menu (flag, own language name, check mark), Logo, mode badge, code plate, a card with an accent band and sheet options (glass, inset, footer panel).",
+          "Smaller additions: `theme.js` (remembers the theme without a flash on load), theme choice as cards, separate images for light and dark, `.oc-card-grid--scroll`, `.oc-status-list`, `.oc-badge--status`, card colors through `data-tone` and a round close button (`.oc-close--round`).",
+          "Free blocks: type picker, content blocks, route steps, route progress and step view.",
+          "The editor extension (IntelliSense 0.16.0) knows all these classes."
+        ],
+        "improved": [
+          "Docs: every example in one fixed layout, with the full code under each example.",
+          "Glow is an option now (`.oc-project-card--glow`); the default shadow is neutral.",
+          "Contact form and call to action are flatter; example names are neutral (Company 1, Customer 1 …)."
+        ],
+        "changed": [
+          "Hover movement: `hover:scale-*`, `hover:rotate-*` and `hover:translate-*` were applied twice. Now once, so the movement is half of what it was. `hover:translate-y-1` now moves down, as its name says.",
+          "`.oc-btn--gradient` is calmer (soft gradient, normal button shape, no glow) and `.oc-btn--glass` is no longer a pill. Add `.oc-btn--pill` for the old shape.",
+          "`.oc-block-cta` puts the text on the left and the buttons on the right. The old centered look is `.oc-block-cta--center`; new: `--solid`.",
+          "Checkbox and radio (`.oc-checkbox`, `.oc-radio`) are drawn by OmniaUI, because Opera ignores `accent-color`. They look the same in every browser.",
+          "`.oc-section-content` has a side margin of `1rem` (was `1rem 4rem`), in line with the header and footer.",
+          "Block breakpoints: about-timeline, faq and watch-layout switch at 44rem, services-tabs at 40rem."
+        ],
+        "fixed": [
+          "`.border-image-stripes` shows diagonal stripes again.",
+          "Glass in the site header follows the theme, also with reduced motion.",
+          "Fly-in stays inside the grid; AffixInput no longer grows wider than its column.",
+          "The DataTable card view also works when the wrapper comes from the npm package.",
+          "Sheet: animation and a click next to the panel; the close button is centered. The wizard dialog has a close button.",
+          "Firefox: context menu, carousel dots, glass, chart and phone field."
+        ]
+      }
     },
     {
       "version": "0.15.1",
       "date": "2026-11-10",
-      "summary": "Lucida Console en Noto blijven, maar het npm-pakket gebruikt het geïnstalleerde lettertype (local()) in plaats van /fonts/: geen 404 meer in apps; build controleert elke url() in de dist"
+      "summary": "Lucida Console en Noto blijven, maar het npm-pakket gebruikt het geïnstalleerde lettertype (local()) in plaats van /fonts/: geen 404 meer in apps; build controleert elke url() in de dist",
+      "notes": {
+        "summary": "Lucida Console and Noto stay, but the npm package uses the installed font (`local()`) instead of /fonts/: no more 404s in apps. The build checks every `url()` in the dist."
+      }
     },
     {
       "version": "0.15.0",
       "date": "2026-11-10",
-      "summary": "Thema-schakelaar met iconen; juridische pagina's naar birdycom.be; geïmporteerde React/Vue-componenten automatisch gescand (wrappers); fly-in-opties en scroll-voortgangsbalk; dropdown en tooltip in glas"
+      "summary": "Thema-schakelaar met iconen; juridische pagina's naar birdycom.be; geïmporteerde React/Vue-componenten automatisch gescand (wrappers); fly-in-opties en scroll-voortgangsbalk; dropdown en tooltip in glas",
+      "notes": {
+        "summary": "Theme switch with icons; the legal pages moved to birdycom.be; imported React and Vue components are scanned automatically (wrappers); fly-in options and a scroll progress bar; dropdown and tooltip in glass."
+      }
     },
     {
       "version": "0.14.4",
       "date": "2026-11-06",
-      "summary": "Pijlen en vinkjes uit CSS tonen weer goed (escapes in content, ook na --minify); vergeten .test:before-regel verwijderd"
+      "summary": "Pijlen en vinkjes uit CSS tonen weer goed (escapes in content, ook na --minify); vergeten .test:before-regel verwijderd",
+      "notes": {
+        "summary": "Arrows and check marks drawn in CSS show correctly again (escapes in `content`, also after `--minify`); a stray `.test:before` rule is gone."
+      }
     },
     {
       "version": "0.14.3",
       "date": "2026-11-05",
-      "summary": "omniacss build: utilities in the last cascade layer, so a utility on a component always wins"
+      "summary": "omniacss build: utilities in the last cascade layer, so a utility on a component always wins",
+      "notes": {
+        "summary": "omniacss build: utilities in the last cascade layer, so a utility on a component always wins."
+      }
     },
     {
       "version": "0.14.2",
@@ -63,102 +155,162 @@
     {
       "version": "0.12.6",
       "date": "2026-11-02",
-      "summary": "Winkel- en productblocks, nieuwe componenten (ribbon, lazy loading, rating, gallery …), header/footer-varianten, liquid glass, sneller scrollen"
+      "summary": "Winkel- en productblocks, nieuwe componenten (ribbon, lazy loading, rating, gallery …), header/footer-varianten, liquid glass, sneller scrollen",
+      "notes": {
+        "summary": "Shop and product blocks, new components (ribbon, lazy loading, rating, gallery …), header and footer variants, liquid glass and faster scrolling."
+      }
     },
     {
       "version": "0.12.5",
       "date": "2026-11-01",
-      "summary": "Webicons in alle componenten, starterkits-pagina, Filament licht-modus"
+      "summary": "Webicons in alle componenten, starterkits-pagina, Filament licht-modus",
+      "notes": {
+        "summary": "Webicons in every component, a starter kits page and Filament light mode."
+      }
     },
     {
       "version": "0.12.4",
       "date": "2026-10-30",
-      "summary": "Price card lifetime option and security notices"
+      "summary": "Price card lifetime option and security notices",
+      "notes": {
+        "summary": "Price card with a lifetime option, and security notices."
+      }
     },
     {
       "version": "0.12.3",
       "date": "2026-10-30",
-      "summary": "Status dot, glass en title bar; @omniaui in de PostCSS-plugin; copy-js; kleinere build; hover-rand van de cards"
+      "summary": "Status dot, glass en title bar; @omniaui in de PostCSS-plugin; copy-js; kleinere build; hover-rand van de cards",
+      "notes": {
+        "summary": "Status dot, glass and title bar; @omniaui in the PostCSS plugin; copy-js; a smaller build; the hover border of the cards."
+      }
     },
     {
       "version": "0.12.2",
       "date": "2026-10-30",
-      "summary": "Watermark, live frame en link row; Pro-blocks device mockups en ecosystem map; iconify-icon met icon-toolbar; eigen CSS-tokens behouden; extensie-fix"
+      "summary": "Watermark, live frame en link row; Pro-blocks device mockups en ecosystem map; iconify-icon met icon-toolbar; eigen CSS-tokens behouden; extensie-fix",
+      "notes": {
+        "summary": "Watermark, live frame and link row; Pro blocks device mockups and ecosystem map; iconify-icon with an icon toolbar; your own CSS tokens are kept; an extension fix."
+      }
     },
     {
       "version": "0.12.1",
       "date": "2026-10-29",
-      "summary": "MCP met OmniaUI-componenten en -blocks; migrate-fixes (setup-versie, scroll-m/p, Vite-waarschuwing, eigen @import); extensie stil in Tailwind-projecten"
+      "summary": "MCP met OmniaUI-componenten en -blocks; migrate-fixes (setup-versie, scroll-m/p, Vite-waarschuwing, eigen @import); extensie stil in Tailwind-projecten",
+      "notes": {
+        "summary": "The MCP server knows the OmniaUI components and blocks; migrate fixes (setup version, scroll-m/p, Vite warning, your own @import); the extension stays quiet in Tailwind projects."
+      }
     },
     {
       "version": "0.12.0",
       "date": "2026-10-28",
-      "summary": "Tooltip met anchor positioning, titel en plaatsing; Pro-blocks infinite carousel en pricing plans; carousel-lus; schone URL's; favicons en SEO; lightbox- en kleurfixes"
+      "summary": "Tooltip met anchor positioning, titel en plaatsing; Pro-blocks infinite carousel en pricing plans; carousel-lus; schone URL's; favicons en SEO; lightbox- en kleurfixes",
+      "notes": {
+        "summary": "Tooltip with anchor positioning, a title and placement; Pro blocks infinite carousel and pricing plans; carousel loop; clean URLs; favicons and SEO; lightbox and color fixes."
+      }
     },
     {
       "version": "0.11.2",
       "date": "2026-10-28",
-      "summary": "mobiel site-header-menu, leesbare accenttekst in dark mode, minify behoudt scroll-animaties"
+      "summary": "mobiel site-header-menu, leesbare accenttekst in dark mode, minify behoudt scroll-animaties",
+      "notes": {
+        "summary": "Mobile site header menu, readable accent text in dark mode, and minify keeps scroll animations."
+      }
     },
     {
       "version": "0.11.1",
       "date": "2026-10-28",
-      "summary": "docs layout, browser support and demo fixes"
+      "summary": "docs layout, browser support and demo fixes",
+      "notes": {
+        "summary": "Docs layout, browser support and demo fixes."
+      }
     },
     {
       "version": "0.11.0",
       "date": "2026-10-24",
-      "summary": "Docs doorzoeken met Ctrl K"
+      "summary": "Docs doorzoeken met Ctrl K",
+      "notes": {
+        "summary": "Search the docs with Ctrl K."
+      }
     },
     {
       "version": "0.10.0",
       "date": "2026-10-23",
-      "summary": "Bootstrap-sites omzetten naar OmniaCSS"
+      "summary": "Bootstrap-sites omzetten naar OmniaCSS",
+      "notes": {
+        "summary": "Convert Bootstrap sites to OmniaCSS."
+      }
     },
     {
       "version": "0.9.0",
       "date": "2026-10-23",
-      "summary": "CSS-functies, units en selectors"
+      "summary": "CSS-functies, units en selectors",
+      "notes": {
+        "summary": "CSS functions, units and selectors."
+      }
     },
     {
       "version": "0.8.4",
       "date": "2026-10-23",
-      "summary": "Basiskleuren in de docs als -100"
+      "summary": "Basiskleuren in de docs als -100",
+      "notes": {
+        "summary": "Base colors in the docs as -100."
+      }
     },
     {
       "version": "0.8.3",
       "date": "2026-10-23",
-      "summary": "README-beelden van IntelliSense als productshots"
+      "summary": "README-beelden van IntelliSense als productshots",
+      "notes": {
+        "summary": "IntelliSense screenshots in the README as product shots."
+      }
     },
     {
       "version": "0.8.2",
       "date": "2026-10-23",
-      "summary": "Kleur-utilities tonen hun CSS in de completion"
+      "summary": "Kleur-utilities tonen hun CSS in de completion",
+      "notes": {
+        "summary": "Color utilities show their CSS in the completion list."
+      }
     },
     {
       "version": "0.8.1",
       "date": "2026-10-23",
-      "summary": "Zelfde versie als OmniaUI: lockfile voor Linux CI"
+      "summary": "Zelfde versie als OmniaUI: lockfile voor Linux CI",
+      "notes": {
+        "summary": "Same version as OmniaUI; lockfile for the Linux CI."
+      }
     },
     {
       "version": "0.8.0",
       "date": "2026-10-18",
-      "summary": "OmniaCSS IntelliSense voor VS Code"
+      "summary": "OmniaCSS IntelliSense voor VS Code",
+      "notes": {
+        "summary": "OmniaCSS IntelliSense for VS Code."
+      }
     },
     {
       "version": "0.7.0",
       "date": "2026-10-16",
-      "summary": "Zelfde versie als OmniaUI: lijsttabel en veldchrome"
+      "summary": "Zelfde versie als OmniaUI: lijsttabel en veldchrome",
+      "notes": {
+        "summary": "Same version as OmniaUI: list table and field chrome."
+      }
     },
     {
       "version": "0.6.0",
       "date": "2026-10-15",
-      "summary": "OmniaCSS en OmniaUI gesplitst: componenten, blocks, wrappers en Laravel naar OmniaUI; npm-scope @birdycom"
+      "summary": "OmniaCSS en OmniaUI gesplitst: componenten, blocks, wrappers en Laravel naar OmniaUI; npm-scope @birdycom",
+      "notes": {
+        "summary": "OmniaCSS and OmniaUI split: components, blocks, wrappers and Laravel moved to OmniaUI; npm scope @birdycom."
+      }
     },
     {
       "version": "0.5.0",
       "date": "2026-10-14",
-      "summary": "Nieuwe components en app-blocks, docs-paginacheck, TOC en spacing-fixes"
+      "summary": "Nieuwe components en app-blocks, docs-paginacheck, TOC en spacing-fixes",
+      "notes": {
+        "summary": "New components and app blocks, a docs page check, table of contents and spacing fixes."
+      }
     },
     {
       "version": "0.4.0",

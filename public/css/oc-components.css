@@ -6375,6 +6375,69 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   .oc-alpha-tabs-item { transition: none; }
 }
 
+/* parts/app-badge-status.css */
+/* File: packages/ui/src/parts/app-badge-status.css
+   Map: status badge set (0.18.0: the colour per data-status, extends .oc-badge--status of app-0160-apps.css)
+        -> read-only value chip (.oc-badge--readonly) -> forced colors
+   Status badges: one class, the status in data-status, a webicon before the label. The wrappers add the icon and the
+   English label by themselves (status="paid"); in plain HTML you write both.
+   <span class="oc-badge oc-badge--status" data-status="paid"><svg .../>Paid</span>
+   Tones: success (paid, approved, active, done), warning (pending, waiting), destructive (overdue, rejected, failed, error),
+   info (sent, scheduled, in-progress, working, refunded), neutral (draft, cancelled, inactive, archived, read-only, idle).
+   Your own status: data-status="on-hold" style="--oc-badge-status: var(--oc-warning)". Theme tokens only. */
+
+.oc-badge--status:is([data-status="paid"], [data-status="approved"], [data-status="active"], [data-status="done"]) {
+  --oc-badge-status: var(--oc-success);
+}
+.oc-badge--status:is([data-status="pending"], [data-status="waiting"]) {
+  --oc-badge-status: var(--oc-warning);
+}
+.oc-badge--status:is([data-status="overdue"], [data-status="rejected"], [data-status="failed"], [data-status="error"]) {
+  --oc-badge-status: var(--oc-destructive);
+}
+.oc-badge--status:is([data-status="sent"], [data-status="scheduled"], [data-status="in-progress"], [data-status="working"], [data-status="refunded"]) {
+  --oc-badge-status: var(--oc-info, var(--oc-primary));
+}
+/* Neutral: draft, cancelled, inactive, archived, read-only, idle keep the muted default of .oc-badge--status. */
+
+/* Readable text on the tint in both modes: the status colour, darker in light mode (4.5:1 on its own tint). */
+.oc-badge--status[data-status] {
+  color: light-dark(oklch(from var(--oc-badge-status) min(l, 0.45) c h), color-mix(in oklch, var(--oc-badge-status) 80%, var(--oc-foreground)));
+}
+.oc-badge--status { gap: 0.3rem; }
+/* A cancelled or archived item is over: the label is quieter. */
+.oc-badge--status:is([data-status="cancelled"], [data-status="archived"], [data-status="inactive"]) { border-style: dashed; }
+
+/* Read-only value chip (0.18.0): a value the user sees but cannot change here (a contact, an account, a linked record).
+   Squarer and calmer than a status pill, the size of body text, an icon in the muted colour, long text cut off with ...
+   <span class="oc-badge oc-badge--readonly"><svg .../><span>Customer 1</span></span> */
+.oc-badge--readonly {
+  gap: 0.5rem;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  inline-size: fit-content; /* in a field (.oc-field, a flex or grid column) it keeps its own width */
+  padding: 0.4rem 0.75rem;
+  border-color: var(--oc-border);
+  border-radius: var(--oc-radius);
+  background: var(--oc-muted);
+  color: var(--oc-foreground);
+  font-size: 0.875rem;
+  line-height: 1.25;
+  vertical-align: middle;
+}
+.oc-badge--readonly > :is(svg, iconify-icon) { color: var(--oc-muted-foreground); }
+.oc-badge--readonly > :not(svg, iconify-icon) {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (forced-colors: active) {
+  .oc-badge--status,
+  .oc-badge--readonly { border-color: CanvasText; }
+}
+
 /* parts/app-busy-overlay.css */
 /* File: packages/ui/src/parts/app-busy-overlay.css | Map: dialog + backdrop -> box -> spinner / progress -> title + text -> motion
    Busy overlay: a modal <dialog closedby="none"> shown while a long request runs (saving, uploading, processing photos).
@@ -7492,7 +7555,8 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 
 /* Badge: only a badge that carries data-module itself (solid) or variant="module" (soft tint, module text). */
 .oc-badge[data-module]:not(:where(
-  .oc-badge--secondary, .oc-badge--outline, .oc-badge--success, .oc-badge--warning, .oc-badge--destructive, .oc-badge--info, .oc-badge--module
+  .oc-badge--secondary, .oc-badge--outline, .oc-badge--success, .oc-badge--warning, .oc-badge--destructive, .oc-badge--info, .oc-badge--module,
+  .oc-badge--status, .oc-badge--readonly
 )) {
   background: var(--oc-module, var(--oc-primary));
   color: var(--oc-module-fg, var(--oc-primary-foreground));
@@ -11567,6 +11631,56 @@ textarea.oc-textarea--ledger,
 .oc-number-input--sm .oc-number-input-step { inline-size: 1.75rem; font-size: 0.875rem; }
 .oc-number-input--sm .oc-number-input-field { padding-block: 0.25rem; font-size: 0.8rem; inline-size: 3.5rem; }
 
+/* parts/forms-otp-active.css */
+/* File: packages/ui/src/parts/forms-otp-active.css
+   Map: active cell of the one-time code (0.18.0) -> with --group -> reduced motion / forced colors
+   The cell the next character goes to gets a soft tint and a line in the ring colour while the field has focus.
+   The wrappers (React, Vue) and form-extras.js (plain HTML, Blade, Livewire) set data-otp-active and --oc-otp-active
+   (0-based cell); without the script the field keeps only its focus ring. */
+
+.oc-otp:focus[data-otp-active] {
+  --oc-otp-mark: oklch(from var(--oc-ring) l c h / 0.14);
+  --oc-otp-mark-line: var(--oc-ring);
+  --oc-otp-mark-x: calc(var(--oc-otp-active, 0) * var(--oc-otp-cell));
+  background-image:
+    linear-gradient(var(--oc-otp-mark-line), var(--oc-otp-mark-line)),
+    linear-gradient(var(--oc-otp-mark), var(--oc-otp-mark)),
+    repeating-linear-gradient(
+      90deg in srgb,
+      var(--oc-input) 0 1px,
+      transparent 1px calc(var(--oc-otp-cell) - 1px),
+      var(--oc-input) calc(var(--oc-otp-cell) - 1px) var(--oc-otp-cell)
+    );
+  background-size: calc(var(--oc-otp-cell) - 6px) 2px, calc(var(--oc-otp-cell) - 2px) 100%, auto;
+  background-position: calc(var(--oc-otp-mark-x) + 3px) calc(100% - 4px), calc(var(--oc-otp-mark-x) + 1px) 0, 0 0;
+  background-repeat: no-repeat, no-repeat, repeat;
+}
+
+/* --group: the divider layer stays under the mark. */
+.oc-otp.oc-otp--group:focus[data-otp-active] {
+  background-image:
+    linear-gradient(var(--oc-otp-mark-line), var(--oc-otp-mark-line)),
+    linear-gradient(var(--oc-otp-mark), var(--oc-otp-mark)),
+    repeating-linear-gradient(
+      90deg in srgb,
+      transparent 0 calc(var(--oc-otp-group) * var(--oc-otp-cell) - 2px),
+      var(--oc-muted-foreground) calc(var(--oc-otp-group) * var(--oc-otp-cell) - 2px) calc(var(--oc-otp-group) * var(--oc-otp-cell))
+    ),
+    repeating-linear-gradient(
+      90deg in srgb,
+      var(--oc-input) 0 1px,
+      transparent 1px calc(var(--oc-otp-cell) - 1px),
+      var(--oc-input) calc(var(--oc-otp-cell) - 1px) var(--oc-otp-cell)
+    );
+  background-size: calc(var(--oc-otp-cell) - 6px) 2px, calc(var(--oc-otp-cell) - 2px) 100%, calc((var(--oc-otp-length) - 0.5) * var(--oc-otp-cell)) 100%, auto;
+  background-position: calc(var(--oc-otp-mark-x) + 3px) calc(100% - 4px), calc(var(--oc-otp-mark-x) + 1px) 0, 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+}
+
+@media (forced-colors: active) {
+  .oc-otp:focus[data-otp-active] { --oc-otp-mark: transparent; --oc-otp-mark-line: Highlight; }
+}
+
 /* parts/forms-password-requirements.css */
 /* File: packages/ui/src/parts/forms-password-requirements.css
    Map: list -> rule (icon via ::before) -> met state -> --inline variant
@@ -14468,6 +14582,51 @@ a.oc-message__quote:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 @media print {
   .oc-watermark { --oc-watermark-opacity: 0.2; print-color-adjust: exact; }
 }
+
+/* parts/nav-breadcrumb-compound.css */
+/* File: packages/ui/src/parts/nav-breadcrumb-compound.css
+   Map: list inside the nav (ol / ul) -> current page inside an item -> explicit separator -> ellipsis menu
+   0.18.0: the compound breadcrumb markup next to the flat one of components.css:
+   <nav class="oc-breadcrumb" aria-label="Breadcrumb"><ol>
+     (class hooks: .oc-breadcrumb-list on the ol, .oc-breadcrumb-link, .oc-breadcrumb-page; the styles need none of them)
+     <li class="oc-breadcrumb-item"><a href="/">Home</a></li>
+     <li class="oc-breadcrumb-separator" role="presentation" aria-hidden="true">/</li>   (optional: your own separator)
+     <li class="oc-breadcrumb-item"><button class="oc-breadcrumb-ellipsis" popovertarget="m">...</button><div id="m" popover class="oc-dropdown-menu">...</div></li>
+     <li class="oc-breadcrumb-item"><span aria-current="page">Invoice</span></li>
+   </ol></nav>
+   The list takes no room of its own: its items line up in the flex row of the nav, so "/" and › work as before. */
+
+.oc-breadcrumb > :is(ol, ul) {
+  display: contents;
+}
+
+/* The current page inside an item (BreadcrumbPage), and a link or page with an icon. */
+.oc-breadcrumb-item > [aria-current="page"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--oc-foreground);
+  font-weight: 500;
+}
+
+/* Explicit separator: replaces the "/" or › of the CSS between the two items around it. */
+.oc-breadcrumb-separator {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 8px;
+  color: var(--oc-muted-foreground);
+}
+.oc-breadcrumb--chevron .oc-breadcrumb-separator { margin: 0 0.25rem; }
+.oc-breadcrumb-separator > :is(svg, iconify-icon) { inline-size: 1em; block-size: 1em; }
+
+/* The "..." as a mark only (no menu) and its icon. */
+span.oc-breadcrumb-ellipsis { cursor: default; }
+span.oc-breadcrumb-ellipsis:hover { background: transparent; color: var(--oc-muted-foreground); }
+.oc-breadcrumb-ellipsis > :is(svg, iconify-icon) { inline-size: 1.1em; block-size: 1.1em; }
+.oc-breadcrumb-ellipsis:has(+ .oc-dropdown-menu:popover-open) { background: var(--oc-accent); color: var(--oc-foreground); }
+
+/* The menu of hidden levels opens under the "...", starting at its left edge. */
+.oc-breadcrumb .oc-dropdown-menu[popover] { position-area: block-end span-inline-end; min-inline-size: 10rem; font-weight: 400; }
 
 /* parts/nav-menu-static.css */
 /* File: packages/ui/src/parts/nav-menu-static.css | Map: static menu (no popover, fills its box) -> check column -> hint -> group title */

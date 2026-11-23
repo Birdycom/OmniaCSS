@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="scrollbar-omnia" data-section="release-notes" data-sister-site="https://omniaui.test">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Release notes — OmniaCSS and OmniaUI</title>
+  <meta name="description" content="Every release of OmniaCSS and OmniaUI, newest first: what is new, what improved and what was fixed in each version.">
+  
+  <link rel="canonical" href="https://omniacss.eu/release-notes">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OmniaCSS">
+  <meta property="og:title" content="Release notes — OmniaCSS and OmniaUI">
+  <meta property="og:description" content="Every release of OmniaCSS and OmniaUI, newest first: what is new, what improved and what was fixed in each version.">
+  <meta property="og:url" content="https://omniacss.eu/release-notes">
+  <meta property="og:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Release notes — OmniaCSS and OmniaUI">
+  <meta name="twitter:description" content="Every release of OmniaCSS and OmniaUI, newest first: what is new, what improved and what was fixed in each version.">
+  <meta name="twitter:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta name="twitter:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  
+  <meta name="generator" content="OmniaCSS 0.17.0">
+  <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/omnia-site.css?v=9d9ead7dab"><link rel="stylesheet" href="/css/oc-components.css?v=2669e64fda"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=700e13dcc1"><link rel="stylesheet" href="/css/oc-blocks.css?v=5e6198b6bd"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=58ef7397a9"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=31a269ac36"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=062726757b">
+  <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
+  <script>
+    // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
+    try { const u = new URL(location.href), q = u.searchParams.get("oc-theme"); if (q) { localStorage.setItem("oc-theme", q); u.searchParams.delete("oc-theme"); history.replaceState(history.state, "", u); } const t = q || localStorage.getItem("oc-theme"); if (t && t !== "system") document.documentElement.dataset.theme = t; } catch {}
+    const carryTheme = (e) => { const a = e.target.closest && e.target.closest("a[href]"); const sister = document.documentElement.dataset.sisterSite; if (!a || !sister || a.origin !== new URL(sister).origin) return; try { const t = localStorage.getItem("oc-theme"); if (!t) return; const u = new URL(a.href); u.searchParams.set("oc-theme", t); a.href = u.href; } catch {} };
+    addEventListener("click", carryTheme); addEventListener("auxclick", carryTheme);
+    addEventListener("change", (e) => { if (e.target.name !== "oc-theme" || !e.target.closest(".ocm-theme")) return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; syncDemos(); });
+    // Theme switches inside demos (app shell, app header …) show the theme the page has now and follow the header switch;
+    // a click in a demo still themes only that demo (.oc-theme-scope).
+    const syncDemos = () => { const t = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); for (const sw of document.querySelectorAll(".oc-theme-scope .oc-theme-switch")) { const r = sw.querySelector('input[value="system"]') || sw.querySelector(`input[value="${t}"]`); if (r) r.checked = true; } };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (!document.documentElement.dataset.theme) syncDemos(); });
+    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; syncDemos(); });
+  </script>
+  <script src="/js/oc-docs-v2.js?v=fbcfca188b" defer></script>
+  <link rel="stylesheet" href="/css/oc-home.css?v=eab8c3f7eb">
+<link rel="stylesheet" href="/css/oc-release-notes.css?v=3b2f15d1fd">
+</head>
+<body class="oc-home oc-home--css">
+  <header class="oc-topbar">
+    
+    <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu">
+    <label class="ocd-nav-button ocd-nav-button--site" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
+    <a class="oc-topbar-brand" href="/">OmniaCSS<span class="oc-badge-version ml-1">v0.17.0</span></a>
+    <nav class="oc-topbar-nav" aria-label="Main">
+      <ul class="oc-navmenu oc-navmenu--site">
+        <li><a class="oc-navmenu-link" href="https://omniaui.test/">OmniaUI</a></li><li><a class="oc-navmenu-link" href="/docs/">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/starter-kits">Starter kits</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons">Webicons</a></li><li><a class="oc-navmenu-link" href="/story">Our story</a></li><li><a class="oc-navmenu-link" href="/release-notes" aria-current="page">Release notes</a></li>
+        <li><a class="oc-navmenu-link" href="https://github.com/Birdycom/OmniaCSS" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="oc-navmenu-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path></svg></a></li>
+      </ul>
+    </nav>
+    <div class="ocd-topbar-actions">
+      <a class="oc-btn oc-btn--sm" href="https://omniaui.test/ui/pro#pricing">Pro</a>
+      <button type="button" class="ocd-search-trigger" data-ocd-search aria-label="Search the docs (Ctrl K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>Search docs…</span><kbd>Ctrl K</kbd></button>
+      <fieldset class="oc-theme-switch ocm-theme" aria-label="Color theme">
+        <label><input type="radio" name="oc-theme" value="system" checked> System</label>
+        <label><input type="radio" name="oc-theme" value="light"> Light</label>
+        <label><input type="radio" name="oc-theme" value="dark"> Dark</label>
+      </fieldset>
+    </div>
+  </header>
+
+  <dialog class="ocd-search-dialog" id="ocd-search" aria-label="Search">
+    <div class="ocd-search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="search" placeholder="Search pages, utilities and components" aria-label="Search" role="combobox" aria-controls="ocd-search-results" aria-expanded="true" autocomplete="off" spellcheck="false"><kbd>Esc</kbd></div>
+    <ul class="ocd-search-results" id="ocd-search-results" role="listbox" aria-label="Results"></ul>
+    <p class="ocd-search-empty" hidden>No results. Try a CSS property such as <code>clamp</code>, a class such as <code>snap-x</code> or a component name.</p>
+    <p class="ocd-search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </dialog>
+
+  <!-- File: apps/docs/src/content/release-notes.html | "Release notes" page of omniacss.eu (menu item in src/lib/site.mjs, also on
+     omniaui.eu, which links here: both packages share one version number). Drawn like the home (/css/oc-home.css, hm-*)
+     with the release parts of /css/oc-release-notes.css (rn-*). The releases come from docs/release-history.json
+     (<oc-release-notes>, src/lib/release-notes.mjs); "npm run release" adds the next one.
+     Map: 00 intro -> 01 filter + jump list + every release, newest first. -->
+<main class="hm" id="top">
+
+  <!-- 00 Intro -->
+  <section class="hm-band hm-band--grid rn-hero" aria-labelledby="rn-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">00</span> Release notes <span class="hm-ref" aria-hidden="true">OmniaCSS · OmniaUI</span></p>
+      <div class="hm-head">
+        <h1 id="rn-title">What changed, <span class="hm-mark">version by version</span>.</h1>
+        <p class="hm-lead">OmniaCSS and OmniaUI share one version number. Each release below lists what is new, what improved and what was fixed, newest first. Every version has its own link, so you can point to it.</p>
+        <ul class="hm-specs" aria-label="At a glance"><li>Semantic versions · MAJOR.MINOR.PATCH</li><li>Packages on npm and Packagist</li><li>Newest first</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 Every release (generated) -->
+  <section class="hm-band" aria-labelledby="rn-all-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">01</span> <span id="rn-all-title">All releases</span> <span class="hm-ref" aria-hidden="true">v0.1.0 → today</span></p>
+      <label class="rn-filter">
+        <span>Filter the release notes</span>
+        <input type="search" placeholder="A class, a component or a version, e.g. glass or 0.16" autocomplete="off" spellcheck="false" data-rn-filter="">
+      </label>
+      <nav class="rn-jump" aria-label="Versions"><ul><li><span>0.17</span><a href="#v0-17-0">0.17.0</a></li><li><span>0.16</span><a href="#v0-16-2">0.16.2</a><a href="#v0-16-1">0.16.1</a><a href="#v0-16-0">0.16.0</a></li><li><span>0.15</span><a href="#v0-15-1">0.15.1</a><a href="#v0-15-0">0.15.0</a></li><li><span>0.14</span><a href="#v0-14-4">0.14.4</a><a href="#v0-14-3">0.14.3</a><a href="#v0-14-2">0.14.2</a><a href="#v0-14-1">0.14.1</a><a href="#v0-14-0">0.14.0</a></li><li><span>0.13</span><a href="#v0-13-0">0.13.0</a></li><li><span>0.12</span><a href="#v0-12-6">0.12.6</a><a href="#v0-12-5">0.12.5</a><a href="#v0-12-4">0.12.4</a><a href="#v0-12-3">0.12.3</a><a href="#v0-12-2">0.12.2</a><a href="#v0-12-1">0.12.1</a><a href="#v0-12-0">0.12.0</a></li><li><span>0.11</span><a href="#v0-11-2">0.11.2</a><a href="#v0-11-1">0.11.1</a><a href="#v0-11-0">0.11.0</a></li><li><span>0.10</span><a href="#v0-10-0">0.10.0</a></li><li><span>0.9</span><a href="#v0-9-0">0.9.0</a></li><li><span>0.8</span><a href="#v0-8-4">0.8.4</a><a href="#v0-8-3">0.8.3</a><a href="#v0-8-2">0.8.2</a><a href="#v0-8-1">0.8.1</a><a href="#v0-8-0">0.8.0</a></li><li><span>0.7</span><a href="#v0-7-0">0.7.0</a></li><li><span>0.6</span><a href="#v0-6-0">0.6.0</a></li><li><span>0.5</span><a href="#v0-5-0">0.5.0</a></li><li><span>0.4</span><a href="#v0-4-0">0.4.0</a></li><li><span>0.3</span><a href="#v0-3-0">0.3.0</a></li><li><span>0.2</span><a href="#v0-2-0">0.2.0</a></li><li><span>0.1</span><a href="#v0-1-0">0.1.0</a></li></ul></nav>
+<div class="rn-releases" data-rn-list=""><article class="rn-release" id="v0-17-0" aria-labelledby="v0-17-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-17-0-title"><a href="#v0-17-0">v0.17.0</a></h2>
+    <p><time datetime="2026-11-23">23 November 2026</time> <span class="oc-badge-version">latest</span></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">New websites for OmniaCSS and OmniaUI, React, Vue, Blade and Livewire code for every component and block, module colors, the ledger variant, compound components and liquid glass.</p><div class="rn-list rn-list--new"><h3 id="new">New</h3><ul><li>New home pages for omniacss.eu and omniaui.eu, drawn like a technical drawing, with a new site footer and the “Our story” page (/story.html).</li><li>Every component and block demo shows HTML, React, Vue, Blade and Livewire code. A code-tabs check runs with the tests.</li><li>Module colors: <code>data-module</code>, the <code>--oc-module</code>, <code>--oc-module-soft</code> and <code>--oc-module-fg</code> tokens and a <code>module</code> prop.</li><li><code>variant="ledger"</code>, a Combobox catalog, FormField, input masks and validation.</li><li>Compound Tabs, Dialog, Popover and Tooltip; AppHeader overflow, a Sidebar provider and a server-side DataTable (free); reorder and ColumnMenu in Pro.</li><li>Liquid glass with a refracting lens and dragging (Chromium, a frosted look elsewhere), the <code>.oc-btn--float</code> heart button, HeroMedia, <code>split--reverse</code>, <code>aspect--flush</code>, <code>dl--numbered</code> and a scrim.</li><li><code>d-*</code> display aliases (<code>d-block</code>, <code>d-flex</code> …) with responsive variants.</li><li>Print utilities for printable reports: <code>print-hidden</code>, <code>print-only</code>, <code>print-light</code> and <code>page-a4</code>.</li><li>New components: Calendar (a day or a range), Countdown, SaveStatus, HeaderSettings with ThemeToggle, answer tiles (correct or wrong) and a locked EmptyState.</li><li>A tooltip on the color palette, playground chips and “What is new” at the top of the components and blocks overviews.</li></ul></div><div class="rn-list rn-list--improved"><h3 id="improved">Improved</h3><ul><li>Redesigned blocks: product grid, hub launcher, features, contact grid and the Pro CMS dashboard.</li><li>DataTable: translatable labels; view, pagination and bulk actions can be turned off; a print style.</li><li>Tables with columns sized to their content (<code>--auto</code>), columns that hide in a narrow table and action labels that give way on small screens.</li><li>Alerts with an icon, buttons and an alarm state; ColorField checks contrast; a collapsed sidebar shows its labels as tooltips; the sidebar opens over the content on tablets.</li><li>Icon props of the Blade components render as inline SVG through <code>x-oc::webicon</code>.</li><li>Search engines and share previews on both sites: canonical URLs, Open Graph, Twitter cards, JSON-LD, a 404 page, a sitemap, robots.txt and llms.txt.</li><li>Syntax colors in every code tab.</li></ul></div><div class="rn-list rn-list--fixed"><h3 id="fixed">Fixed</h3><ul><li>Blade slots: run <code>php artisan view:clear</code> after you update a Laravel app.</li><li>Demo data is neutral everywhere (Company 1, Customer 1).</li><li>Many small fixes on both sites, in light and dark mode and on phones.</li></ul></div>
+  </div>
+</article>
+<article class="rn-release" id="v0-16-2" aria-labelledby="v0-16-2-title">
+  <header class="rn-meta">
+    <h2 id="v0-16-2-title"><a href="#v0-16-2">v0.16.2</a></h2>
+    <p><time datetime="2026-11-17">17 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Fixes for tooltips, the webicons scan, the top progress bar in Firefox and the Pro mega menu.</p><div class="rn-list rn-list--fixed"><h3 id="fixed-2">Fixed</h3><ul><li>A tooltip no longer stays visible after a click and hides when a menu opens.</li><li>The webicons scan no longer reports icons that are fine.</li><li>The glow of the top progress bar works in Firefox.</li><li>The Pro mega menu stays inside the window.</li><li>The published packages pass the npm audit again (Astro is a dev dependency of the private docs site).</li></ul></div>
+  </div>
+</article>
+<article class="rn-release" id="v0-16-1" aria-labelledby="v0-16-1-title">
+  <header class="rn-meta">
+    <h2 id="v0-16-1-title"><a href="#v0-16-1">v0.16.1</a></h2>
+    <p><time datetime="2026-11-17">17 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Webicon: icons by name without the Iconify runtime, plus the OmniaUI 0.16.1 fixes in the editor extension and the MCP server.</p><div class="rn-list rn-list--new"><h3 id="new-2">New</h3><ul><li>Webicon: show an icon by its name (<code>mdi:…</code>), bundled locally, without the Iconify runtime.</li></ul></div><div class="rn-list rn-list--improved"><h3 id="improved-2">Improved</h3><ul><li>The editor extension and the MCP server know the OmniaUI 0.16.1 changes.</li></ul></div>
+  </div>
+</article>
+<article class="rn-release" id="v0-16-0" aria-labelledby="v0-16-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-16-0-title"><a href="#v0-16-0">v0.16.0</a></h2>
+    <p><time datetime="2026-11-17">17 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Creative utilities, new components and free blocks, every docs example in one fixed layout with its full code, tested in Chrome, Firefox and Opera.</p><div class="rn-list rn-list--new"><h3 id="new-3">New</h3><ul><li>Utilities for creative effects: <code>border-conic-spin</code>, <code>shadow-neon</code>, <code>text-shadow-neon</code>, <code>text-shadow-3d</code>, <code>glass</code>, <code>animate-float</code>, <code>animate-typing</code>, <code>animate-wave</code>, <code>animate-beat</code>, <code>transition-clip</code>, <code>clip-circle-0</code>, <code>clip-circle-cover</code>, <code>mask-ring</code>, <code>bg-size-full</code>, <code>ease-overshoot</code> and more.</li><li><code>scroll-buttons-outside</code>: the arrows of a carousel sit next to the slides.</li><li>Components: Paper (grain, lines, squares, edges), a combobox with icons, a language menu (flag, own language name, check mark), Logo, mode badge, code plate, a card with an accent band and sheet options (glass, inset, footer panel).</li><li>Smaller additions: <code>theme.js</code> (remembers the theme without a flash on load), theme choice as cards, separate images for light and dark, <code>.oc-card-grid--scroll</code>, <code>.oc-status-list</code>, <code>.oc-badge--status</code>, card colors through <code>data-tone</code> and a round close button (<code>.oc-close--round</code>).</li><li>Free blocks: type picker, content blocks, route steps, route progress and step view.</li><li>The editor extension (IntelliSense 0.16.0) knows all these classes.</li></ul></div><div class="rn-list rn-list--improved"><h3 id="improved-3">Improved</h3><ul><li>Docs: every example in one fixed layout, with the full code under each example.</li><li>Glow is an option now (<code>.oc-project-card--glow</code>); the default shadow is neutral.</li><li>Contact form and call to action are flatter; example names are neutral (Company 1, Customer 1 …).</li></ul></div><div class="rn-list rn-list--changed"><h3 id="check-when-you-update">Check when you update</h3><ul><li>Hover movement: <code>hover:scale-*</code>, <code>hover:rotate-*</code> and <code>hover:translate-*</code> were applied twice. Now once, so the movement is half of what it was. <code>hover:translate-y-1</code> now moves down, as its name says.</li><li><code>.oc-btn--gradient</code> is calmer (soft gradient, normal button shape, no glow) and <code>.oc-btn--glass</code> is no longer a pill. Add <code>.oc-btn--pill</code> for the old shape.</li><li><code>.oc-block-cta</code> puts the text on the left and the buttons on the right. The old centered look is <code>.oc-block-cta--center</code>; new: <code>--solid</code>.</li><li>Checkbox and radio (<code>.oc-checkbox</code>, <code>.oc-radio</code>) are drawn by OmniaUI, because Opera ignores <code>accent-color</code>. They look the same in every browser.</li><li><code>.oc-section-content</code> has a side margin of <code>1rem</code> (was <code>1rem 4rem</code>), in line with the header and footer.</li><li>Block breakpoints: about-timeline, faq and watch-layout switch at 44rem, services-tabs at 40rem.</li></ul></div><div class="rn-list rn-list--fixed"><h3 id="fixed-3">Fixed</h3><ul><li><code>.border-image-stripes</code> shows diagonal stripes again.</li><li>Glass in the site header follows the theme, also with reduced motion.</li><li>Fly-in stays inside the grid; AffixInput no longer grows wider than its column.</li><li>The DataTable card view also works when the wrapper comes from the npm package.</li><li>Sheet: animation and a click next to the panel; the close button is centered. The wizard dialog has a close button.</li><li>Firefox: context menu, carousel dots, glass, chart and phone field.</li></ul></div>
+  </div>
+</article>
+<article class="rn-release" id="v0-15-1" aria-labelledby="v0-15-1-title">
+  <header class="rn-meta">
+    <h2 id="v0-15-1-title"><a href="#v0-15-1">v0.15.1</a></h2>
+    <p><time datetime="2026-11-10">10 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Lucida Console and Noto stay, but the npm package uses the installed font (<code>local()</code>) instead of /fonts/: no more 404s in apps. The build checks every <code>url()</code> in the dist.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-15-0" aria-labelledby="v0-15-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-15-0-title"><a href="#v0-15-0">v0.15.0</a></h2>
+    <p><time datetime="2026-11-10">10 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Theme switch with icons; the legal pages moved to birdycom.be; imported React and Vue components are scanned automatically (wrappers); fly-in options and a scroll progress bar; dropdown and tooltip in glass.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-14-4" aria-labelledby="v0-14-4-title">
+  <header class="rn-meta">
+    <h2 id="v0-14-4-title"><a href="#v0-14-4">v0.14.4</a></h2>
+    <p><time datetime="2026-11-06">6 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Arrows and check marks drawn in CSS show correctly again (escapes in <code>content</code>, also after <code>--minify</code>); a stray <code>.test:before</code> rule is gone.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-14-3" aria-labelledby="v0-14-3-title">
+  <header class="rn-meta">
+    <h2 id="v0-14-3-title"><a href="#v0-14-3">v0.14.3</a></h2>
+    <p><time datetime="2026-11-05">5 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">omniacss build: utilities in the last cascade layer, so a utility on a component always wins.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-14-2" aria-labelledby="v0-14-2-title">
+  <header class="rn-meta">
+    <h2 id="v0-14-2-title"><a href="#v0-14-2">v0.14.2</a></h2>
+    <p><time datetime="2026-11-04">4 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Pro components (mega menu, data table Pro and more) counted and labelled from one source; modals close on a click outside; severity card, step list and glossary fixes.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-14-1" aria-labelledby="v0-14-1-title">
+  <header class="rn-meta">
+    <h2 id="v0-14-1-title"><a href="#v0-14-1">v0.14.1</a></h2>
+    <p><time datetime="2026-11-04">4 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Tint card, document layout with table of contents, step list, glossary, styled language list; animations on the GPU.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-14-0" aria-labelledby="v0-14-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-14-0-title"><a href="#v0-14-0">v0.14.0</a></h2>
+    <p><time datetime="2026-11-03">3 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Reading, callout, static menu, group, accordion status, neon, backgrounds, particle field and graph; Pro network graph.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-13-0" aria-labelledby="v0-13-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-13-0-title"><a href="#v0-13-0">v0.13.0</a></h2>
+    <p><time datetime="2026-11-03">3 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Site building blocks without own CSS: opt-in base.css, [hidden] always hides, subtle text and display font tokens, phone numbers never wrap.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-12-6" aria-labelledby="v0-12-6-title">
+  <header class="rn-meta">
+    <h2 id="v0-12-6-title"><a href="#v0-12-6">v0.12.6</a></h2>
+    <p><time datetime="2026-11-02">2 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Shop and product blocks, new components (ribbon, lazy loading, rating, gallery …), header and footer variants, liquid glass and faster scrolling.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-12-5" aria-labelledby="v0-12-5-title">
+  <header class="rn-meta">
+    <h2 id="v0-12-5-title"><a href="#v0-12-5">v0.12.5</a></h2>
+    <p><time datetime="2026-11-01">1 November 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Webicons in every component, a starter kits page and Filament light mode.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-12-4" aria-labelledby="v0-12-4-title">
+  <header class="rn-meta">
+    <h2 id="v0-12-4-title"><a href="#v0-12-4">v0.12.4</a></h2>
+    <p><time datetime="2026-10-30">30 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Price card with a lifetime option, and security notices.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-12-3" aria-labelledby="v0-12-3-title">
+  <header class="rn-meta">
+    <h2 id="v0-12-3-title"><a href="#v0-12-3">v0.12.3</a></h2>
+    <p><time datetime="2026-10-30">30 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Status dot, glass and title bar; @omniaui in the PostCSS plugin; copy-js; a smaller build; the hover border of the cards.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-12-2" aria-labelledby="v0-12-2-title">
+  <header class="rn-meta">
+    <h2 id="v0-12-2-title"><a href="#v0-12-2">v0.12.2</a></h2>
+    <p><time datetime="2026-10-30">30 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Watermark, live frame and link row; Pro blocks device mockups and ecosystem map; iconify-icon with an icon toolbar; your own CSS tokens are kept; an extension fix.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-12-1" aria-labelledby="v0-12-1-title">
+  <header class="rn-meta">
+    <h2 id="v0-12-1-title"><a href="#v0-12-1">v0.12.1</a></h2>
+    <p><time datetime="2026-10-29">29 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">The MCP server knows the OmniaUI components and blocks; migrate fixes (setup version, scroll-m/p, Vite warning, your own @import); the extension stays quiet in Tailwind projects.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-12-0" aria-labelledby="v0-12-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-12-0-title"><a href="#v0-12-0">v0.12.0</a></h2>
+    <p><time datetime="2026-10-28">28 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Tooltip with anchor positioning, a title and placement; Pro blocks infinite carousel and pricing plans; carousel loop; clean URLs; favicons and SEO; lightbox and color fixes.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-11-2" aria-labelledby="v0-11-2-title">
+  <header class="rn-meta">
+    <h2 id="v0-11-2-title"><a href="#v0-11-2">v0.11.2</a></h2>
+    <p><time datetime="2026-10-28">28 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Mobile site header menu, readable accent text in dark mode, and minify keeps scroll animations.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-11-1" aria-labelledby="v0-11-1-title">
+  <header class="rn-meta">
+    <h2 id="v0-11-1-title"><a href="#v0-11-1">v0.11.1</a></h2>
+    <p><time datetime="2026-10-28">28 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Docs layout, browser support and demo fixes.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-11-0" aria-labelledby="v0-11-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-11-0-title"><a href="#v0-11-0">v0.11.0</a></h2>
+    <p><time datetime="2026-10-24">24 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Search the docs with Ctrl K.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-10-0" aria-labelledby="v0-10-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-10-0-title"><a href="#v0-10-0">v0.10.0</a></h2>
+    <p><time datetime="2026-10-23">23 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Convert Bootstrap sites to OmniaCSS.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-9-0" aria-labelledby="v0-9-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-9-0-title"><a href="#v0-9-0">v0.9.0</a></h2>
+    <p><time datetime="2026-10-23">23 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">CSS functions, units and selectors.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-8-4" aria-labelledby="v0-8-4-title">
+  <header class="rn-meta">
+    <h2 id="v0-8-4-title"><a href="#v0-8-4">v0.8.4</a></h2>
+    <p><time datetime="2026-10-23">23 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Base colors in the docs as -100.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-8-3" aria-labelledby="v0-8-3-title">
+  <header class="rn-meta">
+    <h2 id="v0-8-3-title"><a href="#v0-8-3">v0.8.3</a></h2>
+    <p><time datetime="2026-10-23">23 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">IntelliSense screenshots in the README as product shots.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-8-2" aria-labelledby="v0-8-2-title">
+  <header class="rn-meta">
+    <h2 id="v0-8-2-title"><a href="#v0-8-2">v0.8.2</a></h2>
+    <p><time datetime="2026-10-23">23 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Color utilities show their CSS in the completion list.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-8-1" aria-labelledby="v0-8-1-title">
+  <header class="rn-meta">
+    <h2 id="v0-8-1-title"><a href="#v0-8-1">v0.8.1</a></h2>
+    <p><time datetime="2026-10-23">23 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Same version as OmniaUI; lockfile for the Linux CI.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-8-0" aria-labelledby="v0-8-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-8-0-title"><a href="#v0-8-0">v0.8.0</a></h2>
+    <p><time datetime="2026-10-18">18 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">OmniaCSS IntelliSense for VS Code.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-7-0" aria-labelledby="v0-7-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-7-0-title"><a href="#v0-7-0">v0.7.0</a></h2>
+    <p><time datetime="2026-10-16">16 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Same version as OmniaUI: list table and field chrome.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-6-0" aria-labelledby="v0-6-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-6-0-title"><a href="#v0-6-0">v0.6.0</a></h2>
+    <p><time datetime="2026-10-15">15 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">OmniaCSS and OmniaUI split: components, blocks, wrappers and Laravel moved to OmniaUI; npm scope @birdycom.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-5-0" aria-labelledby="v0-5-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-5-0-title"><a href="#v0-5-0">v0.5.0</a></h2>
+    <p><time datetime="2026-10-14">14 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">New components and app blocks, a docs page check, table of contents and spacing fixes.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-4-0" aria-labelledby="v0-4-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-4-0-title"><a href="#v0-4-0">v0.4.0</a></h2>
+    <p><time datetime="2026-10-12">12 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">npm packages @omniacss/core, components, blocks, cli; on-demand build (12 MB → a few KB); PostCSS plugin (@omnia;); light-dark() theming without JavaScript; CSS-first modal, dropdown, accordion, tabs, theme switch and counter; one oc-hero definition; semver release workflow.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-3-0" aria-labelledby="v0-3-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-3-0-title"><a href="#v0-3-0">v0.3.0</a></h2>
+    <p><time datetime="2026-10-12">12 October 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Modern CSS utilities (anchor positioning, container queries, view transitions, scroll animations, gradients, logical properties, SVG); MDN coverage audit; browser support tables from MDN browser-compat-data.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-2-0" aria-labelledby="v0-2-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-2-0-title"><a href="#v0-2-0">v0.2.0</a></h2>
+    <p><time datetime="2026-04-09">9 April 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Component primitives and blocks, icon catalog (MDI, Material Symbols, VSCode icons, flags, spinners), standardized docs layout.</p>
+  </div>
+</article>
+<article class="rn-release" id="v0-1-0" aria-labelledby="v0-1-0-title">
+  <header class="rn-meta">
+    <h2 id="v0-1-0-title"><a href="#v0-1-0">v0.1.0</a></h2>
+    <p><time datetime="2026-03-20">20 March 2026</time></p>
+  </header>
+  <div class="rn-body">
+    <p class="rn-summary">Baseline: SCSS utility framework with Omnia, HTML and RAL colors (OKLCH), spacing, sizing, typography, flex/grid and documentation.</p>
+  </div>
+</article></div>
+<p class="rn-empty" data-rn-empty="" hidden>No release mentions that. Try a class name such as <code>glass</code> or a component such as <code>DataTable</code>.</p>
+    </div>
+  </section>
+
+</main>
+<script>
+  // Filter: hides the releases whose text does not contain every word typed. Without JavaScript every release shows.
+  (() => {
+    const input = document.querySelector("[data-rn-filter]");
+    const releases = [...document.querySelectorAll(".rn-release")];
+    const empty = document.querySelector("[data-rn-empty]");
+    if (!input || !releases.length) return;
+    const texts = releases.map((r) => r.textContent.toLowerCase());
+    input.addEventListener("input", () => {
+      const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+      let shown = 0;
+      releases.forEach((r, i) => { const hit = words.every((w) => texts[i].includes(w)); r.hidden = !hit; if (hit) shown++; });
+      if (empty) empty.hidden = shown > 0;
+    });
+  })();
+</script>
+
+
+  
+  <footer class="oc-site-footer hm-footer">
+      <div class="oc-container hm-frame">
+        <div class="oc-site-footer__grid">
+          <div class="oc-site-footer__about">
+            <a class="hm-footer-brand" href="/">OmniaCSS</a>
+            <p>Modern CSS as utility classes and tokens: OKLCH colors, container queries, <code>:has()</code> and an on-demand build. Made by Birdycom in Belgium.</p>
+            <p><span class="oc-pill">v0.17.0 · MIT</span></p>
+          </div>
+          <nav aria-label="OmniaCSS">
+            <h2 class="oc-site-footer__title">OmniaCSS</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="/docs/">Docs</a></li>
+              <li><a href="/docs/colors/system">Color system</a></li>
+              <li><a href="/docs/functions/">CSS functions</a></li>
+              <li><a href="/docs/editor">Editor extension</a></li>
+              <li><a href="/docs/ai">AI assistants (MCP)</a></li>
+              <li><a href="/docs/migrate">Migrate</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="OmniaUI">
+            <h2 class="oc-site-footer__title">OmniaUI</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://omniaui.test/">Overview</a></li>
+              <li><a href="https://omniaui.test/ui/components">Components</a></li>
+              <li><a href="https://omniaui.test/ui/blocks">Blocks</a></li>
+              <li><a href="https://omniaui.test/ui/starter-kits">Starter kits</a></li>
+              <li><a href="https://omniaui.test/ui/webicons">Webicons</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Pro">
+            <h2 class="oc-site-footer__title">Pro</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://omniaui.test/ui/pro">OmniaUI Pro</a></li>
+              <li><a href="https://omniaui.test/ui/pro#pricing">Pricing</a></li>
+              <li><a href="https://omniaui.test/legal/pro-license">Pro license</a></li>
+              <li><a href="https://omniaui.test/ui/security">Security</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Resources">
+            <h2 class="oc-site-footer__title">Resources</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://github.com/Birdycom/OmniaCSS">GitHub OmniaCSS</a></li>
+              <li><a href="https://github.com/Birdycom/OmniaUI">GitHub OmniaUI</a></li>
+              <li><a href="https://www.npmjs.com/package/@birdycom/omniacss">npm omniacss</a></li>
+              <li><a href="https://www.npmjs.com/package/@birdycom/omniaui">npm omniaui</a></li>
+              <li><a href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense">VS Code extension</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Legal">
+            <h2 class="oc-site-footer__title">Legal</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="/legal/terms#license">License (MIT)</a></li>
+              <li><a href="https://birdycom.be/en/terms">Terms</a></li>
+              <li><a href="https://birdycom.be/en/privacy">Privacy</a></li>
+              <li><a href="https://birdycom.be/en/cookies">Cookies</a></li>
+              <li><a href="mailto:support@omniaui.eu">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+  
+  <footer class="oc-footerbar oc-footerbar--split oc-footerbar--fixed ocd-footer">
+    <span class="ocd-footer-copy">© <span class="ocd-footer-years">2022–</span>2026 Birdycom · <span class="ocd-footer-name">OmniaCSS </span>v0.17.0<span class="ocd-footer-tag"> — modern CSS utilities and tokens</span></span>
+    <ul class="oc-footerbar-links" aria-label="Site links">
+      <li><a href="/docs/">OmniaCSS docs</a></li><li><a href="https://omniaui.test/ui/components">OmniaUI components</a></li><li><a href="/release-notes">Release notes</a></li><li><a href="https://github.com/Birdycom/OmniaCSS">GitHub</a></li><li><a href="/legal/terms#license">License</a></li><li><a href="https://birdycom.be/en/terms">Terms</a></li><li><a href="https://birdycom.be/en/privacy">Privacy</a></li><li><a href="https://birdycom.be/en/cookies">Cookies</a></li><li><a href="https://birdycom.be/en">birdycom.be</a></li>
+    </ul>
+  </footer>
+</body>
+</html>

@@ -6,7 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { transform } from "../lib/transform.mjs";
 import { leftSidebar, tocSidebar } from "../lib/nav.mjs";
-import { VERSION, HEADER_LINKS, GITHUB, OMNIAUI_URL, REPO, sectionOf, crossLinks } from "../lib/site.mjs";
+import { VERSION, HEADER_LINKS, FOOTER_LINKS, COPYRIGHT_YEARS, GITHUB, OMNIAUI_URL, REPO, sectionOf, crossLinks } from "../lib/site.mjs";
 import { SITE, SITE_URL, plainText, canonicalUrl, jsonLd, ldScript } from "../lib/seo.mjs";
 
 interface Props { source: string; route: string }
@@ -103,7 +103,7 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
 <body class={meta.bodyClass || undefined}>
   <header class:list={["oc-topbar", { "oc-topbar--fixed": isSidebar }]}>
     {/* Every page has the menu button: docs pages open the left menu with it (from 900px down), pages without a sidebar
-        only the site links (.ocd-nav-button--site); from 1020px down the site links open with it on every page. */}
+        only the site links (.ocd-nav-button--site); from 1200px down the site links open with it on every page. */}
     <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu" />
     <label class:list={["ocd-nav-button", { "ocd-nav-button--site": !isSidebar }]} for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></label>
     <a class="oc-topbar-brand" href="/index.html">OmniaCSS<span class="oc-badge-version ml-1">v{VERSION}</span></a>
@@ -146,7 +146,7 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
   )}
 
   {/* "footer": "site" in the page meta (the home): the full site footer, drawn by /css/oc-home.css. Same columns and
-      order as on omniaui.eu (apps/site/src/layouts/ContentPage.astro in OmniaUI); the bottom line repeats the bar. */}
+      order as on omniaui.eu (apps/site/src/layouts/ContentPage.astro in OmniaUI); the copyright line is the bar below. */}
   {meta.footer === "site" ? (
     <footer class="oc-site-footer hm-footer">
       <div class="oc-container hm-frame">
@@ -207,14 +207,17 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
             </ul>
           </nav>
         </div>
-        <div class="oc-site-footer__bottom">
-          <span>© 2022–2026 Birdycom · OmniaCSS v{VERSION} — modern CSS utilities and tokens</span>
-          <span><a href="https://birdycom.be/en">birdycom.be</a></span>
-        </div>
       </div>
     </footer>
-  ) : (
-  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v{VERSION} — modern CSS utilities and tokens{" · "}<a href="/docs/index.html">Docs</a>{" · "}<a href={`${OMNIAUI_URL}/index.html`}>OmniaUI components</a>{" · "}<a href={GITHUB}>GitHub</a>{" · "}<a href="/legal/terms.html#license">License</a>{" · "}<a href="https://birdycom.be/en/terms">Terms</a>{" · "}<a href="https://birdycom.be/en/privacy">Privacy</a>{" · "}<a href="https://birdycom.be/en/cookies">Cookies</a></footer>
-  )}
+  ) : null}
+
+  {/* The one bottom bar of every page, full width and fixed like the header: copyright + version, then the site links
+      (lib/site.mjs, same labels and order on both sites). Drawn by .ocd-footer in /css/oc-docs-v2.css. */}
+  <footer class="oc-footerbar oc-footerbar--split oc-footerbar--fixed ocd-footer">
+    <span class="ocd-footer-copy">© <span class="ocd-footer-years">{COPYRIGHT_YEARS.from}–</span>{COPYRIGHT_YEARS.to} Birdycom · <span class="ocd-footer-name">OmniaCSS </span>v{VERSION}<span class="ocd-footer-tag"> — modern CSS utilities and tokens</span></span>
+    <ul class="oc-footerbar-links" aria-label="Site links">
+      {FOOTER_LINKS.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+    </ul>
+  </footer>
 </body>
 </html>

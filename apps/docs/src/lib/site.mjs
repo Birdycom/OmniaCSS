@@ -1,6 +1,6 @@
 // File: apps/docs/src/lib/site.mjs
 // Site-wide constants: repository paths, version, header links, and the OmniaUI site URL.
-// Map: findRepo -> paths + version -> OMNIAUI_URL + header links -> crossLinks -> sectionOf
+// Map: findRepo -> paths + version -> OMNIAUI_URL + header links -> footer links -> crossLinks -> sectionOf
 
 import fs from "node:fs";
 import path from "node:path";
@@ -36,9 +36,27 @@ export const HEADER_LINKS = [
   { id: "starter-kits", label: "Starter kits", href: `${OMNIAUI_URL}/ui/starter-kits.html` },
   { id: "webicons", label: "Webicons", href: `${OMNIAUI_URL}/ui/webicons.html` },
   { id: "story", label: "Our story", href: "/story.html" },
+  { id: "release-notes", label: "Release notes", href: "/release-notes.html" },
 ];
 
 export const GITHUB = "https://github.com/Birdycom/OmniaCSS";
+
+// The one bottom bar of every page (layouts/ContentPage.astro, .ocd-footer in oc-docs-v2.css): copyright + version on
+// the left, these links on the right. Same labels and order as on omniaui.eu (apps/site/src/lib/site.mjs in the OmniaUI
+// repo); only the GitHub repo and the terms page are this site's own. Keep both lists equal.
+export const FOOTER_LINKS = [
+  { label: "OmniaCSS docs", href: "/docs/index.html" },
+  { label: "OmniaUI components", href: `${OMNIAUI_URL}/ui/components.html` },
+  { label: "Release notes", href: "/release-notes.html" },
+  { label: "GitHub", href: GITHUB },
+  { label: "License", href: "/legal/terms.html#license" },
+  { label: "Terms", href: "https://birdycom.be/en/terms" },
+  { label: "Privacy", href: "https://birdycom.be/en/privacy" },
+  { label: "Cookies", href: "https://birdycom.be/en/cookies" },
+  { label: "birdycom.be", href: "https://birdycom.be/en" },
+];
+// Copyright years in the footer bar: from the first release (2022) to the year of the build.
+export const COPYRIGHT_YEARS = { from: 2022, to: new Date().getFullYear() };
 
 /**
  * Links in the content that still point to the old /ui/... pages ("/ui/x.html", "../ui/x.html",
@@ -52,5 +70,6 @@ export function crossLinks(html) {
 export function sectionOf(route) {
   if (route.startsWith("docs/")) return "docs";
   if (route === "story.html") return "story";
+  if (route === "release-notes.html") return "release-notes";
   return "home";
 }

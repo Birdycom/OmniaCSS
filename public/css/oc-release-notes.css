@@ -1,0 +1,53 @@
+/* File: public/css/oc-release-notes.css | The release notes page (/release-notes.html, rn-*), on top of /css/oc-home.css (hm-*).
+   Releases come from <oc-release-notes> (apps/docs/src/lib/release-notes.mjs). Flat and calm: lines, mono labels, no tiles.
+   Map: intro + filter -> jump list per minor series -> one release (meta column + notes) -> responsive. */
+
+/* ---- Intro ---- */
+.rn-hero .hm-head { margin-block-end: 0; }
+.rn-hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 800; line-height: 1.04; max-inline-size: 18ch; }
+.rn-filter { display: grid; gap: 0.5rem; max-inline-size: 34rem; margin-block-end: 2rem; font: 500 0.75rem/1.2 var(--hm-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--hm-note); }
+.rn-filter input {
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--hm-rule);
+  border-radius: var(--oc-radius);
+  background: var(--oc-background);
+  color: var(--oc-foreground);
+  font: 400 1rem/1.4 var(--ocd-text, inherit);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.rn-filter input:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; border-color: var(--hm-accent); }
+
+/* ---- Jump list: "0.16  0.16.0 0.16.1 0.16.2" ---- */
+.rn-jump ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 0.35rem 2rem; margin: 0 0 3rem; padding: 0; list-style: none; font: 500 0.8rem/1.5 var(--hm-mono); }
+.rn-jump li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; padding-block: 0.35rem; border-block-end: 1px dashed var(--hm-guide); }
+.rn-jump span { min-inline-size: 3rem; color: var(--hm-note); }
+.rn-jump a { color: var(--oc-foreground); text-decoration: none; }
+.rn-jump a:hover { color: var(--hm-accent); text-decoration: underline; }
+
+/* ---- One release: version and date on the left, the notes on the right ---- */
+.rn-release { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 1rem 3rem; padding-block: 2.5rem; border-block-start: 1px solid var(--hm-rule); }
+.rn-release[hidden] { display: none; }
+.rn-meta { align-self: start; position: sticky; inset-block-start: calc(var(--ocm-header-height, 64px) + 1.5rem); }
+.rn-meta h2 { margin: 0; font: 800 1.6rem/1.1 var(--hm-display); letter-spacing: -0.02em; }
+.rn-meta h2 a { color: var(--oc-foreground); text-decoration: none; }
+.rn-meta h2 a:hover { color: var(--hm-accent); }
+.rn-meta p { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0.5rem 0 0; font: 500 0.78rem/1.4 var(--hm-mono); color: var(--hm-note); }
+.rn-body { display: grid; gap: 1.5rem; max-inline-size: 52rem; }
+.rn-summary { margin: 0; font-size: 1.08rem; line-height: 1.65; color: var(--oc-foreground); text-wrap: pretty; }
+.rn-list h3 { margin: 0 0 0.6rem; font: 600 0.72rem/1.2 var(--hm-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--hm-note); }
+.rn-list--new h3 { color: var(--hm-accent); }
+.rn-list ul { display: grid; gap: 0.45rem; margin: 0; padding-inline-start: 1.1rem; }
+.rn-list li { line-height: 1.6; color: var(--oc-muted-foreground); text-wrap: pretty; }
+.rn-list li::marker { color: var(--hm-tick); }
+:is(.rn-summary, .rn-list) code { font-family: var(--hm-mono); font-size: 0.86em; font-weight: 500; overflow-wrap: anywhere; color: var(--oc-foreground); }
+.rn-empty { margin: 0; padding-block: 2rem; color: var(--hm-note); }
+
+/* ---- Responsive ---- */
+@media (max-width: 48rem) {
+  .rn-release { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-block: 2rem; }
+  .rn-meta { position: static; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; }
+  .rn-meta p { margin: 0; }
+}

@@ -11436,6 +11436,10 @@ select {
   scale: 1.25;
 }
 
+.hover\:translate-y-1:hover {
+  translate: var(--oc-translate-x, 0) 0.25rem;
+}
+
 .hover\:-translate-y-1:hover {
   translate: var(--oc-translate-x, 0) -0.25rem;
 }
