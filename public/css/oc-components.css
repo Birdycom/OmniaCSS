@@ -10450,7 +10450,7 @@ td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { j
 /* parts/forms-combobox-catalog.css */
 /* File: packages/ui/src/parts/forms-combobox-catalog.css
    Map: panel (list + footer) -> option text with a description -> image and emoji -> clear and custom rows -> loading row
-        -> manage footer -> list in document.body (portal) -> forced colors
+        -> manage footer -> list in document.body (portal) -> ghost trigger + header size + icon only (0.17.2) -> forced colors
    Catalog mode of the combobox (0.17.0): long server-searched lists of customers, products or codes. A two-line option
    (label + muted description), an image or emoji in the icon column, a first row that clears the choice, a row that takes
    what was typed, a loading row, a footer with a manage link, and a list moved to document.body so a scrolling or clipping
@@ -10583,6 +10583,100 @@ img.oc-combobox-option-image {
 }
 .oc-combobox-list--portal[data-open=""] { visibility: visible; opacity: 1; translate: 0 0; transition-delay: 0s; }
 .oc-combobox-list--portal[data-open="false"] { visibility: hidden; opacity: 0; }
+
+/* Ghost trigger (0.17.2, .oc-combobox--ghost): for a header bar. No border, no shadow, no margin; muted text that gets
+   fuller on hover and focus, with a light background (tinted with the module colour when there is one). The focus ring
+   is an outline in the module colour (theme ring as fallback). Also with .oc-combobox--ledger. */
+.oc-combobox--ghost {
+  --oc-input-border: transparent;
+  --oc-input-bg: transparent;
+  margin: 0;
+}
+.oc-combobox.oc-combobox--ghost > .oc-combobox-input,
+.oc-combobox.oc-combobox--ghost > .oc-combobox-input:focus {
+  margin: 0;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: var(--oc-muted-foreground);
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color var(--oc-transition-fast), background-color var(--oc-transition-fast);
+}
+.oc-combobox.oc-combobox--ghost:is(:hover, :focus-within, [data-open=""]) > .oc-combobox-input {
+  color: var(--oc-foreground);
+  background: color-mix(in oklab, var(--oc-module, var(--oc-muted-foreground)) 10%, transparent);
+}
+.oc-combobox.oc-combobox--ghost > .oc-combobox-input:focus { cursor: text; }
+.oc-combobox.oc-combobox--ghost > .oc-combobox-input:focus-visible {
+  outline: 2px solid var(--oc-module, var(--oc-ring));
+  outline-offset: 1px;
+}
+.oc-combobox--ghost::after { border-color: currentColor; color: var(--oc-muted-foreground); }
+.oc-combobox--ghost:is(:hover, :focus-within)::after { color: var(--oc-foreground); }
+.oc-combobox--ghost > .oc-combobox-icon { color: inherit; }
+
+/* Header size (0.17.2, .oc-combobox--header): compact, 36px high, as wide as its label between 6.5rem and 14rem
+   (field-sizing; older browsers keep the field's own width inside those bounds). The default (full) fills its box. */
+.oc-combobox--header {
+  --oc-ledger-height: 2.25rem;
+  display: inline-block;
+  inline-size: auto;
+  min-inline-size: 6.5rem;
+  max-inline-size: 14rem;
+  vertical-align: middle;
+}
+.oc-combobox--header > .oc-combobox-input {
+  field-sizing: content;
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 6.5rem;
+  max-inline-size: 14rem;
+  block-size: 2.25rem;
+  padding-block: 0;
+  font-size: 0.875rem;
+  line-height: 2.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.oc-combobox--header::after { inset-block-start: calc(1.125rem - 0.3rem); }
+.oc-combobox--header > .oc-combobox-list { inset-inline-end: auto; min-inline-size: 12rem; }
+
+/* Icon only (0.17.2, .oc-combobox--header.oc-combobox--icon-only): a square 36x36 button without label or chevron. The
+   field icon slot shows a short code (.oc-combobox-code, e.g. "NL"), else the icon, image or emoji of the chosen option,
+   else a dots icon. The field keeps working: it opens the list on a click and filters while typing. */
+.oc-combobox--icon-only,
+.oc-combobox--header.oc-combobox--icon-only { inline-size: 2.25rem; min-inline-size: 0; max-inline-size: none; }
+.oc-combobox--icon-only::after { display: none; }
+.oc-combobox.oc-combobox--icon-only > .oc-combobox-input,
+.oc-combobox.oc-combobox--icon-only:has(> .oc-combobox-icon:not(:empty)) > .oc-combobox-input {
+  field-sizing: fixed;
+  inline-size: 2.25rem;
+  min-inline-size: 0;
+  block-size: 2.25rem;
+  padding: 0;
+  color: transparent;
+  caret-color: transparent;
+  text-overflow: clip;
+}
+.oc-combobox--icon-only > .oc-combobox-input::placeholder { color: transparent; }
+.oc-combobox.oc-combobox--icon-only > .oc-combobox-icon {
+  inset-inline: 0;
+  inline-size: 100%;
+  color: var(--oc-muted-foreground);
+}
+.oc-combobox.oc-combobox--icon-only:is(:hover, :focus-within) > .oc-combobox-icon { color: var(--oc-foreground); }
+.oc-combobox--icon-only > .oc-combobox-icon > :is(svg, iconify-icon, img) { inline-size: 1.125rem; block-size: 1.125rem; }
+.oc-combobox-code {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.oc-combobox-icon:has(> .oc-combobox-code) { inline-size: auto; }
 
 @media (forced-colors: active) {
   .oc-combobox-clear,

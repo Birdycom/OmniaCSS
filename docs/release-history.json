@@ -1,6 +1,27 @@
 {
   "releases": [
     {
+      "version": "0.17.2",
+      "date": "2026-11-23",
+      "summary": "Header-combobox, dropdown radio, DataTable bulkActions, Button asChild",
+      "notes": {
+        "summary": "Small additions for app headers and data-heavy screens: a ghost header trigger and icon-only mode for Combobox, radio groups in Dropdown, custom bulk actions and column widths in DataTable, asChild on Button and a search slot that collapses with any search field.",
+        "new": [
+          "Combobox in a header bar: triggerVariant=\"ghost\", size=\"header\" (36px, auto width 6.5rem to 14rem, list in the body by default) and iconOnly (36x36; shows triggerLabel, else the icon or emoji of the chosen option, else a dots icon) with triggerAriaLabel. React, Vue and Blade.",
+          "DropdownRadioGroup and DropdownRadioItem (React, Vue, Blade). The existing DropdownItem radio checked keeps working.",
+          "DataTable bulkActions: add your own bulk buttons (key, label, icon, tone, disabled, hidden) or replace the built-in ones. onBulk, @bulk and the oc-datatable-bulk event receive the key.",
+          "DataTable column width and minWidth.",
+          "Button asChild (React): render your own element, such as a router link, with the button classes merged in."
+        ],
+        "improved": [
+          "The collapsing search slot of the app header now works with a combobox or any search field, not only a plain .oc-input."
+        ],
+        "changed": [
+          "React Combobox: the HTML size attribute (a number) of the input is no longer passed through, because size now takes \"full\" or \"header\"."
+        ]
+      }
+    },
+    {
       "version": "0.17.1",
       "date": "2026-11-23",
       "summary": "Release notes pagina, vaste header en footer, knoptokens, status-badges, DataTable onReorder, gsm-fixes",
