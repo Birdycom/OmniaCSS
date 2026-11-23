@@ -416257,6 +416257,44 @@ select {
   display: none;
 }
 
+/* d-* aliases (0.17.0): the same display values with a d- prefix, next to .d-none (layout extras), for
+   markup written with d-none / d-block / d-flex. Responsive: sm:d-*, md:d-*, lg:d-* (see _responsive.scss). */
+.d-block {
+  display: block;
+}
+
+.d-inline {
+  display: inline;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-inline-flex {
+  display: inline-flex;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.d-inline-grid {
+  display: inline-grid;
+}
+
+.d-flow-root {
+  display: flow-root;
+}
+
+.d-contents {
+  display: contents;
+}
+
 /* Box-sizing — controls how the total width and height is calculated. */
 .box-border {
   box-sizing: border-box;
@@ -443143,6 +443181,22 @@ select {
           print-color-adjust: economy;
 }
 
+/* Print visibility and colors (0.17.0): .print-only appears only on paper (a letterhead, a page footer),
+   .print-hidden leaves an element off the paper (toolbars, buttons, the app frame), .print-light prints an element in
+   the light colors also when the screen is dark (the theme tokens are light-dark(), so color-scheme decides). */
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+  .print-light {
+    color-scheme: light;
+  }
+}
 /* Will change — opacity */
 .will-change-opacity {
   will-change: opacity;
@@ -447961,6 +448015,15 @@ select {
 @page landscape {
   size: landscape;
 }
+/* A4 portrait with a 15mm margin, for a report or a letter (0.17.0). */
+.page-a4 {
+  page: a4;
+}
+
+@page a4 {
+  size: A4 portrait;
+  margin: 15mm;
+}
 /* position-try shorthand (order + fallbacks) */
 .anchor-try-most-height-flip {
   position-try: most-height flip-block, flip-inline;
@@ -452485,6 +452548,36 @@ select {
   .sm\:contents {
     display: contents;
   }
+  .sm\:d-none {
+    display: none;
+  }
+  .sm\:d-block {
+    display: block;
+  }
+  .sm\:d-inline {
+    display: inline;
+  }
+  .sm\:d-inline-block {
+    display: inline-block;
+  }
+  .sm\:d-flex {
+    display: flex;
+  }
+  .sm\:d-inline-flex {
+    display: inline-flex;
+  }
+  .sm\:d-grid {
+    display: grid;
+  }
+  .sm\:d-inline-grid {
+    display: inline-grid;
+  }
+  .sm\:d-flow-root {
+    display: flow-root;
+  }
+  .sm\:d-contents {
+    display: contents;
+  }
   .sm\:flex-row {
     flex-direction: row;
   }
@@ -453077,6 +453170,36 @@ select {
   .md\:contents {
     display: contents;
   }
+  .md\:d-none {
+    display: none;
+  }
+  .md\:d-block {
+    display: block;
+  }
+  .md\:d-inline {
+    display: inline;
+  }
+  .md\:d-inline-block {
+    display: inline-block;
+  }
+  .md\:d-flex {
+    display: flex;
+  }
+  .md\:d-inline-flex {
+    display: inline-flex;
+  }
+  .md\:d-grid {
+    display: grid;
+  }
+  .md\:d-inline-grid {
+    display: inline-grid;
+  }
+  .md\:d-flow-root {
+    display: flow-root;
+  }
+  .md\:d-contents {
+    display: contents;
+  }
   .md\:flex-row {
     flex-direction: row;
   }
@@ -453667,6 +453790,36 @@ select {
     display: table-row;
   }
   .lg\:contents {
+    display: contents;
+  }
+  .lg\:d-none {
+    display: none;
+  }
+  .lg\:d-block {
+    display: block;
+  }
+  .lg\:d-inline {
+    display: inline;
+  }
+  .lg\:d-inline-block {
+    display: inline-block;
+  }
+  .lg\:d-flex {
+    display: flex;
+  }
+  .lg\:d-inline-flex {
+    display: inline-flex;
+  }
+  .lg\:d-grid {
+    display: grid;
+  }
+  .lg\:d-inline-grid {
+    display: inline-grid;
+  }
+  .lg\:d-flow-root {
+    display: flow-root;
+  }
+  .lg\:d-contents {
     display: contents;
   }
   .lg\:flex-row {

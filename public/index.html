@@ -4,13 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <title>OmniaCSS — modern CSS as utility classes</title>
   <meta name="description" content="Modern CSS as utility classes: OKLCH colors, container queries, :has(), scroll snap and the newest CSS, with an on-demand build and zero JavaScript.">
+  
+  <link rel="canonical" href="https://omniacss.eu/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="OmniaCSS">
   <meta property="og:title" content="OmniaCSS — modern CSS as utility classes">
   <meta property="og:description" content="Modern CSS as utility classes: OKLCH colors, container queries, :has(), scroll snap and the newest CSS, with an on-demand build and zero JavaScript.">
-  <meta name="generator" content="OmniaCSS 0.16.2">
-  <title>OmniaCSS — modern CSS as utility classes</title>
+  <meta property="og:url" content="https://omniacss.eu/">
+  <meta property="og:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OmniaCSS — modern CSS as utility classes">
+  <meta name="twitter:description" content="Modern CSS as utility classes: OKLCH colors, container queries, :has(), scroll snap and the newest CSS, with an on-demand build and zero JavaScript.">
+  <meta name="twitter:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta name="twitter:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"OmniaCSS","url":"https://omniacss.eu/","inLanguage":"en","publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"},"description":"Modern CSS as utility classes: OKLCH colors, container queries, :has() and an on-demand build."}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"OmniaCSS","url":"https://omniacss.eu/","description":"Modern CSS as utility classes: OKLCH colors, container queries, :has() and an on-demand build.","softwareVersion":"0.17.0","publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"},"applicationCategory":"DeveloperApplication","operatingSystem":"Any","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"sameAs":["https://github.com/Birdycom/OmniaCSS","https://www.npmjs.com/package/@birdycom/omniacss"]}</script>
+  <meta name="generator" content="OmniaCSS 0.17.0">
   <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -19,7 +33,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=aac0f8ac83"><link rel="stylesheet" href="/css/oc-components.css?v=2df56697dd"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=817250f8c9"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=ba4a613daf"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=cc3f90f5ba"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=424f3a8516">
+  <link rel="stylesheet" href="/css/omnia_main.min.css?v=78e2278384"><link rel="stylesheet" href="/css/oc-components.css?v=4d3b6b4ed7"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=09ed1f8686"><link rel="stylesheet" href="/css/oc-blocks.css?v=0601d82ac9"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=0c602d0dd6"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=31a269ac36"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=4a6d857432">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -32,153 +46,20 @@
     const syncDemos = () => { const t = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); for (const sw of document.querySelectorAll(".oc-theme-scope .oc-theme-switch")) { const r = sw.querySelector('input[value="system"]') || sw.querySelector(`input[value="${t}"]`); if (r) r.checked = true; } };
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (!document.documentElement.dataset.theme) syncDemos(); });
     addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; syncDemos(); });
-  </script><script src="/js/oc-docs-v2.js?v=fbcfca188b" defer></script><style>
-  /* OmniaCSS home. Map: page -> hero (copy + playground) -> native strip -> palette band -> frameworks -> numbers
-     -> modern CSS grid -> start -> our story -> closing call. Colors: Omnia tokens only. */
-  .oc-home { margin: 0; padding-bottom: var(--ocm-footer-height); background: var(--oc-background); color: var(--oc-foreground); }
-  .hm { overflow-x: clip; --hm-pad: max(1.25rem, env(safe-area-inset-left, 0px)); --hm-max: 92rem; display: grid; gap: clamp(4.5rem, 9vw, 8rem); padding-block: calc(var(--ocm-header-height) + clamp(2.5rem, 6vw, 5rem)) 6rem; }
-  .hm-wrap { inline-size: min(100% - 2 * var(--hm-pad), var(--hm-max)); margin-inline: auto; }
-  .hm-wrap > *, .hm-wrap .oc-tabset, .hm-wrap .oc-tab-panel { min-inline-size: 0; }
-  .hm h1, .hm h2, .hm h3 { font-family: var(--ocd-display); letter-spacing: -0.025em; text-wrap: balance; margin: 0; }
-  .hm p { margin: 0; text-wrap: pretty; }
-  .hm-eyebrow { font: 600 0.72rem var(--ocd-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--oc-primary); }
-  .hm-lead { font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.65; color: var(--oc-muted-foreground); max-inline-size: 40rem; }
-  .hm-head { display: grid; gap: 0.9rem; max-inline-size: 48rem; margin-block-end: 2.5rem; }
-  .hm-head h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 800; line-height: 1.04; }
-  .hm-grad { background: linear-gradient(100deg, var(--color-vividblue-80), var(--color-magenta-50) 55%, var(--color-orange-50)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-
-  /* ---- Hero ---- */
-  .hm-hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
-  .hm-hero::before {
-    content: ""; position: absolute; inset: -12rem -20vw auto auto; inline-size: 52rem; aspect-ratio: 1; z-index: -1; pointer-events: none;
-    background: radial-gradient(closest-side, oklch(from var(--color-vividblue-80) l c h / 0.16), transparent), radial-gradient(closest-side at 30% 70%, oklch(from var(--color-magenta-50) l c h / 0.12), transparent);
-    filter: blur(10px);
-  }
-  .hm-hero-copy { display: grid; gap: 1.5rem; align-content: start; }
-  .hm-badges { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-  .hm-badges span { --b: var(--oc-muted-foreground); display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.32rem 0.6rem; border: 1px solid oklch(from var(--b) l c h / 0.32); border-radius: 7px; background: oklch(from var(--b) l c h / 0.07); color: var(--b); font: 500 0.74rem/1 var(--ocd-mono); }
-  .hm-badges span::before { content: ""; inline-size: 0.42rem; aspect-ratio: 1; border-radius: 2px; background: currentColor; }
-  .hm-badges .b1 { --b: light-dark(var(--color-orange-95), var(--color-orange-40)); }
-  .hm-badges .b2 { --b: light-dark(var(--color-green-80), var(--color-green-10)); }
-  .hm-badges .b3 { --b: light-dark(var(--color-purple-50), var(--color-magenta-50)); }
-  .hm-hero h1 { font-size: clamp(2.7rem, 6.2vw, 5.4rem); font-weight: 800; line-height: 0.98; letter-spacing: -0.035em; }
-  .hm-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
-  .hm-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.25rem; border-radius: 11px; font: 600 0.98rem var(--ocd-text); text-decoration: none; border: 1px solid var(--oc-border); color: var(--oc-foreground); background: var(--oc-background); transition: translate 0.2s, box-shadow 0.2s, border-color 0.2s; }
-  .hm-btn:hover { translate: 0 -2px; border-color: var(--oc-border-strong); }
-  .hm-btn:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
-  .hm-btn--main { border-color: transparent; color: var(--color-white-50); background: linear-gradient(100deg, var(--color-vividblue-80), var(--color-indigo-60)) border-box; box-shadow: 0 12px 30px -12px oklch(from var(--color-vividblue-80) l c h / 0.7); }
-  .hm-install { justify-self: start; display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.35rem 0.35rem 0.35rem 0.9rem; border: 1px solid var(--oc-border); border-radius: 11px; background: oklch(from var(--oc-foreground) l c h / 0.04); font: 500 0.88rem var(--ocd-mono); }
-  .hm-install b { color: var(--oc-primary); font-weight: 600; }
-  .hm-install button { padding: 0.45rem 0.7rem; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-background); color: var(--oc-muted-foreground); font: 500 0.75rem var(--ocd-text); cursor: pointer; }
-  .hm-install button:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
-  .hm-trust { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.86rem; color: var(--oc-muted-foreground); }
-  .hm-trust b { color: var(--oc-foreground); font-weight: 600; }
-
-  /* Playground */
-  .hm-play { border: 1px solid var(--oc-border); border-radius: 18px; background: var(--oc-background); box-shadow: 0 40px 80px -45px oklch(from var(--color-black-50) l c h / 0.6), 0 0 0 6px oklch(from var(--oc-foreground) l c h / 0.025); overflow: hidden; }
-  .hm-play-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1rem; border-block-end: 1px solid var(--oc-border); background: oklch(from var(--oc-foreground) l c h / 0.03); font: 500 0.78rem var(--ocd-mono); color: var(--oc-muted-foreground); }
-  .hm-play-bar i { inline-size: 0.65rem; aspect-ratio: 1; border-radius: 50%; background: var(--oc-border-strong); }
-  .hm-play-bar span { margin-inline-start: 0.5rem; }
-  .hm-play-field { display: grid; gap: 0.5rem; padding: 1rem 1rem 0.75rem; }
-  .hm-play-field label { font: 600 0.68rem var(--ocd-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--oc-muted-foreground); }
-  .hm-play-field input { inline-size: 100%; box-sizing: border-box; padding: 0.7rem 0.8rem; border: 1px solid var(--oc-border-strong); border-radius: 10px; background: var(--oc-background); color: var(--oc-foreground); font: 500 0.9rem var(--ocd-mono); }
-  .hm-play-field input:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
-  .hm-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; padding: 0 1rem 1rem; }
-  .hm-chips button { padding: 0.28rem 0.55rem; border: 1px dashed var(--oc-border-strong); border-radius: 999px; background: none; color: var(--oc-muted-foreground); font: 500 0.72rem var(--ocd-mono); cursor: pointer; }
-  .hm-chips button:hover { color: var(--oc-primary); border-color: var(--oc-primary); }
-  .hm-chips button[aria-pressed="true"] { border-style: solid; color: var(--oc-primary); background: oklch(from var(--oc-primary) l c h / 0.1); }
-  .hm-chips button:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
-  .hm-stage { display: grid; place-items: center; min-block-size: 13rem; padding: 2rem 1rem; border-block: 1px solid var(--oc-border); background: radial-gradient(circle at 1px 1px, oklch(from var(--oc-foreground) l c h / 0.1) 1px, transparent 0) 0 0 / 16px 16px; }
-  .hm-stage > div { font-family: var(--ocd-display); font-weight: 700; font-size: 1.15rem; transition: all 0.3s ease; }
-  .hm-css { margin: 0; min-block-size: 7.5rem; max-block-size: 11rem; overflow: auto; padding: 0.9rem 1rem; background: light-dark(var(--color-shallowblue-95), var(--color-black-40)); color: var(--color-white-60); font: 400 0.76rem/1.65 var(--ocd-mono); white-space: pre-wrap; }
-  .hm-css .p { color: var(--color-skycyan-50); } .hm-css .v { color: var(--color-magenta-40); } .hm-css .c { color: var(--color-mistblue-70); }
-
-  /* ---- Native strip ---- */
-  .hm-native { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
-  .hm-card { display: grid; gap: 0.8rem; align-content: start; padding: 1.4rem; border: 1px solid var(--oc-border); border-radius: 16px; background: var(--oc-background); transition: border-color 0.2s, translate 0.2s; }
-  .hm-card:hover { border-color: var(--oc-border-strong); translate: 0 -3px; }
-  .hm-card h3 { font-size: 1.2rem; font-weight: 700; }
-  .hm-card p { font-size: 0.92rem; line-height: 1.6; color: var(--oc-muted-foreground); }
-  .hm-card code { font-family: var(--ocd-mono); font-size: 0.82em; padding: 0.08em 0.35em; border-radius: 5px; background: oklch(from var(--oc-foreground) l c h / 0.06); }
-  .hm-card .hm-try { min-block-size: 6.5rem; display: grid; align-content: center; justify-items: start; padding: 1rem; border-radius: 12px; background: oklch(from var(--oc-foreground) l c h / 0.035); }
-  .hm-snap { display: flex; gap: 0.6rem; inline-size: 100%; padding-block-end: 0.25rem; }
-  .hm-snap > div { flex: none; box-sizing: border-box; display: grid; place-items: center; inline-size: 100%; block-size: 4.2rem; border-radius: 10px; color: var(--color-white-50); font-weight: 700; }
-  .hm-snap > div:nth-child(1) { background: linear-gradient(120deg, var(--color-vividblue-80), var(--color-indigo-60)); }
-  .hm-snap > div:nth-child(2) { background: linear-gradient(120deg, var(--color-magenta-50), var(--color-purple-60)); }
-  .hm-snap > div:nth-child(3) { background: linear-gradient(120deg, var(--color-orange-50), var(--color-red-60)); }
-
-  /* ---- Palette band ---- */
-  .hm-palette { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 3px; border-radius: 18px; overflow: hidden; }
-  .hm-palette i { display: block; block-size: clamp(1.4rem, 2.8vw, 2.4rem); background: var(--c); transition: scale 0.2s; }
-  .hm-palette i:hover { scale: 1.15; z-index: 1; border-radius: 4px; }
-  .hm-palette-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; margin-block-start: 1rem; font-size: 0.86rem; color: var(--oc-muted-foreground); }
-  .hm-palette-note code { font-family: var(--ocd-mono); color: var(--oc-foreground); }
-
-  /* ---- Frameworks ---- */
-  .hm-fw { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
-  .hm-fw .oc-tabset { min-inline-size: 0; }
-  .hm-fw .oc-tab-panel { padding-top: 0.75rem; }
-  .hm-fw ul { display: grid; gap: 0.6rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
-  .hm-fw li { display: flex; gap: 0.6rem; color: var(--oc-muted-foreground); }
-  .hm-fw li::before { content: "✓"; color: var(--oc-primary); font-weight: 700; }
-
-  /* ---- Numbers ---- */
-  .hm-numbers { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); border-block: 1px solid var(--oc-border); }
-  .hm-numbers div { display: grid; gap: 0.3rem; padding: 2rem 1.5rem; }
-  .hm-numbers div + div { border-inline-start: 1px solid var(--oc-border); }
-  .hm-numbers b { font: 800 clamp(2.2rem, 4vw, 3.2rem)/1 var(--ocd-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-  .hm-numbers span { font-size: 0.9rem; color: var(--oc-muted-foreground); }
-
-  /* ---- Modern CSS grid ---- */
-  .hm-topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); gap: 1rem; }
-  .hm-topic { position: relative; display: grid; gap: 0.5rem; padding: 1.3rem 1.4rem 1.4rem; border: 1px solid var(--oc-border); border-radius: 16px; color: inherit; text-decoration: none; overflow: hidden; transition: border-color 0.2s, translate 0.2s; }
-  .hm-topic::after { content: "→"; position: absolute; inset: 1.2rem 1.3rem auto auto; color: var(--oc-muted-foreground); transition: translate 0.2s, color 0.2s; }
-  .hm-topic:hover { border-color: var(--oc-primary); translate: 0 -3px; }
-  .hm-topic:hover::after { translate: 4px 0; color: var(--oc-primary); }
-  .hm-topic:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
-  .hm-topic code { justify-self: start; font: 600 0.78rem var(--ocd-mono); color: var(--oc-primary); }
-  .hm-topic b { font: 700 1.15rem var(--ocd-display); }
-  .hm-topic span { font-size: 0.9rem; line-height: 1.55; color: var(--oc-muted-foreground); }
-
-  /* ---- Start + closing ---- */
-  .hm-start { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-  .hm-start .oc-tab-panel { padding-top: 0.75rem; }
-  .hm-close { display: grid; justify-items: center; gap: 1.5rem; padding: clamp(3rem, 7vw, 5.5rem) 1.5rem; border-radius: 28px; text-align: center; color: var(--color-white-50);
-    background: radial-gradient(circle at 15% 20%, oklch(from var(--color-magenta-50) l c h / 0.55), transparent 45%), radial-gradient(circle at 85% 80%, oklch(from var(--color-orange-50) l c h / 0.4), transparent 45%), linear-gradient(130deg, var(--color-indigo-60), var(--color-vividblue-95)); }
-  .hm-close h2 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 800; line-height: 1.05; max-inline-size: 22ch; }
-  .hm-close p { max-inline-size: 40rem; color: oklch(from var(--color-white-50) l c h / 0.85); font-size: 1.1rem; }
-  .hm-close .hm-btn { border-color: oklch(from var(--color-white-50) l c h / 0.4); color: var(--color-white-50); background: oklch(from var(--color-white-50) l c h / 0.1); }
-  .hm-close .hm-btn--main { color: var(--color-indigo-60); background: var(--color-white-50); border-color: transparent; box-shadow: none; }
-
-  /* ---- Editor extension ---- */
-  .hm-ed { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
-  .hm-ed-shot { margin: 0; border: 1px solid var(--oc-border); border-radius: 18px; overflow: hidden; box-shadow: 0 40px 80px -45px oklch(from var(--color-black-50) l c h / 0.6), 0 0 0 6px oklch(from var(--oc-foreground) l c h / 0.025); }
-  .hm-ed-shot img { display: block; inline-size: 100%; block-size: auto; }
-  .hm-ed .hm-trust a { color: var(--oc-primary); }
-
-  /* ---- Our story: timeline (oc-timeline from OmniaUI) and what stood in the way (hm-card) ---- */
-  .hm-story { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-  .hm-story .oc-timeline__title { font-size: 1.15rem; }
-  .hm-story .oc-timeline__text { max-inline-size: 38rem; line-height: 1.6; }
-  .hm-story .oc-timeline__text code { font-family: var(--ocd-mono); font-size: 0.85em; }
-  .hm-hurdles { display: grid; gap: 0.75rem; }
-  .hm-hurdles h3 { font-size: 1.15rem; margin-block-end: 0.25rem; }
-  .hm-hurdles .hm-card { gap: 0.4rem; padding: 1.1rem 1.25rem; }
-  .hm-hurdles .hm-card b { font: 600 0.7rem var(--ocd-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--oc-primary); }
-
-  @media (max-width: 62rem) { .hm-hero, .hm-fw, .hm-start, .hm-ed, .hm-story { grid-template-columns: minmax(0, 1fr); } .hm-numbers div + div { border-inline-start: 0; } .hm-numbers div:nth-child(n + 2) { border-block-start: 1px solid var(--oc-border); } }
-  @media (prefers-reduced-motion: reduce) { .hm-btn, .hm-card, .hm-topic, .hm-stage > div, .hm-palette i { transition: none; } }
-
-</style>
+  </script>
+  <script src="/js/oc-docs-v2.js?v=fbcfca188b" defer></script>
+  <link rel="stylesheet" href="/css/oc-home.css?v=494b39e8c3">
+<link rel="stylesheet" href="/css/oc-story.css?v=d89bd59198">
 </head>
-<body class="oc-home">
+<body class="oc-home oc-home--css">
   <header class="oc-topbar">
     
-    
-    <a class="oc-topbar-brand" href="/">OmniaCSS<span class="oc-badge-version ml-1">v0.16.2</span></a>
+    <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu">
+    <label class="ocd-nav-button ocd-nav-button--site" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
+    <a class="oc-topbar-brand" href="/">OmniaCSS<span class="oc-badge-version ml-1">v0.17.0</span></a>
     <nav class="oc-topbar-nav" aria-label="Main">
       <ul class="oc-navmenu oc-navmenu--site">
-        <li><a class="oc-navmenu-link" href="https://omniaui.test/">OmniaUI</a></li><li><a class="oc-navmenu-link" href="/docs/">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/starter-kits">Starter kits</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons">Webicons</a></li>
+        <li><a class="oc-navmenu-link" href="https://omniaui.test/">OmniaUI</a></li><li><a class="oc-navmenu-link" href="/docs/">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/starter-kits">Starter kits</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons">Webicons</a></li><li><a class="oc-navmenu-link" href="/story">Our story</a></li>
         <li><a class="oc-navmenu-link" href="https://github.com/Birdycom/OmniaCSS" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="oc-navmenu-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path></svg></a></li>
       </ul>
     </nav>
@@ -200,141 +81,174 @@
     <p class="ocd-search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
   </dialog>
 
-  <main class="hm" id="top">
+  <!-- File: apps/docs/src/content/index.html | Home of omniacss.eu, drawn like a technical drawing (styles: /css/oc-home.css,
+     shared with omniaui.eu). Map: hero (copy + playground) -> 01 native -> 02 colors -> 03 numbers -> 04 stack -> 05 modern CSS
+     -> 06 editor -> 07 install -> 08 story -> 09 closing; the site footer comes from the layout ("footer": "site"). -->
+<main class="hm" id="top">
 
-  <!-- Hero: the message and a live playground -->
-  <section class="hm-wrap hm-hero" aria-labelledby="hm-title">
-    <div class="hm-hero-copy">
-      <div class="hm-badges"><span class="b1">0 KB JavaScript</span><span class="b2">Baseline-aware</span><span class="b3">OKLCH palette</span></div>
-      <h1 id="hm-title">Modern CSS, <span class="hm-grad">as classes</span>.</h1>
-      <p class="hm-lead">OmniaCSS turns container queries, anchor positioning, <code>:has()</code>, scroll snap, view transitions and OKLCH colors into utility classes. Its build ships only the classes you use, and OmniaUI adds 187 components and 104 blocks that run on native HTML.</p>
-      <div class="hm-cta">
-        <a class="hm-btn hm-btn--main" href="/docs/">Get started →</a>
-        <a class="hm-btn" href="https://omniaui.test/ui/components">Browse components</a>
-      </div>
-      <div class="hm-install"><span><b>npx</b> omniacss init</span><button type="button" data-hm-copy="npx omniacss init">Copy</button></div>
-      <p class="hm-trust"><span><b>HTML</b> · <b>Vue</b> · <b>React</b> · <b>Laravel</b> · <b>Livewire</b></span><span>Support tables from MDN on every page</span></p>
-    </div>
+  <!-- 00 Hero: the message and a live playground -->
+  <section class="hm-band hm-band--grid hm-hero" aria-labelledby="hm-title">
+    <div class="oc-container hm-frame">
+      <div class="hm-ruler" aria-hidden="true"><span style="--x: 0">0</span><span style="--x: 128">128</span><span style="--x: 256">256</span><span style="--x: 384">384</span><span style="--x: 512">512</span><span style="--x: 640">640</span><span style="--x: 768">768</span><span style="--x: 896">896</span><span style="--x: 1024">1024</span><span style="--x: 1152">1152</span><span class="hm-ruler-end">1440px · --oc-container</span></div>
+      <div class="hm-vruler" aria-hidden="true"><span style="--y: 0">0</span><span style="--y: 128">128</span><span style="--y: 256">256</span><span style="--y: 384">384</span><span style="--y: 512">512</span><span style="--y: 640">640</span><span style="--y: 768">768</span></div>
+      <div class="hm-hero-grid gap-4">
+        <div class="hm-hero-copy">
+          <ul class="hm-specs" aria-label="At a glance"><li>0 KB JavaScript</li><li>Baseline-aware</li><li>OKLCH palette</li></ul>
+          <div class="hm-h1" style="position: relative">
+            <h1 id="hm-title">Modern CSS, <span class="hm-mark">as classes</span>.</h1>
+            <span class="hm-dim hm-dim--v" style="inset-inline-end: calc(100% + 1rem); inset-block: 0.1em" aria-hidden="true"><span>font-size · 5.6rem</span></span>
+          </div>
+          <p class="hm-lead">OmniaCSS turns container queries, anchor positioning, <code>:has()</code>, scroll snap, view transitions and OKLCH colors into utility classes. Its build ships only the classes you use, and OmniaUI adds 191 components and 104 blocks that run on native HTML.</p>
+          <div class="hm-cta">
+            <a class="oc-btn oc-btn--lg" href="/docs/">Get started →</a>
+            <a class="oc-btn oc-btn--lg oc-btn--outline" href="https://omniaui.test/ui/components">Browse components</a>
+          </div>
+          <div class="hm-install"><span><b>npx</b> omniacss init</span><button type="button" data-hm-copy="npx omniacss init">Copy</button></div>
+          <p class="hm-trust"><span><b>HTML</b> · <b>Vue</b> · <b>React</b> · <b>Laravel</b> · <b>Livewire</b></span><span>Support tables from MDN on every page</span></p>
+        </div>
 
-    <div class="hm-play" aria-labelledby="hm-play-label">
-      <div class="hm-play-bar"><i></i><i></i><i></i><span id="hm-play-label">playground — type classes</span></div>
-      <div class="hm-play-field">
-        <label for="hm-play-input">class=""</label>
-        <input id="hm-play-input" value="p-3 round-4 bg-linear-to-r from-vividblue to-magenta text-white-50 shadow-xl" spellcheck="false" autocomplete="off">
-      </div>
-      <div class="hm-chips" role="group" aria-label="Add a class"><button type="button" data-hm-chip="bg-magenta-50">bg-magenta-50</button><button type="button" data-hm-chip="bg-linear-to-r from-vividblue to-magenta">bg-linear-to-r</button><button type="button" data-hm-chip="round-full">round-full</button><button type="button" data-hm-chip="shadow-xl">shadow-xl</button><button type="button" data-hm-chip="rotate-prop-n90">rotate-prop-n90</button><button type="button" data-hm-chip="animate-bounce">animate-bounce</button><button type="button" data-hm-chip="uppercase">uppercase</button><button type="button" data-hm-chip="border-2 border-solid border-white-50">border-2</button></div>
-      <div class="hm-stage"><div id="hm-play-box">Omnia</div></div>
-      <pre class="hm-css" id="hm-play-css" aria-live="polite" aria-label="Generated CSS"></pre>
-    </div>
-  </section>
-
-  <!-- Native features that need no JavaScript -->
-  <section class="hm-wrap" aria-labelledby="hm-native-title">
-    <div class="hm-head">
-      <span class="hm-eyebrow">Native first</span>
-      <h2 id="hm-native-title">The browser already does it. <span class="hm-grad">We style it.</span></h2>
-      <p class="hm-lead">Every component starts from a platform feature: dialog, popover, details, <code>:has()</code>, scroll snap. Try them here; this page loads no component script.</p>
-    </div>
-    <div class="hm-native">
-      <article class="hm-card">
-        <h3 id="dialog">Dialog</h3>
-        <p>A modal on <code>&lt;dialog&gt;</code>, opened with <code>command="show-modal"</code>. Focus trap and Esc come free.</p>
-        <div class="hm-try">
-          <button class="oc-btn" type="button" command="show-modal" commandfor="hm-dialog">Open dialog</button>
-          <dialog class="oc-modal" id="hm-dialog" closedby="any" aria-labelledby="hm-dialog-title">
-            <div class="oc-modal-content">
-              <div class="oc-modal-header">
-                <h2 class="oc-modal-title" id="hm-dialog-title">Straight from the browser</h2>
-                <p class="oc-modal-description">This dialog has a backdrop, a focus trap and closes with Esc or a click outside. No script was loaded to open it.</p>
-              </div>
-              <div class="oc-modal-footer"><button class="oc-btn" type="button" command="close" commandfor="hm-dialog">Close</button></div>
+        <div class="hm-hero-media hm-corners">
+          <span class="hm-dim hm-dim--top" aria-hidden="true"><span>35rem · 560px</span></span>
+          <span class="hm-dim hm-dim--gap" aria-hidden="true"><span>gap-4</span></span>
+          <div class="hm-play" aria-labelledby="hm-play-label">
+            <div class="hm-play-bar"><span id="hm-play-label">fig. 0 — playground: type classes</span><span aria-hidden="true">live</span></div>
+            <div class="hm-play-field">
+              <label for="hm-play-input">class=""</label>
+              <input id="hm-play-input" value="p-3 round-4 bg-vividblue-80 text-white-50 shadow-xl" spellcheck="false" autocomplete="off">
             </div>
-          </dialog>
-        </div>
-      </article>
-      <article class="hm-card">
-        <h3 id="dropdown">Dropdown</h3>
-        <p><code>popover</code> plus anchor positioning: the menu sits next to its button and closes on a click outside.</p>
-        <div class="hm-try">
-          <button class="oc-btn oc-btn--outline" type="button" popovertarget="hm-menu">Options ▾</button>
-          <div class="oc-dropdown-menu" id="hm-menu" popover="">
-            <a class="oc-dropdown-item" href="/docs/">Documentation</a>
-            <a class="oc-dropdown-item" href="/docs/functions/">CSS functions</a>
-            <a class="oc-dropdown-item" href="/docs/creative/">Creative CSS</a>
+            <div class="hm-chips" role="group" aria-label="Add a class"><button type="button" data-hm-chip="p-3">p-3</button><button type="button" data-hm-chip="round-4">round-4</button><button type="button" data-hm-chip="bg-vividblue-80">bg-vividblue-80</button><button type="button" data-hm-chip="text-white-50">text-white-50</button><button type="button" data-hm-chip="bg-magenta-50">bg-magenta-50</button><button type="button" data-hm-chip="bg-linear-to-r from-vividblue to-magenta">bg-linear-to-r</button><button type="button" data-hm-chip="round-full">round-full</button><button type="button" data-hm-chip="shadow-xl">shadow-xl</button><button type="button" data-hm-chip="rotate-prop-n90">rotate-prop-n90</button><button type="button" data-hm-chip="animate-bounce">animate-bounce</button><button type="button" data-hm-chip="uppercase">uppercase</button><button type="button" data-hm-chip="border-2 border-solid border-white-50">border-2</button></div>
+            <div class="hm-stage"><div id="hm-play-box">Omnia</div></div>
+            <pre class="hm-css" id="hm-play-css" aria-live="polite" aria-label="Generated CSS"></pre>
           </div>
+          <span class="hm-note hm-note--end hm-note--below" aria-hidden="true"><span><b>round-4</b> · --oc-radius 0.5rem · border 1px</span></span>
         </div>
-      </article>
-      <article class="hm-card">
-        <h3 id="accordion">Accordion</h3>
-        <p><code>&lt;details name&gt;</code> keeps one item open; <code>interpolate-size</code> animates the height.</p>
-        <div class="hm-try">
-          <div class="oc-accordion" style="inline-size: 100%">
-            <details class="oc-accordion-item" name="hm-faq" open><summary class="oc-accordion-trigger">Do I need a framework?</summary><div class="oc-accordion-content">No. Anything that outputs HTML works.</div></details>
-            <details class="oc-accordion-item" name="hm-faq"><summary class="oc-accordion-trigger">Is SCSS required?</summary><div class="oc-accordion-content">No. Your project only uses the CSS.</div></details>
-          </div>
-        </div>
-      </article>
-      <article class="hm-card">
-        <h3 id="carousel">Carousel</h3>
-        <p>Scroll snap with generated arrows and dots: <code>.snap-x .scroll-buttons .scroll-markers-after</code>.</p>
-        <div class="hm-try">
-          <div class="hm-snap overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-markers-after">
-            <div class="snap-center">One</div><div class="snap-center">Two</div><div class="snap-center">Three</div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- The Omnia palette -->
-  <section class="hm-wrap" aria-labelledby="hm-palette-title">
-    <div class="hm-head">
-      <span class="hm-eyebrow">One color system</span>
-      <h2 id="hm-palette-title">Every color, <span class="hm-grad">in OKLCH</span>, in light and dark.</h2>
-      <p class="hm-lead">The Omnia palette has 34 colors with tones from 2 to 95, plus the HTML and RAL colors. Each tone is a token you can use anywhere: <code>var(--color-magenta-50)</code>. Hover a swatch to see its name.</p>
-    </div>
-    <div class="hm-palette" style="--cols: 24" role="img" aria-label="Omnia palette: 24 colors in 10 tones">
-      <i style="--c: var(--color-red-2)" title="--color-red-2"></i><i style="--c: var(--color-orange-2)" title="--color-orange-2"></i><i style="--c: var(--color-yellow-2)" title="--color-yellow-2"></i><i style="--c: var(--color-lime-2)" title="--color-lime-2"></i><i style="--c: var(--color-green-2)" title="--color-green-2"></i><i style="--c: var(--color-teal-2)" title="--color-teal-2"></i><i style="--c: var(--color-turquoise-2)" title="--color-turquoise-2"></i><i style="--c: var(--color-cyan-2)" title="--color-cyan-2"></i><i style="--c: var(--color-skycyan-2)" title="--color-skycyan-2"></i><i style="--c: var(--color-blue-2)" title="--color-blue-2"></i><i style="--c: var(--color-vividblue-2)" title="--color-vividblue-2"></i><i style="--c: var(--color-indigo-2)" title="--color-indigo-2"></i><i style="--c: var(--color-violet-2)" title="--color-violet-2"></i><i style="--c: var(--color-purple-2)" title="--color-purple-2"></i><i style="--c: var(--color-magenta-2)" title="--color-magenta-2"></i><i style="--c: var(--color-pink-2)" title="--color-pink-2"></i><i style="--c: var(--color-peru-2)" title="--color-peru-2"></i><i style="--c: var(--color-brown-2)" title="--color-brown-2"></i><i style="--c: var(--color-wheat-2)" title="--color-wheat-2"></i><i style="--c: var(--color-mistblue-2)" title="--color-mistblue-2"></i><i style="--c: var(--color-stormblue-2)" title="--color-stormblue-2"></i><i style="--c: var(--color-duskblue-2)" title="--color-duskblue-2"></i><i style="--c: var(--color-gray-2)" title="--color-gray-2"></i><i style="--c: var(--color-black-2)" title="--color-black-2"></i>
-      <i style="--c: var(--color-red-10)" title="--color-red-10"></i><i style="--c: var(--color-orange-10)" title="--color-orange-10"></i><i style="--c: var(--color-yellow-10)" title="--color-yellow-10"></i><i style="--c: var(--color-lime-10)" title="--color-lime-10"></i><i style="--c: var(--color-green-10)" title="--color-green-10"></i><i style="--c: var(--color-teal-10)" title="--color-teal-10"></i><i style="--c: var(--color-turquoise-10)" title="--color-turquoise-10"></i><i style="--c: var(--color-cyan-10)" title="--color-cyan-10"></i><i style="--c: var(--color-skycyan-10)" title="--color-skycyan-10"></i><i style="--c: var(--color-blue-10)" title="--color-blue-10"></i><i style="--c: var(--color-vividblue-10)" title="--color-vividblue-10"></i><i style="--c: var(--color-indigo-10)" title="--color-indigo-10"></i><i style="--c: var(--color-violet-10)" title="--color-violet-10"></i><i style="--c: var(--color-purple-10)" title="--color-purple-10"></i><i style="--c: var(--color-magenta-10)" title="--color-magenta-10"></i><i style="--c: var(--color-pink-10)" title="--color-pink-10"></i><i style="--c: var(--color-peru-10)" title="--color-peru-10"></i><i style="--c: var(--color-brown-10)" title="--color-brown-10"></i><i style="--c: var(--color-wheat-10)" title="--color-wheat-10"></i><i style="--c: var(--color-mistblue-10)" title="--color-mistblue-10"></i><i style="--c: var(--color-stormblue-10)" title="--color-stormblue-10"></i><i style="--c: var(--color-duskblue-10)" title="--color-duskblue-10"></i><i style="--c: var(--color-gray-10)" title="--color-gray-10"></i><i style="--c: var(--color-black-10)" title="--color-black-10"></i>
-      <i style="--c: var(--color-red-20)" title="--color-red-20"></i><i style="--c: var(--color-orange-20)" title="--color-orange-20"></i><i style="--c: var(--color-yellow-20)" title="--color-yellow-20"></i><i style="--c: var(--color-lime-20)" title="--color-lime-20"></i><i style="--c: var(--color-green-20)" title="--color-green-20"></i><i style="--c: var(--color-teal-20)" title="--color-teal-20"></i><i style="--c: var(--color-turquoise-20)" title="--color-turquoise-20"></i><i style="--c: var(--color-cyan-20)" title="--color-cyan-20"></i><i style="--c: var(--color-skycyan-20)" title="--color-skycyan-20"></i><i style="--c: var(--color-blue-20)" title="--color-blue-20"></i><i style="--c: var(--color-vividblue-20)" title="--color-vividblue-20"></i><i style="--c: var(--color-indigo-20)" title="--color-indigo-20"></i><i style="--c: var(--color-violet-20)" title="--color-violet-20"></i><i style="--c: var(--color-purple-20)" title="--color-purple-20"></i><i style="--c: var(--color-magenta-20)" title="--color-magenta-20"></i><i style="--c: var(--color-pink-20)" title="--color-pink-20"></i><i style="--c: var(--color-peru-20)" title="--color-peru-20"></i><i style="--c: var(--color-brown-20)" title="--color-brown-20"></i><i style="--c: var(--color-wheat-20)" title="--color-wheat-20"></i><i style="--c: var(--color-mistblue-20)" title="--color-mistblue-20"></i><i style="--c: var(--color-stormblue-20)" title="--color-stormblue-20"></i><i style="--c: var(--color-duskblue-20)" title="--color-duskblue-20"></i><i style="--c: var(--color-gray-20)" title="--color-gray-20"></i><i style="--c: var(--color-black-20)" title="--color-black-20"></i>
-      <i style="--c: var(--color-red-30)" title="--color-red-30"></i><i style="--c: var(--color-orange-30)" title="--color-orange-30"></i><i style="--c: var(--color-yellow-30)" title="--color-yellow-30"></i><i style="--c: var(--color-lime-30)" title="--color-lime-30"></i><i style="--c: var(--color-green-30)" title="--color-green-30"></i><i style="--c: var(--color-teal-30)" title="--color-teal-30"></i><i style="--c: var(--color-turquoise-30)" title="--color-turquoise-30"></i><i style="--c: var(--color-cyan-30)" title="--color-cyan-30"></i><i style="--c: var(--color-skycyan-30)" title="--color-skycyan-30"></i><i style="--c: var(--color-blue-30)" title="--color-blue-30"></i><i style="--c: var(--color-vividblue-30)" title="--color-vividblue-30"></i><i style="--c: var(--color-indigo-30)" title="--color-indigo-30"></i><i style="--c: var(--color-violet-30)" title="--color-violet-30"></i><i style="--c: var(--color-purple-30)" title="--color-purple-30"></i><i style="--c: var(--color-magenta-30)" title="--color-magenta-30"></i><i style="--c: var(--color-pink-30)" title="--color-pink-30"></i><i style="--c: var(--color-peru-30)" title="--color-peru-30"></i><i style="--c: var(--color-brown-30)" title="--color-brown-30"></i><i style="--c: var(--color-wheat-30)" title="--color-wheat-30"></i><i style="--c: var(--color-mistblue-30)" title="--color-mistblue-30"></i><i style="--c: var(--color-stormblue-30)" title="--color-stormblue-30"></i><i style="--c: var(--color-duskblue-30)" title="--color-duskblue-30"></i><i style="--c: var(--color-gray-30)" title="--color-gray-30"></i><i style="--c: var(--color-black-30)" title="--color-black-30"></i>
-      <i style="--c: var(--color-red-40)" title="--color-red-40"></i><i style="--c: var(--color-orange-40)" title="--color-orange-40"></i><i style="--c: var(--color-yellow-40)" title="--color-yellow-40"></i><i style="--c: var(--color-lime-40)" title="--color-lime-40"></i><i style="--c: var(--color-green-40)" title="--color-green-40"></i><i style="--c: var(--color-teal-40)" title="--color-teal-40"></i><i style="--c: var(--color-turquoise-40)" title="--color-turquoise-40"></i><i style="--c: var(--color-cyan-40)" title="--color-cyan-40"></i><i style="--c: var(--color-skycyan-40)" title="--color-skycyan-40"></i><i style="--c: var(--color-blue-40)" title="--color-blue-40"></i><i style="--c: var(--color-vividblue-40)" title="--color-vividblue-40"></i><i style="--c: var(--color-indigo-40)" title="--color-indigo-40"></i><i style="--c: var(--color-violet-40)" title="--color-violet-40"></i><i style="--c: var(--color-purple-40)" title="--color-purple-40"></i><i style="--c: var(--color-magenta-40)" title="--color-magenta-40"></i><i style="--c: var(--color-pink-40)" title="--color-pink-40"></i><i style="--c: var(--color-peru-40)" title="--color-peru-40"></i><i style="--c: var(--color-brown-40)" title="--color-brown-40"></i><i style="--c: var(--color-wheat-40)" title="--color-wheat-40"></i><i style="--c: var(--color-mistblue-40)" title="--color-mistblue-40"></i><i style="--c: var(--color-stormblue-40)" title="--color-stormblue-40"></i><i style="--c: var(--color-duskblue-40)" title="--color-duskblue-40"></i><i style="--c: var(--color-gray-40)" title="--color-gray-40"></i><i style="--c: var(--color-black-40)" title="--color-black-40"></i>
-      <i style="--c: var(--color-red-50)" title="--color-red-50"></i><i style="--c: var(--color-orange-50)" title="--color-orange-50"></i><i style="--c: var(--color-yellow-50)" title="--color-yellow-50"></i><i style="--c: var(--color-lime-50)" title="--color-lime-50"></i><i style="--c: var(--color-green-50)" title="--color-green-50"></i><i style="--c: var(--color-teal-50)" title="--color-teal-50"></i><i style="--c: var(--color-turquoise-50)" title="--color-turquoise-50"></i><i style="--c: var(--color-cyan-50)" title="--color-cyan-50"></i><i style="--c: var(--color-skycyan-50)" title="--color-skycyan-50"></i><i style="--c: var(--color-blue-50)" title="--color-blue-50"></i><i style="--c: var(--color-vividblue-50)" title="--color-vividblue-50"></i><i style="--c: var(--color-indigo-50)" title="--color-indigo-50"></i><i style="--c: var(--color-violet-50)" title="--color-violet-50"></i><i style="--c: var(--color-purple-50)" title="--color-purple-50"></i><i style="--c: var(--color-magenta-50)" title="--color-magenta-50"></i><i style="--c: var(--color-pink-50)" title="--color-pink-50"></i><i style="--c: var(--color-peru-50)" title="--color-peru-50"></i><i style="--c: var(--color-brown-50)" title="--color-brown-50"></i><i style="--c: var(--color-wheat-50)" title="--color-wheat-50"></i><i style="--c: var(--color-mistblue-50)" title="--color-mistblue-50"></i><i style="--c: var(--color-stormblue-50)" title="--color-stormblue-50"></i><i style="--c: var(--color-duskblue-50)" title="--color-duskblue-50"></i><i style="--c: var(--color-gray-50)" title="--color-gray-50"></i><i style="--c: var(--color-black-50)" title="--color-black-50"></i>
-      <i style="--c: var(--color-red-60)" title="--color-red-60"></i><i style="--c: var(--color-orange-60)" title="--color-orange-60"></i><i style="--c: var(--color-yellow-60)" title="--color-yellow-60"></i><i style="--c: var(--color-lime-60)" title="--color-lime-60"></i><i style="--c: var(--color-green-60)" title="--color-green-60"></i><i style="--c: var(--color-teal-60)" title="--color-teal-60"></i><i style="--c: var(--color-turquoise-60)" title="--color-turquoise-60"></i><i style="--c: var(--color-cyan-60)" title="--color-cyan-60"></i><i style="--c: var(--color-skycyan-60)" title="--color-skycyan-60"></i><i style="--c: var(--color-blue-60)" title="--color-blue-60"></i><i style="--c: var(--color-vividblue-60)" title="--color-vividblue-60"></i><i style="--c: var(--color-indigo-60)" title="--color-indigo-60"></i><i style="--c: var(--color-violet-60)" title="--color-violet-60"></i><i style="--c: var(--color-purple-60)" title="--color-purple-60"></i><i style="--c: var(--color-magenta-60)" title="--color-magenta-60"></i><i style="--c: var(--color-pink-60)" title="--color-pink-60"></i><i style="--c: var(--color-peru-60)" title="--color-peru-60"></i><i style="--c: var(--color-brown-60)" title="--color-brown-60"></i><i style="--c: var(--color-wheat-60)" title="--color-wheat-60"></i><i style="--c: var(--color-mistblue-60)" title="--color-mistblue-60"></i><i style="--c: var(--color-stormblue-60)" title="--color-stormblue-60"></i><i style="--c: var(--color-duskblue-60)" title="--color-duskblue-60"></i><i style="--c: var(--color-gray-60)" title="--color-gray-60"></i><i style="--c: var(--color-black-60)" title="--color-black-60"></i>
-      <i style="--c: var(--color-red-70)" title="--color-red-70"></i><i style="--c: var(--color-orange-70)" title="--color-orange-70"></i><i style="--c: var(--color-yellow-70)" title="--color-yellow-70"></i><i style="--c: var(--color-lime-70)" title="--color-lime-70"></i><i style="--c: var(--color-green-70)" title="--color-green-70"></i><i style="--c: var(--color-teal-70)" title="--color-teal-70"></i><i style="--c: var(--color-turquoise-70)" title="--color-turquoise-70"></i><i style="--c: var(--color-cyan-70)" title="--color-cyan-70"></i><i style="--c: var(--color-skycyan-70)" title="--color-skycyan-70"></i><i style="--c: var(--color-blue-70)" title="--color-blue-70"></i><i style="--c: var(--color-vividblue-70)" title="--color-vividblue-70"></i><i style="--c: var(--color-indigo-70)" title="--color-indigo-70"></i><i style="--c: var(--color-violet-70)" title="--color-violet-70"></i><i style="--c: var(--color-purple-70)" title="--color-purple-70"></i><i style="--c: var(--color-magenta-70)" title="--color-magenta-70"></i><i style="--c: var(--color-pink-70)" title="--color-pink-70"></i><i style="--c: var(--color-peru-70)" title="--color-peru-70"></i><i style="--c: var(--color-brown-70)" title="--color-brown-70"></i><i style="--c: var(--color-wheat-70)" title="--color-wheat-70"></i><i style="--c: var(--color-mistblue-70)" title="--color-mistblue-70"></i><i style="--c: var(--color-stormblue-70)" title="--color-stormblue-70"></i><i style="--c: var(--color-duskblue-70)" title="--color-duskblue-70"></i><i style="--c: var(--color-gray-70)" title="--color-gray-70"></i><i style="--c: var(--color-black-70)" title="--color-black-70"></i>
-      <i style="--c: var(--color-red-80)" title="--color-red-80"></i><i style="--c: var(--color-orange-80)" title="--color-orange-80"></i><i style="--c: var(--color-yellow-80)" title="--color-yellow-80"></i><i style="--c: var(--color-lime-80)" title="--color-lime-80"></i><i style="--c: var(--color-green-80)" title="--color-green-80"></i><i style="--c: var(--color-teal-80)" title="--color-teal-80"></i><i style="--c: var(--color-turquoise-80)" title="--color-turquoise-80"></i><i style="--c: var(--color-cyan-80)" title="--color-cyan-80"></i><i style="--c: var(--color-skycyan-80)" title="--color-skycyan-80"></i><i style="--c: var(--color-blue-80)" title="--color-blue-80"></i><i style="--c: var(--color-vividblue-80)" title="--color-vividblue-80"></i><i style="--c: var(--color-indigo-80)" title="--color-indigo-80"></i><i style="--c: var(--color-violet-80)" title="--color-violet-80"></i><i style="--c: var(--color-purple-80)" title="--color-purple-80"></i><i style="--c: var(--color-magenta-80)" title="--color-magenta-80"></i><i style="--c: var(--color-pink-80)" title="--color-pink-80"></i><i style="--c: var(--color-peru-80)" title="--color-peru-80"></i><i style="--c: var(--color-brown-80)" title="--color-brown-80"></i><i style="--c: var(--color-wheat-80)" title="--color-wheat-80"></i><i style="--c: var(--color-mistblue-80)" title="--color-mistblue-80"></i><i style="--c: var(--color-stormblue-80)" title="--color-stormblue-80"></i><i style="--c: var(--color-duskblue-80)" title="--color-duskblue-80"></i><i style="--c: var(--color-gray-80)" title="--color-gray-80"></i><i style="--c: var(--color-black-80)" title="--color-black-80"></i>
-      <i style="--c: var(--color-red-95)" title="--color-red-95"></i><i style="--c: var(--color-orange-95)" title="--color-orange-95"></i><i style="--c: var(--color-yellow-95)" title="--color-yellow-95"></i><i style="--c: var(--color-lime-95)" title="--color-lime-95"></i><i style="--c: var(--color-green-95)" title="--color-green-95"></i><i style="--c: var(--color-teal-95)" title="--color-teal-95"></i><i style="--c: var(--color-turquoise-95)" title="--color-turquoise-95"></i><i style="--c: var(--color-cyan-95)" title="--color-cyan-95"></i><i style="--c: var(--color-skycyan-95)" title="--color-skycyan-95"></i><i style="--c: var(--color-blue-95)" title="--color-blue-95"></i><i style="--c: var(--color-vividblue-95)" title="--color-vividblue-95"></i><i style="--c: var(--color-indigo-95)" title="--color-indigo-95"></i><i style="--c: var(--color-violet-95)" title="--color-violet-95"></i><i style="--c: var(--color-purple-95)" title="--color-purple-95"></i><i style="--c: var(--color-magenta-95)" title="--color-magenta-95"></i><i style="--c: var(--color-pink-95)" title="--color-pink-95"></i><i style="--c: var(--color-peru-95)" title="--color-peru-95"></i><i style="--c: var(--color-brown-95)" title="--color-brown-95"></i><i style="--c: var(--color-wheat-95)" title="--color-wheat-95"></i><i style="--c: var(--color-mistblue-95)" title="--color-mistblue-95"></i><i style="--c: var(--color-stormblue-95)" title="--color-stormblue-95"></i><i style="--c: var(--color-duskblue-95)" title="--color-duskblue-95"></i><i style="--c: var(--color-gray-95)" title="--color-gray-95"></i><i style="--c: var(--color-black-95)" title="--color-black-95"></i>
-    </div>
-    <p class="hm-palette-note"><span><code>bg-magenta-50</code> · <code>text-vividblue-80</code> · <code>border-teal-30</code> · <code>bg-magenta-mix-40</code></span><a href="/docs/colors/system">Explore the color system →</a></p>
-  </section>
-
-  <!-- Numbers -->
-  <section class="hm-wrap" aria-label="OmniaCSS in numbers">
-    <div class="hm-numbers">
-      <div><b>524</b><span>CSS properties as utilities</span></div>
-      <div><b>187</b><span>OmniaUI components</span></div>
-      <div><b>104</b><span>blocks: sites, dashboards, admin</span></div>
-      <div><b>0 KB</b><span>JavaScript in the components</span></div>
-    </div>
-  </section>
-
-  <!-- One component, every stack -->
-  <section class="hm-wrap hm-fw" aria-labelledby="hm-fw-title">
-    <div class="hm-head" style="margin: 0">
-      <span class="hm-eyebrow">Your stack</span>
-      <h2 id="hm-fw-title">Same component. <span class="hm-grad">Every stack.</span></h2>
-      <p class="hm-lead">Plain HTML works everywhere. For Vue, React and Laravel the wrappers render exactly the same markup, so the docs, the CSS and the accessibility stay the same.</p>
-      <ul><li>Vue 3 with <code>v-model:open</code></li><li>React with <code>open</code> and <code>onOpenChange</code></li><li>Blade components and Livewire state</li><li><a href="https://omniaui.test/ui/starter-kits">Laravel starter kits</a> for Livewire, Blade, React and Vue</li></ul>
-    </div>
-    <div class="oc-tabset">
-      <div class="oc-tab-list oc-tab-list--pill" role="tablist">
-        <label class="oc-tab-trigger"><input type="radio" name="hm-fw" checked> HTML</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Vue</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> React</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Blade</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Livewire</label>
       </div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="html"><pre class="oc-code-block__gutter" aria-hidden="true">1
+    </div>
+  </section>
+
+  <!-- 01 Native features that need no JavaScript -->
+  <section class="hm-band" aria-labelledby="hm-native-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">01</span> Native first <span class="hm-ref" aria-hidden="true">grid · auto-fit, minmax(16rem, 1fr)</span></p>
+      <div class="hm-head">
+        <h2 id="hm-native-title">The browser already does it. We style it.</h2>
+        <p class="hm-lead">Every component starts from a platform feature: dialog, popover, details, <code>:has()</code>, scroll snap. Try them here; this page loads no component script.</p>
+      </div>
+      <div class="hm-figs">
+        <span class="hm-dim hm-dim--above" aria-hidden="true"><span>auto-fit · minmax(16rem, 1fr) · gap 1rem</span></span>
+        <article class="hm-fig">
+          <div class="hm-fig-cap" aria-hidden="true"><span>fig. 1.1</span><b>&lt;dialog&gt;</b></div>
+          <div class="hm-fig-body"><h3 id="dialog">Dialog</h3><p>A modal on <code>&lt;dialog&gt;</code>, opened with <code>command="show-modal"</code>. Focus trap and Esc come free.</p></div>
+          <div class="hm-try">
+            <button class="oc-btn" type="button" command="show-modal" commandfor="hm-dialog">Open dialog</button>
+            <dialog class="oc-modal" id="hm-dialog" closedby="any" aria-labelledby="hm-dialog-title">
+              <div class="oc-modal-content">
+                <div class="oc-modal-header">
+                  <h2 class="oc-modal-title" id="hm-dialog-title">Straight from the browser</h2>
+                  <p class="oc-modal-description">This dialog has a backdrop, a focus trap and closes with Esc or a click outside. No script was loaded to open it.</p>
+                </div>
+                <div class="oc-modal-footer"><button class="oc-btn" type="button" command="close" commandfor="hm-dialog">Close</button></div>
+              </div>
+            </dialog>
+          </div>
+        </article>
+        <article class="hm-fig">
+          <div class="hm-fig-cap" aria-hidden="true"><span>fig. 1.2</span><b>[popover]</b></div>
+          <div class="hm-fig-body"><h3 id="dropdown">Dropdown</h3><p><code>popover</code> plus anchor positioning: the menu sits next to its button and closes on a click outside.</p></div>
+          <div class="hm-try">
+            <button class="oc-btn oc-btn--outline" type="button" popovertarget="hm-menu">Options ▾</button>
+            <div class="oc-dropdown-menu" id="hm-menu" popover="">
+              <a class="oc-dropdown-item" href="/docs/">Documentation</a>
+              <a class="oc-dropdown-item" href="/docs/functions/">CSS functions</a>
+              <a class="oc-dropdown-item" href="/docs/creative/">Creative CSS</a>
+            </div>
+          </div>
+        </article>
+        <article class="hm-fig">
+          <div class="hm-fig-cap" aria-hidden="true"><span>fig. 1.3</span><b>&lt;details name&gt;</b></div>
+          <div class="hm-fig-body"><h3 id="accordion">Accordion</h3><p><code>&lt;details name&gt;</code> keeps one item open; <code>interpolate-size</code> animates the height.</p></div>
+          <div class="hm-try">
+            <div class="oc-accordion" style="inline-size: 100%">
+              <details class="oc-accordion-item" name="hm-faq" open><summary class="oc-accordion-trigger">Do I need a framework?</summary><div class="oc-accordion-content">No. Anything that outputs HTML works.</div></details>
+              <details class="oc-accordion-item" name="hm-faq"><summary class="oc-accordion-trigger">Is SCSS required?</summary><div class="oc-accordion-content">No. Your project only uses the CSS.</div></details>
+            </div>
+          </div>
+        </article>
+        <article class="hm-fig">
+          <div class="hm-fig-cap" aria-hidden="true"><span>fig. 1.4</span><b>snap-x</b></div>
+          <div class="hm-fig-body"><h3 id="carousel">Carousel</h3><p>Scroll snap with generated arrows and dots: <code>.snap-x .scroll-buttons .scroll-markers-after</code>.</p></div>
+          <div class="hm-try">
+            <div class="hm-snap overflow-x-auto snap-x scroll-smooth scrollbar-none scroll-buttons scroll-markers-after">
+              <div class="snap-center">slide 1</div><div class="snap-center">slide 2</div><div class="snap-center">slide 3</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 The Omnia palette -->
+  <section class="hm-band hm-band--grid" aria-labelledby="hm-palette-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">02</span> One color system <span class="hm-ref" aria-hidden="true">oklch(L C H) · 24 hues × 10 tones</span></p>
+      <div class="hm-head">
+        <h2 id="hm-palette-title">Every color in OKLCH, in light and dark.</h2>
+        <p class="hm-lead">The Omnia palette has 34 colors with tones from 2 to 95, plus the HTML and RAL colors. Each tone is a token you can use anywhere: <code>var(--color-magenta-50)</code>. Hover a swatch to see its name.</p>
+      </div>
+      <div class="hm-palette-wrap">
+        <div class="hm-axis hm-axis--x" aria-hidden="true"><span style="--c: 1">red →</span><span style="--c: 11">vividblue</span><span style="--c: 15">magenta</span><span style="--c: 24">black</span></div>
+        <div class="hm-axis hm-axis--y" aria-hidden="true"><span>2</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span><span>95</span></div>
+        <div class="hm-palette" style="--cols: 24" role="img" aria-label="Omnia palette: 24 colors in 10 tones">
+          <i class="oc-tooltip" style="--c: var(--color-red-2)" data-shade="Red 2"></i><i class="oc-tooltip" style="--c: var(--color-orange-2)" data-shade="Orange 2"></i><i class="oc-tooltip" style="--c: var(--color-yellow-2)" data-shade="Yellow 2"></i><i class="oc-tooltip" style="--c: var(--color-lime-2)" data-shade="Lime 2"></i><i class="oc-tooltip" style="--c: var(--color-green-2)" data-shade="Green 2"></i><i class="oc-tooltip" style="--c: var(--color-teal-2)" data-shade="Teal 2"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-2)" data-shade="Turquoise 2"></i><i class="oc-tooltip" style="--c: var(--color-cyan-2)" data-shade="Cyan 2"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-2)" data-shade="Skycyan 2"></i><i class="oc-tooltip" style="--c: var(--color-blue-2)" data-shade="Blue 2"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-2)" data-shade="Vividblue 2"></i><i class="oc-tooltip" style="--c: var(--color-indigo-2)" data-shade="Indigo 2"></i><i class="oc-tooltip" style="--c: var(--color-violet-2)" data-shade="Violet 2"></i><i class="oc-tooltip" style="--c: var(--color-purple-2)" data-shade="Purple 2"></i><i class="oc-tooltip" style="--c: var(--color-magenta-2)" data-shade="Magenta 2"></i><i class="oc-tooltip" style="--c: var(--color-pink-2)" data-shade="Pink 2"></i><i class="oc-tooltip" style="--c: var(--color-peru-2)" data-shade="Peru 2"></i><i class="oc-tooltip" style="--c: var(--color-brown-2)" data-shade="Brown 2"></i><i class="oc-tooltip" style="--c: var(--color-wheat-2)" data-shade="Wheat 2"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-2)" data-shade="Mistblue 2"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-2)" data-shade="Stormblue 2"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-2)" data-shade="Duskblue 2"></i><i class="oc-tooltip" style="--c: var(--color-gray-2)" data-shade="Gray 2"></i><i class="oc-tooltip" style="--c: var(--color-black-2)" data-shade="Black 2"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-10)" data-shade="Red 10"></i><i class="oc-tooltip" style="--c: var(--color-orange-10)" data-shade="Orange 10"></i><i class="oc-tooltip" style="--c: var(--color-yellow-10)" data-shade="Yellow 10"></i><i class="oc-tooltip" style="--c: var(--color-lime-10)" data-shade="Lime 10"></i><i class="oc-tooltip" style="--c: var(--color-green-10)" data-shade="Green 10"></i><i class="oc-tooltip" style="--c: var(--color-teal-10)" data-shade="Teal 10"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-10)" data-shade="Turquoise 10"></i><i class="oc-tooltip" style="--c: var(--color-cyan-10)" data-shade="Cyan 10"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-10)" data-shade="Skycyan 10"></i><i class="oc-tooltip" style="--c: var(--color-blue-10)" data-shade="Blue 10"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-10)" data-shade="Vividblue 10"></i><i class="oc-tooltip" style="--c: var(--color-indigo-10)" data-shade="Indigo 10"></i><i class="oc-tooltip" style="--c: var(--color-violet-10)" data-shade="Violet 10"></i><i class="oc-tooltip" style="--c: var(--color-purple-10)" data-shade="Purple 10"></i><i class="oc-tooltip" style="--c: var(--color-magenta-10)" data-shade="Magenta 10"></i><i class="oc-tooltip" style="--c: var(--color-pink-10)" data-shade="Pink 10"></i><i class="oc-tooltip" style="--c: var(--color-peru-10)" data-shade="Peru 10"></i><i class="oc-tooltip" style="--c: var(--color-brown-10)" data-shade="Brown 10"></i><i class="oc-tooltip" style="--c: var(--color-wheat-10)" data-shade="Wheat 10"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-10)" data-shade="Mistblue 10"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-10)" data-shade="Stormblue 10"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-10)" data-shade="Duskblue 10"></i><i class="oc-tooltip" style="--c: var(--color-gray-10)" data-shade="Gray 10"></i><i class="oc-tooltip" style="--c: var(--color-black-10)" data-shade="Black 10"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-20)" data-shade="Red 20"></i><i class="oc-tooltip" style="--c: var(--color-orange-20)" data-shade="Orange 20"></i><i class="oc-tooltip" style="--c: var(--color-yellow-20)" data-shade="Yellow 20"></i><i class="oc-tooltip" style="--c: var(--color-lime-20)" data-shade="Lime 20"></i><i class="oc-tooltip" style="--c: var(--color-green-20)" data-shade="Green 20"></i><i class="oc-tooltip" style="--c: var(--color-teal-20)" data-shade="Teal 20"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-20)" data-shade="Turquoise 20"></i><i class="oc-tooltip" style="--c: var(--color-cyan-20)" data-shade="Cyan 20"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-20)" data-shade="Skycyan 20"></i><i class="oc-tooltip" style="--c: var(--color-blue-20)" data-shade="Blue 20"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-20)" data-shade="Vividblue 20"></i><i class="oc-tooltip" style="--c: var(--color-indigo-20)" data-shade="Indigo 20"></i><i class="oc-tooltip" style="--c: var(--color-violet-20)" data-shade="Violet 20"></i><i class="oc-tooltip" style="--c: var(--color-purple-20)" data-shade="Purple 20"></i><i class="oc-tooltip" style="--c: var(--color-magenta-20)" data-shade="Magenta 20"></i><i class="oc-tooltip" style="--c: var(--color-pink-20)" data-shade="Pink 20"></i><i class="oc-tooltip" style="--c: var(--color-peru-20)" data-shade="Peru 20"></i><i class="oc-tooltip" style="--c: var(--color-brown-20)" data-shade="Brown 20"></i><i class="oc-tooltip" style="--c: var(--color-wheat-20)" data-shade="Wheat 20"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-20)" data-shade="Mistblue 20"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-20)" data-shade="Stormblue 20"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-20)" data-shade="Duskblue 20"></i><i class="oc-tooltip" style="--c: var(--color-gray-20)" data-shade="Gray 20"></i><i class="oc-tooltip" style="--c: var(--color-black-20)" data-shade="Black 20"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-30)" data-shade="Red 30"></i><i class="oc-tooltip" style="--c: var(--color-orange-30)" data-shade="Orange 30"></i><i class="oc-tooltip" style="--c: var(--color-yellow-30)" data-shade="Yellow 30"></i><i class="oc-tooltip" style="--c: var(--color-lime-30)" data-shade="Lime 30"></i><i class="oc-tooltip" style="--c: var(--color-green-30)" data-shade="Green 30"></i><i class="oc-tooltip" style="--c: var(--color-teal-30)" data-shade="Teal 30"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-30)" data-shade="Turquoise 30"></i><i class="oc-tooltip" style="--c: var(--color-cyan-30)" data-shade="Cyan 30"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-30)" data-shade="Skycyan 30"></i><i class="oc-tooltip" style="--c: var(--color-blue-30)" data-shade="Blue 30"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-30)" data-shade="Vividblue 30"></i><i class="oc-tooltip" style="--c: var(--color-indigo-30)" data-shade="Indigo 30"></i><i class="oc-tooltip" style="--c: var(--color-violet-30)" data-shade="Violet 30"></i><i class="oc-tooltip" style="--c: var(--color-purple-30)" data-shade="Purple 30"></i><i class="oc-tooltip" style="--c: var(--color-magenta-30)" data-shade="Magenta 30"></i><i class="oc-tooltip" style="--c: var(--color-pink-30)" data-shade="Pink 30"></i><i class="oc-tooltip" style="--c: var(--color-peru-30)" data-shade="Peru 30"></i><i class="oc-tooltip" style="--c: var(--color-brown-30)" data-shade="Brown 30"></i><i class="oc-tooltip" style="--c: var(--color-wheat-30)" data-shade="Wheat 30"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-30)" data-shade="Mistblue 30"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-30)" data-shade="Stormblue 30"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-30)" data-shade="Duskblue 30"></i><i class="oc-tooltip" style="--c: var(--color-gray-30)" data-shade="Gray 30"></i><i class="oc-tooltip" style="--c: var(--color-black-30)" data-shade="Black 30"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-40)" data-shade="Red 40"></i><i class="oc-tooltip" style="--c: var(--color-orange-40)" data-shade="Orange 40"></i><i class="oc-tooltip" style="--c: var(--color-yellow-40)" data-shade="Yellow 40"></i><i class="oc-tooltip" style="--c: var(--color-lime-40)" data-shade="Lime 40"></i><i class="oc-tooltip" style="--c: var(--color-green-40)" data-shade="Green 40"></i><i class="oc-tooltip" style="--c: var(--color-teal-40)" data-shade="Teal 40"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-40)" data-shade="Turquoise 40"></i><i class="oc-tooltip" style="--c: var(--color-cyan-40)" data-shade="Cyan 40"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-40)" data-shade="Skycyan 40"></i><i class="oc-tooltip" style="--c: var(--color-blue-40)" data-shade="Blue 40"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-40)" data-shade="Vividblue 40"></i><i class="oc-tooltip" style="--c: var(--color-indigo-40)" data-shade="Indigo 40"></i><i class="oc-tooltip" style="--c: var(--color-violet-40)" data-shade="Violet 40"></i><i class="oc-tooltip" style="--c: var(--color-purple-40)" data-shade="Purple 40"></i><i class="oc-tooltip" style="--c: var(--color-magenta-40)" data-shade="Magenta 40"></i><i class="oc-tooltip" style="--c: var(--color-pink-40)" data-shade="Pink 40"></i><i class="oc-tooltip" style="--c: var(--color-peru-40)" data-shade="Peru 40"></i><i class="oc-tooltip" style="--c: var(--color-brown-40)" data-shade="Brown 40"></i><i class="oc-tooltip" style="--c: var(--color-wheat-40)" data-shade="Wheat 40"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-40)" data-shade="Mistblue 40"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-40)" data-shade="Stormblue 40"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-40)" data-shade="Duskblue 40"></i><i class="oc-tooltip" style="--c: var(--color-gray-40)" data-shade="Gray 40"></i><i class="oc-tooltip" style="--c: var(--color-black-40)" data-shade="Black 40"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-50)" data-shade="Red 50"></i><i class="oc-tooltip" style="--c: var(--color-orange-50)" data-shade="Orange 50"></i><i class="oc-tooltip" style="--c: var(--color-yellow-50)" data-shade="Yellow 50"></i><i class="oc-tooltip" style="--c: var(--color-lime-50)" data-shade="Lime 50"></i><i class="oc-tooltip" style="--c: var(--color-green-50)" data-shade="Green 50"></i><i class="oc-tooltip" style="--c: var(--color-teal-50)" data-shade="Teal 50"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-50)" data-shade="Turquoise 50"></i><i class="oc-tooltip" style="--c: var(--color-cyan-50)" data-shade="Cyan 50"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-50)" data-shade="Skycyan 50"></i><i class="oc-tooltip" style="--c: var(--color-blue-50)" data-shade="Blue 50"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-50)" data-shade="Vividblue 50"></i><i class="oc-tooltip" style="--c: var(--color-indigo-50)" data-shade="Indigo 50"></i><i class="oc-tooltip" style="--c: var(--color-violet-50)" data-shade="Violet 50"></i><i class="oc-tooltip" style="--c: var(--color-purple-50)" data-shade="Purple 50"></i><i class="oc-tooltip" style="--c: var(--color-magenta-50)" data-shade="Magenta 50"></i><i class="oc-tooltip" style="--c: var(--color-pink-50)" data-shade="Pink 50"></i><i class="oc-tooltip" style="--c: var(--color-peru-50)" data-shade="Peru 50"></i><i class="oc-tooltip" style="--c: var(--color-brown-50)" data-shade="Brown 50"></i><i class="oc-tooltip" style="--c: var(--color-wheat-50)" data-shade="Wheat 50"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-50)" data-shade="Mistblue 50"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-50)" data-shade="Stormblue 50"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-50)" data-shade="Duskblue 50"></i><i class="oc-tooltip" style="--c: var(--color-gray-50)" data-shade="Gray 50"></i><i class="oc-tooltip" style="--c: var(--color-black-50)" data-shade="Black 50"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-60)" data-shade="Red 60"></i><i class="oc-tooltip" style="--c: var(--color-orange-60)" data-shade="Orange 60"></i><i class="oc-tooltip" style="--c: var(--color-yellow-60)" data-shade="Yellow 60"></i><i class="oc-tooltip" style="--c: var(--color-lime-60)" data-shade="Lime 60"></i><i class="oc-tooltip" style="--c: var(--color-green-60)" data-shade="Green 60"></i><i class="oc-tooltip" style="--c: var(--color-teal-60)" data-shade="Teal 60"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-60)" data-shade="Turquoise 60"></i><i class="oc-tooltip" style="--c: var(--color-cyan-60)" data-shade="Cyan 60"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-60)" data-shade="Skycyan 60"></i><i class="oc-tooltip" style="--c: var(--color-blue-60)" data-shade="Blue 60"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-60)" data-shade="Vividblue 60"></i><i class="oc-tooltip" style="--c: var(--color-indigo-60)" data-shade="Indigo 60"></i><i class="oc-tooltip" style="--c: var(--color-violet-60)" data-shade="Violet 60"></i><i class="oc-tooltip" style="--c: var(--color-purple-60)" data-shade="Purple 60"></i><i class="oc-tooltip" style="--c: var(--color-magenta-60)" data-shade="Magenta 60"></i><i class="oc-tooltip" style="--c: var(--color-pink-60)" data-shade="Pink 60"></i><i class="oc-tooltip" style="--c: var(--color-peru-60)" data-shade="Peru 60"></i><i class="oc-tooltip" style="--c: var(--color-brown-60)" data-shade="Brown 60"></i><i class="oc-tooltip" style="--c: var(--color-wheat-60)" data-shade="Wheat 60"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-60)" data-shade="Mistblue 60"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-60)" data-shade="Stormblue 60"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-60)" data-shade="Duskblue 60"></i><i class="oc-tooltip" style="--c: var(--color-gray-60)" data-shade="Gray 60"></i><i class="oc-tooltip" style="--c: var(--color-black-60)" data-shade="Black 60"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-70)" data-shade="Red 70"></i><i class="oc-tooltip" style="--c: var(--color-orange-70)" data-shade="Orange 70"></i><i class="oc-tooltip" style="--c: var(--color-yellow-70)" data-shade="Yellow 70"></i><i class="oc-tooltip" style="--c: var(--color-lime-70)" data-shade="Lime 70"></i><i class="oc-tooltip" style="--c: var(--color-green-70)" data-shade="Green 70"></i><i class="oc-tooltip" style="--c: var(--color-teal-70)" data-shade="Teal 70"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-70)" data-shade="Turquoise 70"></i><i class="oc-tooltip" style="--c: var(--color-cyan-70)" data-shade="Cyan 70"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-70)" data-shade="Skycyan 70"></i><i class="oc-tooltip" style="--c: var(--color-blue-70)" data-shade="Blue 70"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-70)" data-shade="Vividblue 70"></i><i class="oc-tooltip" style="--c: var(--color-indigo-70)" data-shade="Indigo 70"></i><i class="oc-tooltip" style="--c: var(--color-violet-70)" data-shade="Violet 70"></i><i class="oc-tooltip" style="--c: var(--color-purple-70)" data-shade="Purple 70"></i><i class="oc-tooltip" style="--c: var(--color-magenta-70)" data-shade="Magenta 70"></i><i class="oc-tooltip" style="--c: var(--color-pink-70)" data-shade="Pink 70"></i><i class="oc-tooltip" style="--c: var(--color-peru-70)" data-shade="Peru 70"></i><i class="oc-tooltip" style="--c: var(--color-brown-70)" data-shade="Brown 70"></i><i class="oc-tooltip" style="--c: var(--color-wheat-70)" data-shade="Wheat 70"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-70)" data-shade="Mistblue 70"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-70)" data-shade="Stormblue 70"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-70)" data-shade="Duskblue 70"></i><i class="oc-tooltip" style="--c: var(--color-gray-70)" data-shade="Gray 70"></i><i class="oc-tooltip" style="--c: var(--color-black-70)" data-shade="Black 70"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-80)" data-shade="Red 80"></i><i class="oc-tooltip" style="--c: var(--color-orange-80)" data-shade="Orange 80"></i><i class="oc-tooltip" style="--c: var(--color-yellow-80)" data-shade="Yellow 80"></i><i class="oc-tooltip" style="--c: var(--color-lime-80)" data-shade="Lime 80"></i><i class="oc-tooltip" style="--c: var(--color-green-80)" data-shade="Green 80"></i><i class="oc-tooltip" style="--c: var(--color-teal-80)" data-shade="Teal 80"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-80)" data-shade="Turquoise 80"></i><i class="oc-tooltip" style="--c: var(--color-cyan-80)" data-shade="Cyan 80"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-80)" data-shade="Skycyan 80"></i><i class="oc-tooltip" style="--c: var(--color-blue-80)" data-shade="Blue 80"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-80)" data-shade="Vividblue 80"></i><i class="oc-tooltip" style="--c: var(--color-indigo-80)" data-shade="Indigo 80"></i><i class="oc-tooltip" style="--c: var(--color-violet-80)" data-shade="Violet 80"></i><i class="oc-tooltip" style="--c: var(--color-purple-80)" data-shade="Purple 80"></i><i class="oc-tooltip" style="--c: var(--color-magenta-80)" data-shade="Magenta 80"></i><i class="oc-tooltip" style="--c: var(--color-pink-80)" data-shade="Pink 80"></i><i class="oc-tooltip" style="--c: var(--color-peru-80)" data-shade="Peru 80"></i><i class="oc-tooltip" style="--c: var(--color-brown-80)" data-shade="Brown 80"></i><i class="oc-tooltip" style="--c: var(--color-wheat-80)" data-shade="Wheat 80"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-80)" data-shade="Mistblue 80"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-80)" data-shade="Stormblue 80"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-80)" data-shade="Duskblue 80"></i><i class="oc-tooltip" style="--c: var(--color-gray-80)" data-shade="Gray 80"></i><i class="oc-tooltip" style="--c: var(--color-black-80)" data-shade="Black 80"></i>
+          <i class="oc-tooltip" style="--c: var(--color-red-95)" data-shade="Red 95"></i><i class="oc-tooltip" style="--c: var(--color-orange-95)" data-shade="Orange 95"></i><i class="oc-tooltip" style="--c: var(--color-yellow-95)" data-shade="Yellow 95"></i><i class="oc-tooltip" style="--c: var(--color-lime-95)" data-shade="Lime 95"></i><i class="oc-tooltip" style="--c: var(--color-green-95)" data-shade="Green 95"></i><i class="oc-tooltip" style="--c: var(--color-teal-95)" data-shade="Teal 95"></i><i class="oc-tooltip" style="--c: var(--color-turquoise-95)" data-shade="Turquoise 95"></i><i class="oc-tooltip" style="--c: var(--color-cyan-95)" data-shade="Cyan 95"></i><i class="oc-tooltip" style="--c: var(--color-skycyan-95)" data-shade="Skycyan 95"></i><i class="oc-tooltip" style="--c: var(--color-blue-95)" data-shade="Blue 95"></i><i class="oc-tooltip" style="--c: var(--color-vividblue-95)" data-shade="Vividblue 95"></i><i class="oc-tooltip" style="--c: var(--color-indigo-95)" data-shade="Indigo 95"></i><i class="oc-tooltip" style="--c: var(--color-violet-95)" data-shade="Violet 95"></i><i class="oc-tooltip" style="--c: var(--color-purple-95)" data-shade="Purple 95"></i><i class="oc-tooltip" style="--c: var(--color-magenta-95)" data-shade="Magenta 95"></i><i class="oc-tooltip" style="--c: var(--color-pink-95)" data-shade="Pink 95"></i><i class="oc-tooltip" style="--c: var(--color-peru-95)" data-shade="Peru 95"></i><i class="oc-tooltip" style="--c: var(--color-brown-95)" data-shade="Brown 95"></i><i class="oc-tooltip" style="--c: var(--color-wheat-95)" data-shade="Wheat 95"></i><i class="oc-tooltip" style="--c: var(--color-mistblue-95)" data-shade="Mistblue 95"></i><i class="oc-tooltip" style="--c: var(--color-stormblue-95)" data-shade="Stormblue 95"></i><i class="oc-tooltip" style="--c: var(--color-duskblue-95)" data-shade="Duskblue 95"></i><i class="oc-tooltip" style="--c: var(--color-gray-95)" data-shade="Gray 95"></i><i class="oc-tooltip" style="--c: var(--color-black-95)" data-shade="Black 95"></i>
+        </div>
+      </div>
+      <p class="hm-palette-note"><span><code>bg-magenta-50</code> · <code>text-vividblue-80</code> · <code>border-teal-30</code> · <code>bg-magenta-mix-40</code></span><a class="hm-link" href="/docs/colors/system">Explore the color system →</a></p>
+    </div>
+  </section>
+
+  <!-- 03 Numbers -->
+  <section class="hm-band" aria-labelledby="hm-numbers-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">03</span> <span id="hm-numbers-title">In numbers</span> <span class="hm-ref" aria-hidden="true">grid-cols-4</span></p>
+      <div class="hm-numbers">
+        <span class="hm-dim hm-dim--above" aria-hidden="true"><span>grid-cols-4 · 100% / 4</span></span>
+        <div><small aria-hidden="true">a</small><b>524</b><span>CSS properties as utilities</span></div>
+        <div><small aria-hidden="true">b</small><b>191</b><span>OmniaUI components</span></div>
+        <div><small aria-hidden="true">c</small><b>104</b><span>blocks: sites, dashboards, admin</span></div>
+        <div><small aria-hidden="true">d</small><b>0 KB</b><span>JavaScript in the components</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 One component, every stack -->
+  <section class="hm-band hm-band--grid" aria-labelledby="hm-fw-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">04</span> Your stack <span class="hm-ref" aria-hidden="true">same markup · 5 stacks</span></p>
+      <div class="hm-split">
+        <div class="hm-head">
+          <h2 id="hm-fw-title">Same component. Every stack.</h2>
+          <p class="hm-lead">Plain HTML works everywhere. For Vue, React and Laravel the wrappers render exactly the same markup, so the docs, the CSS and the accessibility stay the same.</p>
+          <ul class="hm-checks"><li>Vue 3 with <code>v-model:open</code></li><li>React with <code>open</code> and <code>onOpenChange</code></li><li>Blade components and Livewire state</li><li><a href="https://omniaui.test/ui/starter-kits">Laravel starter kits</a> for Livewire, Blade, React and Vue</li></ul>
+        </div>
+        <div class="hm-corners">
+          <div class="oc-tabset">
+            <div class="oc-tab-list oc-tab-list--pill" role="tablist">
+              <label class="oc-tab-trigger"><input type="radio" name="hm-fw" checked> HTML</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Vue</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> React</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Blade</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-fw"> Livewire</label>
+            </div>
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="html"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3
 4
@@ -347,7 +261,7 @@
     <span class="hl-tag">&lt;button</span> <span class="hl-attr">class</span>=<span class="hl-string">"oc-btn"</span> <span class="hl-attr">command</span>=<span class="hl-string">"close"</span> <span class="hl-attr">commandfor</span>=<span class="hl-string">"invite"</span><span class="hl-tag">&gt;</span>Done<span class="hl-tag">&lt;/button</span><span class="hl-tag">&gt;</span>
   <span class="hl-tag">&lt;/div</span><span class="hl-tag">&gt;</span>
 <span class="hl-tag">&lt;/dialog</span><span class="hl-tag">&gt;</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="vue"><pre class="oc-code-block__gutter" aria-hidden="true">1
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="vue"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3
 4
@@ -356,17 +270,17 @@
 7
 8
 9
-10</pre><pre class="code-preview"><code>&lt;script setup&gt;
-import { ref } from "vue";
-import { OcModal } from "@birdycom/omniaui-vue";
-const open = ref(false);
-&lt;/script&gt;
+10</pre><pre class="code-preview"><code><span class="hl-tag">&lt;script</span> <span class="hl-attr">setup</span><span class="hl-tag">&gt;</span>
+<span class="hl-keyword">import</span> { ref } <span class="hl-keyword">from</span> <span class="hl-string">"vue"</span>;
+<span class="hl-keyword">import</span> { OcModal } <span class="hl-keyword">from</span> <span class="hl-string">"@birdycom/omniaui-vue"</span>;
+<span class="hl-keyword">const</span> open = <span class="hl-function">ref</span>(<span class="hl-keyword">false</span>);
+<span class="hl-tag">&lt;/script</span><span class="hl-tag">&gt;</span>
 
-&lt;template&gt;
-  &lt;button class="oc-btn" @click="open = true"&gt;Invite&lt;/button&gt;
-  &lt;OcModal v-model:open="open" title="Invite a colleague"&gt;…&lt;/OcModal&gt;
-&lt;/template&gt;</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="tsx"><pre class="oc-code-block__gutter" aria-hidden="true">1
+<span class="hl-tag">&lt;template</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;button</span> <span class="hl-attr">class</span>=<span class="hl-string">"oc-btn"</span> <span class="hl-attr">@click</span>=<span class="hl-string">"open = true"</span><span class="hl-tag">&gt;</span>Invite<span class="hl-tag">&lt;/button</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;OcModal</span> <span class="hl-attr">v-model:open</span>=<span class="hl-string">"open"</span> <span class="hl-attr">title</span>=<span class="hl-string">"Invite a colleague"</span><span class="hl-tag">&gt;</span>…<span class="hl-tag">&lt;/OcModal</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;/template</span><span class="hl-tag">&gt;</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="tsx"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3
 4
@@ -377,19 +291,19 @@ const open = ref(false);
 9
 10
 11
-12</pre><pre class="code-preview"><code>import { useState } from "react";
-import { Modal } from "@birdycom/omniaui-react";
+12</pre><pre class="code-preview"><code><span class="hl-keyword">import</span> { useState } <span class="hl-keyword">from</span> <span class="hl-string">"react"</span>;
+<span class="hl-keyword">import</span> { Modal } <span class="hl-keyword">from</span> <span class="hl-string">"@birdycom/omniaui-react"</span>;
 
-export function Invite() {
-  const [open, setOpen] = useState(false);
-  return (
-    &lt;&gt;
-      &lt;button className="oc-btn" onClick={() =&gt; setOpen(true)}&gt;Invite&lt;/button&gt;
-      &lt;Modal open={open} onOpenChange={setOpen} title="Invite a colleague"&gt;…&lt;/Modal&gt;
-    &lt;/&gt;
+<span class="hl-keyword">export</span> <span class="hl-keyword">function</span> <span class="hl-function">Invite</span>() {
+  <span class="hl-keyword">const</span> [open, setOpen] = <span class="hl-function">useState</span>(<span class="hl-keyword">false</span>);
+  <span class="hl-keyword">return</span> (
+    <span class="hl-tag">&lt;&gt;</span>
+      <span class="hl-tag">&lt;button</span> <span class="hl-attr">className</span>=<span class="hl-string">"oc-btn"</span> <span class="hl-attr">onClick</span>={() =&gt; <span class="hl-function">setOpen</span>(<span class="hl-keyword">true</span>)}<span class="hl-tag">&gt;</span>Invite<span class="hl-tag">&lt;/button</span><span class="hl-tag">&gt;</span>
+      <span class="hl-tag">&lt;Modal</span> <span class="hl-attr">open</span>={open} <span class="hl-attr">onOpenChange</span>={setOpen} <span class="hl-attr">title</span>=<span class="hl-string">"Invite a colleague"</span><span class="hl-tag">&gt;</span>…<span class="hl-tag">&lt;/Modal</span><span class="hl-tag">&gt;</span>
+    <span class="hl-tag">&lt;/&gt;</span>
   );
 }</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="html"><pre class="oc-code-block__gutter" aria-hidden="true">1
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="html"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3
 4
@@ -400,70 +314,84 @@ export function Invite() {
     <span class="hl-tag">&lt;/x-slot:trigger</span><span class="hl-tag">&gt;</span>
     …
 <span class="hl-tag">&lt;/x-oc::modal</span><span class="hl-tag">&gt;</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="html"><pre class="oc-code-block__gutter" aria-hidden="true">1
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="html"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3</pre><pre class="code-preview"><code>{{-- public bool $showInvite = false; --}}
 <span class="hl-tag">&lt;button</span> <span class="hl-attr">class</span>=<span class="hl-string">"oc-btn"</span> <span class="hl-attr">wire:click</span>=<span class="hl-string">"$set('showInvite', true)"</span><span class="hl-tag">&gt;</span>Invite<span class="hl-tag">&lt;/button</span><span class="hl-tag">&gt;</span>
 &lt;x-oc::wire.modal model="showInvite" title="Invite a colleague"&gt;…&lt;/x-oc::wire.modal&gt;</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
-    </div>
-  </section>
-
-  <!-- Modern CSS topics -->
-  <section class="hm-wrap" aria-labelledby="hm-topics-title">
-    <div class="hm-head">
-      <span class="hm-eyebrow">All of modern CSS</span>
-      <h2 id="hm-topics-title">Documented with live demos and <span class="hm-grad">real support data</span>.</h2>
-      <p class="hm-lead">Every page shows what works in which browser, straight from MDN, and every demo runs in your browser right now.</p>
-    </div>
-    <div class="hm-topics">
-      <a class="hm-topic" href="/docs/functions/"><code>progress() · sibling-index()</code><b>CSS functions</b><span>From clamp() to progress(), stepped values, trigonometry and typed attr().</span></a>
-      <a class="hm-topic" href="/docs/selectors/"><code>:has() · :user-invalid</code><b>Selectors as variants</b><span>Every pseudo-class in front of any utility: user-invalid:border-red-60.</span></a>
-      <a class="hm-topic" href="/docs/at-rules/"><code>@supports · @layer · @scope</code><b>At-rules</b><span>Feature queries as classes, cascade layers, scoped styles and @function.</span></a>
-      <a class="hm-topic" href="/docs/anchor-positioning/"><code>anchor() · position-try</code><b>Anchor positioning</b><span>Tooltips and menus that follow their button, with fallbacks.</span></a>
-      <a class="hm-topic" href="/docs/scroll-snap/"><code>::scroll-button · snapped:</code><b>Scroll snap</b><span>Carousels with generated arrows and dots, without a script.</span></a>
-      <a class="hm-topic" href="/docs/creative/"><code>@property · clip-path</code><b>Creative CSS</b><span>Glowing borders, 3D cards, glass and text effects in pure CSS.</span></a>
-    </div>
-  </section>
-
-  <!-- Editor extension: OmniaCSS IntelliSense for VS Code and Cursor -->
-  <section class="hm-wrap hm-ed" id="editor" aria-labelledby="hm-ed-title">
-    <div class="hm-head" style="margin: 0">
-      <span class="hm-eyebrow">In your editor</span>
-      <h2 id="hm-ed-title">Every class, <span class="hm-grad">as you type</span>.</h2>
-      <p class="hm-lead">OmniaCSS IntelliSense completes every utility, variant, Omnia and RAL color and OmniaUI class, shows the CSS on hover and catches typos before you save. Free for VS Code and Cursor.</p>
-      <div class="hm-cta">
-        <a class="hm-btn hm-btn--main" href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense" rel="noopener">Get it for VS Code</a>
-        <a class="hm-btn" href="https://open-vsx.org/extension/Birdycom/omniacss-intellisense" rel="noopener">Cursor · Open VSX</a>
+          </div>
+          <div class="hm-scale" aria-hidden="true"><span style="--x: 0">0</span><span style="--x: 128">8rem</span><span style="--x: 256">16rem</span><span style="--x: 384">24rem</span><span style="--x: 512">32rem</span><span style="--x: 640">40rem</span></div>
+        </div>
       </div>
-      <p class="hm-trust"><span><b>Free</b> · MIT · updates itself</span><a href="/docs/editor">How it works →</a></p>
     </div>
-    <figure class="hm-ed-shot"><img src="/image/editor/components.webp" alt="VS Code completing oc-card with the OmniaUI card classes and the CSS of .oc-card next to the list" width="1280" height="720" loading="lazy"></figure>
   </section>
 
-  <!-- Start -->
-  <section class="hm-wrap hm-start" id="start" aria-labelledby="hm-start-title">
-    <div class="hm-head" style="margin: 0">
-      <span class="hm-eyebrow">Install</span>
-      <h2 id="hm-start-title">Start in <span class="hm-grad">one minute</span>.</h2>
-      <p class="hm-lead">Every setup scans your files and writes only the classes, color tokens and fonts you use.</p>
-    </div>
-    <div class="oc-tabset">
-      <div class="oc-tab-list oc-tab-list--pill" role="tablist">
-        <label class="oc-tab-trigger"><input type="radio" name="hm-start" checked> CLI</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Vite / PostCSS</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Laravel</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Components</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Editor</label>
-        <label class="oc-tab-trigger"><input type="radio" name="hm-start"> AI</label>
+  <!-- 05 Modern CSS topics -->
+  <section class="hm-band" aria-labelledby="hm-topics-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">05</span> All of modern CSS <span class="hm-ref" aria-hidden="true">support data · MDN</span></p>
+      <div class="hm-head">
+        <h2 id="hm-topics-title">Documented with live demos and real support data.</h2>
+        <p class="hm-lead">Every page shows what works in which browser, straight from MDN, and every demo runs in your browser right now.</p>
       </div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+      <div class="hm-spec">
+        <span class="hm-dim hm-dim--above" aria-hidden="true"><span>auto-fill · minmax(22rem, 1fr) · shared 1px lines</span></span>
+        <a href="/docs/functions/"><code>progress() · sibling-index()</code><b>CSS functions</b><span>From clamp() to progress(), stepped values, trigonometry and typed attr().</span></a>
+        <a href="/docs/selectors/"><code>:has() · :user-invalid</code><b>Selectors as variants</b><span>Every pseudo-class in front of any utility: user-invalid:border-red-60.</span></a>
+        <a href="/docs/at-rules/"><code>@supports · @layer · @scope</code><b>At-rules</b><span>Feature queries as classes, cascade layers, scoped styles and @function.</span></a>
+        <a href="/docs/anchor-positioning/"><code>anchor() · position-try</code><b>Anchor positioning</b><span>Tooltips and menus that follow their button, with fallbacks.</span></a>
+        <a href="/docs/scroll-snap/"><code>::scroll-button · snapped:</code><b>Scroll snap</b><span>Carousels with generated arrows and dots, without a script.</span></a>
+        <a href="/docs/creative/"><code>@property · clip-path</code><b>Creative CSS</b><span>Glowing borders, 3D cards, glass and text effects in pure CSS.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Editor extension: OmniaCSS IntelliSense for VS Code and Cursor -->
+  <section class="hm-band hm-band--grid" id="editor" aria-labelledby="hm-ed-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">06</span> In your editor <span class="hm-ref" aria-hidden="true">VS Code · Cursor</span></p>
+      <div class="hm-split" style="align-items: center">
+        <div class="hm-head">
+          <h2 id="hm-ed-title">Every class, as you type.</h2>
+          <p class="hm-lead">OmniaCSS IntelliSense completes every utility, variant, Omnia and RAL color and OmniaUI class, shows the CSS on hover and catches typos before you save. Free for VS Code and Cursor.</p>
+          <div class="hm-cta">
+            <a class="oc-btn oc-btn--lg" href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense" rel="noopener">Get it for VS Code</a>
+            <a class="oc-btn oc-btn--lg oc-btn--outline" href="https://open-vsx.org/extension/Birdycom/omniacss-intellisense" rel="noopener">Cursor · Open VSX</a>
+          </div>
+          <p class="hm-trust"><span><b>Free</b> · MIT · updates itself</span><a class="hm-link" href="/docs/editor">How it works →</a></p>
+        </div>
+        <figure class="hm-shot-fig hm-corners"><img src="/image/editor/components.webp" alt="VS Code completing oc-card with the OmniaUI card classes and the CSS of .oc-card next to the list" width="1280" height="720" loading="lazy"><span class="hm-dim" aria-hidden="true"><span>1280 × 720</span></span></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Start -->
+  <section class="hm-band" id="start" aria-labelledby="hm-start-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">07</span> Install <span class="hm-ref" aria-hidden="true">npx omniacss init</span></p>
+      <div class="hm-split">
+        <div class="hm-head">
+          <h2 id="hm-start-title">Start in one minute.</h2>
+          <p class="hm-lead">Every setup scans your files and writes only the classes, color tokens and fonts you use.</p>
+        </div>
+        <div class="hm-corners">
+          <div class="oc-tabset">
+            <div class="oc-tab-list oc-tab-list--pill" role="tablist">
+              <label class="oc-tab-trigger"><input type="radio" name="hm-start" checked> CLI</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Vite / PostCSS</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Laravel</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Components</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-start"> Editor</label>
+              <label class="oc-tab-trigger"><input type="radio" name="hm-start"> AI</label>
+            </div>
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3
 4</pre><pre class="code-preview"><code><span class="hl-keyword">npm</span> <span class="hl-keyword">install</span> <span class="hl-attr">-D</span> @birdycom/omniacss<span class="hl-attr">-cli</span>
 <span class="hl-keyword">npx</span> omniacss <span class="hl-keyword">init</span>
 <span class="hl-keyword">npx</span> omniacss <span class="hl-keyword">build</span> <span class="hl-attr">--watch</span>      <span class="hl-comment"># while you work</span>
 <span class="hl-keyword">npx</span> omniacss <span class="hl-keyword">build</span> <span class="hl-attr">--minify</span>     <span class="hl-comment"># for production</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="js"><pre class="oc-code-block__gutter" aria-hidden="true">1
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="js"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3
 4
@@ -476,7 +404,7 @@ export function Invite() {
 };
 <span class="hl-comment">/* src/style.css */</span>
 @omnia;</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="js"><pre class="oc-code-block__gutter" aria-hidden="true">1
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="js"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3
 4
@@ -489,87 +417,319 @@ export function Invite() {
 };
 <span class="hl-comment">/* resources/css/app.css */</span>
 @omnia;</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
-        <p>New app? Start from a <a href="https://omniaui.test/ui/starter-kits">Laravel starter kit</a> (Livewire, Blade, React or Vue): <code>laravel new my-app --using=birdycom/omniaui-livewire-starter-kit</code></p></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+              <p>New app? Start from a <a href="https://omniaui.test/ui/starter-kits">Laravel starter kit</a> (Livewire, Blade, React or Vue): <code>laravel new my-app --using=birdycom/omniaui-livewire-starter-kit</code></p></div>
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3
 4</pre><pre class="code-preview"><code><span class="hl-keyword">npm</span> <span class="hl-keyword">install</span> <span class="hl-attr">-D</span> @birdycom/omniaui
 <span class="hl-keyword">npx</span> omniaui <span class="hl-keyword">list</span>
 <span class="hl-keyword">npx</span> omniaui <span class="hl-keyword">add</span> modal
 <span class="hl-keyword">npx</span> omniaui <span class="hl-keyword">add</span> cms<span class="hl-attr">-dashboard</span> <span class="hl-attr">--to</span> resources/views/admin</code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2
 3</pre><pre class="code-preview"><code><span class="hl-comment"># OmniaCSS IntelliSense: utilities and OmniaUI classes</span>
 code <span class="hl-attr">--install-extension</span> Birdycom.omniacss<span class="hl-attr">-intellisense</span>     <span class="hl-comment"># VS Code</span>
 cursor <span class="hl-attr">--install-extension</span> Birdycom.omniacss<span class="hl-attr">-intellisense</span>   <span class="hl-comment"># Cursor (Open VSX)</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
-        <p><a href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense" rel="noopener">VS Code Marketplace</a> · <a href="https://open-vsx.org/extension/Birdycom/omniacss-intellisense" rel="noopener">Open VSX</a> · <a href="/docs/editor">Editor extension docs</a></p></div>
-      <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
+              <p><a href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense" rel="noopener">VS Code Marketplace</a> · <a href="https://open-vsx.org/extension/Birdycom/omniacss-intellisense" rel="noopener">Open VSX</a> · <a href="/docs/editor">Editor extension docs</a></p></div>
+            <div class="oc-tab-panel"><div class="oc-code-block" data-lang="shell"><pre class="oc-code-block__gutter" aria-hidden="true">1
 2</pre><pre class="code-preview"><code><span class="hl-comment"># OmniaCSS MCP server: Claude, Cursor and Copilot check classes instead of guessing</span>
 claude mcp <span class="hl-keyword">add</span> omniacss <span class="hl-attr">--</span> <span class="hl-keyword">npx</span> <span class="hl-attr">-y</span> @birdycom/omniacss<span class="hl-attr">-mcp</span></code></pre><button type="button" class="oc-code-copy" data-oc-copy="" aria-label="Copy code">Copy</button></div>
-        <p>Cursor, VS Code and Claude Desktop: <a href="/docs/ai">AI assistants (MCP) docs</a></p></div>
-    </div>
-  </section>
-
-  <!-- Our story: from a folder of HTML documents (April 2022) to today -->
-  <section class="hm-wrap" id="story" aria-labelledby="hm-story-title">
-    <div class="hm-head">
-      <span class="hm-eyebrow">Our story</span>
-      <h2 id="hm-story-title">From a folder of HTML pages <span class="hm-grad">to a framework</span>.</h2>
-      <p class="hm-lead">OmniaCSS started in April 2022 as one developer's set of plain HTML documents with a stylesheet behind them. It stopped, it started again, and it was rebuilt more than once. This is how it got here.</p>
-    </div>
-    <div class="hm-story">
-      <ol class="oc-timeline oc-timeline--lg oc-timeline--accent">
-        <li class="oc-timeline__item">
-          <time class="oc-timeline__date" datetime="2022-04-21">April 2022</time>
-          <h3 id="a-folder-of-html-documents" class="oc-timeline__title">A folder of HTML documents</h3>
-          <p class="oc-timeline__text">The first commit says it plainly: "Starting to build my CSS framework". A reset, a settings file and a few HTML pages (colors, spacing, position, sizing) to test every class, with Sass and PostCSS behind them.</p>
-        </li>
-        <li class="oc-timeline__item">
-          <time class="oc-timeline__date" datetime="2022-05">May 2022</time>
-          <h3 id="the-ral-colors" class="oc-timeline__title">The RAL colors</h3>
-          <p class="oc-timeline__text">Color lists in JSON became Sass and then classes: the RAL colors, the HTML named colors and the first Omnia palette. Still rare in a CSS framework.</p>
-        </li>
-        <li class="oc-timeline__item">
-          <time class="oc-timeline__date" datetime="2023">2023 – 2025</time>
-          <h3 id="the-quiet-years" class="oc-timeline__title">The quiet years</h3>
-          <p class="oc-timeline__text">The documentation generator kept failing on Sass maps, and customer work came first. After April 2023 the project rested for almost three years.</p>
-        </li>
-        <li class="oc-timeline__item">
-          <time class="oc-timeline__date" datetime="2026-02">February 2026</time>
-          <h3 id="the-restart" class="oc-timeline__title">The restart</h3>
-          <p class="oc-timeline__text">Modern Sass modules, OKLCH as the color model, the <code>oc-</code> prefix and automatic tests. Version 0.1.0 followed in March, 0.2.0 in April with the first components and the icon catalog.</p>
-        </li>
-        <li class="oc-timeline__item">
-          <time class="oc-timeline__date" datetime="2026-10-12">October 2026</time>
-          <h3 id="from-12-mb-to-a-few-kb" class="oc-timeline__title">From 12 MB to a few KB</h3>
-          <p class="oc-timeline__text">npm packages, a CLI and a PostCSS plugin that build only the classes you use. Days later the components, blocks and framework wrappers moved to their own project, OmniaUI, so the CSS core stays small. The editor extension, the migration tool and the AI server followed the same month.</p>
-        </li>
-        <li class="oc-timeline__item oc-timeline__item--current">
-          <span class="oc-timeline__date">Today</span>
-          <h3 id="css-first-still" class="oc-timeline__title">CSS first, still</h3>
-          <p class="oc-timeline__text">Modern CSS as utilities, OmniaUI components for HTML, React, Vue and Laravel, starter kits and Pro blocks. The rule has not changed since that first folder: it has to be fast, it has to be CSS, and it has to work.</p>
-        </li>
-      </ol>
-      <div class="hm-hurdles">
-        <h3 id="what-stood-in-the-way">What stood in the way</h3>
-        <div class="hm-card"><b>Tooling</b><p>The Sass compiler of 2022 was deprecated and the documentation theme broke on every Sass update. The restart moved to modern Sass modules and our own docs site, built from the same source as the CSS.</p></div>
-        <div class="hm-card"><b>Size</b><p>Every utility in every color made a 12 MB stylesheet. The answer was an on-demand build: your project gets the classes it uses, a few KB.</p></div>
-        <div class="hm-card"><b>Too much in one place</b><p>Utilities, components, blocks and four frameworks in one package made every change slow. Splitting OmniaCSS and OmniaUI gave each its own pace.</p></div>
-        <div class="hm-card"><b>New CSS, uneven support</b><p>Anchor positioning, scroll-driven animations and <code>:has()</code> do not land in every browser at once. Every docs page shows the support data from MDN, and the demos keep a fallback.</p></div>
-        <div class="hm-card"><b>Time</b><p>Built next to customer projects, by one developer. That is also why it stays small and why everything has a test.</p></div>
+              <p>Cursor, VS Code and Claude Desktop: <a href="/docs/ai">AI assistants (MCP) docs</a></p></div>
+          </div>
+          <div class="hm-scale" aria-hidden="true"><span style="--x: 0">0</span><span style="--x: 128">8rem</span><span style="--x: 256">16rem</span><span style="--x: 384">24rem</span><span style="--x: 512">32rem</span><span style="--x: 640">40rem</span></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Closing call -->
-  <section class="hm-wrap" aria-labelledby="hm-close-title">
-    <div class="hm-close">
-      <h2 id="hm-close-title">Build with the CSS of today.</h2>
-      <p>Utilities, a color system, components and blocks that share one design language, from a landing page to a full admin.</p>
-      <div class="hm-cta" style="justify-content: center">
-        <a class="hm-btn hm-btn--main" href="/docs/">Read the docs</a>
-        <a class="hm-btn" href="https://omniaui.test/ui/blocks">See the blocks</a>
-        <a class="hm-btn" href="https://omniaui.test/ui/starter-kits">Starter kits</a>
+  <!-- 08 Our story: the April 2022 docs page (working sidebar) and the steps to now, old next to new. The two parts are
+       shared with /story.html: src/partials/story-2022.html and story-steps.html (oc-include); styles /css/oc-story.css. -->
+  <section class="hm-band hm-band--grid" id="story" aria-labelledby="hm-story-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">08</span> Our story <span class="hm-ref" aria-hidden="true">2022 → today</span></p>
+      <div class="hm-head">
+        <h2 id="hm-story-title">From a folder of HTML pages to a framework.</h2>
+        <p class="hm-lead">OmniaCSS started in April 2022 as one developer's set of plain HTML documents with a stylesheet behind them: a style guide generated from the Sass source, with an example and its code for every class. Click through it below, then follow the steps to today.</p>
+        <p><a class="hm-link" href="/story">Full story →</a></p>
+      </div>
+<!-- Partial: apps/docs/src/partials/story-2022.html | The April 2022 docs page, rebuilt. Included with an "oc-include story-2022" comment
+     on the home (section 08) and on /story.html (src/layouts/ContentPage.astro). Styles: /css/oc-story.css; the sidebar
+     shows one section at a time with /js/oc-story.js (without JavaScript all sections stay visible and the links scroll). -->
+<div class="st-browser">
+  <div class="st-browser-bar">
+    <span class="st-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="st-address" aria-hidden="true">localhost/omnia/docs/index.html</span>
+    <span class="st-stamp">April 2022</span>
+  </div>
+  <div class="st-old" data-st-old="" role="group" aria-label="Rebuilt documentation page from April 2022">
+    <p class="st-old-top" aria-hidden="true">Omnia CSS<small>0.0.1</small></p>
+    <div class="st-old-band" aria-hidden="true"></div>
+    <nav class="st-old-side" aria-label="2022 documentation sections">
+      <div class="st-old-search" aria-hidden="true">Search…</div>
+      <div class="st-old-brand"><b>Omnia CSS</b><small>Utility classes</small></div>
+      <ul class="st-old-nav">
+        <li><span>Settings</span>
+          <ul><li><a href="#st-old-colors" aria-controls="st-old-colors" aria-current="location">Colors</a></li><li><a href="#st-old-spacing" aria-controls="st-old-spacing">Spacing</a></li></ul>
+        </li>
+        <li><span>Layout</span>
+          <ul><li><a href="#st-old-position" aria-controls="st-old-position">Position</a></li><li><a href="#st-old-sizing" aria-controls="st-old-sizing">Sizing</a></li></ul>
+        </li>
+        <li><span>Elements</span>
+          <ul><li><a href="#st-old-buttons" aria-controls="st-old-buttons">Buttons</a></li></ul>
+        </li>
+      </ul>
+      <p class="st-old-foot">Generated from the Sass comments in omnia/scss</p>
+    </nav>
+    <div class="st-old-main">
+      <div class="st-old-actions" aria-hidden="true"><span>View project</span><span>View source</span></div>
+      <section id="st-old-colors" aria-labelledby="st-old-colors-title">
+        <h3 id="st-old-colors-title" tabindex="-1">Colors</h3>
+        <p>Background and text colors. Every color is a variable in <code>_settings.scss</code> and a class: <code>.bg-{name}</code> and <code>.text-{name}</code>.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex">
+          <div class="st-old-swatches">
+            <figure><i style="background: #d32f2f"></i><code>.bg-red</code><span>#d32f2f</span></figure>
+            <figure><i style="background: #f57c00"></i><code>.bg-orange</code><span>#f57c00</span></figure>
+            <figure><i style="background: #fbc02d"></i><code>.bg-yellow</code><span>#fbc02d</span></figure>
+            <figure><i style="background: #388e3c"></i><code>.bg-green</code><span>#388e3c</span></figure>
+            <figure><i style="background: #1976d2"></i><code>.bg-blue</code><span>#1976d2</span></figure>
+            <figure><i style="background: #7b1fa2"></i><code>.bg-purple</code><span>#7b1fa2</span></figure>
+            <figure><i style="background: #9e9e9e"></i><code>.bg-gray</code><span>#9e9e9e</span></figure>
+            <figure><i style="background: #212121"></i><code>.bg-black</code><span>#212121</span></figure>
+          </div>
+        </div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;div class="bg-blue text-white p-10"&gt;Hello&lt;/div&gt;
+
+.bg-blue { background-color: #1976d2; }
+.text-white { color: #ffffff; }</pre>
+        <h4>Text colors</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><p class="st-old-text"><span style="color: #d32f2f">.text-red</span> <span style="color: #388e3c">.text-green</span> <span style="color: #1976d2">.text-blue</span> <span style="color: #9e9e9e">.text-gray</span></p></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;p class="text-blue"&gt;Customer 1&lt;/p&gt;
+
+.text-blue { color: #1976d2; }</pre>
+      </section>
+      <section id="st-old-spacing" aria-labelledby="st-old-spacing-title">
+        <h3 id="st-old-spacing-title" tabindex="-1">Spacing</h3>
+        <p>Margin and padding in steps of 5px, from <code>0</code> to <code>50</code>. Sides with <code>-t</code>, <code>-r</code>, <code>-b</code> and <code>-l</code>.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-box">.p-10<div>.p-20</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;div class="p-10"&gt;&lt;div class="p-20"&gt;…&lt;/div&gt;&lt;/div&gt;
+
+.p-10 { padding: 10px; }
+.p-20 { padding: 20px; }</pre>
+        <h4>Margin</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-margin"><div>.mb-10</div><div>.mb-10</div><div class="st-old-center">.m-auto (width 50%)</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.mb-10 { margin-bottom: 10px; }
+.m-auto { margin: 0 auto; }</pre>
+      </section>
+      <section id="st-old-position" aria-labelledby="st-old-position-title">
+        <h3 id="st-old-position-title" tabindex="-1">Position</h3>
+        <p>Position and offsets for badges, overlays and sticky bars.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-pos">.pos-relative<span>.pos-absolute .top-0 .right-0</span></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;div class="pos-relative"&gt;
+  &lt;span class="pos-absolute top-0 right-0"&gt;New&lt;/span&gt;
+&lt;/div&gt;
+
+.pos-relative { position: relative; }
+.pos-absolute { position: absolute; }
+.top-0 { top: 0; }
+.right-0 { right: 0; }</pre>
+        <h4>Z-index</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-z"><div style="z-index: 1">.z-1</div><div style="z-index: 2">.z-2</div><div style="z-index: 3">.z-3</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.z-1 { z-index: 1; }
+.z-2 { z-index: 2; }
+.z-3 { z-index: 3; }</pre>
+      </section>
+      <section id="st-old-sizing" aria-labelledby="st-old-sizing-title">
+        <h3 id="st-old-sizing-title" tabindex="-1">Sizing</h3>
+        <p>Widths in quarters of the parent, and fixed heights in px.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-bars"><div style="width: 25%">.w-25</div><div style="width: 50%">.w-50</div><div style="width: 75%">.w-75</div><div style="width: 100%">.w-100</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.w-25 { width: 25%; }
+.w-50 { width: 50%; }
+.w-75 { width: 75%; }
+.w-100 { width: 100%; }</pre>
+        <h4>Height</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-heights"><div style="height: 50px">.h-50</div><div style="height: 100px">.h-100</div><div style="height: 150px">.h-150</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.h-50 { height: 50px; }
+.h-100 { height: 100px; }</pre>
+      </section>
+      <section id="st-old-buttons" aria-labelledby="st-old-buttons-title">
+        <h3 id="st-old-buttons-title" tabindex="-1">Buttons</h3>
+        <p>A link or button with the <code>.btn</code> class and a color.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><button type="button" class="st-old-btn">Save</button> <button type="button" class="st-old-btn st-old-btn--gray">Cancel</button> <button type="button" class="st-old-btn st-old-btn--red">Delete</button></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;a class="btn btn-blue" href="#"&gt;Save&lt;/a&gt;
+
+.btn { display: inline-block; padding: 8px 16px; border-radius: 3px; }
+.btn-blue { background: #2a6db0; color: #fff; }
+.btn-blue:hover { background: #1c5d99; }</pre>
+        <h4>Sizes</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><button type="button" class="st-old-btn st-old-btn--small">.btn-small</button> <button type="button" class="st-old-btn">.btn</button> <button type="button" class="st-old-btn st-old-btn--large">.btn-large</button></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.btn-small { padding: 4px 10px; font-size: 12px; }
+.btn-large { padding: 12px 24px; font-size: 18px; }</pre>
+      </section>
+    </div>
+  </div>
+</div>
+<p class="st-caption"><span>A rebuilt impression of the 2022 page, made for this story; not a screenshot. Inspired by <a class="hm-link" href="https://www.oddbird.net/herman/" target="_blank" rel="noopener noreferrer">Herman by OddBird</a>.</span><span><a class="hm-link" href="#st-steps">From there to now ↓</a></span></p>
+
+      <div class="st-home-steps">
+<!-- Partial: apps/docs/src/partials/story-steps.html | The steps from 2022 to now; three of them show the same part in its
+     2022 and its current form (.st-compare, one row = equal height). Included on the home (section 08) and /story.html with an
+     "oc-include story-steps" comment (src/layouts/ContentPage.astro). Styles: /css/oc-story.css. -->
+<ol class="st-steps" id="st-steps">
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <time datetime="2022-04-21">April 2022</time>
+      <h3 id="a-folder-of-html-documents">A folder of HTML documents</h3>
+    </div>
+    <div class="st-step-head">
+      <p>The first commit says it plainly: "Starting to build my CSS framework". A reset, a settings file and a few HTML pages (colors, spacing, position, sizing) to test every class, with Sass and PostCSS behind them. The page above is what that documentation looked like.</p>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2022-05">May 2022</time>
+      <h3 id="the-ral-colors">The RAL colors</h3>
+      <p>Color lists in JSON became Sass and then classes: the RAL colors, the HTML named colors and the first Omnia palette. Still rare in a CSS framework. In 2022 a RAL color was a fixed hex value; today it is an OKLCH token you can mix.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>ral-colors.json → .scss</span></figcaption>
+        <div class="st-side-body">
+          <table class="st-old-table">
+            <thead><tr><th scope="col">Class</th><th scope="col">Name</th><th scope="col">Hex</th></tr></thead>
+            <tbody>
+              <tr><td><i style="background: #cc0605"></i>.bg-ral-3020</td><td>Traffic red</td><td>#CC0605</td></tr>
+              <tr><td><i style="background: #2271b3"></i>.bg-ral-5015</td><td>Sky blue</td><td>#2271B3</td></tr>
+              <tr><td><i style="background: #57a639"></i>.bg-ral-6018</td><td>Yellow green</td><td>#57A639</td></tr>
+              <tr><td><i style="background: #f9a800"></i>.bg-ral-1003</td><td>Signal yellow</td><td>#F9A800</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre class="st-code">.bg-ral-3020 { background-color: #CC0605; }</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>--color-ral* · oklch()</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-ral">
+            <figure><i class="bg-ral3020"></i><b>3020</b>traffic red</figure>
+            <figure><i class="bg-ral5015"></i><b>5015</b>sky blue</figure>
+            <figure><i class="bg-ral6018"></i><b>6018</b>yellow green</figure>
+            <figure><i class="bg-ral1003"></i><b>1003</b>signal yellow</figure>
+          </div>
+          <div class="st-mix" role="img" aria-label="RAL 5015 mixed with white, from 100% to 0%"><i style="--p: 100%"></i><i style="--p: 80%"></i><i style="--p: 60%"></i><i style="--p: 40%"></i><i style="--p: 20%"></i><i style="--p: 0%"></i></div>
+        </div>
+        <pre class="st-code">.bg-ral3020 { background-color: var(--color-ral3020); }
+<span class="c">/* --color-ral3020: oklch(50.96% 0.192 30.04) */</span>
+color-mix(in oklch, var(--color-ral5015) 40%, white)</pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <time datetime="2023">2023 – 2025</time>
+      <h3 id="the-quiet-years">The quiet years</h3>
+    </div>
+    <div class="st-step-head">
+      <p>The documentation generator kept failing on Sass maps (and every color list was a Sass map), and customer work came first. After April 2023 the project rested for almost three years.</p>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2026-02">February 2026</time>
+      <h3 id="the-restart">The restart</h3>
+      <p>Modern Sass modules, OKLCH as the color model, the <code>oc-</code> prefix and automatic tests. Version 0.1.0 followed in March, 0.2.0 in April with the first components and the icon catalog. One hex value per color became ten tones per color, each a token.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>_settings.scss · hex</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-old-swatches">
+            <figure><i style="background: #d32f2f"></i>red</figure>
+            <figure><i style="background: #388e3c"></i>green</figure>
+            <figure><i style="background: #1976d2"></i>blue</figure>
+            <figure><i style="background: #7b1fa2"></i>purple</figure>
+          </div>
+        </div>
+        <pre class="st-code">$blue: #1976d2;
+.bg-blue { background-color: $blue; }</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>vividblue · 2 → 95</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-tones" role="img" aria-label="Vividblue in ten tones, from 2 to 95"><i class="bg-vividblue-2"></i><i class="bg-vividblue-10"></i><i class="bg-vividblue-20"></i><i class="bg-vividblue-30"></i><i class="bg-vividblue-40"></i><i class="bg-vividblue-50"></i><i class="bg-vividblue-60"></i><i class="bg-vividblue-70"></i><i class="bg-vividblue-80"></i><i class="bg-vividblue-95"></i></div>
+          <div class="st-tone-axis" aria-hidden="true"><span>2</span><span>50</span><span>95</span></div>
+        </div>
+        <pre class="st-code">.bg-vividblue-50 { background-color: var(--color-vividblue-50); }
+<span class="c">/* one token per tone, light and dark */</span></pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2026-10-12">October 2026</time>
+      <h3 id="from-12-mb-to-a-few-kb">From 12 MB to a few KB</h3>
+      <p>npm packages, a CLI and a PostCSS plugin that build only the classes you use. Days later the components, blocks and framework wrappers moved to their own project, OmniaUI, so the CSS core stays small. The editor extension, the migration tool and the AI server followed the same month. The button shows the change best.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>.btn · .btn-blue</span></figcaption>
+        <div class="st-side-body">
+          <div class="hm-row"><button type="button" class="st-old-btn">Save</button><button type="button" class="st-old-btn st-old-btn--gray">Cancel</button></div>
+        </div>
+        <pre class="st-code">&lt;a class="btn btn-blue" href="#"&gt;Save&lt;/a&gt;</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>OmniaUI · .oc-btn</span></figcaption>
+        <div class="st-side-body">
+          <div class="hm-row"><button type="button" class="oc-btn">Save</button><button type="button" class="oc-btn oc-btn--outline">Cancel</button><button type="button" class="oc-btn oc-btn--ghost">More</button></div>
+        </div>
+        <pre class="st-code">&lt;button class="oc-btn"&gt;Save&lt;/button&gt;
+&lt;button class="oc-btn oc-btn--outline"&gt;Cancel&lt;/button&gt;</pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <span class="st-when">Today · v0.17</span>
+      <h3 id="css-first-still">CSS first, still</h3>
+    </div>
+    <div class="st-step-head">
+      <p>Modern CSS as utilities, OmniaUI components for HTML, React, Vue and Laravel, starter kits and Pro blocks. Every docs page still shows an example with its code under it, the idea of that first page in 2022.</p>
+    </div>
+  </li>
+</ol>
+
+      </div>
+      <p class="hm-palette-note"><span>What stood in the way, and why it stays small.</span><a class="hm-link" href="/story">Read the full story →</a></p>
+    </div>
+  </section>
+
+  <!-- 09 Closing call -->
+  <section class="hm-band" aria-labelledby="hm-close-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">09</span> Next step <span class="hm-ref" aria-hidden="true">/docs/index.html</span></p>
+      <div class="hm-close hm-corners">
+        <h2 id="hm-close-title">Build with the CSS of today.</h2>
+        <p>Utilities, a color system, components and blocks that share one design language, from a landing page to a full admin.</p>
+        <div class="hm-cta">
+          <a class="oc-btn oc-btn--lg" href="/docs/">Read the docs</a>
+          <a class="oc-btn oc-btn--lg oc-btn--outline" href="https://omniaui.test/ui/blocks">See the blocks</a>
+          <a class="oc-btn oc-btn--lg oc-btn--outline" href="https://omniaui.test/ui/starter-kits">Starter kits</a>
+        </div>
       </div>
     </div>
   </section>
@@ -577,6 +737,8 @@ claude mcp <span class="hl-keyword">add</span> omniacss <span class="hl-attr">--
   <!-- Classes the playground can use (keeps them in the on-demand build) -->
   <template id="hm-play-classes"><i class="p-2 p-3 round-4 round-full bg-vividblue-80 bg-magenta-50 bg-orange-50 bg-teal-50 bg-linear-to-r from-vividblue to-magenta text-white-50 font-bold uppercase font-italic shadow-xl border-2 border-solid border-white-50 scale-110 rotate-prop-n90 skew-x-6 opacity-50 blur-sm animate-pulse animate-bounce"></i></template>
 </main>
+<script src="/js/oc-swatch-tooltip.js?v=f2ea907a3d"></script>
+<script src="/js/oc-story.js?v=3cc1e250ac" defer></script>
 <script>
 // Home: copy the install command, and the class playground (applies classes, prints the CSS the site stylesheet has for them).
 (() => {
@@ -586,6 +748,7 @@ claude mcp <span class="hl-keyword">add</span> omniacss <span class="hl-attr">--
     try { await navigator.clipboard.writeText(b.dataset.hmCopy); b.textContent = "Copied"; } catch { b.textContent = "Select it"; }
     setTimeout(() => { b.textContent = "Copy"; }, 1500);
   });
+  window.ocSwatchTooltip?.attach(document.querySelector(".hm-palette"));
   const input = document.getElementById("hm-play-input"), box = document.getElementById("hm-play-box"), out = document.getElementById("hm-play-css");
   if (!input) return;
   const rules = new Map();
@@ -604,7 +767,9 @@ claude mcp <span class="hl-keyword">add</span> omniacss <span class="hl-attr">--
     if (!chip) return;
     const add = chip.dataset.hmChip.split(" ");
     let list = input.value.trim().split(/\s+/).filter(Boolean);
-    list = add.every((c) => list.includes(c)) ? list.filter((c) => !add.includes(c)) : [...list, ...add.filter((c) => !list.includes(c))];
+    const fam = (c) => (/^round(-(none|full|\d+))?$/.test(c) ? "round" : /^p-\d+$/.test(c) ? "p" : /^(bg-linear|from-|to-)/.test(c) ? "grad" : /^bg-[a-z]+-\d+$/.test(c) ? "bg" : /^shadow(-[a-z]+)?$/.test(c) ? "shadow" : /^border-\d+$/.test(c) ? "bw" : /^text-[a-z]+-\d+$/.test(c) ? "tc" : null);
+    if (add.every((c) => list.includes(c))) list = list.filter((c) => !add.includes(c));
+    else { const fams = new Set(add.map(fam).filter(Boolean)); list = [...list.filter((c) => add.includes(c) || !fams.has(fam(c))), ...add.filter((c) => !list.includes(c))]; }
     input.value = list.join(" ");
     render();
   });
@@ -614,6 +779,71 @@ claude mcp <span class="hl-keyword">add</span> omniacss <span class="hl-attr">--
 </script>
 
 
-  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.16.2 — modern CSS utilities and tokens · <a href="/docs/">Docs</a> · <a href="https://omniaui.test/">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a> · <a href="/legal/terms#license">License</a> · <a href="https://birdycom.be/en/terms">Terms</a> · <a href="https://birdycom.be/en/privacy">Privacy</a> · <a href="https://birdycom.be/en/cookies">Cookies</a></footer>
+  
+  <footer class="oc-site-footer hm-footer">
+      <div class="oc-container hm-frame">
+        <div class="oc-site-footer__grid">
+          <div class="oc-site-footer__about">
+            <a class="hm-footer-brand" href="/">OmniaCSS</a>
+            <p>Modern CSS as utility classes and tokens: OKLCH colors, container queries, <code>:has()</code> and an on-demand build. Made by Birdycom in Belgium.</p>
+            <p><span class="oc-pill">v0.17.0 · MIT</span></p>
+          </div>
+          <nav aria-label="OmniaCSS">
+            <h2 class="oc-site-footer__title">OmniaCSS</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="/docs/">Docs</a></li>
+              <li><a href="/docs/colors/system">Color system</a></li>
+              <li><a href="/docs/functions/">CSS functions</a></li>
+              <li><a href="/docs/editor">Editor extension</a></li>
+              <li><a href="/docs/ai">AI assistants (MCP)</a></li>
+              <li><a href="/docs/migrate">Migrate</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="OmniaUI">
+            <h2 class="oc-site-footer__title">OmniaUI</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://omniaui.test/">Overview</a></li>
+              <li><a href="https://omniaui.test/ui/components">Components</a></li>
+              <li><a href="https://omniaui.test/ui/blocks">Blocks</a></li>
+              <li><a href="https://omniaui.test/ui/starter-kits">Starter kits</a></li>
+              <li><a href="https://omniaui.test/ui/webicons">Webicons</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Pro">
+            <h2 class="oc-site-footer__title">Pro</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://omniaui.test/ui/pro">OmniaUI Pro</a></li>
+              <li><a href="https://omniaui.test/ui/pro#pricing">Pricing</a></li>
+              <li><a href="https://omniaui.test/legal/pro-license">Pro license</a></li>
+              <li><a href="https://omniaui.test/ui/security">Security</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Resources">
+            <h2 class="oc-site-footer__title">Resources</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://github.com/Birdycom/OmniaCSS">GitHub OmniaCSS</a></li>
+              <li><a href="https://github.com/Birdycom/OmniaUI">GitHub OmniaUI</a></li>
+              <li><a href="https://www.npmjs.com/package/@birdycom/omniacss">npm omniacss</a></li>
+              <li><a href="https://www.npmjs.com/package/@birdycom/omniaui">npm omniaui</a></li>
+              <li><a href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense">VS Code extension</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Legal">
+            <h2 class="oc-site-footer__title">Legal</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="/legal/terms#license">License (MIT)</a></li>
+              <li><a href="https://birdycom.be/en/terms">Terms</a></li>
+              <li><a href="https://birdycom.be/en/privacy">Privacy</a></li>
+              <li><a href="https://birdycom.be/en/cookies">Cookies</a></li>
+              <li><a href="mailto:support@omniaui.eu">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="oc-site-footer__bottom">
+          <span>© 2022–2026 Birdycom · OmniaCSS v0.17.0 — modern CSS utilities and tokens</span>
+          <span><a href="https://birdycom.be/en">birdycom.be</a></span>
+        </div>
+      </div>
+    </footer>
 </body>
 </html>

@@ -151,6 +151,12 @@ $_space: ('0': 0, '1': 0.25rem, '2': 0.5rem, '4': 1rem, '8': 2rem, 'auto': auto,
 @page landscape {
   size: landscape;
 }
+/* A4 portrait with a 15mm margin, for a report or a letter (0.17.0). */
+.page-a4 { page: a4; }
+@page a4 {
+  size: A4 portrait;
+  margin: 15mm;
+}
 
 /* position-try shorthand (order + fallbacks) */
 .anchor-try-most-height-flip { position-try: most-height flip-block, flip-inline; }

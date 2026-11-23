@@ -38,7 +38,7 @@ console.log(`[site] data/search-index.json ${indexed} pages`);
 
 // Site CSS: only the utilities used by the generated pages and the remaining page scripts.
 // Tokens (var(--color-…)) used by the component and site stylesheets must stay in the utility build.
-const siteSheets = ["oc-components.css", "oc-code-syntax.css", "oc-blocks.css", "omnia_site.css", "oc-docs-shell.css", "oc-docs-v2.css", "oc-layout-module.css"];
+const siteSheets = ["oc-components.css", "oc-code-syntax.css", "oc-blocks.css", "omnia_site.css", "oc-docs-shell.css", "oc-docs-v2.css", "oc-layout-module.css", "oc-home.css", "oc-story.css"];
 const referencedBy = await Promise.all(siteSheets.map((f) => fs.readFile(path.join(out, "css", f), "utf8").catch(() => "")));
 const { css, stats } = await buildCss({
   content: ["apps/docs/dist/**/*.html", "public/js/**/*.js"],

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" class="scrollbar-omnia" data-section="story" data-sister-site="https://omniaui.test">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Our story — OmniaCSS from 2022 to today</title>
+  <meta name="description" content="How OmniaCSS grew from a folder of HTML documentation pages in April 2022 into a CSS framework with OKLCH colors, an on-demand build and OmniaUI.">
+  
+  <link rel="canonical" href="https://omniacss.eu/story">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OmniaCSS">
+  <meta property="og:title" content="Our story — OmniaCSS from 2022 to today">
+  <meta property="og:description" content="How OmniaCSS grew from a folder of HTML documentation pages in April 2022 into a CSS framework with OKLCH colors, an on-demand build and OmniaUI.">
+  <meta property="og:url" content="https://omniacss.eu/story">
+  <meta property="og:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our story — OmniaCSS from 2022 to today">
+  <meta name="twitter:description" content="How OmniaCSS grew from a folder of HTML documentation pages in April 2022 into a CSS framework with OKLCH colors, an on-demand build and OmniaUI.">
+  <meta name="twitter:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta name="twitter:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  
+  <meta name="generator" content="OmniaCSS 0.17.0">
+  <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/omnia_main.min.css?v=78e2278384"><link rel="stylesheet" href="/css/oc-components.css?v=4d3b6b4ed7"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=09ed1f8686"><link rel="stylesheet" href="/css/oc-blocks.css?v=0601d82ac9"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=0c602d0dd6"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=31a269ac36"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=4a6d857432">
+  <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
+  <script>
+    // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
+    try { const u = new URL(location.href), q = u.searchParams.get("oc-theme"); if (q) { localStorage.setItem("oc-theme", q); u.searchParams.delete("oc-theme"); history.replaceState(history.state, "", u); } const t = q || localStorage.getItem("oc-theme"); if (t && t !== "system") document.documentElement.dataset.theme = t; } catch {}
+    const carryTheme = (e) => { const a = e.target.closest && e.target.closest("a[href]"); const sister = document.documentElement.dataset.sisterSite; if (!a || !sister || a.origin !== new URL(sister).origin) return; try { const t = localStorage.getItem("oc-theme"); if (!t) return; const u = new URL(a.href); u.searchParams.set("oc-theme", t); a.href = u.href; } catch {} };
+    addEventListener("click", carryTheme); addEventListener("auxclick", carryTheme);
+    addEventListener("change", (e) => { if (e.target.name !== "oc-theme" || !e.target.closest(".ocm-theme")) return; try { localStorage.setItem("oc-theme", e.target.value); } catch {} document.documentElement.dataset.theme = e.target.value === "system" ? "" : e.target.value; syncDemos(); });
+    // Theme switches inside demos (app shell, app header …) show the theme the page has now and follow the header switch;
+    // a click in a demo still themes only that demo (.oc-theme-scope).
+    const syncDemos = () => { const t = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); for (const sw of document.querySelectorAll(".oc-theme-scope .oc-theme-switch")) { const r = sw.querySelector('input[value="system"]') || sw.querySelector(`input[value="${t}"]`); if (r) r.checked = true; } };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (!document.documentElement.dataset.theme) syncDemos(); });
+    addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; syncDemos(); });
+  </script>
+  <script src="/js/oc-docs-v2.js?v=fbcfca188b" defer></script>
+  <link rel="stylesheet" href="/css/oc-home.css?v=494b39e8c3">
+<link rel="stylesheet" href="/css/oc-story.css?v=d89bd59198">
+</head>
+<body class="oc-home oc-home--css">
+  <header class="oc-topbar">
+    
+    <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu">
+    <label class="ocd-nav-button ocd-nav-button--site" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
+    <a class="oc-topbar-brand" href="/">OmniaCSS<span class="oc-badge-version ml-1">v0.17.0</span></a>
+    <nav class="oc-topbar-nav" aria-label="Main">
+      <ul class="oc-navmenu oc-navmenu--site">
+        <li><a class="oc-navmenu-link" href="https://omniaui.test/">OmniaUI</a></li><li><a class="oc-navmenu-link" href="/docs/">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/starter-kits">Starter kits</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons">Webicons</a></li><li><a class="oc-navmenu-link" href="/story" aria-current="page">Our story</a></li>
+        <li><a class="oc-navmenu-link" href="https://github.com/Birdycom/OmniaCSS" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="oc-navmenu-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path></svg></a></li>
+      </ul>
+    </nav>
+    <div class="ocd-topbar-actions">
+      <a class="oc-btn oc-btn--sm" href="https://omniaui.test/ui/pro#pricing">Pro</a>
+      <button type="button" class="ocd-search-trigger" data-ocd-search aria-label="Search the docs (Ctrl K)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span>Search docs…</span><kbd>Ctrl K</kbd></button>
+      <fieldset class="oc-theme-switch ocm-theme" aria-label="Color theme">
+        <label><input type="radio" name="oc-theme" value="system" checked> System</label>
+        <label><input type="radio" name="oc-theme" value="light"> Light</label>
+        <label><input type="radio" name="oc-theme" value="dark"> Dark</label>
+      </fieldset>
+    </div>
+  </header>
+
+  <dialog class="ocd-search-dialog" id="ocd-search" aria-label="Search">
+    <div class="ocd-search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="search" placeholder="Search pages, utilities and components" aria-label="Search" role="combobox" aria-controls="ocd-search-results" aria-expanded="true" autocomplete="off" spellcheck="false"><kbd>Esc</kbd></div>
+    <ul class="ocd-search-results" id="ocd-search-results" role="listbox" aria-label="Results"></ul>
+    <p class="ocd-search-empty" hidden>No results. Try a CSS property such as <code>clamp</code>, a class such as <code>snap-x</code> or a component name.</p>
+    <p class="ocd-search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </dialog>
+
+  <!-- File: apps/docs/src/content/story.html | "Our story" page of omniacss.eu (menu item in src/lib/site.mjs, also on omniaui.eu).
+     Drawn like the home (/css/oc-home.css, hm-*) with the story parts of /css/oc-story.css (st-*). The 2022 page and the steps
+     are shared with section 08 of the home: src/partials/story-2022.html and story-steps.html (oc-include, see ContentPage.astro).
+     Map: 00 intro -> 01 the April 2022 docs page, rebuilt -> 02 the steps to now (old and new side by side) -> 03 what stood
+     in the way -> 04 next step. -->
+<main class="hm" id="top">
+
+  <!-- 00 Intro -->
+  <section class="hm-band hm-band--grid st-hero" aria-labelledby="st-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">00</span> Our story <span class="hm-ref" aria-hidden="true">April 2022 → today</span></p>
+      <div class="hm-head">
+        <h1 id="st-title">From a folder of HTML pages <span class="hm-mark">to a framework</span>.</h1>
+        <p class="hm-lead">OmniaCSS started in April 2022 as one developer's set of plain HTML documents with a stylesheet behind them. It stopped, it started again, and it was rebuilt more than once. Below is the documentation page it began with, rebuilt as it looked, and every step from there to the framework of today.</p>
+        <ul class="hm-specs" aria-label="At a glance"><li>First commit · 21 April 2022</li><li>Rest · 2023 – 2025</li><li>Restart · February 2026</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 The documentation page of April 2022, rebuilt (shared with the home) -->
+  <section class="hm-band" id="april-2022" aria-labelledby="st-2022-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">01</span> 2022, as it was <span class="hm-ref" aria-hidden="true">Sass · PostCSS · px</span></p>
+      <div class="hm-head">
+        <h2 id="st-2022-title">A sidebar, an example and the code under it.</h2>
+        <p class="hm-lead">The first documentation was a style guide generated from comments in the Sass source: a sidebar with the sections, and for every class a live example with its code right below. Flat class names, hex colors and pixel values. Click through the sidebar: this is how it looked.</p>
+      </div>
+<!-- Partial: apps/docs/src/partials/story-2022.html | The April 2022 docs page, rebuilt. Included with an "oc-include story-2022" comment
+     on the home (section 08) and on /story.html (src/layouts/ContentPage.astro). Styles: /css/oc-story.css; the sidebar
+     shows one section at a time with /js/oc-story.js (without JavaScript all sections stay visible and the links scroll). -->
+<div class="st-browser">
+  <div class="st-browser-bar">
+    <span class="st-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="st-address" aria-hidden="true">localhost/omnia/docs/index.html</span>
+    <span class="st-stamp">April 2022</span>
+  </div>
+  <div class="st-old" data-st-old="" role="group" aria-label="Rebuilt documentation page from April 2022">
+    <p class="st-old-top" aria-hidden="true">Omnia CSS<small>0.0.1</small></p>
+    <div class="st-old-band" aria-hidden="true"></div>
+    <nav class="st-old-side" aria-label="2022 documentation sections">
+      <div class="st-old-search" aria-hidden="true">Search…</div>
+      <div class="st-old-brand"><b>Omnia CSS</b><small>Utility classes</small></div>
+      <ul class="st-old-nav">
+        <li><span>Settings</span>
+          <ul><li><a href="#st-old-colors" aria-controls="st-old-colors" aria-current="location">Colors</a></li><li><a href="#st-old-spacing" aria-controls="st-old-spacing">Spacing</a></li></ul>
+        </li>
+        <li><span>Layout</span>
+          <ul><li><a href="#st-old-position" aria-controls="st-old-position">Position</a></li><li><a href="#st-old-sizing" aria-controls="st-old-sizing">Sizing</a></li></ul>
+        </li>
+        <li><span>Elements</span>
+          <ul><li><a href="#st-old-buttons" aria-controls="st-old-buttons">Buttons</a></li></ul>
+        </li>
+      </ul>
+      <p class="st-old-foot">Generated from the Sass comments in omnia/scss</p>
+    </nav>
+    <div class="st-old-main">
+      <div class="st-old-actions" aria-hidden="true"><span>View project</span><span>View source</span></div>
+      <section id="st-old-colors" aria-labelledby="st-old-colors-title">
+        <h3 id="st-old-colors-title" tabindex="-1">Colors</h3>
+        <p>Background and text colors. Every color is a variable in <code>_settings.scss</code> and a class: <code>.bg-{name}</code> and <code>.text-{name}</code>.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex">
+          <div class="st-old-swatches">
+            <figure><i style="background: #d32f2f"></i><code>.bg-red</code><span>#d32f2f</span></figure>
+            <figure><i style="background: #f57c00"></i><code>.bg-orange</code><span>#f57c00</span></figure>
+            <figure><i style="background: #fbc02d"></i><code>.bg-yellow</code><span>#fbc02d</span></figure>
+            <figure><i style="background: #388e3c"></i><code>.bg-green</code><span>#388e3c</span></figure>
+            <figure><i style="background: #1976d2"></i><code>.bg-blue</code><span>#1976d2</span></figure>
+            <figure><i style="background: #7b1fa2"></i><code>.bg-purple</code><span>#7b1fa2</span></figure>
+            <figure><i style="background: #9e9e9e"></i><code>.bg-gray</code><span>#9e9e9e</span></figure>
+            <figure><i style="background: #212121"></i><code>.bg-black</code><span>#212121</span></figure>
+          </div>
+        </div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;div class="bg-blue text-white p-10"&gt;Hello&lt;/div&gt;
+
+.bg-blue { background-color: #1976d2; }
+.text-white { color: #ffffff; }</pre>
+        <h4>Text colors</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><p class="st-old-text"><span style="color: #d32f2f">.text-red</span> <span style="color: #388e3c">.text-green</span> <span style="color: #1976d2">.text-blue</span> <span style="color: #9e9e9e">.text-gray</span></p></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;p class="text-blue"&gt;Customer 1&lt;/p&gt;
+
+.text-blue { color: #1976d2; }</pre>
+      </section>
+      <section id="st-old-spacing" aria-labelledby="st-old-spacing-title">
+        <h3 id="st-old-spacing-title" tabindex="-1">Spacing</h3>
+        <p>Margin and padding in steps of 5px, from <code>0</code> to <code>50</code>. Sides with <code>-t</code>, <code>-r</code>, <code>-b</code> and <code>-l</code>.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-box">.p-10<div>.p-20</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;div class="p-10"&gt;&lt;div class="p-20"&gt;…&lt;/div&gt;&lt;/div&gt;
+
+.p-10 { padding: 10px; }
+.p-20 { padding: 20px; }</pre>
+        <h4>Margin</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-margin"><div>.mb-10</div><div>.mb-10</div><div class="st-old-center">.m-auto (width 50%)</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.mb-10 { margin-bottom: 10px; }
+.m-auto { margin: 0 auto; }</pre>
+      </section>
+      <section id="st-old-position" aria-labelledby="st-old-position-title">
+        <h3 id="st-old-position-title" tabindex="-1">Position</h3>
+        <p>Position and offsets for badges, overlays and sticky bars.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-pos">.pos-relative<span>.pos-absolute .top-0 .right-0</span></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;div class="pos-relative"&gt;
+  &lt;span class="pos-absolute top-0 right-0"&gt;New&lt;/span&gt;
+&lt;/div&gt;
+
+.pos-relative { position: relative; }
+.pos-absolute { position: absolute; }
+.top-0 { top: 0; }
+.right-0 { right: 0; }</pre>
+        <h4>Z-index</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-z"><div style="z-index: 1">.z-1</div><div style="z-index: 2">.z-2</div><div style="z-index: 3">.z-3</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.z-1 { z-index: 1; }
+.z-2 { z-index: 2; }
+.z-3 { z-index: 3; }</pre>
+      </section>
+      <section id="st-old-sizing" aria-labelledby="st-old-sizing-title">
+        <h3 id="st-old-sizing-title" tabindex="-1">Sizing</h3>
+        <p>Widths in quarters of the parent, and fixed heights in px.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-bars"><div style="width: 25%">.w-25</div><div style="width: 50%">.w-50</div><div style="width: 75%">.w-75</div><div style="width: 100%">.w-100</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.w-25 { width: 25%; }
+.w-50 { width: 50%; }
+.w-75 { width: 75%; }
+.w-100 { width: 100%; }</pre>
+        <h4>Height</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><div class="st-old-heights"><div style="height: 50px">.h-50</div><div style="height: 100px">.h-100</div><div style="height: 150px">.h-150</div></div></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.h-50 { height: 50px; }
+.h-100 { height: 100px; }</pre>
+      </section>
+      <section id="st-old-buttons" aria-labelledby="st-old-buttons-title">
+        <h3 id="st-old-buttons-title" tabindex="-1">Buttons</h3>
+        <p>A link or button with the <code>.btn</code> class and a color.</p>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><button type="button" class="st-old-btn">Save</button> <button type="button" class="st-old-btn st-old-btn--gray">Cancel</button> <button type="button" class="st-old-btn st-old-btn--red">Delete</button></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">&lt;a class="btn btn-blue" href="#"&gt;Save&lt;/a&gt;
+
+.btn { display: inline-block; padding: 8px 16px; border-radius: 3px; }
+.btn-blue { background: #2a6db0; color: #fff; }
+.btn-blue:hover { background: #1c5d99; }</pre>
+        <h4>Sizes</h4>
+        <span class="st-old-label">Example</span>
+        <div class="st-old-ex"><button type="button" class="st-old-btn st-old-btn--small">.btn-small</button> <button type="button" class="st-old-btn">.btn</button> <button type="button" class="st-old-btn st-old-btn--large">.btn-large</button></div>
+        <span class="st-old-label">Code</span><pre class="st-old-code">.btn-small { padding: 4px 10px; font-size: 12px; }
+.btn-large { padding: 12px 24px; font-size: 18px; }</pre>
+      </section>
+    </div>
+  </div>
+</div>
+<p class="st-caption"><span>A rebuilt impression of the 2022 page, made for this story; not a screenshot. Inspired by <a class="hm-link" href="https://www.oddbird.net/herman/" target="_blank" rel="noopener noreferrer">Herman by OddBird</a>.</span><span><a class="hm-link" href="#st-steps">From there to now ↓</a></span></p>
+
+    </div>
+  </section>
+
+  <!-- 02 The steps to now (shared with the home) -->
+  <section class="hm-band hm-band--grid" id="steps" aria-labelledby="st-steps-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">02</span> The steps to now <span class="hm-ref" aria-hidden="true">2022 → today</span></p>
+      <div class="hm-head">
+        <h2 id="st-steps-title">Six steps, the same idea.</h2>
+        <p class="hm-lead">The rule has not changed since that first folder: it has to be fast, it has to be CSS, and it has to work. What changed is everything around it.</p>
+      </div>
+<!-- Partial: apps/docs/src/partials/story-steps.html | The steps from 2022 to now; three of them show the same part in its
+     2022 and its current form (.st-compare, one row = equal height). Included on the home (section 08) and /story.html with an
+     "oc-include story-steps" comment (src/layouts/ContentPage.astro). Styles: /css/oc-story.css. -->
+<ol class="st-steps" id="st-steps">
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <time datetime="2022-04-21">April 2022</time>
+      <h3 id="a-folder-of-html-documents">A folder of HTML documents</h3>
+    </div>
+    <div class="st-step-head">
+      <p>The first commit says it plainly: "Starting to build my CSS framework". A reset, a settings file and a few HTML pages (colors, spacing, position, sizing) to test every class, with Sass and PostCSS behind them. The page above is what that documentation looked like.</p>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2022-05">May 2022</time>
+      <h3 id="the-ral-colors">The RAL colors</h3>
+      <p>Color lists in JSON became Sass and then classes: the RAL colors, the HTML named colors and the first Omnia palette. Still rare in a CSS framework. In 2022 a RAL color was a fixed hex value; today it is an OKLCH token you can mix.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>ral-colors.json → .scss</span></figcaption>
+        <div class="st-side-body">
+          <table class="st-old-table">
+            <thead><tr><th scope="col">Class</th><th scope="col">Name</th><th scope="col">Hex</th></tr></thead>
+            <tbody>
+              <tr><td><i style="background: #cc0605"></i>.bg-ral-3020</td><td>Traffic red</td><td>#CC0605</td></tr>
+              <tr><td><i style="background: #2271b3"></i>.bg-ral-5015</td><td>Sky blue</td><td>#2271B3</td></tr>
+              <tr><td><i style="background: #57a639"></i>.bg-ral-6018</td><td>Yellow green</td><td>#57A639</td></tr>
+              <tr><td><i style="background: #f9a800"></i>.bg-ral-1003</td><td>Signal yellow</td><td>#F9A800</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre class="st-code">.bg-ral-3020 { background-color: #CC0605; }</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>--color-ral* · oklch()</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-ral">
+            <figure><i class="bg-ral3020"></i><b>3020</b>traffic red</figure>
+            <figure><i class="bg-ral5015"></i><b>5015</b>sky blue</figure>
+            <figure><i class="bg-ral6018"></i><b>6018</b>yellow green</figure>
+            <figure><i class="bg-ral1003"></i><b>1003</b>signal yellow</figure>
+          </div>
+          <div class="st-mix" role="img" aria-label="RAL 5015 mixed with white, from 100% to 0%"><i style="--p: 100%"></i><i style="--p: 80%"></i><i style="--p: 60%"></i><i style="--p: 40%"></i><i style="--p: 20%"></i><i style="--p: 0%"></i></div>
+        </div>
+        <pre class="st-code">.bg-ral3020 { background-color: var(--color-ral3020); }
+<span class="c">/* --color-ral3020: oklch(50.96% 0.192 30.04) */</span>
+color-mix(in oklch, var(--color-ral5015) 40%, white)</pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <time datetime="2023">2023 – 2025</time>
+      <h3 id="the-quiet-years">The quiet years</h3>
+    </div>
+    <div class="st-step-head">
+      <p>The documentation generator kept failing on Sass maps (and every color list was a Sass map), and customer work came first. After April 2023 the project rested for almost three years.</p>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2026-02">February 2026</time>
+      <h3 id="the-restart">The restart</h3>
+      <p>Modern Sass modules, OKLCH as the color model, the <code>oc-</code> prefix and automatic tests. Version 0.1.0 followed in March, 0.2.0 in April with the first components and the icon catalog. One hex value per color became ten tones per color, each a token.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>_settings.scss · hex</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-old-swatches">
+            <figure><i style="background: #d32f2f"></i>red</figure>
+            <figure><i style="background: #388e3c"></i>green</figure>
+            <figure><i style="background: #1976d2"></i>blue</figure>
+            <figure><i style="background: #7b1fa2"></i>purple</figure>
+          </div>
+        </div>
+        <pre class="st-code">$blue: #1976d2;
+.bg-blue { background-color: $blue; }</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>vividblue · 2 → 95</span></figcaption>
+        <div class="st-side-body">
+          <div class="st-tones" role="img" aria-label="Vividblue in ten tones, from 2 to 95"><i class="bg-vividblue-2"></i><i class="bg-vividblue-10"></i><i class="bg-vividblue-20"></i><i class="bg-vividblue-30"></i><i class="bg-vividblue-40"></i><i class="bg-vividblue-50"></i><i class="bg-vividblue-60"></i><i class="bg-vividblue-70"></i><i class="bg-vividblue-80"></i><i class="bg-vividblue-95"></i></div>
+          <div class="st-tone-axis" aria-hidden="true"><span>2</span><span>50</span><span>95</span></div>
+        </div>
+        <pre class="st-code">.bg-vividblue-50 { background-color: var(--color-vividblue-50); }
+<span class="c">/* one token per tone, light and dark */</span></pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step">
+    <div class="st-step-head">
+      <time datetime="2026-10-12">October 2026</time>
+      <h3 id="from-12-mb-to-a-few-kb">From 12 MB to a few KB</h3>
+      <p>npm packages, a CLI and a PostCSS plugin that build only the classes you use. Days later the components, blocks and framework wrappers moved to their own project, OmniaUI, so the CSS core stays small. The editor extension, the migration tool and the AI server followed the same month. The button shows the change best.</p>
+    </div>
+    <div class="st-compare">
+      <figure class="st-side st-side--old">
+        <figcaption class="hm-fig-cap"><b>2022</b><span>.btn · .btn-blue</span></figcaption>
+        <div class="st-side-body">
+          <div class="hm-row"><button type="button" class="st-old-btn">Save</button><button type="button" class="st-old-btn st-old-btn--gray">Cancel</button></div>
+        </div>
+        <pre class="st-code">&lt;a class="btn btn-blue" href="#"&gt;Save&lt;/a&gt;</pre>
+      </figure>
+      <figure class="st-side st-side--now">
+        <figcaption class="hm-fig-cap"><b>Today</b><span>OmniaUI · .oc-btn</span></figcaption>
+        <div class="st-side-body">
+          <div class="hm-row"><button type="button" class="oc-btn">Save</button><button type="button" class="oc-btn oc-btn--outline">Cancel</button><button type="button" class="oc-btn oc-btn--ghost">More</button></div>
+        </div>
+        <pre class="st-code">&lt;button class="oc-btn"&gt;Save&lt;/button&gt;
+&lt;button class="oc-btn oc-btn--outline"&gt;Cancel&lt;/button&gt;</pre>
+      </figure>
+    </div>
+  </li>
+
+  <li class="st-step st-step--text">
+    <div class="st-step-head">
+      <span class="st-when">Today · v0.17</span>
+      <h3 id="css-first-still">CSS first, still</h3>
+    </div>
+    <div class="st-step-head">
+      <p>Modern CSS as utilities, OmniaUI components for HTML, React, Vue and Laravel, starter kits and Pro blocks. Every docs page still shows an example with its code under it, the idea of that first page in 2022.</p>
+    </div>
+  </li>
+</ol>
+
+    </div>
+  </section>
+
+  <!-- 03 What stood in the way (moved here from the home) -->
+  <section class="hm-band" aria-labelledby="st-hurdles-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">03</span> What stood in the way <span class="hm-ref" aria-hidden="true">3.1 – 3.5</span></p>
+      <div class="hm-head">
+        <h2 id="st-hurdles-title">Five things that slowed it down.</h2>
+      </div>
+      <div class="hm-figs st-figs">
+        <div class="hm-fig"><div class="hm-fig-cap"><b>Tooling</b><span aria-hidden="true">3.1</span></div><div class="hm-fig-body st-fig-body"><p>The Sass compiler of 2022 was deprecated and the documentation theme broke on every Sass update. The restart moved to modern Sass modules and our own docs site, built from the same source as the CSS.</p></div></div>
+        <div class="hm-fig"><div class="hm-fig-cap"><b>Size</b><span aria-hidden="true">3.2</span></div><div class="hm-fig-body st-fig-body"><p>Every utility in every color made a 12 MB stylesheet. The answer was an on-demand build: your project gets the classes it uses, a few KB.</p></div></div>
+        <div class="hm-fig"><div class="hm-fig-cap"><b>Too much in one place</b><span aria-hidden="true">3.3</span></div><div class="hm-fig-body st-fig-body"><p>Utilities, components, blocks and four frameworks in one package made every change slow. Splitting OmniaCSS and OmniaUI gave each its own pace.</p></div></div>
+        <div class="hm-fig"><div class="hm-fig-cap"><b>New CSS, uneven support</b><span aria-hidden="true">3.4</span></div><div class="hm-fig-body st-fig-body"><p>Anchor positioning, scroll-driven animations and <code>:has()</code> do not land in every browser at once. Every docs page shows the support data from MDN, and the demos keep a fallback.</p></div></div>
+        <div class="hm-fig"><div class="hm-fig-cap"><b>Time</b><span aria-hidden="true">3.5</span></div><div class="hm-fig-body st-fig-body"><p>Built next to customer projects, by one developer. That is also why it stays small and why everything has a test.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Next step -->
+  <section class="hm-band" aria-labelledby="st-close-title">
+    <div class="oc-container hm-frame">
+      <p class="hm-label"><span class="hm-num">04</span> Next step <span class="hm-ref" aria-hidden="true">/docs/index.html</span></p>
+      <div class="hm-close hm-corners">
+        <h2 id="st-close-title">See where it stands today.</h2>
+        <p>The utilities and the color system in the docs, the components and blocks on the OmniaUI site.</p>
+        <div class="hm-cta">
+          <a class="oc-btn oc-btn--lg" href="/docs/">Read the docs</a>
+          <a class="oc-btn oc-btn--lg oc-btn--outline" href="https://omniaui.test/">Explore OmniaUI</a>
+          <a class="oc-btn oc-btn--lg oc-btn--outline" href="/">Back to the home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="/js/oc-story.js?v=3cc1e250ac" defer></script>
+
+
+  
+  <footer class="oc-site-footer hm-footer">
+      <div class="oc-container hm-frame">
+        <div class="oc-site-footer__grid">
+          <div class="oc-site-footer__about">
+            <a class="hm-footer-brand" href="/">OmniaCSS</a>
+            <p>Modern CSS as utility classes and tokens: OKLCH colors, container queries, <code>:has()</code> and an on-demand build. Made by Birdycom in Belgium.</p>
+            <p><span class="oc-pill">v0.17.0 · MIT</span></p>
+          </div>
+          <nav aria-label="OmniaCSS">
+            <h2 class="oc-site-footer__title">OmniaCSS</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="/docs/">Docs</a></li>
+              <li><a href="/docs/colors/system">Color system</a></li>
+              <li><a href="/docs/functions/">CSS functions</a></li>
+              <li><a href="/docs/editor">Editor extension</a></li>
+              <li><a href="/docs/ai">AI assistants (MCP)</a></li>
+              <li><a href="/docs/migrate">Migrate</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="OmniaUI">
+            <h2 class="oc-site-footer__title">OmniaUI</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://omniaui.test/">Overview</a></li>
+              <li><a href="https://omniaui.test/ui/components">Components</a></li>
+              <li><a href="https://omniaui.test/ui/blocks">Blocks</a></li>
+              <li><a href="https://omniaui.test/ui/starter-kits">Starter kits</a></li>
+              <li><a href="https://omniaui.test/ui/webicons">Webicons</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Pro">
+            <h2 class="oc-site-footer__title">Pro</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://omniaui.test/ui/pro">OmniaUI Pro</a></li>
+              <li><a href="https://omniaui.test/ui/pro#pricing">Pricing</a></li>
+              <li><a href="https://omniaui.test/legal/pro-license">Pro license</a></li>
+              <li><a href="https://omniaui.test/ui/security">Security</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Resources">
+            <h2 class="oc-site-footer__title">Resources</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="https://github.com/Birdycom/OmniaCSS">GitHub OmniaCSS</a></li>
+              <li><a href="https://github.com/Birdycom/OmniaUI">GitHub OmniaUI</a></li>
+              <li><a href="https://www.npmjs.com/package/@birdycom/omniacss">npm omniacss</a></li>
+              <li><a href="https://www.npmjs.com/package/@birdycom/omniaui">npm omniaui</a></li>
+              <li><a href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense">VS Code extension</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Legal">
+            <h2 class="oc-site-footer__title">Legal</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="/legal/terms#license">License (MIT)</a></li>
+              <li><a href="https://birdycom.be/en/terms">Terms</a></li>
+              <li><a href="https://birdycom.be/en/privacy">Privacy</a></li>
+              <li><a href="https://birdycom.be/en/cookies">Cookies</a></li>
+              <li><a href="mailto:support@omniaui.eu">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="oc-site-footer__bottom">
+          <span>© 2022–2026 Birdycom · OmniaCSS v0.17.0 — modern CSS utilities and tokens</span>
+          <span><a href="https://birdycom.be/en">birdycom.be</a></span>
+        </div>
+      </div>
+    </footer>
+</body>
+</html>

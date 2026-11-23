@@ -873,8 +873,9 @@ p, li { color: var(--text-soft); line-height: 1.55; }
 .oc-eg__panel { display: grid; grid-template-rows: auto auto 1fr; grid-template-columns: minmax(0, 1fr); gap: 0.45rem; min-inline-size: 0; padding: 0.875rem; border: 1px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }
 .oc-eg__name { justify-self: start; max-inline-size: 100%; font-size: 0.8rem; font-weight: 600; }
 .oc-eg__note { font-size: 0.8rem; line-height: 1.45; color: var(--oc-muted-foreground); }
-/* The stage sits at the bottom of its panel, so stages line up across a row whatever the length of the notes. */
-.oc-eg__stage { box-sizing: border-box; align-self: end; min-inline-size: 0; min-block-size: var(--eg-h, 3.75rem); margin-block-start: 0.35rem; border: 1.5px solid var(--oc-border-strong); border-radius: 8px; background: var(--eg-hatch), var(--eg-bg); }
+/* The stage follows its note at the top of the panel; when panels in a row are equal height, the spare room stays
+   under the stage instead of opening a gap between the note and the demo. */
+.oc-eg__stage { box-sizing: border-box; align-self: start; min-inline-size: 0; min-block-size: var(--eg-h, 3.75rem); margin-block-start: 0.35rem; border: 1.5px solid var(--oc-border-strong); border-radius: 8px; background: var(--eg-hatch), var(--eg-bg); }
 .oc-eg__stage--plain { background: var(--eg-bg); }
 .oc-eg__item { box-sizing: border-box; display: flex; align-items: center; justify-content: center; min-inline-size: 2.75rem; padding: 0.5rem 0.8rem; border-radius: 6px; background: var(--eg-c, var(--eg-c1)); color: var(--color-white-50); font-size: 0.85rem; font-weight: 600; line-height: 1.25; text-align: center; }
 .oc-eg__item:nth-child(6n+2) { --eg-c: var(--eg-c2); }

@@ -19,6 +19,7 @@ import path from "node:path";
 import { Readable } from "node:stream";
 import tls from "node:tls";
 import { Client } from "basic-ftp";
+import { isListable, isPage, pageUrl, seoFiles } from "./lib/seo-files.mjs";
 
 const root = process.cwd();
 const args = new Set(process.argv.slice(2));
@@ -67,27 +68,12 @@ async function collect() {
   return files;
 }
 
-// Search engines: every page gets a canonical URL (a folder's index.html is the folder itself), robots.txt points
-// at sitemap.xml, and sitemap.xml lists all pages. Not listed: redirects and Google Search Console verification files.
-const NOT_A_PAGE = [/(^|\/)google[0-9a-f]+\.html$/];
-const isPage = (remote) => remote.endsWith(".html") && !NOT_A_PAGE.some((re) => re.test(remote));
-// The address of a page: no .html (clean URLs), a folder's index.html is the folder itself.
-const pageUrl = (remote) => `${siteUrl}/${remote.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "")}`;
+// Search engines (scripts/lib/seo-files.mjs): robots.txt points at sitemap.xml, and sitemap.xml lists all pages
+// (not: redirects, noindex pages such as 404.html, Google Search Console files). Pages carry their canonical URL
+// from the layout (apps/docs/src/lib/seo.mjs); a page without one (an older static file) gets it here.
 function withCanonical(remote, text) {
-  if (!isPage(remote) || /rel="canonical"/.test(text)) return text;
-  return text.replace("</head>", `<link rel="canonical" href="${pageUrl(remote)}">\n</head>`);
-}
-async function seoFiles(files) {
-  const urls = [];
-  for (const [remote, local] of [...files].filter(([remote]) => isPage(remote)).sort()) {
-    if (/http-equiv="refresh"/i.test(await fs.readFile(local, "utf8"))) continue; // redirect from an old URL
-    const lastmod = (await fs.stat(local)).mtime.toISOString().slice(0, 10);
-    urls.push(`  <url><loc>${pageUrl(remote)}</loc><lastmod>${lastmod}</lastmod></url>`);
-  }
-  return new Map([
-    ["robots.txt", `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`],
-    ["sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`],
-  ]);
+  if (!isPage(remote) || !isListable(text) || /rel="canonical"/.test(text)) return text;
+  return text.replace("</head>", `<link rel="canonical" href="${pageUrl(siteUrl, remote)}">\n</head>`);
 }
 
 /** The local build links to the Herd hosts (omniacss.test, omniaui.test); the live site uses the real domains. */
@@ -113,6 +99,8 @@ Options -Indexes
 DirectorySlash Off
 AddType application/manifest+json .webmanifest
 AddType image/x-icon .ico
+# Unknown addresses get the "not found" page (apps/docs/src/content/404.html, noindex) with status 404.
+ErrorDocument 404 /404.html
 
 RewriteEngine On
 RewriteCond %{HTTPS} off
@@ -160,8 +148,10 @@ const files = await collect();
 const uploads = [];
 const manifest = args.has("--full") ? {} : JSON.parse(await fs.readFile(manifestFile, "utf8").catch(() => "{}"));
 const next = {};
-// Generated files; a file of the same name in public/ wins.
-const generated = new Map([[".htaccess", htaccess], ...[...(await seoFiles(files))].filter(([name]) => !files.has(name))]);
+// Generated files. robots.txt and sitemap.xml always come fresh with the live address (public/ has local copies
+// for Herd, made by scripts/build-seo.mjs).
+const generated = new Map([[".htaccess", htaccess], ...(await seoFiles(path.join(root, "public"), siteUrl))]);
+for (const name of generated.keys()) files.delete(name);
 for (const [remote, local] of [...files, ...[...generated.keys()].map((name) => [name, null])]) {
   const body = local ? await contentOf(remote, local) : Buffer.from(generated.get(remote));
   const hash = crypto.createHash("sha1").update(body).digest("hex");

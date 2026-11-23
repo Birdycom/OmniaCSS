@@ -1,6 +1,11 @@
 {
   "releases": [
     {
+      "version": "0.17.0",
+      "date": "2026-11-23",
+      "summary": "Nieuwe homepage en Our story, module-kleur, ledger, compound-componenten, liquid glass, wrappers voor React, Vue, Blade en Livewire, tooltip op het kleurenpalet, vele QA-fixes"
+    },
+    {
       "version": "0.16.2",
       "date": "2026-11-17",
       "summary": "Tooltip blijft niet staan na een klik en verdwijnt bij een open menu, webicons-scan zonder valse melding, top-progress-gloed in Firefox, Pro-megamenu blijft in het venster"

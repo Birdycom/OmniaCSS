@@ -35,7 +35,7 @@
             </div>
           </div>
 
-          <p class="oc-section-content__desc"><strong>Accent color</strong> is the color the browser uses for the filled part of its own controls: the tick of a checkbox, the dot of a radio button, the filled part of a slider and a progress bar. Each row below holds the same four controls; only the class on the row differs. Opera draws its own form controls and ignores <code>accent-color</code>; Chrome, Edge, Firefox and Safari follow it.</p>
+          <p class="oc-section-content__desc"><strong>Accent color</strong> is the color the browser uses for the filled part of its own controls: the tick of a checkbox, the dot of a radio button, the filled part of a slider and a progress bar. Each row below holds the same four controls; only the class on the row differs. Opera draws its own form controls and ignores <code>accent-color</code>; Chrome, Edge, Firefox and Safari follow it. In a dark theme Chrome and Edge draw the empty part of the slider and the bar light when the accent color is dark, so the filled part keeps its contrast.</p>
           <oc-demo title="accent-color: one class recolors every native control in the row">
             <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 22rem;">
 <div class="oc-eg__panel"><code class="oc-eg__name">(no class)</code><div class="oc-eg__note">The browser's own color for the tick, the dot, the slider and the bar.</div><div class="oc-eg__stage oc-eg__stage--plain fc-stage fc-accent__row"><label><input type="checkbox" checked> Checkbox</label><label><input type="radio" checked> Radio</label><input type="range" value="70" aria-label="Slider"><progress value="60" max="100" aria-label="Progress"></progress></div></div>

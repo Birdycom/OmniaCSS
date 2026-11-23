@@ -2,9 +2,12 @@
 // File: apps/docs/src/layouts/ContentPage.astro
 // Renders one content file (src/content/<route>) into a complete page at build time:
 // header (+ theme switch) -> sidebar shell or plain page -> footer. No client-side navigation scripts.
+import fs from "node:fs";
+import path from "node:path";
 import { transform } from "../lib/transform.mjs";
 import { leftSidebar, tocSidebar } from "../lib/nav.mjs";
-import { VERSION, HEADER_LINKS, GITHUB, OMNIAUI_URL, sectionOf, crossLinks } from "../lib/site.mjs";
+import { VERSION, HEADER_LINKS, GITHUB, OMNIAUI_URL, REPO, sectionOf, crossLinks } from "../lib/site.mjs";
+import { SITE, SITE_URL, plainText, canonicalUrl, jsonLd, ldScript } from "../lib/seo.mjs";
 
 interface Props { source: string; route: string }
 const { source, route } = Astro.props;
@@ -13,13 +16,22 @@ const match = source.match(/^<!--oc-page (.*?)-->\r?\n?/);
 // The meta must be one line of valid JSON; otherwise the page would silently lose its layout.
 if (!match && source.startsWith("<!--oc-page")) throw new Error(`${route}: the oc-page meta must be on the first line (no raw line breaks; use \\n inside strings)`);
 const meta = match ? JSON.parse(match[1]) : {};
-const raw = match ? source.slice(match[0].length) : source;
+// Shared parts: <!--oc-include name--> is replaced by src/partials/name.html (the "Our story" parts on the home and /story.html).
+// Partials live outside src/content, so they never become pages of their own.
+const raw = (match ? source.slice(match[0].length) : source).replace(/<!--oc-include ([a-z0-9-]+)-->/g, (_, name) => fs.readFileSync(path.join(REPO, "apps/docs/src/partials", `${name}.html`), "utf8"));
 const page = transform(raw, route);
 // Old /ui/... links in the content point to the OmniaUI site now (base URL: OMNIAUI_URL in lib/site.mjs).
 const html = crossLinks(page.html);
 const toc = page.toc;
-// Description: the meta of the page, else its intro (lib/transform.mjs). The canonical URL is added at deploy (scripts/deploy.mjs).
-const description = (meta.description || page.description || "Modern CSS as utility classes: OKLCH colors, container queries, :has() and an on-demand build.").replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
+// Description: the meta of the page, else its intro (lib/transform.mjs). Decoded once: Astro escapes the attribute itself.
+const description = plainText(meta.description || page.description || SITE.description);
+// Search engines and share previews (lib/seo.mjs): canonical + og:url on the production address, one share image per
+// site, JSON-LD. "robots": "noindex" in the page meta (404 page) drops the canonical and the structured data.
+const title = plainText(meta.title) || SITE.name;
+const noindex = /noindex/.test(meta.robots || "");
+const canonical = noindex ? null : canonicalUrl(route);
+const shareImage = SITE_URL + SITE.image.path;
+const structured = noindex ? [] : jsonLd({ route, title, description });
 const section = sectionOf(route);
 const isSidebar = meta.layout === "sidebar";
 
@@ -42,13 +54,27 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <title>{title}</title>
   <meta name="description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="OmniaCSS" />
-  <meta property="og:title" content={meta.title || "OmniaCSS"} />
+  {noindex && <meta name="robots" content={meta.robots} />}
+  {canonical && <link rel="canonical" href={canonical} />}
+  <meta property="og:type" content={SITE.docs(route) ? "article" : "website"} />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
+  {canonical && <meta property="og:url" content={canonical} />}
+  <meta property="og:image" content={shareImage} />
+  <meta property="og:image:width" content={String(SITE.image.width)} />
+  <meta property="og:image:height" content={String(SITE.image.height)} />
+  <meta property="og:image:alt" content={SITE.image.alt} />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={shareImage} />
+  <meta name="twitter:image:alt" content={SITE.image.alt} />
+  {structured.map((data) => <script is:inline type="application/ld+json" set:html={ldScript(data)} />)}
   <meta name="generator" content={`OmniaCSS ${VERSION}`}>
-  <title>{meta.title || "OmniaCSS"}</title>
   <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -76,8 +102,10 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
 </head>
 <body class={meta.bodyClass || undefined}>
   <header class:list={["oc-topbar", { "oc-topbar--fixed": isSidebar }]}>
-    {isSidebar && <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu" />}
-    {isSidebar && <label class="ocd-nav-button" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></label>}
+    {/* Every page has the menu button: docs pages open the left menu with it (from 900px down), pages without a sidebar
+        only the site links (.ocd-nav-button--site); from 1020px down the site links open with it on every page. */}
+    <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu" />
+    <label class:list={["ocd-nav-button", { "ocd-nav-button--site": !isSidebar }]} for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></label>
     <a class="oc-topbar-brand" href="/index.html">OmniaCSS<span class="oc-badge-version ml-1">v{VERSION}</span></a>
     <nav class="oc-topbar-nav" aria-label="Main">
       <ul class="oc-navmenu oc-navmenu--site">
@@ -117,6 +145,76 @@ const github = "M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9
     <Fragment set:html={html} />
   )}
 
+  {/* "footer": "site" in the page meta (the home): the full site footer, drawn by /css/oc-home.css. Same columns and
+      order as on omniaui.eu (apps/site/src/layouts/ContentPage.astro in OmniaUI); the bottom line repeats the bar. */}
+  {meta.footer === "site" ? (
+    <footer class="oc-site-footer hm-footer">
+      <div class="oc-container hm-frame">
+        <div class="oc-site-footer__grid">
+          <div class="oc-site-footer__about">
+            <a class="hm-footer-brand" href="/index.html">OmniaCSS</a>
+            <p>Modern CSS as utility classes and tokens: OKLCH colors, container queries, <code>:has()</code> and an on-demand build. Made by Birdycom in Belgium.</p>
+            <p><span class="oc-pill">v{VERSION} · MIT</span></p>
+          </div>
+          <nav aria-label="OmniaCSS">
+            <h2 class="oc-site-footer__title">OmniaCSS</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/colors/system.html">Color system</a></li>
+              <li><a href="/docs/functions/index.html">CSS functions</a></li>
+              <li><a href="/docs/editor.html">Editor extension</a></li>
+              <li><a href="/docs/ai.html">AI assistants (MCP)</a></li>
+              <li><a href="/docs/migrate.html">Migrate</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="OmniaUI">
+            <h2 class="oc-site-footer__title">OmniaUI</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href={`${OMNIAUI_URL}/index.html`}>Overview</a></li>
+              <li><a href={`${OMNIAUI_URL}/ui/components.html`}>Components</a></li>
+              <li><a href={`${OMNIAUI_URL}/ui/blocks.html`}>Blocks</a></li>
+              <li><a href={`${OMNIAUI_URL}/ui/starter-kits.html`}>Starter kits</a></li>
+              <li><a href={`${OMNIAUI_URL}/ui/webicons.html`}>Webicons</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Pro">
+            <h2 class="oc-site-footer__title">Pro</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href={`${OMNIAUI_URL}/ui/pro.html`}>OmniaUI Pro</a></li>
+              <li><a href={`${OMNIAUI_URL}/ui/pro.html#pricing`}>Pricing</a></li>
+              <li><a href={`${OMNIAUI_URL}/legal/pro-license.html`}>Pro license</a></li>
+              <li><a href={`${OMNIAUI_URL}/ui/security.html`}>Security</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Resources">
+            <h2 class="oc-site-footer__title">Resources</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href={GITHUB}>GitHub OmniaCSS</a></li>
+              <li><a href="https://github.com/Birdycom/OmniaUI">GitHub OmniaUI</a></li>
+              <li><a href="https://www.npmjs.com/package/@birdycom/omniacss">npm omniacss</a></li>
+              <li><a href="https://www.npmjs.com/package/@birdycom/omniaui">npm omniaui</a></li>
+              <li><a href="https://marketplace.visualstudio.com/items?itemName=Birdycom.omniacss-intellisense">VS Code extension</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Legal">
+            <h2 class="oc-site-footer__title">Legal</h2>
+            <ul class="oc-site-footer__list">
+              <li><a href="/legal/terms.html#license">License (MIT)</a></li>
+              <li><a href="https://birdycom.be/en/terms">Terms</a></li>
+              <li><a href="https://birdycom.be/en/privacy">Privacy</a></li>
+              <li><a href="https://birdycom.be/en/cookies">Cookies</a></li>
+              <li><a href="mailto:support@omniaui.eu">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="oc-site-footer__bottom">
+          <span>© 2022–2026 Birdycom · OmniaCSS v{VERSION} — modern CSS utilities and tokens</span>
+          <span><a href="https://birdycom.be/en">birdycom.be</a></span>
+        </div>
+      </div>
+    </footer>
+  ) : (
   <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v{VERSION} — modern CSS utilities and tokens{" · "}<a href="/docs/index.html">Docs</a>{" · "}<a href={`${OMNIAUI_URL}/index.html`}>OmniaUI components</a>{" · "}<a href={GITHUB}>GitHub</a>{" · "}<a href="/legal/terms.html#license">License</a>{" · "}<a href="https://birdycom.be/en/terms">Terms</a>{" · "}<a href="https://birdycom.be/en/privacy">Privacy</a>{" · "}<a href="https://birdycom.be/en/cookies">Cookies</a></footer>
+  )}
 </body>
 </html>

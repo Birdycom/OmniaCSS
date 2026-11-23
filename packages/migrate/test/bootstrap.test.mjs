@@ -15,7 +15,10 @@ const conv = (name, version = 5, breakpoints = "omnia") => convertClass(name, { 
 
 test("utilities map on their declarations, not their names", () => {
   assert.equal(conv("mt-3").to, "mt-1"); // Bootstrap 1rem = OmniaCSS mt-1
-  assert.equal(conv("d-flex").to, "flex");
+  // Same declaration and the same name in OmniaCSS (d-* aliases since 0.17.0): the Bootstrap name stays.
+  assert.equal(conv("d-flex").to, "d-flex");
+  assert.equal(conv("d-inline-block").to, "d-inline-block");
+  assert.equal(conv("align-items-center").to, "align-items-center");
   assert.equal(conv("justify-content-between").to, "justify-between");
   assert.equal(conv("text-center").to, "text-center");
   assert.equal(conv("w-100").to, "w-full");
@@ -93,7 +96,7 @@ test("codemod on a Bootstrap 5 page (dry run, then write)", async () => {
 
   const r = await migrateBootstrap(path.join(dir, "bs5"), { write: true, cwd: process.cwd() });
   const html = await fs.readFile(path.join(dir, "bs5/index.php"), "utf8");
-  assert.match(html, /class="col-12 col-md-6 flex justify-between mt-1 legacy-own"/);
+  assert.match(html, /class="col-12 col-md-6 d-flex justify-between mt-1 legacy-own"/);
   assert.match(html, /class="oc-btn oc-btn--lg"/);
   assert.match(html, /<select class="oc-select">/);
   assert.match(html, /class="oc-radio"/);

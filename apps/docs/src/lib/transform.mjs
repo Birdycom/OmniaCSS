@@ -525,6 +525,12 @@ export function transform(content, route = "") {
   if (sourceSection) {
     const last = [...body.children].filter((el) => el.localName === "section" && el !== sourceSection).at(-1);
     if (last) last.after(sourceSection); else body.append(sourceSection);
+    // A long file path (src/scss/utilities/_flexbox.scss) may break after a slash, so the table fits a phone screen.
+    for (const code of sourceSection.querySelectorAll("td code")) {
+      if (code.children.length || !code.textContent.includes("/")) continue;
+      code.innerHTML = code.textContent.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\//g, "/<wbr>");
+      code.setAttribute("style", "overflow-wrap: normal"); // break only there, never inside the file name (beats the docs-shell anywhere)
+    }
   }
   // 3c''. "Browser support" is its own section (h2 + table) right above the source section, wherever the author or
   //       step 3c put it: .oc-browser-support blocks and "Browser support" sub-headings with their intro and table move in.
@@ -622,6 +628,17 @@ export function transform(content, route = "") {
       used.add(id);
     }
     toc.push({ id: h.id, text, level: h.localName === "h2" ? 2 : 3 });
+  }
+
+  // Code in a reference table cell (a tool name such as get_component, a path, a class with a dot): a break chance
+  // after "_", "/", "|", "=" and a "." before a letter, and before "[", so on a phone it wraps at a readable place
+  // instead of per letter
+  // (oc-docs-v2.css keeps code cells on overflow-wrap: break-word). The text itself (search, llms.txt) is unchanged.
+  for (const code of body.querySelectorAll(".oc-table-ref td code")) {
+    if (code.children.length || code.closest("pre")) continue;
+    const t = code.textContent;
+    if (t.length < 12 || !/[_/|=[]|\.[a-z]/i.test(t)) continue;
+    code.innerHTML = escText(t).replace(/(?<=\S)([_/|=]|\.(?=[a-z]))(?=.)/gi, "$1<wbr>").replace(/(?<=[^\s>])\[/g, "<wbr>[");
   }
 
   return { html: body.innerHTML, toc, description };

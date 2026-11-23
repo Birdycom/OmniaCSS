@@ -47,6 +47,23 @@
 
   }
 }
+/* d-* aliases (0.17.0): the same display values with a d- prefix, next to .d-none (layout extras), for
+   markup written with d-none / d-block / d-flex. Responsive: sm:d-*, md:d-*, lg:d-* (see _responsive.scss). */
+$display-aliases: (
+  'block': block,
+  'inline': inline,
+  'inline-block': inline-block,
+  'flex': flex,
+  'inline-flex': inline-flex,
+  'grid': grid,
+  'inline-grid': inline-grid,
+  'flow-root': flow-root,
+  'contents': contents
+);
+@each $name, $value in $display-aliases {
+  .d-#{$name} { display: $value; }
+}
+
 /* Box-sizing — controls how the total width and height is calculated. */
 
 // box-border: width and height include padding and border (most common)

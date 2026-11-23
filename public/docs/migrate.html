@@ -4,13 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <title>OmniaCSS Docs - Migrate</title>
   <meta name="description" content="Move from Tailwind CSS to OmniaCSS and keep your class names. Switch a Laravel, Vue or React project from Tailwind CSS to OmniaCSS in three steps: your…">
-  <meta property="og:type" content="website">
+  
+  <link rel="canonical" href="https://omniacss.eu/docs/migrate">
+  <meta property="og:type" content="article">
   <meta property="og:site_name" content="OmniaCSS">
   <meta property="og:title" content="OmniaCSS Docs - Migrate">
   <meta property="og:description" content="Move from Tailwind CSS to OmniaCSS and keep your class names. Switch a Laravel, Vue or React project from Tailwind CSS to OmniaCSS in three steps: your…">
-  <meta name="generator" content="OmniaCSS 0.16.2">
-  <title>OmniaCSS Docs - Migrate</title>
+  <meta property="og:url" content="https://omniacss.eu/docs/migrate">
+  <meta property="og:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OmniaCSS Docs - Migrate">
+  <meta name="twitter:description" content="Move from Tailwind CSS to OmniaCSS and keep your class names. Switch a Laravel, Vue or React project from Tailwind CSS to OmniaCSS in three steps: your…">
+  <meta name="twitter:image" content="https://omniacss.eu/img/og-omniacss.png">
+  <meta name="twitter:image:alt" content="OmniaCSS: modern CSS as utility classes">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"OmniaCSS","item":"https://omniacss.eu/"},{"@type":"ListItem","position":2,"name":"Docs","item":"https://omniacss.eu/docs/"},{"@type":"ListItem","position":3,"name":"Migrate","item":"https://omniacss.eu/docs/migrate"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Migrate","description":"Move from Tailwind CSS to OmniaCSS and keep your class names. Switch a Laravel, Vue or React project from Tailwind CSS to OmniaCSS in three steps: your…","url":"https://omniacss.eu/docs/migrate","mainEntityOfPage":"https://omniacss.eu/docs/migrate","inLanguage":"en","image":"https://omniacss.eu/img/og-omniacss.png","isPartOf":{"@type":"WebSite","name":"OmniaCSS","url":"https://omniacss.eu/","inLanguage":"en","publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"}},"publisher":{"@type":"Organization","name":"Birdycom","url":"https://birdycom.be"},"about":{"@type":"SoftwareApplication","name":"OmniaCSS","applicationCategory":"DeveloperApplication"}}</script>
+  <meta name="generator" content="OmniaCSS 0.17.0">
   <!-- Favicon: SVG for modern browsers, ICO/PNG as fallback (Safari, Google, /favicon.ico). -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -19,7 +33,7 @@
   
   <link rel="preload" href="/fonts/docs/instrument-sans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/docs/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/omnia-site.css?v=aac0f8ac83"><link rel="stylesheet" href="/css/oc-components.css?v=2df56697dd"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=40bd0da44d"><link rel="stylesheet" href="/css/oc-blocks.css?v=817250f8c9"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=ba4a613daf"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=cc3f90f5ba"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=424f3a8516">
+  <link rel="stylesheet" href="/css/omnia-site.css?v=2d7890b875"><link rel="stylesheet" href="/css/oc-components.css?v=4d3b6b4ed7"><link rel="stylesheet" href="/css/oc-code-syntax.css?v=09ed1f8686"><link rel="stylesheet" href="/css/oc-blocks.css?v=0601d82ac9"><link rel="stylesheet" href="/css/oc-layout-module.css?v=0a459385b4"><link rel="stylesheet" href="/css/omnia_site.css?v=0c602d0dd6"><link rel="stylesheet" href="/css/oc-docs-shell.css?v=31a269ac36"><link rel="stylesheet" href="/fonts/docs/docs-fonts.css"><link rel="stylesheet" href="/css/oc-docs-v2.css?v=4a6d857432">
   <!-- Optional progressive enhancement: only REMEMBERS the choice between pages (localStorage). The switch itself is CSS-only (:has + color-scheme). -->
   <script>
     // OmniaCSS and OmniaUI are different origins with their own localStorage: links to the sister site carry the choice as ?oc-theme=.
@@ -32,16 +46,22 @@
     const syncDemos = () => { const t = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); for (const sw of document.querySelectorAll(".oc-theme-scope .oc-theme-switch")) { const r = sw.querySelector('input[value="system"]') || sw.querySelector(`input[value="${t}"]`); if (r) r.checked = true; } };
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (!document.documentElement.dataset.theme) syncDemos(); });
     addEventListener("DOMContentLoaded", () => { const t = document.documentElement.dataset.theme || "system"; const r = document.querySelector(`.ocm-theme input[value="${t}"]`); if (r) r.checked = true; syncDemos(); });
-  </script><script src="/js/oc-docs-v2.js?v=fbcfca188b" defer></script>
+  </script>
+  <script src="/js/oc-docs-v2.js?v=fbcfca188b" defer></script>
+  <style>
+    /* Tailwind table: each class name stays on one line where there is room; a phone may break it after a hyphen. */
+    @media (min-width: 40rem) { #tailwind-names td code { white-space: nowrap; } }
+  </style>
 </head>
 <body>
   <header class="oc-topbar oc-topbar--fixed">
+    
     <input type="checkbox" id="ocd-nav-toggle" class="ocd-nav-toggle" aria-label="Show the menu">
     <label class="ocd-nav-button" for="ocd-nav-toggle" title="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></label>
-    <a class="oc-topbar-brand" href="/">OmniaCSS<span class="oc-badge-version ml-1">v0.16.2</span></a>
+    <a class="oc-topbar-brand" href="/">OmniaCSS<span class="oc-badge-version ml-1">v0.17.0</span></a>
     <nav class="oc-topbar-nav" aria-label="Main">
       <ul class="oc-navmenu oc-navmenu--site">
-        <li><a class="oc-navmenu-link" href="https://omniaui.test/">OmniaUI</a></li><li><a class="oc-navmenu-link" href="/docs/" aria-current="page">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/starter-kits">Starter kits</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons">Webicons</a></li>
+        <li><a class="oc-navmenu-link" href="https://omniaui.test/">OmniaUI</a></li><li><a class="oc-navmenu-link" href="/docs/" aria-current="page">Docs</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/components">Components</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/blocks">Blocks</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/starter-kits">Starter kits</a></li><li><a class="oc-navmenu-link" href="https://omniaui.test/ui/webicons">Webicons</a></li><li><a class="oc-navmenu-link" href="/story">Our story</a></li>
         <li><a class="oc-navmenu-link" href="https://github.com/Birdycom/OmniaCSS" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="oc-navmenu-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path></svg></a></li>
       </ul>
     </nav>
@@ -150,6 +170,43 @@ export default { plugins: [omniaMigrate({ content: [<span class="hl-string">"res
         </div>
       </section>
 
+      <section class="oc-docs-section" id="tailwind-names">
+        <div class="oc-section-header">
+          <h2 id="coming-from-tailwind-the-same-class-in-omniacss" class="oc-section-header__title">Coming from Tailwind: the same class in OmniaCSS</h2>
+          <p class="oc-section-header__desc">The compat layer keeps your Tailwind names working, so you never have to rename. When you write new markup, or run the codemod, these are the native OmniaCSS names. OmniaCSS does not add Tailwind aliases: one name per class.</p>
+        </div>
+        <div class="oc-section-content">
+          <div class="oc-expandable-table">
+            <table class="oc-table-ref">
+              <thead><tr><th class="w-perc-1/3">Tailwind</th><th class="w-perc-1/3">OmniaCSS</th><th>Note</th></tr></thead>
+              <tbody>
+                <tr><td><code>flex</code>, <code>grid</code>, <code>block</code>, <code>inline-flex</code></td><td><code>flex</code>, <code>grid</code>, <code>block</code>, <code>inline-flex</code></td><td>Same name</td></tr>
+                <tr><td><code>hidden</code></td><td><code>none</code> or <code>d-none</code></td><td>display: none</td></tr>
+                <tr><td><code>items-center</code>, <code>items-start</code>, <code>items-end</code></td><td><code>align-items-center</code>, <code>align-items-flex-start</code>, <code>align-items-flex-end</code></td><td>OmniaCSS spells out the CSS property</td></tr>
+                <tr><td><code>justify-between</code>, <code>justify-center</code>, <code>justify-end</code></td><td><code>justify-between</code>, <code>justify-center</code>, <code>justify-flex-end</code></td><td></td></tr>
+                <tr><td><code>self-center</code>, <code>self-start</code></td><td><code>align-self-center</code>, <code>align-self-flex-start</code></td><td></td></tr>
+                <tr><td><code>shrink-0</code>, <code>grow-0</code></td><td><code>noshrink</code> (or <code>flex-shrink-0</code>), <code>nogrow</code></td><td></td></tr>
+                <tr><td><code>p-4</code>, <code>px-4</code>, <code>py-2</code></td><td><code>p-1</code>, <code>p-inline-1</code>, <code>p-block-0.5</code></td><td>OmniaCSS numbers are rem: divide the Tailwind number by 4</td></tr>
+                <tr><td><code>mt-8</code>, <code>mx-auto</code>, <code>gap-4</code>, <code>gap-6</code></td><td><code>mt-2</code>, <code>m-inline-auto</code>, <code>gap-1</code>, <code>gap-1.5</code></td><td></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>w-1/2</code>, <code>basis-1/2</code></td><td><code>w-perc-1/2</code>, <code>basis-perc-1/<wbr>2</code></td><td>Fractions carry <code>perc</code></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>w-full</code>, <code>h-screen</code>, <code>max-w-md</code>, <code>max-w-prose</code></td><td><code>w-full</code>, <code>h-screen</code>, <code>max-w-md</code>, <code>max-w-prose</code></td><td>Same name</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>text-sm</code></td><td><code>font-0.8</code> (0.875rem)</td><td>Font size only; Tailwind also sets a line height</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>leading-tight</code>, <code>tracking-wide</code></td><td><code>lineheight-tight</code>, <code>letterspacing-8</code></td><td></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>italic</code>, <code>break-words</code></td><td><code>font-italic</code>, <code>wrap-break-word</code></td><td></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>rounded</code>, <code>rounded-md</code>, <code>rounded-xl</code>, <code>rounded-full</code></td><td><code>round-2</code>, <code>round-3</code>, <code>round-6</code>, <code>round-full</code></td><td></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>rotate-45</code></td><td><code>rotate-prop-45</code></td><td>The <code>rotate</code> property, not <code>transform</code></td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>md:grid-cols-3</code>, <code>hover:opacity-100</code>, <code>group-hover:opacity-100</code></td><td><code>md:grid-cols-3</code>, <code>hover:opacity-100</code>, <code>group-hover:opacity-100</code></td><td>Same prefixes for breakpoints and states</td></tr>
+                <tr class="oc-expandable-table__row-more"><td><code>p-1</code>, <code>m-2</code>, <code>border</code>, <code>shadow</code>, <code>duration-300</code>, <code>col-span-full</code> …</td><td>Same name, other CSS</td><td>OmniaCSS has these classes too, with its own values. The compat layer keeps the Tailwind meaning; the codemod leaves them alone</td></tr>
+              </tbody>
+            </table>
+            <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
+              <label class="oc-btn oc-btn--secondary oc-expandable-table__trigger"><input type="checkbox" class="oc-expandable-table__toggle"><span class="oc-expandable-table__more">Show more</span><span class="oc-expandable-table__less">Show less</span></label>
+            </div>
+          </div>
+          <p>The codemod finds these pairs by comparing the CSS of both classes, so the list above is what <code>npx @birdycom/omniacss-migrate codemod</code> writes. Colors map to the nearest OmniaCSS palette token; see <a href="colors/">Colors</a>.</p>
+        </div>
+      </section>
+
       <section class="oc-docs-section" id="bootstrap">
         <div class="oc-section-header">
           <h2 id="from-bootstrap-3-4-or-5" class="oc-section-header__title">From Bootstrap 3, 4 or 5</h2>
@@ -167,10 +224,10 @@ export default { plugins: [omniaMigrate({ content: [<span class="hl-string">"res
               <tbody>
                 <tr><td>Utilities: <code>mt-3</code>, <code>d-md-none</code>, <code>justify-content-between</code>, <code>text-muted</code>, <code>fw-bold</code>, <code>w-100</code> …</td><td>The OmniaCSS class with the same CSS, found by its declarations: <code>mt-1</code> (both 1rem), <code>md:d-none</code>, <code>justify-between</code>, <code>text-twilightblue-10</code>, <code>font-bold</code>, <code>w-full</code>. Theme colors map to the nearest Omnia token.</td></tr>
                 <tr><td>Components: <code>btn</code>, <code>card</code>, <code>alert</code>, <code>badge</code>, <code>form-control</code>, <code>table</code>, <code>breadcrumb</code>, <code>pagination</code>, <code>progress</code>, <code>panel</code> …</td><td>OmniaUI: <code>oc-btn</code>, <code>oc-card</code>, <code>oc-alert--danger</code>, <code>oc-input</code> (<code>oc-select</code> on a select), <code>oc-table--striped</code> …</td></tr>
-                <tr><td>Grid: <code>container</code>, <code>row</code>, <code>col-md-6</code>, <code>offset-*</code>, <code>g-3</code>, <code>row-cols-*</code></td><td>Kept, with a generated <code>bootstrap-compat.css</code> for exactly the grid classes in use (OmniaCSS breakpoints, a few KB)</td></tr>
+                <tr><td>Grid: <code>container</code>, <code>row</code>, <code>col-md-6</code>, <code>offset-*</code>, <code>g-3</code>, <code>row-cols-*</code></td><td>Kept, with a generated <code>bootstrap-compat.<wbr>css</code> for exactly the grid classes in use (OmniaCSS breakpoints, a few KB)</td></tr>
                 <tr><td>Utilities without an OmniaCSS twin (<code>border</code> 1px, <code>z-1</code>, <code>mt-n1</code>)</td><td>Kept, with their exact CSS in the same compat stylesheet</td></tr>
                 <tr><td>JavaScript components: modal, dropdown, collapse, carousel, navbar, tabs, offcanvas, toast; icon fonts</td><td>Reported with the native way: <code>&lt;dialog&gt;</code> + <code>commandfor</code>, popover, <code>&lt;details&gt;</code>, scroll snap with <code>.scroll-buttons</code>, OmniaUI tabs</td></tr>
-                <tr><td>The Bootstrap <code>&lt;link&gt;</code></td><td>Replaced by <code>omnia.css</code>, the OmniaUI CSS and <code>bootstrap-compat.css</code>, in the same asset folder</td></tr>
+                <tr><td>The Bootstrap <code>&lt;link&gt;</code></td><td>Replaced by <code>omnia.css</code>, the OmniaUI CSS and <code>bootstrap-compat.<wbr>css</code>, in the same asset folder</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -196,7 +253,7 @@ export default { plugins: [omniaMigrate({ content: [<span class="hl-string">"res
                 <tr><td><code>build [-c glob] [-o file]</code></td><td>Write the CSS once, without Vite or PostCSS</td></tr>
                 <tr><td><code>css "&lt;class&gt;"</code></td><td>Print the CSS for one class</td></tr>
                 <tr><td><code>bootstrap scan &lt;dir&gt;</code></td><td>Bootstrap report: what converts, what stays, what needs a hand</td></tr>
-                <tr><td><code>bootstrap codemod &lt;dir&gt; [--write]</code></td><td>Rewrite Bootstrap classes, swap the stylesheet, write <code>bootstrap-compat.css</code></td></tr>
+                <tr><td><code>bootstrap codemod &lt;dir&gt; [--write]</code></td><td>Rewrite Bootstrap classes, swap the stylesheet, write <code>bootstrap-compat.<wbr>css</code></td></tr>
               </tbody>
             </table>
           </div>
@@ -216,12 +273,13 @@ export default { plugins: [omniaMigrate({ content: [<span class="hl-string">"res
             <li>Breakpoints, shadows and nearest-palette colors differ slightly from the original by design: check the result visually.</li>
           </ul>
         </div>
-      </section>
+      </section><section id="support" class="oc-docs-section"><div class="oc-section-header"><h2 id="browser-support" class="oc-section-header__title">Browser support</h2></div><div class="oc-section-content"><div class="oc-compat"><p class="oc-compat__source md:hidden">Swipe the table sideways to see every browser.</p><div class="oc-compat__scroll"><table class="oc-compat__table"><thead><tr><th scope="col" rowspan="2" class="oc-compat__feature-head">Feature</th><th scope="colgroup" colspan="5" class="oc-compat__group">Desktop</th><th scope="colgroup" colspan="5" class="oc-compat__group oc-compat__group--mobile">Mobile</th></tr><tr><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/chrome.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Chrome</span></th><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/edge.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Edge</span></th><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/firefox.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Firefox</span></th><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/safari.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Safari</span></th><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/opera.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Opera</span></th><th scope="col" class="oc-compat__browser oc-compat__first-mobile"><img class="oc-compat__logo" src="/img/browsers/chrome.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Chrome Android</span></th><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/firefox.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Firefox Android</span></th><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/safari.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Safari iOS</span></th><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/samsung.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Samsung Internet</span></th><th scope="col" class="oc-compat__browser"><img class="oc-compat__logo" src="/img/browsers/opera.svg" alt="" width="20" height="20" decoding="async"><span class="oc-compat__browser-name">Opera Android</span></th></tr></thead><tbody><tr><th scope="row" class="oc-compat__feature"><a href="https://developer.mozilla.org/docs/Web/CSS/Reference/Properties/display" target="_blank" rel="noopener"><code>display</code></a></th><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Chrome: Supported since 1"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">1</span><span class="sr-only">Chrome: Supported since 1</span></td><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Edge: Supported since 12"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">12</span><span class="sr-only">Edge: Supported since 12</span></td><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Firefox: Supported since 1"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">1</span><span class="sr-only">Firefox: Supported since 1</span></td><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Safari: Supported since 1"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">1</span><span class="sr-only">Safari: Supported since 1</span></td><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Opera: Supported since 7"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">7</span><span class="sr-only">Opera: Supported since 7</span></td><td class="oc-compat__first-mobile oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Chrome Android: Supported since 18"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">18</span><span class="sr-only">Chrome Android: Supported since 18</span></td><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Firefox Android: Supported since 4"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">4</span><span class="sr-only">Firefox Android: Supported since 4</span></td><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Safari iOS: Supported since 1"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">1</span><span class="sr-only">Safari iOS: Supported since 1</span></td><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Samsung Internet: Supported since 1.0"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">1.0</span><span class="sr-only">Samsung Internet: Supported since 1.0</span></td><td class="oc-compat__cell is-yes oc-tooltip oc-tooltip--multiline" data-tooltip="Opera Android: Supported since 10.1"><span class="oc-compat__icon" aria-hidden="true">✓</span><span class="oc-compat__version">10.1</span><span class="sr-only">Opera Android: Supported since 10.1</span></td></tr></tbody></table></div><ul class="oc-compat__legend"><li class="is-yes"><span aria-hidden="true">✓</span> Supported</li><li class="is-partial"><span aria-hidden="true">◐</span> Partial support</li><li class="is-preview"><span aria-hidden="true">◷</span> Coming: in preview / beta</li><li class="is-flag"><span aria-hidden="true">⚑</span> Behind a flag</li><li class="is-no"><span aria-hidden="true">✕</span> Not supported</li></ul><p class="oc-compat__source">Version = first release with support. Hover a cell for notes. Data: <a href="https://github.com/mdn/browser-compat-data" target="_blank" rel="noopener">MDN browser-compat-data</a> 8.1.7 (2026-10-22).</p></div></div></section>
 </main>
-      <aside class="oc-docs-sidebar-right"><nav class="oc-toc" aria-label="On this page"><p class="oc-toc-title">On This Page</p><ul class="oc-toc-list"><li><a class="oc-toc-link" href="#how-it-works-birdycom-omniacss-migrate">How it works @birdycom/omniacss-migrate</a></li><li><a class="oc-toc-link" href="#laravel-in-3-steps">Laravel in 3 steps</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#1-check-coverage-and-preview-the-switch">1. Check coverage and preview the switch</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#2-apply-it">2. Apply it</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#3-build">3. Build</a></li><li><a class="oc-toc-link" href="#your-theme-and-tailwind-config">Your theme and tailwind.config</a></li><li><a class="oc-toc-link" href="#optional-native-omniacss-class-names">Optional: native OmniaCSS class names</a></li><li><a class="oc-toc-link" href="#from-bootstrap-3-4-or-5">From Bootstrap 3, 4 or 5</a></li><li><a class="oc-toc-link" href="#cli-reference">CLI reference</a></li><li><a class="oc-toc-link" href="#known-gaps">Known gaps</a></li></ul></nav></aside>
+      <aside class="oc-docs-sidebar-right"><nav class="oc-toc" aria-label="On this page"><p class="oc-toc-title">On This Page</p><ul class="oc-toc-list"><li><a class="oc-toc-link" href="#how-it-works-birdycom-omniacss-migrate">How it works @birdycom/omniacss-migrate</a></li><li><a class="oc-toc-link" href="#laravel-in-3-steps">Laravel in 3 steps</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#1-check-coverage-and-preview-the-switch">1. Check coverage and preview the switch</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#2-apply-it">2. Apply it</a></li><li class="oc-toc-item--sub"><a class="oc-toc-link" href="#3-build">3. Build</a></li><li><a class="oc-toc-link" href="#your-theme-and-tailwind-config">Your theme and tailwind.config</a></li><li><a class="oc-toc-link" href="#optional-native-omniacss-class-names">Optional: native OmniaCSS class names</a></li><li><a class="oc-toc-link" href="#coming-from-tailwind-the-same-class-in-omniacss">Coming from Tailwind: the same class in OmniaCSS</a></li><li><a class="oc-toc-link" href="#from-bootstrap-3-4-or-5">From Bootstrap 3, 4 or 5</a></li><li><a class="oc-toc-link" href="#cli-reference">CLI reference</a></li><li><a class="oc-toc-link" href="#known-gaps">Known gaps</a></li><li><a class="oc-toc-link" href="#browser-support">Browser support</a></li></ul></nav></aside>
       <script>(() => { if (CSS.supports("selector(:target-current)")) return; const links = [...document.querySelectorAll(".oc-toc a[href^='#']")]; const root = document.querySelector(".oc-docs-content, .ocd-content"); if (!links.length || !root) return; const heads = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))); let raf = 0; const update = () => { raf = 0; const top = root.getBoundingClientRect().top + 80; let cur = 0; heads.forEach((h, i) => { if (h && h.getBoundingClientRect().top <= top) cur = i; }); if (root.scrollTop + root.clientHeight >= root.scrollHeight - 4) cur = links.length - 1; links.forEach((a, i) => a.classList.toggle("is-active", i === cur)); }; root.addEventListener("scroll", () => { raf ||= requestAnimationFrame(update); }, { passive: true }); update(); })();</script>
     </div>
 
-  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.16.2 — modern CSS utilities and tokens · <a href="/docs/">Docs</a> · <a href="https://omniaui.test/">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a> · <a href="/legal/terms#license">License</a> · <a href="https://birdycom.be/en/terms">Terms</a> · <a href="https://birdycom.be/en/privacy">Privacy</a> · <a href="https://birdycom.be/en/cookies">Cookies</a></footer>
+  
+  <footer class="oc-footerbar oc-footerbar--fixed">OmniaCSS v0.17.0 — modern CSS utilities and tokens · <a href="/docs/">Docs</a> · <a href="https://omniaui.test/">OmniaUI components</a> · <a href="https://github.com/Birdycom/OmniaCSS">GitHub</a> · <a href="/legal/terms#license">License</a> · <a href="https://birdycom.be/en/terms">Terms</a> · <a href="https://birdycom.be/en/privacy">Privacy</a> · <a href="https://birdycom.be/en/cookies">Cookies</a></footer>
 </body>
 </html>

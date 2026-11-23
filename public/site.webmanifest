@@ -1,6 +1,7 @@
 {
     "name": "OmniaCSS — modern CSS as utility classes",
     "short_name": "OmniaCSS",
+    "description": "Modern CSS as utility classes: OKLCH colors, container queries, :has() and an on-demand build. Free and open source (MIT).",
     "icons": [
         {
             "src": "/icon-192.png",

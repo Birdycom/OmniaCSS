@@ -20,6 +20,8 @@
   --ocd-radius: 14px;
   --ocm-header-height: 64px;
   --ocm-footer-height: 36px;
+  /* Phone menu panel with the site links (small screens): 4 rows of 2.3rem + 3 gaps + padding + borders. */
+  --ocd-sitenav-height: calc(4 * 2.3rem + 3 * 0.15rem + 1rem + 2px);
 }
 
 /* ---- Type ---------------------------------------------------------------------------------------- */
@@ -140,7 +142,7 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .oc-sidebar--docs .oc-sidebar-menu-badge { flex: none; padding: 0.15rem 0.4rem; font: 700 0.58rem var(--ocd-mono); letter-spacing: 0.06em; text-transform: uppercase; }
 .oc-sidebar--docs .oc-sidebar-menu-badge + .oc-sidebar-menu-badge { margin-inline-start: 0; }
 .oc-sidebar--docs .ocd-nav-new { color: var(--color-white-50); background: linear-gradient(135deg, var(--color-green-70), var(--color-teal-70)); }
-.oc-sidebar--docs .ocd-nav-updated { color: light-dark(var(--color-teal-80), var(--color-teal-20)); background: oklch(from var(--color-teal-60) l c h / 0.16); }
+.oc-sidebar--docs .ocd-nav-updated { color: light-dark(var(--color-teal-95), var(--color-teal-20)); background: oklch(from var(--color-teal-60) l c h / 0.16); }
 .oc-sidebar--docs .ocd-nav-pro { color: var(--oc-primary-foreground); background: var(--ocd-accent); }
 /* The same Pro label after a page title (apps/site/src/lib/pro.mjs: "Pro" or "Free + Pro") and in the search results. */
 .ocd-pro-label, .ocd-search-pro { display: inline-flex; align-items: center; padding: 0.15rem 0.6rem; border-radius: 999px; font: 700 0.7rem var(--ocd-mono); font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; color: var(--oc-primary-foreground); background: var(--ocd-accent); text-decoration: none; }
@@ -260,10 +262,10 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   background: currentColor;
 }
 :is(.oc-docs-content, .ocd-content) .oc-badge-source { --ocd-badge: light-dark(var(--color-teal-90), var(--color-skycyan-50)); }
-:is(.oc-docs-content, .ocd-content) .oc-badge-source-scss { --ocd-badge: light-dark(var(--color-red-80), var(--color-red-40)); }
+:is(.oc-docs-content, .ocd-content) .oc-badge-source-scss { --ocd-badge: light-dark(var(--color-red-95), var(--color-red-40)); }
 :is(.oc-docs-content, .ocd-content) .oc-badge-source-file { --ocd-badge: light-dark(var(--color-purple-50), var(--color-magenta-50)); }
 :is(.oc-docs-content, .ocd-content) :is(.oc-badge-version, .oc-badge-version-mdi) { --ocd-badge: light-dark(var(--color-green-80), var(--color-green-10)); font-weight: 600; }
-:is(.oc-docs-content, .ocd-content) .oc-badge-nojs { --ocd-badge: light-dark(var(--color-orange-95), var(--color-orange-40)); }
+:is(.oc-docs-content, .ocd-content) .oc-badge-nojs { --ocd-badge: light-dark(oklch(from var(--color-orange-95) calc(l - 0.05) c h), var(--color-orange-40)); }
 :is(.oc-docs-content, .ocd-content) .oc-badge-support--baseline { --ocd-badge: light-dark(var(--color-green-80), var(--color-green-10)); }
 :is(.oc-docs-content, .ocd-content) .oc-badge-support--newest { --ocd-badge: light-dark(var(--color-indigo-60), var(--color-indigo-2)); }
 :is(.oc-docs-content, .ocd-content) .oc-badge-support--baseline::before { content: "\002713"; inline-size: auto; aspect-ratio: auto; background: none; font-size: 0.8rem; }
@@ -302,7 +304,24 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 :is(.oc-docs-content, .ocd-content) .oc-table-ref td { padding: 0.6rem 0.8rem; border-block-end: 1px solid var(--ocd-rule); vertical-align: top; }
 :is(.oc-docs-content, .ocd-content) .oc-table-ref td:first-child code { padding: 0; background: none; box-shadow: none; color: var(--ocd-accent); font-size: 0.82rem; white-space: normal; }
 :is(.oc-docs-content, .ocd-content) .oc-table-ref tbody tr:hover td { background: var(--ocd-soft); }
-:is(.oc-docs-content, .ocd-content) .oc-expandable-table { border: 1px solid var(--ocd-rule); border-radius: var(--ocd-radius); overflow: hidden; }
+/* Long class names and values break inside the cell (also in <code>), so the table never gets wider than the page.
+   Only code may break inside a word: headings and plain words keep whole (no "Alignme|nt"). Code in a cell uses
+   break-word, not anywhere: the column stays as wide as a readable piece of the token (the build adds a break chance
+   after "_", "/" and "." in table code), and only a token that still does not fit breaks mid-word. */
+:is(.oc-docs-content, .ocd-content) .oc-table-ref { max-inline-size: 100%; }
+:is(.oc-docs-content, .ocd-content) .oc-table-ref :is(td, th) { overflow-wrap: normal; hyphens: manual; }
+:is(.oc-docs-content, .ocd-content) .oc-table-ref code { white-space: normal; overflow-wrap: break-word; }
+/* Inline code in running text and link lists (a long file path such as src/scss/variables/_variables_typography.scss)
+   breaks inside the word when it does not fit, instead of pushing the page wider on a phone. In a table cell it is
+   break-word (see above), so the column is not squeezed to one letter. */
+:is(.oc-docs-content, .ocd-content) :is(p, li, dd, figcaption) code:not(pre code) { overflow-wrap: anywhere; }
+:is(.oc-docs-content, .ocd-content) td code:not(pre code) { overflow-wrap: break-word; }
+@media (max-width: 40rem) {
+  :is(.oc-docs-content, .ocd-content) .oc-table-ref :is(td, th) { padding-inline: 0.5rem; }
+}
+/* overflow-x: auto (not hidden): a wide table scrolls sideways inside the frame instead of being cut off; the radius
+   still clips. The collapse (toggle + hidden rows) is untouched. The scroll fade is defined below (.oc-compat__scroll). */
+:is(.oc-docs-content, .ocd-content) .oc-expandable-table { border: 1px solid var(--ocd-rule); border-radius: var(--ocd-radius); overflow-x: auto; overflow-y: hidden; }
 :is(.oc-docs-content, .ocd-content) .oc-expandable-table .oc-table-ref tr:last-child td { border-block-end: 0; }
 
 /* ---- Demo panel v2: bar (title, tabs, widths) -> preview -> code ------------------------------------ */
@@ -336,8 +355,10 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.oc-demo--v2 .oc-demo__tablist { padding: 3px; background: oklch(from var(--oc-foreground) l c h / 0.06); }
-.oc-demo--v2 .oc-demo__tab { padding: 0.28rem 0.75rem; font-size: 0.8rem; }
+/* Preview + up to six code tabs (HTML | React | Vue | Blade | Livewire …): on a narrow screen the bar scrolls sideways. */
+.oc-demo--v2 .oc-demo__tablist { max-inline-size: 100%; padding: 3px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; background: oklch(from var(--oc-foreground) l c h / 0.06); }
+.oc-demo--v2 .oc-demo__tablist::-webkit-scrollbar { display: none; }
+.oc-demo--v2 .oc-demo__tab { flex: none; padding: 0.28rem 0.75rem; font-size: 0.8rem; white-space: nowrap; }
 .oc-demo--v2 .oc-demo__tab span { pointer-events: none; }
 .oc-demo__widths { display: flex; gap: 2px; padding: 3px; border-radius: calc(var(--oc-radius) + 2px); background: oklch(from var(--oc-foreground) l c h / 0.06); }
 .oc-demo__width { position: relative; display: grid; place-items: center; inline-size: 1.85rem; block-size: 1.65rem; border-radius: var(--oc-radius); color: var(--oc-muted-foreground); cursor: pointer; }
@@ -352,6 +373,15 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .oc-demo--v2 > .oc-demo__preview:not(.oc-demo__preview--tall) { align-items: center; }
 /* Demos marked size="tall" (menus, popovers) keep room for what opens below the trigger. */
 .oc-demo--v2 > .oc-demo__preview.oc-demo__preview--tall { min-block-size: 20rem; }
+/* <oc-demo hint="…">: how to open the overlay (hover, click), as a quiet line at the bottom of the preview, so the room
+   kept for the popup does not read as an empty frame. */
+.oc-demo--v2 > .oc-demo__preview:has(> .oc-demo__hint) { align-content: space-between; }
+.oc-demo__hint {
+  flex: 1 1 100%;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--oc-muted-foreground);
+}
 .oc-demo--v2 > .oc-demo__preview {
   min-block-size: 7.5rem;
   margin: 0;
@@ -393,7 +423,9 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
 .oc-demo--v2:has(> .oc-demo__bar input[value="code-3"]:checked) > [data-code="3"],
 .oc-demo--v2:has(> .oc-demo__bar input[value="code-4"]:checked) > [data-code="4"],
 .oc-demo--v2:has(> .oc-demo__bar input[value="code-5"]:checked) > [data-code="5"],
-.oc-demo--v2:has(> .oc-demo__bar input[value="code-6"]:checked) > [data-code="6"] { display: block; }
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-6"]:checked) > [data-code="6"],
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-7"]:checked) > [data-code="7"],
+.oc-demo--v2:has(> .oc-demo__bar input[value="code-8"]:checked) > [data-code="8"] { display: block; }
 /* The width buttons only matter for the preview */
 .oc-demo--v2:has(> .oc-demo__bar input[value^="code-"]:checked) .oc-demo__widths { visibility: hidden; }
 /* Preview widths: the stage narrows and shows its edges */
@@ -512,17 +544,90 @@ body { font-family: var(--ocd-text); font-size: 15.5px; -webkit-font-smoothing: 
   .oc-topbar:not(.oc-theme-scope *) { flex-wrap: nowrap; gap: 0.6rem; }
   /* The free place for the menu button follows the smaller gap. */
   .oc-topbar:not(.oc-theme-scope *):not(:has(.ocd-nav-button)) .oc-topbar-brand:not(.oc-theme-scope *) { margin-inline-start: calc(2.15rem + 0.6rem); }
-  .oc-topbar-nav:not(.oc-theme-scope *) { min-inline-size: 0; overflow-x: auto; scrollbar-width: none; }
-  .oc-navmenu--site:not(.oc-theme-scope *) { flex-wrap: nowrap; }
-  .oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link { white-space: nowrap; padding-inline: 0.5rem; }
   .oc-topbar-brand:not(.oc-theme-scope *) .oc-badge-version { display: none; }
   :root { --ocm-footer-height: 0px; }
   .oc-footerbar--fixed { display: none; }
+}
+/* Tablets and phones (below 1020px the six links, GitHub and the actions no longer fit on one line): the site links
+   (OmniaCSS/OmniaUI · Docs · Components · Blocks · Starter kits · Webicons · GitHub) leave the top bar and open with
+   the menu button on every page, as a panel of two columns under the header. On docs pages the left menu (a drawer
+   from 900px down) opens right under that panel. Same order and items as on desktop; nothing is cut off. */
+@media (max-width: 1020px) {
+  .ocd-nav-button { display: grid; }
+  .oc-topbar:not(.oc-theme-scope *):has(.ocd-nav-button--site) .oc-topbar-brand:not(.oc-theme-scope *) { margin-inline-start: 0; }
+  .oc-topbar:not(.oc-theme-scope *):has(.ocd-nav-toggle:checked) { z-index: 1100; }
+  .oc-topbar-nav:not(.oc-theme-scope *) { display: none; }
+  .ocd-nav-toggle:checked ~ .oc-topbar-nav:not(.oc-theme-scope *) {
+    display: block;
+    position: absolute;
+    inset: 100% auto auto 0;
+    z-index: 1;
+    box-sizing: border-box;
+    inline-size: min(86vw, 20rem);
+    block-size: var(--ocd-sitenav-height);
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    background: var(--oc-background);
+    border-block-start: 1px solid var(--ocd-rule);
+    border-block-end: 1px solid var(--ocd-rule);
+    border-inline-end: 1px solid var(--ocd-rule);
+  }
+  .oc-navmenu--site:not(.oc-theme-scope *) { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 2.3rem; gap: 0.15rem 0.5rem; }
+  .oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link { block-size: 100%; box-sizing: border-box; white-space: nowrap; padding-inline: 0.5rem; }
+  .oc-navmenu--site:not(.oc-theme-scope *) > li:first-child > .oc-navmenu-link { box-sizing: border-box; inline-size: auto; }
+  .oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link[aria-current="page"] { background: var(--ocd-soft); }
+  .oc-navmenu--site:not(.oc-theme-scope *) .oc-navmenu-link[aria-current="page"]::after { inset: auto 0.5rem 0.2rem; }
+  body:has(.ocd-nav-toggle:checked) :is(.oc-docs-sidebar-left, .ocd-sidebar-left) { inset-block-start: calc(var(--ocm-header-height) + var(--ocd-sitenav-height)); }
 }
 
 /* Browser support table: the tooltips in its cells are absolutely positioned. Without a containing block on the
    scroll box they escape its overflow clip and widen the whole page on phones. */
 .oc-compat__scroll { position: relative; }
+
+/* Sideways scroll hint for wide docs tables (browser support, expandable reference tables, .oc-table-wrap in a demo
+   outside the blocks and the data table, which bring their own hint): the edge where more
+   columns wait fades out, driven by the box's own scroll position (scroll-driven animation, no JavaScript). A box
+   that does not scroll has an inactive timeline, so no fade. Browsers without scroll timelines show the plain box. */
+@property --ocd-fade-start { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --ocd-fade-end { syntax: "<length>"; inherits: false; initial-value: 0px; }
+/* 4rem: wide enough to read as "more to the side" on a phone, where a column cut at the edge otherwise looks broken. */
+@keyframes ocd-scroll-fade {
+  0% { --ocd-fade-start: 0px; --ocd-fade-end: 4rem; }
+  8% { --ocd-fade-start: 4rem; }
+  92% { --ocd-fade-end: 4rem; }
+  100% { --ocd-fade-start: 4rem; --ocd-fade-end: 0px; }
+}
+@supports (animation-timeline: scroll()) {
+  .oc-compat__scroll,
+  :is(.oc-docs-content, .ocd-content) .oc-expandable-table,
+  :is(.oc-docs-content, .ocd-content) .oc-palette-block,
+  .oc-demo__preview .oc-table-wrap:not([class*="oc-block-"] .oc-table-wrap, .oc-data-table .oc-table-wrap) {
+    animation: ocd-scroll-fade linear both;
+    animation-timeline: scroll(self inline);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--ocd-fade-start), #000 calc(100% - var(--ocd-fade-end)), transparent 100%);
+  }
+  :is(.oc-docs-content, .ocd-content) .oc-expandable-table:dir(rtl),
+  .oc-demo__preview .oc-table-wrap:not([class*="oc-block-"] .oc-table-wrap, .oc-data-table .oc-table-wrap):dir(rtl),
+  :is(.oc-docs-content, .ocd-content) .oc-palette-block:dir(rtl),
+  .oc-compat__scroll:dir(rtl) {
+    mask-image: linear-gradient(to left, transparent 0, #000 var(--ocd-fade-start), #000 calc(100% - var(--ocd-fade-end)), transparent 100%);
+  }
+}
+
+/* Mix strips (colors/palettes, RAL color-mix): on a phone eleven labels ("100%90%80%") run into each other; only
+   every other step keeps its label (100, 80, 60, 40, 20, 0), the swatches all stay. */
+@media (max-width: 30rem) {
+  .oc-mixstrip { gap: 3px; }
+  .oc-mixstrip > span:nth-child(even)::after { visibility: hidden; }
+}
+
+/* Palette grids (colors/palettes): on a phone the name column is narrower, so more swatches show before the grid
+   scrolls sideways (with the fade above). */
+@media (max-width: 40rem) {
+  :is(.oc-docs-content, .ocd-content) :is(.oc-palette-scale, .oc-palette-row):not(.oc-palette-scale--base, .oc-palette-row--base) {
+    grid-template-columns: 5.5rem repeat(var(--oc-palette-count, 10), minmax(30px, 1fr));
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .oc-demo--v2 > .oc-demo__preview, .oc-code-block > .oc-code-copy, .ocd-search-trigger { transition: none; }
