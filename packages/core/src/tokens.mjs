@@ -221,6 +221,12 @@ export function toCss(semantic, version) {
     lines.push(pad(`--oc-shadow-${name}: ${s.x}px ${s.y}px ${s.blur}px ${s.spread}px var(--oc-shadow-${name}-color);`));
   }
   lines.push("}", "");
+  // A fixed theme on <html> or any ancestor: data-theme="light|dark" or the class .light / .dark (Tailwind/shadcn
+  // apps). Setting color-scheme is enough: every light-dark() token above then resolves to that theme, also for
+  // the components and the dark: utilities, because unregistered custom properties resolve where they are used.
+  lines.push("/* Fixed theme: <html data-theme=\"dark\"> or <html class=\"dark\"> (also on any element: it themes that subtree). */");
+  lines.push("[data-theme=\"light\"], .light { color-scheme: light; }");
+  lines.push("[data-theme=\"dark\"], .dark { color-scheme: dark; }", "");
   return lines.join("\n");
 }
 

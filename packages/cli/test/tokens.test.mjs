@@ -102,6 +102,22 @@ test("css: light-dark() of Omnia palette tokens, the same source as the export",
   assert.doesNotMatch(css, /#[0-9a-f]{6}/i, "no hard-coded hex in the theme CSS");
 });
 
+test("css: a fixed theme via data-theme or the .light / .dark class sets color-scheme, so light-dark() follows it", async () => {
+  const css = run(await tmp(), "tokens", "--format", "css", "--out", "-");
+  assert.match(css, /\[data-theme="light"\], \.light \{ color-scheme: light; \}/);
+  assert.match(css, /\[data-theme="dark"\], \.dark \{ color-scheme: dark; \}/);
+});
+
+test("info: a semantic tone next to success / warning / destructive, with its foreground, in both modes", async () => {
+  const data = JSON.parse(run(await tmp(), "tokens", "--out", "-"));
+  for (const name of ["info", "info-foreground", "success", "warning", "destructive"]) {
+    for (const mode of ["light", "dark"]) assert.match(data.tokens[name][mode].hex, /^#[0-9a-f]{6}$/, `${name} ${mode}`);
+  }
+  const css = run(await tmp(), "tokens", "--format", "css", "--out", "-");
+  assert.match(css, /--oc-info: light-dark\(var\(--color-deepskyblue-70\), var\(--color-skyblue-50\)\);/);
+  assert.match(css, /--oc-info-foreground: var\(--color-shallowblue-95\);/);
+});
+
 test("unknown format fails with a clear message", async () => {
   const res = spawnSync(process.execPath, [bin, "tokens", "--format", "xml"], { cwd: await tmp(), encoding: "utf8" });
   assert.equal(res.status, 1);

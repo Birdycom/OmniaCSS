@@ -177,7 +177,7 @@
         <p><strong>Remembering the choice:</strong> pure CSS cannot persist state between page loads. The docs site adds one optional, tiny progressive-enhancement script that only stores the selected value in <code>localStorage</code> and restores it as <code>data-theme</code>. The switching itself never depends on it; without the script the page simply starts in "System" again.</p>
 
         <h3 class="oc-section-content__title">Fixed theme and the <code>dark:</code> variants</h3>
-        <p>Set a fixed theme in markup with <code>&lt;html data-theme="dark"&gt;</code> (or <code>class="dark"</code>). The <code>dark:</code> utilities apply below a <code>.dark</code> ancestor, so they are meant for pages that are dark from the server or from the markup.</p>
+        <p>Set a fixed theme in markup with <code>&lt;html data-theme="dark"&gt;</code> (or <code>class="dark"</code>; <code>class="light"</code> and <code>data-theme="light"</code> force light). The theme tokens (<code>oc-theme.css</code>) set <code>color-scheme</code> for both, so every <code>light-dark()</code> value follows the class too; do not reset <code>color-scheme</code> on <code>.dark</code> in your own CSS. The <code>dark:</code> utilities apply below a <code>.dark</code> ancestor, so they are meant for pages that are dark from the server or from the markup.</p>
         <oc-code>&lt;html class="dark"&gt;
   &lt;body&gt;
     &lt;div class="dark:bg-gray-900 dark:text-white"&gt;

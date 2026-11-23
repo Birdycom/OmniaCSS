@@ -34,6 +34,8 @@
   --oc-success-foreground: light-dark(var(--color-white-50), var(--color-shallowblue-95));
   --oc-warning: light-dark(var(--color-orange-95), var(--color-orange-50));
   --oc-warning-foreground: light-dark(var(--color-white-50), var(--color-shallowblue-95));
+  --oc-info: light-dark(var(--color-deepskyblue-70), var(--color-skyblue-50));
+  --oc-info-foreground: var(--color-shallowblue-95);
 
   /* Borders and inputs */
   --oc-border: light-dark(var(--color-frostblue-80), var(--color-duskblue-30));
@@ -69,6 +71,10 @@
   --oc-shadow-lg-color: light-dark(oklch(from var(--color-stormblue-50) l c h / 0.16), oklch(from var(--color-black-50) l c h / 0.6));
   --oc-shadow-lg: 0px 12px 32px -6px var(--oc-shadow-lg-color);
 }
+
+/* Fixed theme: <html data-theme="dark"> or <html class="dark"> (also on any element: it themes that subtree). */
+[data-theme="light"], .light { color-scheme: light; }
+[data-theme="dark"], .dark { color-scheme: dark; }
 
 /* File: packages/ui/src/components.css */
 /* Map: design tokens (light-dark) -> theme switching -> component primitives -> native components -> block helpers */
@@ -233,12 +239,16 @@
 /* ===================================================================
    THEME SWITCHING — no JavaScript needed
    1. Default: follows the operating system (color-scheme: light dark on :root).
-   2. Fixed:   <html data-theme="light"> or <html data-theme="dark"> (or the legacy .dark / .oc-theme-docs).
+   2. Fixed:   <html data-theme="light|dark">, or the class <html class="light|dark"> (Tailwind / shadcn apps);
+               also on any element, which then themes only that subtree. .oc-theme-docs is the old name for dark.
+               Only color-scheme is set: every light-dark() token resolves where it is used, so it follows.
+               Do not reset color-scheme (e.g. to normal) on .dark in your app: light-dark() then picks light.
    3. Switch:  .oc-theme-switch radio group anywhere on the page, picked up with :has().
    4. Scope:   a switch inside .oc-theme-scope themes only that element (previews, embedded widgets),
                not the page. Give every switch its own radio name.
    =================================================================== */
-[data-theme="light"] { color-scheme: light; }
+[data-theme="light"],
+.light { color-scheme: light; }
 [data-theme="dark"],
 .dark,
 .oc-theme-docs { color-scheme: dark; }
@@ -249,7 +259,7 @@
 .oc-theme-scope:has(.oc-theme-switch input[value="dark"]:checked) { color-scheme: dark; }
 /* A scope with a theme of its own (data-theme from a toggle button, or a light / dark switch inside it) takes the text
    color of that theme: the color of the page was resolved for the page's theme and would be inherited as it is. */
-.oc-theme-scope:is([data-theme="light"], [data-theme="dark"], :has(.oc-theme-switch input:is([value="light"], [value="dark"]):checked)) { color: var(--oc-foreground); }
+.oc-theme-scope:is([data-theme="light"], [data-theme="dark"], .light, .dark, :has(.oc-theme-switch input:is([value="light"], [value="dark"]):checked)) { color: var(--oc-foreground); }
 
 /* Base surface; :where() keeps specificity at zero so any project body style wins. */
 :where(body) {
@@ -1253,8 +1263,9 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
 .oc-alert--info {
-  border-color: color-mix(in srgb, var(--oc-primary) 40%, transparent);
-  background: color-mix(in srgb, var(--oc-primary) 5%, var(--oc-background));
+  --oc-alert-tone: var(--oc-info, light-dark(var(--color-deepskyblue-70), var(--color-skyblue-50)));
+  border-color: color-mix(in srgb, var(--oc-alert-tone) 40%, transparent);
+  background: color-mix(in srgb, var(--oc-alert-tone) 5%, var(--oc-background));
 }
 
 .oc-alert--success {
@@ -2881,10 +2892,13 @@ details.oc-accordion-item[open]::details-content {
 }
 
 /* ---- Badge: info ---- */
+/* --oc-info is a theme token (oc-theme.css); the light-dark() fallback keeps it working with an older oc-theme.css. */
 .oc-badge--info {
-  background: oklch(from var(--oc-primary) l c h / 0.12);
-  color: light-dark(oklch(from var(--oc-primary) min(l, 0.42) c h), var(--oc-primary));
-  border-color: oklch(from var(--oc-primary) l c h / 0.35);
+  --oc-badge-info: var(--oc-info, light-dark(var(--color-deepskyblue-70), var(--color-skyblue-50)));
+  background: oklch(from var(--oc-badge-info) l c h / 0.14);
+  /* Darker text in light mode so it reads at 4.5:1 on its own tint (same recipe as success / warning). */
+  color: light-dark(oklch(from var(--oc-badge-info) min(l, 0.42) c h), var(--oc-badge-info));
+  border-color: oklch(from var(--oc-badge-info) l c h / 0.4);
 }
 
 /* ===================================================================
@@ -3349,7 +3363,9 @@ dialog.oc-sheet--bottom .oc-sheet-content { border-block-start: 1px solid var(--
 .oc-toast--success { --oc-toast-color: var(--oc-success); }
 .oc-toast--error { --oc-toast-color: var(--oc-destructive); }
 .oc-toast--warning { --oc-toast-color: var(--oc-warning); }
-.oc-toast--info { --oc-toast-color: var(--oc-primary); }
+.oc-toast--info { --oc-toast-color: var(--oc-info, light-dark(var(--color-deepskyblue-70), var(--color-skyblue-50))); }
+/* The info tone is light; in light mode the icon takes a darker step of it, so it stays readable on the toast. */
+.oc-toast--info .oc-toast-icon { color: light-dark(oklch(from var(--oc-toast-color) min(l, 0.45) c h), var(--oc-toast-color)); }
 .oc-toast-icon { flex-shrink: 0; margin-block-start: 0.1rem; font-weight: 700; line-height: 1; color: var(--oc-toast-color); }
 .oc-toast-body { flex: 1; min-inline-size: 0; }
 .oc-toast-title { margin: 0; font-size: 0.875rem; font-weight: 600; color: var(--oc-foreground); }
@@ -6148,22 +6164,22 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 
 /* Light / dark image: two images, the one for the chosen theme is shown.
    <img class="oc-theme-img--light" …><img class="oc-theme-img--dark" …> (also on <picture> or any element).
-   Follows the operating system, <html data-theme>, .dark and a .oc-theme-switch on the page. */
+   Follows the operating system, <html data-theme>, the class .light / .dark and a .oc-theme-switch on the page. */
 .oc-theme-img--dark { display: none; }
 @media (prefers-color-scheme: dark) {
   .oc-theme-img--light { display: none; }
   .oc-theme-img--dark { display: revert; }
 }
-:is([data-theme="light"], :root:has(.oc-theme-switch input[value="light"]:checked:not(.oc-theme-scope *))) .oc-theme-img--light { display: revert; }
-:is([data-theme="light"], :root:has(.oc-theme-switch input[value="light"]:checked:not(.oc-theme-scope *))) .oc-theme-img--dark { display: none; }
+:is([data-theme="light"], .light, :root:has(.oc-theme-switch input[value="light"]:checked:not(.oc-theme-scope *))) .oc-theme-img--light { display: revert; }
+:is([data-theme="light"], .light, :root:has(.oc-theme-switch input[value="light"]:checked:not(.oc-theme-scope *))) .oc-theme-img--dark { display: none; }
 :is([data-theme="dark"], .dark, :root:has(.oc-theme-switch input[value="dark"]:checked:not(.oc-theme-scope *))) .oc-theme-img--light { display: none; }
 :is([data-theme="dark"], .dark, :root:has(.oc-theme-switch input[value="dark"]:checked:not(.oc-theme-scope *))) .oc-theme-img--dark { display: revert; }
 /* A .oc-theme-scope with its own theme (data-theme on the scope, or a switch inside it) wins over the page.
    The doubled class gives the same specificity as the rules above, so the order decides. */
-.oc-theme-scope.oc-theme-scope:is([data-theme="light"], :has(.oc-theme-switch input[value="light"]:checked)) .oc-theme-img--light { display: revert; }
-.oc-theme-scope.oc-theme-scope:is([data-theme="light"], :has(.oc-theme-switch input[value="light"]:checked)) .oc-theme-img--dark { display: none; }
-.oc-theme-scope.oc-theme-scope:is([data-theme="dark"], :has(.oc-theme-switch input[value="dark"]:checked)) .oc-theme-img--light { display: none; }
-.oc-theme-scope.oc-theme-scope:is([data-theme="dark"], :has(.oc-theme-switch input[value="dark"]:checked)) .oc-theme-img--dark { display: revert; }
+.oc-theme-scope.oc-theme-scope:is([data-theme="light"], .light, :has(.oc-theme-switch input[value="light"]:checked)) .oc-theme-img--light { display: revert; }
+.oc-theme-scope.oc-theme-scope:is([data-theme="light"], .light, :has(.oc-theme-switch input[value="light"]:checked)) .oc-theme-img--dark { display: none; }
+.oc-theme-scope.oc-theme-scope:is([data-theme="dark"], .dark, :has(.oc-theme-switch input[value="dark"]:checked)) .oc-theme-img--light { display: none; }
+.oc-theme-scope.oc-theme-scope:is([data-theme="dark"], .dark, :has(.oc-theme-switch input[value="dark"]:checked)) .oc-theme-img--dark { display: revert; }
 
 /* Card grid that scrolls sideways on a phone instead of stacking every card: one row with scroll snap.
    <div class="oc-card-grid oc-card-grid--scroll">. --oc-card-scroll-width is the width of a card (80%). */
