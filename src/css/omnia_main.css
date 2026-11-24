@@ -407983,6 +407983,11 @@ select {
   overflow-wrap: break-word;
 }
 
+/* Same as .wrap-break-word, under the name many projects already use. */
+.break-words {
+  overflow-wrap: break-word;
+}
+
 .wrap-anywhere {
   overflow-wrap: anywhere;
 }

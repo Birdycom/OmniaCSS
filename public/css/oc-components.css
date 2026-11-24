@@ -4358,6 +4358,13 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   font-weight: 700;
   text-wrap: balance;
 }
+/* A long word (a German or Dutch compound) breaks instead of running off a phone screen. Hyphens need a lang
+   attribute on the page; only words of 10+ letters get a hyphen, so a short title never gets a stray dash. */
+:is(.oc-display, .oc-display--page) {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
 .oc-display--md { font-size: clamp(1.9rem, 4vw, 3rem); }
 .oc-display--sm { font-size: clamp(1.5rem, 3vw, 2.1rem); }
 .oc-lead { margin: 0 0 1rem; color: var(--oc-muted-foreground); font-size: 1.15rem; line-height: 1.65; max-inline-size: 42rem; text-wrap: pretty; }
