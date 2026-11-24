@@ -11,7 +11,8 @@
         ],
         "fixed": [
           "Contact form block: under 30rem the inline padding is no longer a fixed 0.5rem. It follows --oc-block-gap (default 0.5rem), so a site that sets the gap keeps its alignment on phones.",
-          "Display titles (.oc-display and .oc-display--page): long words such as \"Datenschutzerklärung\" no longer run outside a 390px screen. They get overflow-wrap: break-word and hyphens: auto (only words of 10 letters or more)."
+          "Display titles (.oc-display and .oc-display--page): long words such as \"Datenschutzerklärung\" no longer run outside a 390px screen. They get overflow-wrap: break-word and hyphens: auto (only words of 10 letters or more).",
+          "Combobox: a closed combobox (data-open=\"false\") no longer turns its chevron upward or opens its list through the [data-open] selector."
         ]
       }
     },
