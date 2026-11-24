@@ -663,6 +663,13 @@ flex-direction: column;
   padding: 12px;
 }
 
+/* 0.18.0: bare card - the surface without padding or clipping; your own parts (a table, a list, a menu that may
+   stick out) go straight in. */
+.oc-card--bare {
+  padding: 0;
+  overflow: visible;
+}
+
 .oc-card--sm .oc-card-header,
 .oc-card--sm .oc-card-content,
 .oc-card--sm .oc-card-footer { padding: 12px 14px; }
@@ -1809,11 +1816,24 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
    Orientation: horizontal (default), vertical
    =================================================================== */
 
+/* 0.18.0: a row of tabs that does not fit scrolls sideways (a phone), without a scroll bar; the page does not scroll
+   along at the end (overscroll-behavior). The base line is an inset shadow instead of a border, so the 2px line of the
+   active tab is not cut off by the scroll box; focus rings sit inside the tabs. tabs.js and the wrappers scroll the
+   active tab into view. Vertical lists do not scroll. */
 .oc-tab-list {
   display: inline-flex;
   align-items: center;
-  border-bottom: 1px solid var(--oc-border);
+  vertical-align: top;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  white-space: nowrap;
+  box-shadow: inset 0 -1px 0 var(--oc-border);
 }
+.oc-tab-list::-webkit-scrollbar { display: none; }
+.oc-tab-list > .oc-tab-trigger { flex: none; }
 
 /* Line variant (default) */
 .oc-tab-trigger {
@@ -1824,7 +1844,7 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
+  margin-bottom: 0;
   cursor: pointer;
   font-family: inherit;
   transition: color var(--oc-transition-fast), border-color var(--oc-transition-fast);
@@ -1852,6 +1872,7 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
 /* Pill/contained variant */
 .oc-tab-list--pill {
   border-bottom: none;
+  box-shadow: none;
   background: var(--oc-muted);
   border-radius: var(--oc-radius);
   padding: 4px;
@@ -1877,7 +1898,11 @@ input.oc-radio:disabled { opacity: 0.5; cursor: not-allowed; }
   flex-direction: column;
   /* Every tab as wide as the list, so the active line on the right stays on one vertical line. */
   align-items: stretch;
+  max-inline-size: none;
+  overflow: visible;
+  white-space: normal;
   border-bottom: none;
+  box-shadow: none;
   border-right: 1px solid var(--oc-border);
 }
 
@@ -3179,7 +3204,9 @@ dialog.oc-sheet[open]::backdrop { opacity: 1; }
   translate: var(--oc-sheet-from);
   transition: translate var(--oc-sheet-duration, 0.3s) cubic-bezier(0.32, 0.72, 0, 1);
 }
-dialog.oc-sheet[open] .oc-sheet-content { translate: 0 0; }
+/* none, not 0 0 (0.18.0): any translate value makes the panel the containing block of position: fixed children, so a
+   fixed tooltip or list inside an open sheet would be placed against the panel instead of the viewport. */
+dialog.oc-sheet[open] .oc-sheet-content { translate: none; }
 @starting-style { dialog.oc-sheet[open] .oc-sheet-content { translate: var(--oc-sheet-from); } }
 dialog.oc-sheet:has(> .oc-sheet-content--wide) { inline-size: min(40rem, 100%); }
 dialog.oc-sheet--left { --oc-sheet-from: -100% 0; justify-content: flex-start; margin-inline: 0 auto; }
@@ -6116,6 +6143,16 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 }
 .oc-scroll-area:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 2px; }
 .oc-scroll-area--x { max-block-size: none; overflow-y: hidden; white-space: nowrap; }
+/* 0.18.0: bare - only the scrolling and the themed scrollbar (and the focus ring); no padding, frame or height cap.
+   Size it with your layout (flex: 1 with min-block-size: 0, a block-size). Before --shadows so the two still combine. */
+.oc-scroll-area--bare {
+  max-block-size: none;
+  padding: 0;
+  font-size: inherit;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
 /* shadows at the edges that still have content to scroll to (pure CSS, no JavaScript) */
 .oc-scroll-area--shadows {
   --oc-scroll-shadow: oklch(from var(--oc-foreground) l c h / 0.18);
@@ -6543,7 +6580,7 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-callout__action { flex-shrink: 0; display: flex; gap: 0.5rem; }
 
 /* parts/app-compound-overlays.css */
-/* File: packages/ui/src/parts/app-compound-overlays.css | Map: compound tabs root (vertical) -> scrolling dialog content -> popover side/align/offset -> tooltip provider, delay and controlled open */
+/* File: packages/ui/src/parts/app-compound-overlays.css | Map: compound tabs root (vertical) -> scrolling dialog content -> popover + dropdown side/align/offset -> popover match width -> toggle dropdown side/align -> tooltip provider, delay and controlled open -> tooltip in a sidebar */
 /* 0.17.0 compound API for Tabs, Dialog, Popover and Tooltip. Same classes as the props API; this part only adds what the
    compound parts need: a root for class-toggle tabs, a dialog whose body scrolls between a fixed header and footer, popover
    placement by data-side / data-align, and the tooltip delay and controlled state. */
@@ -6570,7 +6607,8 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-modal-content--scroll > .oc-modal-header { padding-block-end: 16px; border-block-end: 1px solid var(--oc-border); }
 .oc-modal-content--scroll > .oc-modal-body { min-block-size: 0; overflow-y: auto; overscroll-behavior: contain; }
 
-/* ---- Popover: side, align and offset (compound PopoverContent sets data-side / data-align) ---- */
+/* ---- Popover and dropdown menu: side, align and offset ----
+   Compound PopoverContent sets data-side / data-align; 0.18.0: the dropdown menu takes the same (side / align props). */
 .oc-popover[popover][data-side] { margin: 0; }
 .oc-popover[popover][data-side="bottom"] { margin-block-start: var(--oc-popover-offset, 4px); position-area: block-end span-inline-end; position-try-fallbacks: flip-block, flip-inline; }
 .oc-popover[popover][data-side="bottom"][data-align="center"] { position-area: block-end; }
@@ -6584,6 +6622,36 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-popover[popover][data-side="left"] { margin-inline-end: var(--oc-popover-offset, 4px); position-area: inline-start span-block-end; position-try-fallbacks: flip-inline, flip-block; }
 .oc-popover[popover][data-side="left"][data-align="center"] { position-area: inline-start; }
 .oc-popover[popover][data-side="left"][data-align="end"] { position-area: inline-start span-block-start; }
+.oc-dropdown-menu[popover][data-side] { margin: 0; }
+.oc-dropdown-menu[popover][data-side="bottom"] { margin-block-start: var(--oc-popover-offset, 4px); position-area: block-end span-inline-end; position-try-fallbacks: flip-block, flip-inline; }
+.oc-dropdown-menu[popover][data-side="bottom"][data-align="center"] { position-area: block-end; }
+.oc-dropdown-menu[popover][data-side="bottom"][data-align="end"] { position-area: block-end span-inline-start; }
+.oc-dropdown-menu[popover][data-side="top"] { margin-block-end: var(--oc-popover-offset, 4px); position-area: block-start span-inline-end; position-try-fallbacks: flip-block, flip-inline; }
+.oc-dropdown-menu[popover][data-side="top"][data-align="center"] { position-area: block-start; }
+.oc-dropdown-menu[popover][data-side="top"][data-align="end"] { position-area: block-start span-inline-start; }
+.oc-dropdown-menu[popover][data-side="right"] { margin-inline-start: var(--oc-popover-offset, 4px); position-area: inline-end span-block-end; position-try-fallbacks: flip-inline, flip-block; }
+.oc-dropdown-menu[popover][data-side="right"][data-align="center"] { position-area: inline-end; }
+.oc-dropdown-menu[popover][data-side="right"][data-align="end"] { position-area: inline-end span-block-start; }
+.oc-dropdown-menu[popover][data-side="left"] { margin-inline-end: var(--oc-popover-offset, 4px); position-area: inline-start span-block-end; position-try-fallbacks: flip-inline, flip-block; }
+.oc-dropdown-menu[popover][data-side="left"][data-align="center"] { position-area: inline-start; }
+.oc-dropdown-menu[popover][data-side="left"][data-align="end"] { position-area: inline-start span-block-start; }
+
+/* 0.18.0 Popover as wide as its trigger (or PopoverAnchor): data-match-width. Browsers without anchor-size() get the
+   trigger width in px from the React / Vue wrapper; the 18rem default no longer applies. */
+.oc-popover[popover][data-match-width] { inline-size: auto; min-inline-size: 0; }
+@supports (inline-size: anchor-size(width)) {
+  .oc-popover[popover][data-match-width] { inline-size: anchor-size(width); }
+}
+
+/* 0.18.0 Dropdown in toggle mode (.oc-dropdown > .oc-dropdown-menu, in the page): the same side / align, as fixed places. */
+.oc-dropdown > .oc-dropdown-menu[data-align="end"] { left: auto; right: 0; }
+.oc-dropdown > .oc-dropdown-menu[data-align="center"] { left: 50%; translate: -50% 0; }
+.oc-dropdown > .oc-dropdown-menu[data-side="top"] { top: auto; bottom: 100%; margin-top: 0; margin-bottom: 4px; }
+.oc-dropdown > .oc-dropdown-menu:is([data-side="left"], [data-side="right"]) { top: 0; margin-top: 0; }
+.oc-dropdown > .oc-dropdown-menu:is([data-side="left"], [data-side="right"])[data-align="end"] { top: auto; bottom: 0; }
+.oc-dropdown > .oc-dropdown-menu:is([data-side="left"], [data-side="right"])[data-align="center"] { top: 50%; left: auto; translate: 0 -50%; }
+.oc-dropdown > .oc-dropdown-menu[data-side="right"] { left: 100%; right: auto; margin-left: 4px; }
+.oc-dropdown > .oc-dropdown-menu[data-side="left"] { left: auto; right: 100%; margin-right: 4px; }
 
 /* ---- Tooltip: provider, delay, controlled open ---- */
 .oc-tooltip-provider { display: contents; }
@@ -6611,6 +6679,17 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 }
 /* Rich content may hold links: let the pointer reach it while it is shown. */
 .oc-tooltip.is-open > .oc-tooltip__content { pointer-events: auto; }
+
+/* ---- Tooltip in a sidebar (0.18.0) ----
+   Where the bubble cannot be fixed with anchor positioning it is absolute, and the scrolling .oc-sidebar-content cut it
+   off: the side tooltips of a collapsed (icon-only) sidebar stuck out of its narrow column. A collapsed sidebar lets
+   them out; it holds only icons, so it rarely needs to scroll. Rich content (.oc-tooltip__content) needs anchor-scope. */
+@supports not (position-area: top) {
+  .oc-sidebar--collapsed .oc-sidebar-content { overflow: visible; }
+}
+@supports (position-area: top) and (not (anchor-scope: all)) {
+  .oc-sidebar--collapsed .oc-sidebar-content:has(.oc-tooltip__content) { overflow: visible; }
+}
 
 /* parts/app-confirm-dialog.css */
 /* File: packages/ui/src/parts/app-confirm-dialog.css | Map: confirm modifier (icon ring) -> close button -> typed confirm field -> confirm lock -> three-button footer -> narrow screens */
@@ -7413,7 +7492,8 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 
 /* parts/app-mode-badge.css */
 /* File: packages/ui/src/parts/app-mode-badge.css
-   Map: mode tokens -> mode badge (test, live, both as two parts; sizes) -> card accent (border + band in the tone)
+   Map: mode tokens -> mode badge (test, live, both as two parts; staging, offline; sizes) -> environment frame (0.18.0)
+        -> card accent (border + band in the tone)
         -> code plate (a white plate around a QR code or barcode, caption on the plate) -> print -> forced colors
    Test and live apart at a glance: a mode badge in fixed colors (the same in light and dark mode, also on a photo or a
    print), a card with a colored band for a set that belongs to one mode, and a caption on the white plate of a code.
@@ -7423,6 +7503,8 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   --oc-mode-test: var(--color-orange-20);
   --oc-mode-live: var(--color-green-10);
   --oc-mode-ink: var(--color-duskblue-90);
+  --oc-mode-staging: var(--color-cornflowerblue-20);
+  --oc-mode-offline: var(--color-lightgray-20);
 }
 
 /* Mode badge: <span class="oc-mode-badge" data-mode="test">Test</span>. Both: two parts side by side,
@@ -7446,6 +7528,9 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   vertical-align: middle;
 }
 .oc-mode-badge[data-mode="live"] { --oc-mode: var(--oc-mode-live); }
+/* 0.18.0: a staging (acceptance) environment and an app that runs offline. */
+.oc-mode-badge[data-mode="staging"] { --oc-mode: var(--oc-mode-staging); }
+.oc-mode-badge[data-mode="offline"] { --oc-mode: var(--oc-mode-offline); }
 .oc-mode-badge[data-mode="both"] { padding: 0; background: none; }
 .oc-mode-badge[data-mode="both"] > * { padding: 0.2rem 0.6rem; background: var(--oc-mode-test); }
 .oc-mode-badge[data-mode="both"] > * + * { background: var(--oc-mode-live); }
@@ -7455,6 +7540,24 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-mode-badge--lg { font-size: 1rem; letter-spacing: 0.12em; }
 .oc-mode-badge--lg:not([data-mode="both"]),
 .oc-mode-badge--lg[data-mode="both"] > * { padding: 0.35rem 0.9rem; }
+
+/* Environment frame (0.18.0): a colored line around the whole viewport, so nobody mistakes the live app for a test (or
+   the other way round). Fixed, above the page, pointer-events: none (never blocks a click), inside the safe area.
+   <div class="oc-env-frame" data-mode="live" aria-hidden="true"></div>; width --oc-env-frame-width (4px), color
+   --oc-env-color (default: the mode color). Say the mode in text too (a mode badge): a color alone is not enough. */
+.oc-env-frame {
+  --oc-env-color: var(--oc-mode-test);
+  position: fixed;
+  inset: 0;
+  z-index: 2147483600;
+  pointer-events: none;
+  border: var(--oc-env-frame-width, 4px) solid var(--oc-env-color);
+}
+.oc-env-frame[data-mode="live"] { --oc-env-color: var(--oc-mode-live); }
+.oc-env-frame[data-mode="staging"] { --oc-env-color: var(--oc-mode-staging); }
+.oc-env-frame[data-mode="offline"] { --oc-env-color: var(--oc-mode-offline); }
+/* inside a demo or a preview: the frame of a container (position: relative on the parent) */
+.oc-env-frame.oc-env-frame--contained { position: absolute; z-index: 1; border-radius: inherit; }
 
 /* Card accent: the card belongs to one tone or mode. A 2px border in that color and, optionally, a band at the top
    (.oc-card-band) on a soft background with a label, a title and a status. data-tone: primary, info, success,
@@ -7549,6 +7652,7 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
   .oc-card-band,
   .oc-code-plate__caption,
   .oc-code-plate__caption > * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .oc-env-frame { display: none; }
 }
 @media (forced-colors: active) {
   .oc-mode-badge,
@@ -7905,10 +8009,11 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-result--center .oc-result__actions { justify-content: center; }
 
 /* parts/app-severity-card.css */
-/* File: packages/ui/src/parts/app-severity-card.css | Map: card (details) -> head (summary) -> icon + title + tags -> level badge + chevron -> body + actions -> severity modifiers -> resolved state -> reduced motion */
+/* File: packages/ui/src/parts/app-severity-card.css | Map: card (details) -> head (summary) -> icon + title + tags -> level badge + chevron -> body + actions -> severity modifiers (+ calm) -> resolved state -> compact row (0.18.0) -> reduced motion */
 /* Severity card: risk-colored expandable card (security finding, incident, audit item).
    Built on <details> / <summary>, so it opens without JavaScript; same name="..." makes a group exclusive.
-   Levels: --low, --medium, --high, --critical. Resolved: .is-resolved (muted, no color). */
+   Levels: --calm (0.18.0), --low, --medium, --high, --critical. Resolved: .is-resolved (muted, no color).
+   --compact (0.18.0): a row for a list of alerts (a div, no <details>): start border + tint per level, no chevron. */
 
 .oc-severity-card {
   --oc-severity-color: var(--oc-muted-foreground);
@@ -7987,6 +8092,7 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-severity-card-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-start: 0.75rem; }
 
 /* Levels (theme tokens; critical is a deeper red). */
+.oc-severity-card--calm { --oc-severity-color: var(--oc-info, var(--oc-primary)); }
 .oc-severity-card--low { --oc-severity-color: var(--oc-success); }
 .oc-severity-card--medium { --oc-severity-color: var(--oc-warning); }
 .oc-severity-card--high { --oc-severity-color: var(--oc-destructive); }
@@ -7997,6 +8103,20 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 .oc-severity-card.is-resolved { --oc-severity-color: var(--oc-muted-foreground); background: var(--oc-surface); }
 .oc-severity-card.is-resolved .oc-severity-card-title { text-decoration: line-through; }
 
+/* Compact (0.18.0): one row per alert in a list ("Attention"): the start border and tint of the level, icon, title, an
+   optional line of text, tags and the level badge; no chevron and nothing to open. Put actions at the end of the row. */
+.oc-severity-card--compact { border-radius: var(--oc-radius); }
+.oc-severity-card--compact + .oc-severity-card--compact { margin-block-start: 0.375rem; }
+.oc-stack > .oc-severity-card--compact + .oc-severity-card--compact { margin-block-start: 0; }
+.oc-severity-card--compact > .oc-severity-card-head { gap: 0.625rem; padding: 0.5rem 0.75rem; cursor: default; user-select: auto; }
+.oc-severity-card--compact > .oc-severity-card-head::after { content: none; }
+.oc-severity-card--compact > .oc-severity-card-head:hover { background: none; }
+.oc-severity-card--compact .oc-severity-card-icon svg { inline-size: 1rem; block-size: 1rem; }
+.oc-severity-card--compact .oc-severity-card-tags { margin-block-start: 0.25rem; }
+.oc-severity-card-text { display: block; margin-block-start: 0.125rem; font-size: 0.8125rem; line-height: 1.45; color: var(--oc-muted-foreground); }
+.oc-severity-card--compact .oc-severity-card-actions { flex-shrink: 0; margin-block-start: 0; gap: 0.25rem; }
+.oc-severity-card--compact .oc-severity-card-level { padding: 0.125rem 0.4rem; font-size: 0.625rem; }
+
 @media (prefers-reduced-motion: reduce) {
   .oc-severity-card::details-content,
   .oc-severity-card-head::after { transition: none; }
@@ -8005,7 +8125,8 @@ input.oc-input[type="month"] { inline-size: auto; min-inline-size: 11rem; }
 /* parts/app-sheet-options.css */
 /* File: packages/ui/src/parts/app-sheet-options.css
    Map: tokens (panel, scrim) -> glass sheet (blur, light scrim without blur, fallbacks) -> inset (a strip of the page
-        stays free) -> footer panel (own background, safe area) -> plain collapsible -> reduced motion / transparency
+        stays free) -> footer panel (own background, safe area) -> bottom sheet centered on a wide screen, floating, rounded (0.18.0)
+        -> plain collapsible -> reduced motion / transparency
    Options of the sheet for panels over a live view (a map, a game, a dashboard), plus the plain collapsible for lists
    inside such a panel. Theme tokens only; the glass is a calm see-through surface, no gradients. */
 
@@ -8060,6 +8181,48 @@ dialog.oc-sheet--glass .oc-sheet-footer--panel { --oc-sheet-footer-bg: color-mix
 @media (prefers-reduced-transparency: reduce) {
   dialog.oc-sheet--glass .oc-sheet-footer--panel { --oc-sheet-footer-bg: var(--oc-card); }
 }
+
+/* Bottom sheet on a wide screen (0.18.0): from 48rem it is no longer as wide as the screen, but centered with a maximum
+   width (--oc-sheet-max, default 40rem), with borders on its sides. Phones keep the full-width sheet. */
+@media (min-width: 48rem) {
+  dialog.oc-sheet.oc-sheet--bottom,
+  dialog.oc-sheet--inset.oc-sheet--bottom { inline-size: min(var(--oc-sheet-max, 40rem), 100%); margin-inline: auto; }
+  dialog.oc-sheet--bottom .oc-sheet-content { border-inline: 1px solid var(--oc-border); }
+}
+
+/* Rounded (0.18.0): the corners that face the page are rounded (--oc-sheet-radius, default --oc-radius-xl). */
+dialog.oc-sheet--rounded { --oc-sheet-radius: var(--oc-radius-xl, calc(var(--oc-radius) + 8px)); }
+dialog.oc-sheet--rounded .oc-sheet-content { overflow: clip; border-start-start-radius: var(--oc-sheet-radius); border-end-start-radius: var(--oc-sheet-radius); }
+dialog.oc-sheet--rounded.oc-sheet--left .oc-sheet-content { border-radius: 0 var(--oc-sheet-radius) var(--oc-sheet-radius) 0; }
+dialog.oc-sheet--rounded.oc-sheet--left:dir(rtl) .oc-sheet-content { border-radius: var(--oc-sheet-radius) 0 0 var(--oc-sheet-radius); }
+dialog.oc-sheet--rounded.oc-sheet--bottom .oc-sheet-content { border-radius: var(--oc-sheet-radius) var(--oc-sheet-radius) 0 0; }
+dialog.oc-sheet--rounded.oc-sheet--top .oc-sheet-content { border-radius: 0 0 var(--oc-sheet-radius) var(--oc-sheet-radius); }
+
+/* Floating (0.18.0): the panel floats free of the edge, with a margin on every side (--oc-sheet-margin), all corners
+   rounded (--oc-radius-xl) and a border all around; it slides in from just beyond the edge. A side panel keeps the
+   full height minus the margins; a top or bottom sheet is centered with --oc-sheet-max. Not the same as --inset (a
+   strip of the page beside a panel on a phone). */
+dialog.oc-sheet--floating {
+  --oc-sheet-margin: 0.75rem;
+  --oc-sheet-radius: var(--oc-radius-xl, calc(var(--oc-radius) + 8px));
+  --oc-sheet-from: calc(100% + var(--oc-sheet-margin) + 1rem) 0;
+  padding: var(--oc-sheet-margin);
+  inline-size: min(calc(24rem + 2 * var(--oc-sheet-margin)), 100%);
+}
+dialog.oc-sheet--floating:has(> .oc-sheet-content--wide) { inline-size: min(calc(40rem + 2 * var(--oc-sheet-margin)), 100%); }
+dialog.oc-sheet--floating .oc-sheet-content {
+  overflow: clip;
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-sheet-radius);
+}
+dialog.oc-sheet--floating.oc-sheet--left { --oc-sheet-from: calc(-100% - var(--oc-sheet-margin) - 1rem) 0; }
+dialog.oc-sheet.oc-sheet--floating:is(.oc-sheet--top, .oc-sheet--bottom) {
+  inline-size: min(calc(var(--oc-sheet-max, 40rem) + 2 * var(--oc-sheet-margin)), 100%);
+  margin-inline: auto;
+}
+dialog.oc-sheet--floating.oc-sheet--bottom { --oc-sheet-from: 0 calc(100% + var(--oc-sheet-margin) + 1rem); padding-block-end: max(var(--oc-sheet-margin), env(safe-area-inset-bottom)); }
+dialog.oc-sheet--floating.oc-sheet--top { --oc-sheet-from: 0 calc(-100% - var(--oc-sheet-margin) - 1rem); }
+dialog.oc-sheet--floating:is(.oc-sheet--top, .oc-sheet--bottom) .oc-sheet-content { max-block-size: calc(85dvh - 2 * var(--oc-sheet-margin)); }
 
 /* Plain collapsible: no card (no background, border or shadow), for a list of sections inside a panel or a block.
    Large rows, a thin line between neighbours, the content without its own border. */
@@ -8243,6 +8406,113 @@ li:has(> .oc-sidebar-menu-action) > .oc-sidebar-menu-button { padding-inline-end
 }
 .oc-sidebar[data-module] .oc-sidebar-menu-button[aria-current="page"] .oc-sidebar-menu-icon,
 .oc-sidebar[data-module] .oc-sidebar-menu-button.is-active .oc-sidebar-menu-icon { color: var(--oc-module, var(--oc-primary)); }
+
+/* parts/app-sortable-list.css */
+/* File: packages/ui/src/parts/app-sortable-list.css
+   Map: list (ul / ol, counters) -> item row (grip, body, arrows) -> states (grabbed, dragging) -> drop line -> drag ghost
+        -> reduced motion -> forced colors
+   Sortable list (0.18.0): a plain list whose items can be reordered with a finger, pen or mouse (pointer events) or the
+   keyboard (Space + arrows), by packages/ui/src/sortable-list.js. The grip reuses .oc-sortable-row-grip (six dots).
+   .oc-dropline is the line where the item lands, .oc-drag-ghost the copy that follows the pointer. Flat: a border and a
+   normal shadow, no glow. */
+
+.oc-sortable-list {
+  display: grid;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: oc-sortable;
+}
+.oc-sortable-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-block-size: 2.75rem;
+  padding: 0.375rem 0.5rem;
+  color: var(--oc-foreground);
+  background: var(--oc-card);
+  border: 1px solid var(--oc-border);
+  border-radius: var(--oc-radius);
+  counter-increment: oc-sortable;
+  transition: opacity var(--oc-transition-fast), background var(--oc-transition-fast), border-color var(--oc-transition-fast);
+}
+.oc-sortable-item > .oc-sortable-row-grip { flex: none; block-size: 2rem; }
+.oc-sortable-item__body { flex: 1 1 auto; min-inline-size: 0; overflow-wrap: anywhere; }
+/* ol: the position before the text (1., 2., ...), from a CSS counter, so it follows the new order without script. */
+ol.oc-sortable-list > .oc-sortable-item > .oc-sortable-item__body::before {
+  content: counter(oc-sortable) ".";
+  display: inline-block;
+  min-inline-size: 1.75em;
+  color: var(--oc-muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+/* Optional up / down buttons for people who do not drag. */
+.oc-sortable-item__arrows { display: inline-flex; flex: none; gap: 0.125rem; }
+.oc-sortable-item__arrows > button {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  padding: 0;
+  color: var(--oc-muted-foreground);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: calc(var(--oc-radius) - 2px);
+  cursor: pointer;
+}
+.oc-sortable-item__arrows > button:hover { color: var(--oc-foreground); background: var(--oc-accent); }
+.oc-sortable-item__arrows > button:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
+.oc-sortable-item__arrows > button:disabled { opacity: 0.35; cursor: not-allowed; }
+.oc-sortable-item__arrows svg { inline-size: 1.125rem; block-size: 1.125rem; }
+/* The first item cannot go up, the last cannot go down. */
+.oc-sortable-item:first-child [data-oc-move="up"],
+.oc-sortable-item:last-of-type [data-oc-move="down"] { opacity: 0.35; pointer-events: none; }
+
+/* Picked up with the keyboard: primary border and tint. */
+.oc-sortable-item--grabbed {
+  background: color-mix(in oklab, var(--oc-primary) 8%, var(--oc-card));
+  border-color: var(--oc-primary);
+}
+.oc-sortable-item--grabbed .oc-sortable-row-grip { color: var(--oc-primary); }
+/* The original place while dragging: dashed and faded, so you see where it came from. */
+.oc-sortable-item--dragging { opacity: 0.4; border-style: dashed; }
+.oc-sortable-list.is-sorting { cursor: grabbing; user-select: none; }
+
+/* Drop line: where the item lands (an li in the list, outside the counter). */
+.oc-dropline {
+  display: block;
+  block-size: 0;
+  margin-block: -0.1875rem;
+  border-block-start: 2px solid var(--oc-primary);
+  border-radius: 2px;
+  list-style: none;
+  counter-increment: none;
+  pointer-events: none;
+}
+
+/* Drag ghost: a copy of the item that follows the pointer, slightly tilted, above everything. */
+.oc-drag-ghost {
+  position: fixed;
+  z-index: 2147483000;
+  margin: 0;
+  list-style: none;
+  pointer-events: none;
+  box-sizing: border-box;
+  rotate: 1.5deg;
+  border-color: var(--oc-primary);
+  box-shadow: 0 8px 20px -8px oklch(0% 0 0deg / 0.35);
+  opacity: 0.95;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-sortable-item { transition: none; }
+  .oc-drag-ghost { rotate: none; }
+}
+@media (forced-colors: active) {
+  .oc-dropline { border-color: Highlight; }
+  .oc-sortable-item--grabbed { border-color: Highlight; }
+}
 
 /* parts/app-sortable-row.css */
 /* File: packages/ui/src/parts/app-sortable-row.css | Map: grip cell -> grip button (dots) -> row states (dragging, drop before / after) -> reduced motion */
@@ -8430,6 +8700,20 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 }
 .oc-status__text { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .oc-status__meta { flex: none; margin-inline-start: auto; color: var(--oc-muted-foreground); font-variant-numeric: tabular-nums; }
+
+/* --compact (0.18.0): only the dot (a sync light on a menu button); the text stays for screen readers (and the title). */
+.oc-status.oc-status--compact { display: inline-flex; gap: 0.25rem; }
+.oc-status--compact > .oc-status__text,
+.oc-status--compact > .oc-status__meta {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* the number of changes waiting next to the dot of a compact sync status */
+.oc-status__count { font-size: 0.6875rem; font-weight: 600; line-height: 1; color: var(--oc-muted-foreground); font-variant-numeric: tabular-nums; }
 
 @media (prefers-reduced-motion: reduce) {
   .oc-status-dot--working::after { animation: none; }
@@ -8685,6 +8969,29 @@ button.oc-stat-card:focus-visible { outline: 2px solid var(--oc-ring); outline-o
 @media (prefers-reduced-motion: reduce) {
   .oc-titlebar-window > .oc-titlebar { animation: none; }
 }
+
+/* parts/app-toast-action.css */
+/* File: packages/ui/src/parts/app-toast-action.css | Map: action button in a toast (0.18.0) -> narrow screens
+   A toast with an action ("Undo"): a small outline button between the text and the close button. It is a real button,
+   so it is in the tab order and works with Enter or Space; clicking it runs the action and closes the toast. */
+.oc-toast { align-items: flex-start; }
+.oc-toast-action {
+  flex: none;
+  align-self: center;
+  min-block-size: 1.75rem;
+  padding: 0.25rem 0.625rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--oc-foreground);
+  background: var(--oc-popover);
+  border: 1px solid color-mix(in srgb, var(--oc-toast-color) 45%, var(--oc-border));
+  border-radius: calc(var(--oc-radius) - 2px);
+  cursor: pointer;
+}
+.oc-toast-action:hover { background: var(--oc-accent); }
+.oc-toast-action:focus-visible { outline: 2px solid var(--oc-ring); outline-offset: 1px; }
 
 /* parts/app-top-progress.css */
 /* File: packages/ui/src/parts/app-top-progress.css | Map: bar (fixed, native progress) -> determinate value -> indeterminate animation -> color + static modifiers -> done state -> reduced motion */
@@ -9551,6 +9858,34 @@ button.oc-block-type-picker-item {
   letter-spacing: 0.04em;
 }
 
+/* parts/data-dl-stat.css */
+/* File: packages/ui/src/parts/data-dl-stat.css
+   Map: stat list (dl.oc-dl--stat: label and value on one row, always) -> sublabel -> total row -> in a panel
+   Stat list (0.18.0): a score or cost breakdown on the definition list rows. Label left, value right in tabular numbers,
+   a thin line between the rows, an optional sublabel under the label and a total row (.oc-dl-row--total) with a stronger
+   line above it. Works on its own (no panel) or inside .oc-dl-panel. */
+
+.oc-dl.oc-dl--stat { margin: 0; border-block-start: 0; }
+.oc-dl--stat > .oc-dl-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.125rem 1rem;
+  padding: 0.5rem 0;
+}
+.oc-dl--stat > .oc-dl-row:last-child { padding-block-end: 0.5rem; }
+.oc-dl--stat .oc-dl-term { color: var(--oc-foreground); }
+.oc-dl--stat .oc-dl-detail { font-weight: 600; text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.oc-dl-sub { display: block; margin-block-start: 0.125rem; font-size: 0.8125rem; color: var(--oc-muted-foreground); }
+.oc-dl--stat > .oc-dl-row--total {
+  margin-block-start: 0.125rem;
+  border-block-start: 2px solid var(--oc-foreground);
+  border-block-end: 0;
+}
+.oc-dl--stat > .oc-dl-row--total .oc-dl-term,
+.oc-dl--stat > .oc-dl-row--total .oc-dl-detail { font-weight: 700; }
+.oc-dl--stat > .oc-dl-row:has(+ .oc-dl-row--total) { border-block-end: 0; }
+.oc-dl-panel > .oc-dl--stat { margin-block-start: 0.5rem; }
+
 /* parts/data-graph.css */
 /* File: packages/ui/src/parts/data-graph.css
    Map: frame -> edges (moving dashes) -> nodes (halo, dot, mark, label) -> levels -> center node + pulse -> focus
@@ -9816,6 +10151,73 @@ button.oc-block-type-picker-item {
 .oc-price--inline .oc-price__amount { font-size: inherit; font-weight: 600; }
 td[data-numeric] > .oc-price, .oc-price--end { justify-items: end; text-align: end; }
 td[data-numeric] > .oc-price .oc-price__main, .oc-price--end .oc-price__main { justify-content: flex-end; }
+
+/* parts/data-progress-split.css */
+/* File: packages/ui/src/parts/data-progress-split.css
+   Map: striped track (oc-progress--striped) -> split bar (oc-progress--split: segments in tones, thin gaps) -> forced colors
+   Progress extras (0.18.0), on the .oc-progress track of components.css.
+   --striped: the part that is still to do is hatched with flat diagonal stripes (hard color stops, no shine or glow);
+     the filled bar stays plain. --oc-progress-stripe sets the stripe color.
+   --split: a split bar (right / wrong, done / open / late): .oc-progress-segment children side by side, each sized in
+     percent of the total, with a tone class; a 2px gap keeps the parts apart, the rest of the track stays empty. */
+
+.oc-progress--striped {
+  --oc-progress-stripe: color-mix(in oklab, var(--oc-muted-foreground) 22%, var(--oc-muted));
+  background-color: var(--oc-muted);
+  background-image: repeating-linear-gradient(-45deg, var(--oc-progress-stripe) 0 3px, transparent 3px 7px);
+}
+
+.oc-progress--split {
+  display: flex;
+  gap: 2px;
+}
+.oc-progress-segment {
+  --oc-progress-color: var(--oc-primary);
+  display: block;
+  flex: none;
+  min-inline-size: 0;
+  block-size: 100%;
+  background: var(--oc-progress-color);
+  transition: inline-size 300ms ease;
+}
+.oc-progress--split > .oc-progress-segment:first-child { border-start-start-radius: 999px; border-end-start-radius: 999px; }
+.oc-progress--split > .oc-progress-segment:last-child { border-start-end-radius: 999px; border-end-end-radius: 999px; }
+.oc-progress-segment--success { --oc-progress-color: var(--oc-success); }
+.oc-progress-segment--warning { --oc-progress-color: var(--oc-warning); }
+.oc-progress-segment--danger { --oc-progress-color: var(--oc-destructive); }
+.oc-progress-segment--info { --oc-progress-color: var(--oc-info, var(--oc-primary)); }
+.oc-progress-segment--muted { --oc-progress-color: var(--oc-muted-foreground); }
+.oc-progress--live .oc-progress-segment { transition: none; }
+
+/* Legend under a split bar: a dot in the tone of each part, its label and value. */
+.oc-progress-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+  color: var(--oc-muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+.oc-progress-legend > li { display: inline-flex; align-items: center; gap: 0.375rem; }
+.oc-progress-legend > li::before {
+  content: "";
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: 999px;
+  background: var(--oc-progress-color, var(--oc-primary));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-progress-segment { transition: none; }
+}
+@media (forced-colors: active) {
+  .oc-progress--striped { background-image: none; border: 1px solid CanvasText; }
+  .oc-progress-segment { background: Highlight; }
+  .oc-progress-segment + .oc-progress-segment { background: CanvasText; }
+}
 
 /* parts/data-reading.css */
 /* File: packages/ui/src/parts/data-reading.css | Map: reading -> levels (cool, warm, hot) -> inside a meter row */
@@ -10590,6 +10992,14 @@ img.oc-combobox-option-image {
 }
 .oc-combobox-list--portal[data-open=""] { visibility: visible; opacity: 1; translate: 0 0; transition-delay: 0s; }
 .oc-combobox-list--portal[data-open="false"] { visibility: hidden; opacity: 0; }
+/* 0.18.0: where the browser has popovers the list stays inside .oc-combobox as popover="manual" and is shown in the top
+   layer: above a modal dialog (whose outside is inert) and not cut off or moved by a transformed sheet or drawer. Undo the
+   UA popover box (centred with margin: auto, inset: 0, Canvas colours); top/left/width come from the script or wrapper. */
+.oc-combobox-list.oc-combobox-list--portal[popover] {
+  margin: 0;
+  inset: auto;
+  overflow-x: hidden;
+}
 
 /* Ghost trigger (0.17.2, .oc-combobox--ghost): for a header bar. No border, no shadow, no margin; muted text that gets
    fuller on hover and focus, with a light background (tinted with the module colour when there is one). The focus ring
@@ -10675,6 +11085,25 @@ img.oc-combobox-option-image {
 }
 .oc-combobox.oc-combobox--icon-only:is(:hover, :focus-within) > .oc-combobox-icon { color: var(--oc-foreground); }
 .oc-combobox--icon-only > .oc-combobox-icon > :is(svg, iconify-icon, img) { inline-size: 1.125rem; block-size: 1.125rem; }
+/* 0.18.0: while you type in an icon-only trigger (data-typing, set by combobox.js and the wrappers), the field opens
+   towards the start over its neighbours (no layout shift) and shows the query and the caret; it closes again when you
+   choose or leave the field. */
+.oc-combobox.oc-combobox--icon-only[data-typing] { position: relative; min-block-size: 2.25rem; }
+.oc-combobox.oc-combobox--icon-only[data-typing] > .oc-combobox-input,
+.oc-combobox.oc-combobox--icon-only[data-typing]:has(> .oc-combobox-icon:not(:empty)) > .oc-combobox-input {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  z-index: 2;
+  inline-size: 12rem;
+  max-inline-size: calc(100vw - 2rem);
+  padding-inline: 0.625rem;
+  color: var(--oc-foreground);
+  caret-color: auto;
+  text-overflow: ellipsis;
+  background: var(--oc-background);
+}
+.oc-combobox.oc-combobox--icon-only[data-typing] > .oc-combobox-icon { visibility: hidden; }
 .oc-combobox-code {
   font-size: 0.75rem;
   font-weight: 600;
@@ -10812,7 +11241,7 @@ img.oc-combobox-option-image {
 
 /* parts/forms-copy-field-extras.css */
 /* File: packages/ui/src/parts/forms-copy-field-extras.css
-   Map: copy button with icon + label -> icon swap on .is-copied -> show/hide toggle (masked secret) -> --wrap
+   Map: copy button with icon + label -> icon swap on .is-copied -> show/hide toggle (masked secret) -> --wrap -> --block (0.18.0)
    Copy field additions (0.17.0). The base .oc-copy-field lives in components.css.
    - .oc-copy-field-button holds an icon (mdi:content-copy, mdi:check once copied) and .oc-copy-field-button-label;
      the label shows the copied feedback, .oc-copy-field-status (visually hidden, role="status") announces it.
@@ -10857,6 +11286,30 @@ img.oc-combobox-option-image {
   overflow-wrap: anywhere;
   text-overflow: clip;
   line-height: 1.45;
+}
+/* --block (0.18.0): the field stretches with a narrow column (a sidebar, a card in a grid, a flex row) instead of keeping
+   the width of its input: it may shrink below its content, the value takes the rest of the room and ends in an ellipsis.
+   Below 14rem the button keeps only its icon (the label stays for screen readers). */
+.oc-copy-field.oc-copy-field--block {
+  container-type: inline-size;
+  flex: 1 1 auto;
+  align-self: stretch;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  box-sizing: border-box;
+}
+.oc-copy-field--block > .oc-copy-field-value { flex: 1 1 0; inline-size: 0; }
+@container (max-width: 14rem) {
+  .oc-copy-field--block .oc-copy-field-button:has(> svg) > .oc-copy-field-button-label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .oc-copy-field--block .oc-copy-field-button { padding-inline: 0.625rem; }
 }
 
 /* parts/forms-date-field.css */
@@ -11830,6 +12283,73 @@ textarea.oc-textarea--ledger,
   .oc-otp:focus[data-otp-active] { --oc-otp-mark: transparent; --oc-otp-mark-line: Highlight; }
 }
 
+/* parts/forms-otp-variants.css */
+/* File: packages/ui/src/parts/forms-otp-variants.css
+   Map: --lg (large digits) -> --block (full width, cells share the width) -> --tiles (a tile per character with a bar under it)
+        -> tiles: active cell, error -> forced colors
+   Variants of the one-time code field (0.18.0), on the ONE real input of .oc-otp (components.css): paste, autofill and
+   the caret keep working. The width always counts the letter-spacing after the last character (length x cell), so a
+   full code never scrolls the field.
+   --lg: larger digits (a team code on a tablet). --block: the field takes the full width of its parent and the cells
+   share it (1fr each); the parent becomes the size reference (container-type: inline-size), the digits scale with the
+   cells. --tiles: a tile per character (--oc-otp-tile) with a bar under it (--oc-otp-bar), separated by --oc-otp-gap;
+   flat colors only. */
+
+.oc-otp.oc-otp--lg {
+  --oc-otp-size: 2.25rem;
+  padding-block: 0.8rem;
+}
+
+:where(*:has(> .oc-otp--block)) { container-type: inline-size; }
+.oc-otp.oc-otp--block {
+  --oc-otp-cell: calc(100cqi / var(--oc-otp-length));
+  inline-size: 100cqi;
+  max-inline-size: 100%;
+  /* 1ch of a monospace font is about 0.6em: the digit stays well inside its cell */
+  font-size: min(var(--oc-otp-size, 1.5rem) * 1.5, calc(100cqi / var(--oc-otp-length) * 0.75));
+}
+.oc-otp.oc-otp--block.oc-otp--lg { font-size: min(var(--oc-otp-size, 2.25rem) * 1.5, calc(100cqi / var(--oc-otp-length) * 0.85)); }
+
+.oc-otp.oc-otp--tiles {
+  --oc-otp-cell: 3.25ch;
+  --oc-otp-gap: 0.4rem;
+  --oc-otp-tile: var(--oc-muted);
+  --oc-otp-bar: var(--oc-border);
+  --oc-otp-bar-size: 3px;
+  --oc-otp-tile-a: calc(var(--oc-otp-gap) / 2);
+  --oc-otp-tile-b: calc(var(--oc-otp-cell) - var(--oc-otp-gap) / 2);
+  background-color: transparent;
+  background-image:
+    repeating-linear-gradient(90deg in srgb, transparent 0 var(--oc-otp-tile-a), var(--oc-otp-bar) var(--oc-otp-tile-a) var(--oc-otp-tile-b), transparent var(--oc-otp-tile-b) var(--oc-otp-cell)),
+    repeating-linear-gradient(90deg in srgb, transparent 0 var(--oc-otp-tile-a), var(--oc-otp-tile) var(--oc-otp-tile-a) var(--oc-otp-tile-b), transparent var(--oc-otp-tile-b) var(--oc-otp-cell));
+  background-size: 100% var(--oc-otp-bar-size), 100% 100%;
+  background-position: 0 100%, 0 0;
+  background-repeat: no-repeat;
+  border: 0;
+  border-radius: 0;
+}
+.oc-otp.oc-otp--block.oc-otp--tiles { --oc-otp-cell: calc(100cqi / var(--oc-otp-length)); }
+.oc-otp.oc-otp--tiles[aria-invalid="true"] { --oc-otp-bar: var(--oc-destructive); }
+.oc-otp.oc-otp--tiles:focus { --oc-otp-bar: color-mix(in oklab, var(--oc-ring) 45%, var(--oc-border)); box-shadow: none; }
+/* the cell the next character goes to: its bar in the ring color (form-extras.js / the wrappers set data-otp-active) */
+.oc-otp.oc-otp--tiles:focus[data-otp-active] {
+  --oc-otp-mark-x: calc(var(--oc-otp-active, 0) * var(--oc-otp-cell));
+  background-image:
+    linear-gradient(var(--oc-ring), var(--oc-ring)),
+    repeating-linear-gradient(90deg in srgb, transparent 0 var(--oc-otp-tile-a), var(--oc-otp-bar) var(--oc-otp-tile-a) var(--oc-otp-tile-b), transparent var(--oc-otp-tile-b) var(--oc-otp-cell)),
+    repeating-linear-gradient(90deg in srgb, transparent 0 var(--oc-otp-tile-a), var(--oc-otp-tile) var(--oc-otp-tile-a) var(--oc-otp-tile-b), transparent var(--oc-otp-tile-b) var(--oc-otp-cell));
+  background-size: calc(var(--oc-otp-cell) - var(--oc-otp-gap)) var(--oc-otp-bar-size), 100% var(--oc-otp-bar-size), 100% 100%;
+  background-position: calc(var(--oc-otp-mark-x) + var(--oc-otp-tile-a)) 100%, 0 100%, 0 0;
+  background-repeat: no-repeat;
+}
+/* without the script: a focus ring under the whole row */
+.oc-otp.oc-otp--tiles:focus-visible:not([data-otp-active]) { box-shadow: 0 2px 0 0 var(--oc-ring); }
+
+@media (forced-colors: active) {
+  .oc-otp.oc-otp--tiles { border-block-end: 2px solid CanvasText; }
+  .oc-otp.oc-otp--tiles:focus { border-block-end-color: Highlight; }
+}
+
 /* parts/forms-password-requirements.css */
 /* File: packages/ui/src/parts/forms-password-requirements.css
    Map: list -> rule (icon via ::before) -> met state -> --inline variant
@@ -12119,7 +12639,7 @@ a.oc-rating-summary__count:hover { color: var(--oc-foreground); }
 
 /* parts/forms-time-input.css */
 /* File: packages/ui/src/parts/forms-time-input.css
-   Map: 24h text field (HH:mm) -> invalid state -> slot list (radio chips) -> slot states -> --sm
+   Map: 24h text field (HH:mm) -> invalid state -> slot list (radio chips) -> slot states -> time picker (0.18.0) -> --sm
    Time input: a short text field with pattern="HH:mm" and a <datalist> of suggested slots,
    plus an optional slot list (radio chips) to pick a time without typing. No JavaScript needed. */
 
@@ -12188,6 +12708,20 @@ a.oc-rating-summary__count:hover { color: var(--oc-foreground); }
   text-decoration: line-through;
   cursor: not-allowed;
 }
+
+/* 0.18.0: time picker - the field with a clock button (.oc-btn--icon, popovertarget) that opens the slots in a native
+   popover (.oc-popover): <div class="oc-time-picker"><input class="oc-input oc-time-input"><button popovertarget>
+   <div class="oc-popover" popover><div class="oc-time-slots" role="radiogroup">. Picking a slot fills the field (JS:
+   form-extras.js or the React/Vue wrapper); typing keeps working. */
+.oc-time-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  max-inline-size: 100%;
+}
+.oc-time-picker > .oc-btn { flex: none; }
+.oc-time-picker > .oc-popover[popover] { inline-size: 16rem; padding: 0.5rem; }
+.oc-time-picker > .oc-popover .oc-time-slots { padding: 0; }
 
 /* Small slots for dense layouts. */
 .oc-time-slots--sm { grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr)); }
@@ -12460,7 +12994,7 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 }
 
 /* parts/media-barcode.css */
-/* File: packages/ui/src/parts/media-barcode.css | Map: barcode figure -> svg bars -> digits (groups) -> sizes (hero, compact) -> bare -> error */
+/* File: packages/ui/src/parts/media-barcode.css | Map: barcode figure -> svg bars -> digits (groups) -> sizes (hero, compact) -> bare -> error -> QR (0.18.0) */
 /* Barcode display: EAN-13, EAN-8, UPC-A or Code 128, drawn as SVG by
    packages/ui/src/barcode.js from data-value. Black bars on a white plate, in both themes, so scanners read it.
    --bare (0.17.0): no plate, no border (inside a card); the bars take currentColor. The figure never gets wider than
@@ -12504,6 +13038,36 @@ a.oc-attachment-image:hover > :is(img, .oc-media-art) { filter: brightness(1.05)
 /* --bare (0.17.0): no own white plate and border, so a barcode in a card has no double frame. The bars and digits take
    currentColor (light on dark in dark mode: most phone scanners read that; keep the default plate for print/labels). */
 .oc-barcode.oc-barcode--bare { padding: 0; color: inherit; background: none; border: 0; border-radius: 0; }
+
+/* QR code (0.18.0): data-format="QR" adds .oc-barcode--qr. A square SVG with a quiet zone of 4 modules; the modules are
+   always black on white (also in --bare and in dark mode), so every phone scanner and a print read it. The caption is
+   the plain text (no digit spacing) and wraps a long URL. Sizes: --oc-barcode-qr-size (8rem), hero 12rem, compact 4.5rem.
+   In a .oc-code-plate the plate gives the white frame and the caption. */
+.oc-barcode--qr { padding: 0.5rem; }
+.oc-barcode--qr svg {
+  inline-size: var(--oc-barcode-qr-size, 8rem);
+  block-size: auto;
+  aspect-ratio: 1;
+  color: #000;
+  background: #fff;
+}
+.oc-barcode--qr .oc-barcode__digits {
+  display: block;
+  max-inline-size: var(--oc-barcode-qr-size, 8rem);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.oc-barcode--qr.oc-barcode--hero { --oc-barcode-qr-size: 12rem; padding: 0.75rem; }
+.oc-barcode--qr.oc-barcode--compact { --oc-barcode-qr-size: 4.5rem; padding: 0.25rem; }
+.oc-barcode--qr.oc-barcode--bare { padding: 0; }
+.oc-code-plate > .oc-barcode--qr { padding: 0; border: 0; border-radius: 0; }
+.oc-code-plate > .oc-barcode--qr svg { inline-size: var(--oc-barcode-qr-size, 8rem); max-inline-size: 100%; }
+@media print {
+  .oc-barcode--qr svg { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+.oc-barcode--qr .oc-barcode__group { margin: 0; }
 
 /* parts/media-browser-frame.css */
 /* File: packages/ui/src/parts/media-browser-frame.css | Map: frame -> chrome bar (dots, address pill, actions)

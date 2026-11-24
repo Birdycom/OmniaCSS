@@ -36,6 +36,9 @@ const indexed = await buildSearchIndex(dist, path.join(out, "data/search-index.j
 });
 console.log(`[site] data/search-index.json ${indexed} pages`);
 
+// The media-state fallback (paused:, playing: … in browsers without :paused) that the selectors page loads.
+await fs.copyFile(path.join(root, "packages/core/src/media-states.js"), path.join(out, "js/oc-media-states.js"));
+
 // Site CSS: only the utilities used by the generated pages and the remaining page scripts.
 // Tokens (var(--color-…)) used by the component and site stylesheets must stay in the utility build.
 const siteSheets = ["oc-components.css", "oc-code-syntax.css", "oc-blocks.css", "omnia_site.css", "oc-docs-shell.css", "oc-docs-v2.css", "oc-layout-module.css", "oc-home.css", "oc-story.css", "oc-release-notes.css"];

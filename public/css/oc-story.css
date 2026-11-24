@@ -39,7 +39,7 @@
 .st-old-band { grid-column: 1 / -1; position: relative; z-index: 1; block-size: 7px; background: var(--st-side); }
 .st-old-band::after { content: ""; position: absolute; inset-block-start: 100%; inset-inline-start: 50%; translate: -50% 0; border: 11px solid transparent; border-block-start: 9px solid var(--st-side); border-block-end: 0; }
 .st-old-side { display: flex; flex-direction: column; overflow-y: auto; padding: 20px 20px 16px; background: var(--st-side); color: #fff; }
-.st-old-search { padding: 3px 8px; border: 1px solid rgba(255, 255, 255, 0.75); color: rgba(255, 255, 255, 0.7); font-size: 14px; }
+.st-old-search { padding: 3px 8px; border: 1px solid rgba(255, 255, 255, 0.75); color: rgba(255, 255, 255, 0.8); font-size: 14px; }
 .st-old-brand { margin-block: 22px 4px; }
 .st-old-brand b { display: inline-block; padding-block-end: 1px; border-block-end: 3px solid #fff; font-size: 21px; line-height: 1.2; }
 .st-old-brand small { display: block; margin-block-start: 4px; font-size: 15px; }

@@ -186,6 +186,7 @@ const EXTRA_FEATURES = {
   sizing: ["css.types.length.viewport_percentage_units_dynamic", "css.types.length.viewport_percentage_units_small", "css.types.length.viewport_percentage_units_large"],
   "flex-grid": ["css.properties.grid-template-columns.subgrid", "css.properties.display.contents"],
   alignment: ["css.properties.align-content"],
+  "interactivity/forms": ["css.selectors.picker", "css.selectors.checkmark", "css.selectors.picker-icon"],
 };
 
 const readCache = new Map();
@@ -616,7 +617,13 @@ export function transform(content, route = "") {
   // 5b. Fallback for <meta name="description">: the intro of the page, cut at a word, at most 160 characters.
   const intro = body.querySelector(".oc-hero-text, .oc-section-header__desc, .oc-section-content__desc, p");
   let description = intro ? intro.textContent.replace(/\s+/g, " ").trim() : "";
-  if (description.length > 160) description = description.slice(0, 158).replace(/\s+\S*$/, "").replace(/[,;:(]$/, "") + "…";
+  // Within 160 characters and 160 UTF-8 bytes: an arrow or ellipsis takes three bytes, so cut word by word until it fits.
+  const bytes = (s) => new TextEncoder().encode(s).length;
+  if (description.length > 160 || bytes(description) > 160) {
+    let cut = description.slice(0, 159);
+    do cut = cut.replace(/\s+\S*$/, ""); while (bytes(cut + "…") > 160 && /\s/.test(cut));
+    description = cut.replace(/[,;:(]$/, "") + "…";
+  }
 
   // 5c. Headings → ids + table of contents
   const toc = [];

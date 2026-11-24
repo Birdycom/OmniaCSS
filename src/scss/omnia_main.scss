@@ -35,6 +35,9 @@
 // Load the color-mix (transparent) utilities for Omnia and HTML colors
 @use 'utilities/_colors_mix.scss';
 
+// Load the contrast-color() text utilities (text-contrast-*) for the Omnia colors
+@use 'utilities/_colors_contrast.scss';
+
 // Load the fontsize classes
 @use 'utilities/_fonts.scss';
 

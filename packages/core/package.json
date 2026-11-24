@@ -37,6 +37,7 @@
     "./tokens/export": "./src/tokens.mjs",
     "./engine": "./src/engine.mjs",
     "./postcss": "./src/postcss.mjs",
+    "./media-states": "./src/media-states.js",
     "./scss/*": "./scss/*",
     "./dist/*": "./dist/*",
     "./package.json": "./package.json"

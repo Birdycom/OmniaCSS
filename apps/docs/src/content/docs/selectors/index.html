@@ -1,4 +1,4 @@
-<!--oc-page {"title":"OmniaCSS Docs - Selectors & Pseudo-classes","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head": ["<style>\n    .se-tabs { display: grid; gap: 0.75rem; inline-size: 100%; }\n    .se-tablist { display: flex; gap: 0.4rem; }\n    .se-tablist a { padding: 0.7rem 1.2rem; border-radius: 8px; background: var(--oc-muted); color: var(--oc-foreground); text-decoration: none; font-weight: 600; font-size: 1rem; }\n    .se-tabs:has(#se-p1:target) a[href=\"#se-p1\"], .se-tabs:has(#se-p2:target) a[href=\"#se-p2\"], .se-tabs:has(#se-p3:target) a[href=\"#se-p3\"], .se-tabs:not(:has(:target)) a[href=\"#se-p1\"] { background: var(--color-vividblue-90); color: var(--color-white-50); }\n    .se-panel { min-block-size: 7rem; padding: 1.25rem 1.5rem; font-size: 1.05rem; color: var(--oc-foreground); border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); scroll-margin-top: 6rem; }\n    .se-tabs:not(:has(:target)) > .se-panel:first-of-type { display: block; }\n    .se-btn { justify-self: start; padding: 0.8rem 1.4rem; font-size: 1.05rem !important; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; font-weight: 600; }\n    .se-form { display: grid; gap: 0.6rem; inline-size: 100%; padding: 1.5rem; font-size: 1.05rem; border: 2px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); transition: border-color 0.2s; }\n    .se-form label { font-size: 1rem; font-weight: 600; color: var(--oc-foreground); }\n    .se-form input { box-sizing: border-box; padding: 0.8rem 1rem; font-size: 1.05rem !important; border-radius: 8px; background: var(--oc-background); color: var(--oc-foreground); font: inherit; }\n    .se-form small { font-size: 0.95rem; font-weight: 600; }\n    .se-pick { display: flex; flex-wrap: wrap; gap: 0.75rem; inline-size: 100%; }\n    .se-pick input { justify-self: start; margin: 0 0 0.25rem; }\n    .se-pick label { display: grid; gap: 0.2rem; flex: 1 1 12rem; padding: 1rem; border: 2px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); cursor: pointer; font-size: 1rem; min-block-size: 7rem; align-content: start; }\n    .se-pick b { font-size: 1.2rem; }\n    .se-pick input { accent-color: var(--color-vividblue-80); }\n    .se-drop { margin: 0; color: var(--oc-foreground); line-height: 1.5; }\n    .se-drop::first-letter { margin-inline-end: 0.08em; line-height: 0.8; }\n    .se-file::file-selector-button { margin-inline-end: 0.75rem; padding: 0.4rem 0.8rem; border: 0; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; }\n  \n  \n    /* Inside the example stages: room around the sample. */\n    .se-stage { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; justify-items: start; padding: 1.25rem; }\n    .se-stage--center { justify-items: center; }\n    .se-stage--center > .se-btn { justify-self: center; }\n    .se-stage > .se-file { box-sizing: border-box; inline-size: 100%; max-inline-size: 100%; }\n@media (max-width: 30rem) { .se-stage > .se-file { font-size: 0.8rem; } .se-file::file-selector-button { margin-inline-end: 0.5rem; padding-inline: 0.6rem; } }\n  </style>"]}-->
+<!--oc-page {"title":"OmniaCSS Docs - Selectors & Pseudo-classes","layout":"sidebar","shell":"docs","shellClass":"oc-docs-shell","bodyClass":"","head": ["<style>\n    .se-tabs { display: grid; gap: 0.75rem; inline-size: 100%; }\n    .se-tablist { display: flex; gap: 0.4rem; }\n    .se-tablist a { padding: 0.7rem 1.2rem; border-radius: 8px; background: var(--oc-muted); color: var(--oc-foreground); text-decoration: none; font-weight: 600; font-size: 1rem; }\n    .se-tabs:has(#se-p1:target) a[href=\"#se-p1\"], .se-tabs:has(#se-p2:target) a[href=\"#se-p2\"], .se-tabs:has(#se-p3:target) a[href=\"#se-p3\"], .se-tabs:not(:has(:target)) a[href=\"#se-p1\"] { background: var(--color-vividblue-90); color: var(--color-white-50); }\n    .se-panel { min-block-size: 7rem; padding: 1.25rem 1.5rem; font-size: 1.05rem; color: var(--oc-foreground); border: 1px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); scroll-margin-top: 6rem; }\n    .se-tabs:not(:has(:target)) > .se-panel:first-of-type { display: block; }\n    .se-btn { justify-self: start; padding: 0.8rem 1.4rem; font-size: 1.05rem !important; border: 1px solid var(--oc-border); border-radius: 8px; background: var(--oc-card); color: var(--oc-foreground); font: inherit; font-weight: 600; }\n    .se-form { display: grid; gap: 0.6rem; inline-size: 100%; padding: 1.5rem; font-size: 1.05rem; border: 2px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); transition: border-color 0.2s; }\n    .se-form label { font-size: 1rem; font-weight: 600; color: var(--oc-foreground); }\n    .se-form input { box-sizing: border-box; padding: 0.8rem 1rem; font-size: 1.05rem !important; border-radius: 8px; background: var(--oc-background); color: var(--oc-foreground); font: inherit; }\n    .se-form small { font-size: 0.95rem; font-weight: 600; }\n    .se-pick { display: flex; flex-wrap: wrap; gap: 0.75rem; inline-size: 100%; }\n    .se-pick input { justify-self: start; margin: 0 0 0.25rem; }\n    .se-pick label { display: grid; gap: 0.2rem; flex: 1 1 12rem; padding: 1rem; border: 2px solid var(--oc-border); border-radius: 10px; background: var(--oc-card); color: var(--oc-foreground); cursor: pointer; font-size: 1rem; min-block-size: 7rem; align-content: start; }\n    .se-pick b { font-size: 1.2rem; }\n    .se-pick input { accent-color: var(--color-vividblue-80); }\n    .se-drop { margin: 0; color: var(--oc-foreground); line-height: 1.5; }\n    .se-drop::first-letter { margin-inline-end: 0.08em; line-height: 0.8; }\n    .se-file::file-selector-button { margin-inline-end: 0.75rem; padding: 0.4rem 0.8rem; border: 0; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; }\n  \n  \n    /* Inside the example stages: room around the sample. */\n    .se-stage { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; justify-items: start; padding: 1.25rem; }\n    .se-stage--center { justify-items: center; }\n    .se-stage--center > .se-btn { justify-self: center; }\n    .se-stage > .se-file { box-sizing: border-box; inline-size: 100%; max-inline-size: 100%; }\n    .se-mp { display: grid; gap: 0.9rem; inline-size: 100%; padding: 1.25rem; border: 2px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); transition: border-color 0.2s; }\n    .se-mp__head { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }\n    .se-mp__title { display: grid; gap: 0.15rem; flex: 1 1 10rem; }\n    .se-mp__title b { font-size: 1.1rem; }\n    .se-mp__title span { font-size: 0.95rem; color: var(--oc-muted-foreground); }\n    .se-mp__state { padding: 0.3rem 0.7rem; border-radius: 999px; font-size: 0.9rem; font-weight: 600; background: var(--oc-muted); }\n    .se-mp audio { inline-size: 100%; }\n    .se-mp__note { margin: 0; font-size: 0.95rem; }\n    .se-eq { display: flex; align-items: flex-end; gap: 3px; block-size: 1.75rem; }\n    .se-eq i { display: block; inline-size: 5px; block-size: 100%; border-radius: 2px; background: var(--color-vividblue-80); transform-origin: bottom; transform: scaleY(0.25); animation-name: se-eq; animation-duration: 0.8s; animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate; }\n    .se-eq i:nth-child(2) { animation-delay: -0.3s; } .se-eq i:nth-child(3) { animation-delay: -0.55s; } .se-eq i:nth-child(4) { animation-delay: -0.15s; }\n    @keyframes se-eq { to { transform: scaleY(1); } }\n    @media (prefers-reduced-motion: reduce) { .se-eq i { animation: none; } }\n    .se-toggle { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1.1rem; border: 2px solid var(--oc-border); border-radius: 999px; background: var(--oc-card); color: var(--oc-foreground); font-weight: 600; cursor: pointer; user-select: none; }\n    .se-toggle:focus-visible { outline: 2px solid var(--color-vividblue-80); outline-offset: 2px; }\n    .se-dlg { max-inline-size: min(26rem, calc(100vw - 2rem)); padding: 1.25rem 1.5rem; border: 2px solid var(--oc-border); border-radius: 12px; background: var(--oc-card); color: var(--oc-foreground); }\n    .se-dlg p { margin: 0 0 0.9rem; }\n    .se-dlg--inline { position: static; margin: 0; }\n@media (max-width: 30rem) { .se-stage > .se-file { font-size: 0.8rem; } .se-file::file-selector-button { margin-inline-end: 0.5rem; padding-inline: 0.6rem; } }\n  </style>"]}-->
 <section class="oc-docs-section" id="selectors">
         <div class="oc-section-header">
           <h2 class="oc-section-header__title">Selectors &amp; Pseudo-classes</h2>
@@ -23,6 +23,9 @@
                 <tr><td><code>valid:</code> <code>invalid:</code> <code>required:</code> <code>optional:</code> <code>in-range:</code> <code>out-of-range:</code> <code>read-only:</code> <code>placeholder-shown:</code> <code>autofill:</code></td><td>Form state</td></tr>
                 <tr><td><code>checked:</code> <code>indeterminate:</code> <code>default:</code> <code>disabled:</code> <code>enabled:</code></td><td>Control state</td></tr>
                 <tr><td><code>open:</code> <code>popover-open:</code> <code>inert:</code> <code>empty:</code></td><td>[open], :popover-open, :open, [inert], :empty</td></tr>
+                <tr><td><code>modal:</code> <code>fullscreen:</code> <code>pip:</code></td><td>:modal, :fullscreen, :picture-in-picture</td></tr>
+                <tr><td><code>playing:</code> <code>paused:</code> <code>seeking:</code> <code>buffering:</code> <code>stalled:</code> <code>muted:</code> <code>volume-locked:</code></td><td>State of an &lt;audio&gt; or &lt;video&gt; (:playing, :paused …), plus a <code>[data-paused]</code> fallback</td></tr>
+                <tr><td><code>state-[loading]:</code></td><td>:state(loading), a custom state of a custom element</td></tr>
                 <tr><td><code>first:</code> <code>last:</code> <code>only:</code> <code>odd:</code> <code>even:</code> <code>first-of-type:</code> <code>last-of-type:</code> <code>only-of-type:</code></td><td>Structure</td></tr>
                 <tr><td><code>nth-3:</code> <code>nth-last-2:</code> <code>nth-of-type-2:</code> <code>nth-[2n+1_of_.is-on]:</code></td><td>:nth-child(), :nth-last-child(), :nth-of-type(), An+B of S</td></tr>
                 <tr><td><code>has-[…]:</code> <code>not-[…]:</code> <code>in-[…]:</code></td><td>:has(), :not(), ancestor :where()</td></tr>
@@ -121,6 +124,93 @@
   &lt;input type="radio" name="plan"&gt; &lt;b&gt;Team&lt;/b&gt; per seat
 &lt;/label&gt;</oc-code></oc-demo>
 
+          <h3 class="oc-section-content__title mt-10" id="media-states">Media states: a player that follows the audio <span class="oc-badge-version">v0.18.0</span></h3>
+          <p class="oc-section-content__desc"><code>playing:</code>, <code>paused:</code>, <code>seeking:</code>, <code>buffering:</code>, <code>stalled:</code>, <code>muted:</code> and <code>volume-locked:</code> style an <code>&lt;audio&gt;</code> or <code>&lt;video&gt;</code> by what it is doing. Combine them with <code>group-has-</code>, <code>has-</code> or <code>peer-</code> to style the player around it. Press play in the native controls below: the badge, the bars and the border follow the audio. The page itself has no player script.</p>
+          <p class="oc-section-content__desc"><strong>Native and fallback.</strong> Safari (15.4+) and Firefox (150+) know <code>:playing</code>, <code>:paused</code> and friends. Chrome and Edge add them in version 158 (November 2026); the support table below may still say no. For older Chrome and Edge, load the small optional script <code>media-states.js</code>: it copies the state of every audio and video element to attributes (<code>data-paused</code>, <code>data-playing</code>, <code>data-muted</code>, <code>data-seeking</code>, <code>data-buffering</code>, <code>data-stalled</code>). Every media-state variant writes two separate rules, one for the pseudo-class and one for the attribute, so the classes are the same everywhere. In a browser with native support the script does nothing. <code>volume-locked:</code> has no script equivalent and stays native only. This page loads the script, so the demo works in every browser.</p>
+          <oc-demo title="group-has-playing:, group-has-paused:, group-has-muted: (media player)">
+            <div class="oc-eg"><div class="oc-eg__legend"><span class="oc-eg__key oc-eg__key--strong">Press play, pause and mute in the audio controls</span></div><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">group has-playing:border-green-50 · group-has-playing:animate-running · group-has-paused:inline</code><div class="oc-eg__note">The badge says Paused or Playing, the bars only move while the audio plays and a line appears when you mute it. A 6-second chime, no autoplay.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage"><div class="se-mp group has-playing:border-green-50">
+              <div class="se-mp__head">
+                <span class="se-eq" aria-hidden="true"><i class="animate-paused group-has-playing:animate-running"></i><i class="animate-paused group-has-playing:animate-running"></i><i class="animate-paused group-has-playing:animate-running"></i><i class="animate-paused group-has-playing:animate-running"></i></span>
+                <span class="se-mp__title"><b>Episode 1</b><span>Company 1 podcast</span></span>
+                <span class="se-mp__state"><span class="d-none group-has-paused:inline">Paused</span><span class="d-none group-has-playing:inline text-green-60">Playing</span></span>
+              </div>
+              <audio controls preload="metadata" src="/media/oc-demo-chime.wav"></audio>
+              <p class="se-mp__note d-none group-has-muted:block">Muted: the speaker button turns the sound back on.</p>
+            </div></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;!-- optional, for browsers without :paused/:playing (Chrome and Edge before 158) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/@birdycom/omniacss/dist/media-states.js" defer&gt;&lt;/script&gt;
+&lt;!-- or in a bundle: import "@birdycom/omniacss/media-states"; --&gt;
+
+&lt;div class="group has-playing:border-green-50"&gt;
+  &lt;span class="eq"&gt;&lt;i class="animate-paused group-has-playing:animate-running"&gt;&lt;/i&gt; …&lt;/span&gt;
+  &lt;b&gt;Episode 1&lt;/b&gt;
+  &lt;span class="d-none group-has-paused:inline"&gt;Paused&lt;/span&gt;
+  &lt;span class="d-none group-has-playing:inline"&gt;Playing&lt;/span&gt;
+  &lt;audio controls src="episode-1.mp3"&gt;&lt;/audio&gt;
+  &lt;p class="d-none group-has-muted:block"&gt;Muted&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- what paused:hidden becomes: two rules, so Chrome keeps the second --&gt;
+.paused\:hidden:paused { display: none; }
+.paused\:hidden[data-paused] { display: none; }</oc-code></oc-demo>
+          <script src="/js/oc-media-states.js" defer></script>
+
+          <h3 class="oc-section-content__title mt-10" id="custom-state">:state(): custom states of your own elements <span class="oc-badge-version">v0.18.0</span></h3>
+          <p class="oc-section-content__desc">A custom element can set its own states with <code>this.attachInternals().states.add("on")</code>, without attributes in the HTML. <code>state-[on]:</code> styles the element in that state, <code>group-state-[on]:</code> its children and <code>has-state-[on]:</code> a parent. Click the switch (or press Space). Chrome 125, Firefox 126, Safari 17.4.</p>
+          <oc-demo title="state-[on]:border-green-50, group-state-[on]:inline">
+            <div class="oc-eg"><div class="oc-eg__panels">
+<div class="oc-eg__panel"><code class="oc-eg__name">state-[on]:border-green-50 · group-state-[on]:d-none · group-state-[on]:inline</code><div class="oc-eg__note">The script only adds or removes the state "on"; the border and the text come from the classes.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage se-stage--center"><se-toggle class="se-toggle group state-[on]:border-green-50 state-[on]:bg-green-mix-10">Notifications <span class="group-state-[on]:d-none">off</span><span class="d-none group-state-[on]:inline text-green-60">on</span></se-toggle></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;se-toggle class="group state-[on]:border-green-50"&gt;
+  Notifications &lt;span class="group-state-[on]:d-none"&gt;off&lt;/span&gt;&lt;span class="d-none group-state-[on]:inline"&gt;on&lt;/span&gt;
+&lt;/se-toggle&gt;
+&lt;script&gt;
+  customElements.define("se-toggle", class extends HTMLElement {
+    #internals = this.attachInternals();
+    connectedCallback() {
+      this.role = "switch"; this.tabIndex = 0; this.ariaChecked = "false";
+      this.addEventListener("click", () =&gt; this.toggle());
+      this.addEventListener("keydown", (e) =&gt; { if (e.key === " " || e.key === "Enter") { e.preventDefault(); this.toggle(); } });
+    }
+    toggle() {
+      const on = !this.#internals.states.has("on");
+      on ? this.#internals.states.add("on") : this.#internals.states.delete("on");
+      this.ariaChecked = String(on);
+    }
+  });
+&lt;/script&gt;</oc-code></oc-demo>
+          <script>
+            customElements.get("se-toggle") || customElements.define("se-toggle", class extends HTMLElement {
+              #internals = this.attachInternals();
+              connectedCallback() {
+                if (this.role) return;
+                this.role = "switch"; this.tabIndex = 0; this.ariaChecked = "false";
+                this.addEventListener("click", () => this.toggle());
+                this.addEventListener("keydown", (e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); this.toggle(); } });
+              }
+              toggle() {
+                const on = !this.#internals.states.has("on");
+                if (on) this.#internals.states.add("on"); else this.#internals.states.delete("on");
+                this.ariaChecked = String(on);
+              }
+            });
+          </script>
+
+          <h3 class="oc-section-content__title mt-10" id="modal">:modal, :fullscreen and :picture-in-picture <span class="oc-badge-version">v0.18.0</span></h3>
+          <p class="oc-section-content__desc"><code>modal:</code> matches a dialog opened with <code>showModal()</code> (or a <code>command="show-modal"</code> button), not one that is simply open. <code>fullscreen:</code> matches the element shown full screen, <code>pip:</code> a video in picture-in-picture. The same dialog classes look different in both panels.</p>
+          <oc-demo title="modal:border-vividblue-80, backdrop:bg-black-mix-40">
+            <div class="oc-eg"><div class="oc-eg__panels" style="--eg-min: 16rem;">
+<div class="oc-eg__panel"><code class="oc-eg__name">&lt;dialog open&gt; (not modal)</code><div class="oc-eg__note">An open dialog in the page: <code>modal:</code> does not apply, the border stays grey.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage se-stage--center"><dialog open class="se-dlg se-dlg--inline modal:border-vividblue-80"><p>Order 1 was saved.</p></dialog></div></div>
+<div class="oc-eg__panel"><code class="oc-eg__name">command="show-modal"</code><div class="oc-eg__note">Opened as a modal: blue border, dimmed page behind it. Close with the button or Esc.</div><div class="oc-eg__stage oc-eg__stage--plain se-stage se-stage--center"><button type="button" class="se-btn" commandfor="se-dialog" command="show-modal">Open as modal</button><dialog id="se-dialog" class="se-dlg modal:border-vividblue-80 backdrop:bg-black-mix-40"><p>Order 1 was saved.</p><form method="dialog"><button class="se-btn">Close</button></form></dialog></div></div>
+            </div></div>
+          <oc-code lang="html">&lt;button commandfor="order-dialog" command="show-modal"&gt;Open as modal&lt;/button&gt;
+&lt;dialog id="order-dialog" class="border-2 modal:border-vividblue-80 backdrop:bg-black-mix-40"&gt;…&lt;/dialog&gt;
+
+&lt;!-- a video with its own look full screen and in picture-in-picture --&gt;
+&lt;video class="rounded-lg fullscreen:rounded-none pip:opacity-50" controls src="…"&gt;&lt;/video&gt;</oc-code></oc-demo>
+
           <h3 class="oc-section-content__title mt-10" id="pseudo-elements">Pseudo-element variants</h3>
           <div class="oc-expandable-table">
             <table class="oc-table-ref">
@@ -130,6 +220,7 @@
                 <tr><td><code>first-letter:</code> <code>first-line:</code></td><td>::first-letter, ::first-line</td></tr>
                 <tr><td><code>marker:</code> <code>placeholder:</code> <code>selection:</code></td><td>::marker, ::placeholder, ::selection</td></tr>
                 <tr><td><code>file:</code> <code>backdrop:</code> <code>details-content:</code></td><td>::file-selector-button, ::backdrop, ::details-content</td></tr>
+                <tr><td><code>picker:</code> <code>checkmark:</code> <code>picker-icon:</code></td><td>::picker(select), ::checkmark, ::picker-icon of a customizable select (see <a href="../interactivity/forms.html#select-parts">Form controls</a>)</td></tr>
               </tbody>
             </table>
             <div class="oc-expandable-table__wrap oc-expandable-table__wrap--full">
@@ -179,8 +270,8 @@
 }</oc-code>
 
           <h3 class="oc-section-content__title mt-10" id="browser-support">Browser support</h3>
-          <p class="oc-section-content__desc">All selectors on this page work in current browsers. <code>:user-valid</code>/<code>:user-invalid</code> need Chrome 119, Firefox 88, Safari 16.5; <code>:has()</code> Chrome 105, Firefox 121, Safari 15.4.</p>
-          <oc-compat features="css.selectors.target css.selectors.focus-visible css.selectors.user-valid css.selectors.user-invalid css.selectors.has css.selectors.is css.selectors.where css.selectors.nth-child.of_syntax css.selectors.nesting css.selectors.file-selector-button"></oc-compat>
+          <p class="oc-section-content__desc">All selectors on this page work in current browsers, except the media states. <code>:user-valid</code>/<code>:user-invalid</code> need Chrome 119, Firefox 88, Safari 16.5; <code>:has()</code> Chrome 105, Firefox 121, Safari 15.4; <code>:state()</code> Chrome 125, Firefox 126, Safari 17.4. The media states (<code>:playing</code>, <code>:paused</code> …) are native in Safari 15.4, Firefox 150 and Chrome/Edge 158 (too new for the table below); in older Chrome and Edge the optional <code>media-states.js</code> fallback makes the same classes work.</p>
+          <oc-compat features="css.selectors.target css.selectors.focus-visible css.selectors.user-valid css.selectors.user-invalid css.selectors.has css.selectors.is css.selectors.where css.selectors.nth-child.of_syntax css.selectors.nesting css.selectors.file-selector-button css.selectors.playing css.selectors.paused css.selectors.muted css.selectors.state css.selectors.modal css.selectors.fullscreen css.selectors.picture-in-picture"></oc-compat>
         </div>
 
         <div class="oc-section-footer">
@@ -196,6 +287,7 @@
                 <thead><tr><th class="w-perc-1/3">File</th><th>Contains</th></tr></thead>
                 <tbody>
                   <tr><td><code>packages/core/src/variants.mjs</code></td><td>pseudo-class, pseudo-element, group/peer, has/not/in, nth, aria/data variants</td></tr>
+                  <tr><td><code>packages/core/src/media-states.js</code></td><td>optional fallback for the media-state variants (data-paused, data-playing …)</td></tr>
                   <tr><td><code>src/scss/utilities/_state_variants.scss</code></td><td>hover/focus/active/focus-visible variants in the full build</td></tr>
                 </tbody>
               </table>

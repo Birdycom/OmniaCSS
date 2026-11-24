@@ -104,6 +104,8 @@ async function main() {
   await copy(r("public/css/omnia_main.css"), r("packages/core/dist/omnia.css"));
   await copy(r("public/css/omnia_main.min.css"), r("packages/core/dist/omnia.min.css"));
   await copy(r("src/css/oc-colors.css"), r("packages/core/dist/oc-colors.css"));
+  // Optional script for the media-state variants (paused:, playing: …) in browsers without :paused (CDN: dist/media-states.js).
+  await copy(r("packages/core/src/media-states.js"), r("packages/core/dist/media-states.js"));
   for (const f of ["omnia.css", "omnia.min.css"]) await localSiteFontFaces(r("packages/core/dist", f));
   await buildStarter();
   await buildTokens();

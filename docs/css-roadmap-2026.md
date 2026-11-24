@@ -40,11 +40,11 @@ The priority reflects browser support plus how well the feature fits a utility o
 
 | # | Feature | Support (check first) | Proposed OmniaCSS form | Prio |
 |---|---|---|---|---|
-| 1 | Media-element pseudo-classes `:playing`, `:paused`, `:seeking`, `:buffering`, `:stalled`, `:muted`, `:volume-locked` | Interop 2026. web.dev's Aug 2026 digest reports Baseline; MDN still says limited | `playing:`, `paused:`, `seeking:`, `buffering:`, `stalled:`, `muted:`, `volume-locked:` (PSEUDO_CLASS) plus `group-paused:` and similar via group | H |
-| 2 | Custom element states `:state(name)` | Baseline 2024 (CustomStateSet) | `state-[name]:` → `&:state(name)` | H |
-| 3 | `:modal`, `:fullscreen`, `:picture-in-picture` | Long supported | `modal:`, `fullscreen:`, `pip:` | H |
-| 4 | Container style queries `@container style(--x: y)` | Interop 2026 (Chrome, Safari; Firefox in progress) | `style-[--theme:dark]:` → `@container style(--theme: dark)`; maybe also named `@cq/style-[…]:` | H |
-| 5 | Customizable `<select>` parts `::picker(select)`, `::checkmark`, `::picker-icon` | Chrome 135+, Safari 27 (beta at WWDC26), Firefox in progress | `picker:`, `checkmark:`, `picker-icon:` (PSEUDO_ELEMENT). `appearance-base-select` already exists | H |
+| 1 | **Done in 0.18.0.** Media-element pseudo-classes `:playing`, `:paused`, `:seeking`, `:buffering`, `:stalled`, `:muted`, `:volume-locked` | Interop 2026. web.dev's Aug 2026 digest reports Baseline; MDN still says limited | `playing:`, `paused:`, `seeking:`, `buffering:`, `stalled:`, `muted:`, `volume-locked:` (PSEUDO_CLASS) plus `group-paused:` and similar via group | H |
+| 2 | **Done in 0.18.0.** Custom element states `:state(name)` | Baseline 2024 (CustomStateSet) | `state-[name]:` → `&:state(name)` | H |
+| 3 | **Done in 0.18.0.** `:modal`, `:fullscreen`, `:picture-in-picture` | Long supported | `modal:`, `fullscreen:`, `pip:` | H |
+| 4 | **Done in 0.18.0.** Container style queries `@container style(--x: y)` | Interop 2026 (Chrome, Safari; Firefox in progress) | `style-[--theme:dark]:` → `@container style(--theme: dark)`; maybe also named `@cq/style-[…]:` | H |
+| 5 | **Done in 0.18.0.** Customizable `<select>` parts `::picker(select)`, `::checkmark`, `::picker-icon` | Chrome 135+, Safari 27 (beta at WWDC26), Firefox in progress | `picker:`, `checkmark:`, `picker-icon:` (PSEUDO_ELEMENT). `appearance-base-select` already exists | H |
 | 6 | `::target-text`, `::spelling-error`, `::grammar-error`, `::highlight(name)` | `::target-text` is Baseline; the others vary | `target-text:`, `spelling-error:`, `grammar-error:`, `highlight-[name]:` | M |
 | 7 | `(prefers-reduced-transparency: reduce)` | Chrome / Edge; Safari and Firefox partial | `transparency-reduce:` (MEDIA) | M |
 | 8 | `(dynamic-range: high)` | Safari, Chrome | `hdr:` (MEDIA), pairs with the existing `dynamic-range-limit` | M |
@@ -55,7 +55,7 @@ The priority reflects browser support plus how well the feature fits a utility o
 
 | # | Feature | Support (check first) | Proposed OmniaCSS form | Prio |
 |---|---|---|---|---|
-| 11 | `contrast-color()`: black or white text against a color | Baseline Newly available (web.dev, Apr 2026) | `text-contrast-<color>` → `color: contrast-color(var(--color-<color>))`, plus `text-contrast` reading `--oc-bg` / the element's own background token. Fits the RAL/Omnia palette well | H |
+| 11 | **Done in 0.18.0.** `contrast-color()`: black or white text against a color | Baseline Newly available (web.dev, Apr 2026) | `text-contrast-<color>` → `color: contrast-color(var(--color-<color>))`, plus `text-contrast` reading `--oc-bg` / the element's own background token. Fits the RAL/Omnia palette well | H |
 | 12 | `display: grid-lanes` (masonry) | Safari 26.4+; Chrome and Firefox behind a flag | `grid-lanes`, `grid-lanes-cols-*` (reuse the grid-template helpers); docs section in `flex-grid` with a `supports-[display:grid-lanes]:` fallback | M |
 | 13 | `background-clip: border-area` (gradient borders without tricks) | Chrome 150+, Safari 18.2+; Firefox no | `bg-clip-border-area`; a demo in `creative` (gradient border) with an `@supports` fallback | M |
 | 14 | Scroll-triggered animations: `timeline-trigger`, `animation-trigger`, `trigger-scope` | Chrome 145/146; Chromium only | `trigger-view` / `animate-trigger-*` in `scroll-animations`, marked experimental | M |
@@ -65,6 +65,15 @@ The priority reflects browser support plus how well the feature fits a utility o
 | 18 | `window-drag` (replaces `app-region`, installed web apps) | Chrome 152 | `window-drag` / `window-no-drag`, niche (PWA title bars) | L |
 
 ## Suggested first batch (one minor release)
+
+**Status 2026-11-24: built for 0.18.0.**
+- [x] Media states `playing:` … `volume-locked:`. Checked on chromestatus (intent to ship, milestone 158) and in a local Chrome 158, which matches `:paused` natively; MDN BCD 8.1.7 still says no. Older Chrome/Edge do not have them, so every media-state variant writes two separate rules: the pseudo-class and a `[data-paused]`-style attribute. The optional script `packages/core/src/media-states.js` (`@birdycom/omniacss/media-states`, `dist/media-states.js`) sets those attributes in browsers without the pseudo-classes. `not-paused:` uses `[data-oc-media]:not([data-paused])` for the fallback. `volume-locked:` stays native only.
+- [x] `state-[name]:` (`:state()`), `modal:`, `fullscreen:`, `pip:`.
+- [x] `style-[--x:y]:` and `style-[--x:y]/name:` (`@container style()`), ranked just before the size container queries.
+- [x] `picker:`, `checkmark:`, `picker-icon:`; `addSimple` now treats `::picker(select)` as a trailing pseudo-element.
+- [x] `text-contrast-<omnia color>[-<step>]` and `text-contrast` (`--oc-contrast-bg`, else `--oc-background`), with a build-time black/white fallback. Only the 34 Omnia colors (not RAL/HTML): +41 KB on `omnia.min.css`, +3.3 KB gzip.
+- [x] Docs: selectors (media player, `:state()`, `:modal`), container queries (`style-[…]:`), form controls (select parts), color functions (`text-contrast-*`). The media player demo sits on the selectors page, not in `interactivity`.
+
 
 The aim is small, safe and visible.
 

@@ -13,19 +13,45 @@
     "Command: CommandGroup and CommandItem as children (Vue OcCommandGroup / OcCommandItem, Blade command.group / command.item) next to the groups and items data.",
     "DecimalInput: integer and allowNegative; roundDecimal is exported.",
     "PhoneInput: format or groups per country groups the national number (BE 470 12 34 56, NL and FR 6 12 34 56 78, DE 151 2345 6789); PHONE_COUNTRIES, phoneGroups and splitPhone are exported.",
-    "TimeInput: slotsPopover shows the slots in a native popover under a clock button (.oc-time-picker) instead of the datalist."
+    "TimeInput: slotsPopover shows the slots in a native popover under a clock button (.oc-time-picker) instead of the datalist.",
+    "Variants for media elements: playing:, paused:, seeking:, buffering:, stalled:, muted: and volume-locked: (also as group-has-playing:, peer-paused:, not-paused:). Each writes the native :playing/:paused rule and a separate [data-playing]/[data-paused] rule.",
+    "media-states.js (@birdycom/omniacss/media-states, dist/media-states.js): an optional script for browsers without :paused and :playing (Chrome and Edge before 158). It mirrors the state of every audio and video element to data-paused, data-playing, data-muted, data-seeking, data-buffering and data-stalled, and does nothing where the browser supports the pseudo-classes.",
+    "Variant state-[name]: for custom states of custom elements (:state(name)), also as group-state-[name]: and has-state-[name]:.",
+    "Variants modal:, fullscreen: and pip: (:modal, :fullscreen, :picture-in-picture).",
+    "Variant style-[--name:value]: wraps any utility in @container style(--name: value); style-[--name:value]/card: asks the container named card.",
+    "Variants picker:, checkmark: and picker-icon: style the parts of a customizable select (::picker(select), ::checkmark, ::picker-icon) together with appearance-base-select.",
+    "text-contrast-{color} (every Omnia color and step) and text-contrast: black or white text with contrast-color(), with a black-or-white fallback computed at build time for older browsers.",
+    "MeterList (Vue OcMeterList, Blade meter-list): the .oc-meter-list stack as a component, with variant compact | dense | live and a live switch that adds --live next to another variant.",
+    "StatCardGrid in Vue (OcStatCardGrid) and Blade (stat-card-grid), next to the React StatCardGrid.",
+    "FormGroup (Vue OcFormGroup, Blade form-group): wrapper for the legacy .oc-form-group block; prefer oc-field (FormField) for new forms.",
+    "Barcode: format=\"QR\" draws a QR code with an encoder of its own (no library): numeric, alphanumeric or UTF-8 text, versions 1 to 40, error correction level L, M, Q or H. Black on white with a quiet zone in every theme and in print (.oc-barcode--qr); encodeQr and qrToSvg are exported, barcodeFile makes a print-ready SVG.",
+    "Progress: track=\"striped\" (.oc-progress--striped) hatches the part still to do with flat stripes, and segments (.oc-progress--split, SplitBar / OcSplitBar / x-oc::split-bar) make a split bar for right / wrong or done / open, with an optional legend.",
+    "SeverityCard: compact renders one row for a list of alerts (start border and tint per level, no expand), and the new level calm.",
+    "SortableList (React, Vue, Blade): reorder with a finger, pen or mouse (pointer events, works on a tablet) or with Space and the arrow keys, with a drop line, a drag ghost, announcements in a live region and an oc-reorder event. sortable-list.js for plain HTML and Livewire (data-oc-reorder-call).",
+    "Sheet: floating (.oc-sheet--floating) floats the panel free of the edge with a margin and rounded corners; rounded rounds the corners that face the page. A bottom sheet is centered with --oc-sheet-max (40rem) on wide screens.",
+    "OtpInput: block (full width, the cells share it), size=\"lg\" and tiles (a tile per character with a bar under it), as .oc-otp--block, --lg and --tiles.",
+    "StatList (React, Vue, Blade) on .oc-dl--stat: label and value rows in tabular numbers, a sublabel and a total row.",
+    "SaveStatus as a sync indicator: the states queued (with count) and online, and compact (only the dot, the text for screen readers).",
+    "ModeBadge: the modes staging and offline, and EnvFrame (.oc-env-frame): a line in the mode color around the whole screen that never blocks a click.",
+    "Toast: action { label, onClick } puts a button such as Undo in the toast (React, Vue, Blade, the Livewire toast stack with ocToast(..., action: [...])); it closes the toast and is reachable with the keyboard.",
+    "CopyField: block lets the field stretch with a narrow column; below 14rem the button keeps only its icon."
   ],
   "improved": [
     "Combobox: the portal list stays inside the combobox as a manual popover in the top layer where the browser has popovers, so it works inside a modal dialog, sheet or drawer; older browsers keep the list in document.body.",
     "Popover: the fallback placement for browsers without anchor positioning flips to the other side when there is no room and shifts the panel into the viewport.",
     "DecimalInput: the value is rounded half away from zero on the visible digits (1,005 becomes 1,01) and onValueChange gets the rounded number.",
     "Breadcrumb: the ellipsis and the chevron separator are inline SVG, so they show without an icon runtime.",
-    "Docs: the limits of the server-rendered Blade components are explained with working examples: a Blade dropdown trigger slot needs its own popovertarget and a fixed id, Blade popovers have no lazy, and a Blade back link uses the oc-back event (x-on:oc-back.prevent) instead of a callback. Command (React, Vue): items in your own wrapper component are not found; examples show what does and does not work."
+    "Docs: the limits of the server-rendered Blade components are explained with working examples: a Blade dropdown trigger slot needs its own popovertarget and a fixed id, Blade popovers have no lazy, and a Blade back link uses the oc-back event (x-on:oc-back.prevent) instead of a callback. Command (React, Vue): items in your own wrapper component are not found; examples show what does and does not work.",
+    "Docs: a media player demo (selectors) that follows the audio with group-has-playing: and group-has-paused:, a custom-element switch with state-[on]:, a modal dialog with modal:, the style-[...]: variant (container queries), the select parts (form controls) and text-contrast-* (color functions).",
+    "Tabs: a row of tabs that does not fit scrolls sideways on a narrow screen, without a scroll bar and without cutting off the active line or the focus ring; the chosen tab scrolls into view (tabs.js revealTab and the React and Vue tabs).",
+    "Combobox: an icon-only header trigger now shows what you type: the field opens over its neighbours while you type and closes when you choose."
   ],
   "changed": [],
   "fixed": [
     "Combobox, dropdown, popover and tooltip could not be clicked inside an open modal dialog, sheet or drawer (the list in document.body was inert).",
     "Sheet: the open panel uses translate: none, so fixed children (tooltips, lists) are placed against the viewport instead of the panel.",
-    "Tooltip: a collapsed sidebar no longer cuts off the side tooltips in browsers without anchor positioning."
+    "Tooltip: a collapsed sidebar no longer cuts off the side tooltips in browsers without anchor positioning.",
+    "Command: a JSX or slot row with mixed text (<strong>New</strong> invoice) no longer gets the row gap between its parts; the text goes in one span, a leading icon stays separate.",
+    "Docs: the stepper demo \"Steps you may open\" is vertical so every step fits at 1280 and 390, and the bare scroll area demo has the same text size and spacing as the other demos."
   ]
 }

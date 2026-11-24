@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.18.0
+
+- Completions and hover CSS for the OmniaUI additions of 0.18.0 for overlays in a dialog: `oc-card--bare`,
+  `oc-scroll-area--bare`, the time slots of a time field (`oc-time-picker`, `oc-time-slots`, `oc-time-slot`),
+  `data-match-width` on a popover panel and `data-side` / `data-align` on a dropdown menu.
+- The app parts of 0.18.0: the QR code of the barcode (`oc-barcode--qr`, `oc-barcode__qr`, `--oc-barcode-qr-size`), the
+  striped track and split bar of the progress bar (`oc-progress--striped`, `oc-progress--split`, `oc-progress-segment`
+  with `--success`, `--warning`, `--danger`, `--info`, `--muted`, and `oc-progress-legend`), compact alert rows
+  (`oc-severity-card--compact`, `oc-severity-card--calm`, `oc-severity-card-text`), the sortable list
+  (`oc-sortable-list`, `oc-sortable-item`, `__body`, `__arrows`, `--grabbed`, `--dragging`, `oc-dropline`,
+  `oc-drag-ghost`), the floating and rounded sheet (`oc-sheet--floating`, `oc-sheet--rounded`, `--oc-sheet-max`,
+  `--oc-sheet-margin`), the code input variants (`oc-otp--block`, `oc-otp--lg`, `oc-otp--tiles`), the stat list
+  (`oc-dl--stat`, `oc-dl-sub`, `oc-dl-row--total`), the compact sync status (`oc-status--compact`, `oc-status__count`),
+  the staging and offline modes and the environment frame (`oc-env-frame`, `--contained`, `--oc-mode-staging`,
+  `--oc-mode-offline`), the toast action button (`oc-toast-action`) and `oc-copy-field--block`.
+- The media state variants of OmniaCSS: `playing:`, `paused:`, `seeking:`, `buffering:`, `stalled:`, `muted:` and
+  `volume-locked:`.
+
+## 0.17.3
+
+- `break-words` (overflow-wrap: break-word) next to `wrap-break-word` and `wrap-anywhere`.
+- The display titles (`oc-display`, `oc-display--page`) break long words, and the contact form block follows
+  `--oc-block-gap` on a narrow screen.
+
+## 0.17.2
+
+- Completions and hover CSS for the OmniaUI additions of 0.17.2: the header combobox (`oc-combobox--ghost`,
+  `oc-combobox--header`, `oc-combobox--icon-only`, `oc-combobox-code`), the radio group in a dropdown and the bulk
+  action bar of the data table (`oc-data-table-bulk`).
+
+## 0.17.0
+
+- Completions and hover CSS for the OmniaUI additions of 0.17.0: module colors (`data-module`, `--oc-module`,
+  `--oc-module-soft`, `--oc-module-fg`), the ledger variant (`oc-input--ledger`), the hero media
+  (`oc-hero-media`, `--center`, `--end`, `--scrim`), the scrim (`oc-scrim`, `--dark`, `--top`, `--start`, `--end`,
+  `--full`, `oc-scrim-content`), the floating heart button (`oc-btn--float`), the calendar (`oc-calendar`), the
+  countdown (`oc-countdown`), the save status (`oc-status`), `oc-barcode--bare`, `oc-copy-field--display` and `--wrap`,
+  `oc-otp--fit` and `--group`, the sortable row (`oc-sortable-row`, `oc-sortable-row-grip`) and `oc-dl--numbered`.
+- The OmniaCSS additions of 0.17.0: the `d-*` display aliases (`d-block`, `d-flex` ...) with their responsive variants and
+  the print utilities `print-hidden`, `print-only`, `print-light` and `page-a4`.
+
 ## 0.17.1
 
 - Completions and hover CSS for the OmniaUI additions of 0.17.1: `oc-btn--inherit` (an outline or ghost button that

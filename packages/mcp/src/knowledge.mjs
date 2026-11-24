@@ -231,6 +231,12 @@ export class Knowledge {
       pseudoElements: g.pseudoElement,
       media: g.media,
       scrollState: { names: g.scrollState, note: "needs a container-scroll-state ancestor" },
+      mediaState: {
+        names: g.mediaState ?? [],
+        note: "<audio>/<video> states. Each writes two rules: the native :paused/:playing … (Safari 15.4+, Firefox 150+, Chrome/Edge 158+) and [data-paused] … set by the optional script @birdycom/omniacss/media-states (dist/media-states.js) for browsers without them (older Chrome and Edge). volume-locked: is native only.",
+        forms: ["paused:", "playing:", "group-paused:", "peer-playing:", "has-paused:", "not-paused:"],
+      },
+      selectParts: { names: ["picker", "checkmark", "picker-icon"], note: "::picker(select), ::checkmark, ::picker-icon of a customizable <select>: put appearance-base-select on the select (it also opts the picker in). Chrome 135+, Safari 27; Firefox shows the normal select." },
       other: g.other,
       breakpoints: { names: g.breakpoints, forms: ["md:", "max-md:", "min-[600px]:", "max-[600px]:"] },
       containers: { names: g.containers, forms: ["cq-md:", "cq-max-md:", "cq-[400px]:", "cq-md/sidebar: (named container)", "@md: (short form)"], note: "needs a container ancestor (container / cq-inline)" },
@@ -247,6 +253,9 @@ export class Knowledge {
         "[&>svg]: / [&_p]: / [@media(min-width:900px)]: (arbitrary)",
         "dark: (class .dark, data-theme=\"dark\" or the system setting)",
         "starting: (@starting-style, entry animations)",
+        "state-[loading]: (:state(loading), custom states of a custom element)",
+        "modal: / fullscreen: / pip: (:modal, :fullscreen, :picture-in-picture)",
+        "style-[--tone:dark]: / style-[--tone:dark]/card: (@container style(--tone: dark), needs a container ancestor)",
       ],
     };
   }

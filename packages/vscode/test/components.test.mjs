@@ -52,7 +52,12 @@ test("a project's installed packages win, Pro only when installed", () => {
     fs.mkdirSync(sub, { recursive: true });
     const c = loadComponents([sub]);
     assert.ok(c.has("oc-only-here"));
-    assert.equal(c.has("oc-tooltip"), false, "the installed components.css replaces the bundled one");
+    // The installed components.css replaces the bundled one. Bundled blocks may still use a component class in a
+    // compound selector (.oc-block-route-steps-status.oc-tooltip), so probe a class only components.css has and
+    // check that the bundled component rule (.oc-tooltip { ... }) is gone.
+    assert.equal(c.has("oc-tooltip__title"), false, "the installed components.css replaces the bundled one");
+    assert.ok(!Object.values(c.source).some((s) => s.bundled && s.label === "OmniaUI"), "no class comes from the bundled components.css");
+    assert.doesNotMatch(c.cssFor("oc-tooltip") ?? "", /^\.oc-tooltip \{/m, "bundled .oc-tooltip rule dropped");
     assert.equal(c.origin("oc-block-chat"), "OmniaUI Pro 9.9.9");
     assert.ok(c.names.some((n) => n.startsWith("oc-block-") && n !== "oc-block-chat"), "bundled blocks stay");
   } finally {

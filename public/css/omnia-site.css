@@ -331,9 +331,11 @@
     --color-magenta-mix-10: color-mix(in oklch, oklch(70.1673859102% 0.3224909877 328.363415175deg) 10%, transparent);
     --color-magenta-mix-40: color-mix(in oklch, oklch(70.1673859102% 0.3224909877 328.363415175deg) 40%, transparent);
     --color-purple-mix-10: color-mix(in oklch, oklch(42.0913663143% 0.1934529286 328.363415175deg) 10%, transparent);
+    --color-green-mix-10: color-mix(in oklch, oklch(51.9751831387% 0.1768582447 142.4953450414deg) 10%, transparent);
     --color-teal-mix-10: color-mix(in oklch, oklch(54.3122569117% 0.0927100472 194.768959898deg) 10%, transparent);
     --color-blue-mix-50: color-mix(in oklch, oklch(45.2013718174% 0.3132143886 264.0520226164deg) 50%, transparent);
     --color-vividblue-mix-20: color-mix(in oklch, oklch(72.9222202005% 0.1410846659 258.2807037581deg) 20%, transparent);
+    --color-black-mix-40: color-mix(in oklch, oklch(0% 0 none) 40%, transparent);
     /* HTML palette (tone + mix) */
     --color-crimson-30: oklch(66.5527645529% 0.2041831006 20.0873612183deg);
     --color-crimson-50: oklch(59.6917931791% 0.2130606267 20.0873612183deg);
@@ -520,6 +522,7 @@
     --color-dodgerblue-90: oklch(49.5524227741% 0.2069095328 253.2054126486deg);
     --color-dodgerblue-95: oklch(44.3363782716% 0.2111071516 253.2054126486deg);
     --color-dodgerblue-100: oklch(65.2005562817% 0.1901190574 253.2054126486deg);
+    --color-cornflowerblue-20: oklch(77.2235412481% 0.1272211559 261.3380228972deg);
     --color-cornflowerblue-90: oklch(51.2712733551% 0.1620482927 261.3380228972deg);
     --color-cornflowerblue-100: oklch(67.462201783% 0.1413568399 261.3380228972deg);
     --color-royalblue-50: oklch(58.6257296202% 0.1807042058 266.3995958443deg);
@@ -581,6 +584,7 @@
     --color-white-95: oklch(68% 0.04 none);
     --color-white-100: oklch(100% 0 none);
     --color-linen-30: oklch(96.8986010291% 0.0157775124 67.6215101992deg);
+    --color-lightgray-20: oklch(90.6804152719% 0 none);
     --color-silver-2: oklch(91.5430344652% 0 none);
     --color-silver-10: oklch(88.0833667464% 0 none);
     --color-silver-20: oklch(86.5457366491% 0 none);
@@ -620,6 +624,7 @@
     --color-purple-mix-10: color-mix(in oklch, oklch(42.0913663143% 0.1934529286 328.363415175deg) 10%, transparent);
     --color-forestgreen-mix-10: color-mix(in oklch, oklch(55.7804610879% 0.1687813825 142.8931216732deg) 10%, transparent);
     --color-forestgreen-mix-30: color-mix(in oklch, oklch(55.7804610879% 0.1687813825 142.8931216732deg) 30%, transparent);
+    --color-green-mix-10: color-mix(in oklch, oklch(51.9751831387% 0.1768582447 142.4953450414deg) 10%, transparent);
     --color-teal-mix-10: color-mix(in oklch, oklch(54.3122569117% 0.0927100472 194.768959898deg) 10%, transparent);
     --color-steelblue-mix-10: color-mix(in oklch, oklch(58.8000911318% 0.0993388643 245.7394173387deg) 10%, transparent);
     --color-steelblue-mix-20: color-mix(in oklch, oklch(58.8000911318% 0.0993388643 245.7394173387deg) 20%, transparent);
@@ -636,6 +641,7 @@
     --color-royalblue-mix-100: color-mix(in oklch, oklch(55.9848187449% 0.1882335477 266.3995958443deg) 100%, transparent);
     --color-blue-mix-50: color-mix(in oklch, oklch(45.2013718174% 0.3132143886 264.0520226164deg) 50%, transparent);
     --color-chocolate-mix-10: color-mix(in oklch, oklch(63.4398420825% 0.1549923997 50.2664768719deg) 10%, transparent);
+    --color-black-mix-40: color-mix(in oklch, oklch(0% 0 none) 40%, transparent);
     /* RAL palette (single token per color, no steps) */
     --color-ral1003: oklch(79.104142146% 0.1673469268 74.3878048539deg);
     --color-ral2004: oklch(62.7057080478% 0.1913511032 41.1332710147deg);
@@ -787,6 +793,10 @@ select {
   background-color: var(--color-red-70);
 }
 
+.bg-red-80 {
+  background-color: var(--color-red-80);
+}
+
 .text-red-95 {
   color: var(--color-red-95);
 }
@@ -817,6 +827,10 @@ select {
 
 .bg-orange {
   background-color: var(--color-orange-100);
+}
+
+.bg-yellow-50 {
+  background-color: var(--color-yellow-50);
 }
 
 .text-yellow-50 {
@@ -863,8 +877,20 @@ select {
   background-color: var(--color-indigo-60);
 }
 
+.bg-lime-30 {
+  background-color: var(--color-lime-30);
+}
+
 .text-green-30 {
   color: var(--color-green-30);
+}
+
+.bg-green-50 {
+  background-color: var(--color-green-50);
+}
+
+.bg-green-60 {
+  background-color: var(--color-green-60);
 }
 
 .text-green-60 {
@@ -1157,6 +1183,10 @@ select {
   background-color: var(--color-red-70);
 }
 
+.bg-red-80 {
+  background-color: var(--color-red-80);
+}
+
 .text-red-95 {
   color: var(--color-red-95);
 }
@@ -1191,6 +1221,10 @@ select {
 
 .bg-orange {
   background-color: var(--color-orange-100);
+}
+
+.bg-yellow-50 {
+  background-color: var(--color-yellow-50);
 }
 
 .text-yellow-50 {
@@ -1245,6 +1279,10 @@ select {
   background-color: var(--color-slateblue-70);
 }
 
+.bg-lime-30 {
+  background-color: var(--color-lime-30);
+}
+
 .bg-forestgreen-60 {
   background-color: var(--color-forestgreen-60);
 }
@@ -1259,6 +1297,14 @@ select {
 
 .text-green-30 {
   color: var(--color-green-30);
+}
+
+.bg-green-50 {
+  background-color: var(--color-green-50);
+}
+
+.bg-green-60 {
+  background-color: var(--color-green-60);
 }
 
 .text-green-60 {
@@ -1496,6 +1542,10 @@ select {
   background-color: var(--color-purple-mix-10);
 }
 
+.bg-green-mix-10 {
+  background-color: var(--color-green-mix-10);
+}
+
 .bg-teal-mix-10 {
   background-color: var(--color-teal-mix-10);
 }
@@ -1550,6 +1600,10 @@ select {
 
 .bg-forestgreen-mix-30 {
   background-color: var(--color-forestgreen-mix-30);
+}
+
+.bg-green-mix-10 {
+  background-color: var(--color-green-mix-10);
 }
 
 .bg-teal-mix-10 {
@@ -1628,6 +1682,89 @@ select {
   background-color: color-mix(in oklch, var(--color-ral3020) 30%, transparent);
 }
 
+/* ===================================================================
+   CONTRAST COLOR
+   .text-contrast-red-50   -> text in black or white, readable on bg-red-50
+   .text-contrast-red      -> idem for bg-red (step 100)
+   .text-contrast          -> readable on var(--oc-contrast-bg, var(--oc-background))
+   =================================================================== */
+.text-contrast-red-2 {
+  --oc-contrast-bg: var(--color-red-2);
+  color: #000;
+}
+
+.text-contrast-red-80 {
+  --oc-contrast-bg: var(--color-red-80);
+  color: #fff;
+}
+
+.text-contrast-red-95 {
+  --oc-contrast-bg: var(--color-red-95);
+  color: #fff;
+}
+
+.text-contrast-red {
+  --oc-contrast-bg: var(--color-red-100);
+  color: #000;
+}
+
+.text-contrast-orange-50 {
+  --oc-contrast-bg: var(--color-orange-50);
+  color: #000;
+}
+
+.text-contrast-yellow-50 {
+  --oc-contrast-bg: var(--color-yellow-50);
+  color: #000;
+}
+
+.text-contrast-indigo-60 {
+  --oc-contrast-bg: var(--color-indigo-60);
+  color: #fff;
+}
+
+.text-contrast-lime-30 {
+  --oc-contrast-bg: var(--color-lime-30);
+  color: #000;
+}
+
+.text-contrast-green-60 {
+  --oc-contrast-bg: var(--color-green-60);
+  color: #fff;
+}
+
+.text-contrast-teal-70 {
+  --oc-contrast-bg: var(--color-teal-70);
+  color: #fff;
+}
+
+.text-contrast-mistblue-10 {
+  --oc-contrast-bg: var(--color-mistblue-10);
+  color: #000;
+}
+
+.text-contrast-vividblue-80 {
+  --oc-contrast-bg: var(--color-vividblue-80);
+  color: #000;
+}
+
+.text-contrast-vividblue-95 {
+  --oc-contrast-bg: var(--color-vividblue-95);
+  color: #fff;
+}
+
+.text-contrast {
+  color: var(--oc-contrast-fallback, var(--oc-foreground));
+}
+
+@supports (color: contrast-color(red)) {
+  .text-contrast {
+    color: contrast-color(var(--oc-contrast-bg, var(--oc-background)));
+  }
+  .text-contrast-red-2, .text-contrast-red-80, .text-contrast-red-95, .text-contrast-red, .text-contrast-orange-50, .text-contrast-yellow-50, .text-contrast-indigo-60, .text-contrast-lime-30, .text-contrast-green-60, .text-contrast-teal-70, .text-contrast-mistblue-10, .text-contrast-vividblue-80, .text-contrast-vividblue-95 {
+    color: contrast-color(var(--oc-contrast-bg));
+  }
+}
 /* The font family property */
 .font-roboto {
   font-family: "Roboto Flex", sans-serif;
@@ -11728,6 +11865,10 @@ responsive breakpoint mixin:
   align-items: center;
 }
 
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
 /* .shadow-md / .shadow-lg live in utilities/_effects_advanced.scss (light-dark aware) */
 /* End hulp for alignment */
 
@@ -11766,6 +11907,14 @@ responsive breakpoint mixin:
   }
 }
 
+.backdrop\:bg-black-mix-40::backdrop {
+  background-color: var(--color-black-mix-40);
+}
+
+.backdrop\:bg-black-mix-40::backdrop {
+  background-color: var(--color-black-mix-40);
+}
+
 .before\:absolute::before {
   content: "";
   position: absolute;
@@ -11800,6 +11949,22 @@ responsive breakpoint mixin:
 .before\:transition-transform::before {
   content: "";
   transition-property: transform, translate, scale, rotate;
+}
+
+.checkmark\:m-inline-start-auto::checkmark {
+  margin-inline-start: auto;
+}
+
+.checkmark\:order-1::checkmark {
+  order: 1;
+}
+
+.checkmark\:text-green-60::checkmark {
+  color: var(--color-green-60);
+}
+
+.checkmark\:text-green-60::checkmark {
+  color: var(--color-green-60);
 }
 
 .file\:bg-vividblue-80::file-selector-button {
@@ -11858,6 +12023,22 @@ responsive breakpoint mixin:
   color: var(--color-magenta-50);
 }
 
+.picker-icon\:text-vividblue-80::picker-icon {
+  color: var(--color-vividblue-80);
+}
+
+.picker\:p-2::picker(select) {
+  padding: 2rem;
+}
+
+.picker\:rounded-lg::picker(select) {
+  border-radius: 0.5rem;
+}
+
+.picker\:shadow-lg::picker(select) {
+  box-shadow: 0 10px 15px -3px light-dark(oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h / 0.18), oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h / 0.75)), 0 4px 6px -4px light-dark(oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h / 0.14), oklch(from var(--oc-shadow-color, var(--color-black-50)) l c h / 0.65)), 0 0 0 1px light-dark(transparent, oklch(from var(--color-white-50) l c h / 0.22)), inset 0 1px 0 0 light-dark(transparent, oklch(from var(--color-white-50) l c h / 0.14));
+}
+
 .selection\:bg-magenta-50::selection {
   background-color: var(--color-magenta-50);
 }
@@ -11908,6 +12089,22 @@ responsive breakpoint mixin:
 
 .user-invalid\:border-red-60:user-invalid {
   border-color: var(--color-red-60);
+}
+
+.modal\:border-vividblue-80:modal {
+  border-color: var(--color-vividblue-80);
+}
+
+.pip\:opacity-50:picture-in-picture {
+  opacity: 0.5;
+}
+
+.paused\:opacity-50:paused {
+  opacity: 0.5;
+}
+
+.paused\:opacity-50[data-paused] {
+  opacity: 0.5;
 }
 
 .hover\:-translate-x-2:hover {
@@ -12054,6 +12251,38 @@ responsive breakpoint mixin:
   rotate: y 180deg;
 }
 
+.group-has-muted\:block:is(:where(.group):has(:muted) *) {
+  display: block;
+}
+
+.group-has-muted\:block:is(:where(.group):has([data-muted]) *) {
+  display: block;
+}
+
+.group-has-paused\:inline:is(:where(.group):has(:paused) *) {
+  display: inline;
+}
+
+.group-has-paused\:inline:is(:where(.group):has([data-paused]) *) {
+  display: inline;
+}
+
+.group-has-playing\:animate-running:is(:where(.group):has(:playing) *) {
+  animation-play-state: running;
+}
+
+.group-has-playing\:animate-running:is(:where(.group):has([data-playing]) *) {
+  animation-play-state: running;
+}
+
+.group-has-playing\:inline:is(:where(.group):has(:playing) *) {
+  display: inline;
+}
+
+.group-has-playing\:inline:is(:where(.group):has([data-playing]) *) {
+  display: inline;
+}
+
 .group-hover\:bg-teal-70:is(:where(.group):hover *) {
   background-color: var(--color-teal-70);
 }
@@ -12077,6 +12306,14 @@ responsive breakpoint mixin:
 .group-hover\:translate-x-4:is(:where(.group):hover *) {
   --oc-translate-x: 1rem;
   translate: var(--oc-translate-x) var(--oc-translate-y, 0) var(--oc-translate-z, 0);
+}
+
+.group-state-\[on\]\:d-none:is(:where(.group):state(on) *) {
+  display: none;
+}
+
+.group-state-\[on\]\:inline:is(:where(.group):state(on) *) {
+  display: inline;
 }
 
 .peer-focus-visible\:opacity-100:is(:where(.peer):focus-visible ~ *) {
@@ -12113,6 +12350,11 @@ responsive breakpoint mixin:
 
 .peer-user-valid\:block:is(:where(.peer):user-valid ~ *) {
   display: block;
+}
+
+.open\:picker-icon\:rotate-180:is([open], :popover-open, :open)::picker-icon {
+  --oc-rotate: 180deg;
+  rotate: 180deg;
 }
 
 .hover\:before\:scale-x-100:hover::before {
@@ -12197,6 +12439,54 @@ responsive breakpoint mixin:
 
 .has-\[input\:checked\]\:border-vividblue-80:has(input:checked) {
   border-color: var(--color-vividblue-80);
+}
+
+.has-playing\:border-green-50:has(:playing) {
+  border-color: var(--color-green-50);
+}
+
+.has-playing\:border-green-50:has(:playing) {
+  border-color: var(--color-green-50);
+}
+
+.has-playing\:border-green-50:has([data-playing]) {
+  border-color: var(--color-green-50);
+}
+
+.has-playing\:border-green-50:has([data-playing]) {
+  border-color: var(--color-green-50);
+}
+
+.state-\[on\]\:bg-green-mix-10:state(on) {
+  background-color: var(--color-green-mix-10);
+}
+
+.state-\[on\]\:bg-green-mix-10:state(on) {
+  background-color: var(--color-green-mix-10);
+}
+
+.state-\[on\]\:border-green-50:state(on) {
+  border-color: var(--color-green-50);
+}
+
+.state-\[on\]\:border-green-50:state(on) {
+  border-color: var(--color-green-50);
+}
+
+.\*\:checkmark\:m-inline-start-auto > *::checkmark {
+  margin-inline-start: auto;
+}
+
+.\*\:checkmark\:order-1 > *::checkmark {
+  order: 1;
+}
+
+.\*\:checkmark\:text-green-60 > *::checkmark {
+  color: var(--color-green-60);
+}
+
+.\*\:checkmark\:text-green-60 > *::checkmark {
+  color: var(--color-green-60);
 }
 
 @supports (anchor-name:--a) {
@@ -12625,5 +12915,80 @@ responsive breakpoint mixin:
   .md\:mask-reset {
   -webkit-mask: none;
           mask: none;
+  }
+}
+
+@container style(--tone: info) {
+  .style-\[--tone\:info\]\:bg-vividblue-80 {
+  background-color: var(--color-vividblue-80);
+  }
+}
+
+@container style(--tone: info) {
+  .style-\[--tone\:info\]\:text-contrast-vividblue-80 {
+  --oc-contrast-bg: var(--color-vividblue-80);
+  color: #000;
+  }
+}
+
+@supports (color: contrast-color(red)) {
+  @container style(--tone: info) {
+    .style-\[--tone\:info\]\:text-contrast-vividblue-80 {
+    color: contrast-color(var(--oc-contrast-bg));
+    }
+  }
+}
+
+@container style(--tone: ok) {
+  .style-\[--tone\:ok\]\:bg-green-60 {
+  background-color: var(--color-green-60);
+  }
+}
+
+@container style(--tone: ok) {
+  .style-\[--tone\:ok\]\:bg-green-60 {
+  background-color: var(--color-green-60);
+  }
+}
+
+@container style(--tone: ok) {
+  .style-\[--tone\:ok\]\:text-contrast-green-60 {
+  --oc-contrast-bg: var(--color-green-60);
+  color: #fff;
+  }
+}
+
+@supports (color: contrast-color(red)) {
+  @container style(--tone: ok) {
+    .style-\[--tone\:ok\]\:text-contrast-green-60 {
+    color: contrast-color(var(--oc-contrast-bg));
+    }
+  }
+}
+
+@container style(--tone: warn) {
+  .style-\[--tone\:warn\]\:bg-orange-50 {
+  background-color: var(--color-orange-50);
+  }
+}
+
+@container style(--tone: warn) {
+  .style-\[--tone\:warn\]\:bg-orange-50 {
+  background-color: var(--color-orange-50);
+  }
+}
+
+@container style(--tone: warn) {
+  .style-\[--tone\:warn\]\:text-contrast-orange-50 {
+  --oc-contrast-bg: var(--color-orange-50);
+  color: #000;
+  }
+}
+
+@supports (color: contrast-color(red)) {
+  @container style(--tone: warn) {
+    .style-\[--tone\:warn\]\:text-contrast-orange-50 {
+    color: contrast-color(var(--oc-contrast-bg));
+    }
   }
 }

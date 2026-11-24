@@ -23,13 +23,28 @@ const PSEUDO_CLASS = {
   first: ":first-child", last: ":last-child", only: ":only-child", odd: ":nth-child(odd)", even: ":nth-child(even)",
   "first-of-type": ":first-of-type", "last-of-type": ":last-of-type", "only-of-type": ":only-of-type",
   open: ":is([open], :popover-open, :open)", "popover-open": ":popover-open", inert: ":is([inert], [inert] *)",
+  modal: ":modal", fullscreen: ":fullscreen", pip: ":picture-in-picture",
 };
-const STATE_ORDER = ["visited", "target", "open", "popover-open", "default", "checked", "indeterminate", "placeholder-shown", "autofill", "optional", "required", "valid", "invalid", "user-valid", "user-invalid", "in-range", "out-of-range", "read-only", "empty", "focus-within", "hover", "focus", "focus-visible", "active", "enabled", "disabled", "inert"];
+/**
+ * Media-element states (<audio>/<video>): :playing, :paused … (Safari 15.4+, Firefox 150+, Chrome/Edge 158+).
+ * Every media-state variant writes two separate rules: the native pseudo-class and the attribute that the optional
+ * script @birdycom/omniacss/media-states sets ([data-paused]). Separate rules, so a browser that does not know
+ * :paused only drops that rule and still uses the attribute rule.
+ */
+const MEDIA_STATE = {
+  playing: ":playing", paused: ":paused", seeking: ":seeking", buffering: ":buffering", stalled: ":stalled",
+  muted: ":muted", "volume-locked": ":volume-locked",
+};
+/** Marker the media-states script puts on every <audio>/<video> it watches (for not-paused: and friends). */
+const MEDIA_MARKER = "[data-oc-media]";
+const STATE_ORDER = ["visited", "target", "open", "popover-open", "default", "checked", "indeterminate", "placeholder-shown", "autofill", "optional", "required", "valid", "invalid", "user-valid", "user-invalid", "in-range", "out-of-range", "read-only", "empty", "modal", "fullscreen", "pip", "paused", "playing", "seeking", "buffering", "stalled", "muted", "volume-locked", "focus-within", "hover", "focus", "focus-visible", "active", "enabled", "disabled", "inert"];
 const STRUCT_ORDER = ["first", "last", "only", "odd", "even", "first-of-type", "last-of-type", "only-of-type"];
 
 const PSEUDO_ELEMENT = {
   before: "::before", after: "::after", "first-letter": "::first-letter", "first-line": "::first-line", marker: "::marker",
   placeholder: "::placeholder", backdrop: "::backdrop", file: "::file-selector-button", selection: "::selection", "details-content": "::details-content",
+  // customizable <select> (needs appearance-base-select on the select and its picker)
+  picker: "::picker(select)", checkmark: "::checkmark", "picker-icon": "::picker-icon",
 };
 
 const MEDIA = {
@@ -54,8 +69,14 @@ const ARIA = ["busy", "checked", "disabled", "expanded", "hidden", "pressed", "r
 
 /** Fixed variant names per group (for editor tooling such as the OmniaCSS IntelliSense extension). */
 export const VARIANT_GROUPS = {
-  pseudoClass: Object.keys(PSEUDO_CLASS), pseudoElement: Object.keys(PSEUDO_ELEMENT), media: Object.keys(MEDIA),
+  pseudoClass: [...Object.keys(PSEUDO_CLASS), ...Object.keys(MEDIA_STATE)], pseudoElement: Object.keys(PSEUDO_ELEMENT), media: Object.keys(MEDIA),
   scrollState: Object.keys(SCROLL_STATE), aria: ARIA, other: ["dark", "rtl", "ltr", "starting", "*", "**"],
+  mediaState: Object.keys(MEDIA_STATE),
+};
+/** Variants that take a value (for editor tooling and docs). */
+export const VARIANT_FORMS = {
+  customState: "state-[name]: (:state(name), custom-element states)",
+  styleQuery: "style-[--name:value]: / style-[--name:value]/container: (@container style(...))",
 };
 
 const DARK_EXPLICIT = ':where(.dark, [data-theme="dark"], :root:has(.oc-theme-switch input[value="dark"]:checked))';
@@ -103,7 +124,7 @@ const quoteAttr = (s) => {
 
 /** Append a simple selector in front of a trailing pseudo-element: `&::after` + `:hover` -> `&:hover::after`. */
 function addSimple(sel, suffix) {
-  const m = sel.match(/^(.*?)(::[a-z-]+)$/s);
+  const m = sel.match(/^(.*?)(::[a-z-]+(?:\([^()]*\))?)$/s);
   return m ? m[1] + suffix + m[2] : sel + suffix;
 }
 
@@ -127,16 +148,16 @@ export function parseCandidate(token) {
 
 const state = (sel = "&", at = []) => ({ sel, at });
 
-/** Selector pattern of a variant that only changes the element's selector ("&:hover"), or null. */
-function innerPattern(name) {
+/** Selector patterns of a variant that only changes the element's selector (["&:hover"]), or null. */
+function innerPatterns(name) {
   const r = applyVariant(name, [state()]);
-  return r && r.length === 1 && !r[0].at.length ? r[0].sel : null;
+  return r && r.length && r.every((b) => !b.at.length) ? r.map((b) => b.sel) : null;
 }
 
-const patternOf = (name) => {
+const patternsOf = (name) => {
   const a = arbitrary(name);
-  if (a !== null) return a.includes("&") ? a : `&${a}`;
-  return innerPattern(name);
+  if (a !== null) return [a.includes("&") ? a : `&${a}`];
+  return innerPatterns(name);
 };
 
 /**
@@ -149,6 +170,9 @@ export function applyVariant(name, branches) {
   let m;
 
   if (Object.hasOwn(PSEUDO_CLASS, name)) return mapSel((s) => addSimple(s, PSEUDO_CLASS[name]));
+  if (Object.hasOwn(MEDIA_STATE, name)) {
+    return branches.flatMap((b) => [{ ...b, sel: addSimple(b.sel, MEDIA_STATE[name]) }, { ...b, sel: addSimple(b.sel, `[data-${name}]`) }]);
+  }
   // marker: and selection: also reach the descendants (<ul class="marker:…"> colors the bullets of its <li>s).
   if (name === "marker" || name === "selection") {
     return branches.flatMap((b) => [{ ...b, sel: b.sel + PSEUDO_ELEMENT[name] }, { ...b, sel: `${b.sel} *${PSEUDO_ELEMENT[name]}` }]);
@@ -182,6 +206,20 @@ export function applyVariant(name, branches) {
     const v = a ?? CONTAINER_SIZES[size];
     if (v) return wrap(`@container ${cname ? cname + " " : ""}${kind === "max" ? `(width < ${v})` : `(min-width: ${v})`}`);
   }
+  // style queries: style-[--tone:dark]:, style-[--tone:dark]/card:
+  if ((m = name.match(/^style-(\[[\s\S]+\])(?:\/([\w-]+))?$/))) {
+    const a = arbitrary(m[1]);
+    if (!/^--[\w-]+/.test(a)) return null;
+    const cond = a.replace(/^(--[\w-]+)\s*:\s*/, "$1: ").trim();
+    return wrap(`@container ${m[2] ? m[2] + " " : ""}style(${cond})`);
+  }
+  // custom states of custom elements: state-[loading]: / state-loading: -> :state(loading)
+  if ((m = name.match(/^state-(.+)$/))) {
+    const a = arbitrary(m[1]);
+    const id = a ?? m[1];
+    if (!/^-?[A-Za-z_][\w-]*$/.test(id)) return null;
+    return mapSel((s) => addSimple(s, `:state(${id})`));
+  }
   // supports
   if ((m = name.match(/^(not-)?supports-(.+)$/))) {
     const a = arbitrary(m[2]);
@@ -201,17 +239,19 @@ export function applyVariant(name, branches) {
   // group-* / peer-*  (optionally named: group-hover/card)
   if ((m = name.match(/^(group|peer)-(.+?)(?:\/([\w-]+))?$/))) {
     const [, kind, innerName, gname] = m;
-    const pattern = patternOf(innerName);
-    if (!pattern) return null;
+    const patterns = patternsOf(innerName);
+    if (!patterns) return null;
     const marker = `:where(.${kind}${gname ? "\\/" + esc(gname) : ""})`;
-    const rel = pattern.replace(/&/g, marker);
-    return mapSel((s) => addSimple(s, `:is(${rel} ${kind === "group" ? "*" : "~ *"})`));
+    return branches.flatMap((b) => patterns.map((pattern) => {
+      const rel = pattern.replace(/&/g, marker);
+      return { ...b, sel: addSimple(b.sel, `:is(${rel} ${kind === "group" ? "*" : "~ *"})`) };
+    }));
   }
   // has-* / not-* / in-*
   if ((m = name.match(/^(has|not|in)-(.+)$/))) {
     const [, kind, innerName] = m;
-    const pattern = patternOf(innerName);
-    if (!pattern && kind === "not") {
+    const patterns = patternsOf(innerName);
+    if (!patterns && kind === "not") {
       // not-md, not-print, not-supports-[..]
       const inner = applyVariant(innerName, [state()]);
       if (inner && inner.length === 1 && inner[0].at.length === 1) {
@@ -222,11 +262,15 @@ export function applyVariant(name, branches) {
       }
       return null;
     }
-    if (!pattern || !pattern.startsWith("&")) return null;
-    const rest = pattern.slice(1);
-    if (kind === "has") return mapSel((s) => addSimple(s, `:has(${rest})`));
-    if (kind === "not") return mapSel((s) => addSimple(s, `:not(${rest})`));
-    return mapSel((s) => `:where(${rest || "*"}) ${s}`);
+    if (!patterns || !patterns.every((p) => p.startsWith("&"))) return null;
+    // not-paused: the attribute rule only counts on a media element the script watches ([data-oc-media]).
+    const media = kind === "not" && Object.hasOwn(MEDIA_STATE, innerName);
+    return branches.flatMap((b) => patterns.map((pattern, i) => {
+      const rest = pattern.slice(1);
+      if (kind === "has") return { ...b, sel: addSimple(b.sel, `:has(${rest})`) };
+      if (kind === "not") return { ...b, sel: addSimple(b.sel, `${media && i > 0 ? MEDIA_MARKER : ""}:not(${rest})`) };
+      return { ...b, sel: `:where(${rest || "*"}) ${b.sel}` };
+    }));
   }
   if ((m = name.match(/^nth-(last-)?(of-type-)?(.+)$/))) {
     const a = arbitrary(m[3]);
@@ -261,9 +305,9 @@ export function rankOf(variants) {
     let r;
     if (Object.hasOwn(PSEUDO_ELEMENT, v)) r = 100;
     else if (STRUCT_ORDER.includes(v)) r = 200 + STRUCT_ORDER.indexOf(v);
-    else if (Object.hasOwn(PSEUDO_CLASS, v)) r = 300 + STATE_ORDER.indexOf(v);
+    else if (Object.hasOwn(PSEUDO_CLASS, v) || Object.hasOwn(MEDIA_STATE, v)) r = 300 + STATE_ORDER.indexOf(v);
     else if (/^(group|peer|in)-/.test(v)) r = 400;
-    else if (/^(has|not|aria|data|nth)-|^[*\[]/.test(v)) r = 500;
+    else if (/^(has|not|aria|data|nth|state)-|^[*\[]/.test(v)) r = 500;
     else if (/^(not-)?supports-/.test(v)) r = 600;
     else if (v === "rtl" || v === "ltr") r = 650;
     else if (Object.hasOwn(MEDIA, v) || Object.hasOwn(SCROLL_STATE, v)) r = 700;
@@ -271,6 +315,7 @@ export function rankOf(variants) {
     else if (v === "starting") r = 900;
     else if (/^max-/.test(v)) r = 1000 - Object.keys(BREAKPOINTS).indexOf(v.slice(4)) * 10;
     else if (Object.hasOwn(BREAKPOINTS, v) || /^min-/.test(v)) r = 1100 + Object.keys(BREAKPOINTS).indexOf(v.replace(/^min-/, "")) * 10;
+    else if (/^style-\[/.test(v)) r = 1900; // style queries sit with the container queries, before size queries
     else r = 2000;
     rank += r;
   }

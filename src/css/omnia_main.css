@@ -372134,6 +372134,2064 @@ select {
   outline-color: color-mix(in oklch, var(--color-ral9023) 100%, transparent);
 }
 
+/* ===================================================================
+   CONTRAST COLOR
+   .text-contrast-red-50   -> text in black or white, readable on bg-red-50
+   .text-contrast-red      -> idem for bg-red (step 100)
+   .text-contrast          -> readable on var(--oc-contrast-bg, var(--oc-background))
+   =================================================================== */
+.text-contrast-red-2 {
+  --oc-contrast-bg: var(--color-red-2);
+  color: #000;
+}
+
+.text-contrast-red-10 {
+  --oc-contrast-bg: var(--color-red-10);
+  color: #000;
+}
+
+.text-contrast-red-20 {
+  --oc-contrast-bg: var(--color-red-20);
+  color: #000;
+}
+
+.text-contrast-red-30 {
+  --oc-contrast-bg: var(--color-red-30);
+  color: #000;
+}
+
+.text-contrast-red-40 {
+  --oc-contrast-bg: var(--color-red-40);
+  color: #000;
+}
+
+.text-contrast-red-50 {
+  --oc-contrast-bg: var(--color-red-50);
+  color: #000;
+}
+
+.text-contrast-red-60 {
+  --oc-contrast-bg: var(--color-red-60);
+  color: #000;
+}
+
+.text-contrast-red-70 {
+  --oc-contrast-bg: var(--color-red-70);
+  color: #fff;
+}
+
+.text-contrast-red-80 {
+  --oc-contrast-bg: var(--color-red-80);
+  color: #fff;
+}
+
+.text-contrast-red-90 {
+  --oc-contrast-bg: var(--color-red-90);
+  color: #fff;
+}
+
+.text-contrast-red-95 {
+  --oc-contrast-bg: var(--color-red-95);
+  color: #fff;
+}
+
+.text-contrast-red {
+  --oc-contrast-bg: var(--color-red-100);
+  color: #000;
+}
+
+.text-contrast-pink-2 {
+  --oc-contrast-bg: var(--color-pink-2);
+  color: #000;
+}
+
+.text-contrast-pink-10 {
+  --oc-contrast-bg: var(--color-pink-10);
+  color: #000;
+}
+
+.text-contrast-pink-20 {
+  --oc-contrast-bg: var(--color-pink-20);
+  color: #000;
+}
+
+.text-contrast-pink-30 {
+  --oc-contrast-bg: var(--color-pink-30);
+  color: #000;
+}
+
+.text-contrast-pink-40 {
+  --oc-contrast-bg: var(--color-pink-40);
+  color: #000;
+}
+
+.text-contrast-pink-50 {
+  --oc-contrast-bg: var(--color-pink-50);
+  color: #000;
+}
+
+.text-contrast-pink-60 {
+  --oc-contrast-bg: var(--color-pink-60);
+  color: #000;
+}
+
+.text-contrast-pink-70 {
+  --oc-contrast-bg: var(--color-pink-70);
+  color: #000;
+}
+
+.text-contrast-pink-80 {
+  --oc-contrast-bg: var(--color-pink-80);
+  color: #000;
+}
+
+.text-contrast-pink-90 {
+  --oc-contrast-bg: var(--color-pink-90);
+  color: #000;
+}
+
+.text-contrast-pink-95 {
+  --oc-contrast-bg: var(--color-pink-95);
+  color: #000;
+}
+
+.text-contrast-pink {
+  --oc-contrast-bg: var(--color-pink-100);
+  color: #000;
+}
+
+.text-contrast-orange-2 {
+  --oc-contrast-bg: var(--color-orange-2);
+  color: #000;
+}
+
+.text-contrast-orange-10 {
+  --oc-contrast-bg: var(--color-orange-10);
+  color: #000;
+}
+
+.text-contrast-orange-20 {
+  --oc-contrast-bg: var(--color-orange-20);
+  color: #000;
+}
+
+.text-contrast-orange-30 {
+  --oc-contrast-bg: var(--color-orange-30);
+  color: #000;
+}
+
+.text-contrast-orange-40 {
+  --oc-contrast-bg: var(--color-orange-40);
+  color: #000;
+}
+
+.text-contrast-orange-50 {
+  --oc-contrast-bg: var(--color-orange-50);
+  color: #000;
+}
+
+.text-contrast-orange-60 {
+  --oc-contrast-bg: var(--color-orange-60);
+  color: #000;
+}
+
+.text-contrast-orange-70 {
+  --oc-contrast-bg: var(--color-orange-70);
+  color: #000;
+}
+
+.text-contrast-orange-80 {
+  --oc-contrast-bg: var(--color-orange-80);
+  color: #000;
+}
+
+.text-contrast-orange-90 {
+  --oc-contrast-bg: var(--color-orange-90);
+  color: #000;
+}
+
+.text-contrast-orange-95 {
+  --oc-contrast-bg: var(--color-orange-95);
+  color: #fff;
+}
+
+.text-contrast-orange {
+  --oc-contrast-bg: var(--color-orange-100);
+  color: #000;
+}
+
+.text-contrast-yellow-2 {
+  --oc-contrast-bg: var(--color-yellow-2);
+  color: #000;
+}
+
+.text-contrast-yellow-10 {
+  --oc-contrast-bg: var(--color-yellow-10);
+  color: #000;
+}
+
+.text-contrast-yellow-20 {
+  --oc-contrast-bg: var(--color-yellow-20);
+  color: #000;
+}
+
+.text-contrast-yellow-30 {
+  --oc-contrast-bg: var(--color-yellow-30);
+  color: #000;
+}
+
+.text-contrast-yellow-40 {
+  --oc-contrast-bg: var(--color-yellow-40);
+  color: #000;
+}
+
+.text-contrast-yellow-50 {
+  --oc-contrast-bg: var(--color-yellow-50);
+  color: #000;
+}
+
+.text-contrast-yellow-60 {
+  --oc-contrast-bg: var(--color-yellow-60);
+  color: #000;
+}
+
+.text-contrast-yellow-70 {
+  --oc-contrast-bg: var(--color-yellow-70);
+  color: #000;
+}
+
+.text-contrast-yellow-80 {
+  --oc-contrast-bg: var(--color-yellow-80);
+  color: #000;
+}
+
+.text-contrast-yellow-90 {
+  --oc-contrast-bg: var(--color-yellow-90);
+  color: #000;
+}
+
+.text-contrast-yellow-95 {
+  --oc-contrast-bg: var(--color-yellow-95);
+  color: #000;
+}
+
+.text-contrast-yellow {
+  --oc-contrast-bg: var(--color-yellow-100);
+  color: #000;
+}
+
+.text-contrast-violet-2 {
+  --oc-contrast-bg: var(--color-violet-2);
+  color: #000;
+}
+
+.text-contrast-violet-10 {
+  --oc-contrast-bg: var(--color-violet-10);
+  color: #000;
+}
+
+.text-contrast-violet-20 {
+  --oc-contrast-bg: var(--color-violet-20);
+  color: #000;
+}
+
+.text-contrast-violet-30 {
+  --oc-contrast-bg: var(--color-violet-30);
+  color: #000;
+}
+
+.text-contrast-violet-40 {
+  --oc-contrast-bg: var(--color-violet-40);
+  color: #000;
+}
+
+.text-contrast-violet-50 {
+  --oc-contrast-bg: var(--color-violet-50);
+  color: #000;
+}
+
+.text-contrast-violet-60 {
+  --oc-contrast-bg: var(--color-violet-60);
+  color: #000;
+}
+
+.text-contrast-violet-70 {
+  --oc-contrast-bg: var(--color-violet-70);
+  color: #000;
+}
+
+.text-contrast-violet-80 {
+  --oc-contrast-bg: var(--color-violet-80);
+  color: #000;
+}
+
+.text-contrast-violet-90 {
+  --oc-contrast-bg: var(--color-violet-90);
+  color: #fff;
+}
+
+.text-contrast-violet-95 {
+  --oc-contrast-bg: var(--color-violet-95);
+  color: #fff;
+}
+
+.text-contrast-violet {
+  --oc-contrast-bg: var(--color-violet-100);
+  color: #000;
+}
+
+.text-contrast-magenta-2 {
+  --oc-contrast-bg: var(--color-magenta-2);
+  color: #000;
+}
+
+.text-contrast-magenta-10 {
+  --oc-contrast-bg: var(--color-magenta-10);
+  color: #000;
+}
+
+.text-contrast-magenta-20 {
+  --oc-contrast-bg: var(--color-magenta-20);
+  color: #000;
+}
+
+.text-contrast-magenta-30 {
+  --oc-contrast-bg: var(--color-magenta-30);
+  color: #000;
+}
+
+.text-contrast-magenta-40 {
+  --oc-contrast-bg: var(--color-magenta-40);
+  color: #000;
+}
+
+.text-contrast-magenta-50 {
+  --oc-contrast-bg: var(--color-magenta-50);
+  color: #000;
+}
+
+.text-contrast-magenta-60 {
+  --oc-contrast-bg: var(--color-magenta-60);
+  color: #000;
+}
+
+.text-contrast-magenta-70 {
+  --oc-contrast-bg: var(--color-magenta-70);
+  color: #000;
+}
+
+.text-contrast-magenta-80 {
+  --oc-contrast-bg: var(--color-magenta-80);
+  color: #fff;
+}
+
+.text-contrast-magenta-90 {
+  --oc-contrast-bg: var(--color-magenta-90);
+  color: #fff;
+}
+
+.text-contrast-magenta-95 {
+  --oc-contrast-bg: var(--color-magenta-95);
+  color: #fff;
+}
+
+.text-contrast-magenta {
+  --oc-contrast-bg: var(--color-magenta-100);
+  color: #000;
+}
+
+.text-contrast-purple-2 {
+  --oc-contrast-bg: var(--color-purple-2);
+  color: #000;
+}
+
+.text-contrast-purple-10 {
+  --oc-contrast-bg: var(--color-purple-10);
+  color: #000;
+}
+
+.text-contrast-purple-20 {
+  --oc-contrast-bg: var(--color-purple-20);
+  color: #000;
+}
+
+.text-contrast-purple-30 {
+  --oc-contrast-bg: var(--color-purple-30);
+  color: #fff;
+}
+
+.text-contrast-purple-40 {
+  --oc-contrast-bg: var(--color-purple-40);
+  color: #fff;
+}
+
+.text-contrast-purple-50 {
+  --oc-contrast-bg: var(--color-purple-50);
+  color: #fff;
+}
+
+.text-contrast-purple-60 {
+  --oc-contrast-bg: var(--color-purple-60);
+  color: #fff;
+}
+
+.text-contrast-purple-70 {
+  --oc-contrast-bg: var(--color-purple-70);
+  color: #fff;
+}
+
+.text-contrast-purple-80 {
+  --oc-contrast-bg: var(--color-purple-80);
+  color: #fff;
+}
+
+.text-contrast-purple-90 {
+  --oc-contrast-bg: var(--color-purple-90);
+  color: #fff;
+}
+
+.text-contrast-purple-95 {
+  --oc-contrast-bg: var(--color-purple-95);
+  color: #fff;
+}
+
+.text-contrast-purple {
+  --oc-contrast-bg: var(--color-purple-100);
+  color: #fff;
+}
+
+.text-contrast-indigo-2 {
+  --oc-contrast-bg: var(--color-indigo-2);
+  color: #000;
+}
+
+.text-contrast-indigo-10 {
+  --oc-contrast-bg: var(--color-indigo-10);
+  color: #000;
+}
+
+.text-contrast-indigo-20 {
+  --oc-contrast-bg: var(--color-indigo-20);
+  color: #fff;
+}
+
+.text-contrast-indigo-30 {
+  --oc-contrast-bg: var(--color-indigo-30);
+  color: #fff;
+}
+
+.text-contrast-indigo-40 {
+  --oc-contrast-bg: var(--color-indigo-40);
+  color: #fff;
+}
+
+.text-contrast-indigo-50 {
+  --oc-contrast-bg: var(--color-indigo-50);
+  color: #fff;
+}
+
+.text-contrast-indigo-60 {
+  --oc-contrast-bg: var(--color-indigo-60);
+  color: #fff;
+}
+
+.text-contrast-indigo-70 {
+  --oc-contrast-bg: var(--color-indigo-70);
+  color: #fff;
+}
+
+.text-contrast-indigo-80 {
+  --oc-contrast-bg: var(--color-indigo-80);
+  color: #fff;
+}
+
+.text-contrast-indigo-90 {
+  --oc-contrast-bg: var(--color-indigo-90);
+  color: #fff;
+}
+
+.text-contrast-indigo-95 {
+  --oc-contrast-bg: var(--color-indigo-95);
+  color: #fff;
+}
+
+.text-contrast-indigo {
+  --oc-contrast-bg: var(--color-indigo-100);
+  color: #fff;
+}
+
+.text-contrast-lime-2 {
+  --oc-contrast-bg: var(--color-lime-2);
+  color: #000;
+}
+
+.text-contrast-lime-10 {
+  --oc-contrast-bg: var(--color-lime-10);
+  color: #000;
+}
+
+.text-contrast-lime-20 {
+  --oc-contrast-bg: var(--color-lime-20);
+  color: #000;
+}
+
+.text-contrast-lime-30 {
+  --oc-contrast-bg: var(--color-lime-30);
+  color: #000;
+}
+
+.text-contrast-lime-40 {
+  --oc-contrast-bg: var(--color-lime-40);
+  color: #000;
+}
+
+.text-contrast-lime-50 {
+  --oc-contrast-bg: var(--color-lime-50);
+  color: #000;
+}
+
+.text-contrast-lime-60 {
+  --oc-contrast-bg: var(--color-lime-60);
+  color: #000;
+}
+
+.text-contrast-lime-70 {
+  --oc-contrast-bg: var(--color-lime-70);
+  color: #000;
+}
+
+.text-contrast-lime-80 {
+  --oc-contrast-bg: var(--color-lime-80);
+  color: #000;
+}
+
+.text-contrast-lime-90 {
+  --oc-contrast-bg: var(--color-lime-90);
+  color: #000;
+}
+
+.text-contrast-lime-95 {
+  --oc-contrast-bg: var(--color-lime-95);
+  color: #000;
+}
+
+.text-contrast-lime {
+  --oc-contrast-bg: var(--color-lime-100);
+  color: #000;
+}
+
+.text-contrast-green-2 {
+  --oc-contrast-bg: var(--color-green-2);
+  color: #000;
+}
+
+.text-contrast-green-10 {
+  --oc-contrast-bg: var(--color-green-10);
+  color: #000;
+}
+
+.text-contrast-green-20 {
+  --oc-contrast-bg: var(--color-green-20);
+  color: #000;
+}
+
+.text-contrast-green-30 {
+  --oc-contrast-bg: var(--color-green-30);
+  color: #000;
+}
+
+.text-contrast-green-40 {
+  --oc-contrast-bg: var(--color-green-40);
+  color: #000;
+}
+
+.text-contrast-green-50 {
+  --oc-contrast-bg: var(--color-green-50);
+  color: #000;
+}
+
+.text-contrast-green-60 {
+  --oc-contrast-bg: var(--color-green-60);
+  color: #fff;
+}
+
+.text-contrast-green-70 {
+  --oc-contrast-bg: var(--color-green-70);
+  color: #fff;
+}
+
+.text-contrast-green-80 {
+  --oc-contrast-bg: var(--color-green-80);
+  color: #fff;
+}
+
+.text-contrast-green-90 {
+  --oc-contrast-bg: var(--color-green-90);
+  color: #fff;
+}
+
+.text-contrast-green-95 {
+  --oc-contrast-bg: var(--color-green-95);
+  color: #fff;
+}
+
+.text-contrast-green {
+  --oc-contrast-bg: var(--color-green-100);
+  color: #fff;
+}
+
+.text-contrast-teal-2 {
+  --oc-contrast-bg: var(--color-teal-2);
+  color: #000;
+}
+
+.text-contrast-teal-10 {
+  --oc-contrast-bg: var(--color-teal-10);
+  color: #000;
+}
+
+.text-contrast-teal-20 {
+  --oc-contrast-bg: var(--color-teal-20);
+  color: #000;
+}
+
+.text-contrast-teal-30 {
+  --oc-contrast-bg: var(--color-teal-30);
+  color: #000;
+}
+
+.text-contrast-teal-40 {
+  --oc-contrast-bg: var(--color-teal-40);
+  color: #000;
+}
+
+.text-contrast-teal-50 {
+  --oc-contrast-bg: var(--color-teal-50);
+  color: #000;
+}
+
+.text-contrast-teal-60 {
+  --oc-contrast-bg: var(--color-teal-60);
+  color: #fff;
+}
+
+.text-contrast-teal-70 {
+  --oc-contrast-bg: var(--color-teal-70);
+  color: #fff;
+}
+
+.text-contrast-teal-80 {
+  --oc-contrast-bg: var(--color-teal-80);
+  color: #fff;
+}
+
+.text-contrast-teal-90 {
+  --oc-contrast-bg: var(--color-teal-90);
+  color: #fff;
+}
+
+.text-contrast-teal-95 {
+  --oc-contrast-bg: var(--color-teal-95);
+  color: #fff;
+}
+
+.text-contrast-teal {
+  --oc-contrast-bg: var(--color-teal-100);
+  color: #fff;
+}
+
+.text-contrast-cyan-2 {
+  --oc-contrast-bg: var(--color-cyan-2);
+  color: #000;
+}
+
+.text-contrast-cyan-10 {
+  --oc-contrast-bg: var(--color-cyan-10);
+  color: #000;
+}
+
+.text-contrast-cyan-20 {
+  --oc-contrast-bg: var(--color-cyan-20);
+  color: #000;
+}
+
+.text-contrast-cyan-30 {
+  --oc-contrast-bg: var(--color-cyan-30);
+  color: #000;
+}
+
+.text-contrast-cyan-40 {
+  --oc-contrast-bg: var(--color-cyan-40);
+  color: #000;
+}
+
+.text-contrast-cyan-50 {
+  --oc-contrast-bg: var(--color-cyan-50);
+  color: #000;
+}
+
+.text-contrast-cyan-60 {
+  --oc-contrast-bg: var(--color-cyan-60);
+  color: #000;
+}
+
+.text-contrast-cyan-70 {
+  --oc-contrast-bg: var(--color-cyan-70);
+  color: #000;
+}
+
+.text-contrast-cyan-80 {
+  --oc-contrast-bg: var(--color-cyan-80);
+  color: #000;
+}
+
+.text-contrast-cyan-90 {
+  --oc-contrast-bg: var(--color-cyan-90);
+  color: #000;
+}
+
+.text-contrast-cyan-95 {
+  --oc-contrast-bg: var(--color-cyan-95);
+  color: #000;
+}
+
+.text-contrast-cyan {
+  --oc-contrast-bg: var(--color-cyan-100);
+  color: #000;
+}
+
+.text-contrast-turquoise-2 {
+  --oc-contrast-bg: var(--color-turquoise-2);
+  color: #000;
+}
+
+.text-contrast-turquoise-10 {
+  --oc-contrast-bg: var(--color-turquoise-10);
+  color: #000;
+}
+
+.text-contrast-turquoise-20 {
+  --oc-contrast-bg: var(--color-turquoise-20);
+  color: #000;
+}
+
+.text-contrast-turquoise-30 {
+  --oc-contrast-bg: var(--color-turquoise-30);
+  color: #000;
+}
+
+.text-contrast-turquoise-40 {
+  --oc-contrast-bg: var(--color-turquoise-40);
+  color: #000;
+}
+
+.text-contrast-turquoise-50 {
+  --oc-contrast-bg: var(--color-turquoise-50);
+  color: #000;
+}
+
+.text-contrast-turquoise-60 {
+  --oc-contrast-bg: var(--color-turquoise-60);
+  color: #000;
+}
+
+.text-contrast-turquoise-70 {
+  --oc-contrast-bg: var(--color-turquoise-70);
+  color: #000;
+}
+
+.text-contrast-turquoise-80 {
+  --oc-contrast-bg: var(--color-turquoise-80);
+  color: #000;
+}
+
+.text-contrast-turquoise-90 {
+  --oc-contrast-bg: var(--color-turquoise-90);
+  color: #000;
+}
+
+.text-contrast-turquoise-95 {
+  --oc-contrast-bg: var(--color-turquoise-95);
+  color: #000;
+}
+
+.text-contrast-turquoise {
+  --oc-contrast-bg: var(--color-turquoise-100);
+  color: #000;
+}
+
+.text-contrast-blue-2 {
+  --oc-contrast-bg: var(--color-blue-2);
+  color: #000;
+}
+
+.text-contrast-blue-10 {
+  --oc-contrast-bg: var(--color-blue-10);
+  color: #000;
+}
+
+.text-contrast-blue-20 {
+  --oc-contrast-bg: var(--color-blue-20);
+  color: #000;
+}
+
+.text-contrast-blue-30 {
+  --oc-contrast-bg: var(--color-blue-30);
+  color: #fff;
+}
+
+.text-contrast-blue-40 {
+  --oc-contrast-bg: var(--color-blue-40);
+  color: #fff;
+}
+
+.text-contrast-blue-50 {
+  --oc-contrast-bg: var(--color-blue-50);
+  color: #fff;
+}
+
+.text-contrast-blue-60 {
+  --oc-contrast-bg: var(--color-blue-60);
+  color: #fff;
+}
+
+.text-contrast-blue-70 {
+  --oc-contrast-bg: var(--color-blue-70);
+  color: #fff;
+}
+
+.text-contrast-blue-80 {
+  --oc-contrast-bg: var(--color-blue-80);
+  color: #fff;
+}
+
+.text-contrast-blue-90 {
+  --oc-contrast-bg: var(--color-blue-90);
+  color: #fff;
+}
+
+.text-contrast-blue-95 {
+  --oc-contrast-bg: var(--color-blue-95);
+  color: #fff;
+}
+
+.text-contrast-blue {
+  --oc-contrast-bg: var(--color-blue-100);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-2 {
+  --oc-contrast-bg: var(--color-shallowblue-2);
+  color: #000;
+}
+
+.text-contrast-shallowblue-10 {
+  --oc-contrast-bg: var(--color-shallowblue-10);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-20 {
+  --oc-contrast-bg: var(--color-shallowblue-20);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-30 {
+  --oc-contrast-bg: var(--color-shallowblue-30);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-40 {
+  --oc-contrast-bg: var(--color-shallowblue-40);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-50 {
+  --oc-contrast-bg: var(--color-shallowblue-50);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-60 {
+  --oc-contrast-bg: var(--color-shallowblue-60);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-70 {
+  --oc-contrast-bg: var(--color-shallowblue-70);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-80 {
+  --oc-contrast-bg: var(--color-shallowblue-80);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-90 {
+  --oc-contrast-bg: var(--color-shallowblue-90);
+  color: #fff;
+}
+
+.text-contrast-shallowblue-95 {
+  --oc-contrast-bg: var(--color-shallowblue-95);
+  color: #fff;
+}
+
+.text-contrast-shallowblue {
+  --oc-contrast-bg: var(--color-shallowblue-100);
+  color: #fff;
+}
+
+.text-contrast-duskblue-2 {
+  --oc-contrast-bg: var(--color-duskblue-2);
+  color: #000;
+}
+
+.text-contrast-duskblue-10 {
+  --oc-contrast-bg: var(--color-duskblue-10);
+  color: #fff;
+}
+
+.text-contrast-duskblue-20 {
+  --oc-contrast-bg: var(--color-duskblue-20);
+  color: #fff;
+}
+
+.text-contrast-duskblue-30 {
+  --oc-contrast-bg: var(--color-duskblue-30);
+  color: #fff;
+}
+
+.text-contrast-duskblue-40 {
+  --oc-contrast-bg: var(--color-duskblue-40);
+  color: #fff;
+}
+
+.text-contrast-duskblue-50 {
+  --oc-contrast-bg: var(--color-duskblue-50);
+  color: #fff;
+}
+
+.text-contrast-duskblue-60 {
+  --oc-contrast-bg: var(--color-duskblue-60);
+  color: #fff;
+}
+
+.text-contrast-duskblue-70 {
+  --oc-contrast-bg: var(--color-duskblue-70);
+  color: #fff;
+}
+
+.text-contrast-duskblue-80 {
+  --oc-contrast-bg: var(--color-duskblue-80);
+  color: #fff;
+}
+
+.text-contrast-duskblue-90 {
+  --oc-contrast-bg: var(--color-duskblue-90);
+  color: #fff;
+}
+
+.text-contrast-duskblue-95 {
+  --oc-contrast-bg: var(--color-duskblue-95);
+  color: #fff;
+}
+
+.text-contrast-duskblue {
+  --oc-contrast-bg: var(--color-duskblue-100);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-2 {
+  --oc-contrast-bg: var(--color-twilightblue-2);
+  color: #000;
+}
+
+.text-contrast-twilightblue-10 {
+  --oc-contrast-bg: var(--color-twilightblue-10);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-20 {
+  --oc-contrast-bg: var(--color-twilightblue-20);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-30 {
+  --oc-contrast-bg: var(--color-twilightblue-30);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-40 {
+  --oc-contrast-bg: var(--color-twilightblue-40);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-50 {
+  --oc-contrast-bg: var(--color-twilightblue-50);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-60 {
+  --oc-contrast-bg: var(--color-twilightblue-60);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-70 {
+  --oc-contrast-bg: var(--color-twilightblue-70);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-80 {
+  --oc-contrast-bg: var(--color-twilightblue-80);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-90 {
+  --oc-contrast-bg: var(--color-twilightblue-90);
+  color: #fff;
+}
+
+.text-contrast-twilightblue-95 {
+  --oc-contrast-bg: var(--color-twilightblue-95);
+  color: #fff;
+}
+
+.text-contrast-twilightblue {
+  --oc-contrast-bg: var(--color-twilightblue-100);
+  color: #fff;
+}
+
+.text-contrast-stormblue-2 {
+  --oc-contrast-bg: var(--color-stormblue-2);
+  color: #000;
+}
+
+.text-contrast-stormblue-10 {
+  --oc-contrast-bg: var(--color-stormblue-10);
+  color: #000;
+}
+
+.text-contrast-stormblue-20 {
+  --oc-contrast-bg: var(--color-stormblue-20);
+  color: #fff;
+}
+
+.text-contrast-stormblue-30 {
+  --oc-contrast-bg: var(--color-stormblue-30);
+  color: #fff;
+}
+
+.text-contrast-stormblue-40 {
+  --oc-contrast-bg: var(--color-stormblue-40);
+  color: #fff;
+}
+
+.text-contrast-stormblue-50 {
+  --oc-contrast-bg: var(--color-stormblue-50);
+  color: #fff;
+}
+
+.text-contrast-stormblue-60 {
+  --oc-contrast-bg: var(--color-stormblue-60);
+  color: #fff;
+}
+
+.text-contrast-stormblue-70 {
+  --oc-contrast-bg: var(--color-stormblue-70);
+  color: #fff;
+}
+
+.text-contrast-stormblue-80 {
+  --oc-contrast-bg: var(--color-stormblue-80);
+  color: #fff;
+}
+
+.text-contrast-stormblue-90 {
+  --oc-contrast-bg: var(--color-stormblue-90);
+  color: #fff;
+}
+
+.text-contrast-stormblue-95 {
+  --oc-contrast-bg: var(--color-stormblue-95);
+  color: #fff;
+}
+
+.text-contrast-stormblue {
+  --oc-contrast-bg: var(--color-stormblue-100);
+  color: #fff;
+}
+
+.text-contrast-frostblue-2 {
+  --oc-contrast-bg: var(--color-frostblue-2);
+  color: #000;
+}
+
+.text-contrast-frostblue-10 {
+  --oc-contrast-bg: var(--color-frostblue-10);
+  color: #000;
+}
+
+.text-contrast-frostblue-20 {
+  --oc-contrast-bg: var(--color-frostblue-20);
+  color: #000;
+}
+
+.text-contrast-frostblue-30 {
+  --oc-contrast-bg: var(--color-frostblue-30);
+  color: #000;
+}
+
+.text-contrast-frostblue-40 {
+  --oc-contrast-bg: var(--color-frostblue-40);
+  color: #000;
+}
+
+.text-contrast-frostblue-50 {
+  --oc-contrast-bg: var(--color-frostblue-50);
+  color: #000;
+}
+
+.text-contrast-frostblue-60 {
+  --oc-contrast-bg: var(--color-frostblue-60);
+  color: #000;
+}
+
+.text-contrast-frostblue-70 {
+  --oc-contrast-bg: var(--color-frostblue-70);
+  color: #000;
+}
+
+.text-contrast-frostblue-80 {
+  --oc-contrast-bg: var(--color-frostblue-80);
+  color: #000;
+}
+
+.text-contrast-frostblue-90 {
+  --oc-contrast-bg: var(--color-frostblue-90);
+  color: #000;
+}
+
+.text-contrast-frostblue-95 {
+  --oc-contrast-bg: var(--color-frostblue-95);
+  color: #000;
+}
+
+.text-contrast-frostblue {
+  --oc-contrast-bg: var(--color-frostblue-100);
+  color: #000;
+}
+
+.text-contrast-mistblue-2 {
+  --oc-contrast-bg: var(--color-mistblue-2);
+  color: #000;
+}
+
+.text-contrast-mistblue-10 {
+  --oc-contrast-bg: var(--color-mistblue-10);
+  color: #000;
+}
+
+.text-contrast-mistblue-20 {
+  --oc-contrast-bg: var(--color-mistblue-20);
+  color: #000;
+}
+
+.text-contrast-mistblue-30 {
+  --oc-contrast-bg: var(--color-mistblue-30);
+  color: #000;
+}
+
+.text-contrast-mistblue-40 {
+  --oc-contrast-bg: var(--color-mistblue-40);
+  color: #000;
+}
+
+.text-contrast-mistblue-50 {
+  --oc-contrast-bg: var(--color-mistblue-50);
+  color: #000;
+}
+
+.text-contrast-mistblue-60 {
+  --oc-contrast-bg: var(--color-mistblue-60);
+  color: #000;
+}
+
+.text-contrast-mistblue-70 {
+  --oc-contrast-bg: var(--color-mistblue-70);
+  color: #000;
+}
+
+.text-contrast-mistblue-80 {
+  --oc-contrast-bg: var(--color-mistblue-80);
+  color: #000;
+}
+
+.text-contrast-mistblue-90 {
+  --oc-contrast-bg: var(--color-mistblue-90);
+  color: #000;
+}
+
+.text-contrast-mistblue-95 {
+  --oc-contrast-bg: var(--color-mistblue-95);
+  color: #fff;
+}
+
+.text-contrast-mistblue {
+  --oc-contrast-bg: var(--color-mistblue-100);
+  color: #000;
+}
+
+.text-contrast-vividblue-2 {
+  --oc-contrast-bg: var(--color-vividblue-2);
+  color: #000;
+}
+
+.text-contrast-vividblue-10 {
+  --oc-contrast-bg: var(--color-vividblue-10);
+  color: #000;
+}
+
+.text-contrast-vividblue-20 {
+  --oc-contrast-bg: var(--color-vividblue-20);
+  color: #000;
+}
+
+.text-contrast-vividblue-30 {
+  --oc-contrast-bg: var(--color-vividblue-30);
+  color: #000;
+}
+
+.text-contrast-vividblue-40 {
+  --oc-contrast-bg: var(--color-vividblue-40);
+  color: #000;
+}
+
+.text-contrast-vividblue-50 {
+  --oc-contrast-bg: var(--color-vividblue-50);
+  color: #000;
+}
+
+.text-contrast-vividblue-60 {
+  --oc-contrast-bg: var(--color-vividblue-60);
+  color: #000;
+}
+
+.text-contrast-vividblue-70 {
+  --oc-contrast-bg: var(--color-vividblue-70);
+  color: #000;
+}
+
+.text-contrast-vividblue-80 {
+  --oc-contrast-bg: var(--color-vividblue-80);
+  color: #000;
+}
+
+.text-contrast-vividblue-90 {
+  --oc-contrast-bg: var(--color-vividblue-90);
+  color: #fff;
+}
+
+.text-contrast-vividblue-95 {
+  --oc-contrast-bg: var(--color-vividblue-95);
+  color: #fff;
+}
+
+.text-contrast-vividblue {
+  --oc-contrast-bg: var(--color-vividblue-100);
+  color: #000;
+}
+
+.text-contrast-skycyan-2 {
+  --oc-contrast-bg: var(--color-skycyan-2);
+  color: #000;
+}
+
+.text-contrast-skycyan-10 {
+  --oc-contrast-bg: var(--color-skycyan-10);
+  color: #000;
+}
+
+.text-contrast-skycyan-20 {
+  --oc-contrast-bg: var(--color-skycyan-20);
+  color: #000;
+}
+
+.text-contrast-skycyan-30 {
+  --oc-contrast-bg: var(--color-skycyan-30);
+  color: #000;
+}
+
+.text-contrast-skycyan-40 {
+  --oc-contrast-bg: var(--color-skycyan-40);
+  color: #000;
+}
+
+.text-contrast-skycyan-50 {
+  --oc-contrast-bg: var(--color-skycyan-50);
+  color: #000;
+}
+
+.text-contrast-skycyan-60 {
+  --oc-contrast-bg: var(--color-skycyan-60);
+  color: #000;
+}
+
+.text-contrast-skycyan-70 {
+  --oc-contrast-bg: var(--color-skycyan-70);
+  color: #000;
+}
+
+.text-contrast-skycyan-80 {
+  --oc-contrast-bg: var(--color-skycyan-80);
+  color: #000;
+}
+
+.text-contrast-skycyan-90 {
+  --oc-contrast-bg: var(--color-skycyan-90);
+  color: #000;
+}
+
+.text-contrast-skycyan-95 {
+  --oc-contrast-bg: var(--color-skycyan-95);
+  color: #000;
+}
+
+.text-contrast-skycyan {
+  --oc-contrast-bg: var(--color-skycyan-100);
+  color: #000;
+}
+
+.text-contrast-wheat-2 {
+  --oc-contrast-bg: var(--color-wheat-2);
+  color: #000;
+}
+
+.text-contrast-wheat-10 {
+  --oc-contrast-bg: var(--color-wheat-10);
+  color: #000;
+}
+
+.text-contrast-wheat-20 {
+  --oc-contrast-bg: var(--color-wheat-20);
+  color: #000;
+}
+
+.text-contrast-wheat-30 {
+  --oc-contrast-bg: var(--color-wheat-30);
+  color: #000;
+}
+
+.text-contrast-wheat-40 {
+  --oc-contrast-bg: var(--color-wheat-40);
+  color: #000;
+}
+
+.text-contrast-wheat-50 {
+  --oc-contrast-bg: var(--color-wheat-50);
+  color: #000;
+}
+
+.text-contrast-wheat-60 {
+  --oc-contrast-bg: var(--color-wheat-60);
+  color: #000;
+}
+
+.text-contrast-wheat-70 {
+  --oc-contrast-bg: var(--color-wheat-70);
+  color: #000;
+}
+
+.text-contrast-wheat-80 {
+  --oc-contrast-bg: var(--color-wheat-80);
+  color: #000;
+}
+
+.text-contrast-wheat-90 {
+  --oc-contrast-bg: var(--color-wheat-90);
+  color: #000;
+}
+
+.text-contrast-wheat-95 {
+  --oc-contrast-bg: var(--color-wheat-95);
+  color: #000;
+}
+
+.text-contrast-wheat {
+  --oc-contrast-bg: var(--color-wheat-100);
+  color: #000;
+}
+
+.text-contrast-peru-2 {
+  --oc-contrast-bg: var(--color-peru-2);
+  color: #000;
+}
+
+.text-contrast-peru-10 {
+  --oc-contrast-bg: var(--color-peru-10);
+  color: #000;
+}
+
+.text-contrast-peru-20 {
+  --oc-contrast-bg: var(--color-peru-20);
+  color: #000;
+}
+
+.text-contrast-peru-30 {
+  --oc-contrast-bg: var(--color-peru-30);
+  color: #000;
+}
+
+.text-contrast-peru-40 {
+  --oc-contrast-bg: var(--color-peru-40);
+  color: #000;
+}
+
+.text-contrast-peru-50 {
+  --oc-contrast-bg: var(--color-peru-50);
+  color: #000;
+}
+
+.text-contrast-peru-60 {
+  --oc-contrast-bg: var(--color-peru-60);
+  color: #000;
+}
+
+.text-contrast-peru-70 {
+  --oc-contrast-bg: var(--color-peru-70);
+  color: #000;
+}
+
+.text-contrast-peru-80 {
+  --oc-contrast-bg: var(--color-peru-80);
+  color: #fff;
+}
+
+.text-contrast-peru-90 {
+  --oc-contrast-bg: var(--color-peru-90);
+  color: #fff;
+}
+
+.text-contrast-peru-95 {
+  --oc-contrast-bg: var(--color-peru-95);
+  color: #fff;
+}
+
+.text-contrast-peru {
+  --oc-contrast-bg: var(--color-peru-100);
+  color: #000;
+}
+
+.text-contrast-brown-2 {
+  --oc-contrast-bg: var(--color-brown-2);
+  color: #000;
+}
+
+.text-contrast-brown-10 {
+  --oc-contrast-bg: var(--color-brown-10);
+  color: #000;
+}
+
+.text-contrast-brown-20 {
+  --oc-contrast-bg: var(--color-brown-20);
+  color: #000;
+}
+
+.text-contrast-brown-30 {
+  --oc-contrast-bg: var(--color-brown-30);
+  color: #000;
+}
+
+.text-contrast-brown-40 {
+  --oc-contrast-bg: var(--color-brown-40);
+  color: #fff;
+}
+
+.text-contrast-brown-50 {
+  --oc-contrast-bg: var(--color-brown-50);
+  color: #fff;
+}
+
+.text-contrast-brown-60 {
+  --oc-contrast-bg: var(--color-brown-60);
+  color: #fff;
+}
+
+.text-contrast-brown-70 {
+  --oc-contrast-bg: var(--color-brown-70);
+  color: #fff;
+}
+
+.text-contrast-brown-80 {
+  --oc-contrast-bg: var(--color-brown-80);
+  color: #fff;
+}
+
+.text-contrast-brown-90 {
+  --oc-contrast-bg: var(--color-brown-90);
+  color: #fff;
+}
+
+.text-contrast-brown-95 {
+  --oc-contrast-bg: var(--color-brown-95);
+  color: #fff;
+}
+
+.text-contrast-brown {
+  --oc-contrast-bg: var(--color-brown-100);
+  color: #fff;
+}
+
+.text-contrast-white-2 {
+  --oc-contrast-bg: var(--color-white-2);
+  color: #000;
+}
+
+.text-contrast-white-10 {
+  --oc-contrast-bg: var(--color-white-10);
+  color: #000;
+}
+
+.text-contrast-white-20 {
+  --oc-contrast-bg: var(--color-white-20);
+  color: #000;
+}
+
+.text-contrast-white-30 {
+  --oc-contrast-bg: var(--color-white-30);
+  color: #000;
+}
+
+.text-contrast-white-40 {
+  --oc-contrast-bg: var(--color-white-40);
+  color: #000;
+}
+
+.text-contrast-white-50 {
+  --oc-contrast-bg: var(--color-white-50);
+  color: #000;
+}
+
+.text-contrast-white-60 {
+  --oc-contrast-bg: var(--color-white-60);
+  color: #000;
+}
+
+.text-contrast-white-70 {
+  --oc-contrast-bg: var(--color-white-70);
+  color: #000;
+}
+
+.text-contrast-white-80 {
+  --oc-contrast-bg: var(--color-white-80);
+  color: #000;
+}
+
+.text-contrast-white-90 {
+  --oc-contrast-bg: var(--color-white-90);
+  color: #000;
+}
+
+.text-contrast-white-95 {
+  --oc-contrast-bg: var(--color-white-95);
+  color: #000;
+}
+
+.text-contrast-white {
+  --oc-contrast-bg: var(--color-white-100);
+  color: #000;
+}
+
+.text-contrast-snow-2 {
+  --oc-contrast-bg: var(--color-snow-2);
+  color: #000;
+}
+
+.text-contrast-snow-10 {
+  --oc-contrast-bg: var(--color-snow-10);
+  color: #000;
+}
+
+.text-contrast-snow-20 {
+  --oc-contrast-bg: var(--color-snow-20);
+  color: #000;
+}
+
+.text-contrast-snow-30 {
+  --oc-contrast-bg: var(--color-snow-30);
+  color: #000;
+}
+
+.text-contrast-snow-40 {
+  --oc-contrast-bg: var(--color-snow-40);
+  color: #000;
+}
+
+.text-contrast-snow-50 {
+  --oc-contrast-bg: var(--color-snow-50);
+  color: #000;
+}
+
+.text-contrast-snow-60 {
+  --oc-contrast-bg: var(--color-snow-60);
+  color: #000;
+}
+
+.text-contrast-snow-70 {
+  --oc-contrast-bg: var(--color-snow-70);
+  color: #000;
+}
+
+.text-contrast-snow-80 {
+  --oc-contrast-bg: var(--color-snow-80);
+  color: #000;
+}
+
+.text-contrast-snow-90 {
+  --oc-contrast-bg: var(--color-snow-90);
+  color: #000;
+}
+
+.text-contrast-snow-95 {
+  --oc-contrast-bg: var(--color-snow-95);
+  color: #000;
+}
+
+.text-contrast-snow {
+  --oc-contrast-bg: var(--color-snow-100);
+  color: #000;
+}
+
+.text-contrast-azure-2 {
+  --oc-contrast-bg: var(--color-azure-2);
+  color: #000;
+}
+
+.text-contrast-azure-10 {
+  --oc-contrast-bg: var(--color-azure-10);
+  color: #000;
+}
+
+.text-contrast-azure-20 {
+  --oc-contrast-bg: var(--color-azure-20);
+  color: #000;
+}
+
+.text-contrast-azure-30 {
+  --oc-contrast-bg: var(--color-azure-30);
+  color: #000;
+}
+
+.text-contrast-azure-40 {
+  --oc-contrast-bg: var(--color-azure-40);
+  color: #000;
+}
+
+.text-contrast-azure-50 {
+  --oc-contrast-bg: var(--color-azure-50);
+  color: #000;
+}
+
+.text-contrast-azure-60 {
+  --oc-contrast-bg: var(--color-azure-60);
+  color: #000;
+}
+
+.text-contrast-azure-70 {
+  --oc-contrast-bg: var(--color-azure-70);
+  color: #000;
+}
+
+.text-contrast-azure-80 {
+  --oc-contrast-bg: var(--color-azure-80);
+  color: #000;
+}
+
+.text-contrast-azure-90 {
+  --oc-contrast-bg: var(--color-azure-90);
+  color: #000;
+}
+
+.text-contrast-azure-95 {
+  --oc-contrast-bg: var(--color-azure-95);
+  color: #000;
+}
+
+.text-contrast-azure {
+  --oc-contrast-bg: var(--color-azure-100);
+  color: #000;
+}
+
+.text-contrast-beige-2 {
+  --oc-contrast-bg: var(--color-beige-2);
+  color: #000;
+}
+
+.text-contrast-beige-10 {
+  --oc-contrast-bg: var(--color-beige-10);
+  color: #000;
+}
+
+.text-contrast-beige-20 {
+  --oc-contrast-bg: var(--color-beige-20);
+  color: #000;
+}
+
+.text-contrast-beige-30 {
+  --oc-contrast-bg: var(--color-beige-30);
+  color: #000;
+}
+
+.text-contrast-beige-40 {
+  --oc-contrast-bg: var(--color-beige-40);
+  color: #000;
+}
+
+.text-contrast-beige-50 {
+  --oc-contrast-bg: var(--color-beige-50);
+  color: #000;
+}
+
+.text-contrast-beige-60 {
+  --oc-contrast-bg: var(--color-beige-60);
+  color: #000;
+}
+
+.text-contrast-beige-70 {
+  --oc-contrast-bg: var(--color-beige-70);
+  color: #000;
+}
+
+.text-contrast-beige-80 {
+  --oc-contrast-bg: var(--color-beige-80);
+  color: #000;
+}
+
+.text-contrast-beige-90 {
+  --oc-contrast-bg: var(--color-beige-90);
+  color: #000;
+}
+
+.text-contrast-beige-95 {
+  --oc-contrast-bg: var(--color-beige-95);
+  color: #000;
+}
+
+.text-contrast-beige {
+  --oc-contrast-bg: var(--color-beige-100);
+  color: #000;
+}
+
+.text-contrast-ivory-2 {
+  --oc-contrast-bg: var(--color-ivory-2);
+  color: #000;
+}
+
+.text-contrast-ivory-10 {
+  --oc-contrast-bg: var(--color-ivory-10);
+  color: #000;
+}
+
+.text-contrast-ivory-20 {
+  --oc-contrast-bg: var(--color-ivory-20);
+  color: #000;
+}
+
+.text-contrast-ivory-30 {
+  --oc-contrast-bg: var(--color-ivory-30);
+  color: #000;
+}
+
+.text-contrast-ivory-40 {
+  --oc-contrast-bg: var(--color-ivory-40);
+  color: #000;
+}
+
+.text-contrast-ivory-50 {
+  --oc-contrast-bg: var(--color-ivory-50);
+  color: #000;
+}
+
+.text-contrast-ivory-60 {
+  --oc-contrast-bg: var(--color-ivory-60);
+  color: #000;
+}
+
+.text-contrast-ivory-70 {
+  --oc-contrast-bg: var(--color-ivory-70);
+  color: #000;
+}
+
+.text-contrast-ivory-80 {
+  --oc-contrast-bg: var(--color-ivory-80);
+  color: #000;
+}
+
+.text-contrast-ivory-90 {
+  --oc-contrast-bg: var(--color-ivory-90);
+  color: #000;
+}
+
+.text-contrast-ivory-95 {
+  --oc-contrast-bg: var(--color-ivory-95);
+  color: #000;
+}
+
+.text-contrast-ivory {
+  --oc-contrast-bg: var(--color-ivory-100);
+  color: #000;
+}
+
+.text-contrast-linen-2 {
+  --oc-contrast-bg: var(--color-linen-2);
+  color: #000;
+}
+
+.text-contrast-linen-10 {
+  --oc-contrast-bg: var(--color-linen-10);
+  color: #000;
+}
+
+.text-contrast-linen-20 {
+  --oc-contrast-bg: var(--color-linen-20);
+  color: #000;
+}
+
+.text-contrast-linen-30 {
+  --oc-contrast-bg: var(--color-linen-30);
+  color: #000;
+}
+
+.text-contrast-linen-40 {
+  --oc-contrast-bg: var(--color-linen-40);
+  color: #000;
+}
+
+.text-contrast-linen-50 {
+  --oc-contrast-bg: var(--color-linen-50);
+  color: #000;
+}
+
+.text-contrast-linen-60 {
+  --oc-contrast-bg: var(--color-linen-60);
+  color: #000;
+}
+
+.text-contrast-linen-70 {
+  --oc-contrast-bg: var(--color-linen-70);
+  color: #000;
+}
+
+.text-contrast-linen-80 {
+  --oc-contrast-bg: var(--color-linen-80);
+  color: #000;
+}
+
+.text-contrast-linen-90 {
+  --oc-contrast-bg: var(--color-linen-90);
+  color: #000;
+}
+
+.text-contrast-linen-95 {
+  --oc-contrast-bg: var(--color-linen-95);
+  color: #000;
+}
+
+.text-contrast-linen {
+  --oc-contrast-bg: var(--color-linen-100);
+  color: #000;
+}
+
+.text-contrast-silver-2 {
+  --oc-contrast-bg: var(--color-silver-2);
+  color: #000;
+}
+
+.text-contrast-silver-10 {
+  --oc-contrast-bg: var(--color-silver-10);
+  color: #000;
+}
+
+.text-contrast-silver-20 {
+  --oc-contrast-bg: var(--color-silver-20);
+  color: #000;
+}
+
+.text-contrast-silver-30 {
+  --oc-contrast-bg: var(--color-silver-30);
+  color: #000;
+}
+
+.text-contrast-silver-40 {
+  --oc-contrast-bg: var(--color-silver-40);
+  color: #000;
+}
+
+.text-contrast-silver-50 {
+  --oc-contrast-bg: var(--color-silver-50);
+  color: #000;
+}
+
+.text-contrast-silver-60 {
+  --oc-contrast-bg: var(--color-silver-60);
+  color: #000;
+}
+
+.text-contrast-silver-70 {
+  --oc-contrast-bg: var(--color-silver-70);
+  color: #000;
+}
+
+.text-contrast-silver-80 {
+  --oc-contrast-bg: var(--color-silver-80);
+  color: #000;
+}
+
+.text-contrast-silver-90 {
+  --oc-contrast-bg: var(--color-silver-90);
+  color: #000;
+}
+
+.text-contrast-silver-95 {
+  --oc-contrast-bg: var(--color-silver-95);
+  color: #fff;
+}
+
+.text-contrast-silver {
+  --oc-contrast-bg: var(--color-silver-100);
+  color: #000;
+}
+
+.text-contrast-gray-2 {
+  --oc-contrast-bg: var(--color-gray-2);
+  color: #000;
+}
+
+.text-contrast-gray-10 {
+  --oc-contrast-bg: var(--color-gray-10);
+  color: #000;
+}
+
+.text-contrast-gray-20 {
+  --oc-contrast-bg: var(--color-gray-20);
+  color: #000;
+}
+
+.text-contrast-gray-30 {
+  --oc-contrast-bg: var(--color-gray-30);
+  color: #000;
+}
+
+.text-contrast-gray-40 {
+  --oc-contrast-bg: var(--color-gray-40);
+  color: #000;
+}
+
+.text-contrast-gray-50 {
+  --oc-contrast-bg: var(--color-gray-50);
+  color: #000;
+}
+
+.text-contrast-gray-60 {
+  --oc-contrast-bg: var(--color-gray-60);
+  color: #fff;
+}
+
+.text-contrast-gray-70 {
+  --oc-contrast-bg: var(--color-gray-70);
+  color: #fff;
+}
+
+.text-contrast-gray-80 {
+  --oc-contrast-bg: var(--color-gray-80);
+  color: #fff;
+}
+
+.text-contrast-gray-90 {
+  --oc-contrast-bg: var(--color-gray-90);
+  color: #fff;
+}
+
+.text-contrast-gray-95 {
+  --oc-contrast-bg: var(--color-gray-95);
+  color: #fff;
+}
+
+.text-contrast-gray {
+  --oc-contrast-bg: var(--color-gray-100);
+  color: #000;
+}
+
+.text-contrast-black-2 {
+  --oc-contrast-bg: var(--color-black-2);
+  color: #fff;
+}
+
+.text-contrast-black-10 {
+  --oc-contrast-bg: var(--color-black-10);
+  color: #fff;
+}
+
+.text-contrast-black-20 {
+  --oc-contrast-bg: var(--color-black-20);
+  color: #fff;
+}
+
+.text-contrast-black-30 {
+  --oc-contrast-bg: var(--color-black-30);
+  color: #fff;
+}
+
+.text-contrast-black-40 {
+  --oc-contrast-bg: var(--color-black-40);
+  color: #fff;
+}
+
+.text-contrast-black-50 {
+  --oc-contrast-bg: var(--color-black-50);
+  color: #fff;
+}
+
+.text-contrast-black-60 {
+  --oc-contrast-bg: var(--color-black-60);
+  color: #fff;
+}
+
+.text-contrast-black-70 {
+  --oc-contrast-bg: var(--color-black-70);
+  color: #fff;
+}
+
+.text-contrast-black-80 {
+  --oc-contrast-bg: var(--color-black-80);
+  color: #fff;
+}
+
+.text-contrast-black-90 {
+  --oc-contrast-bg: var(--color-black-90);
+  color: #fff;
+}
+
+.text-contrast-black-95 {
+  --oc-contrast-bg: var(--color-black-95);
+  color: #fff;
+}
+
+.text-contrast-black {
+  --oc-contrast-bg: var(--color-black-100);
+  color: #fff;
+}
+
+.text-contrast {
+  color: var(--oc-contrast-fallback, var(--oc-foreground));
+}
+
+@supports (color: contrast-color(red)) {
+  .text-contrast {
+    color: contrast-color(var(--oc-contrast-bg, var(--oc-background)));
+  }
+  .text-contrast-red-2, .text-contrast-red-10, .text-contrast-red-20, .text-contrast-red-30, .text-contrast-red-40, .text-contrast-red-50, .text-contrast-red-60, .text-contrast-red-70, .text-contrast-red-80, .text-contrast-red-90, .text-contrast-red-95, .text-contrast-red, .text-contrast-pink-2, .text-contrast-pink-10, .text-contrast-pink-20, .text-contrast-pink-30, .text-contrast-pink-40, .text-contrast-pink-50, .text-contrast-pink-60, .text-contrast-pink-70, .text-contrast-pink-80, .text-contrast-pink-90, .text-contrast-pink-95, .text-contrast-pink, .text-contrast-orange-2, .text-contrast-orange-10, .text-contrast-orange-20, .text-contrast-orange-30, .text-contrast-orange-40, .text-contrast-orange-50, .text-contrast-orange-60, .text-contrast-orange-70, .text-contrast-orange-80, .text-contrast-orange-90, .text-contrast-orange-95, .text-contrast-orange, .text-contrast-yellow-2, .text-contrast-yellow-10, .text-contrast-yellow-20, .text-contrast-yellow-30, .text-contrast-yellow-40, .text-contrast-yellow-50, .text-contrast-yellow-60, .text-contrast-yellow-70, .text-contrast-yellow-80, .text-contrast-yellow-90, .text-contrast-yellow-95, .text-contrast-yellow, .text-contrast-violet-2, .text-contrast-violet-10, .text-contrast-violet-20, .text-contrast-violet-30, .text-contrast-violet-40, .text-contrast-violet-50, .text-contrast-violet-60, .text-contrast-violet-70, .text-contrast-violet-80, .text-contrast-violet-90, .text-contrast-violet-95, .text-contrast-violet, .text-contrast-magenta-2, .text-contrast-magenta-10, .text-contrast-magenta-20, .text-contrast-magenta-30, .text-contrast-magenta-40, .text-contrast-magenta-50, .text-contrast-magenta-60, .text-contrast-magenta-70, .text-contrast-magenta-80, .text-contrast-magenta-90, .text-contrast-magenta-95, .text-contrast-magenta, .text-contrast-purple-2, .text-contrast-purple-10, .text-contrast-purple-20, .text-contrast-purple-30, .text-contrast-purple-40, .text-contrast-purple-50, .text-contrast-purple-60, .text-contrast-purple-70, .text-contrast-purple-80, .text-contrast-purple-90, .text-contrast-purple-95, .text-contrast-purple, .text-contrast-indigo-2, .text-contrast-indigo-10, .text-contrast-indigo-20, .text-contrast-indigo-30, .text-contrast-indigo-40, .text-contrast-indigo-50, .text-contrast-indigo-60, .text-contrast-indigo-70, .text-contrast-indigo-80, .text-contrast-indigo-90, .text-contrast-indigo-95, .text-contrast-indigo, .text-contrast-lime-2, .text-contrast-lime-10, .text-contrast-lime-20, .text-contrast-lime-30, .text-contrast-lime-40, .text-contrast-lime-50, .text-contrast-lime-60, .text-contrast-lime-70, .text-contrast-lime-80, .text-contrast-lime-90, .text-contrast-lime-95, .text-contrast-lime, .text-contrast-green-2, .text-contrast-green-10, .text-contrast-green-20, .text-contrast-green-30, .text-contrast-green-40, .text-contrast-green-50, .text-contrast-green-60, .text-contrast-green-70, .text-contrast-green-80, .text-contrast-green-90, .text-contrast-green-95, .text-contrast-green, .text-contrast-teal-2, .text-contrast-teal-10, .text-contrast-teal-20, .text-contrast-teal-30, .text-contrast-teal-40, .text-contrast-teal-50, .text-contrast-teal-60, .text-contrast-teal-70, .text-contrast-teal-80, .text-contrast-teal-90, .text-contrast-teal-95, .text-contrast-teal, .text-contrast-cyan-2, .text-contrast-cyan-10, .text-contrast-cyan-20, .text-contrast-cyan-30, .text-contrast-cyan-40, .text-contrast-cyan-50, .text-contrast-cyan-60, .text-contrast-cyan-70, .text-contrast-cyan-80, .text-contrast-cyan-90, .text-contrast-cyan-95, .text-contrast-cyan, .text-contrast-turquoise-2, .text-contrast-turquoise-10, .text-contrast-turquoise-20, .text-contrast-turquoise-30, .text-contrast-turquoise-40, .text-contrast-turquoise-50, .text-contrast-turquoise-60, .text-contrast-turquoise-70, .text-contrast-turquoise-80, .text-contrast-turquoise-90, .text-contrast-turquoise-95, .text-contrast-turquoise, .text-contrast-blue-2, .text-contrast-blue-10, .text-contrast-blue-20, .text-contrast-blue-30, .text-contrast-blue-40, .text-contrast-blue-50, .text-contrast-blue-60, .text-contrast-blue-70, .text-contrast-blue-80, .text-contrast-blue-90, .text-contrast-blue-95, .text-contrast-blue, .text-contrast-shallowblue-2, .text-contrast-shallowblue-10, .text-contrast-shallowblue-20, .text-contrast-shallowblue-30, .text-contrast-shallowblue-40, .text-contrast-shallowblue-50, .text-contrast-shallowblue-60, .text-contrast-shallowblue-70, .text-contrast-shallowblue-80, .text-contrast-shallowblue-90, .text-contrast-shallowblue-95, .text-contrast-shallowblue, .text-contrast-duskblue-2, .text-contrast-duskblue-10, .text-contrast-duskblue-20, .text-contrast-duskblue-30, .text-contrast-duskblue-40, .text-contrast-duskblue-50, .text-contrast-duskblue-60, .text-contrast-duskblue-70, .text-contrast-duskblue-80, .text-contrast-duskblue-90, .text-contrast-duskblue-95, .text-contrast-duskblue, .text-contrast-twilightblue-2, .text-contrast-twilightblue-10, .text-contrast-twilightblue-20, .text-contrast-twilightblue-30, .text-contrast-twilightblue-40, .text-contrast-twilightblue-50, .text-contrast-twilightblue-60, .text-contrast-twilightblue-70, .text-contrast-twilightblue-80, .text-contrast-twilightblue-90, .text-contrast-twilightblue-95, .text-contrast-twilightblue, .text-contrast-stormblue-2, .text-contrast-stormblue-10, .text-contrast-stormblue-20, .text-contrast-stormblue-30, .text-contrast-stormblue-40, .text-contrast-stormblue-50, .text-contrast-stormblue-60, .text-contrast-stormblue-70, .text-contrast-stormblue-80, .text-contrast-stormblue-90, .text-contrast-stormblue-95, .text-contrast-stormblue, .text-contrast-frostblue-2, .text-contrast-frostblue-10, .text-contrast-frostblue-20, .text-contrast-frostblue-30, .text-contrast-frostblue-40, .text-contrast-frostblue-50, .text-contrast-frostblue-60, .text-contrast-frostblue-70, .text-contrast-frostblue-80, .text-contrast-frostblue-90, .text-contrast-frostblue-95, .text-contrast-frostblue, .text-contrast-mistblue-2, .text-contrast-mistblue-10, .text-contrast-mistblue-20, .text-contrast-mistblue-30, .text-contrast-mistblue-40, .text-contrast-mistblue-50, .text-contrast-mistblue-60, .text-contrast-mistblue-70, .text-contrast-mistblue-80, .text-contrast-mistblue-90, .text-contrast-mistblue-95, .text-contrast-mistblue, .text-contrast-vividblue-2, .text-contrast-vividblue-10, .text-contrast-vividblue-20, .text-contrast-vividblue-30, .text-contrast-vividblue-40, .text-contrast-vividblue-50, .text-contrast-vividblue-60, .text-contrast-vividblue-70, .text-contrast-vividblue-80, .text-contrast-vividblue-90, .text-contrast-vividblue-95, .text-contrast-vividblue, .text-contrast-skycyan-2, .text-contrast-skycyan-10, .text-contrast-skycyan-20, .text-contrast-skycyan-30, .text-contrast-skycyan-40, .text-contrast-skycyan-50, .text-contrast-skycyan-60, .text-contrast-skycyan-70, .text-contrast-skycyan-80, .text-contrast-skycyan-90, .text-contrast-skycyan-95, .text-contrast-skycyan, .text-contrast-wheat-2, .text-contrast-wheat-10, .text-contrast-wheat-20, .text-contrast-wheat-30, .text-contrast-wheat-40, .text-contrast-wheat-50, .text-contrast-wheat-60, .text-contrast-wheat-70, .text-contrast-wheat-80, .text-contrast-wheat-90, .text-contrast-wheat-95, .text-contrast-wheat, .text-contrast-peru-2, .text-contrast-peru-10, .text-contrast-peru-20, .text-contrast-peru-30, .text-contrast-peru-40, .text-contrast-peru-50, .text-contrast-peru-60, .text-contrast-peru-70, .text-contrast-peru-80, .text-contrast-peru-90, .text-contrast-peru-95, .text-contrast-peru, .text-contrast-brown-2, .text-contrast-brown-10, .text-contrast-brown-20, .text-contrast-brown-30, .text-contrast-brown-40, .text-contrast-brown-50, .text-contrast-brown-60, .text-contrast-brown-70, .text-contrast-brown-80, .text-contrast-brown-90, .text-contrast-brown-95, .text-contrast-brown, .text-contrast-white-2, .text-contrast-white-10, .text-contrast-white-20, .text-contrast-white-30, .text-contrast-white-40, .text-contrast-white-50, .text-contrast-white-60, .text-contrast-white-70, .text-contrast-white-80, .text-contrast-white-90, .text-contrast-white-95, .text-contrast-white, .text-contrast-snow-2, .text-contrast-snow-10, .text-contrast-snow-20, .text-contrast-snow-30, .text-contrast-snow-40, .text-contrast-snow-50, .text-contrast-snow-60, .text-contrast-snow-70, .text-contrast-snow-80, .text-contrast-snow-90, .text-contrast-snow-95, .text-contrast-snow, .text-contrast-azure-2, .text-contrast-azure-10, .text-contrast-azure-20, .text-contrast-azure-30, .text-contrast-azure-40, .text-contrast-azure-50, .text-contrast-azure-60, .text-contrast-azure-70, .text-contrast-azure-80, .text-contrast-azure-90, .text-contrast-azure-95, .text-contrast-azure, .text-contrast-beige-2, .text-contrast-beige-10, .text-contrast-beige-20, .text-contrast-beige-30, .text-contrast-beige-40, .text-contrast-beige-50, .text-contrast-beige-60, .text-contrast-beige-70, .text-contrast-beige-80, .text-contrast-beige-90, .text-contrast-beige-95, .text-contrast-beige, .text-contrast-ivory-2, .text-contrast-ivory-10, .text-contrast-ivory-20, .text-contrast-ivory-30, .text-contrast-ivory-40, .text-contrast-ivory-50, .text-contrast-ivory-60, .text-contrast-ivory-70, .text-contrast-ivory-80, .text-contrast-ivory-90, .text-contrast-ivory-95, .text-contrast-ivory, .text-contrast-linen-2, .text-contrast-linen-10, .text-contrast-linen-20, .text-contrast-linen-30, .text-contrast-linen-40, .text-contrast-linen-50, .text-contrast-linen-60, .text-contrast-linen-70, .text-contrast-linen-80, .text-contrast-linen-90, .text-contrast-linen-95, .text-contrast-linen, .text-contrast-silver-2, .text-contrast-silver-10, .text-contrast-silver-20, .text-contrast-silver-30, .text-contrast-silver-40, .text-contrast-silver-50, .text-contrast-silver-60, .text-contrast-silver-70, .text-contrast-silver-80, .text-contrast-silver-90, .text-contrast-silver-95, .text-contrast-silver, .text-contrast-gray-2, .text-contrast-gray-10, .text-contrast-gray-20, .text-contrast-gray-30, .text-contrast-gray-40, .text-contrast-gray-50, .text-contrast-gray-60, .text-contrast-gray-70, .text-contrast-gray-80, .text-contrast-gray-90, .text-contrast-gray-95, .text-contrast-gray, .text-contrast-black-2, .text-contrast-black-10, .text-contrast-black-20, .text-contrast-black-30, .text-contrast-black-40, .text-contrast-black-50, .text-contrast-black-60, .text-contrast-black-70, .text-contrast-black-80, .text-contrast-black-90, .text-contrast-black-95, .text-contrast-black {
+    color: contrast-color(var(--oc-contrast-bg));
+  }
+}
 /* The font family property */
 .font-roboto {
   font-family: "Roboto Flex", sans-serif;

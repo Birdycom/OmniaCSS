@@ -1,0 +1,92 @@
+// SCSS Document
+// File: src/scss/utilities/_colors_contrast.scss
+// Description: readable text on an Omnia color with contrast-color(): .text-contrast-{name}[-{step}] and .text-contrast.
+// Copyright: 2021-2026 Birdycom
+// Author: Serge Cools
+// Version: 0.18.0
+// Framework: OmniaCSS
+// Purpose: The browser picks black or white text (contrast-color()) for the matching Omnia background.
+//          Without support the fallback (black or white, computed here with the WCAG luminance) stays.
+// Only the Omnia color names (34 x 12 steps), not RAL/HTML, so the dist stays small.
+
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
+@use '../utilities/' as *;
+
+/* ===================================================================
+   CONTRAST COLOR
+   .text-contrast-red-50   -> text in black or white, readable on bg-red-50
+   .text-contrast-red      -> idem for bg-red (step 100)
+   .text-contrast          -> readable on var(--oc-contrast-bg, var(--oc-background))
+   =================================================================== */
+
+/// sRGB channel (0..1) to linear light.
+@function _oc-linear($c) {
+  @if $c <= 0.04045 {
+    @return math.div($c, 12.92);
+  }
+  @return math.pow(math.div($c + 0.055, 1.055), 2.4);
+}
+
+/// WCAG relative luminance of a color (mapped into the sRGB gamut first).
+@function _oc-luminance($c) {
+  $rgb: color.to-gamut(color.to-space($c, rgb), $space: rgb, $method: local-minde);
+  $r: _oc-linear(math.div(color.channel($rgb, "red", $space: rgb), 255));
+  $g: _oc-linear(math.div(color.channel($rgb, "green", $space: rgb), 255));
+  $b: _oc-linear(math.div(color.channel($rgb, "blue", $space: rgb), 255));
+  @return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
+}
+
+/// Black or white, whichever contrasts most (what contrast-color() returns).
+@function _oc-contrast-fallback($c) {
+  $l: _oc-luminance($c);
+  $on-white: math.div(1.05, $l + 0.05);
+  $on-black: math.div($l + 0.05, 0.05);
+  @if $on-white > $on-black {
+    @return #fff;
+  }
+  @return #000;
+}
+
+$_contrast-selectors: ();
+
+// Fallback first (fixed black or white) + the background token the @supports rule reads.
+@each $colors-prop, $colors-value in $omnia-colors {
+  @each $main-prop, $main-value in $colors-value {
+    @each $colorname-prop, $colorname-value in $main-value {
+      $hex: map.get($colorname-value, hex);
+      @if $hex {
+        $oklch-color: color.to-space($hex, oklch);
+        $name: string.to-lower-case(#{$colorname-prop});
+        @each $opacitycolor-prop, $opacitycolor-value in $opacitycolor {
+          $step: list.nth($opacitycolor-value, 1);
+          $class: "text-contrast-#{$name}-#{$step}";
+          @if $step == 100 {
+            $class: "text-contrast-#{$name}";
+          }
+          $_contrast-selectors: list.append($_contrast-selectors, ".#{$class}", $separator: comma);
+          .#{$class} {
+            --oc-contrast-bg: var(--color-#{$name}-#{$step});
+            color: _oc-contrast-fallback(oc-tone-color($oklch-color, $step));
+          }
+        }
+      }
+    }
+  }
+}
+
+.text-contrast {
+  color: var(--oc-contrast-fallback, var(--oc-foreground));
+}
+
+@supports (color: contrast-color(red)) {
+  .text-contrast {
+    color: contrast-color(var(--oc-contrast-bg, var(--oc-background)));
+  }
+  #{$_contrast-selectors} {
+    color: contrast-color(var(--oc-contrast-bg));
+  }
+}
