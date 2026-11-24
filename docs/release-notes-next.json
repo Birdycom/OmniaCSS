@@ -13,7 +13,7 @@
     "Command: CommandGroup and CommandItem as children (Vue OcCommandGroup / OcCommandItem, Blade command.group / command.item) next to the groups and items data.",
     "DecimalInput: integer and allowNegative; roundDecimal is exported.",
     "PhoneInput: format or groups per country groups the national number (BE 470 12 34 56, NL and FR 6 12 34 56 78, DE 151 2345 6789); PHONE_COUNTRIES, phoneGroups and splitPhone are exported.",
-    "TimeInput: slotsPopover shows the slots in a native popover under a clock button (.oc-time-picker) instead of the datalist.",
+    "TimeInput: slotsPopover shows the slots in a native popover under a clock button (.oc-time-picker) instead of the datalist; selectOnFocus (Blade select-on-focus, plain HTML data-oc-select-on-focus) selects the whole time on a click or Tab so you type straight over it, on by default with slotsPopover.",
     "Variants for media elements: playing:, paused:, seeking:, buffering:, stalled:, muted: and volume-locked: (also as group-has-playing:, peer-paused:, not-paused:). Each writes the native :playing/:paused rule and a separate [data-playing]/[data-paused] rule.",
     "media-states.js (@birdycom/omniacss/media-states, dist/media-states.js): an optional script for browsers without :paused and :playing (Chrome and Edge before 158). It mirrors the state of every audio and video element to data-paused, data-playing, data-muted, data-seeking, data-buffering and data-stalled, and does nothing where the browser supports the pseudo-classes.",
     "Variant state-[name]: for custom states of custom elements (:state(name)), also as group-state-[name]: and has-state-[name]:.",
@@ -44,7 +44,11 @@
     "Docs: the limits of the server-rendered Blade components are explained with working examples: a Blade dropdown trigger slot needs its own popovertarget and a fixed id, Blade popovers have no lazy, and a Blade back link uses the oc-back event (x-on:oc-back.prevent) instead of a callback. Command (React, Vue): items in your own wrapper component are not found; examples show what does and does not work.",
     "Docs: a media player demo (selectors) that follows the audio with group-has-playing: and group-has-paused:, a custom-element switch with state-[on]:, a modal dialog with modal:, the style-[...]: variant (container queries), the select parts (form controls) and text-contrast-* (color functions).",
     "Tabs: a row of tabs that does not fit scrolls sideways on a narrow screen, without a scroll bar and without cutting off the active line or the focus ring; the chosen tab scrolls into view (tabs.js revealTab and the React and Vue tabs).",
-    "Combobox: an icon-only header trigger now shows what you type: the field opens over its neighbours while you type and closes when you choose."
+    "Combobox: an icon-only header trigger now shows what you type: the field opens over its neighbours while you type and closes when you choose.",
+    "PhoneInput: picking another country groups the number again straight away; for plain HTML and Blade oc-form-extras.js does it too (also while typing, the caret stays behind the same digit), and Blade passes its own formats along in data-oc-formats.",
+    "Stepper: a step you may not open is dimmed with a dashed outline and a not-allowed cursor; a step you may open looks clickable (solid outline, coloured number, hover).",
+    "Sheet: the glass panel is more see-through (64 %) with a stronger blur, and its demo shows it over a busy view.",
+    "Barcode: a QR code is centred by default in a card, a grid cell, a code plate or a button; in a button it stands above the label and the button grows around it."
   ],
   "changed": [],
   "fixed": [
@@ -52,6 +56,10 @@
     "Sheet: the open panel uses translate: none, so fixed children (tooltips, lists) are placed against the viewport instead of the panel.",
     "Tooltip: a collapsed sidebar no longer cuts off the side tooltips in browsers without anchor positioning.",
     "Command: a JSX or slot row with mixed text (<strong>New</strong> invoice) no longer gets the row gap between its parts; the text goes in one span, a leading icon stays separate.",
-    "Docs: the stepper demo \"Steps you may open\" is vertical so every step fits at 1280 and 390, and the bare scroll area demo has the same text size and spacing as the other demos."
+    "Docs: the stepper demo \"Steps you may open\" is vertical so every step fits at 1280 and 390, and the bare scroll area demo has the same text size and spacing as the other demos.",
+    "Combobox: inside a dialog, sheet or drawer the list no longer opens by itself when the dialog focuses the field; a click, typing, Arrow Down or Enter opens it (Tab into the field still does).",
+    "CopyField: a block field next to a label in a flex row keeps its own height instead of growing to the height of the card.",
+    "TimeInput: the bottom border of the last row of slots in the popover is no longer cut off.",
+    "Docs: the dropdown side and align demo has a clearly visible trigger, and the toast page no longer has the separate action demo (the action prop is in the reference)."
   ]
 }
