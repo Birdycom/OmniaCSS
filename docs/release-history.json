@@ -1,6 +1,21 @@
 {
   "releases": [
     {
+      "version": "0.17.3",
+      "date": "2026-11-24",
+      "summary": "Contact-form volgt --oc-block-gap, lange woorden in display-titels, break-words",
+      "notes": {
+        "summary": "Two small fixes for narrow screens: the contact form block follows --oc-block-gap and long words in display titles now break instead of overflowing.",
+        "new": [
+          "Utility .break-words (overflow-wrap: break-word), next to the existing .wrap-break-word and .wrap-anywhere, with a docs section on long words."
+        ],
+        "fixed": [
+          "Contact form block: under 30rem the inline padding is no longer a fixed 0.5rem. It follows --oc-block-gap (default 0.5rem), so a site that sets the gap keeps its alignment on phones.",
+          "Display titles (.oc-display and .oc-display--page): long words such as \"Datenschutzerklärung\" no longer run outside a 390px screen. They get overflow-wrap: break-word and hyphens: auto (only words of 10 letters or more)."
+        ]
+      }
+    },
+    {
       "version": "0.17.2",
       "date": "2026-11-23",
       "summary": "Header-combobox, dropdown radio, DataTable bulkActions, Button asChild",

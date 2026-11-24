@@ -2294,9 +2294,21 @@ select {
 /* Text indent */
 
 /* Overflow wrap */
+.wrap-normal {
+  overflow-wrap: normal;
+}
 
 .wrap-break-word {
   overflow-wrap: break-word;
+}
+
+/* Same as .wrap-break-word, under the name many projects already use. */
+.break-words {
+  overflow-wrap: break-word;
+}
+
+.wrap-anywhere {
+  overflow-wrap: anywhere;
 }
 
 /* Hyphens */

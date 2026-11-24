@@ -1,4 +1,4 @@
-/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.17.1. Do not edit. */
+/* File: oc-theme.css — generated from tokens/semantic.json by @birdycom/omniacss 0.17.2. Do not edit. */
 /* Semantic theme tokens: every color is light-dark() of an Omnia palette token (oc-colors.css). */
 /* Same source as the desktop export: npx omniacss tokens --format json|dtcg|python */
 :root {
@@ -4357,6 +4357,13 @@ details.oc-collapsible[open]::details-content { block-size: auto; }
   letter-spacing: -0.025em;
   font-weight: 700;
   text-wrap: balance;
+}
+/* A long word (a German or Dutch compound) breaks instead of running off a phone screen. Hyphens need a lang
+   attribute on the page; only words of 10+ letters get a hyphen, so a short title never gets a stray dash. */
+:is(.oc-display, .oc-display--page) {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
 }
 .oc-display--md { font-size: clamp(1.9rem, 4vw, 3rem); }
 .oc-display--sm { font-size: clamp(1.5rem, 3vw, 2.1rem); }

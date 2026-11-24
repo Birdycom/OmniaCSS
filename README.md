@@ -17,7 +17,7 @@ Modern CSS as utility classes and color tokens, generated for exactly what your 
 > part: utilities, tokens, SCSS, the on-demand engine, the CLI (`init` / `build` / `migrate` / `tokens`),
 > `@birdycom/omniacss-migrate` and the CSS docs. Both repositories share the **same version number**.
 
-**Version:** `0.17.2` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
+**Version:** `0.17.3` — the same value in `package.json`, every `@birdycom/omniacss*` package and the OmniaUI repository (`MAJOR.MINOR.PATCH`).
 
 ## Why OmniaCSS
 
@@ -232,6 +232,7 @@ Newest first.
 
 | Version | Date | Changes |
 |--------|-------|-----|
+| `0.17.3` | 2026-11-24 | Contact-form volgt --oc-block-gap, lange woorden in display-titels, break-words |
 | `0.17.2` | 2026-11-23 | Header-combobox, dropdown radio, DataTable bulkActions, Button asChild |
 | `0.17.1` | 2026-11-23 | Release notes pagina, vaste header en footer, knoptokens, status-badges, DataTable onReorder, gsm-fixes |
 | `0.17.0` | 2026-11-23 | Nieuwe homepage en Our story, module-kleur, ledger, compound-componenten, liquid glass, wrappers voor React, Vue, Blade en Livewire, tooltip op het kleurenpalet, vele QA-fixes |

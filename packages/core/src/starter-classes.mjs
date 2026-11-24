@@ -90,7 +90,7 @@ const typography = [
     uppercase lowercase capitalize normalcase underline overline line-through no-underline
     truncate antialiased
     whitespace-normal whitespace-nowrap whitespace-pre whitespace-prewrap
-    break-normal break-word wrap-break-word wrap-anywhere hyphens-auto
+    break-normal break-word break-words wrap-break-word wrap-anywhere hyphens-auto
     list-none list-disc list-decimal list-inside list-outside
     line-clamp-1 line-clamp-2 line-clamp-3 line-clamp-4
     vertical-baseline vertical-top vertical-middle vertical-bottom
