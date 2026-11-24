@@ -1,7 +1,31 @@
 {
-  "summary": "",
-  "new": [],
-  "improved": [],
+  "summary": "Overlays that work inside dialogs: combobox lists, dropdowns, popovers and tooltips stay clickable in a modal dialog, sheet or drawer.",
+  "new": [
+    "Popover: lazy and unmountOnClose on PopoverContent (React, Vue) render the content only from the first open on, or only while open.",
+    "Popover: matchTriggerWidth (Vue match-trigger-width, Blade match-trigger-width) makes the panel as wide as its trigger with data-match-width and CSS anchor-size(width).",
+    "Tooltip: asChild (React), as-child (Vue) and as (Blade) put the tooltip on the button or link itself, without a wrapping span.",
+    "Dropdown: side and align props (React, Vue, Blade) place the menu with data-side / data-align, like the popover.",
+    "Dropdown: triggerAsChild (Vue trigger-as-child) puts the trigger wiring on your own trigger element; DropdownItem asChild (Vue as-child) renders a router link as the menu item and closes the menu on a click.",
+    "BackLink: onBack (React), @back (Vue) and a cancelable oc-back event (plain HTML, Blade) run your own back action on a plain click; as renders your router link.",
+    "Card: bare (.oc-card--bare) is the card surface without padding or clipping, for a table from edge to edge or a menu that sticks out.",
+    "ScrollArea: bare (.oc-scroll-area--bare) keeps only the scrolling, the themed scrollbar and the focus ring.",
+    "Stepper: isStepEnabled(index) (React, Vue) and enabled per step (Blade) decide which steps can be opened.",
+    "Command: CommandGroup and CommandItem as children (Vue OcCommandGroup / OcCommandItem, Blade command.group / command.item) next to the groups and items data.",
+    "DecimalInput: integer and allowNegative; roundDecimal is exported.",
+    "PhoneInput: format or groups per country groups the national number (BE 470 12 34 56, NL and FR 6 12 34 56 78, DE 151 2345 6789); PHONE_COUNTRIES, phoneGroups and splitPhone are exported.",
+    "TimeInput: slotsPopover shows the slots in a native popover under a clock button (.oc-time-picker) instead of the datalist."
+  ],
+  "improved": [
+    "Combobox: the portal list stays inside the combobox as a manual popover in the top layer where the browser has popovers, so it works inside a modal dialog, sheet or drawer; older browsers keep the list in document.body.",
+    "Popover: the fallback placement for browsers without anchor positioning flips to the other side when there is no room and shifts the panel into the viewport.",
+    "DecimalInput: the value is rounded half away from zero on the visible digits (1,005 becomes 1,01) and onValueChange gets the rounded number.",
+    "Breadcrumb: the ellipsis and the chevron separator are inline SVG, so they show without an icon runtime.",
+    "Docs: the limits of the server-rendered Blade components are explained with working examples: a Blade dropdown trigger slot needs its own popovertarget and a fixed id, Blade popovers have no lazy, and a Blade back link uses the oc-back event (x-on:oc-back.prevent) instead of a callback. Command (React, Vue): items in your own wrapper component are not found; examples show what does and does not work."
+  ],
   "changed": [],
-  "fixed": []
+  "fixed": [
+    "Combobox, dropdown, popover and tooltip could not be clicked inside an open modal dialog, sheet or drawer (the list in document.body was inert).",
+    "Sheet: the open panel uses translate: none, so fixed children (tooltips, lists) are placed against the viewport instead of the panel.",
+    "Tooltip: a collapsed sidebar no longer cuts off the side tooltips in browsers without anchor positioning."
+  ]
 }
