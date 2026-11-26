@@ -60,6 +60,8 @@
     "Combobox: inside a dialog, sheet or drawer the list no longer opens by itself when the dialog focuses the field; a click, typing, Arrow Down or Enter opens it (Tab into the field still does).",
     "CopyField: a block field next to a label in a flex row keeps its own height instead of growing to the height of the card.",
     "TimeInput: the bottom border of the last row of slots in the popover is no longer cut off.",
-    "Docs: the dropdown side and align demo has a clearly visible trigger, and the toast page no longer has the separate action demo (the action prop is in the reference)."
+    "Docs: the dropdown side and align demo has a clearly visible trigger, and the toast page no longer has the separate action demo (the action prop is in the reference).",
+    "Combobox (React): no more React warning about a key spread into the option rows; each row gets its key directly.",
+    "Webicons: the built-in set now holds every icon the components and blocks draw by themselves (93 icons in React, Vue, Blade and the CLI), so apps no longer see \"Webicon ... is not registered\" for them; a test guards the list."
   ]
 }
